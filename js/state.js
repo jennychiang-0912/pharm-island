@@ -4,7 +4,7 @@
 window.PI = window.PI || {};
 
 PI.state = (function () {
-  const KEY = "pharma-island-v1";
+  const KEY = PI.STORAGE_KEY || "pharma-island-v1";   // 每個科目（藥理、藥劑、藥分）各自存進度
   let occupied = new Set();
   const listeners = [];
 

@@ -4,6 +4,13 @@
 
 線上玩：https://jennychiang-0912.github.io/pharm-island/
 
+三個科目各一頁，導覽列可以切換，進度各自分開存：
+- 藥理：`index.html`
+- 藥劑：`pharmaceutics.html`（內容在 `js/subjects/pharmaceutics.js`，目前一座島、一章、20 個預留格）
+- 藥分：`analysis.html`（內容在 `js/subjects/analysis.js`，目前一座島、一章、20 個預留格）
+
+藥劑、藥分頁是 `index.html` 的複本，只多載入自己的 `js/subjects/*.js`，把章節、單元、知識樹換掉；格式和藥理一樣。改版面時三頁要一起改。
+
 ## 目前進度
 
 - [x] 第一階段：首頁介面（導覽列、左側資訊面板、中央地圖容器、響應式版面）
