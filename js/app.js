@@ -34,7 +34,7 @@
         ${chs.map(ch => {
           const pr = PI.state.chapterProgress(cells, ch.id);
           return `<button type="button" class="ch-btn" data-ch="${ch.id}" aria-pressed="${focus === ch.id}">
-            <span class="ch-no" style="background:${ch.color}">${ch.id}</span>
+            <span class="ch-no" style="background:${cat.tint};border-color:${cat.color}">${ch.id}</span>
             <span class="ch-name">${esc(ch.name)}</span>
             <span class="ch-prog">${pr.done}/${pr.total}</span></button>`;
         }).join("")}</div>`;
@@ -65,7 +65,7 @@
       locked: "先佔領旁邊的格子，這格才會解鎖。",
       occupied: "這格已經是你的領土了。"
     }[st];
-    box.innerHTML = `<div class="info-top"><span class="ch-no" style="background:${ch.color}">${ch.id}</span>
+    box.innerHTML = `<div class="info-top"><span class="ch-no" style="background:${cat.tint};border-color:${cat.color}">${ch.id}</span>
         <h3>${esc(ch.name)}</h3><button type="button" class="close" id="infoClose" aria-label="關閉">×</button></div>
       <div class="tags"><span class="tag st-${st}">${STATUS[st]}</span><span class="tag">${esc(cat.name)}</span><span class="tag">本章 ${pr.done}/${pr.total} 格</span></div>
       <p>${note}</p>`;

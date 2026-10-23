@@ -61,11 +61,7 @@ PI.map = (function () {
   const bounds = { minX: 0, minY: 0, maxX: 0, maxY: 0 };
   const el = (tag, attrs) => { const e = document.createElementNS(SVGNS, tag); for (const k in attrs) e.setAttribute(k, attrs[k]); return e; };
   const chapterOf = id => PI.CHAPTERS.find(c => c.id === id);
-  const mix = (hex, t) => { // 和白色混合，t = 白色比例
-    const n = parseInt(hex.slice(1), 16), r = n >> 16, g = (n >> 8) & 255, b = n & 255;
-    const m = v => Math.round(v + (255 - v) * t);
-    return `rgb(${m(r)},${m(g)},${m(b)})`;
-  };
+  const catOf = id => PI.CATEGORIES.find(c => c.id === id);
 
   function init(container, opts) {
     onSelect = opts.onSelect || onSelect;
@@ -75,7 +71,7 @@ PI.map = (function () {
     svg.appendChild(world);
     container.appendChild(svg);
 
-    const path = hexPath(R, 9);
+    const path = hexPath(R, PI.MAP.corner);
     cells.forEach(c => {
       const g = el("g", { class: "cell", transform: `translate(${c.x.toFixed(1)},${c.y.toFixed(1)})`, "data-id": c.id });
       g.appendChild(el("path", { class: "cell-hex", d: path, "stroke-width": PI.MAP.border, stroke: PI.MAP.borderColor }));
@@ -83,16 +79,21 @@ PI.map = (function () {
       const flag = el("g", { class: "cell-flag" });
       flag.appendChild(el("path", { d: "M-8,14 L-8,-16 M-8,-16 L14,-9 L-8,-2", fill: "none", "stroke-width": 4, "stroke-linecap": "round", "stroke-linejoin": "round" }));
       g.appendChild(flag);
-      if (c.isStart) {
-        const t = el("text", { class: "cell-num", y: 1 });
+      if (c.isStart) {   // 章節徽章：依分類使用識別色
+        const cat = catOf(chapterOf(c.chapter).cat);
+        const badge = el("g", { class: "cell-badge" });
+        badge.appendChild(el("circle", { class: "badge-halo", r: 30 }));
+        badge.appendChild(el("circle", { r: 24, fill: cat.tint, stroke: cat.color, "stroke-width": 3 }));
+        const t = el("text", { class: "badge-num", y: 1 });
         t.textContent = c.chapter;
-        g.appendChild(t);
+        badge.appendChild(t);
+        g.appendChild(badge);
       }
       world.appendChild(g);
     });
 
     // 選取外框另外畫在最上層，才不會被旁邊的格子蓋住
-    hl = el("path", { class: "sel-ring", d: path, fill: "none", "stroke-width": 7, "pointer-events": "none" });
+    hl = el("path", { class: "sel-ring", d: path, fill: "none", "stroke-width": 6, "pointer-events": "none" });
     world.appendChild(hl);
     svg.addEventListener("focusin", e => { const g = e.target.closest?.(".cell"); if (g) placeRing(g.dataset.id); });
     svg.addEventListener("focusout", () => placeRing(selected));
@@ -119,8 +120,7 @@ PI.map = (function () {
       const st = PI.state.statusOf(c), ch = chapterOf(c.chapter);
       g.dataset.status = st;
       const hex = g.querySelector(".cell-hex");
-      hex.setAttribute("fill", st === "occupied" ? ch.color : st === "available" ? mix(ch.color, .55) : PI.MAP.lockedFill);
-      g.querySelector(".cell-ring").setAttribute("stroke", ch.color);
+      hex.setAttribute("fill", PI.MAP.fill[st]);
       g.classList.toggle("is-selected", selected === c.id);
       g.classList.toggle("is-dim", focusCh !== null && c.chapter !== focusCh);
       g.setAttribute("tabindex", st === "locked" && !(focusCh === c.chapter) ? "-1" : "0");
@@ -134,7 +134,7 @@ PI.map = (function () {
   function apply() { world.setAttribute("transform", `translate(${view.x.toFixed(1)},${view.y.toFixed(1)}) scale(${view.k.toFixed(4)})`); }
   function size() { const r = svg.getBoundingClientRect(); return { w: r.width, h: r.height }; }
   function fitScale(b) {
-    const { w, h } = size(); const pad = 32;
+    const { w, h } = size(); const pad = Math.min(PI.MAP.padding, Math.min(w, h) * 0.06);   // 小螢幕時留白跟著縮小
     return Math.min((w - pad * 2) / (b.maxX - b.minX), (h - pad * 2) / (b.maxY - b.minY));
   }
   function limits() { const f = fitScale(bounds); return { min: f * 0.6, max: Math.max(f * 4, 1.6) }; }
