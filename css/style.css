@@ -168,6 +168,10 @@ button { font: inherit; color: inherit; cursor: pointer; }
 .cell-flag { stroke: var(--forest); }
 .sel-ring { stroke: var(--forest); stroke-linejoin: round; }
 .decor { pointer-events: none; }
+.region-border { fill: none; stroke: #5E8B67; stroke-width: 6; stroke-linecap: round; stroke-opacity: .85; }
+.region-border.is-sea { stroke: #DCE4E1; stroke-width: 4; stroke-opacity: .6; }
+/* 主島的章節牌放在章節中間：放大到看得到藥名時收起來，不擋格子 */
+.is-near .island-label.on-shared { display: none; }
 .decor-wave { opacity: .85; }
 /* 縮得很小時，小裝飾看不清楚，直接不畫 */
 .is-far .t-deco, .is-far .layer-decor .decor { display: none; }
