@@ -118,8 +118,8 @@ button { font: inherit; color: inherit; cursor: pointer; }
 .map {
   position: relative; flex: 1; min-height: 0; overflow: hidden;
   border-radius: var(--r-xl); border: 1px solid #DCE4D2;
-  /* 海面背景圖：圖片載入前先顯示相近的藍色 */
-  background: #4FB3D6 url("../assets/ocean.jpg") center / cover no-repeat;
+  /* 海水：可平鋪的紋理，大小與位置由 js/map.js 跟著地圖拖曳縮放；圖片載入前先顯示相近的藍色 */
+  background-color: #3FAFD2; background-repeat: repeat;
   touch-action: none; cursor: grab;
 }
 .map.is-dragging { cursor: grabbing; }
@@ -170,6 +170,8 @@ button { font: inherit; color: inherit; cursor: pointer; }
 .badge-num { font-family: var(--font); font-size: 20px; font-weight: 700; fill: var(--forest); text-anchor: middle; dominant-baseline: central; pointer-events: none; }
 .cell[data-status="locked"] .cell-badge { opacity: .8; }
 .sel-ring { stroke: var(--forest); stroke-linejoin: round; }
+.decor { pointer-events: none; }
+.decor-wave { opacity: .85; }
 .cell.is-dim { opacity: .3; }
 @keyframes spin { to { transform: rotate(360deg); } }
 

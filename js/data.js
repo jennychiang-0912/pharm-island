@@ -40,5 +40,33 @@ PI.MAP = {
   padding: 64           // 地圖與容器邊緣的留白
 };
 
+/* 地圖美術：海水平鋪紋理與獨立放置的裝飾素材
+   尺寸都是「世界座標」單位（一格六角形寬約 104），縮放時會跟著格子一起放大縮小。
+   原始的整張海洋插畫保留在 assets/reference/，只當美術參考，不用在遊戲裡。 */
+PI.ART = {
+  seaTile: { src: "assets/sea-tile.jpg", size: 640 },   // 可無縫平鋪的海水
+  chunkSize: 1200,                                        // 分塊大小：只畫畫面附近的區塊
+  keepClear: 150,                                         // 裝飾離格子至少這麼遠，不會蓋到領地
+  decor: [
+    // kind：island 小島、rock 礁石、wave 浪花；w、h 是在世界座標中的大小
+    { kind: "island", src: "assets/decor/island-dock.png",  w: 336, h: 222 },
+    { kind: "island", src: "assets/decor/island-round.png", w: 183, h: 165 },
+    { kind: "island", src: "assets/decor/islet-palm.png",   w: 254, h: 198 },
+    { kind: "island", src: "assets/decor/islet-palm2.png",  w: 219, h: 180 },
+    { kind: "island", src: "assets/decor/islet-tree.png",   w: 159, h: 140 },
+    { kind: "rock",   src: "assets/decor/rock-2.png",       w: 57,  h: 51 },
+    { kind: "rock",   src: "assets/decor/rock-3.png",       w: 56,  h: 48 },
+    { kind: "rock",   src: "assets/decor/rock-4.png",       w: 74,  h: 63 },
+    { kind: "rock",   src: "assets/decor/rock-5.png",       w: 63,  h: 50 },
+    { kind: "wave",   src: "assets/decor/wave-1.png",       w: 498, h: 180 },
+    { kind: "wave",   src: "assets/decor/wave-2.png",       w: 293, h: 113 },
+    { kind: "wave",   src: "assets/decor/wave-3.png",       w: 258, h: 86 },
+    { kind: "wave",   src: "assets/decor/wave-4.png",       w: 201, h: 96 },
+    { kind: "wave",   src: "assets/decor/wave-5.png",       w: 180, h: 56 },
+    { kind: "wave",   src: "assets/decor/wave-6.png",       w: 123, h: 143 }
+  ],
+  perChunk: { island: [0, 1], rock: [1, 3], wave: [1, 3] } // 每個區塊放幾個（最少、最多）
+};
+
 /* 等級規則：每佔領一格得到的經驗值，以及每升一級需要的經驗值 */
 PI.LEVEL = { expPerCell: 10, expPerLevel: 50 };

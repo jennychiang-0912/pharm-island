@@ -1,6 +1,8 @@
 /* PHARMA ISLAND：六角格地圖
-   - 依 PI.CHAPTERS 動態產生格子（不手動畫）
-   - 每章一群格子（中心一格＋周圍最多六格），各群拼成一座島
+   - 依 PI.CHAPTERS 動態產生格子（不手動畫），格子用世界座標管理
+   - 每章一群格子（中心一格＋周圍最多六格），章節變多時一圈一圈往外擴展
+   - 分層：海水紋理（容器背景，跟著拖曳縮放）→ 裝飾層（小島、礁石、浪花）→ 格子層 → 選取外框
+   - 分塊：格子與裝飾都依世界座標分成區塊，只顯示畫面附近的區塊；裝飾在需要時才產生
    - 支援拖曳、滾輪／雙指縮放、放大縮小按鈕
    點擊格子只會呼叫 onSelect，要做什麼由 app.js 決定。 */
 window.PI = window.PI || {};
@@ -21,6 +23,11 @@ PI.map = (function () {
     const ring2 = [];
     for (let i = 0; i < 6; i++) { ring2.push(add(FLOWER[i], FLOWER[i])); ring2.push(add(FLOWER[i], FLOWER[(i + 1) % 6])); }
     const order = [[0, 0], ...ring1, ...[0, 3, 6, 9, 1, 4, 7, 10, 2, 5, 8, 11].map(i => ring2[i])];
+    // 超過 19 章時，第三圈以外一圈一圈往外排
+    for (let ring = 3; order.length < n; ring++) {
+      let p = [FLOWER[4][0] * ring, FLOWER[4][1] * ring];
+      for (let side = 0; side < 6; side++) for (let k = 0; k < ring; k++) { order.push(p); p = add(p, FLOWER[side]); }
+    }
     return order.slice(0, n);
   }
 
@@ -56,7 +63,11 @@ PI.map = (function () {
   }
 
   /* ---------- 繪製 ---------- */
-  let hl, svg, world, cells, onSelect = () => {}, selected = null, focusCh = null;
+  let hl, svg, world, mapEl, decorLayer, cellLayer, cells, onSelect = () => {}, selected = null, focusCh = null;
+  const CH = PI.ART.chunkSize;
+  const chunkKey = (x, y) => `${Math.floor(x / CH)},${Math.floor(y / CH)}`;
+  const cellChunks = new Map();    // 區塊 → 這個區塊的格子群組
+  const decorChunks = new Map();   // 區塊 → 這個區塊的裝飾群組（需要時才產生）
   const view = { x: 0, y: 0, k: 1 };
   const bounds = { minX: 0, minY: 0, maxX: 0, maxY: 0 };
   const el = (tag, attrs) => { const e = document.createElementNS(SVGNS, tag); for (const k in attrs) e.setAttribute(k, attrs[k]); return e; };
@@ -66,8 +77,13 @@ PI.map = (function () {
   function init(container, opts) {
     onSelect = opts.onSelect || onSelect;
     cells = buildCells();
+    mapEl = container;
+    container.style.backgroundImage = `url("${PI.ART.seaTile.src}")`;
     svg = el("svg", { class: "map-svg", role: "img", "aria-label": "領土地圖" });
     world = el("g", { class: "map-world" });
+    decorLayer = el("g", { class: "layer-decor", "aria-hidden": "true" });
+    cellLayer = el("g", { class: "layer-cells" });
+    world.append(decorLayer, cellLayer);
     svg.appendChild(world);
     container.appendChild(svg);
 
@@ -89,8 +105,18 @@ PI.map = (function () {
         badge.appendChild(t);
         g.appendChild(badge);
       }
-      world.appendChild(g);
+      c.el = g;
+      // 依世界座標放進對應的區塊
+      const key = chunkKey(c.x, c.y);
+      if (!cellChunks.has(key)) {
+        const [kx, ky] = key.split(",").map(Number);
+        const cg = el("g", { class: "chunk" });
+        cellLayer.appendChild(cg);
+        cellChunks.set(key, { g: cg, x0: kx * CH, y0: ky * CH, x1: (kx + 1) * CH, y1: (ky + 1) * CH, on: true });
+      }
+      cellChunks.get(key).g.appendChild(g);
     });
+    buildClearGrid();
 
     // 選取外框另外畫在最上層，才不會被旁邊的格子蓋住
     hl = el("path", { class: "sel-ring", d: path, fill: "none", "stroke-width": 6, "pointer-events": "none" });
@@ -116,7 +142,7 @@ PI.map = (function () {
 
   function render() {
     cells.forEach(c => {
-      const g = world.querySelector(`[data-id="${c.id}"]`);
+      const g = c.el;
       const st = PI.state.statusOf(c), ch = chapterOf(c.chapter);
       g.dataset.status = st;
       const hex = g.querySelector(".cell-hex");
@@ -131,7 +157,88 @@ PI.map = (function () {
   }
 
   /* ---------- 拖曳與縮放 ---------- */
-  function apply() { world.setAttribute("transform", `translate(${view.x.toFixed(1)},${view.y.toFixed(1)}) scale(${view.k.toFixed(4)})`); }
+  function apply() {
+    world.setAttribute("transform", `translate(${view.x.toFixed(1)},${view.y.toFixed(1)}) scale(${view.k.toFixed(4)})`);
+    // 海水紋理跟著世界座標移動與縮放，所以無論拖到哪裡都不會露出空白
+    const t = PI.ART.seaTile.size * view.k;
+    mapEl.style.backgroundSize = `${t.toFixed(2)}px ${t.toFixed(2)}px`;
+    mapEl.style.backgroundPosition = `${view.x.toFixed(1)}px ${view.y.toFixed(1)}px`;
+    if (!cullQueued) { cullQueued = true; requestAnimationFrame(cull); }
+  }
+
+  /* ---------- 分塊：只顯示畫面附近的區塊 ---------- */
+  let cullQueued = false;
+  function visibleRect() {
+    const { w, h } = size();
+    return { x0: -view.x / view.k, y0: -view.y / view.k, x1: (w - view.x) / view.k, y1: (h - view.y) / view.k };
+  }
+  function cull() {
+    cullQueued = false;
+    const v = visibleRect(), m = R * 1.5;
+    cellChunks.forEach(c => {
+      const on = c.x1 + m > v.x0 && c.x0 - m < v.x1 && c.y1 + m > v.y0 && c.y0 - m < v.y1;
+      if (on !== c.on) { c.on = on; c.g.style.display = on ? "" : "none"; }
+    });
+    const kx0 = Math.floor(v.x0 / CH) - 1, kx1 = Math.floor(v.x1 / CH) + 1;
+    const ky0 = Math.floor(v.y0 / CH) - 1, ky1 = Math.floor(v.y1 / CH) + 1;
+    if ((kx1 - kx0) * (ky1 - ky0) > 400) return;          // 縮得太小時不再新增裝飾
+    for (let kx = kx0; kx <= kx1; kx++) for (let ky = ky0; ky <= ky1; ky++) ensureDecor(kx, ky);
+    decorChunks.forEach((d, key) => {
+      const on = d.kx >= kx0 && d.kx <= kx1 && d.ky >= ky0 && d.ky <= ky1;
+      if (on !== d.on) { d.on = on; d.g.style.display = on ? "" : "none"; }
+      const far = Math.max(kx0 - d.kx, d.kx - kx1, ky0 - d.ky, d.ky - ky1);
+      if (far > 4) { d.g.remove(); decorChunks.delete(key); }   // 離很遠的區塊直接移除，避免越拖越卡
+    });
+  }
+
+  /* ---------- 裝飾：小島、礁石、浪花（依區塊用固定亂數擺放，同一區塊每次都一樣） ---------- */
+  const clearGrid = new Map(); const CG = 200;
+  function buildClearGrid() {
+    cells.forEach(c => {
+      const k = `${Math.floor(c.x / CG)},${Math.floor(c.y / CG)}`;
+      if (!clearGrid.has(k)) clearGrid.set(k, []);
+      clearGrid.get(k).push(c);
+    });
+  }
+  function nearTerritory(x, y, r) {
+    const need = r + PI.ART.keepClear, span = Math.ceil(need / CG);
+    const gx = Math.floor(x / CG), gy = Math.floor(y / CG);
+    for (let i = -span; i <= span; i++) for (let j = -span; j <= span; j++) {
+      const list = clearGrid.get(`${gx + i},${gy + j}`);
+      if (list && list.some(c => Math.hypot(c.x - x, c.y - y) < need)) return true;
+    }
+    return false;
+  }
+  function rng(seed) {   // mulberry32
+    return () => { seed |= 0; seed = seed + 0x6D2B79F5 | 0; let t = Math.imul(seed ^ seed >>> 15, 1 | seed);
+      t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; };
+  }
+  function ensureDecor(kx, ky) {
+    const key = `${kx},${ky}`;
+    if (decorChunks.has(key)) return;
+    const g = el("g", { class: "chunk-decor" });
+    const rand = rng(kx * 73856093 ^ ky * 19349663);
+    const placed = [];
+    ["island", "rock", "wave"].forEach(kind => {
+      const pool = PI.ART.decor.filter(d => d.kind === kind);
+      const [lo, hi] = PI.ART.perChunk[kind];
+      const count = lo + Math.floor(rand() * (hi - lo + 1));
+      for (let n = 0; n < count; n++) {
+        const d = pool[Math.floor(rand() * pool.length)];
+        for (let tries = 0; tries < 6; tries++) {
+          const x = (kx + rand()) * CH, y = (ky + rand()) * CH, r = Math.max(d.w, d.h) / 2;
+          if (nearTerritory(x, y, r * 0.8)) continue;
+          if (placed.some(p => Math.hypot(p.x - x, p.y - y) < (p.r + r) * 0.9)) continue;
+          placed.push({ x, y, r });
+          const img = el("image", { href: d.src, x: (x - d.w / 2).toFixed(1), y: (y - d.h / 2).toFixed(1), width: d.w, height: d.h, class: `decor decor-${kind}` });
+          if (kind === "wave") g.prepend(img); else g.appendChild(img);   // 浪花在最底下
+          break;
+        }
+      }
+    });
+    decorLayer.appendChild(g);
+    decorChunks.set(key, { g, kx, ky, on: true });
+  }
   function size() { const r = svg.getBoundingClientRect(); return { w: r.width, h: r.height }; }
   function fitScale(b) {
     const { w, h } = size(); const pad = Math.min(PI.MAP.padding, Math.min(w, h) * 0.06);   // 小螢幕時留白跟著縮小
