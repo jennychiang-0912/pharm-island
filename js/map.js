@@ -47,35 +47,24 @@ PI.map = (function () {
       unitCount: 0, slotCount: 0,   // 目前的學習單元數、預留格數
       g: {}                         // 各圖層裡屬於這座島的群組
     };
-    // 主島（多個章節共用一塊陸地）：所有章節用同一張格子座標，像拼圖一樣互相貼合、拼成一整座島
-    const land = landOf.get(ch.id);
-    isl.shared = land && land.def.chapters.length > 1 ? land.occ : null;
     islands.push(isl); islandOf.set(ch.id, isl);
     return isl;
   }
 
   // 下一格要放哪裡：只從已有格子旁邊的空位挑
   function nextSpot(isl, group) {
-    const shared = isl.shared;
-    const taken = key => isl.occ.has(key) || (shared && shared.has(key));
-    if (!isl.cells.length) return shared && shared.size ? seedSpot(isl) : [0, 0];
+    if (!isl.cells.length) return [0, 0];
     // 同一組已有的格子：算出中心，新格子越靠近中心越好，同組才會聚成一團，不會拉成長條
     const mates = group ? isl.cells.filter(c => c.group === group) : [];
     const gq = mates.length ? mates.reduce((s, c) => s + c.q, 0) / mates.length : 0;
     const gr = mates.length ? mates.reduce((s, c) => s + c.r, 0) / mates.length : 0;
-    // 主島：這一章自己的中心（讓每一章是一塊完整的拼圖，不會被拉散）
-    const cq = isl.cells.reduce((s, c) => s + c.q, 0) / isl.cells.length, cr = isl.cells.reduce((s, c) => s + c.r, 0) / isl.cells.length;
     const seen = new Set(); let best = null, bestScore = -Infinity;
     isl.cells.forEach(c => DIRS.forEach(([dq, dr]) => {
       const q = c.q + dq, r = c.r + dr, key = `${q},${r}`;
-      if (taken(key) || seen.has(key)) return;
+      if (isl.occ.has(key) || seen.has(key)) return;
       seen.add(key);
-      let nb = 0, same = 0, other = 0;
-      DIRS.forEach(([a, b]) => {
-        const k = `${q + a},${r + b}`, n = isl.occ.get(k);
-        if (n) { nb++; if (group && n.group === group) same++; }
-        else if (shared && shared.has(k)) other++;
-      });
+      let nb = 0, same = 0;
+      DIRS.forEach(([a, b]) => { const n = isl.occ.get(`${q + a},${r + b}`); if (n) { nb++; if (group && n.group === group) same++; } });
       const n = noise(q, r, isl.chapter * 7919);
       let score;
       if (mates.length) {        // 同組的後續格子：貼著同組、往同組中心靠（同組才會聚成一團，不會拉成長條）
@@ -83,34 +72,8 @@ PI.map = (function () {
       } else {                   // 新的一組的第一格，或沒有分組的格子
         score = nb * 3 + n * (group ? 2 : 3.4) - hexDist(q, r) * 0.75;
       }
-      if (shared) score += other * 1.6 - hexDist(q - cq, r - cr) * 0.8 + hexDist(q, r) * 0.45;   // 主島：貼緊別章填滿縫隙
       if (score > bestScore) { bestScore = score; best = [q, r]; }
     }));
-    // 主島上這一章被別章包住、旁邊沒有空位時：改從整座島的邊緣找離這章最近的空位
-    if (!best && shared) best = frontierOf(shared).sort((A, B) => hexDist(A[0] - cq, A[1] - cr) - hexDist(B[0] - cq, B[1] - cr))[0];
-    return best;
-  }
-  // 整塊陸地外圍的空位
-  function frontierOf(shared) {
-    const out = [], seen = new Set();
-    shared.forEach(c => DIRS.forEach(([dq, dr]) => {
-      const q = c.q + dq, r = c.r + dr, key = `${q},${r}`;
-      if (shared.has(key) || seen.has(key)) return;
-      seen.add(key); out.push([q, r]);
-    }));
-    return out;
-  }
-  // 主島上新的一章的第一格：貼著上一章、往島的中心靠，各章一圈一圈拼起來，整座島才會是圓的一整塊
-  function seedSpot(isl) {
-    const shared = isl.shared, land = landOf.get(isl.chapter);
-    const prev = land.regions[land.regions.length - 1];
-    let best = null, bestScore = -Infinity;
-    frontierOf(shared).forEach(([q, r]) => {
-      let nb = 0, nbPrev = 0;
-      DIRS.forEach(([a, b]) => { const n = shared.get(`${q + a},${r + b}`); if (n) { nb++; if (prev && n.chapter === prev.chapter) nbPrev++; } });
-      const score = nb * 2 + nbPrev * 2.5 - hexDist(q, r) * 1.2 + noise(q, r, isl.chapter * 131) * 1;
-      if (score > bestScore) { bestScore = score; best = [q, r]; }
-    });
     return best;
   }
 
@@ -121,7 +84,6 @@ PI.map = (function () {
                 isStart: isl.cells.length === 0, unit: item.unit || null, group: item.group || null, neighbors: [] };
     DIRS.forEach(([a, b]) => { const n = isl.occ.get(`${q + a},${r + b}`); if (n) { c.neighbors.push(n.id); n.neighbors.push(c.id); } });
     isl.cells.push(c); isl.occ.set(`${q},${r}`, c);
-    if (isl.shared) isl.shared.set(`${q},${r}`, c);
     cells.push(c); cellById.set(c.id, c);
     return c;
   }
@@ -164,14 +126,6 @@ PI.map = (function () {
   function layout() {
     // 1) 每塊陸地內：各章節區域緊靠排列，中間留一條草地小路
     lands.forEach(land => {
-      if (land.occ.size) {   // 主島：各章已經拼在同一張格子上，不用再排位置
-        const all = [...land.occ.values()], xs = all.map(c => c.lx), ys = all.map(c => c.ly);
-        const cx = (Math.min(...xs) + Math.max(...xs)) / 2, cy = (Math.min(...ys) + Math.max(...ys)) / 2;
-        land.lc = { cx, cy };
-        land.regions.forEach(isl => { isl.offset = { x: 0, y: 0 }; isl.layoutRad = Infinity; });
-        land.radius = Math.max(...all.map(c => Math.hypot(c.lx - cx, c.ly - cy))) + R * 1.95 + R * 1.5;
-        return;
-      }
       const placed = [], gap = PI.MAP.regionGap * SQ3 * R;
       land.regions.forEach((isl, i) => {
         const rad = reservedRadius(isl);
@@ -190,8 +144,7 @@ PI.map = (function () {
     // 3) 套用位置
     islands.forEach(isl => {
       const land = landOf.get(isl.chapter);
-      const c0 = land.lc || isl.coast;   // 主島用整塊陸地的中心
-      isl.origin = { x: land.center.x + isl.offset.x - c0.cx, y: land.center.y + isl.offset.y - c0.cy };
+      isl.origin = { x: land.center.x + isl.offset.x - isl.coast.cx, y: land.center.y + isl.offset.y - isl.coast.cy };
       isl.growth.needsLayout = false;
       isl.cells.forEach(c => { c.x = isl.origin.x + c.lx; c.y = isl.origin.y + c.ly; });
       isl.bounds = { minX: isl.origin.x + isl.coast.minX - R, maxX: isl.origin.x + isl.coast.maxX + R,
@@ -200,7 +153,6 @@ PI.map = (function () {
       Object.values(isl.g).forEach(g => g && g.setAttribute("transform", t));
     });
     lands.forEach(drawTerrain);
-    lands.forEach(drawBorders);
     placeTrees();
     const all = [...islands.map(i => i.bounds), ...lands.map(l => l.bounds).filter(Boolean)];   // 包含未解鎖格子
     Object.assign(bounds, {
@@ -215,7 +167,7 @@ PI.map = (function () {
     const defs = PI.LANDMASSES || PI.CHAPTERS.map(ch => ({ id: `ch${ch.id}`, chapters: [ch.id] }));
     const assigned = new Set(defs.flatMap(d => d.chapters));
     PI.CHAPTERS.filter(ch => !assigned.has(ch.id)).forEach(ch => defs.push({ id: `ch${ch.id}`, chapters: [ch.id] }));   // 新章節自動成為獨立島
-    defs.forEach(def => { const land = { id: def.id, def, regions: [], g: null, occ: new Map() }; lands.push(land); def.chapters.forEach(id => landOf.set(id, land)); });
+    defs.forEach(def => { const land = { id: def.id, def, regions: [], g: null }; lands.push(land); def.chapters.forEach(id => landOf.set(id, land)); });
     PI.CHAPTERS.forEach(ch => {
       const isl = makeIsland(ch);
       const units = PI.UNITS.filter(u => u.chapter === ch.id);
@@ -229,7 +181,7 @@ PI.map = (function () {
   }
 
   /* ================= 繪製 ================= */
-  let hl, hov, svg, world, mapEl, stage, sea, decorLayer, terrainLayer, cellLayer, borderLayer, labelLayer, treeLayer, onSelect = () => {}, onSelectIsland = () => {}, onOpenTree = () => {}, selected = null, focusCh = null;
+  let hl, hov, svg, world, mapEl, stage, sea, decorLayer, terrainLayer, cellLayer, labelLayer, treeLayer, onSelect = () => {}, onSelectIsland = () => {}, onOpenTree = () => {}, selected = null, focusCh = null;
   const CH = PI.ART.chunkSize;
   const decorChunks = new Map();   // 海上裝飾：區塊 → 群組（需要時才產生）
   const view = { x: 0, y: 0, k: 1 };
@@ -267,13 +219,12 @@ PI.map = (function () {
     decorLayer = el("g", { class: "layer-decor", "aria-hidden": "true" });    // 海上裝飾
     terrainLayer = el("g", { class: "layer-terrain" });                      // 島嶼地形與海岸線
     cellLayer = el("g", { class: "layer-cells" });                           // 六角格
-    borderLayer = el("g", { class: "layer-borders", "pointer-events": "none" });   // 主島上章節之間的分界線
     treeLayer = el("g", { class: "layer-trees" });                           // 知識樹（每座島一棵）
     labelLayer = el("g", { class: "layer-labels" });                         // 章節標記
     hl = el("path", { class: "sel-ring", d: HEX_PATH, fill: "none", "stroke-width": 6, "pointer-events": "none" });   // 選取外框
     hov = el("path", { class: "hover-hex", d: SHINE_PATH, "pointer-events": "none" });   // 滑鼠所在格子的高亮（全地圖共用一個）
     hov.style.display = "none";
-    world.append(decorLayer, terrainLayer, cellLayer, borderLayer, hov, treeLayer, labelLayer, hl);
+    world.append(decorLayer, terrainLayer, cellLayer, hov, treeLayer, labelLayer, hl);
     svg.appendChild(world);
     stage.append(sea, svg);
     container.appendChild(stage);
@@ -498,12 +449,8 @@ PI.map = (function () {
   function drawLabel(isl) {
     const ch = chapterOf(isl.chapter), cat = catOf(ch.cat);
     const g = isl.g.label; g.textContent = "";
-    let x = isl.coast.cx, y = isl.coast.minY + R * 0.35;
-    if (isl.shared && isl.cells.length) {   // 主島：牌子放在這一章的中心附近（各章的牌子才不會擠在一起）
-      x = isl.cells.reduce((s, c) => s + c.lx, 0) / isl.cells.length;
-      y = isl.cells.reduce((s, c) => s + c.ly, 0) / isl.cells.length - R * 0.9;
-    }
-    const lab = el("g", { class: "island-label" + (isl.shared ? " on-shared" : ""), "data-island": isl.chapter, transform: `translate(${x.toFixed(1)},${y.toFixed(1)})`, tabindex: 0, role: "button", "aria-label": `第 ${ch.id} 章 ${ch.name}` });
+    const x = isl.coast.cx, y = isl.coast.minY + R * 0.35;
+    const lab = el("g", { class: "island-label", "data-island": isl.chapter, transform: `translate(${x.toFixed(1)},${y.toFixed(1)})`, tabindex: 0, role: "button", "aria-label": `第 ${ch.id} 章 ${ch.name}` });
     const inner = el("g", { class: "label-inner" });
     measure.font = `700 17px ${getComputedStyle(document.body).fontFamily}`;
     const w = Math.ceil(measure.measureText(ch.name).width) + 62;
@@ -516,31 +463,6 @@ PI.map = (function () {
     lab.appendChild(inner);
     g.appendChild(lab);
     isl.labelInner = inner;
-  }
-
-  /* ---------- 主島的章節分界線：相鄰兩格屬於不同章時，在中間那條邊畫一條深綠色粗線，像拼圖的接縫 ---------- */
-  // 六個方向（DIRS 的順序）各對應六角形的哪一條邊（頂點編號，頂點 0 在正上方、順時針）
-  const EDGE_OF = [[1, 2], [0, 1], [5, 0], [4, 5], [3, 4], [2, 3]];
-  function drawBorders(land) {
-    if (!land.occ.size) return;
-    if (!land.borderEl) {
-      land.borderSea = el("path", { class: "region-border is-sea" });    // 還沒解鎖（在海上）：淡淡的灰線
-      land.borderEl = el("path", { class: "region-border" });            // 兩邊都已解鎖（在陸地上）：深綠色粗線，和奶油色格線分得出來
-      borderLayer.append(land.borderSea, land.borderEl);
-    }
-    const V = [...Array(6)].map((_, i) => { const a = Math.PI / 180 * (60 * i - 90); return [R * Math.cos(a), R * Math.sin(a)]; });
-    const open = c => PI.state.statusOf(c) !== "locked";
-    let dLand = "", dSea = "";
-    land.occ.forEach(c => DIRS.forEach(([dq, dr], k) => {
-      const n = land.occ.get(`${c.q + dq},${c.r + dr}`);
-      if (!n || n.chapter === c.chapter || n.chapter < c.chapter) return;   // 只畫不同章之間的邊，每條只畫一次
-      const [i, j] = EDGE_OF[k];
-      const seg = `M${(c.lx + V[i][0]).toFixed(1)},${(c.ly + V[i][1]).toFixed(1)}L${(c.lx + V[j][0]).toFixed(1)},${(c.ly + V[j][1]).toFixed(1)}`;
-      if (open(c) && open(n)) dLand += seg; else dSea += seg;
-    }));
-    const o = land.regions[0].origin, t = `translate(${o.x.toFixed(1)},${o.y.toFixed(1)})`;
-    land.borderEl.setAttribute("d", dLand); land.borderSea.setAttribute("d", dSea);
-    land.borderEl.setAttribute("transform", t); land.borderSea.setAttribute("transform", t);
   }
 
   /* ---------- 知識樹：每一章一棵，長在那一章的初始格子上 ----------
@@ -649,8 +571,7 @@ PI.map = (function () {
     // 章節牌子：地圖縮小時放大回來，讓字維持可讀
     const s = Math.min(Math.max(0.9 / view.k, 1), 3).toFixed(3);
     const lift = (-21 * (s - 1)).toFixed(1);   // 放大時牌子往上長，不蓋到島
-    const s2 = Math.min(s, 2.2).toFixed(3), lift2 = (-21 * (s2 - 1)).toFixed(1);   // 主島的牌子靠得近，放大上限小一點
-    islands.forEach(isl => isl.labelInner && isl.labelInner.setAttribute("transform", isl.shared ? `translate(0,${lift2}) scale(${s2})` : `translate(0,${lift}) scale(${s})`));
+    islands.forEach(isl => isl.labelInner && isl.labelInner.setAttribute("transform", `translate(0,${lift}) scale(${s})`));
     // 細節層級：放大才顯示藥名；縮很小時隱藏小裝飾（只在跨過門檻時才改 class）
     const near = view.k > 0.55, far = view.k < 0.3;
     if (near !== nearState) { nearState = near; svg.classList.toggle("is-near", near); }
@@ -854,7 +775,7 @@ PI.map = (function () {
   let layoutQueued = false;
   const dirtyLands = new Set();
   function queueTerrain(land) {
-    if (!dirtyLands.size) requestAnimationFrame(() => { dirtyLands.forEach(l => { drawTerrain(l); drawBorders(l); }); dirtyLands.clear(); buildClearGrid(); });
+    if (!dirtyLands.size) requestAnimationFrame(() => { dirtyLands.forEach(drawTerrain); dirtyLands.clear(); buildClearGrid(); });
     dirtyLands.add(land);
   }
 
@@ -867,7 +788,6 @@ PI.map = (function () {
     PI.UNITS.push(u);
     const isl = islandOf.get(u.chapter);
     let c = isl.cells.find(x => !x.unit);
-    const wasSlot = !!c;
     if (c) {   // 預留格 → 正式單元
       const oldId = c.id, newId = `u:${u.id}`;
       cellById.delete(oldId); c.id = newId; c.unit = u; c.group = u.group || null; cellById.set(newId, c);
@@ -881,7 +801,7 @@ PI.map = (function () {
     }
     isl.unitCount++;
     computeCoast(isl); drawLabel(isl);
-    if (isl.coast.radius > isl.layoutRad || (isl.shared && !wasSlot)) {   // 超過預留大小（或主島長出新格）：重新安排，同一個畫面內只做一次
+    if (isl.coast.radius > isl.layoutRad) {   // 超過預留大小：重新安排（會重畫地形），同一個畫面內只做一次
       isl.growth.needsLayout = true;
       if (!layoutQueued) { layoutQueued = true; requestAnimationFrame(() => { layoutQueued = false; layout(); commit(); render(); }); }
     }
