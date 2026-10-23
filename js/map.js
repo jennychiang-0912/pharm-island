@@ -143,9 +143,10 @@ PI.map = (function () {
       Object.values(isl.g).forEach(g => g && g.setAttribute("transform", t));
     });
     lands.forEach(drawTerrain);
+    const all = [...islands.map(i => i.bounds), ...lands.map(l => l.bounds).filter(Boolean)];   // 包含未解鎖格子
     Object.assign(bounds, {
-      minX: Math.min(...lands.map(l => l.bounds.minX)), maxX: Math.max(...lands.map(l => l.bounds.maxX)),
-      minY: Math.min(...lands.map(l => l.bounds.minY)), maxY: Math.max(...lands.map(l => l.bounds.maxY))
+      minX: Math.min(...all.map(b => b.minX)), maxX: Math.max(...all.map(b => b.maxX)),
+      minY: Math.min(...all.map(b => b.minY)), maxY: Math.max(...all.map(b => b.maxY))
     });
     buildClearGrid();
     decorChunks.forEach(d => d.g.remove()); decorChunks.clear();   // 島移動過，海上裝飾重新擺
@@ -198,7 +199,7 @@ PI.map = (function () {
     sea = document.createElement("div"); sea.className = "map-sea";
     sea.style.backgroundImage = `url("${PI.ART.seaTile.src}")`;
     HEX_PATH = hexPath(R, PI.MAP.corner);
-    SHINE_PATH = hexPath(R - PI.MAP.border / 2, PI.MAP.corner);
+    SHINE_PATH = hexPath(R - PI.MAP.cell.lineWidth / 2, PI.MAP.corner);
     RING_PATH = hexPath(R * 0.62, 6);
 
     svg = el("svg", { class: "map-svg", role: "img", "aria-label": "藥理學群島地圖" });
@@ -250,24 +251,27 @@ PI.map = (function () {
   }
   function terrainField(land) {
     const T = PI.MAP.terrain, step = T.step, sig = R * T.sigma, inv = 1 / (2 * sig * sig);
-    const pts = land.regions.flatMap(r => r.cells).map(c => ({ x: c.x, y: c.y, w: 1 }));
+    // 只有「已解鎖」（可挑戰＋已佔領）的格子底下才是陸地；未解鎖的格子浮在海上
+    const open = isl => isl.cells.filter(c => PI.state.statusOf(c) !== "locked");
+    const pts = land.regions.flatMap(open).map(c => ({ x: c.x, y: c.y, w: 1 }));
+    if (!pts.length) return null;
     const seed0 = land.regions[0].chapter * 131;
     // 地形專用的額外高度點（不是格子）：
-    // (1) 陸橋：相鄰章節區域之間補滿，主島才會是連續的一塊地
+    // (1) 陸橋：主島上相鄰章節已解鎖的地夠近時（約 3 格內）才接起來，主島會隨著解鎖連成一片
     land.regions.forEach((A, i) => land.regions.forEach((B, j) => {
       if (j <= i) return;
       let best = null;
-      A.cells.forEach(a => B.cells.forEach(b => { const d = Math.hypot(a.x - b.x, a.y - b.y); if (!best || d < best.d) best = { a, b, d }; }));
-      if (!best || best.d > R * 7) return;
-      const n = Math.ceil(best.d / (R * 0.6));
-      for (let k = 1; k < n; k++) for (const off of [-0.9, 0, 0.9]) {
+      open(A).forEach(a => open(B).forEach(b => { const d = Math.hypot(a.x - b.x, a.y - b.y); if (!best || d < best.d) best = { a, b, d }; }));
+      if (!best || best.d > R * 3.6) return;
+      const n = Math.ceil(best.d / (R * 0.5));
+      for (let k = 1; k < n; k++) for (const off of [-0.4, 0.4]) {
         const t = k / n, ux = (best.b.x - best.a.x) / best.d, uy = (best.b.y - best.a.y) / best.d;
         pts.push({ x: best.a.x + (best.b.x - best.a.x) * t - uy * off * R, y: best.a.y + (best.b.y - best.a.y) * t + ux * off * R, w: 1 });
       }
     }));
     // (2) 岬角與小半島：沿著幾個方向把陸地往外延伸，海岸線才不會跟著六角格的外形走
-    const cells0 = land.regions.flatMap(r => r.cells), cxm = cells0.reduce((s, c) => s + c.x, 0) / cells0.length, cym = cells0.reduce((s, c) => s + c.y, 0) / cells0.length;
-    const lobes = 4 + land.regions.length + Math.floor(noise(seed0, 1, 1) * 3);
+    const cells0 = land.regions.flatMap(open), cxm = cells0.reduce((s, c) => s + c.x, 0) / cells0.length, cym = cells0.reduce((s, c) => s + c.y, 0) / cells0.length;
+    const lobes = cells0.length < 4 ? 0 : 4 + Math.floor(noise(seed0, 1, 1) * 3);   // 很小的島不加，避免蓋到未解鎖格
     for (let i = 0; i < lobes; i++) {
       const a = (i / lobes + noise(seed0, i, 2) * 0.6 / lobes) * Math.PI * 2;
       const ux = Math.cos(a), uy = Math.sin(a);
@@ -275,11 +279,11 @@ PI.map = (function () {
       const along = cells0.filter(c => Math.abs(-(c.x - cxm) * uy + (c.y - cym) * ux) < R * 1.6);
       if (!along.length) continue;
       const tip = along.reduce((m, c) => ((c.x - cxm) * ux + (c.y - cym) * uy > (m.x - cxm) * ux + (m.y - cym) * uy ? c : m));
-      const ext = R * (0.3 + noise(seed0, i, 3) * 1.4);
-      for (let d = 0; d <= ext + R; d += R * 0.5)
+      const ext = R * (0.1 + noise(seed0, i, 3) * 0.35);   // 只是海岸的小凸出，不往未解鎖格子裡長
+      for (let d = 0; d <= ext; d += R * 0.3)
         pts.push({ x: tip.x + ux * d, y: tip.y + uy * d, w: 0.8 + noise(seed0, i, 4) * 0.2 });
     }
-    const margin = R * 6;
+    const margin = R * 3;
     const x0 = Math.min(...pts.map(c => c.x)) - margin, y0 = Math.min(...pts.map(c => c.y)) - margin;
     const x1 = Math.max(...pts.map(c => c.x)) + margin, y1 = Math.max(...pts.map(c => c.y)) + margin;
     const nx = Math.ceil((x1 - x0) / step) + 1, ny = Math.ceil((y1 - y0) / step) + 1;
@@ -346,8 +350,9 @@ PI.map = (function () {
 
   function drawTerrain(land) {
     const g = land.g; g.textContent = "";
-    const T = PI.MAP.terrain, C = PI.MAP.coast;
+    const T = PI.MAP.terrain, C = PI.MAP.coast, P = land.def.palette || { ground: "#B4D69A", light: "#C5E2AA", cliff: "#8CB57A" };
     const field = terrainField(land);
+    if (!field) { land.bounds = null; return; }
     land.bounds = { minX: field.x0, minY: field.y0, maxX: field.x1, maxY: field.y1 };
     // 去掉被陸地包住的「洞」（內陸小湖），只保留外圍海岸線，主島才是完整的一塊地
     const inside = (p, poly) => { let c = false; for (let i = 0, j = poly.length - 1; i < poly.length; j = i++) {
@@ -379,20 +384,7 @@ PI.map = (function () {
 
     g.append(shape("sand", C.shadow, .2, 24, "shadow"), shape("shallow", C.shallow, .55), ...decoImgs,
       shape("foam", C.foam, .85), shape("sand", C.sandShade, 1, 7, "sand-shade"), shape("sand", C.sand, 1),
-      shape("grass", C.cliff, 1, 9, "cliff"), shape("grass", C.grass, 1), shape("inner", C.grassLight, .45));
-
-    // 主島各章節區域：很淡的草地色差，加上區域之間的小路
-    if (land.regions.length > 1) {
-      const tints = el("g", { class: "t-regions" });
-      land.regions.forEach((isl, i) => {
-        // 預先把區域色和草地混好（32%），不用群組透明度，畫面合成比較省
-        const tg = el("g", { fill: blend(PI.MAP.coast.grass, PI.MAP.regionTints[i % PI.MAP.regionTints.length], 0.32) });
-        isl.cells.forEach(c => tg.appendChild(el("circle", { cx: c.x.toFixed(1), cy: c.y.toFixed(1), r: (R * 1.55).toFixed(1) })));
-        tints.appendChild(tg);
-      });
-      g.appendChild(tints);
-      g.appendChild(regionPaths(land));
-    }
+      shape("grass", P.cliff, 1, 9, "cliff"), shape("grass", P.ground, 1), shape("inner", P.light, .45));
     // 草地邊緣的小花與草叢：沿著草地輪廓，往內一點
     const deco = el("g", { class: "t-deco" });
     loops.grass.forEach(L => L.forEach((p, i) => {
@@ -404,35 +396,6 @@ PI.map = (function () {
       deco.appendChild(pick < 0.09 ? flower(x, y, pick) : tuft(x, y));
     }));
     g.appendChild(deco);
-  }
-  function blend(a, b, t) {
-    const pa = parseInt(a.slice(1), 16), pb = parseInt(b.slice(1), 16);
-    const ch = sh => Math.round(((pa >> sh) & 255) * (1 - t) + ((pb >> sh) & 255) * t);
-    return `rgb(${ch(16)},${ch(8)},${ch(0)})`;
-  }
-  // 章節區域之間的小路：連接相鄰區域（最小生成樹），只畫在區域之間的草地上
-  function regionPaths(land) {
-    const g = el("g", { class: "t-paths", fill: "none", stroke: PI.MAP.coast.path, "stroke-width": 16, "stroke-linecap": "round", "stroke-opacity": .9 });
-    const R0 = land.regions, ctr = r => [r.origin.x + r.coast.cx, r.origin.y + r.coast.cy];
-    const inTree = new Set([0]);
-    while (inTree.size < R0.length) {
-      let best = null;
-      inTree.forEach(i => R0.forEach((r, j) => {
-        if (inTree.has(j)) return;
-        const [ax, ay] = ctr(R0[i]), [bx, by] = ctr(r), d = Math.hypot(ax - bx, ay - by);
-        if (!best || d < best.d) best = { i, j, d };
-      }));
-      inTree.add(best.j);
-      const A = R0[best.i], B = R0[best.j], [bx, by] = ctr(B), [ax, ay] = ctr(A);
-      const pa = A.cells.reduce((m, c) => (Math.hypot(c.x - bx, c.y - by) < Math.hypot(m.x - bx, m.y - by) ? c : m));
-      const pb = B.cells.reduce((m, c) => (Math.hypot(c.x - ax, c.y - ay) < Math.hypot(m.x - ax, m.y - ay) ? c : m));
-      const ux = pb.x - pa.x, uy = pb.y - pa.y, L = Math.hypot(ux, uy) || 1;
-      const s = [pa.x + ux / L * R * 0.9, pa.y + uy / L * R * 0.9], e = [pb.x - ux / L * R * 0.9, pb.y - uy / L * R * 0.9];
-      const bend = (noise(best.i, best.j, 41) - 0.5) * R * 0.8;
-      const m = [(s[0] + e[0]) / 2 - uy / L * bend, (s[1] + e[1]) / 2 + ux / L * bend];
-      g.appendChild(el("path", { d: `M${s[0].toFixed(1)},${s[1].toFixed(1)} Q${m[0].toFixed(1)},${m[1].toFixed(1)} ${e[0].toFixed(1)},${e[1].toFixed(1)}` }));
-    }
-    return g;
   }
   function flower(x, y, t) {
     const colors = ["#FFFFFF", "#F7D9E3", "#FBEFA8"], col = colors[Math.floor(t * 100) % 3];
@@ -449,7 +412,7 @@ PI.map = (function () {
   function drawCell(c) {
     const g = el("g", { class: "cell", transform: `translate(${c.lx.toFixed(1)},${c.ly.toFixed(1)})`, "data-id": c.id, role: "button" });
     // 每格只有一個六角形；可挑戰的虛線圈與已佔領的旗子，等狀態需要時才加（見 render）
-    g.appendChild(el("path", { class: "cell-hex", d: HEX_PATH, "stroke-width": PI.MAP.border, stroke: PI.MAP.borderColor, "stroke-opacity": PI.MAP.borderOpacity }));
+    g.appendChild(el("path", { class: "cell-hex", d: HEX_PATH }));   // 填色與外框由 render 依狀態設定
     if (!c.unit) g.classList.add("is-slot");
     c.st = null;
     if (c.unit) {
@@ -502,10 +465,18 @@ PI.map = (function () {
       const tab = st === "locked" && focusCh !== c.chapter ? "-1" : "0";
       if (c.tab !== tab) { c.tab = tab; c.el.setAttribute("tabindex", tab); }
       if (c.st === st) return;   // 狀態沒變就不碰 DOM
+      // 解鎖狀態改變時，這塊陸地的地形要跟著長大（同一個畫面內合併成一次）
+      if (c.st && (c.st === "locked") !== (st === "locked")) queueTerrain(landOf.get(c.chapter));
       c.st = st;
-      const g = c.el, hex = g.firstChild, f = PI.MAP.fill[st];
+      const g = c.el, hex = g.firstChild, M = PI.MAP.cell;
       g.dataset.status = st;
-      hex.setAttribute("fill", f.color); hex.setAttribute("fill-opacity", f.opacity);
+      if (st === "locked") {   // 未解鎖：透明，只留低調的灰框
+        hex.setAttribute("fill", "#FFFFFF"); hex.setAttribute("fill-opacity", 0);
+        hex.setAttribute("stroke", M.lockedLine); hex.setAttribute("stroke-opacity", M.lockedLineOpacity); hex.setAttribute("stroke-width", M.lockedLineWidth);
+      } else {                 // 已解鎖：同一座島統一用島的底色，格線是淡奶油色
+        hex.setAttribute("fill", (landOf.get(c.chapter).def.palette || {}).ground || "#B4D69A"); hex.setAttribute("fill-opacity", M.unlockedOpacity);
+        hex.setAttribute("stroke", M.line); hex.setAttribute("stroke-opacity", M.lineOpacity); hex.setAttribute("stroke-width", M.lineWidth);
+      }
       const old = g.querySelector(".cell-ring, .cell-flag"); if (old) old.remove();
       if (st === "available") g.insertBefore(el("path", { class: "cell-ring", d: RING_PATH }), hex.nextSibling);
       if (st === "occupied") g.insertBefore(el("path", { class: "cell-flag", d: "M-8,14 L-8,-16 M-8,-16 L14,-9 L-8,-2", fill: "none", "stroke-width": 4, "stroke-linecap": "round", "stroke-linejoin": "round" }), hex.nextSibling);
@@ -565,7 +536,7 @@ PI.map = (function () {
       if (on !== isl.on) { isl.on = on; Object.values(isl.g).forEach(g => { g.style.display = on ? "" : "none"; }); }
     });
     lands.forEach(land => {
-      const on = vis(land.bounds);
+      const on = !!land.bounds && vis(land.bounds);
       if (on !== land.on) { land.on = on; land.g.style.display = on ? "" : "none"; }
     });
     const kx0 = Math.floor(v.x0 / CH) - 1, kx1 = Math.floor(v.x1 / CH) + 1;

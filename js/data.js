@@ -33,43 +33,39 @@ PI.CHAPTERS = [
 /* 群島：哪些章節在同一塊陸地上。主島上每一章是一個區域，區域之間用小路分開。
    angle：這座島放在主島的哪個方向（度，0 是右邊、90 是下面），讓群島構圖自然、不對稱。 */
 PI.LANDMASSES = [
-  { id: "main",  name: "抗微生物主島", chapters: [1, 2, 3, 4, 5, 6, 7, 8] },
-  { id: "endo",  name: "內分泌島",     chapters: [9],  angle: -28 },
-  { id: "resp",  name: "呼吸島",       chapters: [10], angle: 168 },
-  { id: "gi",    name: "腸胃島",       chapters: [11], angle: 62 }
+  // palette：島的地面顏色。ground 草地（也是已解鎖格子的底色）、light 內陸較淺處、cliff 地面邊緣的土坡
+  { id: "main", name: "抗微生物主島", chapters: [1, 2, 3, 4, 5, 6, 7, 8],
+    palette: { ground: "#B4D69A", light: "#C5E2AA", cliff: "#8CB57A" } },   // 草地綠
+  { id: "endo", name: "內分泌島", chapters: [9],  angle: -28,
+    palette: { ground: "#EAD796", light: "#F2E4B3", cliff: "#C9B068" } },   // 柔和黃
+  { id: "resp", name: "呼吸島",   chapters: [10], angle: 168,
+    palette: { ground: "#A8CBE0", light: "#C2DBEA", cliff: "#7DA3BD" } },   // 柔和藍
+  { id: "gi",   name: "腸胃島",   chapters: [11], angle: 62,
+    palette: { ground: "#ECB4A5", light: "#F3CABF", cliff: "#CB8B7A" } }    // 柔和珊瑚粉
 ];
 
 /* 地圖設定 */
 PI.MAP = {
   hexRadius: 60,        // 六角格頂點半徑：寬 103.92、高 120，與 Penpot 的 hex-rounded 一致
-  border: 3,            // 格子邊界：細細的奶油色線
-  borderColor: "#F6EDCB",
-  borderOpacity: 0.55,
-  corner: 12,           // 六角格圓角
-  fill: {               // 三種狀態的填色與透明度：半透明疊在草地上，看起來是同一片土地
-    locked:    { color: "#FFFFFF", opacity: 0 },      // 未解鎖：就是草地本身
-    available: { color: "#EEF7DC", opacity: 0.55 },
-    occupied:  { color: "#5E8B67", opacity: 0.82 }
+  cell: {              // 格子外觀：已解鎖的格子用所在島嶼的 ground 色；未解鎖的格子透明，只留低調的灰框
+    unlockedOpacity: 0.92, line: "#F6EDCB", lineOpacity: 0.85, lineWidth: 3,
+    lockedLine: "#DCE4E1", lockedLineOpacity: 0.55, lockedLineWidth: 2
   },
+  corner: 12,           // 六角格圓角
   padding: 64,          // 地圖與容器邊緣的留白
   islandGap: 3.2,       // 島與島之間至少隔幾格寬的海
   regionGap: 1.4,       // 主島上章節區域之間的草地小路寬度（格數）
   coast: {              // 島嶼地形：依格子位置疊圓形，合起來是連續草地與圓潤海岸
-    shadow: "#1C7A9E",    // 水下陰影（讓島有一點厚度）
+    shadow: "#1C7A9E",    // 水下陰影（讓島有一點厚度）；草地顏色改由各島的 palette 決定
     shallow: "#9FDCD8",   // 淺水
     foam: "#FFFFFF",      // 浪花
     sand: "#F2E3B5",      // 沙灘
     sandShade: "#E3CF97", // 沙灘靠水那側的陰影
-    cliff: "#8CB57A",     // 草地邊緣的土坡
-    grass: "#B4D69A",     // 草地
-    grassLight: "#C5E2AA",// 草地內部較淺的區域
-    path: "#F3E7C1"       // 章節區域之間的小路
   },
-  regionTints: ["#C9E3AC", "#B9DBA0", "#D3E6AE", "#BFDDB1", "#CBE1A4", "#B6D8A8", "#D0E5B6", "#C2DCA2"],   // 主島各區域的草地色差（很淡）
   terrain: {            // 地形場的等高線門檻：數字越小越靠外
     shallow: 0.16, foam: 0.33, sand: 0.4, grass: 0.55, inner: 1.35,
-    sigma: 1.35,        // 每一格對地形的影響範圍（格半徑的倍數）
-    noise: 0.42,        // 海岸不規則程度
+    sigma: 0.85,        // 每一格對地形的影響範圍（格半徑的倍數）：小一點，陸地才會只在已解鎖的格子底下
+    noise: 0.2,         // 海岸不規則程度
     step: 24            // 計算精細度（世界座標單位），越小越細但越慢
   }
 };

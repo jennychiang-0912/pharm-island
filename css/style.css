@@ -109,9 +109,9 @@ button { font: inherit; color: inherit; cursor: pointer; }
 .legend ul { list-style: none; margin: 12px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px 16px; font-size: 14px; }
 .legend li { display: flex; align-items: center; gap: 8px; }
 .sw { width: 20px; height: 22px; clip-path: polygon(50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%, 0 25%); position: relative; }
-.sw-occ { background: #67926C; }
-.sw-avail { background: #D6E9C1; }
-.sw-lock { background: #B4D69A; }
+.sw-occ { background: #B4D69A; box-shadow: inset 0 0 0 5px #B4D69A, inset 0 0 0 9px var(--forest); }
+.sw-avail { background: #B4D69A; box-shadow: inset 0 0 0 4px #B4D69A, inset 0 0 0 6px #6E9C76; }
+.sw-lock { background: transparent; box-shadow: inset 0 0 0 2px #AEBDB8; }
 
 /* ---------- C. 中央領土地圖 ---------- */
 .map-wrap { min-width: 0; min-height: 0; display: flex; }
@@ -164,8 +164,8 @@ button { font: inherit; color: inherit; cursor: pointer; }
 .t-deco { pointer-events: none; }
 .hover-hex { fill: #fff; fill-opacity: .22; }
 .cell[data-status="locked"] { cursor: default; }
-.cell-ring { fill: none; stroke: #6E9C76; stroke-width: 3.5; stroke-opacity: .9; stroke-dasharray: 8 7; stroke-linecap: round; }
-.cell-flag { stroke: var(--cream); }
+.cell-ring { fill: none; stroke: var(--forest); stroke-width: 3.5; stroke-opacity: .9; stroke-dasharray: 8 7; stroke-linecap: round; }
+.cell-flag { stroke: var(--forest); }
 .sel-ring { stroke: var(--forest); stroke-linejoin: round; }
 .decor { pointer-events: none; }
 .decor-wave { opacity: .85; }
@@ -174,10 +174,9 @@ button { font: inherit; color: inherit; cursor: pointer; }
 .island-g { transition: opacity .25s; }
 .island-g.is-dim { opacity: .3; }
 .land-terrain { cursor: pointer; }
-.t-regions, .t-paths { pointer-events: none; }
+
 .cell-name { font-family: var(--font); font-size: 13px; font-weight: 600; fill: var(--forest); text-anchor: middle; pointer-events: none; display: none; }
 .is-near .cell-name { display: block; }
-.cell[data-status="occupied"] .cell-name { fill: var(--cream); }
 
 /* 章節標記牌 */
 .island-label { cursor: pointer; }
