@@ -262,6 +262,24 @@ PI.map = (function () {
     const n00 = noise(ix, iy, seed), n10 = noise(ix + 1, iy, seed), n01 = noise(ix, iy + 1, seed), n11 = noise(ix + 1, iy + 1, seed);
     return (n00 * (1 - sx) + n10 * sx) * (1 - sy) + (n01 * (1 - sx) + n11 * sx) * sy;
   }
+  // 主島各章之間的陸橋位置：先算每兩章「最靠近的兩格」，再用最小生成樹挑出要接的章（加上本來就很近的）
+  function bridgesOf(land) {
+    const regs = land.regions; if (regs.length < 2) return [];
+    const pair = [];
+    regs.forEach((A, i) => regs.forEach((B, j) => {
+      if (j <= i) return;
+      let best = null;
+      A.cells.forEach(a => B.cells.forEach(b => { const d = Math.hypot(a.x - b.x, a.y - b.y); if (!best || d < best.d) best = { a, b, d, i, j }; }));
+      pair.push(best);
+    }));
+    pair.sort((p, q) => p.d - q.d);
+    const root = regs.map((_, i) => i), find = i => root[i] === i ? i : (root[i] = find(root[i]));
+    return pair.filter(p => {
+      const x = find(p.i), y = find(p.j);
+      if (x !== y) { root[x] = y; return true; }   // 最小生成樹的邊：一定要接
+      return p.d <= R * 6;                         // 其他本來就很近的也接起來
+    });
+  }
   function terrainField(land) {
     const T = PI.MAP.terrain, step = T.step, sig = R * T.sigma, inv = 1 / (2 * sig * sig);
     // 只有「已解鎖」（可挑戰＋已佔領）的格子底下才是陸地；未解鎖的格子浮在海上
@@ -270,18 +288,16 @@ PI.map = (function () {
     if (!pts.length) return null;
     const seed0 = land.regions[0].chapter * 131;
     // 地形專用的額外高度點（不是格子）：
-    // (1) 陸橋：主島上相鄰章節已解鎖的地夠近時（約 3 格內）才接起來，主島會隨著解鎖連成一片
-    land.regions.forEach((A, i) => land.regions.forEach((B, j) => {
-      if (j <= i) return;
-      let best = null;
-      open(A).forEach(a => open(B).forEach(b => { const d = Math.hypot(a.x - b.x, a.y - b.y); if (!best || d < best.d) best = { a, b, d }; }));
-      if (!best || best.d > R * 3.6) return;
-      const n = Math.ceil(best.d / (R * 0.5));
-      for (let k = 1; k < n; k++) for (const off of [-0.4, 0.4]) {
-        const t = k / n, ux = (best.b.x - best.a.x) / best.d, uy = (best.b.y - best.a.y) / best.d;
-        pts.push({ x: best.a.x + (best.b.x - best.a.x) * t - uy * off * R, y: best.a.y + (best.b.y - best.a.y) * t + ux * off * R, w: 1 });
+    // (1) 陸橋：主島上相鄰的章節之間各有一座（用「最小生成樹」挑相鄰關係，保證全部連得起來）。
+    //     陸橋兩端是兩章彼此最靠近的那兩格；兩格都解鎖後陸橋才出現，所以全部解鎖完，整座主島會連成一塊。
+    bridgesOf(land).forEach(({ a, b, d }) => {
+      if (PI.state.statusOf(a) === "locked" || PI.state.statusOf(b) === "locked") return;
+      const n = Math.ceil(d / (R * 0.5)), ux = (b.x - a.x) / d, uy = (b.y - a.y) / d;
+      for (let k = 1; k < n; k++) for (const off of [-1.1, -0.35, 0.35, 1.1]) {
+        const t = k / n;
+        pts.push({ x: a.x + (b.x - a.x) * t - uy * off * R, y: a.y + (b.y - a.y) * t + ux * off * R, w: 1 });
       }
-    }));
+    });
     // (2) 岬角與小半島：沿著幾個方向把陸地往外延伸，海岸線才不會跟著六角格的外形走
     const cells0 = land.regions.flatMap(open), cxm = cells0.reduce((s, c) => s + c.x, 0) / cells0.length, cym = cells0.reduce((s, c) => s + c.y, 0) / cells0.length;
     const lobes = cells0.length < 4 ? 0 : 4 + Math.floor(noise(seed0, 1, 1) * 3);   // 很小的島不加，避免蓋到未解鎖格
