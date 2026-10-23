@@ -1,0 +1,424 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}</style>
+<title>藥理學小島</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+/* Layout: island board on the left, area progress + recent finds on the right, the drug encyclopedia (圖鑑) underneath, grouped by class.
+   The island keeps one painted palette in both themes; panels follow the theme tokens. */
+:root{
+  --bg:#eaf3f1; --surface:#fbfdfc; --fg:#1d2b28; --muted:#5d716c; --line:#cfe0dc;
+  --accent:#2b8a74; --accent-ink:#ffffff; --gold:#c89a1c; --locked:#e3ece9;
+  --ok:#2b8a74; --bad:#c2513f; --bad-soft:#f7e3de; --ok-soft:#dcefe9;
+  --sea:#7cc4d8; --sand:#efe3b6; --grass:#9ccf8a;
+  --a0:#8cc47c; --a1:#c9d98a; --a2:#dccf9f; --a3:#d8b3d4; --a4:#e7ad98;
+  --f-display:"Fredoka","Noto Sans TC",system-ui,sans-serif;
+  --f-body:"Noto Sans TC","PingFang TC","Microsoft JhengHei",system-ui,sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#122220; --surface:#1a2c29; --fg:#e4efec; --muted:#9bb3ad; --line:#2a403c;
+  --accent:#4fbfa2; --accent-ink:#0e1d1a; --gold:#e3bb47; --locked:#223633;
+  --ok:#4fbfa2; --bad:#ec8471; --bad-soft:#3b211c; --ok-soft:#173a32; color-scheme:dark;
+}}
+:root[data-theme="dark"]{
+  --bg:#122220; --surface:#1a2c29; --fg:#e4efec; --muted:#9bb3ad; --line:#2a403c;
+  --accent:#4fbfa2; --accent-ink:#0e1d1a; --gold:#e3bb47; --locked:#223633;
+  --ok:#4fbfa2; --bad:#ec8471; --bad-soft:#3b211c; --ok-soft:#173a32; color-scheme:dark;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{background:var(--bg);color:var(--fg);font-family:var(--f-body);font-size:15px;line-height:1.55;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:20px 40px}
+.wrap{max-width:1180px;margin:0 auto;display:flex;flex-direction:column;gap:18px}
+header{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:12px}
+h1{font-family:var(--f-display);font-weight:600;font-size:clamp(26px,4vw,34px);margin:0;text-wrap:balance}
+.sub{color:var(--muted);margin:2px 0 0;font-size:14px}
+.prog{display:flex;align-items:center;gap:12px;font-variant-numeric:tabular-nums;flex-wrap:wrap}
+.prog .big{font-family:var(--f-display);font-size:26px;font-weight:600}
+.prog .small{font-size:13px;color:var(--muted)}
+.prog .bar{width:160px;height:10px;border-radius:99px;background:var(--line);overflow:hidden;display:flex}
+.prog .bar i{display:block;height:100%;transition:width .4s}
+.main{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:16px;align-items:start}
+@media (max-width:880px){.main{grid-template-columns:minmax(0,1fr)}}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:14px;min-width:0}
+.panel h2{font-size:12px;letter-spacing:.12em;color:var(--muted);margin:0 0 10px;font-weight:700}
+button{font:inherit;cursor:pointer;border-radius:99px;border:1px solid var(--line);background:var(--surface);color:var(--fg);padding:6px 14px}
+button:hover{border-color:var(--muted)}
+button:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+button.primary{background:var(--accent);border-color:var(--accent);color:var(--accent-ink);font-weight:700}
+.empty{color:var(--muted);font-size:14px;margin:0}
+
+/* island */
+.islandbox{background:var(--sea);border-radius:14px;padding:10px;position:relative;overflow:hidden}
+.island{position:relative;display:grid}
+.tile{aspect-ratio:1;position:relative}
+.tile.beach{background:var(--sand)}
+.tile.grass{background:var(--grass)}
+.tile.a0{background:var(--a0)} .tile.a1{background:var(--a1)} .tile.a2{background:var(--a2)} .tile.a3{background:var(--a3)} .tile.a4{background:var(--a4)}
+.tile.alt{filter:brightness(.95)}
+.tree{position:absolute;left:22%;top:14%;width:56%;height:56%;border-radius:50%;background:rgba(30,80,40,.3);box-shadow:inset -3px -4px 0 rgba(0,0,0,.12)}
+.wave{position:absolute;inset:0;background:radial-gradient(circle at 30% 60%,rgba(255,255,255,.28) 0 8%,transparent 9%)}
+.alabel{position:absolute;transform:translate(-50%,-50%);background:rgba(255,255,255,.85);color:#2a3532;font-size:12px;font-weight:700;padding:2px 9px;border-radius:99px;pointer-events:none;white-space:nowrap;z-index:2}
+.item{position:absolute;transform:translate(-50%,-50%);width:7.2%;aspect-ratio:1;border:0;padding:0;background:transparent;border-radius:50%;z-index:3;display:grid;place-items:center}
+.item .shadow{width:62%;height:40%;border-radius:50%;background:rgba(20,40,30,.55);filter:blur(1px);animation:wiggle 2.2s ease-in-out infinite}
+.item.again .shadow{background:rgba(120,30,20,.55)}
+.item:hover .shadow{transform:scale(1.2)}
+@keyframes wiggle{0%,100%{transform:translateX(-6%) scaleX(.95)}50%{transform:translateX(6%) scaleX(1.05)}}
+.me{position:absolute;transform:translate(-50%,-62%);width:6.2%;aspect-ratio:1;border-radius:50% 50% 46% 46%;background:#ffd9b0;border:2px solid #3a2a20;z-index:4;transition:left .45s ease,top .45s ease;pointer-events:none}
+.me::before{content:"";position:absolute;left:-6%;right:-6%;top:-14%;height:44%;background:#2b8a74;border-radius:60% 60% 20% 20%}
+.me::after{content:"";position:absolute;left:30%;right:30%;top:52%;height:10%;border-top:2px solid #3a2a20;border-radius:50%}
+.islandtip{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px;align-items:center;margin-top:10px;color:#173c46;font-size:13px;font-weight:500}
+.nodata{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);background:rgba(255,255,255,.92);color:#24312e;border-radius:14px;padding:14px 18px;max-width:min(360px,80%);text-align:center;z-index:5;font-size:14px;box-shadow:0 8px 24px rgba(0,0,0,.15)}
+.nodata b{display:block;font-family:var(--f-display);font-size:18px;margin-bottom:4px}
+@media (prefers-reduced-motion:reduce){.item .shadow{animation:none}.me{transition:none}}
+
+/* side */
+.areas{display:flex;flex-direction:column;gap:8px}
+.arow{display:grid;grid-template-columns:12px 1fr auto;gap:10px;align-items:center;font-size:14px}
+.arow .sw{width:12px;height:12px;border-radius:4px}
+.arow .v{font-variant-numeric:tabular-nums;color:var(--muted);font-size:13px}
+.recent{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px;max-height:330px;overflow:auto}
+.recent li{display:grid;grid-template-columns:1.2em 1fr auto;gap:8px;align-items:center;font-size:14px}
+.recent .r-ok{color:var(--ok);font-weight:700} .recent .r-no{color:var(--bad);font-weight:700}
+.recent .when{color:var(--muted);font-size:12px;font-variant-numeric:tabular-nums}
+
+/* encyclopedia */
+.dex-head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:10px;margin-bottom:12px}
+.dex-head h2{margin:0}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chips button{font-size:13px;padding:4px 12px}
+.chips button[aria-pressed="true"]{background:var(--fg);color:var(--surface);border-color:var(--fg)}
+.cls{display:flex;flex-direction:column;gap:10px;padding-block:12px;border-top:1px solid var(--line)}
+.cls:first-child{border-top:0;padding-top:0}
+.cls-head{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 12px}
+.cls-head h3{margin:0;font-family:var(--f-display);font-size:17px;font-weight:600}
+.cls-head .mech{color:var(--muted);font-size:13px;flex:1;min-width:12em}
+.cls-head button{font-size:12px;padding:2px 10px}
+.dex{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+.card{border-radius:12px;border:1px solid var(--line);padding:10px 12px;text-align:left;display:flex;flex-direction:column;gap:3px;min-height:76px;background:var(--surface)}
+.card .no{font-size:11px;color:var(--muted);font-variant-numeric:tabular-nums;display:flex;justify-content:space-between;gap:6px}
+.card .nm{font-family:var(--f-display);font-weight:600;font-size:16px;overflow-wrap:anywhere;line-height:1.25}
+.card.locked{background:var(--locked);border-style:dashed;cursor:default}
+.card.locked .nm{color:var(--muted);letter-spacing:.2em}
+.card.again{border-style:dashed;border-color:var(--bad)}
+.st-ok{color:var(--ok);font-weight:700} .st-no{color:var(--bad);font-weight:700}
+.schema{background:var(--locked);border-radius:12px;padding:14px 16px;font-size:14px;display:grid;gap:10px}
+.schema h3{margin:0;font-size:15px}
+.schema table{border-collapse:collapse;width:100%}
+.schema td{padding:5px 8px;border-top:1px solid var(--line);vertical-align:top}
+.schema td:first-child{white-space:nowrap;font-weight:500}
+.schema .tw{overflow-x:auto}
+
+/* dialog */
+.overlay{position:fixed;inset:0;background:rgba(20,40,38,.38);display:flex;align-items:center;justify-content:center;z-index:20;
+  padding:16px max(16px,env(safe-area-inset-right,0px)) 16px max(16px,env(safe-area-inset-left,0px))}
+.dlg{background:var(--surface);border-radius:18px;max-width:460px;width:100%;padding:22px;box-shadow:0 20px 50px rgba(0,0,0,.25);max-height:100%;overflow:auto;border:1px solid var(--line)}
+.dlg .lead{font-size:14px;color:var(--muted);margin:0 0 4px}
+.dlg .dn{font-family:var(--f-display);font-size:26px;font-weight:600;margin:0;overflow-wrap:anywhere;line-height:1.2}
+.clues{list-style:none;margin:6px 0 12px;padding:0;display:flex;flex-direction:column;gap:6px}
+.clues li{background:var(--locked);border-radius:10px;padding:8px 12px;font-size:15px}
+.clues li.cls-clue{background:transparent;border:1px dashed var(--line)}
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+@media (max-width:420px){.opts{grid-template-columns:1fr}}
+.opts button{border-radius:12px;padding:10px 12px;text-align:left;font-weight:500;overflow-wrap:anywhere}
+.opts button.right{background:var(--ok-soft);border-color:var(--ok)}
+.opts button.wrong{background:var(--bad-soft);border-color:var(--bad)}
+.opts button:disabled{cursor:default;color:var(--fg)}
+.verdict{margin:14px 0 0;font-weight:700;font-size:16px}
+.verdict.ok{color:var(--ok)} .verdict.no{color:var(--bad)}
+.badges{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0 14px;align-items:center}
+.badge{font-size:12px;font-weight:700;padding:2px 10px;border-radius:99px;color:#2a3532}
+.badge.line{background:transparent;border:1px solid var(--line);color:var(--fg)}
+.dlg dl{margin:0;display:grid;gap:12px;font-size:15px}
+.dlg dt{font-size:12px;color:var(--muted);letter-spacing:.06em;margin-bottom:2px}
+.dlg dd{margin:0}
+.dlg dd ul{margin:0;padding-left:1.1em}
+.dlg details{border-top:1px solid var(--line);padding-top:10px}
+.dlg summary{cursor:pointer;font-size:13px;color:var(--muted)}
+.dlg .src{color:var(--muted);font-size:12px;margin:14px 0 0}
+.actions{display:flex;justify-content:flex-end;gap:8px;margin-top:16px;flex-wrap:wrap;align-items:center}
+.pop{animation:pop .3s ease-out}
+@keyframes pop{0%{transform:scale(.94);opacity:.5}100%{transform:none;opacity:1}}
+@media (prefers-reduced-motion:reduce){.pop{animation:none}}
+</style>
+
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div>
+      <h1>藥理學小島</h1>
+      <p class="sub">島上會冒出藥物的影子。看線索猜出是哪個藥，猜對才算鑑定成功。</p>
+    </div>
+    <div class="prog" aria-label="圖鑑完成度">
+      <span class="big" id="progNum">0 / 0</span>
+      <span class="bar"><i id="barOk" style="background:var(--accent);width:0"></i><i id="barNo" style="background:var(--bad);opacity:.6;width:0"></i></span>
+      <span class="small" id="progSub"></span>
+    </div>
+  </header>
+
+  <div class="main">
+    <section>
+      <div class="islandbox">
+        <div class="island" id="island" aria-label="小島地圖"></div>
+        <div class="islandtip"><span id="tip">點影子去鑑定。紅色影子是之前猜錯、要重新鑑定的藥。</span><span id="spawnInfo"></span></div>
+      </div>
+    </section>
+    <aside class="panel" style="display:flex;flex-direction:column;gap:16px">
+      <div><h2>各區鑑定進度</h2><div class="areas" id="areas"></div></div>
+      <div><h2>最近鑑定</h2><ul class="recent" id="recent"></ul></div>
+    </aside>
+  </div>
+
+  <section class="panel">
+    <div class="dex-head">
+      <h2>藥物圖鑑</h2>
+      <div class="chips" id="chips"></div>
+    </div>
+    <div id="dex"></div>
+    <div class="actions" style="justify-content:flex-start;margin-top:14px">
+      <button type="button" id="resetBtn">清空圖鑑重新開始</button>
+      <span id="resetConfirm" hidden style="display:flex;gap:8px;align-items:center;font-size:14px">確定要清空？<button type="button" id="resetYes">清空</button><button type="button" id="resetNo">取消</button></span>
+    </div>
+  </section>
+</div>
+
+<div class="overlay" id="overlay" hidden><div class="dlg" id="dlg" role="dialog" aria-modal="true"></div></div>
+
+<script>
+/* ================= 資料（目前留空） =================
+   AREAS   島上的區域，最多 5 個，通常一章一區
+           {id:"wall", name:"細胞壁抑制劑", place:"城牆廢墟"}
+   CLASSES 類別卡：同一類藥的共同重點只寫在這裡
+           {id:"pen", area:"wall", name:"Penicillins", mech:"共同機轉", pts:["共同重點", ...], tip:"類別口訣"}
+   DRUGS   藥物卡：只寫這個藥自己的東西
+           {n:"藥名", c:"類別 id",
+            f:["辨識特徵（影子線索）", ...],   必填，1–3 條，不可寫出藥名
+            d:["其他重點", ...],               選填
+            vs:"易混淆的藥：差在哪",          選填
+            tip:"口訣",                        選填
+            grp:"同組代號"}                    選填：線索相同、無法區分的藥設同一組，出題時不會互相當選項
+   SOURCE  出處說明，顯示在每張卡片底部 */
+const AREAS = [];
+const CLASSES = [];
+const DRUGS = [];
+const SOURCE = "";
+
+/* ================= 設定 ================= */
+const COLS=14, ROWS=10, MAX_ITEMS=6, SPAWN_MS=3500, KEY="pharm-island-v1";
+const SEEDS=[[6.8,5],[3,2.4],[10.5,2.4],[3,7.6],[10.5,7.6]];
+const $=id=>document.getElementById(id);
+const esc=s=>String(s??"").replace(/[&<>"]/g,ch=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[ch]));
+AREAS.forEach((a,i)=>{ a.color=`var(--a${i})`; a.seed=SEEDS[i]; a.cls=`a${i}`; });
+const clsOf=id=>CLASSES.find(c=>c.id===id);
+const areaOf=id=>AREAS.find(a=>a.id===id);
+DRUGS.forEach((d,i)=>{ d.no=i+1; d.cl=clsOf(d.c); d.area=d.cl?d.cl.area:null; });
+const HAS_DATA = AREAS.length>0 && DRUGS.some(d=>d.area);
+
+/* ================= 存檔：每個藥的狀態 0 未遇到、1 未鑑定、2 已鑑定 ================= */
+let save={st:{},log:[]};
+try{ const raw=localStorage.getItem(KEY); if(raw) save=Object.assign(save,JSON.parse(raw)); }catch(e){}
+function persist(){ try{ localStorage.setItem(KEY,JSON.stringify(save)); }catch(e){} }
+const st=d=>save.st[d.n]||0;
+
+/* ================= 小島 ================= */
+function hash(c,r){ const x=Math.sin(c*127.1+r*311.7)*43758.5453; return x-Math.floor(x); }
+const tiles=[];
+for(let r=0;r<ROWS;r++)for(let c=0;c<COLS;c++){
+  const dd=((c-6.5)/6.9)**2+((r-4.5)/4.9)**2+(hash(c,r)-.5)*.22;
+  tiles.push({c,r,land:dd<1});
+}
+const T=(c,r)=>tiles[r*COLS+c];
+tiles.forEach(t=>{
+  if(!t.land) return;
+  t.beach=[[1,0],[-1,0],[0,1],[0,-1]].some(([dc,dr])=>{const n=T(t.c+dc,t.r+dr);return !n||!n.land;});
+  if(!AREAS.length) return;
+  let best=0,bd=1e9; AREAS.forEach((a,i)=>{const q=(a.seed[0]-t.c)**2+(a.seed[1]-t.r)**2; if(q<bd){bd=q;best=i;}});
+  t.area=AREAS[best].id;
+});
+const isl=$("island");
+isl.style.gridTemplateColumns=`repeat(${COLS},1fr)`;
+let html="";
+tiles.forEach(t=>{
+  const a=t.area&&areaOf(t.area);
+  const cls=!t.land?"sea":t.beach?"beach":a?a.cls:"grass";
+  const h=hash(t.c+3,t.r+7);
+  const deco=!t.land&&h<.12?`<span class="wave"></span>`:(t.land&&!t.beach&&h<.18)?`<span class="tree"></span>`:"";
+  html+=`<div class="tile ${cls}${t.land&&hash(t.c,t.r+1)<.3?" alt":""}">${deco}</div>`;
+});
+AREAS.forEach(a=>{
+  const ts=tiles.filter(t=>t.land&&!t.beach&&t.area===a.id); if(!ts.length) return;
+  const cx=ts.reduce((s,t)=>s+t.c,0)/ts.length, cy=ts.reduce((s,t)=>s+t.r,0)/ts.length;
+  html+=`<span class="alabel" style="left:${(cx+.5)/COLS*100}%;top:${(cy+.5)/ROWS*100}%">${esc(a.place||a.name)}</span>`;
+});
+html+=`<span class="me" id="me"></span>`;
+if(!HAS_DATA) html+=`<div class="nodata"><b>小島還沒有藥</b>資料放進來之後，各區就會開始冒出影子。</div>`;
+isl.innerHTML=html;
+const pos=(c,r)=>({left:`${(c+.5)/COLS*100}%`,top:`${(r+.5)/ROWS*100}%`});
+let me={c:6,r:5}; Object.assign($("me").style,pos(me.c,me.r));
+
+/* ================= 冒出影子 ================= */
+let items=[], busy=false;
+function pickDrug(aid){
+  const pool=DRUGS.filter(d=>d.area===aid && !items.some(i=>i.d===d)); if(!pool.length) return null;
+  const w=pool.map(d=>[3,4,1][st(d)]);       // 沒遇過 3、未鑑定 4、已鑑定 1
+  let x=Math.random()*w.reduce((a,b)=>a+b,0);
+  for(let i=0;i<pool.length;i++){ x-=w[i]; if(x<=0) return pool[i]; }
+  return pool[0];
+}
+function spawn(){
+  if(!HAS_DATA || items.length>=MAX_ITEMS) return;
+  const free=tiles.filter(t=>t.land&&!t.beach&&t.area&&!items.some(i=>i.t===t)&&!(t.c===me.c&&t.r===me.r));
+  for(let k=0;k<8&&free.length;k++){
+    const t=free.splice(Math.floor(Math.random()*free.length),1)[0];
+    const d=pickDrug(t.area); if(!d) continue;
+    const el=document.createElement("button");
+    el.type="button"; el.className="item"+(st(d)===1?" again":"");
+    el.setAttribute("aria-label",`${areaOf(t.area).place||areaOf(t.area).name}的影子`);
+    el.innerHTML=`<span class="shadow"></span>`;
+    Object.assign(el.style,pos(t.c,t.r));
+    const it={t,d,el}; el.onclick=()=>go(it);
+    isl.appendChild(el); items.push(it); break;
+  }
+  $("spawnInfo").textContent=HAS_DATA?`島上有 ${items.length} 個影子`:"";
+}
+function go(it){
+  if(busy) return; busy=true;
+  me={c:it.t.c,r:it.t.r}; Object.assign($("me").style,pos(me.c,me.r));
+  setTimeout(()=>{ it.el.remove(); items=items.filter(x=>x!==it); spawn(); shadowQuiz(it.d); },
+    matchMedia("(prefers-reduced-motion: reduce)").matches?50:450);
+}
+
+/* ================= 影子辨識 ================= */
+function shuffle(a){ a=a.slice(); for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];} return a; }
+function options(d){
+  const ok=x=>x!==d && !(d.grp && x.grp===d.grp);
+  const same=shuffle(DRUGS.filter(x=>ok(x)&&x.c===d.c));
+  const area=shuffle(DRUGS.filter(x=>ok(x)&&x.area===d.area&&x.c!==d.c));
+  const rest=shuffle(DRUGS.filter(x=>ok(x)&&x.area!==d.area));
+  const pick=[...same.slice(0,2),...area,...rest].slice(0,3);
+  return shuffle([d,...pick]);
+}
+function shadowQuiz(d){
+  const a=areaOf(d.area), prev=st(d);
+  const opts=options(d);
+  const dlg=$("dlg");
+  dlg.innerHTML=`<p class="lead">你在${esc(a.place||a.name)}發現一個影子${prev===1?"（上次猜錯的那個）":""}⋯⋯</p>
+    <p class="dn">這是什麼藥？</p>
+    <ul class="clues" id="clues">${(d.f||[]).map(x=>`<li>${esc(x)}</li>`).join("")}</ul>
+    <div class="opts" id="opts">${opts.map((o,i)=>`<button type="button" data-i="${i}">${esc(o.n)}</button>`).join("")}</div>
+    <div id="after"></div>
+    <div class="actions" id="act"><button type="button" id="hintBtn">提示：看類別</button></div>`;
+  $("hintBtn").onclick=()=>{
+    $("clues").insertAdjacentHTML("beforeend",`<li class="cls-clue">類別：${esc(d.cl.name)}${d.cl.mech?`　${esc(d.cl.mech)}`:""}</li>`);
+    $("hintBtn").remove();
+  };
+  $("opts").onclick=e=>{
+    const b=e.target.closest("button"); if(!b||b.disabled) return;
+    const pickD=opts[+b.dataset.i], right=pickD===d;
+    $("opts").querySelectorAll("button").forEach((x,i)=>{ x.disabled=true; if(opts[i]===d) x.classList.add("right"); else if(x===b) x.classList.add("wrong"); });
+    save.st[d.n]=right?2:1;
+    save.log.unshift({n:d.n,ok:right,t:Date.now()}); save.log=save.log.slice(0,30);
+    persist(); renderAll();
+    $("after").innerHTML=`<p class="verdict ${right?"ok":"no"}">${right?(prev===2?"鑑定成功，再次確認！":"鑑定成功！收進圖鑑。"):`猜錯了，是 ${esc(d.n)}。先收進圖鑑，標成「未鑑定」。`}</p>`;
+    $("act").innerHTML=`<button type="button" class="primary" id="seeCard">看藥物卡</button>`;
+    $("seeCard").onclick=()=>drugCard(d); $("seeCard").focus();
+  };
+  open();
+}
+
+/* ================= 卡片 ================= */
+const list=a=>a&&a.length?`<ul>${a.map(x=>`<li>${esc(x)}</li>`).join("")}</ul>`:"";
+const stLabel=d=>["","<span class=\"st-no\">未鑑定</span>","<span class=\"st-ok\">✓ 已鑑定</span>"][st(d)];
+function drugCard(d){
+  const a=areaOf(d.area), c=d.cl;
+  $("dlg").innerHTML=`<p class="lead">圖鑑 No.${String(d.no).padStart(2,"0")}　${stLabel(d)}</p>
+    <p class="dn">${esc(d.n)}</p>
+    <div class="badges"><span class="badge" style="background:${a.color}">${esc(a.name)}</span><span class="badge line">${esc(c.name)}</span></div>
+    <dl>
+      <div><dt>辨識特徵</dt><dd>${list(d.f)}</dd></div>
+      ${d.d&&d.d.length?`<div><dt>其他重點</dt><dd>${list(d.d)}</dd></div>`:""}
+      ${d.vs?`<div><dt>易混淆</dt><dd>${esc(d.vs)}</dd></div>`:""}
+      ${d.tip?`<div><dt>口訣</dt><dd>${esc(d.tip)}</dd></div>`:""}
+      <details><summary>類別共同重點：${esc(c.name)}</summary>${clsBody(c)}</details>
+    </dl>
+    ${SOURCE?`<p class="src">出處：${esc(SOURCE)}</p>`:""}
+    <div class="actions"><button type="button" class="primary" id="closeDlg">關閉</button></div>`;
+  $("closeDlg").onclick=close; open(); $("closeDlg").focus();
+}
+function clsBody(c){
+  return `<dl style="margin-top:8px">${c.mech?`<div><dt>共同機轉</dt><dd>${esc(c.mech)}</dd></div>`:""}
+    ${c.pts&&c.pts.length?`<div><dt>共同重點</dt><dd>${list(c.pts)}</dd></div>`:""}
+    ${c.tip?`<div><dt>口訣</dt><dd>${esc(c.tip)}</dd></div>`:""}</dl>`;
+}
+function classCard(c){
+  const a=areaOf(c.area);
+  $("dlg").innerHTML=`<p class="lead">類別卡</p><p class="dn">${esc(c.name)}</p>
+    <div class="badges"><span class="badge" style="background:${a.color}">${esc(a.name)}</span></div>
+    ${clsBody(c)}
+    <p class="src">這一類的藥：${DRUGS.filter(d=>d.c===c.id).map(d=>st(d)?esc(d.n):"？？？").join("、")}</p>
+    <div class="actions"><button type="button" class="primary" id="closeDlg">關閉</button></div>`;
+  $("closeDlg").onclick=close; open(); $("closeDlg").focus();
+}
+function open(){ const d=$("dlg"); d.classList.remove("pop"); void d.offsetWidth; d.classList.add("pop"); $("overlay").hidden=false; }
+function close(){ $("overlay").hidden=true; busy=false; }
+$("overlay").addEventListener("click",e=>{ if(e.target.id==="overlay" && $("hintBtn")===null && !$("opts")) close(); });
+document.addEventListener("keydown",e=>{ if(e.key==="Escape" && !$("overlay").hidden && !$("opts")?.querySelector("button:not(:disabled)")) close(); });
+
+/* ================= 面板與圖鑑 ================= */
+let filter="all";
+function renderAll(){
+  const n=DRUGS.filter(d=>d.area).length, ok=DRUGS.filter(d=>st(d)===2).length, no=DRUGS.filter(d=>st(d)===1).length;
+  $("progNum").textContent=`${ok} / ${n}`;
+  $("barOk").style.width=n?`${ok/n*100}%`:"0"; $("barNo").style.width=n?`${no/n*100}%`:"0";
+  $("progSub").textContent=n?`已鑑定${no?`，另有 ${no} 個未鑑定`:""}`:"還沒有資料";
+  $("areas").innerHTML=AREAS.length?AREAS.map(a=>{const ds=DRUGS.filter(d=>d.area===a.id),g=ds.filter(d=>st(d)===2).length;
+    return `<div class="arow"><span class="sw" style="background:${a.color}"></span><span>${esc(a.place||a.name)}${a.place?`<span style="color:var(--muted);font-size:12px">・${esc(a.name)}</span>`:""}</span><span class="v">${g}/${ds.length}${ds.length&&g===ds.length?" ✓":""}</span></div>`;}).join("")
+    :`<p class="empty">還沒有區域。通常一章一區，最多 5 區。</p>`;
+  $("recent").innerHTML=save.log.length?save.log.slice(0,10).map(x=>{const t=new Date(x.t);
+    return `<li><span class="${x.ok?"r-ok":"r-no"}">${x.ok?"✓":"✗"}</span><span>${esc(x.n)}</span><span class="when">${String(t.getHours()).padStart(2,"0")}:${String(t.getMinutes()).padStart(2,"0")}</span></li>`;}).join("")
+    :`<li class="empty" style="display:block">還沒有鑑定紀錄。</li>`;
+  $("chips").innerHTML=AREAS.length?[{id:"all",name:"全部"},...AREAS].map(a=>`<button type="button" data-f="${esc(a.id)}" aria-pressed="${filter===a.id}">${esc(a.name)}</button>`).join(""):"";
+  if(!HAS_DATA){ $("dex").innerHTML=schemaHelp(); return; }
+  $("dex").innerHTML=CLASSES.filter(c=>filter==="all"||c.area===filter).map(c=>{
+    const ds=DRUGS.filter(d=>d.c===c.id); if(!ds.length) return "";
+    return `<div class="cls"><div class="cls-head"><h3>${esc(c.name)}</h3><span class="mech">${esc(c.mech||"")}</span><button type="button" data-c="${esc(c.id)}">類別卡</button></div>
+      <div class="dex">${ds.map(d=>{const s=st(d), no=String(d.no).padStart(2,"0");
+        if(!s) return `<div class="card locked"><span class="no"><span>No.${no}</span></span><span class="nm">？？？</span></div>`;
+        return `<button type="button" class="card${s===1?" again":""}" data-n="${d.no}"><span class="no"><span>No.${no}</span>${stLabel(d)}</span><span class="nm">${esc(d.n)}</span></button>`;}).join("")}</div></div>`;
+  }).join("");
+}
+function schemaHelp(){
+  return `<div class="schema"><h3>圖鑑還是空的</h3>
+    <p class="empty">每個藥分成兩層：同一類的共同重點寫在<b>類別卡</b>，各藥只寫自己的東西。資料準備好之後，照下面的欄位給我就可以。</p>
+    <div class="tw"><table>
+      <tr><td>區域</td><td>通常一章一區，最多 5 區，可以取一個島上的地名</td></tr>
+      <tr><td>類別卡</td><td>類別名稱、共同機轉、共同重點、類別口訣</td></tr>
+      <tr><td>藥物卡・辨識特徵</td><td>必填，1–3 條，當作影子線索，不能寫出藥名</td></tr>
+      <tr><td>藥物卡・其他重點</td><td>選填，鑑定後才會看到</td></tr>
+      <tr><td>藥物卡・易混淆</td><td>選填，寫出容易搞混的藥和差在哪</td></tr>
+      <tr><td>藥物卡・口訣</td><td>選填</td></tr>
+    </table></div></div>`;
+}
+$("chips").addEventListener("click",e=>{ const b=e.target.closest("button"); if(!b) return; filter=b.dataset.f; renderAll(); });
+$("dex").addEventListener("click",e=>{
+  const b=e.target.closest("button"); if(!b) return;
+  busy=true;
+  if(b.dataset.c) classCard(clsOf(b.dataset.c)); else if(b.dataset.n) drugCard(DRUGS[+b.dataset.n-1]);
+});
+$("resetBtn").onclick=()=>{ $("resetBtn").hidden=true; $("resetConfirm").hidden=false; };
+$("resetNo").onclick=()=>{ $("resetBtn").hidden=false; $("resetConfirm").hidden=true; };
+$("resetYes").onclick=()=>{ save={st:{},log:[]}; persist(); $("resetBtn").hidden=false; $("resetConfirm").hidden=true; renderAll(); };
+
+renderAll();
+for(let i=0;i<4;i++) spawn();
+setInterval(spawn,SPAWN_MS);
+</script>
+
+</body>
+</html>
