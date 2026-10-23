@@ -43,8 +43,8 @@ h1{font-family:var(--f-display);font-weight:600;font-size:clamp(26px,4vw,34px);m
 .prog .small{font-size:13px;color:var(--muted)}
 .prog .bar{width:160px;height:10px;border-radius:99px;background:var(--line);overflow:hidden;display:flex}
 .prog .bar i{display:block;height:100%;transition:width .4s}
-.main{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:16px;align-items:start}
-@media (max-width:880px){.main{grid-template-columns:minmax(0,1fr)}}
+html,body{overflow-x:clip}
+.main{display:grid;grid-template-columns:minmax(0,1fr);gap:16px;align-items:start}
 .panel{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:14px;min-width:0}
 .panel h2{font-size:12px;letter-spacing:.12em;color:var(--muted);margin:0 0 10px;font-weight:700}
 button{font:inherit;cursor:pointer;border-radius:99px;border:1px solid var(--line);background:var(--surface);color:var(--fg);padding:6px 14px}
@@ -54,8 +54,8 @@ button.primary{background:var(--accent);border-color:var(--accent);color:var(--a
 .empty{color:var(--muted);font-size:14px;margin:0}
 
 /* island */
-.islandbox{background:var(--sea);border-radius:14px;padding:10px;position:relative;overflow:hidden}
-.island{position:relative;display:grid}
+.islandbox{background:var(--sea);position:relative;overflow:hidden;margin-inline:calc(50% - 50vw);padding-block:12px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.island{position:relative;display:grid;width:min(100%,calc((100vh - 170px) * 1.4));margin-inline:auto}
 .tile{aspect-ratio:1;position:relative}
 .tile.beach{background:var(--sand)}
 .tile.grass{background:var(--grass)}
