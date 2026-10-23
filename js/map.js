@@ -144,8 +144,7 @@ PI.map = (function () {
     });
     lands.forEach(drawTerrain);
     placeTrees();
-    const all = [...islands.map(i => i.bounds), ...lands.map(l => l.bounds).filter(Boolean),   // 包含未解鎖格子
-      ...trees.map(t => ({ minX: t.x - TREE_R, maxX: t.x + TREE_R, minY: t.y - TREE_R, maxY: t.y + TREE_R }))];
+    const all = [...islands.map(i => i.bounds), ...lands.map(l => l.bounds).filter(Boolean)];   // 包含未解鎖格子
     Object.assign(bounds, {
       minX: Math.min(...all.map(b => b.minX)), maxX: Math.max(...all.map(b => b.maxX)),
       minY: Math.min(...all.map(b => b.minY)), maxY: Math.max(...all.map(b => b.maxY))
@@ -448,71 +447,41 @@ PI.map = (function () {
     isl.labelInner = inner;
   }
 
-  /* ---------- 知識樹：每座島一棵，種在島邊、所有格子（含未解鎖）之外 ----------
-     樹底下有一小塊同島顏色的土丘。位置從島的中心往外找：先算出這個方向上最外面的格子，
-     樹就種在它外面，所以一定不會蓋到任何六角格；再挑離別的島、章節牌最遠的方向（不往上，避開章節牌）。 */
-  const TREE_R = 92;   // 樹＋土丘的大小（世界座標半徑）
+  /* ---------- 知識樹：每座島一棵，長在島的初始格子上 ----------
+     主島長在第 1 章（導論）的初始格；第 9、10、11 章長在各自的初始格。
+     要換章節：在 PI.LANDMASSES 那座島加 treeChapter: 章節編號。
+     樹畫得比格子小，只蓋住格子中央；點樹打開知識面板，點格子其他地方照常選取格子。
+     這格的旗子會移到右下角，讓已佔領的狀態還看得到。 */
   const trees = [];
   function placeTrees() {
     const K = PI.KNOWLEDGE || {};
-    const avoid = cells.map(c => [c.x, c.y, R]);
-    islands.forEach(isl => {   // 章節牌（取幾個點近似它的長條形）
-      const y = isl.origin.y + isl.coast.minY + R * 0.35 - 21;
-      for (let dx = -160; dx <= 160; dx += 40) avoid.push([isl.origin.x + isl.coast.cx + dx, y, 34]);
-    });
     lands.forEach(land => {
-      if (!K[land.id]) { if (land.tree) { land.tree.g.remove(); land.tree = null; } return; }
-      const own = land.regions.flatMap(r => r.cells);
-      const cx = own.reduce((a, c) => a + c.x, 0) / own.length, cy = own.reduce((a, c) => a + c.y, 0) / own.length;
-      let best = null;
-      for (let deg = 0; deg < 360; deg += 15) {
-        const a = deg * Math.PI / 180, ux = Math.cos(a), uy = Math.sin(a);
-        if (uy < -0.45) continue;   // 不往上長（上面是章節牌）
-        const reach = Math.max(...own.map(c => (c.x - cx) * ux + (c.y - cy) * uy));
-        const d = reach + R + TREE_R * 0.75;
-        const x = cx + ux * d, y = cy + uy * d;
-        const room = Math.min(...avoid.map(([px, py, pr]) => Math.hypot(px - x, py - y) - pr));
-        if (room < TREE_R * 0.75) continue;
-        const score = Math.min(room, TREE_R * 3) - Math.abs(uy) * 40 - d * 0.05;   // 夠空就好，偏好左右兩側、靠近島
-        if (!best || score > best.score) best = { x, y, score };
-      }
-      if (!best) best = { x: cx, y: Math.max(...own.map(c => c.y)) + R + TREE_R };   // 保險：放在島的正下方
+      if (!K[land.id]) return;
+      const ch = land.def.treeChapter ?? land.def.chapters[0];
+      const isl = islandOf.get(ch), cell = isl && isl.cells.find(c => c.isStart);
+      if (!cell) return;
       if (!land.tree) { land.tree = { land, g: drawTree(land) }; treeLayer.appendChild(land.tree.g); trees.push(land.tree); }
-      Object.assign(land.tree, { x: best.x, y: best.y });
-      avoid.push([best.x, best.y, TREE_R]);
-      land.tree.g.setAttribute("transform", `translate(${best.x.toFixed(1)},${best.y.toFixed(1)})`);
+      if (land.tree.cell && land.tree.cell !== cell) land.tree.cell.hasTree = false;
+      cell.hasTree = true;
+      Object.assign(land.tree, { cell, x: cell.x, y: cell.y });
+      land.tree.g.setAttribute("transform", `translate(${cell.x.toFixed(1)},${cell.y.toFixed(1)})`);
     });
-    for (let i = trees.length - 1; i >= 0; i--) if (!trees[i].land.tree) trees.splice(i, 1);
   }
   function drawTree(land) {
-    const C = PI.MAP.coast, P = land.def.palette || { ground: "#B4D69A", cliff: "#8CB57A" };
     const title = PI.KNOWLEDGE[land.id].title || land.def.name;
     const g = el("g", { class: "k-tree", "data-tree": land.id, tabindex: 0, role: "button", "aria-label": `${title}知識樹：打開背景知識` });
-    const tip = el("title"); tip.textContent = `${title}・知識樹`;
-    const canopy = el("g", { class: "k-canopy" });
-    canopy.append(
-      el("circle", { cx: -26, cy: -26, r: 28, fill: "#6F9F67" }),
-      el("circle", { cx: 26, cy: -26, r: 28, fill: "#6F9F67" }),
-      el("circle", { cx: 0, cy: -50, r: 34, fill: "#84B477" }),
-      el("circle", { cx: -12, cy: -60, r: 12, fill: "#A6CF92" }));
+    const tip = el("title"); tip.textContent = `${title}・知識樹（點一下看背景知識）`;
     g.append(tip,
-      el("ellipse", { cx: 0, cy: 34, rx: 90, ry: 42, fill: C.shallow, "fill-opacity": .55 }),   // 淺水
-      el("ellipse", { cx: 0, cy: 34, rx: 76, ry: 33, fill: C.sand }),                         // 沙灘
-      el("ellipse", { cx: 0, cy: 39, rx: 64, ry: 25, fill: P.cliff }),                        // 土坡
-      el("ellipse", { cx: 0, cy: 31, rx: 64, ry: 25, fill: P.ground }),                       // 和島同色的地面
-      el("ellipse", { cx: 0, cy: 34, rx: 30, ry: 8, fill: "#24372C", "fill-opacity": .12 }),  // 樹影
-      el("rect", { x: -8, y: -18, width: 16, height: 52, rx: 7, fill: "#9C7350" }),          // 樹幹
-      canopy,
-      el("circle", { cx: 20, cy: -40, r: 6, fill: "#F2B76B" }),                               // 果實
-      el("circle", { cx: -30, cy: -18, r: 6, fill: "#F2B76B" }),
-      el("circle", { cx: 8, cy: -16, r: 6, fill: "#F2B76B" }));
-    // 小木牌，讓人知道這棵樹可以點
-    const sign = el("g", { class: "k-sign", transform: "translate(40,22)" });
-    sign.append(el("rect", { x: -3, y: -4, width: 6, height: 22, rx: 2, fill: "#9C7350" }),
-      el("rect", { class: "k-board", x: -30, y: -24, width: 60, height: 26, rx: 8 }));
-    const txt = el("text", { class: "k-text", x: 0, y: -11 }); txt.textContent = "知識樹";
-    sign.appendChild(txt);
-    g.appendChild(sign);
+      el("circle", { class: "k-hit", cx: 0, cy: -10, r: 30 }),                                // 點擊範圍（滑鼠移上去會出現外圈）
+      el("ellipse", { cx: 0, cy: 18, rx: 17, ry: 5, fill: "#24372C", "fill-opacity": .14 }),  // 樹影
+      el("rect", { x: -4.5, y: -8, width: 9, height: 27, rx: 4, fill: "#9C7350" }),          // 樹幹
+      el("circle", { cx: -14, cy: -12, r: 15, fill: "#6F9F67" }),                             // 樹冠
+      el("circle", { cx: 14, cy: -12, r: 15, fill: "#6F9F67" }),
+      el("circle", { cx: 0, cy: -26, r: 18, fill: "#84B477" }),
+      el("circle", { cx: -6, cy: -31, r: 6, fill: "#A6CF92" }),
+      el("circle", { cx: 11, cy: -20, r: 3.5, fill: "#F2B76B" }),                             // 果實
+      el("circle", { cx: -16, cy: -8, r: 3.5, fill: "#F2B76B" }),
+      el("circle", { cx: 4, cy: -7, r: 3.5, fill: "#F2B76B" }));
     return g;
   }
 
@@ -551,7 +520,8 @@ PI.map = (function () {
       }
       const old = g.querySelector(".cell-ring, .cell-flag"); if (old) old.remove();
       if (st === "available") g.insertBefore(el("path", { class: "cell-ring", d: RING_PATH }), hex.nextSibling);
-      if (st === "occupied") g.insertBefore(el("path", { class: "cell-flag", d: "M-8,14 L-8,-16 M-8,-16 L14,-9 L-8,-2", fill: "none", "stroke-width": 4, "stroke-linecap": "round", "stroke-linejoin": "round" }), hex.nextSibling);
+      if (st === "occupied") g.insertBefore(el("path", { class: "cell-flag", d: "M-8,14 L-8,-16 M-8,-16 L14,-9 L-8,-2", fill: "none", "stroke-width": 4, "stroke-linecap": "round", "stroke-linejoin": "round",
+        transform: c.hasTree ? "translate(30,22) scale(.6)" : "" }), hex.nextSibling);   // 有樹的格子：旗子放右下角
       g.setAttribute("aria-label", `第 ${c.chapter} 章 ${chapterOf(c.chapter).name}，${c.unit ? c.unit.name : "預留格"}，${STATUS_TEXT[st]}`);
     });
     islands.forEach(isl => { const dim = focusCh !== null && isl.chapter !== focusCh; if (isl.dim !== dim) { isl.dim = dim; Object.values(isl.g).forEach(g => g.classList.toggle("is-dim", dim)); } });
@@ -631,11 +601,6 @@ PI.map = (function () {
       const k = `${Math.floor(c.x / CG)},${Math.floor(c.y / CG)}`;
       if (!clearGrid.has(k)) clearGrid.set(k, []);
       clearGrid.get(k).push(c);
-    });
-    trees.forEach(t => {   // 知識樹附近也不放海上裝飾
-      const k = `${Math.floor(t.x / CG)},${Math.floor(t.y / CG)}`;
-      if (!clearGrid.has(k)) clearGrid.set(k, []);
-      clearGrid.get(k).push(t);
     });
   }
   function nearTerritory(x, y, r) {
@@ -830,7 +795,6 @@ PI.map = (function () {
       isl.bounds = { minX: isl.origin.x + isl.coast.minX - R, maxX: isl.origin.x + isl.coast.maxX + R,
                      minY: isl.origin.y + isl.coast.minY - R * 1.6, maxY: isl.origin.y + isl.coast.maxY + R };
       queueTerrain(landOf.get(isl.chapter));   // 只重畫這塊陸地的地形與海岸線（同一個畫面內合併成一次）
-      placeTrees();                            // 新格子可能長到樹的位置，樹跟著往外移
       buildClearGrid();
     }
     commit(); render();

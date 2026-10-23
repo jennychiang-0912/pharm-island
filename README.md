@@ -81,7 +81,8 @@ PI.addUnit({ id: "vancomycin", chapter: 3, name: "Vancomycin", type: "drug", gro
 
 ## 知識樹
 
-- 每座島一棵知識樹（主島一棵，第 9、10、11 章各一棵），種在島邊、所有格子（含未解鎖）之外，不會蓋到格子或妨礙點擊；島長大時會自動往外移。
+- 每座島一棵知識樹，長在島的初始格子上：主島在第 1 章的初始格，第 9、10、11 章在各自的初始格（要換章節：在 `PI.LANDMASSES` 加 `treeChapter`）。
+- 樹比格子小，只蓋住格子中央：點樹開知識面板，點格子其他地方照常選格子；這格的旗子會移到右下角。
 - 點樹（或用鍵盤選到樹按 Enter）打開知識面板；按 × 或 Esc 關閉，地圖回到打開前的位置。
 - 內容寫在 `js/knowledge.js`：鍵是 `PI.LANDMASSES` 的 id，每段的 `items` 照檔案開頭的格式加（`title`、`text`、`points`、`source`）。沒有內容的段落會顯示「尚未加入內容」。沒有列在 `PI.KNOWLEDGE` 的島不會長樹。
 

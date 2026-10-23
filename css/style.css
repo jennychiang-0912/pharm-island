@@ -210,9 +210,8 @@ button { font: inherit; color: inherit; cursor: pointer; }
 /* ---------- 知識樹與知識面板 ---------- */
 .k-tree { cursor: pointer; }
 .k-tree:focus { outline: none; }
-.k-board { fill: var(--paper); stroke: var(--butter); stroke-width: 3; }
-.k-tree:hover .k-board, .k-tree:focus-visible .k-board { stroke: var(--forest); }
-.k-text { font-family: var(--font); font-size: 14px; font-weight: 700; fill: var(--forest); text-anchor: middle; dominant-baseline: central; pointer-events: none; }
+.k-hit { fill: #fff; fill-opacity: 0; stroke: var(--forest); stroke-width: 3; stroke-opacity: 0; transition: stroke-opacity .15s; }
+.k-tree:hover .k-hit, .k-tree:focus-visible .k-hit { stroke-opacity: .7; }
 .kpanel {
   position: absolute; top: 16px; right: 16px; bottom: 16px; z-index: 5; width: min(400px, calc(100% - 32px));
   background: var(--paper); border: 1px solid var(--line); border-radius: var(--r-lg); box-shadow: var(--shadow);
