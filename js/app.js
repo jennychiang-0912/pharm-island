@@ -96,20 +96,20 @@
 
   /* ---------- 知識面板：點知識樹打開，關閉後地圖回到打開前的位置 ---------- */
   let kView = null, kFrom = null;
-  function openKnowledge(landId) {
-    const K = (PI.KNOWLEDGE || {})[landId]; if (!K) return;
-    const land = PI.LANDMASSES.find(l => l.id === landId) || { name: K.title, chapters: [] };
+  function openKnowledge(key) {
+    const K = (PI.KNOWLEDGE || {})[key]; if (!K) return;
+    const land = PI.LANDMASSES.find(l => l.chapters.includes(K.chapter)) || { name: "" };
     if ($("kpanel").hidden) { kView = PI.map.getView(); kFrom = document.activeElement; }   // 換別棵樹時不覆蓋最早的位置
     $("info").hidden = true;
-    const chips = land.chapters.map(id => { const ch = chOf(id), cat = catOf(ch.cat);
-      return `<span class="k-chip">${badge(ch, cat)}${esc(ch.name)}</span>`; }).join("");
+    const ch = chOf(K.chapter), cat = catOf(ch.cat);
+    const chips = `<span class="k-chip">${badge(ch, cat)}第 ${ch.id} 章</span>`;
     const item = it => `<article class="k-item">
         ${it.title ? `<h4>${esc(it.title)}</h4>` : ""}
         ${it.text ? `<p>${esc(it.text)}</p>` : ""}
         ${it.points && it.points.length ? `<ul>${it.points.map(p => `<li>${esc(p)}</li>`).join("")}</ul>` : ""}
         ${it.source ? `<p class="k-src">出處：${esc(it.source)}</p>` : ""}</article>`;
     $("kpanel").innerHTML = `<div class="k-head">
-        <div class="info-title"><span class="muted">${esc(land.name)}・知識樹</span><h3 id="kTitle">${esc(K.title)}</h3></div>
+        <div class="info-title"><span class="muted">${land.name ? esc(land.name) + "・" : ""}知識樹</span><h3 id="kTitle">${esc(K.title || ch.name)}</h3></div>
         <button type="button" class="close" id="kClose" aria-label="關閉知識面板">×</button></div>
       ${chips ? `<div class="k-chips">${chips}</div>` : ""}
       <div class="k-body">${(K.sections || []).map(sec => `<section class="k-sec">

@@ -447,29 +447,24 @@ PI.map = (function () {
     isl.labelInner = inner;
   }
 
-  /* ---------- 知識樹：每座島一棵，長在島的初始格子上 ----------
-     主島長在第 1 章（導論）的初始格；第 9、10、11 章長在各自的初始格。
-     要換章節：在 PI.LANDMASSES 那座島加 treeChapter: 章節編號。
+  /* ---------- 知識樹：每一章一棵，長在那一章的初始格子上 ----------
+     哪些章節有樹、內容是什麼，都在 js/knowledge.js。
      樹畫得比格子小，只蓋住格子中央；點樹打開知識面板，點格子其他地方照常選取格子。
      這格的旗子會移到右下角，讓已佔領的狀態還看得到。 */
-  const trees = [];
+  const trees = new Map();   // 知識樹 id → { cell, g }
   function placeTrees() {
-    const K = PI.KNOWLEDGE || {};
-    lands.forEach(land => {
-      if (!K[land.id]) return;
-      const ch = land.def.treeChapter ?? land.def.chapters[0];
-      const isl = islandOf.get(ch), cell = isl && isl.cells.find(c => c.isStart);
+    Object.entries(PI.KNOWLEDGE || {}).forEach(([key, K]) => {
+      const isl = islandOf.get(K.chapter), cell = isl && isl.cells.find(c => c.isStart);
       if (!cell) return;
-      if (!land.tree) { land.tree = { land, g: drawTree(land) }; treeLayer.appendChild(land.tree.g); trees.push(land.tree); }
-      if (land.tree.cell && land.tree.cell !== cell) land.tree.cell.hasTree = false;
-      cell.hasTree = true;
-      Object.assign(land.tree, { cell, x: cell.x, y: cell.y });
-      land.tree.g.setAttribute("transform", `translate(${cell.x.toFixed(1)},${cell.y.toFixed(1)})`);
+      let t = trees.get(key);
+      if (!t) { t = { g: drawTree(key, K) }; treeLayer.appendChild(t.g); trees.set(key, t); }
+      t.cell = cell; cell.hasTree = true;
+      t.g.setAttribute("transform", `translate(${cell.x.toFixed(1)},${cell.y.toFixed(1)})`);
     });
   }
-  function drawTree(land) {
-    const title = PI.KNOWLEDGE[land.id].title || land.def.name;
-    const g = el("g", { class: "k-tree", "data-tree": land.id, tabindex: 0, role: "button", "aria-label": `${title}知識樹：打開背景知識` });
+  function drawTree(key, K) {
+    const title = K.title || chapterOf(K.chapter).name;
+    const g = el("g", { class: "k-tree", "data-tree": key, tabindex: 0, role: "button", "aria-label": `${title}知識樹：打開背景知識` });
     const tip = el("title"); tip.textContent = `${title}・知識樹（點一下看背景知識）`;
     g.append(tip,
       el("circle", { class: "k-hit", cx: 0, cy: -10, r: 30 }),                                // 點擊範圍（滑鼠移上去會出現外圈）
@@ -525,6 +520,7 @@ PI.map = (function () {
       g.setAttribute("aria-label", `第 ${c.chapter} 章 ${chapterOf(c.chapter).name}，${c.unit ? c.unit.name : "預留格"}，${STATUS_TEXT[st]}`);
     });
     islands.forEach(isl => { const dim = focusCh !== null && isl.chapter !== focusCh; if (isl.dim !== dim) { isl.dim = dim; Object.values(isl.g).forEach(g => g.classList.toggle("is-dim", dim)); } });
+    trees.forEach(t => { const dim = focusCh !== null && t.cell.chapter !== focusCh; if (t.dim !== dim) { t.dim = dim; t.g.classList.toggle("is-dim", dim); } });   // 知識樹跟著自己的章節變淡
     placeRing(selected);
   }
 

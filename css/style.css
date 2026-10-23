@@ -208,7 +208,8 @@ button { font: inherit; color: inherit; cursor: pointer; }
 .info p { margin: 0; font-size: 14px; color: var(--muted); }
 
 /* ---------- 知識樹與知識面板 ---------- */
-.k-tree { cursor: pointer; }
+.k-tree { cursor: pointer; transition: opacity .25s; }
+.k-tree.is-dim { opacity: .3; }
 .k-tree:focus { outline: none; }
 .k-hit { fill: #fff; fill-opacity: 0; stroke: var(--forest); stroke-width: 3; stroke-opacity: 0; transition: stroke-opacity .15s; }
 .k-tree:hover .k-hit, .k-tree:focus-visible .k-hit { stroke-opacity: .7; }

@@ -19,7 +19,7 @@
 | `css/style.css` | 樣式與配色 |
 | `js/data.js` | 分類、11 個章節（含預估單元數）、地圖、美術素材與等級設定（只放資料） |
 | `js/units.js` | 學習單元（藥物、製劑、分類、主題）資料，目前是空的，等正式清單 |
-| `js/knowledge.js` | 知識樹的面板內容（每座島的生理與病理、藥理機制、藥物分類與作用原理），目前是空白區塊 |
+| `js/knowledge.js` | 知識樹的面板內容（每一章的生理與病理、藥理機制、藥物分類與作用原理），目前是空白區塊 |
 | `assets/sea-tile.jpg` | 可無縫平鋪的海水紋理 |
 | `assets/decor/` | 獨立放置的小島、礁石、浪花（去背 PNG） |
 | `assets/reference/` | 原始整張海洋插畫，只當美術參考，遊戲裡不使用 |
@@ -81,10 +81,10 @@ PI.addUnit({ id: "vancomycin", chapter: 3, name: "Vancomycin", type: "drug", gro
 
 ## 知識樹
 
-- 每座島一棵知識樹，長在島的初始格子上：主島在第 1 章的初始格，第 9、10、11 章在各自的初始格（要換章節：在 `PI.LANDMASSES` 加 `treeChapter`）。
+- 每一章一棵知識樹（抗微生物主島第 1～8 章各一棵，第 9、10、11 章各一棵），長在那一章的初始格子上。
 - 樹比格子小，只蓋住格子中央：點樹開知識面板，點格子其他地方照常選格子；這格的旗子會移到右下角。
 - 點樹（或用鍵盤選到樹按 Enter）打開知識面板；按 × 或 Esc 關閉，地圖回到打開前的位置。
-- 內容寫在 `js/knowledge.js`：鍵是 `PI.LANDMASSES` 的 id，每段的 `items` 照檔案開頭的格式加（`title`、`text`、`points`、`source`）。沒有內容的段落會顯示「尚未加入內容」。沒有列在 `PI.KNOWLEDGE` 的島不會長樹。
+- 內容寫在 `js/knowledge.js`：每一章一筆（`chapter` 是章節編號），每段的 `items` 照檔案開頭的格式加（`title`、`text`、`points`、`source`）。沒有內容的段落會顯示「尚未加入內容」。沒有列在 `PI.KNOWLEDGE` 的章節不會長樹。
 
 ## 地圖規則
 
