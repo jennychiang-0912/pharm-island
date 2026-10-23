@@ -169,7 +169,7 @@ PI.map = (function () {
   }
 
   /* ================= 繪製 ================= */
-  let hl, svg, world, mapEl, decorLayer, terrainLayer, cellLayer, labelLayer, onSelect = () => {}, onSelectIsland = () => {}, selected = null, focusCh = null;
+  let hl, hov, svg, world, mapEl, stage, sea, decorLayer, terrainLayer, cellLayer, labelLayer, onSelect = () => {}, onSelectIsland = () => {}, selected = null, focusCh = null;
   const CH = PI.ART.chunkSize;
   const decorChunks = new Map();   // 海上裝飾：區塊 → 群組（需要時才產生）
   const view = { x: 0, y: 0, k: 1 };
@@ -193,7 +193,10 @@ PI.map = (function () {
     onSelect = opts.onSelect || onSelect;
     onSelectIsland = opts.onSelectIsland || onSelectIsland;
     mapEl = container;
-    container.style.backgroundImage = `url("${PI.ART.seaTile.src}")`;
+    // 舞台：海水與地圖放在同一層。拖曳、縮放時只移動這一層（交給 GPU），停下來才重畫地圖內容
+    stage = document.createElement("div"); stage.className = "map-stage";
+    sea = document.createElement("div"); sea.className = "map-sea";
+    sea.style.backgroundImage = `url("${PI.ART.seaTile.src}")`;
     HEX_PATH = hexPath(R, PI.MAP.corner);
     SHINE_PATH = hexPath(R - PI.MAP.border / 2, PI.MAP.corner);
     RING_PATH = hexPath(R * 0.62, 6);
@@ -205,9 +208,12 @@ PI.map = (function () {
     cellLayer = el("g", { class: "layer-cells" });                           // 六角格
     labelLayer = el("g", { class: "layer-labels" });                         // 章節標記
     hl = el("path", { class: "sel-ring", d: HEX_PATH, fill: "none", "stroke-width": 6, "pointer-events": "none" });   // 選取外框
-    world.append(decorLayer, terrainLayer, cellLayer, labelLayer, hl);
+    hov = el("path", { class: "hover-hex", d: SHINE_PATH, "pointer-events": "none" });   // 滑鼠所在格子的高亮（全地圖共用一個）
+    hov.style.display = "none";
+    world.append(decorLayer, terrainLayer, cellLayer, hov, labelLayer, hl);
     svg.appendChild(world);
-    container.appendChild(svg);
+    stage.append(sea, svg);
+    container.appendChild(stage);
 
     buildWorld();
     lands.forEach(land => { land.g = el("g", { class: "land-terrain", "data-land": land.id }); terrainLayer.appendChild(land.g); });
@@ -220,6 +226,8 @@ PI.map = (function () {
     layout();   // 決定位置，並畫出每塊陸地的地形
 
     svg.addEventListener("focusin", e => { const g = e.target.closest?.(".cell"); if (g) placeRing(g.dataset.id); });
+    svg.addEventListener("pointerover", e => { const g = e.target.closest?.(".cell"); placeHover(g && g.dataset.status !== "locked" ? g.dataset.id : null); });
+    svg.addEventListener("pointerleave", () => placeHover(null));
     svg.addEventListener("focusout", () => placeRing(selected));
     bindPanZoom(container);
     new ResizeObserver(() => frame(lastFrame.b, false, lastFrame.cap)).observe(container);
@@ -349,7 +357,7 @@ PI.map = (function () {
       const all = contours(field, T[k]);
       loops[k] = k === "inner" ? all : all.filter(L => !all.some(M => M !== L && M.length > L.length && inside(L[0], M)));
     });
-    const shape = (k, fill, op, dy = 0, cls = "") => el("path", { d: smoothPath(loops[k]), fill, opacity: op, "fill-rule": "evenodd",
+    const shape = (k, fill, op, dy = 0, cls = "") => el("path", { d: smoothPath(loops[k]), fill, "fill-opacity": op, "fill-rule": "evenodd",
       transform: dy ? `translate(0,${dy})` : "", class: `t-${cls || k}` });
     const seed = land.regions[0].chapter;
 
@@ -375,9 +383,10 @@ PI.map = (function () {
 
     // 主島各章節區域：很淡的草地色差，加上區域之間的小路
     if (land.regions.length > 1) {
-      const tints = el("g", { class: "t-regions", opacity: .32 });
+      const tints = el("g", { class: "t-regions" });
       land.regions.forEach((isl, i) => {
-        const tg = el("g", { fill: PI.MAP.regionTints[i % PI.MAP.regionTints.length] });
+        // 預先把區域色和草地混好（32%），不用群組透明度，畫面合成比較省
+        const tg = el("g", { fill: blend(PI.MAP.coast.grass, PI.MAP.regionTints[i % PI.MAP.regionTints.length], 0.32) });
         isl.cells.forEach(c => tg.appendChild(el("circle", { cx: c.x.toFixed(1), cy: c.y.toFixed(1), r: (R * 1.55).toFixed(1) })));
         tints.appendChild(tg);
       });
@@ -387,18 +396,23 @@ PI.map = (function () {
     // 草地邊緣的小花與草叢：沿著草地輪廓，往內一點
     const deco = el("g", { class: "t-deco" });
     loops.grass.forEach(L => L.forEach((p, i) => {
-      if (i % 4) return;
+      if (i % 9) return;   // 只挑少數幾個點，避免一大堆小元件
       const pick = noise(Math.round(p[0]), Math.round(p[1]), seed + 23);
-      if (pick > 0.3) return;
+      if (pick > 0.28) return;
       const dx = land.center.x - p[0], dy = land.center.y - p[1], len = Math.hypot(dx, dy) || 1;
       const x = p[0] + dx / len * 18, y = p[1] + dy / len * 18;
-      deco.appendChild(pick < 0.11 ? flower(x, y, pick) : tuft(x, y));
+      deco.appendChild(pick < 0.09 ? flower(x, y, pick) : tuft(x, y));
     }));
     g.appendChild(deco);
   }
+  function blend(a, b, t) {
+    const pa = parseInt(a.slice(1), 16), pb = parseInt(b.slice(1), 16);
+    const ch = sh => Math.round(((pa >> sh) & 255) * (1 - t) + ((pb >> sh) & 255) * t);
+    return `rgb(${ch(16)},${ch(8)},${ch(0)})`;
+  }
   // 章節區域之間的小路：連接相鄰區域（最小生成樹），只畫在區域之間的草地上
   function regionPaths(land) {
-    const g = el("g", { class: "t-paths", fill: "none", stroke: PI.MAP.coast.path, "stroke-width": 16, "stroke-linecap": "round", opacity: .9 });
+    const g = el("g", { class: "t-paths", fill: "none", stroke: PI.MAP.coast.path, "stroke-width": 16, "stroke-linecap": "round", "stroke-opacity": .9 });
     const R0 = land.regions, ctr = r => [r.origin.x + r.coast.cx, r.origin.y + r.coast.cy];
     const inTree = new Set([0]);
     while (inTree.size < R0.length) {
@@ -434,12 +448,10 @@ PI.map = (function () {
 
   function drawCell(c) {
     const g = el("g", { class: "cell", transform: `translate(${c.lx.toFixed(1)},${c.ly.toFixed(1)})`, "data-id": c.id, role: "button" });
+    // 每格只有一個六角形；可挑戰的虛線圈與已佔領的旗子，等狀態需要時才加（見 render）
     g.appendChild(el("path", { class: "cell-hex", d: HEX_PATH, "stroke-width": PI.MAP.border, stroke: PI.MAP.borderColor, "stroke-opacity": PI.MAP.borderOpacity }));
-    g.appendChild(el("path", { class: "cell-shine", d: SHINE_PATH }));   // 滑鼠移上去時只讓格子內部變亮
-    g.appendChild(el("path", { class: "cell-ring", d: RING_PATH }));
-    const flag = el("g", { class: "cell-flag" });
-    flag.appendChild(el("path", { d: "M-8,14 L-8,-16 M-8,-16 L14,-9 L-8,-2", fill: "none", "stroke-width": 4, "stroke-linecap": "round", "stroke-linejoin": "round" }));
-    g.appendChild(flag);
+    if (!c.unit) g.classList.add("is-slot");
+    c.st = null;
     if (c.unit) {
       const t = el("text", { class: "cell-name", y: 34 });
       t.textContent = c.unit.name.length > 11 ? c.unit.name.slice(0, 10) + "…" : c.unit.name;
@@ -458,6 +470,7 @@ PI.map = (function () {
     const inner = el("g", { class: "label-inner" });
     measure.font = `700 17px ${getComputedStyle(document.body).fontFamily}`;
     const w = Math.ceil(measure.measureText(ch.name).width) + 62;
+    inner.appendChild(el("rect", { class: "label-shadow", x: -w / 2, y: -19, width: w, height: 42, rx: 21 }));   // 簡單的底影，不用濾鏡
     inner.appendChild(el("rect", { class: "label-bg", x: -w / 2, y: -21, width: w, height: 42, rx: 21 }));
     inner.appendChild(el("circle", { cx: -w / 2 + 21, cy: 0, r: 14, fill: cat.tint, stroke: cat.color, "stroke-width": 2.5 }));
     const num = el("text", { class: "label-num", x: -w / 2 + 21, y: 1 }); num.textContent = ch.id;
@@ -475,46 +488,76 @@ PI.map = (function () {
     hl.style.display = "";
   }
 
+  function placeHover(id) {
+    const c = id && cellById.get(id);
+    if (!c) { hov.style.display = "none"; return; }
+    hov.setAttribute("transform", `translate(${c.x.toFixed(1)},${c.y.toFixed(1)})`);
+    hov.style.display = "";
+  }
+
+  const STATUS_TEXT = { occupied: "已佔領", available: "可挑戰", locked: "未解鎖" };
   function render() {
     cells.forEach(c => {
-      const g = c.el;
-      const st = PI.state.statusOf(c), ch = chapterOf(c.chapter);
+      const st = PI.state.statusOf(c);
+      const tab = st === "locked" && focusCh !== c.chapter ? "-1" : "0";
+      if (c.tab !== tab) { c.tab = tab; c.el.setAttribute("tabindex", tab); }
+      if (c.st === st) return;   // 狀態沒變就不碰 DOM
+      c.st = st;
+      const g = c.el, hex = g.firstChild, f = PI.MAP.fill[st];
       g.dataset.status = st;
-      g.classList.toggle("is-slot", !c.unit);
-      const hex = g.querySelector(".cell-hex");
-      hex.setAttribute("fill", PI.MAP.fill[st].color);
-      hex.setAttribute("fill-opacity", PI.MAP.fill[st].opacity);
-      g.setAttribute("tabindex", st === "locked" && focusCh !== c.chapter ? "-1" : "0");
-      const what = c.unit ? c.unit.name : "預留格";
-      g.setAttribute("aria-label", `第 ${c.chapter} 章 ${ch.name}，${what}，${({ occupied: "已佔領", available: "可挑戰", locked: "未解鎖" })[st]}`);
+      hex.setAttribute("fill", f.color); hex.setAttribute("fill-opacity", f.opacity);
+      const old = g.querySelector(".cell-ring, .cell-flag"); if (old) old.remove();
+      if (st === "available") g.insertBefore(el("path", { class: "cell-ring", d: RING_PATH }), hex.nextSibling);
+      if (st === "occupied") g.insertBefore(el("path", { class: "cell-flag", d: "M-8,14 L-8,-16 M-8,-16 L14,-9 L-8,-2", fill: "none", "stroke-width": 4, "stroke-linecap": "round", "stroke-linejoin": "round" }), hex.nextSibling);
+      g.setAttribute("aria-label", `第 ${c.chapter} 章 ${chapterOf(c.chapter).name}，${c.unit ? c.unit.name : "預留格"}，${STATUS_TEXT[st]}`);
     });
-    islands.forEach(isl => Object.values(isl.g).forEach(g => g.classList.toggle("is-dim", focusCh !== null && isl.chapter !== focusCh)));
+    islands.forEach(isl => { const dim = focusCh !== null && isl.chapter !== focusCh; if (isl.dim !== dim) { isl.dim = dim; Object.values(isl.g).forEach(g => g.classList.toggle("is-dim", dim)); } });
     placeRing(selected);
   }
 
   /* ---------- 拖曳與縮放 ---------- */
+  /* 拖曳、縮放的每一個畫面只改舞台的 CSS transform（由 GPU 合成，不重畫 SVG）；
+     停下來 140ms 後才「提交」：更新 SVG 的世界座標轉換、海水位置、章節牌大小與分區顯示。
+     舞台比地圖容器大一圈（overscan），拖曳時周圍已經畫好，不會露白；拖太遠時會提前提交。 */
+  const OVER = 0.35;                      // 舞台四周多畫 35% 畫面
+  const committed = { x: 0, y: 0, k: 1 };
+  let commitTimer = 0, nearState = null, farState = null;
+  function overscan() { const { w, h } = size(); return { ox: w * OVER, oy: h * OVER, w, h }; }
   function apply() {
-    world.setAttribute("transform", `translate(${view.x.toFixed(1)},${view.y.toFixed(1)}) scale(${view.k.toFixed(4)})`);
+    const { ox, oy, w, h } = overscan();
+    const s = view.k / committed.k;
+    const dx = view.x + ox - s * (committed.x + ox), dy = view.y + oy - s * (committed.y + oy);
+    if (Math.abs(dx) > w * 0.3 || Math.abs(dy) > h * 0.3 || s < 0.55 || s > 1.8) { commit(); return; }   // 超出預先畫好的範圍才提前提交
+    stage.style.transform = `translate(${dx.toFixed(1)}px,${dy.toFixed(1)}px) scale(${s.toFixed(4)})`;
+    clearTimeout(commitTimer); commitTimer = setTimeout(commit, 140);
+  }
+  function commit() {
+    clearTimeout(commitTimer);
+    Object.assign(committed, { x: view.x, y: view.y, k: view.k });
+    const { ox, oy } = overscan();
+    world.setAttribute("transform", `translate(${(view.x + ox).toFixed(1)},${(view.y + oy).toFixed(1)}) scale(${view.k.toFixed(4)})`);
     // 海水紋理跟著世界座標移動與縮放，所以無論拖到哪裡都不會露出空白
     const t = PI.ART.seaTile.size * view.k;
-    mapEl.style.backgroundSize = `${t.toFixed(2)}px ${t.toFixed(2)}px`;
-    mapEl.style.backgroundPosition = `${view.x.toFixed(1)}px ${view.y.toFixed(1)}px`;
+    sea.style.backgroundSize = `${t.toFixed(2)}px ${t.toFixed(2)}px`;
+    sea.style.backgroundPosition = `${(view.x + ox).toFixed(1)}px ${(view.y + oy).toFixed(1)}px`;
+    stage.style.transform = "";
     // 章節牌子：地圖縮小時放大回來，讓字維持可讀
     const s = Math.min(Math.max(0.9 / view.k, 1), 3).toFixed(3);
     const lift = (-21 * (s - 1)).toFixed(1);   // 放大時牌子往上長，不蓋到島
     islands.forEach(isl => isl.labelInner && isl.labelInner.setAttribute("transform", `translate(0,${lift}) scale(${s})`));
-    svg.classList.toggle("is-near", view.k > 0.55);   // 放大到一定程度才顯示格子裡的藥名
-    if (!cullQueued) { cullQueued = true; requestAnimationFrame(cull); }
+    // 細節層級：放大才顯示藥名；縮很小時隱藏小裝飾（只在跨過門檻時才改 class）
+    const near = view.k > 0.55, far = view.k < 0.3;
+    if (near !== nearState) { nearState = near; svg.classList.toggle("is-near", near); }
+    if (far !== farState) { farState = far; svg.classList.toggle("is-far", far); }
+    cull();
   }
 
   /* ---------- 分區顯示：只顯示畫面附近的島嶼與裝飾 ---------- */
-  let cullQueued = false;
-  function visibleRect() {
-    const { w, h } = size();
-    return { x0: -view.x / view.k, y0: -view.y / view.k, x1: (w - view.x) / view.k, y1: (h - view.y) / view.k };
+  function visibleRect() {   // 舞台涵蓋的世界範圍（含 overscan）
+    const { ox, oy, w, h } = overscan();
+    return { x0: (-ox - view.x) / view.k, y0: (-oy - view.y) / view.k, x1: (w + ox - view.x) / view.k, y1: (h + oy - view.y) / view.k };
   }
   function cull() {
-    cullQueued = false;
     const v = visibleRect(), m = 300 / view.k;   // 牌子會放大，邊界多留一點
     const vis = b => b.maxX + m > v.x0 && b.minX - m < v.x1 && b.maxY + m > v.y0 && b.minY - m < v.y1;
     islands.forEach(isl => {
@@ -586,7 +629,7 @@ PI.map = (function () {
     decorLayer.appendChild(g);
     decorChunks.set(key, { g, kx, ky, on: true });
   }
-  function size() { const r = svg.getBoundingClientRect(); return { w: r.width, h: r.height }; }
+  function size() { const r = mapEl.getBoundingClientRect(); return { w: r.width, h: r.height }; }
   function fitScale(b) {
     const { w, h } = size(); const pad = Math.min(PI.MAP.padding, Math.min(w, h) * 0.06);   // 小螢幕時留白跟著縮小
     return Math.min((w - pad * 2) / (b.maxX - b.minX), (h - pad * 2) / (b.maxY - b.minY));
@@ -602,12 +645,12 @@ PI.map = (function () {
   }
   function animateTo(target, ms) {
     const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (reduce || !ms) { Object.assign(view, target); apply(); return; }
+    if (reduce || !ms) { Object.assign(view, target); commit(); return; }
     const from = { ...view }, t0 = performance.now();
     const step = now => {
       const t = Math.min(1, (now - t0) / ms), e = 1 - Math.pow(1 - t, 3);
       view.x = from.x + (target.x - from.x) * e; view.y = from.y + (target.y - from.y) * e; view.k = from.k + (target.k - from.k) * e;
-      apply(); if (t < 1) requestAnimationFrame(step);
+      if (t < 1) { apply(); requestAnimationFrame(step); } else commit();
     };
     requestAnimationFrame(step);
   }
@@ -630,7 +673,7 @@ PI.map = (function () {
 
   function bindPanZoom(container) {
     const pts = new Map(); let moved = 0, last = null, pinch = null;
-    const local = e => { const r = svg.getBoundingClientRect(); return [e.clientX - r.left, e.clientY - r.top]; };
+    const local = e => { const r = mapEl.getBoundingClientRect(); return [e.clientX - r.left, e.clientY - r.top]; };
     svg.addEventListener("pointerdown", e => {
       svg.setPointerCapture(e.pointerId); pts.set(e.pointerId, local(e)); moved = 0;
       if (pts.size === 1) last = local(e);
@@ -731,7 +774,7 @@ PI.map = (function () {
     computeCoast(isl); drawLabel(isl);
     if (isl.coast.radius > isl.layoutRad) {   // 超過預留大小：重新安排（會重畫地形），同一個畫面內只做一次
       isl.growth.needsLayout = true;
-      if (!layoutQueued) { layoutQueued = true; requestAnimationFrame(() => { layoutQueued = false; layout(); apply(); render(); }); }
+      if (!layoutQueued) { layoutQueued = true; requestAnimationFrame(() => { layoutQueued = false; layout(); commit(); render(); }); }
     }
     else {
       isl.bounds = { minX: isl.origin.x + isl.coast.minX - R, maxX: isl.origin.x + isl.coast.maxX + R,
@@ -739,7 +782,7 @@ PI.map = (function () {
       queueTerrain(landOf.get(isl.chapter));   // 只重畫這塊陸地的地形與海岸線（同一個畫面內合併成一次）
       buildClearGrid();
     }
-    apply(); render();
+    commit(); render();
     return c;
   }
 

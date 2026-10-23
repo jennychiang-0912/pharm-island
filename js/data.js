@@ -99,7 +99,7 @@ PI.ART = {
     { kind: "wave",   src: "assets/decor/wave-5.png",       w: 180, h: 56 },
     { kind: "wave",   src: "assets/decor/wave-6.png",       w: 123, h: 143 }
   ],
-  perChunk: { island: [0, 1], rock: [0, 2], wave: [1, 2] } // 每個區塊放幾個（最少、最多）
+  perChunk: { island: [0, 1], rock: [0, 1], wave: [0, 1] } // 每個區塊放幾個（最少、最多）
 };
 
 /* 等級規則：每佔領一格得到的經驗值，以及每升一級需要的經驗值 */

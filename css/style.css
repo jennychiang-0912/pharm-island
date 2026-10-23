@@ -121,8 +121,12 @@ button { font: inherit; color: inherit; cursor: pointer; }
   /* 海水：可平鋪的紋理，大小與位置由 js/map.js 跟著地圖拖曳縮放；圖片載入前先顯示相近的藍色 */
   background-color: #3FAFD2; background-repeat: repeat;
   touch-action: none; cursor: grab;
+  user-select: none; -webkit-user-select: none;   /* 拖曳時不要選到章節牌的文字 */
 }
 .map.is-dragging { cursor: grabbing; }
+/* 舞台：海水＋地圖。比容器大一圈，拖曳縮放時整層由 GPU 移動 */
+.map-stage { position: absolute; left: -35%; top: -35%; width: 170%; height: 170%; transform-origin: 0 0; will-change: transform; }
+.map-sea { position: absolute; inset: 0; background-repeat: repeat; }
 .map-svg { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
 .map-hint {
   position: absolute; top: 16px; left: 16px; z-index: 2; margin: 0; pointer-events: none;
@@ -158,20 +162,15 @@ button { font: inherit; color: inherit; cursor: pointer; }
 .cell-hex { transition: fill .3s, fill-opacity .3s; pointer-events: all; }   /* 半透明也能點 */
 .cell-shade { pointer-events: none; }
 .t-deco { pointer-events: none; }
-.cell-shine { fill: #fff; opacity: 0; pointer-events: none; transition: opacity .15s; }
-.cell:hover .cell-shine, .cell:focus-visible .cell-shine { opacity: .22; }
+.hover-hex { fill: #fff; fill-opacity: .22; }
 .cell[data-status="locked"] { cursor: default; }
-.cell[data-status="locked"]:hover .cell-shine { opacity: 0; }
-.cell-ring { fill: none; stroke: #6E9C76; stroke-width: 3.5; opacity: 0; }
-.cell[data-status="available"] .cell-ring {
-  opacity: .95; stroke-dasharray: 8 7; stroke-linecap: round;
-  animation: spin 14s linear infinite; transform-origin: center; transform-box: fill-box;
-}
-.cell-flag { opacity: 0; stroke: var(--cream); }
-.cell[data-status="occupied"] .cell-flag { opacity: .95; }
+.cell-ring { fill: none; stroke: #6E9C76; stroke-width: 3.5; stroke-opacity: .9; stroke-dasharray: 8 7; stroke-linecap: round; }
+.cell-flag { stroke: var(--cream); }
 .sel-ring { stroke: var(--forest); stroke-linejoin: round; }
 .decor { pointer-events: none; }
 .decor-wave { opacity: .85; }
+/* 縮得很小時，小裝飾看不清楚，直接不畫 */
+.is-far .t-deco, .is-far .layer-decor .decor { display: none; }
 .island-g { transition: opacity .25s; }
 .island-g.is-dim { opacity: .3; }
 .land-terrain { cursor: pointer; }
@@ -183,11 +182,11 @@ button { font: inherit; color: inherit; cursor: pointer; }
 /* 章節標記牌 */
 .island-label { cursor: pointer; }
 .island-label:focus { outline: none; }
-.label-bg { fill: var(--paper); stroke: var(--butter); stroke-width: 3; filter: drop-shadow(0 2px 3px rgba(36, 55, 44, .18)); }
+.label-shadow { fill: #24372C; fill-opacity: .14; }
+.label-bg { fill: var(--paper); stroke: var(--butter); stroke-width: 3; }
 .island-label:hover .label-bg, .island-label:focus-visible .label-bg { stroke: var(--leaf); }
 .label-num { font-family: var(--font); font-size: 13px; font-weight: 700; fill: var(--forest); text-anchor: middle; dominant-baseline: central; pointer-events: none; }
 .label-name { font-family: var(--font); font-size: 17px; font-weight: 700; fill: var(--forest); dominant-baseline: central; pointer-events: none; }
-@keyframes spin { to { transform: rotate(360deg); } }
 
 /* 格子資訊卡 */
 .info {
@@ -246,6 +245,5 @@ button { font: inherit; color: inherit; cursor: pointer; }
   .panel { overflow: visible; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .cell[data-status="available"] .cell-ring { animation: none; }
   .bar i, .cell, .cell-hex { transition: none; }
 }
