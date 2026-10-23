@@ -174,7 +174,8 @@ button { font: inherit; color: inherit; cursor: pointer; }
 .decor-wave { opacity: .85; }
 .island-g { transition: opacity .25s; }
 .island-g.is-dim { opacity: .3; }
-.island-terrain { cursor: pointer; }
+.land-terrain { cursor: pointer; }
+.t-regions, .t-paths { pointer-events: none; }
 .cell-name { font-family: var(--font); font-size: 13px; font-weight: 600; fill: var(--forest); text-anchor: middle; pointer-events: none; display: none; }
 .is-near .cell-name { display: block; }
 .cell[data-status="occupied"] .cell-name { fill: var(--cream); }

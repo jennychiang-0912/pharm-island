@@ -30,20 +30,30 @@ PI.CHAPTERS = [
 ];
 /* 以上 estimate 都是預估值，不是正式藥物清單。 */
 
+/* 群島：哪些章節在同一塊陸地上。主島上每一章是一個區域，區域之間用小路分開。
+   angle：這座島放在主島的哪個方向（度，0 是右邊、90 是下面），讓群島構圖自然、不對稱。 */
+PI.LANDMASSES = [
+  { id: "main",  name: "抗微生物主島", chapters: [1, 2, 3, 4, 5, 6, 7, 8] },
+  { id: "endo",  name: "內分泌島",     chapters: [9],  angle: -28 },
+  { id: "resp",  name: "呼吸島",       chapters: [10], angle: 168 },
+  { id: "gi",    name: "腸胃島",       chapters: [11], angle: 62 }
+];
+
 /* 地圖設定 */
 PI.MAP = {
   hexRadius: 60,        // 六角格頂點半徑：寬 103.92、高 120，與 Penpot 的 hex-rounded 一致
-  border: 4,            // 格子邊界：細細的奶油色小路
-  borderColor: "#F3E9C6",
-  borderOpacity: 0.8,
+  border: 3,            // 格子邊界：細細的奶油色線
+  borderColor: "#F6EDCB",
+  borderOpacity: 0.55,
   corner: 12,           // 六角格圓角
   fill: {               // 三種狀態的填色與透明度：半透明疊在草地上，看起來是同一片土地
-    locked:    { color: "#FFFFFF", opacity: 0.06 },
-    available: { color: "#EAF5D6", opacity: 0.62 },
-    occupied:  { color: "#5E8B67", opacity: 0.86 }
+    locked:    { color: "#FFFFFF", opacity: 0 },      // 未解鎖：就是草地本身
+    available: { color: "#EEF7DC", opacity: 0.55 },
+    occupied:  { color: "#5E8B67", opacity: 0.82 }
   },
   padding: 64,          // 地圖與容器邊緣的留白
-  islandGap: 2.6,       // 島與島之間至少隔幾格寬的海
+  islandGap: 3.2,       // 島與島之間至少隔幾格寬的海
+  regionGap: 1.4,       // 主島上章節區域之間的草地小路寬度（格數）
   coast: {              // 島嶼地形：依格子位置疊圓形，合起來是連續草地與圓潤海岸
     shadow: "#1C7A9E",    // 水下陰影（讓島有一點厚度）
     shallow: "#9FDCD8",   // 淺水
@@ -52,7 +62,15 @@ PI.MAP = {
     sandShade: "#E3CF97", // 沙灘靠水那側的陰影
     cliff: "#8CB57A",     // 草地邊緣的土坡
     grass: "#B4D69A",     // 草地
-    grassLight: "#C5E2AA" // 草地上的淺色斑塊
+    grassLight: "#C5E2AA",// 草地內部較淺的區域
+    path: "#F3E7C1"       // 章節區域之間的小路
+  },
+  regionTints: ["#C9E3AC", "#B9DBA0", "#D3E6AE", "#BFDDB1", "#CBE1A4", "#B6D8A8", "#D0E5B6", "#C2DCA2"],   // 主島各區域的草地色差（很淡）
+  terrain: {            // 地形場的等高線門檻：數字越小越靠外
+    shallow: 0.16, foam: 0.33, sand: 0.4, grass: 0.55, inner: 1.35,
+    sigma: 1.35,        // 每一格對地形的影響範圍（格半徑的倍數）
+    noise: 0.42,        // 海岸不規則程度
+    step: 24            // 計算精細度（世界座標單位），越小越細但越慢
   }
 };
 
@@ -62,7 +80,7 @@ PI.MAP = {
 PI.ART = {
   seaTile: { src: "assets/sea-tile.jpg", size: 640 },   // 可無縫平鋪的海水
   chunkSize: 1200,                                        // 分塊大小：只畫畫面附近的區塊
-  keepClear: 170,                                         // 海上裝飾離島嶼格子至少這麼遠，不會蓋到島
+  keepClear: 300,                                         // 海上裝飾離島嶼格子至少這麼遠，不會蓋到島
   decor: [
     // kind：island 小島、rock 礁石、wave 浪花；w、h 是在世界座標中的大小
     { kind: "island", src: "assets/decor/island-dock.png",  w: 336, h: 222 },
