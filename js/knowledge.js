@@ -12,18 +12,21 @@
          image: "assets/knowledge/xxx.png",     // 圖（選填）
          source: "第 3 週講義 p.12" }           // 出處（選填，建議填，方便回去對照）
 
+       或 { unit: "fetal-toxicity" }：直接顯示某個格子（js/units.js）的內容。
+       這種引用只給你讀，題目算在格子上，不會重複出題、重複給經驗值。
+
    挖空寫法和 js/units.js 一樣：{{答案|類型}} 是挖空處、句尾「 #口訣」是提示。
    知識樹的挖空也會出題，答對每題得到 PI.LEVEL.expPerTreeQuestion 經驗值（js/data.js）。
    內容只用講義上的資料；items 是空的時候，面板會顯示「尚未加入內容」。 */
 window.PI = window.PI || {};
 
 PI.KNOWLEDGE = {
-  ch1: {
+  ch1: {   // 第 1 章的內容都在主題格上（js/units.js），這裡用 unit 引用，只顯示、不重複出題
     chapter: 1, title: "抗菌藥物療法導論",
     sections: [
-      { id: "physiology", title: "生理與病理",         items: [] },
-      { id: "mechanism",  title: "藥理機制",           items: [] },
-      { id: "classes",    title: "藥物分類與作用原理", items: [] }
+      { id: "basics",    title: "基本概念", items: [{ unit: "antibiotics-vs-antimicrobials" }, { unit: "static-vs-cidal" }] },
+      { id: "mechanism", title: "藥理機制", items: [{ unit: "moa-wall-membrane" }, { unit: "moa-folate-nucleic" }, { unit: "moa-protein" }] },
+      { id: "clinical",  title: "臨床重點", items: [{ unit: "fetal-toxicity" }, { unit: "prophylaxis" }] }
     ]
   },
   ch2: {

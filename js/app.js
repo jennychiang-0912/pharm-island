@@ -123,7 +123,13 @@
     $("info").hidden = true;
     const ch = chOf(K.chapter), cat = catOf(ch.cat);
     const chips = `<span class="k-chip">${badge(ch, cat)}第 ${ch.id} 章</span>`;
-    const item = it => `<article class="k-item">
+    const unitOf = id => PI.UNITS.find(u => u.id === id);
+    const refItem = u => `<article class="k-item is-ref">
+        <h4>${esc(u.name)}</h4>
+        ${(PI.UNIT_FIELDS || []).filter(([k]) => u[k] && u[k].length).map(([k, label]) =>
+          `${k === "points" ? "" : `<p class="k-field">${esc(label)}</p>`}<ul>${u[k].map(l => `<li>${clozeLine(l)}</li>`).join("")}</ul>`).join("")}
+        <p class="k-src">在格子「${esc(u.short || u.name)}」上作答${u.source ? `・出處：${esc(u.source)}` : ""}</p></article>`;
+    const item = it => it.unit ? (unitOf(it.unit) ? refItem(unitOf(it.unit)) : "") : `<article class="k-item">
         ${it.title ? `<h4>${esc(it.title)}</h4>` : ""}
         ${it.text ? `<p>${clozeLine(it.text)}</p>` : ""}
         ${it.image ? `<img class="k-img" src="${esc(it.image)}" alt="${esc(it.title || "")}" loading="lazy">` : ""}
@@ -133,11 +139,13 @@
     const nQ = (K.sections || []).flatMap(sec => sec.items || []).reduce((n, it) =>
       n + blanks(it.text || "") + (it.points || []).reduce((m, p) => m + blanks(p), 0), 0);
     const expQ = PI.LEVEL.expPerTreeQuestion || 0;
+    const nRef = (K.sections || []).flatMap(sec => sec.items || []).filter(it => it.unit).length;
     $("kpanel").innerHTML = `<div class="k-head">
         <div class="info-title"><span class="muted">${land.name ? esc(land.name) + "・" : ""}知識樹</span><h3 id="kTitle">${esc(K.title || ch.name)}</h3></div>
         <button type="button" class="close" id="kClose" aria-label="關閉知識面板">×</button></div>
       ${chips ? `<div class="k-chips">${chips}</div>` : ""}
       <p class="k-exp">${nQ ? `★ 這棵樹有 <b>${nQ}</b> 個挖空題，答對每題 <b>+${expQ} EXP</b>（滿分 ${nQ * expQ} EXP）`
+        : nRef ? `★ 這裡的挖空題在本章的格子上作答，佔領一格 <b>+${PI.LEVEL.expPerCell} EXP</b>`
         : `★ 加入內容後，挖空題答對每題 <b>+${expQ} EXP</b>`}<span class="muted">答題功能尚未開放</span></p>
       <div class="k-body">${(K.sections || []).map(sec => `<section class="k-sec">
           <h4 class="k-sec-title">${esc(sec.title)}</h4>

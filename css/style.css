@@ -234,6 +234,7 @@ button { font: inherit; color: inherit; cursor: pointer; }
 .k-item h4 { font-size: 15px; color: var(--forest); margin: 0 0 4px; }
 .k-item p, .k-item li { font-size: 14px; color: var(--ink); margin: 0; line-height: 1.6; }
 .k-item ul { margin: 6px 0 0; padding-left: 20px; }
+.k-field { margin: 8px 0 0 !important; font-size: 12px !important; font-weight: 700; color: var(--deep) !important; }
 .k-src { margin-top: 6px !important; font-size: 12px !important; color: var(--muted) !important; }
 .k-empty { margin: 0; font-size: 14px; color: var(--muted); background: var(--mint); border: 1px dashed #C9D6BF; border-radius: var(--r-md); padding: 12px 14px; }
 @media (max-width: 600px) { .kpanel { top: 12px; right: 12px; bottom: 12px; width: calc(100% - 24px); } }
