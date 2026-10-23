@@ -146,45 +146,27 @@ button.primary{background:var(--accent);border-color:var(--accent);color:var(--a
 @keyframes pop{0%{transform:scale(.94);opacity:.5}100%{transform:none;opacity:1}}
 @media (prefers-reduced-motion:reduce){.pop{animation:none}}
 </style>
-
 </head>
 <body>
 <div class="wrap">
   <header>
     <div>
       <h1>藥理學小島</h1>
-      <p class="sub">島上會冒出藥物的影子。看線索猜出是哪個藥，猜對才算鑑定成功。</p>
+      <p class="sub">每一區是一章，每一張卡是一個藥。</p>
     </div>
-    <div class="prog" aria-label="圖鑑完成度">
-      <span class="big" id="progNum">0 / 0</span>
-      <span class="bar"><i id="barOk" style="background:var(--accent);width:0"></i><i id="barNo" style="background:var(--bad);opacity:.6;width:0"></i></span>
-      <span class="small" id="progSub"></span>
-    </div>
+    <div class="prog"><span class="big" id="count">0</span><span class="small">個藥</span></div>
   </header>
 
   <div class="main">
     <section>
-      <div class="islandbox">
-        <div class="island" id="island" aria-label="小島地圖"></div>
-        <div class="islandtip"><span id="tip">點影子去鑑定。紅色影子是之前猜錯、要重新鑑定的藥。</span><span id="spawnInfo"></span></div>
-      </div>
+      <div class="islandbox"><div class="island" id="island" aria-label="小島地圖"></div></div>
     </section>
-    <aside class="panel" style="display:flex;flex-direction:column;gap:16px">
-      <div><h2>各區鑑定進度</h2><div class="areas" id="areas"></div></div>
-      <div><h2>最近鑑定</h2><ul class="recent" id="recent"></ul></div>
-    </aside>
+    <aside class="panel"><h2>區域</h2><div class="areas" id="areas"></div></aside>
   </div>
 
   <section class="panel">
-    <div class="dex-head">
-      <h2>藥物圖鑑</h2>
-      <div class="chips" id="chips"></div>
-    </div>
+    <div class="dex-head"><h2>藥物圖鑑</h2><div class="chips" id="chips"></div></div>
     <div id="dex"></div>
-    <div class="actions" style="justify-content:flex-start;margin-top:14px">
-      <button type="button" id="resetBtn">清空圖鑑重新開始</button>
-      <span id="resetConfirm" hidden style="display:flex;gap:8px;align-items:center;font-size:14px">確定要清空？<button type="button" id="resetYes">清空</button><button type="button" id="resetNo">取消</button></span>
-    </div>
   </section>
 </div>
 
@@ -198,11 +180,11 @@ button.primary{background:var(--accent);border-color:var(--accent);color:var(--a
            {id:"pen", area:"wall", name:"Penicillins", mech:"共同機轉", pts:["共同重點", ...], tip:"類別口訣"}
    DRUGS   藥物卡：只寫這個藥自己的東西
            {n:"藥名", c:"類別 id",
-            f:["辨識特徵（影子線索）", ...],   必填，1–3 條，不可寫出藥名
+            f:["辨識特徵", ...],               必填，1–3 條
             d:["其他重點", ...],               選填
             vs:"易混淆的藥：差在哪",          選填
             tip:"口訣",                        選填
-            grp:"同組代號"}                    選填：線索相同、無法區分的藥設同一組，出題時不會互相當選項
+            }
    SOURCE  出處說明，顯示在每張卡片底部 */
 const AREAS = [];
 const CLASSES = [];
@@ -210,7 +192,7 @@ const DRUGS = [];
 const SOURCE = "";
 
 /* ================= 設定 ================= */
-const COLS=14, ROWS=10, MAX_ITEMS=6, SPAWN_MS=3500, KEY="pharm-island-v1";
+const COLS=14, ROWS=10;
 const SEEDS=[[6.8,5],[3,2.4],[10.5,2.4],[3,7.6],[10.5,7.6]];
 const $=id=>document.getElementById(id);
 const esc=s=>String(s??"").replace(/[&<>"]/g,ch=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[ch]));
@@ -220,13 +202,7 @@ const areaOf=id=>AREAS.find(a=>a.id===id);
 DRUGS.forEach((d,i)=>{ d.no=i+1; d.cl=clsOf(d.c); d.area=d.cl?d.cl.area:null; });
 const HAS_DATA = AREAS.length>0 && DRUGS.some(d=>d.area);
 
-/* ================= 存檔：每個藥的狀態 0 未遇到、1 未鑑定、2 已鑑定 ================= */
-let save={st:{},log:[]};
-try{ const raw=localStorage.getItem(KEY); if(raw) save=Object.assign(save,JSON.parse(raw)); }catch(e){}
-function persist(){ try{ localStorage.setItem(KEY,JSON.stringify(save)); }catch(e){} }
-const st=d=>save.st[d.n]||0;
-
-/* ================= 小島 ================= */
+/* ================= 小島地圖 ================= */
 function hash(c,r){ const x=Math.sin(c*127.1+r*311.7)*43758.5453; return x-Math.floor(x); }
 const tiles=[];
 for(let r=0;r<ROWS;r++)for(let c=0;c<COLS;c++){
@@ -256,88 +232,19 @@ AREAS.forEach(a=>{
   const cx=ts.reduce((s,t)=>s+t.c,0)/ts.length, cy=ts.reduce((s,t)=>s+t.r,0)/ts.length;
   html+=`<span class="alabel" style="left:${(cx+.5)/COLS*100}%;top:${(cy+.5)/ROWS*100}%">${esc(a.place||a.name)}</span>`;
 });
-html+=`<span class="me" id="me"></span>`;
-if(!HAS_DATA) html+=`<div class="nodata"><b>小島還沒有藥</b>資料放進來之後，各區就會開始冒出影子。</div>`;
+if(!HAS_DATA) html+=`<div class="nodata"><b>小島還沒有藥</b>資料放進來之後，每一章會變成島上的一區。</div>`;
 isl.innerHTML=html;
-const pos=(c,r)=>({left:`${(c+.5)/COLS*100}%`,top:`${(r+.5)/ROWS*100}%`});
-let me={c:6,r:5}; Object.assign($("me").style,pos(me.c,me.r));
-
-/* ================= 冒出影子 ================= */
-let items=[], busy=false;
-function pickDrug(aid){
-  const pool=DRUGS.filter(d=>d.area===aid && !items.some(i=>i.d===d)); if(!pool.length) return null;
-  const w=pool.map(d=>[3,4,1][st(d)]);       // 沒遇過 3、未鑑定 4、已鑑定 1
-  let x=Math.random()*w.reduce((a,b)=>a+b,0);
-  for(let i=0;i<pool.length;i++){ x-=w[i]; if(x<=0) return pool[i]; }
-  return pool[0];
-}
-function spawn(){
-  if(!HAS_DATA || items.length>=MAX_ITEMS) return;
-  const free=tiles.filter(t=>t.land&&!t.beach&&t.area&&!items.some(i=>i.t===t)&&!(t.c===me.c&&t.r===me.r));
-  for(let k=0;k<8&&free.length;k++){
-    const t=free.splice(Math.floor(Math.random()*free.length),1)[0];
-    const d=pickDrug(t.area); if(!d) continue;
-    const el=document.createElement("button");
-    el.type="button"; el.className="item"+(st(d)===1?" again":"");
-    el.setAttribute("aria-label",`${areaOf(t.area).place||areaOf(t.area).name}的影子`);
-    el.innerHTML=`<span class="shadow"></span>`;
-    Object.assign(el.style,pos(t.c,t.r));
-    const it={t,d,el}; el.onclick=()=>go(it);
-    isl.appendChild(el); items.push(it); break;
-  }
-  $("spawnInfo").textContent=HAS_DATA?`島上有 ${items.length} 個影子`:"";
-}
-function go(it){
-  if(busy) return; busy=true;
-  me={c:it.t.c,r:it.t.r}; Object.assign($("me").style,pos(me.c,me.r));
-  setTimeout(()=>{ it.el.remove(); items=items.filter(x=>x!==it); spawn(); shadowQuiz(it.d); },
-    matchMedia("(prefers-reduced-motion: reduce)").matches?50:450);
-}
-
-/* ================= 影子辨識 ================= */
-function shuffle(a){ a=a.slice(); for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];} return a; }
-function options(d){
-  const ok=x=>x!==d && !(d.grp && x.grp===d.grp);
-  const same=shuffle(DRUGS.filter(x=>ok(x)&&x.c===d.c));
-  const area=shuffle(DRUGS.filter(x=>ok(x)&&x.area===d.area&&x.c!==d.c));
-  const rest=shuffle(DRUGS.filter(x=>ok(x)&&x.area!==d.area));
-  const pick=[...same.slice(0,2),...area,...rest].slice(0,3);
-  return shuffle([d,...pick]);
-}
-function shadowQuiz(d){
-  const a=areaOf(d.area), prev=st(d);
-  const opts=options(d);
-  const dlg=$("dlg");
-  dlg.innerHTML=`<p class="lead">你在${esc(a.place||a.name)}發現一個影子${prev===1?"（上次猜錯的那個）":""}⋯⋯</p>
-    <p class="dn">這是什麼藥？</p>
-    <ul class="clues" id="clues">${(d.f||[]).map(x=>`<li>${esc(x)}</li>`).join("")}</ul>
-    <div class="opts" id="opts">${opts.map((o,i)=>`<button type="button" data-i="${i}">${esc(o.n)}</button>`).join("")}</div>
-    <div id="after"></div>
-    <div class="actions" id="act"><button type="button" id="hintBtn">提示：看類別</button></div>`;
-  $("hintBtn").onclick=()=>{
-    $("clues").insertAdjacentHTML("beforeend",`<li class="cls-clue">類別：${esc(d.cl.name)}${d.cl.mech?`　${esc(d.cl.mech)}`:""}</li>`);
-    $("hintBtn").remove();
-  };
-  $("opts").onclick=e=>{
-    const b=e.target.closest("button"); if(!b||b.disabled) return;
-    const pickD=opts[+b.dataset.i], right=pickD===d;
-    $("opts").querySelectorAll("button").forEach((x,i)=>{ x.disabled=true; if(opts[i]===d) x.classList.add("right"); else if(x===b) x.classList.add("wrong"); });
-    save.st[d.n]=right?2:1;
-    save.log.unshift({n:d.n,ok:right,t:Date.now()}); save.log=save.log.slice(0,30);
-    persist(); renderAll();
-    $("after").innerHTML=`<p class="verdict ${right?"ok":"no"}">${right?(prev===2?"鑑定成功，再次確認！":"鑑定成功！收進圖鑑。"):`猜錯了，是 ${esc(d.n)}。先收進圖鑑，標成「未鑑定」。`}</p>`;
-    $("act").innerHTML=`<button type="button" class="primary" id="seeCard">看藥物卡</button>`;
-    $("seeCard").onclick=()=>drugCard(d); $("seeCard").focus();
-  };
-  open();
-}
 
 /* ================= 卡片 ================= */
 const list=a=>a&&a.length?`<ul>${a.map(x=>`<li>${esc(x)}</li>`).join("")}</ul>`:"";
-const stLabel=d=>["","<span class=\"st-no\">未鑑定</span>","<span class=\"st-ok\">✓ 已鑑定</span>"][st(d)];
+function clsBody(c){
+  return `<dl style="margin-top:8px">${c.mech?`<div><dt>共同機轉</dt><dd>${esc(c.mech)}</dd></div>`:""}
+    ${c.pts&&c.pts.length?`<div><dt>共同重點</dt><dd>${list(c.pts)}</dd></div>`:""}
+    ${c.tip?`<div><dt>口訣</dt><dd>${esc(c.tip)}</dd></div>`:""}</dl>`;
+}
 function drugCard(d){
   const a=areaOf(d.area), c=d.cl;
-  $("dlg").innerHTML=`<p class="lead">圖鑑 No.${String(d.no).padStart(2,"0")}　${stLabel(d)}</p>
+  $("dlg").innerHTML=`<p class="lead">No.${String(d.no).padStart(2,"0")}</p>
     <p class="dn">${esc(d.n)}</p>
     <div class="badges"><span class="badge" style="background:${a.color}">${esc(a.name)}</span><span class="badge line">${esc(c.name)}</span></div>
     <dl>
@@ -349,48 +256,35 @@ function drugCard(d){
     </dl>
     ${SOURCE?`<p class="src">出處：${esc(SOURCE)}</p>`:""}
     <div class="actions"><button type="button" class="primary" id="closeDlg">關閉</button></div>`;
-  $("closeDlg").onclick=close; open(); $("closeDlg").focus();
-}
-function clsBody(c){
-  return `<dl style="margin-top:8px">${c.mech?`<div><dt>共同機轉</dt><dd>${esc(c.mech)}</dd></div>`:""}
-    ${c.pts&&c.pts.length?`<div><dt>共同重點</dt><dd>${list(c.pts)}</dd></div>`:""}
-    ${c.tip?`<div><dt>口訣</dt><dd>${esc(c.tip)}</dd></div>`:""}</dl>`;
+  show();
 }
 function classCard(c){
   const a=areaOf(c.area);
   $("dlg").innerHTML=`<p class="lead">類別卡</p><p class="dn">${esc(c.name)}</p>
     <div class="badges"><span class="badge" style="background:${a.color}">${esc(a.name)}</span></div>
     ${clsBody(c)}
-    <p class="src">這一類的藥：${DRUGS.filter(d=>d.c===c.id).map(d=>st(d)?esc(d.n):"？？？").join("、")}</p>
+    <p class="src">這一類的藥：${DRUGS.filter(d=>d.c===c.id).map(d=>esc(d.n)).join("、")}</p>
     <div class="actions"><button type="button" class="primary" id="closeDlg">關閉</button></div>`;
-  $("closeDlg").onclick=close; open(); $("closeDlg").focus();
+  show();
 }
-function open(){ const d=$("dlg"); d.classList.remove("pop"); void d.offsetWidth; d.classList.add("pop"); $("overlay").hidden=false; }
-function close(){ $("overlay").hidden=true; busy=false; }
-$("overlay").addEventListener("click",e=>{ if(e.target.id==="overlay" && $("hintBtn")===null && !$("opts")) close(); });
-document.addEventListener("keydown",e=>{ if(e.key==="Escape" && !$("overlay").hidden && !$("opts")?.querySelector("button:not(:disabled)")) close(); });
+function show(){ const d=$("dlg"); d.classList.remove("pop"); void d.offsetWidth; d.classList.add("pop"); $("overlay").hidden=false; $("closeDlg").onclick=hide; $("closeDlg").focus(); }
+function hide(){ $("overlay").hidden=true; }
+$("overlay").addEventListener("click",e=>{ if(e.target.id==="overlay") hide(); });
+document.addEventListener("keydown",e=>{ if(e.key==="Escape" && !$("overlay").hidden) hide(); });
 
 /* ================= 面板與圖鑑 ================= */
 let filter="all";
 function renderAll(){
-  const n=DRUGS.filter(d=>d.area).length, ok=DRUGS.filter(d=>st(d)===2).length, no=DRUGS.filter(d=>st(d)===1).length;
-  $("progNum").textContent=`${ok} / ${n}`;
-  $("barOk").style.width=n?`${ok/n*100}%`:"0"; $("barNo").style.width=n?`${no/n*100}%`:"0";
-  $("progSub").textContent=n?`已鑑定${no?`，另有 ${no} 個未鑑定`:""}`:"還沒有資料";
-  $("areas").innerHTML=AREAS.length?AREAS.map(a=>{const ds=DRUGS.filter(d=>d.area===a.id),g=ds.filter(d=>st(d)===2).length;
-    return `<div class="arow"><span class="sw" style="background:${a.color}"></span><span>${esc(a.place||a.name)}${a.place?`<span style="color:var(--muted);font-size:12px">・${esc(a.name)}</span>`:""}</span><span class="v">${g}/${ds.length}${ds.length&&g===ds.length?" ✓":""}</span></div>`;}).join("")
+  $("count").textContent=DRUGS.filter(d=>d.area).length;
+  $("areas").innerHTML=AREAS.length?AREAS.map(a=>{const n=DRUGS.filter(d=>d.area===a.id).length;
+    return `<div class="arow"><span class="sw" style="background:${a.color}"></span><span>${esc(a.place||a.name)}${a.place?`<span style="color:var(--muted);font-size:12px">・${esc(a.name)}</span>`:""}</span><span class="v">${n} 個藥</span></div>`;}).join("")
     :`<p class="empty">還沒有區域。通常一章一區，最多 5 區。</p>`;
-  $("recent").innerHTML=save.log.length?save.log.slice(0,10).map(x=>{const t=new Date(x.t);
-    return `<li><span class="${x.ok?"r-ok":"r-no"}">${x.ok?"✓":"✗"}</span><span>${esc(x.n)}</span><span class="when">${String(t.getHours()).padStart(2,"0")}:${String(t.getMinutes()).padStart(2,"0")}</span></li>`;}).join("")
-    :`<li class="empty" style="display:block">還沒有鑑定紀錄。</li>`;
   $("chips").innerHTML=AREAS.length?[{id:"all",name:"全部"},...AREAS].map(a=>`<button type="button" data-f="${esc(a.id)}" aria-pressed="${filter===a.id}">${esc(a.name)}</button>`).join(""):"";
   if(!HAS_DATA){ $("dex").innerHTML=schemaHelp(); return; }
   $("dex").innerHTML=CLASSES.filter(c=>filter==="all"||c.area===filter).map(c=>{
     const ds=DRUGS.filter(d=>d.c===c.id); if(!ds.length) return "";
     return `<div class="cls"><div class="cls-head"><h3>${esc(c.name)}</h3><span class="mech">${esc(c.mech||"")}</span><button type="button" data-c="${esc(c.id)}">類別卡</button></div>
-      <div class="dex">${ds.map(d=>{const s=st(d), no=String(d.no).padStart(2,"0");
-        if(!s) return `<div class="card locked"><span class="no"><span>No.${no}</span></span><span class="nm">？？？</span></div>`;
-        return `<button type="button" class="card${s===1?" again":""}" data-n="${d.no}"><span class="no"><span>No.${no}</span>${stLabel(d)}</span><span class="nm">${esc(d.n)}</span></button>`;}).join("")}</div></div>`;
+      <div class="dex">${ds.map(d=>`<button type="button" class="card" data-n="${d.no}"><span class="no"><span>No.${String(d.no).padStart(2,"0")}</span></span><span class="nm">${esc(d.n)}</span></button>`).join("")}</div></div>`;
   }).join("");
 }
 function schemaHelp(){
@@ -399,8 +293,8 @@ function schemaHelp(){
     <div class="tw"><table>
       <tr><td>區域</td><td>通常一章一區，最多 5 區，可以取一個島上的地名</td></tr>
       <tr><td>類別卡</td><td>類別名稱、共同機轉、共同重點、類別口訣</td></tr>
-      <tr><td>藥物卡・辨識特徵</td><td>必填，1–3 條，當作影子線索，不能寫出藥名</td></tr>
-      <tr><td>藥物卡・其他重點</td><td>選填，鑑定後才會看到</td></tr>
+      <tr><td>藥物卡・辨識特徵</td><td>必填，1–3 條</td></tr>
+      <tr><td>藥物卡・其他重點</td><td>選填</td></tr>
       <tr><td>藥物卡・易混淆</td><td>選填，寫出容易搞混的藥和差在哪</td></tr>
       <tr><td>藥物卡・口訣</td><td>選填</td></tr>
     </table></div></div>`;
@@ -408,16 +302,9 @@ function schemaHelp(){
 $("chips").addEventListener("click",e=>{ const b=e.target.closest("button"); if(!b) return; filter=b.dataset.f; renderAll(); });
 $("dex").addEventListener("click",e=>{
   const b=e.target.closest("button"); if(!b) return;
-  busy=true;
   if(b.dataset.c) classCard(clsOf(b.dataset.c)); else if(b.dataset.n) drugCard(DRUGS[+b.dataset.n-1]);
 });
-$("resetBtn").onclick=()=>{ $("resetBtn").hidden=true; $("resetConfirm").hidden=false; };
-$("resetNo").onclick=()=>{ $("resetBtn").hidden=false; $("resetConfirm").hidden=true; };
-$("resetYes").onclick=()=>{ save={st:{},log:[]}; persist(); $("resetBtn").hidden=false; $("resetConfirm").hidden=true; renderAll(); };
-
 renderAll();
-for(let i=0;i<4;i++) spawn();
-setInterval(spawn,SPAWN_MS);
 </script>
 
 </body>
