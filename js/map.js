@@ -186,6 +186,10 @@ PI.map = (function () {
     RING_PATH = hexPath(R * 0.62, 6);
 
     svg = el("svg", { class: "map-svg", role: "img", "aria-label": "藥理學群島地圖" });
+    // 格子的柔和明暗：左上亮、右下略暗
+    svg.innerHTML = `<defs><radialGradient id="cellShade" cx="35%" cy="30%" r="80%">
+      <stop offset="0" stop-color="#FFFFFF" stop-opacity=".08"/><stop offset=".6" stop-color="#FFFFFF" stop-opacity="0"/>
+      <stop offset="1" stop-color="#2F5A3F" stop-opacity=".07"/></radialGradient></defs>`;
     world = el("g", { class: "map-world" });
     decorLayer = el("g", { class: "layer-decor", "aria-hidden": "true" });    // 海上裝飾
     terrainLayer = el("g", { class: "layer-terrain" });                      // 島嶼地形與海岸線
@@ -215,24 +219,65 @@ PI.map = (function () {
   }
 
   // 海岸線：只在島邊的格子底下疊圓形（淺水 → 浪花 → 沙灘 → 草地），合起來是圓潤不規則的島形
+  /* 島嶼地形：全部依格子位置動態計算，新增格子後重新呼叫即可更新。
+     由下到上：水下陰影 → 淺水 → 礁石 → 浪花 → 沙灘（含陰影）→ 草地土坡 → 連續草地 → 草地斑塊 → 島邊小花草叢
+     外圍的圓形有固定亂數的大小變化，所以海岸線圓潤不規則，不會直接是六角格的硬邊。 */
   function drawTerrain(isl) {
     const g = isl.g.terrain; g.textContent = "";
-    const C = PI.MAP.coast;
-    const layers = [["shallow", 1.95, C.shallow, .55], ["foam", 1.42, C.foam, .9], ["sand", 1.3, C.sand, 1], ["grass", 1.03, C.grass, 1]];
+    const C = PI.MAP.coast, seed = isl.chapter;
     const edge = isl.cells.filter(c => c.neighbors.length < 6);
-    const groups = layers.map(([name, , fill, op]) => { const lg = el("g", { class: `coast-${name}`, fill, opacity: op }); return lg; });
-    edge.forEach(c => layers.forEach(([, k], i) => {
-      const j = i < 3 ? 0.9 + noise(c.q * 3 + i, c.r, isl.chapter) * 0.2 : 1;
-      groups[i].appendChild(el("circle", { cx: c.lx.toFixed(1), cy: c.ly.toFixed(1), r: (R * k * j).toFixed(1) }));
+    const layer = (cls, fill, op) => el("g", { class: cls, fill, opacity: op });
+    const L = {
+      shadow: layer("t-shadow", C.shadow, .22), shallow: layer("t-shallow", C.shallow, .55), foam: layer("t-foam", C.foam, .85),
+      sandShade: layer("t-sand-shade", C.sandShade, 1), sand: layer("t-sand", C.sand, 1), cliff: layer("t-cliff", C.cliff, 1),
+      grass: layer("t-grass", C.grass, 1), light: layer("t-grass-light", C.grassLight, .4), deco: el("g", { class: "t-deco" })
+    };
+    const circ = (grp, x, y, r) => grp.appendChild(el("circle", { cx: x.toFixed(1), cy: y.toFixed(1), r: r.toFixed(1) }));
+    edge.forEach(c => {
+      const j = k => 0.9 + noise(c.q * 3 + k, c.r, seed) * 0.2;   // 每層各自的大小變化
+      circ(L.shadow, c.lx, c.ly + 22, R * 1.72 * j(0));
+      circ(L.shallow, c.lx, c.ly, R * 1.98 * j(1));
+      circ(L.foam, c.lx, c.ly + 3, R * 1.5 * j(2));
+      circ(L.sandShade, c.lx, c.ly + 8, R * 1.38 * j(3));
+      circ(L.sand, c.lx, c.ly, R * 1.36 * j(3));
+      circ(L.cliff, c.lx, c.ly + 9, R * 1.1);
+    });
+    // 連續草地：每一格都鋪，格子之間沒有縫
+    isl.cells.forEach(c => {
+      circ(L.grass, c.lx, c.ly, R * 1.1);
+      if (noise(c.q, c.r, seed + 19) > 0.3) return;   // 只有少數幾處有淺色斑塊，跨在格子之間
+      const a = noise(c.q, c.r, seed + 11) * Math.PI * 2, d = R * (0.55 + noise(c.q, c.r, seed + 13) * 0.35);
+      circ(L.light, c.lx + Math.cos(a) * d, c.ly + Math.sin(a) * d, R * (0.6 + noise(c.q, c.r, seed + 17) * 0.4));
+    });
+    // 島邊的小花與草叢：只放在外圍格子朝海那一側的草地邊緣，不會蓋到格子
+    edge.forEach(c => DIRS.forEach(([dq, dr], i) => {
+      if (isl.occ.has(`${c.q + dq},${c.r + dr}`)) return;
+      const pick = noise(c.q, c.r, seed * 31 + i);
+      if (pick > 0.42) return;
+      const [nx, ny] = toXY(dq, dr), len = Math.hypot(nx, ny);
+      const x = c.lx + nx / len * R * 0.98, y = c.ly + ny / len * R * 0.98;
+      L.deco.appendChild(pick < 0.16 ? flower(x, y, pick) : tuft(x, y));
     }));
-    g.append(groups[0]);
+    g.append(L.shadow, L.shallow);
     isl.decor.forEach(d => g.appendChild(el("image", { href: d.src, x: (d.x - d.w / 2).toFixed(1), y: (d.y - d.h / 2).toFixed(1), width: d.w.toFixed(1), height: d.h.toFixed(1), class: "decor" })));
-    g.append(groups[1], groups[2], groups[3]);
+    g.append(L.foam, L.sandShade, L.sand, L.cliff, L.grass, L.light, L.deco);
+  }
+  function flower(x, y, t) {
+    const colors = ["#FFFFFF", "#F7D9E3", "#FBEFA8"], col = colors[Math.floor(t * 100) % 3];
+    const f = el("g", { class: "t-flower", transform: `translate(${x.toFixed(1)},${y.toFixed(1)})` });
+    [[-5, -2], [4, -4], [1, 5]].forEach(([dx, dy]) => f.appendChild(el("circle", { cx: dx, cy: dy, r: 3.4, fill: col })));
+    f.appendChild(el("circle", { cx: 0, cy: 0, r: 2.2, fill: "#F2C14E" }));
+    return f;
+  }
+  function tuft(x, y) {
+    return el("path", { class: "t-tuft", d: `M${(x - 7).toFixed(1)},${(y + 4).toFixed(1)} q3,-9 5,-11 M${x.toFixed(1)},${(y + 4).toFixed(1)} q0,-10 1,-13 M${(x + 7).toFixed(1)},${(y + 4).toFixed(1)} q-2,-8 -4,-10`,
+      fill: "none", stroke: "#7FAE6A", "stroke-width": 2.6, "stroke-linecap": "round" });
   }
 
   function drawCell(c) {
     const g = el("g", { class: "cell", transform: `translate(${c.lx.toFixed(1)},${c.ly.toFixed(1)})`, "data-id": c.id, role: "button" });
-    g.appendChild(el("path", { class: "cell-hex", d: HEX_PATH, "stroke-width": PI.MAP.border, stroke: PI.MAP.borderColor }));
+    g.appendChild(el("path", { class: "cell-hex", d: HEX_PATH, "stroke-width": PI.MAP.border, stroke: PI.MAP.borderColor, "stroke-opacity": PI.MAP.borderOpacity }));
+    g.appendChild(el("path", { class: "cell-shade", d: SHINE_PATH, fill: "url(#cellShade)" }));   // 極輕微的明暗，讓每塊地有一點起伏
     g.appendChild(el("path", { class: "cell-shine", d: SHINE_PATH }));   // 滑鼠移上去時只讓格子內部變亮
     g.appendChild(el("path", { class: "cell-ring", d: RING_PATH }));
     const flag = el("g", { class: "cell-flag" });
@@ -279,7 +324,9 @@ PI.map = (function () {
       const st = PI.state.statusOf(c), ch = chapterOf(c.chapter);
       g.dataset.status = st;
       g.classList.toggle("is-slot", !c.unit);
-      g.querySelector(".cell-hex").setAttribute("fill", PI.MAP.fill[st]);
+      const hex = g.querySelector(".cell-hex");
+      hex.setAttribute("fill", PI.MAP.fill[st].color);
+      hex.setAttribute("fill-opacity", PI.MAP.fill[st].opacity);
       g.setAttribute("tabindex", st === "locked" && focusCh !== c.chapter ? "-1" : "0");
       const what = c.unit ? c.unit.name : "預留格";
       g.setAttribute("aria-label", `第 ${c.chapter} 章 ${ch.name}，${what}，${({ occupied: "已佔領", available: "可挑戰", locked: "未解鎖" })[st]}`);

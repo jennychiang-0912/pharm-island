@@ -33,18 +33,26 @@ PI.CHAPTERS = [
 /* 地圖設定 */
 PI.MAP = {
   hexRadius: 60,        // 六角格頂點半徑：寬 103.92、高 120，與 Penpot 的 hex-rounded 一致
-  border: 12,           // 格子邊框（奶油黃格線）寬度
-  borderColor: "#F3E5B5",
+  border: 4,            // 格子邊界：細細的奶油色小路
+  borderColor: "#F3E9C6",
+  borderOpacity: 0.8,
   corner: 12,           // 六角格圓角
-  fill: {               // 三種狀態的填色，全部在淺綠色系
-    locked: "#D6E3C9",
-    available: "#A8C98F",
-    occupied: "#5E8B67"
+  fill: {               // 三種狀態的填色與透明度：半透明疊在草地上，看起來是同一片土地
+    locked:    { color: "#FFFFFF", opacity: 0.06 },
+    available: { color: "#EAF5D6", opacity: 0.62 },
+    occupied:  { color: "#5E8B67", opacity: 0.86 }
   },
   padding: 64,          // 地圖與容器邊緣的留白
   islandGap: 2.6,       // 島與島之間至少隔幾格寬的海
-  coast: {              // 海岸線：每一格底下疊幾層圓形，合起來就是自然的島形
-    shallow: "#9FDCD8", foam: "#FFFFFF", sand: "#F1E2B4", grass: "#B7D59C"
+  coast: {              // 島嶼地形：依格子位置疊圓形，合起來是連續草地與圓潤海岸
+    shadow: "#1C7A9E",    // 水下陰影（讓島有一點厚度）
+    shallow: "#9FDCD8",   // 淺水
+    foam: "#FFFFFF",      // 浪花
+    sand: "#F2E3B5",      // 沙灘
+    sandShade: "#E3CF97", // 沙灘靠水那側的陰影
+    cliff: "#8CB57A",     // 草地邊緣的土坡
+    grass: "#B4D69A",     // 草地
+    grassLight: "#C5E2AA" // 草地上的淺色斑塊
   }
 };
 
