@@ -115,7 +115,7 @@ h1, h2 { margin: 0; }
 .cell[data-status="occupied"] .cell-num { opacity: 0; }
 .cell:hover .cell-hex, .cell:focus-visible .cell-hex { filter: brightness(1.04); }
 .cell:focus { outline: none; }
-.cell:focus-visible .cell-hex, .cell.is-selected .cell-hex { stroke: var(--forest); }
+.sel-ring { stroke: var(--forest); stroke-linejoin: round; }
 .cell.is-dim { opacity: .28; }
 @keyframes spin { to { transform: rotate(360deg); } }
 

@@ -56,7 +56,7 @@ PI.map = (function () {
   }
 
   /* ---------- 繪製 ---------- */
-  let svg, world, cells, onSelect = () => {}, selected = null, focusCh = null;
+  let hl, svg, world, cells, onSelect = () => {}, selected = null, focusCh = null;
   const view = { x: 0, y: 0, k: 1 };
   const bounds = { minX: 0, minY: 0, maxX: 0, maxY: 0 };
   const el = (tag, attrs) => { const e = document.createElementNS(SVGNS, tag); for (const k in attrs) e.setAttribute(k, attrs[k]); return e; };
@@ -91,6 +91,12 @@ PI.map = (function () {
       world.appendChild(g);
     });
 
+    // 選取外框另外畫在最上層，才不會被旁邊的格子蓋住
+    hl = el("path", { class: "sel-ring", d: path, fill: "none", "stroke-width": 7, "pointer-events": "none" });
+    world.appendChild(hl);
+    svg.addEventListener("focusin", e => { const g = e.target.closest?.(".cell"); if (g) placeRing(g.dataset.id); });
+    svg.addEventListener("focusout", () => placeRing(selected));
+
     bounds.minX = Math.min(...cells.map(c => c.x)) - R; bounds.maxX = Math.max(...cells.map(c => c.x)) + R;
     bounds.minY = Math.min(...cells.map(c => c.y)) - R; bounds.maxY = Math.max(...cells.map(c => c.y)) + R;
 
@@ -98,6 +104,13 @@ PI.map = (function () {
     new ResizeObserver(() => frame(lastFrame.b, false, lastFrame.cap)).observe(container);
     render();
     return cells;
+  }
+
+  function placeRing(id) {
+    const c = id && cells.find(x => x.id === id);
+    if (!c) { hl.style.display = "none"; return; }
+    hl.setAttribute("transform", `translate(${c.x.toFixed(1)},${c.y.toFixed(1)})`);
+    hl.style.display = "";
   }
 
   function render() {
@@ -114,6 +127,7 @@ PI.map = (function () {
       g.setAttribute("role", "button");
       g.setAttribute("aria-label", `第 ${c.chapter} 章 ${ch.name}，${({ occupied: "已佔領", available: "可挑戰", locked: "未解鎖" })[st]}`);
     });
+    placeRing(selected);
   }
 
   /* ---------- 拖曳與縮放 ---------- */
