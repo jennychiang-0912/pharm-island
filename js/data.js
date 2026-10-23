@@ -17,7 +17,7 @@ PI.CATEGORIES = [
    - note：顯示在島嶼資訊卡上的說明。 */
 PI.CHAPTERS = [
   { id: 1,  name: "抗菌藥物療法導論",       cat: "micro", estimate: 7,  unitType: "topic",       note: "新手教學島：概論與藥物分類入口，沒有新增藥物。" },
-  { id: 2,  name: "磺胺藥與泌尿道感染用藥", cat: "micro", estimate: 25, unitType: "drug" },
+  { id: 2,  name: "磺胺藥與泌尿道感染用藥", cat: "micro", estimate: 17, unitType: "drug" },
   { id: 3,  name: "細胞壁合成抑制劑",       cat: "micro", estimate: 50, unitType: "drug" },
   { id: 4,  name: "蛋白質合成抑制劑",       cat: "micro", estimate: 25, unitType: "drug" },
   { id: 5,  name: "抗分枝桿菌藥物",         cat: "micro", estimate: 17, unitType: "drug" },
@@ -28,7 +28,7 @@ PI.CHAPTERS = [
   { id: 10, name: "呼吸系統用藥",           cat: "resp",  estimate: 50, unitType: "drug" },
   { id: 11, name: "腸胃道用藥",             cat: "gi",    estimate: 95, unitType: "drug" }
 ];
-/* 以上 estimate 都是預估值，不是正式藥物清單。 */
+/* 以上 estimate 都是預估值，不是正式藥物清單。第 1、2 章已依 W1 筆記改成實際單元數。 */
 
 /* 群島：哪些章節在同一塊陸地上。主島上每一章是一個區域，區域之間用小路分開。
    angle：這座島放在主島的哪個方向（度，0 是右邊、90 是下面），讓群島構圖自然、不對稱。 */
@@ -98,5 +98,5 @@ PI.ART = {
   perChunk: { island: [0, 1], rock: [0, 1], wave: [0, 1] } // 每個區塊放幾個（最少、最多）
 };
 
-/* 等級規則：每佔領一格得到的經驗值，以及每升一級需要的經驗值 */
-PI.LEVEL = { expPerCell: 10, expPerLevel: 50 };
+/* 等級規則：每佔領一格得到的經驗值、知識樹每答對一題（一個挖空）得到的經驗值，以及每升一級需要的經驗值 */
+PI.LEVEL = { expPerCell: 10, expPerTreeQuestion: 5, expPerLevel: 50 };

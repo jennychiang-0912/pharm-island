@@ -412,6 +412,14 @@ PI.map = (function () {
       fill: "none", stroke: "#7FAE6A", "stroke-width": 2.6, "stroke-linecap": "round" });
   }
 
+  // 格子裡的名字：超過格子寬度就截短（中文字比較寬，依實際寬度算）
+  function fitName(name, maxW = 86) {
+    measure.font = `600 13px ${getComputedStyle(document.body).fontFamily}`;
+    if (measure.measureText(name).width <= maxW) return name;
+    let s = name;
+    while (s.length > 1 && measure.measureText(s + "…").width > maxW) s = s.slice(0, -1);
+    return s + "…";
+  }
   function drawCell(c) {
     const g = el("g", { class: "cell", transform: `translate(${c.lx.toFixed(1)},${c.ly.toFixed(1)})`, "data-id": c.id, role: "button" });
     // 每格只有一個六角形；可挑戰的虛線圈與已佔領的旗子，等狀態需要時才加（見 render）
@@ -420,7 +428,7 @@ PI.map = (function () {
     c.st = null;
     if (c.unit) {
       const t = el("text", { class: "cell-name", y: 34 });
-      t.textContent = c.unit.name.length > 11 ? c.unit.name.slice(0, 10) + "…" : c.unit.name;
+      t.textContent = fitName(c.unit.short || c.unit.name);
       g.appendChild(t);
     }
     c.el = g;

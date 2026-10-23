@@ -7,6 +7,16 @@
   const chOf = id => PI.CHAPTERS.find(c => c.id === id);
   const STATUS = { occupied: "已佔領", available: "可挑戰", locked: "未解鎖" };
 
+  /* 挖空句子：{{答案|類型}} 是挖空處，句尾「 #口訣」是提示。平常顯示時把答案標出來 */
+  const CLOZE = /\{\{([^{}|]+)(?:\|([^{}]*))?\}\}/g;
+  const splitHint = line => { const i = line.search(/\s#/); return i < 0 ? [line, ""] : [line.slice(0, i), line.slice(i).trim()]; };
+  const blanks = line => (splitHint(line)[0].match(CLOZE) || []).length;
+  function clozeLine(line) {
+    const [text, hint] = splitHint(line);
+    const body = esc(text).replace(CLOZE, (m, ans, type) => `<mark class="cloze" title="${esc(type || "")}">${ans}</mark>`);
+    return body + (hint ? ` <span class="hint">${esc(hint)}</span>` : "");
+  }
+
   let focus = null;        // 目前篩選的章節
   let current = null;      // 目前選取的格子
 
@@ -72,9 +82,19 @@
         <button type="button" class="close" id="infoClose" aria-label="關閉">×</button></div>
       <div class="tags"><span class="tag st-${st}">${STATUS[st]}</span>
         ${u ? `<span class="tag">${esc(PI.UNIT_TYPES[u.type] || u.type)}</span>${u.group ? `<span class="tag">${esc(u.group)}</span>` : ""}` : `<span class="tag">尚未加入藥物資料</span>`}</div>
+      ${u ? unitBody(u) : ""}
       <p>${note}</p>`;
     box.hidden = false;
     $("infoClose").onclick = () => PI.map.select(null);
+  }
+
+  /* 單元內容：依 PI.UNIT_FIELDS 的順序列出有資料的欄位 */
+  function unitBody(u) {
+    const rows = (PI.UNIT_FIELDS || []).filter(([k]) => u[k] && u[k].length).map(([k, label]) =>
+      `<div class="u-row"><span class="u-label">${esc(label)}</span><ul>${u[k].map(l => `<li>${clozeLine(l)}</li>`).join("")}</ul></div>`).join("");
+    const extra = [u.generation, u.source && `出處：${u.source}`].filter(Boolean).map(esc).join("・");
+    const cls = u.class ? `<p class="u-class">類別共通內容（機轉、藥動、副作用等）在本章知識樹</p>` : "";
+    return rows || cls || extra ? `<div class="u-body">${rows}${cls}${extra ? `<p class="u-meta">${extra}</p>` : ""}</div>` : "";
   }
 
   /* ---------- 島嶼資訊卡：點島嶼的海岸或章節牌子 ---------- */
@@ -105,13 +125,20 @@
     const chips = `<span class="k-chip">${badge(ch, cat)}第 ${ch.id} 章</span>`;
     const item = it => `<article class="k-item">
         ${it.title ? `<h4>${esc(it.title)}</h4>` : ""}
-        ${it.text ? `<p>${esc(it.text)}</p>` : ""}
-        ${it.points && it.points.length ? `<ul>${it.points.map(p => `<li>${esc(p)}</li>`).join("")}</ul>` : ""}
+        ${it.text ? `<p>${clozeLine(it.text)}</p>` : ""}
+        ${it.image ? `<img class="k-img" src="${esc(it.image)}" alt="${esc(it.title || "")}" loading="lazy">` : ""}
+        ${it.points && it.points.length ? `<ul>${it.points.map(p => `<li>${clozeLine(p)}</li>`).join("")}</ul>` : ""}
         ${it.source ? `<p class="k-src">出處：${esc(it.source)}</p>` : ""}</article>`;
+    // 這棵樹有幾題（一個挖空＝一題）
+    const nQ = (K.sections || []).flatMap(sec => sec.items || []).reduce((n, it) =>
+      n + blanks(it.text || "") + (it.points || []).reduce((m, p) => m + blanks(p), 0), 0);
+    const expQ = PI.LEVEL.expPerTreeQuestion || 0;
     $("kpanel").innerHTML = `<div class="k-head">
         <div class="info-title"><span class="muted">${land.name ? esc(land.name) + "・" : ""}知識樹</span><h3 id="kTitle">${esc(K.title || ch.name)}</h3></div>
         <button type="button" class="close" id="kClose" aria-label="關閉知識面板">×</button></div>
       ${chips ? `<div class="k-chips">${chips}</div>` : ""}
+      <p class="k-exp">${nQ ? `★ 這棵樹有 <b>${nQ}</b> 個挖空題，答對每題 <b>+${expQ} EXP</b>（滿分 ${nQ * expQ} EXP）`
+        : `★ 加入內容後，挖空題答對每題 <b>+${expQ} EXP</b>`}<span class="muted">答題功能尚未開放</span></p>
       <div class="k-body">${(K.sections || []).map(sec => `<section class="k-sec">
           <h4 class="k-sec-title">${esc(sec.title)}</h4>
           ${sec.items && sec.items.length ? sec.items.map(item).join("")
