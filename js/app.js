@@ -10,7 +10,7 @@
   let focus = null;        // 目前篩選的章節
   let current = null;      // 目前選取的格子
 
-  const cells = PI.map.init($("map"), { onSelect: showInfo, onSelectIsland: showIsland });
+  const cells = PI.map.init($("map"), { onSelect: showInfo, onSelectIsland: showIsland, onOpenTree: openKnowledge });
 
   /* ---------- 導覽列與玩家面板 ---------- */
   function renderStats() {
@@ -93,6 +93,41 @@
     box.hidden = false;
     $("infoClose").onclick = () => { box.hidden = true; };
   }
+
+  /* ---------- 知識面板：點知識樹打開，關閉後地圖回到打開前的位置 ---------- */
+  let kView = null, kFrom = null;
+  function openKnowledge(landId) {
+    const K = (PI.KNOWLEDGE || {})[landId]; if (!K) return;
+    const land = PI.LANDMASSES.find(l => l.id === landId) || { name: K.title, chapters: [] };
+    if ($("kpanel").hidden) { kView = PI.map.getView(); kFrom = document.activeElement; }   // 換別棵樹時不覆蓋最早的位置
+    $("info").hidden = true;
+    const chips = land.chapters.map(id => { const ch = chOf(id), cat = catOf(ch.cat);
+      return `<span class="k-chip">${badge(ch, cat)}${esc(ch.name)}</span>`; }).join("");
+    const item = it => `<article class="k-item">
+        ${it.title ? `<h4>${esc(it.title)}</h4>` : ""}
+        ${it.text ? `<p>${esc(it.text)}</p>` : ""}
+        ${it.points && it.points.length ? `<ul>${it.points.map(p => `<li>${esc(p)}</li>`).join("")}</ul>` : ""}
+        ${it.source ? `<p class="k-src">出處：${esc(it.source)}</p>` : ""}</article>`;
+    $("kpanel").innerHTML = `<div class="k-head">
+        <div class="info-title"><span class="muted">${esc(land.name)}・知識樹</span><h3 id="kTitle">${esc(K.title)}</h3></div>
+        <button type="button" class="close" id="kClose" aria-label="關閉知識面板">×</button></div>
+      ${chips ? `<div class="k-chips">${chips}</div>` : ""}
+      <div class="k-body">${(K.sections || []).map(sec => `<section class="k-sec">
+          <h4 class="k-sec-title">${esc(sec.title)}</h4>
+          ${sec.items && sec.items.length ? sec.items.map(item).join("")
+            : `<p class="k-empty">尚未加入內容，之後依課堂講義補充。</p>`}</section>`).join("")}</div>`;
+    $("kpanel").hidden = false;
+    $("kClose").onclick = closeKnowledge;
+    $("kClose").focus();
+  }
+  function closeKnowledge() {
+    if ($("kpanel").hidden) return;
+    $("kpanel").hidden = true;
+    PI.map.setView(kView, true);   // 回到打開面板前的地圖位置
+    kView = null;
+    if (kFrom && kFrom.focus) kFrom.focus({ preventScroll: true });
+  }
+  document.addEventListener("keydown", e => { if (e.key === "Escape" && !$("kpanel").hidden) closeKnowledge(); });
 
   /* ---------- 地圖按鈕 ---------- */
   $("zoomIn").onclick = () => PI.map.zoomIn();
