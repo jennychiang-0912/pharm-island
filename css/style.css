@@ -155,10 +155,11 @@ button { font: inherit; color: inherit; cursor: pointer; }
 /* 格子 */
 .cell { cursor: pointer; transition: opacity .25s; }
 .cell:focus { outline: none; }
-.cell-hex { transition: fill .3s, filter .15s; }
-.cell:hover .cell-hex { filter: brightness(1.05); }
+.cell-hex { transition: fill .3s; }
+.cell-shine { fill: #fff; opacity: 0; pointer-events: none; transition: opacity .15s; }
+.cell:hover .cell-shine, .cell:focus-visible .cell-shine { opacity: .22; }
 .cell[data-status="locked"] { cursor: default; }
-.cell[data-status="locked"]:hover .cell-hex { filter: none; }
+.cell[data-status="locked"]:hover .cell-shine { opacity: 0; }
 .cell-ring { fill: none; stroke: var(--cream); stroke-width: 4; opacity: 0; }
 .cell[data-status="available"] .cell-ring {
   opacity: .95; stroke-dasharray: 8 7; stroke-linecap: round;

@@ -88,9 +88,11 @@ PI.map = (function () {
     container.appendChild(svg);
 
     const path = hexPath(R, PI.MAP.corner);
+    const shinePath = hexPath(R - PI.MAP.border / 2, PI.MAP.corner);
     cells.forEach(c => {
       const g = el("g", { class: "cell", transform: `translate(${c.x.toFixed(1)},${c.y.toFixed(1)})`, "data-id": c.id });
       g.appendChild(el("path", { class: "cell-hex", d: path, "stroke-width": PI.MAP.border, stroke: PI.MAP.borderColor }));
+      g.appendChild(el("path", { class: "cell-shine", d: shinePath }));   // 滑鼠移上去時只讓格子內部變亮，不碰到邊框
       g.appendChild(el("path", { class: "cell-ring", d: hexPath(R * 0.62, 6) }));
       const flag = el("g", { class: "cell-flag" });
       flag.appendChild(el("path", { d: "M-8,14 L-8,-16 M-8,-16 L14,-9 L-8,-2", fill: "none", "stroke-width": 4, "stroke-linecap": "round", "stroke-linejoin": "round" }));
