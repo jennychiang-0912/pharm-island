@@ -198,7 +198,7 @@ PI.KNOWLEDGE = {
           points: [
             "本身{{無抗菌力|性質}}，需併用抗生素",
             "{{Clavulanate|藥名}}、Sulbactam、Tazobactam #可舒坦",
-            "對少部分 G(-) 產生的 β-lactamase 無效：如{{柑橘酸桿菌 (Citrobacter)|菌種}}、假單胞菌腸桿菌 (pseudomonasenterobacter)、沙雷氏菌 (Serratia)",
+            "對少部分 G(-) 產生的 β-lactamase 無效：如{{柑橘酸桿菌 (Citrobacter)|菌種}}、假單胞菌 (Pseudomonas)、腸桿菌 (Enterobacter)、沙雷氏菌 (Serratia)",
             "常見組合：抗生素 + β-lactamase 抑制劑"
           ] }
       ] }
@@ -391,7 +391,7 @@ PI.KNOWLEDGE = {
             "{{免疫低下|族群}}患者（如 AIDS、骨髓移植空窗期）",
             "治療嚴重真菌感染",
             "局部給藥（優點：降低副作用）：{{角膜感染 (Mycotic corneal ulcers)|疾病}}、角膜炎 (Keratitis)－滴劑、結膜下注射",
-            "乾癬性關節炎 (Fungal arthritis)"
+            "黴菌性關節炎 (Fungal arthritis)"
           ] },
         { title: "Polyenes：副作用", source: "W3",
           points: [
