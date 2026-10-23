@@ -2,6 +2,7 @@
    題目全部從資料裡的挖空 {{答案|類型}} 自動產生，不另外寫題庫：
    - 挖空題：一句話挖掉一個答案，錯誤選項從「同類型」的其他答案抽（同一組 > 同一章 > 其他章）。
    - 認藥題：給這個藥「獨有」的一兩句特徵，問是哪一個藥；錯誤選項是同一組／同一章的其他藥。
+     只出現在知識樹答題（格子的標題就是藥名，在格子上出沒有意義）。
    會排除「這個藥本身其他句子也成立」的錯誤選項，避免一題有兩個正確答案。
    挑戰格子：連答 3 題，答對 2 題以上就佔領（題目不到 3 題時要全對）。
    知識樹：每次 5 題；每一題第一次答對 +PI.LEVEL.expPerTreeQuestion EXP。 */
@@ -110,7 +111,7 @@ PI.quiz = (function () {
 
   function forUnit(u, n = 3) {
     if (!bank) build();
-    const qs = [], w = whichQ(u); if (w) qs.push(w);
+    const qs = [];   // 格子上不出認藥題：標題就是藥名，一看就知道
     const lines = shuffle(bank.lines.filter(L => L.owner === `u:${u.id}`));
     // 先每句各出一題，題目不夠再同一句換一個挖空
     for (let round = 0; qs.length < n && round < 4; round++)
@@ -122,6 +123,9 @@ PI.quiz = (function () {
     if (!bank) build();
     const out = [];
     bank.lines.filter(L => L.owner === `t:${key}`).forEach(L => L.p.blanks.forEach((_, k) => { const q = clozeQ(L, k); if (q) out.push(q); }));
+    // 認藥題放在知識樹：這裡看不到藥名，才真的考得到「這是哪個藥」
+    const ch = (PI.KNOWLEDGE[key] || {}).chapter;
+    PI.UNITS.filter(u => u.chapter === ch).forEach(u => { const q = whichQ(u); if (q) out.push(q); });
     return out;
   }
 
