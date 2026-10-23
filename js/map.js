@@ -54,6 +54,10 @@ PI.map = (function () {
   // 下一格要放哪裡：只從已有格子旁邊的空位挑
   function nextSpot(isl, group) {
     if (!isl.cells.length) return [0, 0];
+    // 同一組已有的格子：算出中心，新格子越靠近中心越好，同組才會聚成一團，不會拉成長條
+    const mates = group ? isl.cells.filter(c => c.group === group) : [];
+    const gq = mates.length ? mates.reduce((s, c) => s + c.q, 0) / mates.length : 0;
+    const gr = mates.length ? mates.reduce((s, c) => s + c.r, 0) / mates.length : 0;
     const seen = new Set(); let best = null, bestScore = -Infinity;
     isl.cells.forEach(c => DIRS.forEach(([dq, dr]) => {
       const q = c.q + dq, r = c.r + dr, key = `${q},${r}`;
@@ -61,7 +65,13 @@ PI.map = (function () {
       seen.add(key);
       let nb = 0, same = 0;
       DIRS.forEach(([a, b]) => { const n = isl.occ.get(`${q + a},${r + b}`); if (n) { nb++; if (group && n.group === group) same++; } });
-      const score = nb * 3 + same * 2 + noise(q, r, isl.chapter * 7919) * 3.4 - hexDist(q, r) * 0.75;
+      const n = noise(q, r, isl.chapter * 7919);
+      let score;
+      if (mates.length) {        // 同組的後續格子：貼著同組、往同組中心靠（同組才會聚成一團，不會拉成長條）
+        score = nb * 3 + same * 3 - hexDist(q - gq, r - gr) * 2.5 + n * 0.5 - hexDist(q, r) * 0.75;
+      } else {                   // 新的一組的第一格，或沒有分組的格子
+        score = nb * 3 + n * (group ? 2 : 3.4) - hexDist(q, r) * 0.75;
+      }
       if (score > bestScore) { bestScore = score; best = [q, r]; }
     }));
     return best;
