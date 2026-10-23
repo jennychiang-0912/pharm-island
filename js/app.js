@@ -78,6 +78,30 @@
   $("zoomOut").onclick = () => PI.map.zoomOut();
   $("zoomFit").onclick = () => setFocus(null);
 
+  /* ---------- 全螢幕 ---------- */
+  const mapEl = $("map");
+  const isFull = () => mapEl.classList.contains("is-full");
+  function markFull(on, fake) {
+    mapEl.classList.toggle("is-full", on);
+    mapEl.classList.toggle("is-fake", on && !!fake);
+    document.body.style.overflow = on && fake ? "hidden" : "";
+    $("fullBtn").setAttribute("aria-pressed", on);
+    $("fullBtn").setAttribute("aria-label", on ? "離開全螢幕" : "全螢幕");
+    $("fullBtn").title = on ? "離開全螢幕" : "全螢幕";
+  }
+  $("fullBtn").onclick = () => {
+    if (isFull()) {
+      if (document.fullscreenElement) document.exitFullscreen().catch(() => {});
+      else markFull(false);
+      return;
+    }
+    if (mapEl.requestFullscreen && document.fullscreenEnabled) {
+      mapEl.requestFullscreen().then(() => markFull(true, false)).catch(() => markFull(true, true));
+    } else markFull(true, true);
+  };
+  document.addEventListener("fullscreenchange", () => { if (!document.fullscreenElement && isFull()) markFull(false); });
+  document.addEventListener("keydown", e => { if (e.key === "Escape" && mapEl.classList.contains("is-fake")) markFull(false); });
+
   /* ---------- 設定 ---------- */
   const openSettings = () => { $("settings").hidden = false; $("setClose").focus(); };
   const closeSettings = () => { $("settings").hidden = true; $("resetConfirm").hidden = true; $("settingsBtn").focus(); };

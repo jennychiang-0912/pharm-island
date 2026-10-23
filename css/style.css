@@ -94,6 +94,14 @@ h1, h2 { margin: 0; }
 .map-ctrl { position: absolute; right: 16px; bottom: 16px; display: flex; flex-direction: column; gap: 6px; z-index: 2; }
 .map-ctrl button { width: 42px; height: 42px; border-radius: var(--r-sm); border: 1px solid var(--line); background: var(--card); color: var(--forest); font-size: 22px; line-height: 1; display: grid; place-items: center; }
 .map-ctrl button:hover { background: #fff; }
+.map-ctrl .ico-exit { display: none; }
+.map.is-full .map-ctrl .ico-exit { display: block; }
+.map.is-full .map-ctrl .ico-enter { display: none; }
+/* 全螢幕：瀏覽器支援時用原生全螢幕；不支援時（例如 iPhone）改成蓋滿整個視窗 */
+.map:fullscreen { border-radius: 0; border: 0; }
+.map.is-full.is-fake { position: fixed; inset: 0; z-index: 30; border-radius: 0; border: 0; }
+.map.is-full .map-ctrl { right: max(16px, env(safe-area-inset-right, 0px)); bottom: max(16px, env(safe-area-inset-bottom, 0px)); }
+.map.is-full .map-hint { top: max(14px, env(safe-area-inset-top, 0px)); }
 
 /* 格子 */
 .cell { cursor: pointer; transition: opacity .25s; }
