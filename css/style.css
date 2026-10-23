@@ -118,9 +118,8 @@ button { font: inherit; color: inherit; cursor: pointer; }
 .map {
   position: relative; flex: 1; min-height: 0; overflow: hidden;
   border-radius: var(--r-xl); border: 1px solid #DCE4D2;
-  background-color: var(--mint);
-  background-image: radial-gradient(rgba(49, 91, 67, .055) 1px, transparent 1.3px);
-  background-size: 18px 18px;
+  /* 海面背景圖：圖片載入前先顯示相近的藍色 */
+  background: #4FB3D6 url("../assets/ocean.jpg") center / cover no-repeat;
   touch-action: none; cursor: grab;
 }
 .map.is-dragging { cursor: grabbing; }
