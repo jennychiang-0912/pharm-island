@@ -36,6 +36,15 @@ PI.UNIT_FIELDS = [
   ["pk", "藥動"], ["adverse", "副作用"], ["contraindications", "禁忌與交互作用"], ["resistance", "抗藥性"], ["notes", "其他重點"]
 ];
 
+/* 對比組：答案在某一組裡時，選項就用同一組的其他詞（例如「耐酸／不耐酸」），不從整個題庫亂抽。
+   這些只是對照用的選項詞，不是新增的知識。 */
+PI.CLOZE_SETS = [
+  ["耐酸", "不耐酸"], ["耐酶", "不耐酶"], ["可逆", "不可逆"], ["↑", "↓"], ["高", "低"], ["長", "短"], ["快", "慢"],
+  ["厚", "薄"], ["酸性", "鹼性", "中性"], ["空腹", "飯後"], ["厭氧", "需氧"], ["正電", "負電"], ["窄", "寬"],
+  ["廣效", "窄效"], ["脂溶性", "水溶性"], ["抑菌", "殺菌"], ["誘導", "抑制"], ["分裂中", "休眠中"],
+  ["無抗菌力", "有抗菌力"], ["第一線", "第二線", "後線用藥"]
+];
+
 /* 挖空類型：同類型的答案會互相當錯誤選項 */
 PI.CLOZE_TYPES = ["藥名", "藥物類別", "標的", "酵素", "作用位置", "機轉", "結構", "受質", "反應", "菌種", "疾病", "副作用",
   "器官", "部位", "離子", "物質", "性質", "顏色", "族群", "藥效", "藥動", "給藥途徑", "名詞", "數值"];
@@ -375,12 +384,12 @@ PI.UNITS = [
     adverse: ["{{類流感症狀|副作用}}", "{{橘紅色|顏色}}體液"] },
   { id: "rifabutin", chapter: 5, name: "Rifabutin", type: "drug", group: "結核一線用藥", class: "rifamycins", source: "W3",
     indications: ["HIV 病人同時有{{結核病|疾病}}或 MAC 時多選用 #我愛吃布丁", "HIV 病人 {{MAC 預防|名詞}}首選"],
-    pk: ["{{較不會|性質}}誘導肝臟 P450（HIV 治療會服用經肝臟酵素代謝的{{蛋白酶抑制劑 (PIs)|藥物類別}}、NNRTIs）"] },
+    pk: ["較不會誘導肝臟 P450（HIV 治療會服用經肝臟酵素代謝的{{蛋白酶抑制劑 (PIs)|藥物類別}}、NNRTIs）"] },
   { id: "rifapentine", chapter: 5, name: "Rifapentine", type: "drug", group: "結核一線用藥", class: "rifamycins", source: "W3",
     notes: ["商品名 Priftin"],
     pk: ["{{誘導|性質}}肝臟酵素 P450，有藥物交互作用"] },
   { id: "pyrazinamide", chapter: 5, name: "Pyrazinamide (PZA)", short: "Pyrazinamide", type: "drug", group: "結核一線用藥", source: "W3",
-    mechanism: ["{{Prodrug|名詞}}：{{pncA (amidase)|酵素}} → {{Pyrazinoic acid (POA)|物質}}", "抑制 {{Fatty acid synthase I|標的}}；降低 pH", "減少{{膜通透性|性質}}、物質運輸"],
+    mechanism: ["{{Prodrug|名詞}}：{{pncA (amidase)|酵素}} → {{Pyrazinoic acid (POA)|物質}}", "抑制 {{Fatty acid synthase I|標的}}；降低 pH", "減少膜通透性、物質運輸"],
     adverse: ["★{{高尿酸血症/痛風|副作用}} #PIZZA放太多海鮮了"] },
   { id: "ethambutol", chapter: 5, name: "Ethambutol (EMB)", short: "Ethambutol", type: "drug", group: "結核一線用藥", source: "W3",
     mechanism: ["抑制 {{arabinosyl transferase|標的}} → 阻斷 {{AG|結構}}（細胞壁重要成分）合成"],

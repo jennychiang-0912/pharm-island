@@ -73,7 +73,7 @@
     const ch = chOf(cell.chapter), cat = catOf(ch.cat), st = PI.state.statusOf(cell);
     const u = cell.unit;
     const note = {
-      available: "這格可以挑戰。答題功能還沒加入，之後點這格就會出題。",
+      available: "這格可以挑戰：連答 3 題，答對 2 題以上就佔領。",
       locked: "先佔領旁邊的格子，這格才會解鎖。",
       occupied: "這格已經是你的領土了。"
     }[st];
@@ -83,9 +83,24 @@
       <div class="tags"><span class="tag st-${st}">${STATUS[st]}</span>
         ${u ? `<span class="tag">${esc(PI.UNIT_TYPES[u.type] || u.type)}</span>${u.group ? `<span class="tag">${esc(u.group)}</span>` : ""}` : `<span class="tag">尚未加入藥物資料</span>`}</div>
       ${u ? unitBody(u) : ""}
-      <p>${note}</p>`;
+      <p>${note}</p>
+      ${u && st !== "locked" ? `<div class="info-actions"><button type="button" class="btn btn-primary" id="infoQuiz">${st === "available" ? "挑戰這格" : "再練習一次"}</button></div>` : ""}`;
     box.hidden = false;
     $("infoClose").onclick = () => PI.map.select(null);
+    if ($("infoQuiz")) $("infoQuiz").onclick = () => challenge(cell);
+  }
+
+  /* 挑戰格子：答對 2 題以上（題目不到 3 題時全對）就佔領；已佔領的格子只是練習 */
+  function challenge(cell) {
+    const qs = PI.quiz.forUnit(cell.unit, 3);
+    if (!qs.length) { $("info").querySelector("p:last-of-type").textContent = "這格的資料還不夠出題。"; return; }
+    const practice = PI.state.statusOf(cell) === "occupied", need = qs.length >= 3 ? 2 : qs.length;
+    const ch = chOf(cell.chapter);
+    PI.quiz.start({ qs, need, kicker: `第 ${ch.id} 章・${ch.name}`, title: `${practice ? "練習" : "挑戰"}：${cell.unit.name}`,
+      okText: practice ? "複習完成！" : `佔領成功！+${PI.LEVEL.expPerCell} EXP，旁邊的格子解鎖了。`,
+      badText: practice ? "再複習一下資訊卡上的內容吧。" : `要答對 ${need} 題才能佔領，看完資訊卡再挑戰一次吧。`,
+      onFinish: ok => { if (ok && !practice) PI.state.occupy(cell.id); },
+      onClose: () => { showInfo(cell); } });
   }
 
   /* 單元內容：依 PI.UNIT_FIELDS 的順序列出有資料的欄位 */
@@ -136,23 +151,34 @@
         ${it.points && it.points.length ? `<ul>${it.points.map(p => `<li>${clozeLine(p)}</li>`).join("")}</ul>` : ""}
         ${it.source ? `<p class="k-src">出處：${esc(it.source)}</p>` : ""}</article>`;
     // 這棵樹有幾題（一個挖空＝一題）
-    const nQ = (K.sections || []).flatMap(sec => sec.items || []).reduce((n, it) =>
-      n + blanks(it.text || "") + (it.points || []).reduce((m, p) => m + blanks(p), 0), 0);
+    const treeQs = PI.quiz.forTree(key), nQ = treeQs.length;
+    const nDone = treeQs.filter(q => PI.state.isTreeDone(q.qid)).length;
     const expQ = PI.LEVEL.expPerTreeQuestion || 0;
     const nRef = (K.sections || []).flatMap(sec => sec.items || []).filter(it => it.unit).length;
     $("kpanel").innerHTML = `<div class="k-head">
         <div class="info-title"><span class="muted">${land.name ? esc(land.name) + "・" : ""}知識樹</span><h3 id="kTitle">${esc(K.title || ch.name)}</h3></div>
         <button type="button" class="close" id="kClose" aria-label="關閉知識面板">×</button></div>
       ${chips ? `<div class="k-chips">${chips}</div>` : ""}
-      <p class="k-exp">${nQ ? `★ 這棵樹有 <b>${nQ}</b> 個挖空題，答對每題 <b>+${expQ} EXP</b>（滿分 ${nQ * expQ} EXP）`
-        : nRef ? `★ 這裡的挖空題在本章的格子上作答，佔領一格 <b>+${PI.LEVEL.expPerCell} EXP</b>`
-        : `★ 加入內容後，挖空題答對每題 <b>+${expQ} EXP</b>`}<span class="muted">答題功能尚未開放</span></p>
+      <div class="k-exp">${nQ ? `<p>★ 這棵樹有 <b>${nQ}</b> 題，第一次答對每題 <b>+${expQ} EXP</b>
+            <span class="muted">已答對 ${nDone} / ${nQ}（${nDone * expQ} / ${nQ * expQ} EXP）</span></p>
+          <button type="button" class="btn btn-primary" id="kQuiz">開始答題（${Math.min(5, nQ)} 題）</button>`
+        : nRef ? `<p>★ 這裡的挖空題在本章的格子上作答，佔領一格 <b>+${PI.LEVEL.expPerCell} EXP</b></p>`
+        : `<p>★ 加入內容後，挖空題答對每題 <b>+${expQ} EXP</b></p>`}</div>
       <div class="k-body">${(K.sections || []).map(sec => `<section class="k-sec">
           <h4 class="k-sec-title">${esc(sec.title)}</h4>
           ${sec.items && sec.items.length ? sec.items.map(item).join("")
             : `<p class="k-empty">尚未加入內容，之後依課堂講義補充。</p>`}</section>`).join("")}</div>`;
     $("kpanel").hidden = false;
     $("kClose").onclick = closeKnowledge;
+    if ($("kQuiz")) $("kQuiz").onclick = () => {
+      // 先出還沒答對過的題目
+      const qs = [...treeQs].sort(() => Math.random() - .5).sort((a, b) => PI.state.isTreeDone(a.qid) - PI.state.isTreeDone(b.qid)).slice(0, 5);
+      let gained = 0;
+      PI.quiz.start({ qs, need: 0, kicker: `${K.title || ch.name}・知識樹`, title: "知識樹答題",
+        onRight: q => { if (PI.state.markTree(q.qid)) gained += expQ; },
+        onFinish: () => {}, okText: () => { return gained ? `這次獲得 ${gained} EXP！` : "這幾題之前都答對過了，這次沒有新的經驗值。"; },
+        badText: "", onClose: () => openKnowledge(key) });
+    };
     $("kClose").focus();
   }
   function closeKnowledge() {
