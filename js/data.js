@@ -18,9 +18,9 @@ PI.CATEGORIES = [
 PI.CHAPTERS = [
   { id: 1,  name: "抗菌藥物療法導論",       cat: "micro", estimate: 7,  unitType: "topic",       note: "新手教學島：概論與藥物分類入口，沒有新增藥物。" },
   { id: 2,  name: "磺胺藥與泌尿道感染用藥", cat: "micro", estimate: 17, unitType: "drug" },
-  { id: 3,  name: "細胞壁合成抑制劑",       cat: "micro", estimate: 50, unitType: "drug" },
-  { id: 4,  name: "蛋白質合成抑制劑",       cat: "micro", estimate: 25, unitType: "drug" },
-  { id: 5,  name: "抗分枝桿菌藥物",         cat: "micro", estimate: 17, unitType: "drug" },
+  { id: 3,  name: "細胞壁合成抑制劑",       cat: "micro", estimate: 43, unitType: "drug" },
+  { id: 4,  name: "蛋白質合成抑制劑",       cat: "micro", estimate: 24, unitType: "drug" },
+  { id: 5,  name: "抗分枝桿菌藥物",         cat: "micro", estimate: 11, unitType: "drug" },
   { id: 6,  name: "抗黴菌藥",               cat: "micro", estimate: 18, unitType: "drug" },
   { id: 7,  name: "抗病毒藥物",             cat: "micro", estimate: 55, unitType: "drug" },
   { id: 8,  name: "消毒殺菌劑",             cat: "micro", estimate: 20, unitType: "preparation", note: "單元是製劑與分類（約 20 種製劑，分成 9 類），不一定是藥品名稱。" },
@@ -28,7 +28,7 @@ PI.CHAPTERS = [
   { id: 10, name: "呼吸系統用藥",           cat: "resp",  estimate: 50, unitType: "drug" },
   { id: 11, name: "腸胃道用藥",             cat: "gi",    estimate: 95, unitType: "drug" }
 ];
-/* 以上 estimate 都是預估值，不是正式藥物清單。第 1、2 章已依 W1 筆記改成實際單元數。 */
+/* 以上 estimate 都是預估值，不是正式藥物清單。第 1～6 章已依 W1～W3 筆記改成實際單元數。 */
 
 /* 群島：哪些章節在同一塊陸地上。主島上每一章是一個區域，區域之間用小路分開。
    angle：這座島放在主島的哪個方向（度，0 是右邊、90 是下面），讓群島構圖自然、不對稱。 */
