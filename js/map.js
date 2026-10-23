@@ -1,10 +1,16 @@
-/* PHARMA ISLAND：六角格地圖
-   - 依 PI.CHAPTERS 動態產生格子（不手動畫），格子用世界座標管理
-   - 每章一群格子（中心一格＋周圍最多六格），章節變多時一圈一圈往外擴展
-   - 分層：海水紋理（容器背景，跟著拖曳縮放）→ 裝飾層（小島、礁石、浪花）→ 格子層 → 選取外框
-   - 分塊：格子與裝飾都依世界座標分成區塊，只顯示畫面附近的區塊；裝飾在需要時才產生
-   - 支援拖曳、滾輪／雙指縮放、放大縮小按鈕
-   點擊格子只會呼叫 onSelect，要做什麼由 app.js 決定。 */
+/* PHARMA ISLAND：群島地圖
+   世界是一片海，每一章是一座島，島上每一格是一個學習單元（藥物、製劑、分類或主題）。
+
+   資料與外觀分開：
+   - 格子配置：每座島從中心一格開始，一格一格往外長。每次只從「已有格子旁邊的空位」挑，
+     所以島一定連通、不會重疊、不會有孤立格；挑選時偏好鄰居多、離中心近的位置，再加一點固定亂數，形狀才自然。
+   - 島嶼外觀：海岸線（淺水、浪花、沙灘、草地）依照格子位置重新畫，不拿海岸線來決定格子。
+   - 島嶼位置：依各島預留的大小，從中心往外找不會相撞、且隔著足夠海面的位置。
+
+   圖層（同一套世界座標）：
+   海水紋理（容器背景）→ 海上裝飾 → 島嶼地形與海岸線 → 六角格 → 章節標記 → 選取外框
+   只顯示畫面附近的島嶼與裝飾區塊。
+   點格子呼叫 onSelect，點島嶼呼叫 onSelectIsland，要做什麼由 app.js 決定。 */
 window.PI = window.PI || {};
 
 PI.map = (function () {
@@ -12,42 +18,150 @@ PI.map = (function () {
   const R = PI.MAP.hexRadius;
   const SQ3 = Math.sqrt(3);
   const DIRS = [[1, 0], [1, -1], [0, -1], [-1, 0], [-1, 1], [0, 1]];   // 六個相鄰方向（axial 座標）
+  const el = (tag, attrs) => { const e = document.createElementNS(SVGNS, tag); for (const k in attrs) e.setAttribute(k, attrs[k]); return e; };
+  const chapterOf = id => PI.CHAPTERS.find(c => c.id === id);
+  const catOf = id => PI.CATEGORIES.find(c => c.id === id);
+  const hexDist = (q, r) => (Math.abs(q) + Math.abs(r) + Math.abs(q + r)) / 2;
+  const toXY = (q, r) => [R * SQ3 * (q + r / 2), R * 1.5 * r];
+  function noise(a, b, s) {   // 固定亂數：同樣的輸入永遠得到同樣的值
+    let h = Math.imul(a | 0, 374761393) ^ Math.imul(b | 0, 668265263) ^ Math.imul(s | 0, 2246822519);
+    h = Math.imul(h ^ (h >>> 13), 1274126177); return ((h ^ (h >>> 16)) >>> 0) / 4294967296;
+  }
 
-  /* ---------- 產生格子 ---------- */
-  // 每章的中心位置：用「七格花」的排列，讓各章的格子剛好拼在一起
-  const rot = ([q, r]) => [-r, q + r];                 // 旋轉 60°
-  const FLOWER = [[2, 1]]; for (let i = 0; i < 5; i++) FLOWER.push(rot(FLOWER[i]));
-  const add = (a, b) => [a[0] + b[0], a[1] + b[1]];
-  function clusterCenters(n) {
-    const ring1 = FLOWER;
-    const ring2 = [];
-    for (let i = 0; i < 6; i++) { ring2.push(add(FLOWER[i], FLOWER[i])); ring2.push(add(FLOWER[i], FLOWER[(i + 1) % 6])); }
-    const order = [[0, 0], ...ring1, ...[0, 3, 6, 9, 1, 4, 7, 10, 2, 5, 8, 11].map(i => ring2[i])];
-    // 超過 19 章時，第三圈以外一圈一圈往外排
-    for (let ring = 3; order.length < n; ring++) {
-      let p = [FLOWER[4][0] * ring, FLOWER[4][1] * ring];
-      for (let side = 0; side < 6; side++) for (let k = 0; k < ring; k++) { order.push(p); p = add(p, FLOWER[side]); }
+  /* ================= 島嶼資料 ================= */
+  const islands = [];               // 每座島的資料
+  const islandOf = new Map();       // 章節 id → 島
+  const cells = [];                 // 所有格子（世界座標）
+  const cellById = new Map();
+
+  function makeIsland(ch) {
+    const isl = {
+      id: `island-${ch.id}`, chapter: ch.id,
+      origin: { x: 0, y: 0 },       // 島在世界中的位置
+      cells: [], occ: new Map(),    // 已配置的格子；occ 以 "q,r" 查格子
+      coast: null,                  // 島嶼邊界：本地座標的範圍與半徑
+      decor: [],                    // 島邊的礁石、迷你小島位置（本地座標）
+      growth: { reservedRings: 0, needsLayout: false },   // 擴張狀態
+      unitCount: 0, slotCount: 0,   // 目前的學習單元數、預留格數
+      g: {}                         // 各圖層裡屬於這座島的群組
+    };
+    islands.push(isl); islandOf.set(ch.id, isl);
+    return isl;
+  }
+
+  // 下一格要放哪裡：只從已有格子旁邊的空位挑
+  function nextSpot(isl, group) {
+    if (!isl.cells.length) return [0, 0];
+    const seen = new Set(); let best = null, bestScore = -Infinity;
+    isl.cells.forEach(c => DIRS.forEach(([dq, dr]) => {
+      const q = c.q + dq, r = c.r + dr, key = `${q},${r}`;
+      if (isl.occ.has(key) || seen.has(key)) return;
+      seen.add(key);
+      let nb = 0, same = 0;
+      DIRS.forEach(([a, b]) => { const n = isl.occ.get(`${q + a},${r + b}`); if (n) { nb++; if (group && n.group === group) same++; } });
+      const score = nb * 3 + same * 2 + noise(q, r, isl.chapter * 7919) * 3.4 - hexDist(q, r) * 0.75;
+      if (score > bestScore) { bestScore = score; best = [q, r]; }
+    }));
+    return best;
+  }
+
+  function placeCell(isl, item) {
+    const [q, r] = nextSpot(isl, item.group);
+    const [lx, ly] = toXY(q, r);
+    const c = { id: item.id, chapter: isl.chapter, island: isl, q, r, lx, ly, x: lx, y: ly,
+                isStart: isl.cells.length === 0, unit: item.unit || null, group: item.group || null, neighbors: [] };
+    DIRS.forEach(([a, b]) => { const n = isl.occ.get(`${q + a},${r + b}`); if (n) { c.neighbors.push(n.id); n.neighbors.push(c.id); } });
+    isl.cells.push(c); isl.occ.set(`${q},${r}`, c);
+    cells.push(c); cellById.set(c.id, c);
+    return c;
+  }
+
+  // 島嶼邊界與島邊裝飾
+  function computeCoast(isl) {
+    const pad = R * 1.95;
+    if (!isl.cells.length) { isl.coast = { minX: -pad, minY: -pad, maxX: pad, maxY: pad, radius: pad, cx: 0, cy: 0 }; return; }
+    const xs = isl.cells.map(c => c.lx), ys = isl.cells.map(c => c.ly);
+    const cx = (Math.min(...xs) + Math.max(...xs)) / 2, cy = (Math.min(...ys) + Math.max(...ys)) / 2;
+    isl.coast = {
+      minX: Math.min(...xs) - pad, maxX: Math.max(...xs) + pad, minY: Math.min(...ys) - pad, maxY: Math.max(...ys) + pad,
+      radius: Math.max(...isl.cells.map(c => Math.hypot(c.lx - cx, c.ly - cy))) + pad, cx, cy
+    };
+    // 島邊放 2～3 個礁石或迷你小島，位置跟著島的形狀走
+    const rocks = PI.ART.decor.filter(d => d.kind === "rock"), tiny = PI.ART.decor.filter(d => d.kind === "island");
+    const n = 2 + Math.floor(noise(isl.chapter, 1, 77) * 2);
+    isl.decor = [];
+    for (let i = 0; i < n; i++) {
+      const a = noise(isl.chapter, i, 91) * Math.PI * 2;
+      const d = (i === 0 && isl.cells.length > 20) ? tiny[Math.floor(noise(isl.chapter, i, 5) * tiny.length)] : rocks[Math.floor(noise(isl.chapter, i, 3) * rocks.length)];
+      const scale = d.kind === "island" ? 0.6 : 1;
+      const reach = Math.max(...isl.cells.map(c => (c.lx - cx) * Math.cos(a) + (c.ly - cy) * Math.sin(a)));
+      const dist = reach + R * 1.9 + Math.max(d.w, d.h) * scale / 2;
+      isl.decor.push({ src: d.src, w: d.w * scale, h: d.h * scale, x: cx + Math.cos(a) * dist, y: cy + Math.sin(a) * dist });
     }
-    return order.slice(0, n);
   }
 
-  function buildCells() {
-    const centers = clusterCenters(PI.CHAPTERS.length);
-    const cells = [];
-    PI.CHAPTERS.forEach((ch, i) => {
-      const c = centers[i];
-      const spots = [c, ...DIRS.map(d => add(c, d))].slice(0, Math.min(ch.cells, 7));
-      spots.forEach(([q, r], k) => cells.push({
-        id: `c${ch.id}-${k}`, chapter: ch.id, q, r, isStart: k === 0,
-        x: R * SQ3 * (q + r / 2), y: R * 1.5 * r
-      }));
-    });
-    const byQR = new Map(cells.map(c => [`${c.q},${c.r}`, c]));
-    cells.forEach(c => {
-      c.neighbors = DIRS.map(d => byQR.get(`${c.q + d[0]},${c.r + d[1]}`)).filter(Boolean).map(n => n.id);
-    });
-    return cells;
+  // 島嶼位置：預留的大小決定要隔多遠；預留足夠時，島長大也不用移動其他島
+  function reservedRadius(isl) {
+    const n = Math.max(isl.cells.length, 1);
+    let k = 0; while (3 * k * (k + 1) + 1 < Math.ceil(n * 1.25)) k++;
+    isl.growth.reservedRings = k + 1;
+    return Math.max((k + 1.5) * SQ3 * R + R * 1.95, isl.coast.radius) + R * 0.6;
   }
+  const bounds = { minX: 0, minY: 0, maxX: 0, maxY: 0 };
+  function layout() {
+    const placed = [], gap = PI.MAP.islandGap * SQ3 * R;
+    islands.forEach((isl, i) => {
+      const rad = reservedRadius(isl);
+      let pos = { x: 0, y: 0 };
+      if (placed.length) {
+        search: for (let d = R; ; d += R * 0.75) {
+          const steps = Math.max(12, Math.ceil(2 * Math.PI * d / (R * 1.5)));
+          for (let s = 0; s < steps; s++) {
+            const a = i * 2.39996 + s / steps * Math.PI * 2;
+            const x = d * Math.cos(a), y = d * Math.sin(a) * 0.8;
+            if (placed.every(p => Math.hypot(p.x - x, p.y - y) >= p.rad + rad + gap)) { pos = { x, y }; break search; }
+          }
+        }
+      }
+      placed.push({ ...pos, rad });
+      isl.layoutRad = rad;
+      isl.origin = { x: pos.x - isl.coast.cx, y: pos.y - isl.coast.cy };
+      isl.growth.needsLayout = false;
+    });
+    islands.forEach(isl => {
+      isl.cells.forEach(c => { c.x = isl.origin.x + c.lx; c.y = isl.origin.y + c.ly; });
+      isl.bounds = { minX: isl.origin.x + isl.coast.minX - R, maxX: isl.origin.x + isl.coast.maxX + R,
+                     minY: isl.origin.y + isl.coast.minY - R * 1.6, maxY: isl.origin.y + isl.coast.maxY + R };
+      const t = `translate(${isl.origin.x.toFixed(1)},${isl.origin.y.toFixed(1)})`;
+      Object.values(isl.g).forEach(g => g && g.setAttribute("transform", t));
+    });
+    Object.assign(bounds, {
+      minX: Math.min(...islands.map(i => i.bounds.minX)), maxX: Math.max(...islands.map(i => i.bounds.maxX)),
+      minY: Math.min(...islands.map(i => i.bounds.minY)), maxY: Math.max(...islands.map(i => i.bounds.maxY))
+    });
+    buildClearGrid();
+    decorChunks.forEach(d => d.g.remove()); decorChunks.clear();   // 島移動過，海上裝飾重新擺
+  }
+
+  function buildWorld() {
+    PI.CHAPTERS.forEach(ch => {
+      const isl = makeIsland(ch);
+      const units = PI.UNITS.filter(u => u.chapter === ch.id);
+      units.forEach(u => placeCell(isl, { id: `u:${u.id}`, unit: u, group: u.group }));
+      const slots = Math.max((ch.estimate || 0) - units.length, 0);
+      for (let i = 0; i < slots; i++) placeCell(isl, { id: `s${ch.id}-${units.length + i}` });
+      isl.unitCount = units.length; isl.slotCount = slots;
+      computeCoast(isl);
+    });
+  }
+
+  /* ================= 繪製 ================= */
+  let hl, svg, world, mapEl, decorLayer, terrainLayer, cellLayer, labelLayer, onSelect = () => {}, onSelectIsland = () => {}, selected = null, focusCh = null;
+  const CH = PI.ART.chunkSize;
+  const decorChunks = new Map();   // 海上裝飾：區塊 → 群組（需要時才產生）
+  const view = { x: 0, y: 0, k: 1 };
+  let HEX_PATH, SHINE_PATH, RING_PATH;
+  const measure = document.createElement("canvas").getContext("2d");
 
   /* 圓角六角形（與 Penpot 的 hex-rounded 同形狀） */
   function hexPath(rad, corner) {
@@ -62,81 +176,98 @@ PI.map = (function () {
     return d + " Z";
   }
 
-  /* ---------- 繪製 ---------- */
-  let hl, svg, world, mapEl, decorLayer, cellLayer, cells, onSelect = () => {}, selected = null, focusCh = null;
-  const CH = PI.ART.chunkSize;
-  const chunkKey = (x, y) => `${Math.floor(x / CH)},${Math.floor(y / CH)}`;
-  const cellChunks = new Map();    // 區塊 → 這個區塊的格子群組
-  const decorChunks = new Map();   // 區塊 → 這個區塊的裝飾群組（需要時才產生）
-  const view = { x: 0, y: 0, k: 1 };
-  const bounds = { minX: 0, minY: 0, maxX: 0, maxY: 0 };
-  const el = (tag, attrs) => { const e = document.createElementNS(SVGNS, tag); for (const k in attrs) e.setAttribute(k, attrs[k]); return e; };
-  const chapterOf = id => PI.CHAPTERS.find(c => c.id === id);
-  const catOf = id => PI.CATEGORIES.find(c => c.id === id);
-
   function init(container, opts) {
     onSelect = opts.onSelect || onSelect;
-    cells = buildCells();
+    onSelectIsland = opts.onSelectIsland || onSelectIsland;
     mapEl = container;
     container.style.backgroundImage = `url("${PI.ART.seaTile.src}")`;
-    svg = el("svg", { class: "map-svg", role: "img", "aria-label": "領土地圖" });
+    HEX_PATH = hexPath(R, PI.MAP.corner);
+    SHINE_PATH = hexPath(R - PI.MAP.border / 2, PI.MAP.corner);
+    RING_PATH = hexPath(R * 0.62, 6);
+
+    svg = el("svg", { class: "map-svg", role: "img", "aria-label": "藥理學群島地圖" });
     world = el("g", { class: "map-world" });
-    decorLayer = el("g", { class: "layer-decor", "aria-hidden": "true" });
-    cellLayer = el("g", { class: "layer-cells" });
-    world.append(decorLayer, cellLayer);
+    decorLayer = el("g", { class: "layer-decor", "aria-hidden": "true" });    // 海上裝飾
+    terrainLayer = el("g", { class: "layer-terrain" });                      // 島嶼地形與海岸線
+    cellLayer = el("g", { class: "layer-cells" });                           // 六角格
+    labelLayer = el("g", { class: "layer-labels" });                         // 章節標記
+    hl = el("path", { class: "sel-ring", d: HEX_PATH, fill: "none", "stroke-width": 6, "pointer-events": "none" });   // 選取外框
+    world.append(decorLayer, terrainLayer, cellLayer, labelLayer, hl);
     svg.appendChild(world);
     container.appendChild(svg);
 
-    const path = hexPath(R, PI.MAP.corner);
-    const shinePath = hexPath(R - PI.MAP.border / 2, PI.MAP.corner);
-    cells.forEach(c => {
-      const g = el("g", { class: "cell", transform: `translate(${c.x.toFixed(1)},${c.y.toFixed(1)})`, "data-id": c.id });
-      g.appendChild(el("path", { class: "cell-hex", d: path, "stroke-width": PI.MAP.border, stroke: PI.MAP.borderColor }));
-      g.appendChild(el("path", { class: "cell-shine", d: shinePath }));   // 滑鼠移上去時只讓格子內部變亮，不碰到邊框
-      g.appendChild(el("path", { class: "cell-ring", d: hexPath(R * 0.62, 6) }));
-      const flag = el("g", { class: "cell-flag" });
-      flag.appendChild(el("path", { d: "M-8,14 L-8,-16 M-8,-16 L14,-9 L-8,-2", fill: "none", "stroke-width": 4, "stroke-linecap": "round", "stroke-linejoin": "round" }));
-      g.appendChild(flag);
-      if (c.isStart) {   // 章節徽章：依分類使用識別色
-        const cat = catOf(chapterOf(c.chapter).cat);
-        const badge = el("g", { class: "cell-badge" });
-        badge.appendChild(el("circle", { class: "badge-halo", r: 30 }));
-        badge.appendChild(el("circle", { r: 24, fill: cat.tint, stroke: cat.color, "stroke-width": 3 }));
-        const t = el("text", { class: "badge-num", y: 1 });
-        t.textContent = c.chapter;
-        badge.appendChild(t);
-        g.appendChild(badge);
-      }
-      c.el = g;
-      // 依世界座標放進對應的區塊
-      const key = chunkKey(c.x, c.y);
-      if (!cellChunks.has(key)) {
-        const [kx, ky] = key.split(",").map(Number);
-        const cg = el("g", { class: "chunk" });
-        cellLayer.appendChild(cg);
-        cellChunks.set(key, { g: cg, x0: kx * CH, y0: ky * CH, x1: (kx + 1) * CH, y1: (ky + 1) * CH, on: true });
-      }
-      cellChunks.get(key).g.appendChild(g);
+    buildWorld();
+    islands.forEach(isl => {
+      isl.g.terrain = el("g", { class: "island-g island-terrain", "data-island": isl.chapter });
+      isl.g.cells = el("g", { class: "island-g island-cells" });
+      isl.g.label = el("g", { class: "island-g" });
+      terrainLayer.appendChild(isl.g.terrain); cellLayer.appendChild(isl.g.cells); labelLayer.appendChild(isl.g.label);
+      drawTerrain(isl); isl.cells.forEach(drawCell); drawLabel(isl);
     });
-    buildClearGrid();
+    layout();
 
-    // 選取外框另外畫在最上層，才不會被旁邊的格子蓋住
-    hl = el("path", { class: "sel-ring", d: path, fill: "none", "stroke-width": 6, "pointer-events": "none" });
-    world.appendChild(hl);
     svg.addEventListener("focusin", e => { const g = e.target.closest?.(".cell"); if (g) placeRing(g.dataset.id); });
     svg.addEventListener("focusout", () => placeRing(selected));
-
-    bounds.minX = Math.min(...cells.map(c => c.x)) - R; bounds.maxX = Math.max(...cells.map(c => c.x)) + R;
-    bounds.minY = Math.min(...cells.map(c => c.y)) - R; bounds.maxY = Math.max(...cells.map(c => c.y)) + R;
-
     bindPanZoom(container);
     new ResizeObserver(() => frame(lastFrame.b, false, lastFrame.cap)).observe(container);
     render();
     return cells;
   }
 
+  // 海岸線：只在島邊的格子底下疊圓形（淺水 → 浪花 → 沙灘 → 草地），合起來是圓潤不規則的島形
+  function drawTerrain(isl) {
+    const g = isl.g.terrain; g.textContent = "";
+    const C = PI.MAP.coast;
+    const layers = [["shallow", 1.95, C.shallow, .55], ["foam", 1.42, C.foam, .9], ["sand", 1.3, C.sand, 1], ["grass", 1.03, C.grass, 1]];
+    const edge = isl.cells.filter(c => c.neighbors.length < 6);
+    const groups = layers.map(([name, , fill, op]) => { const lg = el("g", { class: `coast-${name}`, fill, opacity: op }); return lg; });
+    edge.forEach(c => layers.forEach(([, k], i) => {
+      const j = i < 3 ? 0.9 + noise(c.q * 3 + i, c.r, isl.chapter) * 0.2 : 1;
+      groups[i].appendChild(el("circle", { cx: c.lx.toFixed(1), cy: c.ly.toFixed(1), r: (R * k * j).toFixed(1) }));
+    }));
+    g.append(groups[0]);
+    isl.decor.forEach(d => g.appendChild(el("image", { href: d.src, x: (d.x - d.w / 2).toFixed(1), y: (d.y - d.h / 2).toFixed(1), width: d.w.toFixed(1), height: d.h.toFixed(1), class: "decor" })));
+    g.append(groups[1], groups[2], groups[3]);
+  }
+
+  function drawCell(c) {
+    const g = el("g", { class: "cell", transform: `translate(${c.lx.toFixed(1)},${c.ly.toFixed(1)})`, "data-id": c.id, role: "button" });
+    g.appendChild(el("path", { class: "cell-hex", d: HEX_PATH, "stroke-width": PI.MAP.border, stroke: PI.MAP.borderColor }));
+    g.appendChild(el("path", { class: "cell-shine", d: SHINE_PATH }));   // 滑鼠移上去時只讓格子內部變亮
+    g.appendChild(el("path", { class: "cell-ring", d: RING_PATH }));
+    const flag = el("g", { class: "cell-flag" });
+    flag.appendChild(el("path", { d: "M-8,14 L-8,-16 M-8,-16 L14,-9 L-8,-2", fill: "none", "stroke-width": 4, "stroke-linecap": "round", "stroke-linejoin": "round" }));
+    g.appendChild(flag);
+    if (c.unit) {
+      const t = el("text", { class: "cell-name", y: 34 });
+      t.textContent = c.unit.name.length > 11 ? c.unit.name.slice(0, 10) + "…" : c.unit.name;
+      g.appendChild(t);
+    }
+    c.el = g;
+    c.island.g.cells.appendChild(g);
+  }
+
+  // 章節標記：島的上方一塊牌子（章節徽章＋名稱），縮小地圖時牌子維持可讀的大小
+  function drawLabel(isl) {
+    const ch = chapterOf(isl.chapter), cat = catOf(ch.cat);
+    const g = isl.g.label; g.textContent = "";
+    const x = isl.coast.cx, y = isl.coast.minY + R * 0.35;
+    const lab = el("g", { class: "island-label", "data-island": isl.chapter, transform: `translate(${x.toFixed(1)},${y.toFixed(1)})`, tabindex: 0, role: "button", "aria-label": `第 ${ch.id} 章 ${ch.name}` });
+    const inner = el("g", { class: "label-inner" });
+    measure.font = `700 17px ${getComputedStyle(document.body).fontFamily}`;
+    const w = Math.ceil(measure.measureText(ch.name).width) + 62;
+    inner.appendChild(el("rect", { class: "label-bg", x: -w / 2, y: -21, width: w, height: 42, rx: 21 }));
+    inner.appendChild(el("circle", { cx: -w / 2 + 21, cy: 0, r: 14, fill: cat.tint, stroke: cat.color, "stroke-width": 2.5 }));
+    const num = el("text", { class: "label-num", x: -w / 2 + 21, y: 1 }); num.textContent = ch.id;
+    const name = el("text", { class: "label-name", x: -w / 2 + 43, y: 1 }); name.textContent = ch.name;
+    inner.append(num, name);
+    lab.appendChild(inner);
+    g.appendChild(lab);
+    isl.labelInner = inner;
+  }
+
   function placeRing(id) {
-    const c = id && cells.find(x => x.id === id);
+    const c = id && cellById.get(id);
     if (!c) { hl.style.display = "none"; return; }
     hl.setAttribute("transform", `translate(${c.x.toFixed(1)},${c.y.toFixed(1)})`);
     hl.style.display = "";
@@ -147,14 +278,13 @@ PI.map = (function () {
       const g = c.el;
       const st = PI.state.statusOf(c), ch = chapterOf(c.chapter);
       g.dataset.status = st;
-      const hex = g.querySelector(".cell-hex");
-      hex.setAttribute("fill", PI.MAP.fill[st]);
-      g.classList.toggle("is-selected", selected === c.id);
-      g.classList.toggle("is-dim", focusCh !== null && c.chapter !== focusCh);
-      g.setAttribute("tabindex", st === "locked" && !(focusCh === c.chapter) ? "-1" : "0");
-      g.setAttribute("role", "button");
-      g.setAttribute("aria-label", `第 ${c.chapter} 章 ${ch.name}，${({ occupied: "已佔領", available: "可挑戰", locked: "未解鎖" })[st]}`);
+      g.classList.toggle("is-slot", !c.unit);
+      g.querySelector(".cell-hex").setAttribute("fill", PI.MAP.fill[st]);
+      g.setAttribute("tabindex", st === "locked" && focusCh !== c.chapter ? "-1" : "0");
+      const what = c.unit ? c.unit.name : "預留格";
+      g.setAttribute("aria-label", `第 ${c.chapter} 章 ${ch.name}，${what}，${({ occupied: "已佔領", available: "可挑戰", locked: "未解鎖" })[st]}`);
     });
+    islands.forEach(isl => Object.values(isl.g).forEach(g => g.classList.toggle("is-dim", focusCh !== null && isl.chapter !== focusCh)));
     placeRing(selected);
   }
 
@@ -165,10 +295,15 @@ PI.map = (function () {
     const t = PI.ART.seaTile.size * view.k;
     mapEl.style.backgroundSize = `${t.toFixed(2)}px ${t.toFixed(2)}px`;
     mapEl.style.backgroundPosition = `${view.x.toFixed(1)}px ${view.y.toFixed(1)}px`;
+    // 章節牌子：地圖縮小時放大回來，讓字維持可讀
+    const s = Math.min(Math.max(0.9 / view.k, 1), 5).toFixed(3);
+    const lift = (-21 * (s - 1)).toFixed(1);   // 放大時牌子往上長，不蓋到島
+    islands.forEach(isl => isl.labelInner && isl.labelInner.setAttribute("transform", `translate(0,${lift}) scale(${s})`));
+    svg.classList.toggle("is-near", view.k > 0.55);   // 放大到一定程度才顯示格子裡的藥名
     if (!cullQueued) { cullQueued = true; requestAnimationFrame(cull); }
   }
 
-  /* ---------- 分塊：只顯示畫面附近的區塊 ---------- */
+  /* ---------- 分區顯示：只顯示畫面附近的島嶼與裝飾 ---------- */
   let cullQueued = false;
   function visibleRect() {
     const { w, h } = size();
@@ -176,10 +311,11 @@ PI.map = (function () {
   }
   function cull() {
     cullQueued = false;
-    const v = visibleRect(), m = R * 1.5;
-    cellChunks.forEach(c => {
-      const on = c.x1 + m > v.x0 && c.x0 - m < v.x1 && c.y1 + m > v.y0 && c.y0 - m < v.y1;
-      if (on !== c.on) { c.on = on; c.g.style.display = on ? "" : "none"; }
+    const v = visibleRect(), m = 300 / view.k;   // 牌子會放大，邊界多留一點
+    islands.forEach(isl => {
+      const b = isl.bounds;
+      const on = b.maxX + m > v.x0 && b.minX - m < v.x1 && b.maxY + m > v.y0 && b.minY - m < v.y1;
+      if (on !== isl.on) { isl.on = on; Object.values(isl.g).forEach(g => { g.style.display = on ? "" : "none"; }); }
     });
     const kx0 = Math.floor(v.x0 / CH) - 1, kx1 = Math.floor(v.x1 / CH) + 1;
     const ky0 = Math.floor(v.y0 / CH) - 1, ky1 = Math.floor(v.y1 / CH) + 1;
@@ -196,6 +332,7 @@ PI.map = (function () {
   /* ---------- 裝飾：小島、礁石、浪花（依區塊用固定亂數擺放，同一區塊每次都一樣） ---------- */
   const clearGrid = new Map(); const CG = 200;
   function buildClearGrid() {
+    clearGrid.clear();
     cells.forEach(c => {
       const k = `${Math.floor(c.x / CG)},${Math.floor(c.y / CG)}`;
       if (!clearGrid.has(k)) clearGrid.set(k, []);
@@ -310,8 +447,11 @@ PI.map = (function () {
       if (!pts.size) {
         container.classList.remove("is-dragging");
         if (moved < 6 && e.type === "pointerup") {
-          const g = document.elementFromPoint(e.clientX, e.clientY)?.closest(".cell");
-          select(g ? g.dataset.id : null);
+          const hit = document.elementFromPoint(e.clientX, e.clientY);
+          const g = hit?.closest(".cell"), isl = hit?.closest("[data-island]");
+          if (g) select(g.dataset.id);
+          else if (isl) selectIsland(+isl.dataset.island);
+          else select(null);
         }
       }
     };
@@ -319,23 +459,65 @@ PI.map = (function () {
     svg.addEventListener("pointercancel", end);
     svg.addEventListener("wheel", e => { e.preventDefault(); const [x, y] = local(e); zoomAt(Math.exp(-e.deltaY * 0.0015), x, y); }, { passive: false });
     svg.addEventListener("keydown", e => {
-      if ((e.key === "Enter" || e.key === " ") && e.target.closest?.(".cell")) { e.preventDefault(); select(e.target.closest(".cell").dataset.id); }
+      if (e.key !== "Enter" && e.key !== " ") return;
+      const g = e.target.closest?.(".cell"), isl = e.target.closest?.(".island-label");
+      if (g) { e.preventDefault(); select(g.dataset.id); }
+      else if (isl) { e.preventDefault(); selectIsland(+isl.dataset.island); }
     });
   }
 
+
   function select(id) {
     selected = id; render();
-    onSelect(id ? cells.find(c => c.id === id) : null);
+    onSelect(id ? cellById.get(id) : null);
+  }
+  function selectIsland(chId) {
+    selected = null; render();
+    onSelectIsland(chId);
   }
 
   function focusChapter(chId) {
     focusCh = chId; render();
     if (chId === null) { fit(true); return; }
-    const mine = cells.filter(c => c.chapter === chId);
-    const b = { minX: Math.min(...mine.map(c => c.x)) - R * 2, maxX: Math.max(...mine.map(c => c.x)) + R * 2,
-                minY: Math.min(...mine.map(c => c.y)) - R * 2, maxY: Math.max(...mine.map(c => c.y)) + R * 2 };
-    frame(b, true, 0.95);   // 聚焦章節時不要放得太大
+    const isl = islandOf.get(chId);
+    frame(isl.bounds, true, 0.95);   // 聚焦章節時不要放得太大
   }
 
-  return { init, render, fit: () => fit(true), zoomIn: () => zoomBy(1.25), zoomOut: () => zoomBy(0.8), focusChapter, select };
+  /* ================= 新增學習單元：自動擴展對應的島 =================
+     先填進這座島的預留格；沒有預留格時，在島的邊界旁長出新的一格。
+     只重畫這座島的海岸線；島長到超過預留大小時才重新安排島的位置（只移動群組，不重畫）。 */
+  function addUnit(u) {
+    if (!u || !u.id || !islandOf.has(u.chapter)) throw new Error("單元需要 id 與正確的 chapter");
+    if (cellById.has(`u:${u.id}`)) throw new Error(`單元 id 重複：${u.id}`);
+    PI.UNITS.push(u);
+    const isl = islandOf.get(u.chapter);
+    let c = isl.cells.find(x => !x.unit);
+    if (c) {   // 預留格 → 正式單元
+      const oldId = c.id, newId = `u:${u.id}`;
+      cellById.delete(oldId); c.id = newId; c.unit = u; c.group = u.group || null; cellById.set(newId, c);
+      c.neighbors.forEach(nid => { const n = cellById.get(nid); n.neighbors = n.neighbors.map(x => x === oldId ? newId : x); });
+      c.el.remove(); drawCell(c);
+      isl.slotCount--;
+    } else {
+      c = placeCell(isl, { id: `u:${u.id}`, unit: u, group: u.group });
+      c.x = isl.origin.x + c.lx; c.y = isl.origin.y + c.ly;
+      drawCell(c);
+    }
+    isl.unitCount++;
+    computeCoast(isl); drawTerrain(isl); drawLabel(isl);
+    if (isl.coast.radius > isl.layoutRad) { isl.growth.needsLayout = true; layout(); }
+    else {
+      isl.bounds = { minX: isl.origin.x + isl.coast.minX - R, maxX: isl.origin.x + isl.coast.maxX + R,
+                     minY: isl.origin.y + isl.coast.minY - R * 1.6, maxY: isl.origin.y + isl.coast.maxY + R };
+      buildClearGrid();
+    }
+    apply(); render();
+    return c;
+  }
+
+  return {
+    init, render, select, focusChapter, addUnit,
+    fit: () => fit(true), zoomIn: () => zoomBy(1.25), zoomOut: () => zoomBy(0.8),
+    get islands() { return islands; }
+  };
 })();

@@ -11,20 +11,24 @@ PI.CATEGORIES = [
 ];
 
 /* 11 個章節：名稱照課程，不要更改。
-   cells 是這一章在地圖上的格子數，之後可依題庫數量調整。 */
+   每一章是一座島。島的大小由「學習單元」決定（見 js/units.js）：
+   - estimate：預估的單元數。正式資料還沒進來前，島上先放這麼多「預留格」，不會虛構藥名。
+   - unitType：這一章主要的單元類型（drug 藥物、preparation 製劑、category 分類、topic 主題）。
+   - note：顯示在島嶼資訊卡上的說明。 */
 PI.CHAPTERS = [
-  { id: 1,  name: "抗菌藥物療法導論",       cat: "micro", cells: 7 },
-  { id: 2,  name: "磺胺藥與泌尿道感染用藥", cat: "micro", cells: 7 },
-  { id: 3,  name: "細胞壁合成抑制劑",       cat: "micro", cells: 7 },
-  { id: 4,  name: "蛋白質合成抑制劑",       cat: "micro", cells: 7 },
-  { id: 5,  name: "抗分枝桿菌藥物",         cat: "micro", cells: 7 },
-  { id: 6,  name: "抗黴菌藥",               cat: "micro", cells: 7 },
-  { id: 7,  name: "抗病毒藥物",             cat: "micro", cells: 7 },
-  { id: 8,  name: "消毒殺菌劑",             cat: "micro", cells: 7 },
-  { id: 9,  name: "胰島素與口服降血糖藥",   cat: "endo",  cells: 7 },
-  { id: 10, name: "呼吸系統用藥",           cat: "resp",  cells: 7 },
-  { id: 11, name: "腸胃道用藥",             cat: "gi",    cells: 7 }
+  { id: 1,  name: "抗菌藥物療法導論",       cat: "micro", estimate: 7,  unitType: "topic",       note: "新手教學島：概論與藥物分類入口，沒有新增藥物。" },
+  { id: 2,  name: "磺胺藥與泌尿道感染用藥", cat: "micro", estimate: 25, unitType: "drug" },
+  { id: 3,  name: "細胞壁合成抑制劑",       cat: "micro", estimate: 50, unitType: "drug" },
+  { id: 4,  name: "蛋白質合成抑制劑",       cat: "micro", estimate: 25, unitType: "drug" },
+  { id: 5,  name: "抗分枝桿菌藥物",         cat: "micro", estimate: 17, unitType: "drug" },
+  { id: 6,  name: "抗黴菌藥",               cat: "micro", estimate: 18, unitType: "drug" },
+  { id: 7,  name: "抗病毒藥物",             cat: "micro", estimate: 55, unitType: "drug" },
+  { id: 8,  name: "消毒殺菌劑",             cat: "micro", estimate: 20, unitType: "preparation", note: "單元是製劑與分類（約 20 種製劑，分成 9 類），不一定是藥品名稱。" },
+  { id: 9,  name: "胰島素與口服降血糖藥",   cat: "endo",  estimate: 45, unitType: "drug" },
+  { id: 10, name: "呼吸系統用藥",           cat: "resp",  estimate: 50, unitType: "drug" },
+  { id: 11, name: "腸胃道用藥",             cat: "gi",    estimate: 95, unitType: "drug" }
 ];
+/* 以上 estimate 都是預估值，不是正式藥物清單。 */
 
 /* 地圖設定 */
 PI.MAP = {
@@ -37,7 +41,11 @@ PI.MAP = {
     available: "#A8C98F",
     occupied: "#5E8B67"
   },
-  padding: 64           // 地圖與容器邊緣的留白
+  padding: 64,          // 地圖與容器邊緣的留白
+  islandGap: 2.6,       // 島與島之間至少隔幾格寬的海
+  coast: {              // 海岸線：每一格底下疊幾層圓形，合起來就是自然的島形
+    shallow: "#9FDCD8", foam: "#FFFFFF", sand: "#F1E2B4", grass: "#B7D59C"
+  }
 };
 
 /* 地圖美術：海水平鋪紋理與獨立放置的裝飾素材
@@ -46,7 +54,7 @@ PI.MAP = {
 PI.ART = {
   seaTile: { src: "assets/sea-tile.jpg", size: 640 },   // 可無縫平鋪的海水
   chunkSize: 1200,                                        // 分塊大小：只畫畫面附近的區塊
-  keepClear: 150,                                         // 裝飾離格子至少這麼遠，不會蓋到領地
+  keepClear: 170,                                         // 海上裝飾離島嶼格子至少這麼遠，不會蓋到島
   decor: [
     // kind：island 小島、rock 礁石、wave 浪花；w、h 是在世界座標中的大小
     { kind: "island", src: "assets/decor/island-dock.png",  w: 336, h: 222 },
@@ -65,7 +73,7 @@ PI.ART = {
     { kind: "wave",   src: "assets/decor/wave-5.png",       w: 180, h: 56 },
     { kind: "wave",   src: "assets/decor/wave-6.png",       w: 123, h: 143 }
   ],
-  perChunk: { island: [0, 1], rock: [1, 3], wave: [1, 3] } // 每個區塊放幾個（最少、最多）
+  perChunk: { island: [0, 1], rock: [0, 2], wave: [1, 2] } // 每個區塊放幾個（最少、最多）
 };
 
 /* 等級規則：每佔領一格得到的經驗值，以及每升一級需要的經驗值 */

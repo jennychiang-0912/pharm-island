@@ -10,7 +10,7 @@
   let focus = null;        // 目前篩選的章節
   let current = null;      // 目前選取的格子
 
-  const cells = PI.map.init($("map"), { onSelect: showInfo });
+  const cells = PI.map.init($("map"), { onSelect: showInfo, onSelectIsland: showIsland });
 
   /* ---------- 導覽列與玩家面板 ---------- */
   function renderStats() {
@@ -43,6 +43,7 @@
   }
   function setFocus(chId) {
     focus = chId;
+    if (chId === null && !current) $("info").hidden = true;   // 回到全島時關掉島嶼資訊卡
     PI.map.focusChapter(chId);
     renderChapters();
   }
@@ -54,23 +55,43 @@
   $("allBtn").onclick = () => setFocus(null);
 
   /* ---------- 格子資訊卡 ---------- */
+  function badge(ch, cat) { return `<span class="ch-no" style="background:${cat.tint};border-color:${cat.color}">${ch.id}</span>`; }
   function showInfo(cell) {
     current = cell;
     const box = $("info");
     if (!cell) { box.hidden = true; return; }
     const ch = chOf(cell.chapter), cat = catOf(ch.cat), st = PI.state.statusOf(cell);
-    const pr = PI.state.chapterProgress(cells, ch.id);
+    const u = cell.unit;
     const note = {
       available: "這格可以挑戰。答題功能還沒加入，之後點這格就會出題。",
       locked: "先佔領旁邊的格子，這格才會解鎖。",
       occupied: "這格已經是你的領土了。"
     }[st];
-    box.innerHTML = `<div class="info-top"><span class="ch-no" style="background:${cat.tint};border-color:${cat.color}">${ch.id}</span>
-        <h3>${esc(ch.name)}</h3><button type="button" class="close" id="infoClose" aria-label="關閉">×</button></div>
-      <div class="tags"><span class="tag st-${st}">${STATUS[st]}</span><span class="tag">${esc(cat.name)}</span><span class="tag">本章 ${pr.done}/${pr.total} 格</span></div>
+    box.innerHTML = `<div class="info-top">${badge(ch, cat)}
+        <div class="info-title"><h3>${u ? esc(u.name) : "預留格"}</h3><span class="muted">第 ${ch.id} 章・${esc(ch.name)}</span></div>
+        <button type="button" class="close" id="infoClose" aria-label="關閉">×</button></div>
+      <div class="tags"><span class="tag st-${st}">${STATUS[st]}</span>
+        ${u ? `<span class="tag">${esc(PI.UNIT_TYPES[u.type] || u.type)}</span>${u.group ? `<span class="tag">${esc(u.group)}</span>` : ""}` : `<span class="tag">尚未加入藥物資料</span>`}</div>
       <p>${note}</p>`;
     box.hidden = false;
     $("infoClose").onclick = () => PI.map.select(null);
+  }
+
+  /* ---------- 島嶼資訊卡：點島嶼的海岸或章節牌子 ---------- */
+  function showIsland(chId) {
+    current = null;
+    if (focus !== chId) setFocus(chId);
+    const ch = chOf(chId), cat = catOf(ch.cat), isl = PI.map.islands.find(i => i.chapter === chId);
+    const pr = PI.state.chapterProgress(cells, chId);
+    const box = $("info");
+    box.innerHTML = `<div class="info-top">${badge(ch, cat)}
+        <div class="info-title"><h3>${esc(ch.name)}</h3><span class="muted">${esc(cat.name)}</span></div>
+        <button type="button" class="close" id="infoClose" aria-label="關閉">×</button></div>
+      <div class="tags"><span class="tag">${isl.cells.length} 格</span><span class="tag">已加入 ${isl.unitCount} 個${esc(PI.UNIT_TYPES[ch.unitType] || "單元")}</span>
+        ${isl.slotCount ? `<span class="tag">預留 ${isl.slotCount} 格</span>` : ""}<span class="tag">已佔領 ${pr.done}/${pr.total}</span></div>
+      <p>${ch.note ? esc(ch.note) + " " : ""}島的大小先依預估約 ${ch.estimate} 個單元預留，加入正式資料後會自動調整。</p>`;
+    box.hidden = false;
+    $("infoClose").onclick = () => { box.hidden = true; };
   }
 
   /* ---------- 地圖按鈕 ---------- */
@@ -113,6 +134,10 @@
   $("setReset").onclick = () => { $("resetConfirm").hidden = false; };
   $("resetNo").onclick = () => { $("resetConfirm").hidden = true; };
   $("resetYes").onclick = () => { PI.state.reset(); closeSettings(); };
+
+  /* ---------- 新增學習單元：島嶼自動擴展，面板跟著更新 ----------
+     例：PI.addUnit({ id: "vancomycin", chapter: 3, name: "Vancomycin", type: "drug", group: "Glycopeptides" }) */
+  PI.addUnit = u => { const c = PI.map.addUnit(u); renderStats(); renderChapters(); return c; };
 
   /* ---------- 進度變動時全部更新 ---------- */
   PI.state.onChange(() => { PI.map.render(); renderStats(); renderChapters(); if (current) showInfo(current); });
