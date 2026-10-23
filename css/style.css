@@ -48,10 +48,12 @@ button { font: inherit; color: inherit; cursor: pointer; }
 .brand p { margin: 6px 0 0; font-size: 14px; color: var(--sub); letter-spacing: .12em; }
 .top-stats { display: flex; align-items: center; gap: 10px; }
 /* 科目切換：藥理／藥劑／藥分 */
-.subjects { display: flex; gap: 4px; background: rgba(255, 255, 255, .08); border-radius: 999px; padding: 4px; margin-left: auto; margin-right: 12px; }
-.subjects a { color: var(--sub); text-decoration: none; font-weight: 700; font-size: 15px; padding: 6px 16px; border-radius: 999px; transition: background .15s, color .15s; }
+.subjects { display: flex; gap: 4px; background: rgba(255, 255, 255, .08); border: 1px solid rgba(255, 255, 255, .12); border-radius: 999px; padding: 4px; margin-left: auto; margin-right: 12px; }
+.subjects a { display: inline-flex; align-items: center; justify-content: center; gap: 6px; color: var(--sub); text-decoration: none; font-weight: 700; font-size: 15px; letter-spacing: .08em; padding: 6px 16px; border-radius: 999px; transition: background .15s, color .15s; }
+.subjects a:visited { color: var(--sub); }
+.subjects .sub-ico { flex: none; }
 .subjects a:hover { background: rgba(255, 255, 255, .12); color: #fff; }
-.subjects a[aria-current="page"] { background: var(--cream); color: var(--forest); }
+.subjects a[aria-current="page"], .subjects a[aria-current="page"]:visited { background: var(--cream); color: var(--forest); box-shadow: 0 1px 3px rgba(0, 0, 0, .15); }
 .pill {
   height: 42px; display: inline-flex; align-items: center; gap: 8px;
   background: rgba(255, 255, 255, .08); border: 1px solid rgba(255, 255, 255, .16); border-radius: 999px;
