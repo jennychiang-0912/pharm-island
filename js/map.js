@@ -413,7 +413,7 @@ PI.map = (function () {
     isl.labelInner = inner;
   }
 
-  /* ---------- 知識樹：每一章一棵，長在那一章的初始格子上 ----------
+  /* ---------- 知識樹（畫成六角徽章告示牌）：每一章一個，放在那一章的初始格子上 ----------
      哪些章節有樹、內容是什麼，都在 js/knowledge.js。
      樹畫得比格子小，只蓋住格子中央；點樹打開知識面板，點格子其他地方照常選取格子。
      這格的旗子會移到右下角，讓已佔領的狀態還看得到。 */
@@ -428,21 +428,33 @@ PI.map = (function () {
       t.g.setAttribute("transform", `translate(${cell.x.toFixed(1)},${cell.y.toFixed(1)})`);
     });
   }
+  /* 知識告示牌（原本是樹）：木牌＋中央六角徽章。不同知識分類共用同一個木牌，只換徽章（K.badge，預設分子圖示） */
+  const BADGE_ICONS = {
+    molecule: () => [   // 分子：苯環＋一個取代基
+      el("path", { d: hexPath(5.6, 0), fill: "none", stroke: "#315B43", "stroke-width": 1.6, "stroke-linejoin": "round" }),
+      el("path", { d: "M4.85,-2.8 L7.4,-4.3", stroke: "#315B43", "stroke-width": 1.6, "stroke-linecap": "round" }),
+      el("circle", { cx: 7.9, cy: -4.6, r: 1.8, fill: "#315B43" }),
+      el("circle", { r: 2.2, fill: "none", stroke: "#315B43", "stroke-width": 1.1 })]
+  };
   function drawTree(key, K) {
     const title = K.title || chapterOf(K.chapter).name;
-    const g = el("g", { class: "k-tree", "data-tree": key, tabindex: 0, role: "button", "aria-label": `${title}知識樹：打開背景知識` });
+    const cat = catOf(chapterOf(K.chapter).cat) || {};
+    const g = el("g", { class: "k-tree k-sign", "data-tree": key, tabindex: 0, role: "button", "aria-label": `${title}知識樹：打開背景知識` });
     const tip = el("title"); tip.textContent = `${title}・知識樹（點一下看背景知識）`;
+    const badge = el("g", { class: "k-badge", transform: "translate(0,-19)" });
+    badge.append(
+      el("path", { d: hexPath(13, 3), fill: "#FFF9EE", stroke: cat.color || "#7FB069", "stroke-width": 2.6 }),   // 六角徽章（框色跟著分類）
+      el("path", { d: hexPath(9.6, 2), fill: cat.tint || "#E4F1DA", "fill-opacity": .9 }),
+      ...(BADGE_ICONS[K.badge] || BADGE_ICONS.molecule)());
     g.append(tip,
       el("circle", { class: "k-hit", cx: 0, cy: -10, r: 30 }),                                // 點擊範圍（滑鼠移上去會出現外圈）
-      el("ellipse", { cx: 0, cy: 18, rx: 17, ry: 5, fill: "#24372C", "fill-opacity": .14 }),  // 樹影
-      el("rect", { x: -4.5, y: -8, width: 9, height: 27, rx: 4, fill: "#9C7350" }),          // 樹幹
-      el("circle", { cx: -14, cy: -12, r: 15, fill: "#6F9F67" }),                             // 樹冠
-      el("circle", { cx: 14, cy: -12, r: 15, fill: "#6F9F67" }),
-      el("circle", { cx: 0, cy: -26, r: 18, fill: "#84B477" }),
-      el("circle", { cx: -6, cy: -31, r: 6, fill: "#A6CF92" }),
-      el("circle", { cx: 11, cy: -20, r: 3.5, fill: "#F2B76B" }),                             // 果實
-      el("circle", { cx: -16, cy: -8, r: 3.5, fill: "#F2B76B" }),
-      el("circle", { cx: 4, cy: -7, r: 3.5, fill: "#F2B76B" }));
+      el("ellipse", { cx: 0, cy: 19, rx: 18, ry: 4, fill: "#24372C", "fill-opacity": .1 }),   // 淡淡的影子
+      el("rect", { x: -15, y: -6, width: 5, height: 25, rx: 2.5, fill: "#A27A55" }),          // 兩根木樁
+      el("rect", { x: 10, y: -6, width: 5, height: 25, rx: 2.5, fill: "#A27A55" }),
+      el("rect", { x: -25, y: -38, width: 50, height: 36, rx: 9, fill: "#D6AC7C", stroke: "#9C7350", "stroke-width": 2 }),   // 木牌
+      el("path", { d: "M-19,-31 H-9 M12,-9 H19 M-20,-8 H-14", stroke: "#C29466", "stroke-width": 1.6, "stroke-linecap": "round" }),   // 木紋（只畫幾筆）
+      badge,
+      el("path", { d: "M-19,19 q1,-6 3,-8 M-16,19 q0,-4 -1,-7 M16,19 q-1,-5 -3,-7", stroke: "#7FAE6E", "stroke-width": 2, "stroke-linecap": "round", fill: "none" }));   // 一小撮草
     return g;
   }
 
