@@ -48,11 +48,11 @@ PI.LANDMASSES = [
 PI.MAP = {
   hexRadius: 60,        // 六角格頂點半徑：寬 103.92、高 120，與 Penpot 的 hex-rounded 一致
   cell: {              // 格子外觀（依狀態）：已佔領的格子用所在島嶼的 ground 色（fill 由程式填）
-    locked:    { fill: "#D6CFBC", opacity: 0.95, line: "#A99F86", lineOpacity: 0,    lineWidth: 2.5 },   // 未探索：灰米色（格線透明）
-    available: { fill: "#E9E3D2", opacity: 0.95, line: "#A99F86", lineOpacity: 0,    lineWidth: 2.5 },   // 可挑戰：淺一點的米色＋虛線圈
+    locked:    { fill: "#FFFFFF", opacity: 0,    line: "#DCE4E1", lineOpacity: 0.55, lineWidth: 2 },     // 未佔領：透明，只有半透明的灰色線框（看得到海）
+    available: { fill: "#FFFFFF", opacity: 0.12, line: "#E6ECEA", lineOpacity: 0.75, lineWidth: 2 },     // 可挑戰：同樣是線框，亮一點，加上虛線圈
     occupied:  { fill: null,      opacity: 1,    line: "#F6EDCB", lineOpacity: 0,    lineWidth: 2 }      // 已佔領：格線透明，相鄰的格子連成一片
   },
-  wild: { ground: "#D9D2BF", light: "#E4DECD", cliff: "#B7AC92" },   // 還沒佔領的島：未探索地的顏色；佔領越多越接近島的 palette
+  wild: { ground: "#D9D2BF", light: "#E4DECD", cliff: "#B7AC92" },   // （目前沒用到：陸地只長在已佔領格子底下，直接用島的 palette）
   corner: 12,           // 六角格圓角
   padding: 64,          // 地圖與容器邊緣的留白
   islandGap: 3.2,       // 島與島之間至少隔幾格寬的海

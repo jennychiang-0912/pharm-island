@@ -330,8 +330,8 @@ PI.map = (function () {
   function terrainField(land) {
     const T = PI.MAP.terrain, step = T.step, sig = R * T.sigma, inv = 1 / (2 * sig * sig);
     // 只有「已解鎖」（可挑戰＋已佔領）的格子底下才是陸地；未解鎖的格子浮在海上
-    // 整座島從一開始就是完整的陸地：所有格子（含未解鎖）底下都是地，佔領只改變格子的顏色
-    const open = isl => isl.cells;
+    // 只有「已佔領」的格子底下才是陸地：一開始只看得到灰色線框，佔領越多島越完整
+    const open = isl => isl.cells.filter(c => PI.state.statusOf(c) === "occupied");
     const pts = land.regions.flatMap(open).map(c => ({ x: c.x, y: c.y, w: 1 }));
     if (!pts.length) return null;
     const seed0 = land.regions[0].chapter * 131;
@@ -480,7 +480,7 @@ PI.map = (function () {
   function tintLand(land) {
     if (!land.groundEls || !land.groundEls.grass) return;
     const all = land.regions.flatMap(r => r.cells), occ = all.filter(c => PI.state.statusOf(c) === "occupied").length;
-    const frac = all.length ? occ / all.length : 0;
+    const frac = 1;   // 陸地只長在已佔領的格子底下，所以直接用島的顏色
     if (land.frac !== null && Math.abs(frac - land.frac) < 1e-6) return;
     land.frac = frac;
     const P = land.def.palette || { ground: "#B4D69A", light: "#C5E2AA", cliff: "#8CB57A" }, W = PI.MAP.wild;
@@ -604,7 +604,7 @@ PI.map = (function () {
       if (c.tab !== tab) { c.tab = tab; c.el.setAttribute("tabindex", tab); }
       if (c.st === st) return;   // 狀態沒變就不碰 DOM
       const claimed = c.st && c.st !== "occupied" && st === "occupied";   // 這一次剛佔領（不是載入時）
-      if (c.st === "occupied" || st === "occupied") tintQueue.add(landOf.get(c.chapter));
+      if (c.st && (c.st === "occupied") !== (st === "occupied")) queueTerrain(landOf.get(c.chapter));   // 佔領（或清除進度）時重畫這座島的陸地
       c.st = st;
       const g = c.el, hex = g.firstChild, M = PI.MAP.cell;
       g.dataset.status = st;
