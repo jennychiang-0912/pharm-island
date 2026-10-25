@@ -440,3 +440,4 @@ button { font: inherit; color: inherit; cursor: pointer; }
 .k-ed-msg { font-size: 13px !important; color: #C0624F !important; }
 .k-ed-foot { display: flex; flex-wrap: wrap; gap: 8px; }
 .set-btns { display: flex; gap: 6px; flex-wrap: wrap; justify-content: flex-end; }
+#syForm input { font: inherit; font-size: 14px; flex: 1 1 180px; min-width: 0; border: 1px solid var(--line); border-radius: 8px; padding: 6px 10px; background: #fff; color: var(--ink); }

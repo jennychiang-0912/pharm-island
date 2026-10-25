@@ -424,6 +424,34 @@
   $("resetNo").onclick = () => { $("resetConfirm").hidden = true; };
   $("resetYes").onclick = () => { PI.state.reset(); closeSettings(); };
 
+  /* ---------- 設定：雲端同步（js/sync.js） ---------- */
+  PI.refreshKnowledge = () => { if (!$("kpanel").hidden && kKey && !kEditing) rerenderKnowledge(); };   // 雲端進度合併進來後重畫（正在編輯時不打斷）
+  if (PI.sync) {
+    const row = document.createElement("div");
+    row.innerHTML = `<div class="set-row set-sync">
+        <div><b>雲端同步</b><span class="muted" id="syStat"></span></div>
+        <span class="set-btns" id="syOut" hidden><button type="button" class="btn" id="syNow">立即同步</button><button type="button" class="btn" id="syLogout">登出</button></span></div>
+      <form class="confirm" id="syForm" hidden><input type="email" id="syEmail" required placeholder="你的 email" autocomplete="email">
+        <button type="submit" class="btn btn-primary">寄登入信</button></form>
+      <p class="confirm" id="syMsg" role="status" hidden></p>`;
+    const foot = $("settings").querySelector(".dialog-foot");
+    [...row.children].forEach(c => foot.before(c));
+    PI.sync.onStatus((st, user) => {
+      $("syStat").textContent = st;
+      $("syOut").hidden = !user; $("syForm").hidden = !!user || !PI.sync.enabled;
+    });
+    const say = t => { $("syMsg").textContent = t; $("syMsg").hidden = false; };
+    $("syEmail").onkeydown = e => e.stopPropagation();
+    $("syForm").onsubmit = e => {
+      e.preventDefault();
+      PI.sync.signIn($("syEmail").value.trim())
+        .then(() => say("登入信寄出了：到信箱點信裡的連結，會回到這一頁並自動同步。每台裝置第一次都要登入一次。"))
+        .catch(err => say("寄信失敗：" + (err.message || err)));
+    };
+    $("syNow").onclick = () => PI.sync.syncNow();
+    $("syLogout").onclick = () => PI.sync.signOut().then(() => say("已登出。這台裝置上的進度還在，只是不再同步。"));
+  }
+
   /* ---------- 設定：知識卡片修改的匯出／匯入（JSON） ---------- */
   if (PI.edits) {
     const row = document.createElement("div");
