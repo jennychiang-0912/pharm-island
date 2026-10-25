@@ -405,3 +405,9 @@ button { font: inherit; color: inherit; cursor: pointer; }
 .k-diagram { cursor: zoom-in; }
 .k-diagram.is-zoom { position: fixed; inset: 0; z-index: 50; margin: 0; background: rgba(36,55,44,.72); overflow: auto; cursor: zoom-out; padding: 16px; }
 .k-diagram.is-zoom img { max-width: 640px; width: 100%; background: #fff; }
+/* 平安符頁：電腦版知識面板加大（手機仍是滿版） */
+@media (min-width: 601px) {
+  .is-amulet .kpanel { width: min(640px, calc(100% - 32px)); }
+  .is-amulet .k-item p, .is-amulet .k-item li { font-size: 15px; }
+  .is-amulet .k-diagram img { max-width: 540px; }
+}

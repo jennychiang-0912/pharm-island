@@ -81,3 +81,6 @@ PI.GLOSSARY = {
   "Uncoating": "脫殼：病毒外殼脫去、釋出遺傳物質。",
   "RNA polymerase": "負責病毒 RNA 複製（Replication of viral RNA）。被 Ribavirin 抑制。"
 };
+
+/* 這頁的知識面板在電腦上開大一點（示意圖看得清楚）；樣式見 css/style.css 的 .is-amulet */
+document.documentElement.classList.add("is-amulet");
