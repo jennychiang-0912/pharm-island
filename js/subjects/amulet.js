@@ -25,13 +25,47 @@ PI.LANDMASSES = [
 PI.UNITS = [];
 
 /* 知識樹：格式見 js/knowledge.js 開頭的說明；分段名稱可以自己改 */
+/* 流程圖格式（flow）：知識樹的卡片可以放一串步驟，每一步：
+     { title: "步驟名稱", text: ["說明（可挖空）"], block: { label: "抑制框標題", drugs: "藥名", note: "補充" } }
+   block 是「被藥擋住的步驟」，會畫成紅色的 ⊖ 抑制框。
+   挖空也可以自己指定錯誤選項：{{答案|類型|錯1/錯2/錯3}}（題庫還小的時候用，選項都取自同一張講義）。
+   original：原始講義圖，放在卡片最下面，點開才顯示。 */
 PI.KNOWLEDGE = {
   ch1: {
     chapter: 1, title: "抗病毒藥物（流感）",
     sections: [
-      { id: "basics",  title: "基本概念",   items: [] },
-      { id: "methods", title: "原理與方法", items: [] },
-      { id: "summary", title: "重點整理",   items: [] }
+      { id: "structure", title: "病毒構造", items: [
+        { title: "流感病毒表面", source: "講義 01. 抗病毒藥物（流感）",
+          points: [
+            "{{RNA|名詞|DNA/逆轉錄/雙股 DNA}} virus",
+            "表面構造：{{Neuraminidase|標的|Integrase/Protease/Reverse transcriptase}}、M2 Protein、Hemagglutinin",
+            "{{Hemagglutinin|標的|Neuraminidase/M2 Protein/RNA polymerase}}：紅血球凝集素"
+          ] }
+      ] },
+      { id: "mechanism", title: "藥理機制", items: [
+        { title: "流感病毒生命週期與藥物作用點", source: "講義圖（Arch Bronconeumol. 2017;53(1):19-26）",
+          original: "assets/knowledge/flu-lifecycle.jpg",
+          flow: [
+            { title: "進入細胞",
+              text: ["病毒進入宿主細胞，形成 {{Endosome|結構|Lysosome/Ribosome/Golgi body}}"] },
+            { title: "脫殼 Uncoating",
+              text: ["{{M2 Protein|標的|Neuraminidase/Hemagglutinin/RNA polymerase}} 活化，使 {{H⁺|離子|Na⁺/K⁺/Ca²⁺}} 往病毒內送（{{pH↓|性質|pH↑/pH 不變/pH 中性}}），病毒外殼脫去、釋出遺傳物質"],
+              block: { label: "治療 {{A 型|名詞|B 型/A、B 型/C 型}}流感",
+                       drugs: "{{Amantadine|藥名|Oseltamivir/Ribavirin/Zanamivir}}、Rimantadine",
+                       note: "Amantadine 的機轉可抑制病毒{{脫殼|反應|釋放/RNA 複製/出芽}}，達到抗病毒的效果" } },
+            { title: "病毒 RNA 複製",
+              text: ["{{RNA polymerase|標的|Neuraminidase/M2 Protein/Hemagglutinin}}（Replication of viral RNA）"],
+              block: { label: "{{RNA polymerase inhibitors|藥物類別|Neuraminidase inhibitors/M2 inhibitors/Protease inhibitors}}",
+                       drugs: "{{Ribavirin|藥名|Amantadine/Oseltamivir/Peramivir}}" } },
+            { title: "運送・配裝 → 出芽",
+              text: ["運送 Transport、配裝 Assembly，病毒從宿主細胞{{出芽|反應|脫殼/吸附/複製}}"] },
+            { title: "釋放 Release",
+              text: ["病毒離開宿主細胞時，{{Neuraminidase|標的|M2 Protein/Hemagglutinin/RNA polymerase}} 可幫助病毒離開宿主細胞"],
+              block: { label: "治療 {{A 型、B 型|名詞|A 型/B 型/C 型}}流感：{{Neuraminidase inhibitors|藥物類別|M2 inhibitors/RNA polymerase inhibitors/Protease inhibitors}}",
+                       drugs: "Zanamivir、{{Oseltamivir|藥名|Amantadine/Rimantadine/Ribavirin}}、Peramivir",
+                       note: "Oseltamivir 抑制 Neuraminidase，阻止病毒{{釋出|反應|脫殼/複製/進入細胞}}" } }
+          ] }
+      ] }
     ]
   }
 };

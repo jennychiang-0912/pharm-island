@@ -19,7 +19,13 @@ PI.quiz = (function () {
   function parse(line) {
     const i = line.search(/\s#/), text = i < 0 ? line : line.slice(0, i), hint = i < 0 ? "" : line.slice(i).trim();
     const parts = [], blanks = []; let last = 0, m; RE.lastIndex = 0;
-    while ((m = RE.exec(text))) { parts.push(text.slice(last, m.index)); blanks.push({ ans: m[1].trim(), type: (m[2] || "").trim() }); last = RE.lastIndex; }
+    while ((m = RE.exec(text))) {
+      // {{答案|類型}} 或 {{答案|類型|錯誤選項1/錯誤選項2/錯誤選項3}}（自己指定錯誤選項）
+      const [type, opts] = (m[2] || "").split("|");
+      parts.push(text.slice(last, m.index));
+      blanks.push({ ans: m[1].trim(), type: (type || "").trim(), opts: opts ? opts.split("/").map(x => x.trim()).filter(Boolean) : null });
+      last = RE.lastIndex;
+    }
     parts.push(text.slice(last));
     return { parts, blanks, hint };
   }
@@ -49,8 +55,13 @@ PI.quiz = (function () {
       add(`u:${u.id}`, { unit: u, field: k, chapter: u.chapter, group: u.group || null, qid: `u:${u.id}:${k}:${li}` }, line))));
     Object.entries(PI.KNOWLEDGE || {}).forEach(([key, K]) => (K.sections || []).forEach((sec, si) => (sec.items || []).forEach((it, ii) => {
       if (it.unit) return;   // 引用格子的內容：題目算在格子上
-      [it.text, ...(it.points || [])].forEach((line, li) => line &&
-        add(`t:${key}`, { tree: key, item: it, chapter: K.chapter, group: null, qid: `t:${key}:${si}:${ii}:${li}` }, line));
+      // 流程圖（flow）的每一步也可以出題：步驟說明、抑制框的標題、藥名、說明
+      //   題目標題會帶上是哪一步，例如「脫殼 Uncoating・⊖ 抑制」，才知道在問哪裡
+      const flowLines = (it.flow || []).flatMap((st, n) => [
+        ...(st.text || []).map(t => [t, { n: n + 1, title: st.title || "", block: false }]),
+        ...(st.block ? [st.block.label, st.block.drugs, st.block.note].map((t, k) => [t, { n: n + 1, title: k === 2 ? "" : st.title || "", block: true }]) : [])]);   // 補充說明常在講這一步本身，不顯示步驟名稱
+      [...[it.text, ...(it.points || [])].map(t => [t, null]), ...flowLines].forEach(([line, ctx], li) => line &&
+        add(`t:${key}`, { tree: key, item: it, ctx, chapter: K.chapter, group: null, qid: `t:${key}:${si}:${ii}:${li}` }, line));
     })));
     const ownerText = new Map();
     lines.forEach(L => ownerText.set(L.owner, (ownerText.get(L.owner) || "") + "|" + norm(plain(L.p))));
@@ -59,6 +70,7 @@ PI.quiz = (function () {
 
   /* 錯誤選項：同類型、不是這個藥（或這棵樹這句）已知成立的答案 */
   function distractors(L, b) {
+    if (b.opts && b.opts.length) return shuffle(b.opts.slice(0, 3));   // 資料裡自己指定的錯誤選項優先
     // 對比組（耐酸／不耐酸……）：選項就用同組的其他詞
     const set = (PI.CLOZE_SETS || []).find(g => g.some(x => norm(x) === norm(b.ans)));
     if (set) return shuffle(set.filter(x => norm(x) !== norm(b.ans)));
@@ -82,7 +94,10 @@ PI.quiz = (function () {
 
   function clozeQ(L, k) {
     const b = L.p.blanks[k], wrong = distractors(L, b); if (!wrong) return null;
-    const who = L.unit ? (L.unit.type === "topic" ? L.unit.name : `${L.unit.name}・${FIELD[L.field] || ""}`) : (L.item.title || "");
+    // 流程圖的題目：標題帶上第幾步；如果答案就寫在步驟名稱裡（例如「脫殼」），就不顯示步驟名稱，免得直接看到答案
+    const ctxLabel = c => { const showTitle = c.title && !norm(c.title).includes(norm(b.ans)) && !norm(b.ans).includes(norm(c.title));
+      return `第 ${c.n} 步${showTitle ? "・" + c.title : ""}${c.block ? "・⊖ 抑制" : ""}`; };
+    const who = L.unit ? (L.unit.type === "topic" ? L.unit.name : `${L.unit.name}・${FIELD[L.field] || ""}`) : (L.ctx ? ctxLabel(L.ctx) : (L.item.title || ""));
     return {
       kind: "cloze", qid: `${L.qid}:${k}`, label: who,
       prompt: render(L.p, k, false), answer: render(L.p, k, true), hint: L.p.hint,

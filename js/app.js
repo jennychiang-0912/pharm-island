@@ -13,7 +13,7 @@
   const blanks = line => (splitHint(line)[0].match(CLOZE) || []).length;
   function clozeLine(line, noHint) {
     const [text, hint] = splitHint(line);
-    const body = esc(text).replace(CLOZE, (m, ans, type) => `<mark class="cloze" title="${esc(type || "")}">${ans}</mark>`);
+    const body = esc(text).replace(CLOZE, (m, ans, type) => `<mark class="cloze" title="${esc((type || "").split("|")[0])}">${ans}</mark>`);
     return body + (hint && !noHint ? ` <span class="hint">${esc(hint)}</span>` : "");
   }
   // 這個單元資料裡的口訣（句尾的 #…），當作筆記欄的預設內容
@@ -160,7 +160,21 @@
         ${it.text ? `<p>${clozeLine(it.text)}</p>` : ""}
         ${it.image ? `<img class="k-img" src="${esc(it.image)}" alt="${esc(it.title || "")}" loading="lazy">` : ""}
         ${it.points && it.points.length ? `<ul>${it.points.map(p => `<li>${clozeLine(p)}</li>`).join("")}</ul>` : ""}
+        ${it.flow ? flowHtml(it.flow) : ""}
+        ${it.original ? `<details class="k-orig"><summary>看原始講義圖</summary><img class="k-img" src="${esc(it.original)}" alt="原始講義圖" loading="lazy"></details>` : ""}
         ${it.source ? `<p class="k-src">出處：${esc(it.source)}</p>` : ""}</article>`;
+    // 流程圖：一步一步往下，被藥擋住的步驟旁邊有「⊖ 抑制」框
+    function flowHtml(flow) {
+      return `<ol class="k-flow">${flow.map((st, i) => `<li class="k-step">
+          <span class="k-step-no">${i + 1}</span>
+          <div class="k-step-body"><b class="k-step-title">${esc(st.title || "")}</b>
+            ${(st.text || []).map(t => `<p>${clozeLine(t)}</p>`).join("")}
+            ${st.block ? `<div class="k-block"><span class="k-block-tag">⊖ 抑制</span>
+              ${st.block.label ? `<p class="k-block-label">${clozeLine(st.block.label)}</p>` : ""}
+              ${st.block.drugs ? `<p class="k-block-drugs">${clozeLine(st.block.drugs)}</p>` : ""}
+              ${st.block.note ? `<p class="k-block-note">${clozeLine(st.block.note)}</p>` : ""}</div>` : ""}
+          </div></li>`).join("")}</ol>`;
+    }
     // 這棵樹有幾題（一個挖空＝一題）
     const treeQs = PI.quiz.forTree(key), nQ = treeQs.length;
     const nDone = treeQs.filter(q => PI.state.isTreeDone(q.qid)).length;
