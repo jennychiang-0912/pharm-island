@@ -160,7 +160,9 @@
         ${it.text ? `<p>${clozeLine(it.text)}</p>` : ""}
         ${it.image ? `<img class="k-img" src="${esc(it.image)}" alt="${esc(it.title || "")}" loading="lazy">` : ""}
         ${it.points && it.points.length ? `<ul>${it.points.map(p => `<li>${clozeLine(p)}</li>`).join("")}</ul>` : ""}
-        ${it.flow ? flowHtml(it.flow) : ""}
+        ${it.diagram ? `<figure class="k-diagram" title="點圖放大／再點一下縮回"><img src="${esc(it.diagram)}" alt="${esc(it.title || "示意圖")}" loading="lazy"></figure>
+          ${PI.GLOSSARY ? `<p class="k-gl-row"><span class="muted">點名詞看小框框：</span>${Object.keys(PI.GLOSSARY).map(esc).join("・")}</p>` : ""}` : ""}
+        ${it.flow ? (it.diagram ? `<details class="k-flow-wrap"><summary>看文字步驟</summary>${flowHtml(it.flow)}</details>` : flowHtml(it.flow)) : ""}
         ${it.original ? `<details class="k-orig"><summary>看原始講義圖</summary><img class="k-img" src="${esc(it.original)}" alt="原始講義圖" loading="lazy"></details>` : ""}
         ${it.source ? `<p class="k-src">出處：${esc(it.source)}</p>` : ""}</article>`;
     // 流程圖：一步一步往下，被藥擋住的步驟旁邊有「⊖ 抑制」框
@@ -194,6 +196,7 @@
           ${sec.items && sec.items.length ? sec.items.map(item).join("")
             : `<p class="k-empty">尚未加入內容，之後依課堂講義補充。</p>`}</section>`).join("")}</div>`;
     $("kpanel").hidden = false;
+    glossify($("kpanel").querySelector(".k-body"));
     $("kClose").onclick = closeKnowledge;
     if ($("kQuiz")) $("kQuiz").onclick = () => {
       // 先出還沒答對過的題目
@@ -205,6 +208,40 @@
         badText: "", onClose: () => openKnowledge(key) });
     };
     $("kClose").focus();
+  }
+  /* ---------- 名詞小框框：PI.GLOSSARY 裡的名詞加虛線，點一下跳出解釋（沒有 PI.GLOSSARY 的頁面不受影響） ---------- */
+  function glossify(root) {
+    const G = PI.GLOSSARY; if (!root || !G) return;
+    const terms = Object.keys(G).sort((a, b) => b.length - a.length);
+    if (!terms.length) return;
+    const alt = terms.map(t => t.replace(/[.*+?^$()|[\]\\{}]/g, "\\$&")).join("|");
+    const re = new RegExp("(" + alt + ")(?![A-Za-z])", "g");
+    const walk = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, { acceptNode: n =>
+      n.parentElement.closest("summary, button, .gl-pop") ? NodeFilter.FILTER_REJECT : NodeFilter.FILTER_ACCEPT });
+    const nodes = []; while (walk.nextNode()) nodes.push(walk.currentNode);
+    nodes.forEach(n => {
+      if (!re.test(n.nodeValue)) return; re.lastIndex = 0;
+      const frag = document.createDocumentFragment(); let last = 0;
+      n.nodeValue.replace(re, (m, t, i) => {
+        frag.append(n.nodeValue.slice(last, i));
+        const b = document.createElement("button"); b.type = "button"; b.className = "gl"; b.dataset.term = t; b.textContent = t;
+        frag.append(b); last = i + m.length; return m;
+      });
+      frag.append(n.nodeValue.slice(last)); n.replaceWith(frag);
+    });
+    let pop = null;
+    const hide = () => { if (pop) { pop.remove(); pop = null; } };
+    root.onclick = e => {
+      const fig = e.target.closest(".k-diagram"); if (fig) { fig.classList.toggle("is-zoom"); return; }   // 點圖放大
+      const b = e.target.closest(".gl"); const was = pop && pop.dataset.term;
+      hide(); if (!b || was === b.dataset.term) return;
+      pop = document.createElement("div"); pop.className = "gl-pop"; pop.dataset.term = b.dataset.term;
+      pop.innerHTML = `<b>${esc(b.dataset.term)}</b><p>${esc(G[b.dataset.term])}</p>`;
+      root.append(pop);
+      const r = b.getBoundingClientRect(), R = root.getBoundingClientRect();
+      pop.style.top = `${r.bottom - R.top + root.scrollTop + 6}px`;
+      pop.style.left = `${Math.max(4, Math.min(r.left - R.left, root.clientWidth - pop.offsetWidth - 4))}px`;
+    };
   }
   function closeKnowledge() {
     if ($("kpanel").hidden) return;

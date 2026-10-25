@@ -29,6 +29,7 @@ PI.UNITS = [];
      { title: "步驟名稱", text: ["說明（可挖空）"], block: { label: "抑制框標題", drugs: "藥名", note: "補充" } }
    block 是「被藥擋住的步驟」，會畫成紅色的 ⊖ 抑制框。
    挖空也可以自己指定錯誤選項：{{答案|類型|錯1/錯2/錯3}}（題庫還小的時候用，選項都取自同一張講義）。
+   diagram：重畫的示意圖（放最上面，文字步驟會收合成「看文字步驟」）。
    original：原始講義圖，放在卡片最下面，點開才顯示。 */
 PI.KNOWLEDGE = {
   ch1: {
@@ -44,6 +45,7 @@ PI.KNOWLEDGE = {
       ] },
       { id: "mechanism", title: "藥理機制", items: [
         { title: "流感病毒生命週期與藥物作用點", source: "講義圖（Arch Bronconeumol. 2017;53(1):19-26）",
+          diagram: "assets/knowledge/flu-lifecycle.svg",
           original: "assets/knowledge/flu-lifecycle.jpg",
           flow: [
             { title: "進入細胞",
@@ -68,4 +70,14 @@ PI.KNOWLEDGE = {
       ] }
     ]
   }
+};
+
+/* 名詞小框框：知識樹裡出現這些名詞時加虛線，點一下跳出解釋。解釋只用講義上印的內容。 */
+PI.GLOSSARY = {
+  "Hemagglutinin": "紅血球凝集素；流感病毒的表面構造之一。",
+  "Neuraminidase": "流感病毒的表面構造之一；病毒離開宿主細胞時，可幫助病毒離開宿主細胞。被 Neuraminidase inhibitors 抑制。",
+  "M2 Protein": "流感病毒的表面構造之一；活化後使 H⁺ 往病毒內送（pH↓），病毒脫殼。被 Amantadine、Rimantadine 抑制。",
+  "Endosome": "病毒進入宿主細胞後形成，接著在這裡脫殼（講義圖第 1→2 步）。",
+  "Uncoating": "脫殼：病毒外殼脫去、釋出遺傳物質。",
+  "RNA polymerase": "負責病毒 RNA 複製（Replication of viral RNA）。被 Ribavirin 抑制。"
 };

@@ -1,0 +1,97 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -40 360 700" font-family="Chiron GoRound TC, PingFang TC, Microsoft JhengHei, sans-serif">
+  <!-- 流感病毒生命週期（依講義 01. 抗病毒藥物（流感）的圖重畫，直式） -->
+  <defs>
+    <g id="v">
+      <g stroke="#426C50" stroke-width="2" stroke-linecap="round" fill="none">
+        <path d="M0-22v-8M11-19l4-7M19-11l7-4M22 0h8M19 11l7 4M11 19l4 7M0 22v8M-11 19l-4 7M-19 11l-7 4M-22 0h-8M-19-11l-7-4M-11-19l-4-7"/>
+      </g>
+      <g fill="#fff" stroke="#426C50" stroke-width="1.6">
+        <circle cx="0" cy="-33" r="3"/><circle cx="28" cy="-17" r="3"/><circle cx="28" cy="17" r="3"/>
+        <circle cx="0" cy="33" r="3"/><circle cx="-28" cy="17" r="3"/><circle cx="-28" cy="-17" r="3"/>
+      </g>
+      <circle r="22" fill="#DCE8F2" stroke="#426C50" stroke-width="2"/>
+      <rect x="18" y="-6" width="9" height="3" fill="#24372C"/><rect x="18" y="3" width="9" height="3" fill="#24372C"/>
+      <path d="M-11-4q4-5 8 0t8 0t8 0M-11 5q4-5 8 0t8 0t8 0" fill="none" stroke="#426C50" stroke-width="1.8" stroke-linecap="round"/>
+    </g>
+    <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0L10 5L0 10z" fill="#315B43"/>
+    </marker>
+  </defs>
+
+  <!-- 細胞外／細胞內 -->
+  <rect y="-40" width="360" height="700" fill="#F4FAFC"/>
+  <path d="M0 232C40 232 52 232 70 300C88 232 110 232 200 232C240 232 262 214 285 204C308 214 330 232 360 232V660H0Z" fill="#FBF3E4"/>
+  <path d="M0 232C40 232 52 232 70 300C88 232 110 232 200 232C240 232 262 214 285 204C308 214 330 232 360 232" fill="none" stroke="#B9A57E" stroke-width="3"/>
+  <text x="8" y="-22" font-size="12" fill="#6E7F72">細胞外</text>
+  <text x="8" y="256" font-size="12" fill="#9C8762">宿主細胞內</text>
+
+  <!-- 病毒構造小圖例 -->
+  <g transform="translate(0,-40)">
+  <use href="#v" x="58" y="96"/>
+  <text x="58" y="148" font-size="11" fill="#426C50" text-anchor="middle">RNA virus</text>
+  <path d="M88 84h20" stroke="#24372C" stroke-width="1"/><text x="111" y="88" font-size="10.5" fill="#24372C">M2 Protein（▮▮）</text>
+  <text x="111" y="104" font-size="10.5" fill="#24372C">表面：Hemagglutinin、</text>
+  <text x="111" y="118" font-size="10.5" fill="#24372C">Neuraminidase</text>
+  </g>
+  <path d="M58 122V200" stroke="#315B43" stroke-width="2.5" marker-end="url(#ar)"/>
+  <circle cx="34" cy="150" r="11" fill="#315B43"/><text x="34" y="154" font-size="12" fill="#fff" text-anchor="middle" font-weight="700">1</text>
+  <text x="68" y="166" font-size="11.5" fill="#315B43" font-weight="700">進入細胞</text>
+
+  <!-- ① Endosome -->
+  <circle cx="72" cy="356" r="42" fill="#fff" stroke="#426C50" stroke-width="2" stroke-dasharray="5 4"/>
+  <use href="#v" x="72" y="356"/>
+  <text x="72" y="414" font-size="11" fill="#426C50" text-anchor="middle">Endosome 形成</text>
+  <path d="M128 338h-20" stroke="#D9897A" stroke-width="2.5" marker-end="url(#ar)"/>
+  <text x="131" y="335" font-size="13" fill="#C0624F" font-weight="700">H⁺</text>
+  <text x="131" y="350" font-size="11" fill="#C0624F">pH↓</text>
+
+  <!-- ② 脫殼 -->
+  <path d="M120 374H170" stroke="#315B43" stroke-width="2.5" marker-end="url(#ar)"/>
+  <circle cx="136" cy="392" r="11" fill="#315B43"/><text x="124" y="396" font-size="12" fill="#fff" text-anchor="middle" font-weight="700">2</text>
+  <text x="152" y="397" font-size="11.5" fill="#315B43" font-weight="700">脫殼</text>
+  <path d="M206 342a26 26 0 1 0 0 52" fill="none" stroke="#426C50" stroke-width="2.5"/>
+  <path d="M214 360q5-6 10 0t10 0M214 374q5-6 10 0t10 0" fill="none" stroke="#426C50" stroke-width="2" stroke-linecap="round"/>
+  <text x="222" y="410" font-size="10.5" fill="#6E7F72" text-anchor="middle">釋出 RNA</text>
+
+  <!-- ② 的抑制框 -->
+  <path d="M72 420V446" stroke="#D9897A" stroke-width="1.6" stroke-dasharray="4 3"/>
+  <rect x="8" y="446" width="150" height="64" rx="10" fill="#FDF1EE" stroke="#E7B3A6" stroke-width="1.5"/>
+  <circle cx="24" cy="463" r="8" fill="#D9897A"/><path d="M19.5 463h9" stroke="#fff" stroke-width="2"/>
+  <text x="38" y="467" font-size="11" fill="#C0624F" font-weight="700">治療 A 型流感</text>
+  <text x="18" y="485" font-size="12" fill="#24372C" font-weight="700">Amantadine</text>
+  <text x="18" y="502" font-size="12" fill="#24372C" font-weight="700">Rimantadine</text>
+
+  <!-- ③ RNA 複製 -->
+  <path d="M232 418V470" stroke="#315B43" stroke-width="2.5" marker-end="url(#ar)"/>
+  <circle cx="254" cy="440" r="11" fill="#315B43"/><text x="254" y="444" font-size="12" fill="#fff" text-anchor="middle" font-weight="700">3</text>
+  <text x="270" y="445" font-size="11.5" fill="#315B43" font-weight="700">RNA 複製</text>
+  <ellipse cx="236" cy="512" rx="62" ry="34" fill="#fff" stroke="#426C50" stroke-width="2" stroke-dasharray="5 4"/>
+  <text x="236" y="508" font-size="12" fill="#24372C" text-anchor="middle" font-weight="700">RNA polymerase</text>
+  <text x="236" y="524" font-size="10" fill="#6E7F72" text-anchor="middle">Replication of viral RNA</text>
+  <path d="M236 546V572" stroke="#D9897A" stroke-width="1.6" stroke-dasharray="4 3"/>
+  <rect x="150" y="572" width="172" height="62" rx="10" fill="#FDF1EE" stroke="#E7B3A6" stroke-width="1.5"/>
+  <circle cx="166" cy="589" r="8" fill="#D9897A"/><path d="M161.5 589h9" stroke="#fff" stroke-width="2"/>
+  <text x="180" y="593" font-size="10.5" fill="#C0624F" font-weight="700">RNA polymerase inhibitors</text>
+  <text x="162" y="618" font-size="12" fill="#24372C" font-weight="700">Ribavirin</text>
+
+  <!-- ④ 運送・配裝 → 出芽 -->
+  <path d="M298 500C338 470 338 300 296 246" fill="none" stroke="#315B43" stroke-width="2.5" marker-end="url(#ar)"/>
+  <circle cx="338" cy="380" r="11" fill="#315B43"/><text x="338" y="384" font-size="12" fill="#fff" text-anchor="middle" font-weight="700">4</text>
+  <text x="326" y="408" font-size="10.5" fill="#315B43" text-anchor="end">運送・配裝</text>
+  <text x="326" y="422" font-size="10.5" fill="#315B43" text-anchor="end">→ 出芽</text>
+  <use href="#v" x="285" y="214"/>
+
+  <!-- ⑤ 釋放 -->
+  <path d="M285 170V96" stroke="#315B43" stroke-width="2.5" marker-end="url(#ar)"/>
+  <use href="#v" x="300" y="56"/>
+  <circle cx="306" cy="128" r="11" fill="#315B43"/><text x="306" y="132" font-size="12" fill="#fff" text-anchor="middle" font-weight="700">5</text>
+  <text x="321" y="133" font-size="11.5" fill="#315B43" font-weight="700">釋放</text>
+  <path d="M282 150H246" stroke="#D9897A" stroke-width="1.6" stroke-dasharray="4 3"/>
+  <rect x="114" y="96" width="132" height="100" rx="10" fill="#FDF1EE" stroke="#E7B3A6" stroke-width="1.5"/>
+  <circle cx="130" cy="112" r="8" fill="#D9897A"/><path d="M125.5 112h9" stroke="#fff" stroke-width="2"/>
+  <text x="143" y="116" font-size="10.5" fill="#C0624F" font-weight="700">治療 A、B 型流感</text>
+  <text x="124" y="132" font-size="9.5" fill="#C0624F">Neuraminidase inhibitors</text>
+  <text x="124" y="150" font-size="11.5" fill="#24372C" font-weight="700">Zanamivir</text>
+  <text x="124" y="167" font-size="11.5" fill="#24372C" font-weight="700">Oseltamivir</text>
+  <text x="124" y="184" font-size="11.5" fill="#24372C" font-weight="700">Peramivir</text>
+</svg>

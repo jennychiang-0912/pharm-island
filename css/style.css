@@ -264,6 +264,17 @@ button { font: inherit; color: inherit; cursor: pointer; }
 .k-block .k-block-note { font-size: 13px !important; color: var(--muted) !important; }
 .k-orig { margin-top: 8px; font-size: 13px; color: var(--deep); }
 .k-orig summary { cursor: pointer; font-weight: 700; }
+.k-diagram { margin: 8px 0 4px; }
+.k-diagram img { display: block; width: 100%; max-width: 420px; margin: 0 auto; border-radius: var(--r-md); border: 1px solid var(--line); }
+.k-flow-wrap { margin-top: 8px; font-size: 13px; color: var(--deep); }
+.k-flow-wrap summary { cursor: pointer; font-weight: 700; }
+/* 名詞小框框（PI.GLOSSARY） */
+.k-body { position: relative; }
+.gl { font: inherit; color: inherit; background: none; border: 0; padding: 0; cursor: help; border-bottom: 1.5px dotted #C0624F; }
+.gl:hover, .gl:focus-visible { background: #FDF1EE; outline: none; }
+.gl-pop { position: absolute; z-index: 5; max-width: 260px; background: #fff; border: 1.5px solid #E7B3A6; border-radius: var(--r-md); box-shadow: 0 6px 18px rgba(36,55,44,.16); padding: 8px 12px; }
+.gl-pop b { display: block; font-size: 13px; color: #C0624F; margin-bottom: 2px; }
+.gl-pop p { margin: 0; font-size: 13px; line-height: 1.55; color: var(--ink); }
 .k-empty { margin: 0; font-size: 14px; color: var(--muted); background: var(--mint); border: 1px dashed #C9D6BF; border-radius: var(--r-md); padding: 12px 14px; }
 @media (max-width: 600px) { .info { left: 12px; bottom: 12px; width: calc(100% - 24px); z-index: 4; } }   /* 手機：資訊卡佔滿寬度（會暫時蓋住縮放鈕，關掉卡片就回來） */
 @media (max-width: 600px) { .kpanel { top: 12px; right: 12px; bottom: 12px; width: calc(100% - 24px); } }
@@ -390,3 +401,7 @@ button { font: inherit; color: inherit; cursor: pointer; }
   .bar i, .cell, .cell-hex { transition: none; }
   .claim-glow { display: none; }
 }
+.k-gl-row { margin: 6px 0 0 !important; font-size: 13px !important; line-height: 1.9 !important; }
+.k-diagram { cursor: zoom-in; }
+.k-diagram.is-zoom { position: fixed; inset: 0; z-index: 50; margin: 0; background: rgba(36,55,44,.72); overflow: auto; cursor: zoom-out; padding: 16px; }
+.k-diagram.is-zoom img { max-width: 640px; width: 100%; background: #fff; }
