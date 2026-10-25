@@ -181,10 +181,24 @@ PI.map = (function () {
       land.radius = Math.max(...placed.map(p => Math.hypot(p.x, p.y) + p.rad)) + R * 1.5;
     });
     // 2) 陸地之間：主島在中央，其他島依設定的方向放，隔著海
-    const placedLands = [], gap = PI.MAP.islandGap * SQ3 * R;
+    const placedLands = [], placedCells = [], gap = PI.MAP.islandGap * SQ3 * R;
+    // 這塊陸地的格子相對於陸地中心的位置（和下面「套用位置」用同一個算法）
+    const landCellsRel = land => land.regions.flatMap(isl => { const c0 = land.lc || isl.coast;
+      return isl.cells.map(c => [isl.offset.x - c0.cx + c.lx, isl.offset.y - c0.cy + c.ly]); });
     lands.forEach(land => {
       const ang = (land.def.angle ?? 0) * Math.PI / 180;
-      land.center = findSpot(placedLands, land.radius, gap + noise(land.regions[0].chapter, 3, 9) * R * 2, ang, Math.PI * 0.9);
+      land.center = findSpot(placedLands, land.radius, gap + noise(land.regions[0].chapter, 3, 9) * R * 0.5, ang, Math.PI * 0.9);
+      // 用圓形估的距離太保守（島不是圓的）：沿著方向往主島拉近，直到格子和別的島的格子剛好隔 islandGap 格海
+      const rel = landCellsRel(land);
+      if (placedLands.length && rel.length) {
+        const far = { ...land.center }, need = gap + SQ3 * R;
+        const ok = t => { const cx = far.x * t, cy = far.y * t;
+          return rel.every(([x, y]) => placedCells.every(([px, py]) => Math.hypot(cx + x - px, cy + y - py) >= need)); };
+        let lo = 0, hi = 1;
+        for (let k = 0; k < 18; k++) { const m = (lo + hi) / 2; if (ok(m)) hi = m; else lo = m; }
+        land.center = { x: far.x * hi, y: far.y * hi };
+      }
+      rel.forEach(([x, y]) => placedCells.push([land.center.x + x, land.center.y + y]));
       placedLands.push({ ...land.center, rad: land.radius });
     });
     // 3) 套用位置
