@@ -119,4 +119,6 @@ PI.addUnit({ id: "vancomycin", chapter: 3, name: "Vancomycin", type: "drug", gro
 
 ## 地圖規則
 
+- 打開頁面時放大到第一章的起點格（`PI.MAP.startZoom`，預設 1.2 倍），格子和藥名看得清楚；按右下角的準心按鈕「顯示整張地圖」才看全部。
+
 - 每座島的第一格一開始就是「可挑戰」；佔領一格後，相鄰的格子會變成可挑戰。

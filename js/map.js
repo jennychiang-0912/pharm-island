@@ -291,6 +291,9 @@ PI.map = (function () {
     svg.addEventListener("pointerleave", () => placeHover(null));
     svg.addEventListener("focusout", () => placeRing(selected));
     bindPanZoom(container);
+    // 待機畫面：放大到第一章的起點格（看得清楚格子和藥名），不是一開始就縮到整張地圖；按「顯示整張地圖」才看全部
+    const s0 = cells.find(c => c.isStart && c.chapter === PI.CHAPTERS[0].id) || cells[0];
+    if (s0) lastFrame = { b: { minX: s0.x - R * 2, maxX: s0.x + R * 2, minY: s0.y - R * 2, maxY: s0.y + R * 2 }, cap: PI.MAP.startZoom || 1.2 };
     new ResizeObserver(() => frame(lastFrame.b, false, lastFrame.cap)).observe(container);
     render();
     return cells;
