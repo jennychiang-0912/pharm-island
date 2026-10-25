@@ -322,12 +322,16 @@ PI.map = (function () {
     const C = PI.MAP.coast, P = land.def.palette || { ground: "#B4D69A", light: "#C5E2AA", cliff: "#8CB57A" };
     const all = land.regions.flatMap(r => r.cells);
     const occ = all.filter(c => PI.state.statusOf(c) === "occupied");
-    if (!occ.length) { land.bounds = null; land.groundEls = null; return; }
-    const xs = occ.map(c => c.x), ys = occ.map(c => c.y), pad = R * 1.8;
+    // 知識樹所在的起點格：還沒佔領時也有一座小沙洲，讓樹看起來長在小島上
+    const treeChs = new Set(Object.values(PI.KNOWLEDGE || {}).map(K => K.chapter));
+    const islets = all.filter(c => c.isStart && treeChs.has(c.chapter) && PI.state.statusOf(c) !== "occupied");
+    if (!occ.length && !islets.length) { land.bounds = null; land.groundEls = null; return; }
+    const both = occ.concat(islets);
+    const xs = both.map(c => c.x), ys = both.map(c => c.y), pad = R * 1.8;
     land.bounds = { minX: Math.min(...xs) - pad, minY: Math.min(...ys) - pad, maxX: Math.max(...xs) + pad, maxY: Math.max(...ys) + pad + 24 };
     const V = [...Array(6)].map((_, i) => { const a = Math.PI / 180 * (60 * i - 90); return [Math.cos(a), Math.sin(a)]; });
-    const hexes = r => occ.map(c => V.map(([vx, vy], i) => (i ? "L" : "M") + (c.x + r * vx).toFixed(1) + "," + (c.y + r * vy).toFixed(1)).join("") + "Z").join("");
-    const shape = (r, fill, op, dy = 0, cls) => el("path", { d: hexes(r), fill, "fill-opacity": op, transform: dy ? `translate(0,${dy})` : "", class: `t-${cls}` });
+    const hexes = (r, list = occ) => list.map(c => V.map(([vx, vy], i) => (i ? "L" : "M") + (c.x + r * vx).toFixed(1) + "," + (c.y + r * vy).toFixed(1)).join("") + "Z").join("");
+    const shape = (r, fill, op, dy = 0, cls, list) => el("path", { d: hexes(r, list), fill, "fill-opacity": op, transform: dy ? `translate(0,${dy})` : "", class: `t-${cls}` });
 
     // 海岸外的礁石：挑幾個「旁邊還是海」的格子，在海那一側放一顆
     const seed = land.regions[0].chapter, rocks = PI.ART.decor.filter(d => d.kind === "rock"), decoImgs = [];
@@ -347,7 +351,16 @@ PI.map = (function () {
     g.append(shape(R * 1.16, C.shadow, .2, 22, "shadow"), shape(R * 1.5, C.shallow, .55, 0, "shallow"), ...decoImgs,
       shape(R * 1.28, C.foam, .85, 0, "foam"), shape(R * 1.16, C.sandShade, 1, 7, "sand-shade"), shape(R * 1.16, C.sand, 1, 0, "sand"),
       shape(R + 1, P.cliff, 1, 9, "cliff"), shape(R + 1, P.ground, 1, 0, "grass"));
-    land.groundEls = { cliff: g.querySelector(".t-cliff"), grass: g.querySelector(".t-grass"), inner: null };
+    if (islets.length) {   // 小沙洲：淺水、浪花、沙灘一圈，中間一小塊圓圓的草地（樹就長在上面）
+      const isle = el("g", { class: "t-islets" });
+      isle.append(shape(R * 1.0, C.shadow, .2, 16, "islet-shadow", islets), shape(R * 1.3, C.shallow, .6, 0, "islet-shallow", islets),
+        shape(R * 1.1, C.foam, .9, 0, "islet-foam", islets), shape(R * 0.98, C.sandShade, 1, 6, "islet-sand-shade", islets), shape(R * 0.98, C.sand, 1, 0, "islet-sand", islets));
+      islets.forEach(c => isle.append(
+        el("ellipse", { cx: c.x.toFixed(1), cy: (c.y + 12).toFixed(1), rx: (R * 0.62).toFixed(1), ry: (R * 0.34).toFixed(1), fill: P.cliff }),
+        el("ellipse", { cx: c.x.toFixed(1), cy: (c.y + 7).toFixed(1), rx: (R * 0.62).toFixed(1), ry: (R * 0.34).toFixed(1), fill: P.ground })));
+      g.appendChild(isle);
+    }
+    land.groundEls = occ.length ? { cliff: g.querySelector(".t-cliff"), grass: g.querySelector(".t-grass"), inner: null } : null;
     land.frac = null; tintLand(land);
   }
   const mixHex = (a, b, t) => "#" + [0, 2, 4].map(i => Math.round(parseInt(a.substr(i + 1, 2), 16) * (1 - t) + parseInt(b.substr(i + 1, 2), 16) * t).toString(16).padStart(2, "0")).join("");
