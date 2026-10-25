@@ -160,8 +160,11 @@
     // 考點標記（js/edits.js 的 MARKS）：放在那一行最前面
     const mk = (it, li) => { const t = (it.marks || {})[li], M = PI.edits && PI.edits.MARKS[t];
       return M ? `<span class="k-mark m-${t}" title="${esc(M.label)}">${esc(M.short)}</span>` : ""; };
-    // 一行：k-line 包住正文（螢光筆用 data-li 找到是哪一行），自己用螢光筆標的考點加 is-hl
+    // 一行：k-line 包住正文（data-li＝第幾行），自己用螢光筆標的考點加 is-hl
+    //   編輯中的卡片（edNow）：同一行直接變成可以打字的字（edLine），看起來跟平常一樣
+    let edNow = false;
     const line = (it, li, raw) => {
+      if (edNow) return mk(it, li) + edLine(it, li, raw);
       const km = (it.kmaps || {})[li], src = it.hlsrc || {}, [text, hint] = splitHint(raw); let k = -1;
       const body = esc(text).replace(CLOZE, (m, ans, type) => { k++;
         const hk = km && typeof km[k] === "string" ? km[k] : null, hs = hk ? (src[`${li}:${hk}`] || "mine") : "";
@@ -171,24 +174,33 @@
     const item = (it, si, ii) => {
       if (it.unit) return unitOf(it.unit) ? refItem(unitOf(it.unit)) : "";   // 引用格子：這一版不開放修改
       const ekey = PI.edits ? PI.edits.keyOf(key, si, ii) : "";
-      if (ekey && kEditing === ekey) return editForm(it, ekey);
-      const tools = PI.edits ? `<div class="k-tools">${it.edited ? `<span class="k-edited">已修改</span><button type="button" class="k-tool" data-act="restore">還原原文</button>` : ""}
-          <button type="button" class="k-tool" data-act="edit">✎ 編輯・🖍 螢光筆</button></div>` : "";
       if (it.hidden) return `<article class="k-item is-hidden" data-key="${esc(ekey)}"><div class="k-item-head">
           <p class="muted">已隱藏的卡片：${esc(it.title || "（無標題）")}</p>
           <div class="k-tools"><button type="button" class="k-tool" data-act="unhide">取消隱藏</button><button type="button" class="k-tool" data-act="restore">還原原文</button></div></div></article>`;
+      const isEd = !!ekey && kEditing === ekey;
+      edNow = isEd;
+      const tools = !PI.edits ? "" : isEd ? "" : `<div class="k-tools">${it.edited ? `<span class="k-edited">已修改</span><button type="button" class="k-tool" data-act="restore">還原原文</button>` : ""}
+          <button type="button" class="k-tool" data-act="edit">✎ 編輯</button></div>`;
+      const bar = isEd ? `<div class="k-ed-bar"><span class="k-ed-tip">✎ 直接點字修改・反白文字可以畫螢光筆（畫的地方會出題）</span>
+          <span class="k-ed-acts"><button type="button" class="k-tool is-main" data-act="save">完成</button><button type="button" class="k-tool" data-act="cancel">取消</button>
+          <button type="button" class="k-tool" data-act="more" aria-label="更多">⋯</button></span>
+          <span class="k-ed-more" hidden><button type="button" class="k-tool" data-act="hide">隱藏這張卡片</button>${it.edited ? `<button type="button" class="k-tool" data-act="restore">還原原文</button>` : ""}</span></div>
+          <p class="k-ed-msg" role="alert" hidden></p>` : "";
       const pts = (it.points || []).map((p, i) => p ? `<li>${line(it, 1 + i, p)}</li>` : "").join("")
         + (it.extra || []).map(x => `<li class="is-extra">${line(it, "x" + x.id, x.text)}</li>`).join("");
-      return `<article class="k-item" data-key="${esc(ekey)}">
-        <div class="k-item-head">${it.title ? `<h4>${esc(it.title)}</h4>` : "<span></span>"}${tools}</div>
+      const head = isEd && it.title != null ? `<h4 class="ed-title" contenteditable="true" spellcheck="false">${esc(it.title)}</h4>` : it.title ? `<h4>${esc(it.title)}</h4>` : "<span></span>";
+      const html = `<article class="k-item${isEd ? " k-edit" : ""}" data-key="${esc(ekey)}">${bar}
+        <div class="k-item-head">${head}${tools}</div>
         ${it.text ? `<p>${line(it, 0, it.text)}</p>` : ""}
         ${it.image ? `<img class="k-img" src="${esc(it.image)}" alt="${esc(it.title || "")}" loading="lazy">` : ""}
-        ${pts ? `<ul>${pts}</ul>` : ""}
+        ${pts || isEd ? `<ul class="k-pts">${pts}</ul>` : ""}
         ${it.diagram ? `<figure class="k-diagram" title="點圖放大／再點一下縮回"><img src="${esc(it.diagram)}" alt="${esc(it.title || "示意圖")}" loading="lazy"></figure>
-          ${PI.GLOSSARY ? `<p class="k-gl-row"><span class="muted">點名詞看小框框：</span>${Object.keys(PI.GLOSSARY).map(esc).join("・")}</p>` : ""}` : ""}
-        ${it.flow ? (it.diagram ? `<details class="k-flow-wrap"><summary>看文字步驟</summary>${flowHtml(it)}</details>` : flowHtml(it)) : ""}
+          ${PI.GLOSSARY && !isEd ? `<p class="k-gl-row"><span class="muted">點名詞看小框框：</span>${Object.keys(PI.GLOSSARY).map(esc).join("・")}</p>` : ""}` : ""}
+        ${it.flow ? (it.diagram ? `<details class="k-flow-wrap"${isEd ? " open" : ""}><summary>看文字步驟</summary>${flowHtml(it)}</details>` : flowHtml(it)) : ""}
         ${it.original ? `<details class="k-orig"><summary>看原始講義圖</summary><img class="k-img" src="${esc(it.original)}" alt="原始講義圖" loading="lazy"></details>` : ""}
         ${it.source ? `<p class="k-src">出處：${esc(it.source)}</p>` : ""}</article>`;
+      edNow = false;
+      return html;
     };
     // 流程圖：一步一步往下，被藥擋住的步驟旁邊有「⊖ 抑制」框
     //   li：每一行的位置，順序和出題一樣（text、points 之後接流程；抑制框固定佔 3 行）
@@ -209,27 +221,6 @@
           <span class="k-step-no">${i + 1}</span>
           <div class="k-step-body"><b class="k-step-title">${esc(st.title || "")}</b>${texts}${block}</div></li>`;
       }).join("")}</ol>`;
-    }
-    // 編輯模式：卡片原地變成可以直接打字的樣子；挖空和螢光筆是一顆一顆的小標籤（整顆留或整顆刪，不會弄壞）
-    function editForm(it, ekey) {
-      const orig = PI.edits.original(ekey), S0 = PI.edits.slotsOf(orig), S = PI.edits.slotsOf(it), cur = PI.edits.get(ekey) || {};
-      const rows = S0.filter(s => s.exists()).map(s => {
-        const del = !!((cur.slots || {})[s.li] || {}).del;
-        return edRow(it, s.li, s.label, del ? s.get() : S[s.li].get(), del);
-      }).join("");
-      const extra = (it.extra || []).map(x => edRow(it, "x" + x.id, "新增的行", x.text, false)).join("");
-      return `<article class="k-item k-edit" data-key="${esc(ekey)}">
-        <div class="k-ed-bar"><span class="k-ed-bar-q">🖍 反白文字後按：</span>${["teacher", "exam", "mine"].map(t =>
-          `<button type="button" class="hl-pick hl-${t}" data-hl="${t}">${esc(PI.edits.MARKS[t].short)}</button>`).join("")}
-          <span class="k-ed-bar-note">畫起來的地方會出題；點螢光筆可以取消</span></div>
-        ${orig.title != null ? `<label class="k-ed-row"><span class="k-ed-label">標題</span><input class="k-ed-title" value="${esc(it.title || "")}"></label>` : ""}
-        ${rows}<div class="k-ed-extra">${extra}</div>
-        <button type="button" class="k-tool" data-act="add-row">＋ 新增一行</button>
-        <p class="k-ed-msg" role="alert" hidden></p>
-        <div class="k-ed-foot"><button type="button" class="btn btn-primary" data-act="save">儲存</button>
-          <button type="button" class="btn" data-act="cancel">取消</button>
-          <button type="button" class="btn" data-act="hide">隱藏這張卡片</button>
-          ${it.edited ? `<button type="button" class="btn btn-warn" data-act="restore">還原原文</button>` : ""}</div></article>`;
     }
     // 這棵樹有幾題（一個挖空＝一題）
     const treeQs = PI.quiz.forTree(key), nQ = treeQs.length;
@@ -300,8 +291,8 @@
   }
   /* ---------- 知識卡片的編輯（js/edits.js）：用事件委派，面板重畫也不用重新綁 ---------- */
   const newId = () => (Date.now().toString(36) + Math.random().toString(36).slice(2, 5)).slice(-12);
-  // 編輯模式的一行：一般文字可以直接改；挖空／螢光筆是不能拆開的小標籤（data-raw 存原本的寫法，選項、類型都不會動到）
-  function edRow(it, li, label, raw, del) {
+  // 編輯中的一行：一般文字直接打字；挖空／螢光筆是不能拆開的小標籤（data-raw 存原本的寫法，選項、類型都不會動到）
+  function edLine(it, li, raw) {
     const cut = raw.search(/\s#/), text = cut < 0 ? raw : raw.slice(0, cut), rest = cut < 0 ? "" : raw.slice(cut);
     const km = (it.kmaps || {})[li], src = it.hlsrc || {}, re = new RegExp(CLOZE.source, "g");
     let html = "", last = 0, k = -1, m;
@@ -312,11 +303,7 @@
     }
     html += esc(text.slice(last));
     const x = String(li)[0] === "x";
-    return `<div class="k-ed-row${del ? " is-del" : ""}${x ? " is-extra" : ""}" ${x ? `data-x="${esc(String(li).slice(1))}"` : `data-li="${li}"`} data-rest="${esc(rest)}">
-      <span class="k-ed-label">${esc(label)}</span>
-      <div class="ed-line" contenteditable="${del ? "false" : "true"}" spellcheck="false" role="textbox" aria-label="${esc(label)}">${html}</div>
-      ${rest ? `<span class="hint">${esc(rest.trim())}</span>` : ""}
-      <div class="k-ed-row-tools"><span></span><button type="button" class="k-tool" data-act="${x ? "del-extra" : "del-row"}">${del ? "復原這一行" : "刪除這一行"}</button></div></div>`;
+    return `<span class="k-line ed-line" contenteditable="true" spellcheck="false" ${x ? `data-x="${esc(String(li).slice(1))}"` : `data-li="${li}"`} data-rest="${esc(rest)}">${html}</span>${rest ? ` <span class="hint">${esc(rest.trim())}</span>` : ""}`;
   }
   // 一行的畫面 → 存檔的寫法：一般文字照打的字（去掉會弄壞格式的 { } #），小標籤用 data-raw
   function serLine(el) {
@@ -338,24 +325,24 @@
   function collectEdit(card, ekey) {
     const orig = PI.edits.original(ekey), S0 = PI.edits.slotsOf(orig), prev = PI.edits.get(ekey) || {};
     const e = {}, slots = {}, extra = [], hlsrc = {};
-    const t = card.querySelector(".k-ed-title");
-    if (t && t.value !== (orig.title || "")) e.title = t.value;
-    const hlOf = (r, key, o, raw) => {   // 這一行的螢光筆來源
+    Object.entries(prev.slots || {}).forEach(([li, v]) => { if (v && v.del) slots[li] = { del: true }; });   // 之前刪掉的行（畫面上已經不顯示）照舊
+    const t = card.querySelector(".ed-title");
+    if (t) { const v = t.textContent.replace(/\s*\n\s*/g, " ").trim(); if (v !== (orig.title || "")) e.title = v; }
+    const hlOf = (el, key, o, raw) => {   // 這一行的螢光筆來源
       const km = PI.edits.kmapOf(o, raw);
-      [...r.querySelectorAll(".ed-chip")].forEach((c, k) => { if (c.dataset.src && typeof km[k] === "string") hlsrc[`${key}:${km[k]}`] = c.dataset.src; });
+      [...el.querySelectorAll(".ed-chip")].forEach((c, k) => { if (c.dataset.src && typeof km[k] === "string") hlsrc[`${key}:${km[k]}`] = c.dataset.src; });
     };
-    card.querySelectorAll(".k-ed-row[data-li]").forEach(r => {
-      const li = +r.dataset.li, o = S0[li].get();
-      if (r.classList.contains("is-del")) { slots[li] = { del: true }; return; }
-      const raw = serLine(r.querySelector(".ed-line")) + r.dataset.rest;
+    card.querySelectorAll(".ed-line[data-li]").forEach(el => {
+      const li = +el.dataset.li, o = S0[li].get(), raw = serLine(el) + el.dataset.rest;
+      delete slots[li];
       if (!raw.trim()) { slots[li] = { del: true }; return; }   // 字全部刪光＝刪掉這一行
       if (raw !== o) slots[li] = { text: raw };
-      hlOf(r, li, o, raw);
+      hlOf(el, li, o, raw);
     });
-    card.querySelectorAll(".k-ed-row[data-x]").forEach(r => {
-      const raw = (serLine(r.querySelector(".ed-line")) + r.dataset.rest).trim();
+    card.querySelectorAll(".ed-line[data-x]").forEach(el => {
+      const raw = (serLine(el) + el.dataset.rest).trim();
       if (!raw) return;
-      extra.push({ id: r.dataset.x, text: raw }); hlOf(r, "x" + r.dataset.x, "", raw);
+      extra.push({ id: el.dataset.x, text: raw }); hlOf(el, "x" + el.dataset.x, "", raw);
     });
     if (Object.keys(slots).length) e.slots = slots;
     if (extra.length) e.extra = extra;
@@ -374,12 +361,21 @@
     const r = sel.getRangeAt(0), el = n => (n.nodeType === 1 ? n : n.parentElement);
     const ln = el(r.startContainer).closest(".k-edit .ed-line");
     edRange = ln && el(r.endContainer).closest(".ed-line") === ln ? { ln, r: r.cloneRange() } : null;
+    if (!edRange || !r.toString().trim()) return;
+    // 反白後在旁邊跳出螢光筆（像 PDF 閱讀器那樣）
+    hideChipPop();
+    const P = $("kpanel"), R = P.getBoundingClientRect(), c = r.getBoundingClientRect();
+    chipPop = document.createElement("div"); chipPop.className = "hl-bar";
+    chipPop.innerHTML = `<span class="hl-q">🖍</span>${["teacher", "exam", "mine"].map(t => `<button type="button" class="hl-pick hl-${t}" data-hl="${t}">${esc(PI.edits.MARKS[t].short)}</button>`).join("")}`;
+    P.append(chipPop);
+    chipPop.style.left = `${Math.max(8, Math.min(c.left - R.left, P.clientWidth - chipPop.offsetWidth - 8))}px`;
+    let y = c.top - R.top - chipPop.offsetHeight - 8; if (y < 8) y = c.bottom - R.top + 8;
+    chipPop.style.top = `${y}px`;
   });
   function applyHl(card, src) {
     const R = edRange && card.contains(edRange.ln) ? edRange : null;
     if (!R || R.r.collapsed) return edMsg(card, "先用滑鼠（手機長按）反白一段字，再按螢光筆");
     const { ln, r } = R;
-    if (ln.getAttribute("contenteditable") !== "true") return edMsg(card, "這一行已經刪除，先按「復原這一行」");
     if ([...ln.querySelectorAll(".ed-chip")].some(c => r.intersectsNode(c))) return edMsg(card, "選到的字裡已經有考點了，換一段沒有標過的字");
     const str = r.toString(), word = str.trim();
     if (!word) return edMsg(card, "先反白一段字");
@@ -409,7 +405,18 @@
   $("kpanel").addEventListener("keydown", e => {
     if (!e.target.closest(".k-edit")) return;
     e.stopPropagation();   // 在編輯裡打字（含 Esc）不要觸發面板或地圖的快捷鍵
-    if (e.key === "Enter" && e.target.classList.contains("ed-line")) e.preventDefault();   // 一行就是一行；要多一行按「＋ 新增一行」
+    const ln = e.target.classList && e.target.classList.contains("ed-line") ? e.target : null; if (!ln) return;
+    if (e.key === "Enter") {   // Enter：在這張卡片最後加一行（原本的行順序固定，題目編號才不會亂）
+      e.preventDefault();
+      const card = ln.closest(".k-edit"), li = document.createElement("li");
+      li.className = "is-extra"; li.innerHTML = edLine({}, "x" + newId(), "");
+      card.querySelector(".k-pts").append(li); li.querySelector(".ed-line").focus();
+    } else if (e.key === "Backspace" && ln.dataset.x && !ln.textContent) {   // 空的新行按退格：刪掉這一行
+      e.preventDefault();
+      const lines = [...ln.closest(".k-edit").querySelectorAll(".ed-line")], prev = lines[lines.indexOf(ln) - 1];
+      ln.closest("li").remove();
+      if (prev) { prev.focus(); const r = document.createRange(); r.selectNodeContents(prev); r.collapse(false); const sl = getSelection(); sl.removeAllRanges(); sl.addRange(r); }
+    }
   });
   $("kpanel").addEventListener("paste", e => {   // 貼上只貼純文字
     const ln = e.target.closest && e.target.closest(".ed-line"); if (!ln) return;
@@ -425,29 +432,19 @@
     }
     const chip = e.target.closest(".k-edit .ed-chip");
     if (chip && chip.closest(".ed-line").getAttribute("contenteditable") === "true") { showChipPop(chip); return; }
-    if (!e.target.closest(".hl-bar")) hideChipPop();
-    const btn = e.target.closest("[data-act], [data-hl]"), card = btn && btn.closest(".k-item[data-key]");
+    if (!e.target.closest(".hl-bar") && getSelection().isCollapsed) hideChipPop();   // 剛反白完的那一下 click 不要把螢光筆關掉
+    const btn = e.target.closest("[data-act], [data-hl]");
+    const card = btn && (btn.closest(".k-item[data-key]") || (btn.dataset.hl && edRange && edRange.ln.closest(".k-item[data-key]")));
     if (!btn || !card || !PI.edits) return;
     const ekey = card.dataset.key, act = btn.dataset.act, cur = PI.edits.get(ekey) || {};
-    if (btn.dataset.hl) applyHl(card, btn.dataset.hl);
+    if (btn.dataset.hl) { applyHl(card, btn.dataset.hl); hideChipPop(); }
+    else if (act === "more") { const m = card.querySelector(".k-ed-more"); m.hidden = !m.hidden; }
     else if (act === "edit") { kEditing = ekey; rerenderKnowledge(); }
     else if (act === "cancel") { kEditing = null; rerenderKnowledge(); }
     else if (act === "restore") { PI.edits.set(ekey, null); kEditing = null; rerenderKnowledge(); }
     else if (act === "unhide") { delete cur.hidden; PI.edits.set(ekey, Object.keys(cur).length ? cur : null); rerenderKnowledge(); }
     else if (act === "hide") { PI.edits.set(ekey, { ...(collectEdit(card, ekey) || {}), hidden: true }); kEditing = null; rerenderKnowledge(); }   // 先保留已經改好的內容
     else if (act === "save") { PI.edits.set(ekey, collectEdit(card, ekey)); kEditing = null; rerenderKnowledge(); }
-    else if (act === "del-row") {
-      const r = btn.closest(".k-ed-row"), on = !r.classList.contains("is-del");
-      r.classList.toggle("is-del", on); r.querySelector(".ed-line").setAttribute("contenteditable", on ? "false" : "true");
-      btn.textContent = on ? "復原這一行" : "刪除這一行";
-    }
-    else if (act === "del-extra") btn.closest(".k-ed-row").remove();
-    else if (act === "add-row") {
-      const tmp = document.createElement("div");
-      tmp.innerHTML = edRow({}, "x" + newId(), "新增的行", "", false);
-      card.querySelector(".k-ed-extra").append(tmp.firstElementChild);
-      card.querySelector(".k-ed-extra .k-ed-row:last-child .ed-line").focus({ preventScroll: true });
-    }
   });
 
   function closeKnowledge() {
