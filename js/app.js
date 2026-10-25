@@ -11,11 +11,13 @@
   const CLOZE = /\{\{([^{}|]+)(?:\|([^{}]*))?\}\}/g;
   const splitHint = line => { const i = line.search(/\s#/); return i < 0 ? [line, ""] : [line.slice(0, i), line.slice(i).trim()]; };
   const blanks = line => (splitHint(line)[0].match(CLOZE) || []).length;
-  function clozeLine(line) {
+  function clozeLine(line, noHint) {
     const [text, hint] = splitHint(line);
     const body = esc(text).replace(CLOZE, (m, ans, type) => `<mark class="cloze" title="${esc(type || "")}">${ans}</mark>`);
-    return body + (hint ? ` <span class="hint">${esc(hint)}</span>` : "");
+    return body + (hint && !noHint ? ` <span class="hint">${esc(hint)}</span>` : "");
   }
+  // 這個單元資料裡的口訣（句尾的 #…），當作筆記欄的預設內容
+  const mnemonicsOf = u => (PI.UNIT_FIELDS || []).flatMap(([k]) => u[k] || []).map(l => splitHint(l)[1]).filter(Boolean);
 
   let focus = null;        // 目前篩選的章節
   let current = null;      // 目前選取的格子
@@ -83,11 +85,18 @@
       <div class="tags"><span class="tag st-${st}">${STATUS[st]}</span>
         ${u ? `<span class="tag">${esc(PI.UNIT_TYPES[u.type] || u.type)}</span>${u.group ? `<span class="tag">${esc(u.group)}</span>` : ""}` : `<span class="tag">尚未加入藥物資料</span>`}</div>
       ${u ? unitBody(u) : ""}
+      ${u ? `<div class="u-note"><label for="uNote">我的筆記<span class="muted" id="uNoteSaved"></span></label>
+        <textarea id="uNote" rows="3" placeholder="寫下自己的口訣或重點…">${esc(PI.state.getNote(u.id) ?? mnemonicsOf(u).join("\n"))}</textarea></div>` : ""}
       <p>${note}</p>
       ${u && st !== "locked" ? `<div class="info-actions"><button type="button" class="btn btn-primary" id="infoQuiz">${st === "available" ? "挑戰這格" : "再練習一次"}</button></div>` : ""}`;
     box.hidden = false;
     $("infoClose").onclick = () => PI.map.select(null);
     if ($("infoQuiz")) $("infoQuiz").onclick = () => challenge(cell);
+    if ($("uNote")) {   // 筆記：打字時自動存（存在瀏覽器，和進度放在一起）
+      let t = 0;
+      $("uNote").oninput = e => { clearTimeout(t); const v = e.target.value; t = setTimeout(() => { PI.state.setNote(u.id, v); $("uNoteSaved").textContent = "已儲存"; }, 400); $("uNoteSaved").textContent = ""; };
+      $("uNote").onkeydown = e => e.stopPropagation();   // 在筆記裡打字時，不要觸發地圖或答題的快捷鍵
+    }
   }
 
   /* 挑戰格子：答完就佔領（不限答對題數）；已佔領的格子只是練習 */
@@ -106,7 +115,7 @@
   /* 單元內容：依 PI.UNIT_FIELDS 的順序列出有資料的欄位 */
   function unitBody(u) {
     const rows = (PI.UNIT_FIELDS || []).filter(([k]) => u[k] && u[k].length).map(([k, label]) =>
-      `<div class="u-row"><span class="u-label">${esc(label)}</span><ul>${u[k].map(l => `<li>${clozeLine(l)}</li>`).join("")}</ul></div>`).join("");
+      `<div class="u-row"><span class="u-label">${esc(label)}</span><ul>${u[k].map(l => `<li>${clozeLine(l, true)}</li>`).join("")}</ul></div>`).join("");   // 口訣移到下面的筆記欄
     const extra = [u.generation, u.source && `出處：${u.source}`].filter(Boolean).map(esc).join("・");
     const cls = u.class ? `<p class="u-class">類別共通內容（機轉、藥動、副作用等）在本章知識樹</p>` : "";
     return rows || cls || extra ? `<div class="u-body">${rows}${cls}${extra ? `<p class="u-meta">${extra}</p>` : ""}</div>` : "";
