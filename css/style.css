@@ -441,3 +441,20 @@ button { font: inherit; color: inherit; cursor: pointer; }
 .k-ed-foot { display: flex; flex-wrap: wrap; gap: 8px; }
 .set-btns { display: flex; gap: 6px; flex-wrap: wrap; justify-content: flex-end; }
 #syForm input { font: inherit; font-size: 14px; flex: 1 1 180px; min-width: 0; border: 1px solid var(--line); border-radius: 8px; padding: 6px 10px; background: #fff; color: var(--ink); }
+/* 螢光筆：自己標的考點 */
+.k-hl-btn { font: inherit; font-size: 13px; font-weight: 700; color: var(--deep); background: var(--mint); border: 1.5px solid transparent; border-radius: 999px; padding: 4px 12px; cursor: pointer; white-space: nowrap; margin-left: auto; }
+.k-hl-btn.is-on { background: #FFF1A8; border-color: #E2C84A; color: #6B5300; }
+.k-hl-tip { margin: 0 18px 10px; font-size: 12px; color: #6B5300; background: #FFF8D2; border-radius: 8px; padding: 6px 10px; }
+.kpanel.is-hl-mode .k-line { cursor: text; }
+.kpanel.is-hl-mode .k-line ::selection, .kpanel.is-hl-mode .k-line::selection { background: #FFF1A8; }
+mark.cloze.is-hl { background: linear-gradient(transparent 35%, #FFE76A 35%); border-radius: 2px; padding: 0 1px; }
+mark.cloze.is-hl.hl-teacher { background: linear-gradient(transparent 35%, #F9B4C6 35%); }
+mark.cloze.is-hl.hl-exam { background: linear-gradient(transparent 35%, #C9C2F5 35%); }
+mark.cloze.is-hl.hl-mine { background: linear-gradient(transparent 35%, #BFE3A6 35%); }
+.kpanel.is-hl-mode mark.cloze.is-hl { cursor: pointer; }
+.hl-bar { position: absolute; z-index: 6; display: flex; align-items: center; gap: 6px; background: #fff; border: 1.5px solid #E2C84A; border-radius: 999px; box-shadow: 0 6px 18px rgba(36,55,44,.18); padding: 4px 6px 4px 12px; font-size: 13px; }
+.hl-bar .hl-q { color: #6B5300; font-weight: 700; }
+.hl-bar .hl-err { color: #C0624F; padding-right: 6px; }
+.hl-pick { font: inherit; font-size: 12px; font-weight: 700; border: 0; border-radius: 999px; padding: 4px 10px; cursor: pointer; background: var(--mint); color: var(--ink); }
+.hl-pick.hl-teacher { background: #F9B4C6; } .hl-pick.hl-exam { background: #C9C2F5; } .hl-pick.hl-mine { background: #BFE3A6; }
+.k-head .info-title { flex: 1; min-width: 0; }

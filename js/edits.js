@@ -29,6 +29,19 @@ PI.edits = (function () {
   };
 
   const keyOf = (treeKey, si, ii) => `${treeKey}|${si}|${ii}`;
+  const HL_TYPE = "螢光筆";   // 用螢光筆標的考點：挖空類型（認得出答案的會改用同一個答案原本的類型）
+  const norm = t => String(t).toLowerCase().replace(/[\s（）()]/g, "");
+  const blanksOf = t => [...String(t || "").replace(/\s#.*$/, "").matchAll(/\{\{([^{}|]+)(?:\|[^{}]*)?\}\}/g)].map(m => m[1].trim());
+  /* 改過的行：每個挖空的題目編號後綴。和原文同一個答案的挖空沿用原本的位置編號（已答對紀錄不會亂），
+     新加的（螢光筆）用「h＋答案」，插在前面也不會擠到原本的編號 */
+  function kmapOf(origText, newText) {
+    const o = blanksOf(origText).map(norm), used = new Set(), seen = {};
+    return blanksOf(newText).map(a => {
+      const na = norm(a), i = o.findIndex((x, j) => !used.has(j) && x === na);
+      if (i >= 0) { used.add(i); return i; }
+      seen[na] = (seen[na] || 0) + 1; return "h" + na + (seen[na] > 1 ? "~" + seen[na] : "");
+    });
+  }
   function itemAt(K, key) {
     const [tk, si, ii] = String(key).split("|");
     const sec = ((K[tk] || {}).sections || [])[+si];
@@ -56,8 +69,14 @@ PI.edits = (function () {
       if (!it || it.unit || !e) return;   // 找不到卡片（原始資料改過）或引用格子的卡片：跳過，但紀錄保留
       if (typeof e.title === "string") it.title = e.title;
       const S = slotsOf(it);
-      Object.entries(e.slots || {}).forEach(([li, v]) => { const s = S[+li]; if (s && v) s.set(v.del ? "" : String(v.text ?? "")); });
+      const S0 = slotsOf(itemAt(ORIGINAL, key));
+      it.kmaps = {};
+      Object.entries(e.slots || {}).forEach(([li, v]) => { const s = S[+li]; if (s && v) {
+        s.set(v.del ? "" : String(v.text ?? ""));
+        if (!v.del) it.kmaps[li] = kmapOf(S0[+li] ? S0[+li].get() : "", v.text); } });
       it.extra = (e.extra || []).filter(x => x && x.id && x.text);
+      it.extra.forEach(x => { it.kmaps["x" + x.id] = kmapOf("", x.text); });
+      it.hlsrc = e.hlsrc || {};
       it.marks = e.marks || {};
       it.hidden = !!e.hidden;
       it.edited = true;
@@ -101,6 +120,11 @@ PI.edits = (function () {
         Object.entries(e.marks).forEach(([k, v]) => { if (/^(\d+|x[a-z0-9]{1,16})$/i.test(k) && MARKS[v]) mk[k] = v; });
         if (Object.keys(mk).length) c.marks = mk;
       }
+      if (e.hlsrc && typeof e.hlsrc === "object") {
+        const hs = {};
+        Object.entries(e.hlsrc).forEach(([k, v]) => { if (k.length <= 200 && /^(\d+|x[a-z0-9]{1,16}):h/i.test(k) && MARKS[v]) hs[k] = v; });
+        if (Object.keys(hs).length) c.hlsrc = hs;
+      }
       if (e.hidden === true) c.hidden = true;
       if (Object.keys(c).length) out[key] = c;
     });
@@ -114,6 +138,6 @@ PI.edits = (function () {
   }
 
   apply();
-  return { MARKS, keyOf, slotsOf, apply, original, exportData, importData, sanitize,
+  return { MARKS, HL_TYPE, kmapOf, keyOf, slotsOf, apply, original, exportData, importData, sanitize,
            get: key => PI.state.getEdit(key), set: (key, v) => { PI.state.setEdit(key, v); apply(); } };
 })();

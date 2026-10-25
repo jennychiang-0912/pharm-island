@@ -60,10 +60,11 @@ PI.quiz = (function () {
       const flowLines = (it.flow || []).flatMap((st, n) => [
         ...(st.text || []).map(t => [t, { n: n + 1, title: st.title || "", block: false }]),
         ...(st.block ? [st.block.label, st.block.drugs, st.block.note].map((t, k) => [t, { n: n + 1, title: k === 2 ? "" : st.title || "", block: true }]) : [])]);   // 補充說明常在講這一步本身，不顯示步驟名稱
+      const km = it.kmaps || {};   // 改過的行：挖空的編號後綴（js/edits.js 的 kmapOf）
       [...[it.text, ...(it.points || [])].map(t => [t, null]), ...flowLines].forEach(([line, ctx], li) => line &&
-        add(`t:${key}`, { tree: key, item: it, ctx, chapter: K.chapter, group: null, qid: `t:${key}:${si}:${ii}:${li}` }, line));
+        add(`t:${key}`, { tree: key, item: it, ctx, chapter: K.chapter, group: null, qid: `t:${key}:${si}:${ii}:${li}`, kmap: km[li] }, line));
       // 自己新增的行（js/edits.js）：題目編號用 x<id>，不會擠到原本的行
-      (it.extra || []).forEach(x => x.text && add(`t:${key}`, { tree: key, item: it, ctx: null, chapter: K.chapter, group: null, qid: `t:${key}:${si}:${ii}:x${x.id}` }, x.text));
+      (it.extra || []).forEach(x => x.text && add(`t:${key}`, { tree: key, item: it, ctx: null, chapter: K.chapter, group: null, qid: `t:${key}:${si}:${ii}:x${x.id}`, kmap: km["x" + x.id] }, x.text));
     })));
     const ownerText = new Map();
     lines.forEach(L => ownerText.set(L.owner, (ownerText.get(L.owner) || "") + "|" + norm(plain(L.p))));
@@ -71,7 +72,7 @@ PI.quiz = (function () {
   }
 
   /* 錯誤選項：同類型、不是這個藥（或這棵樹這句）已知成立的答案 */
-  function distractors(L, b) {
+  function distractors(L, b, isHl) {
     if (b.opts && b.opts.length) return shuffle(b.opts.slice(0, 3));   // 資料裡自己指定的錯誤選項優先
     // 對比組（耐酸／不耐酸……）：選項就用同組的其他詞
     const set = (PI.CLOZE_SETS || []).find(g => g.some(x => norm(x) === norm(b.ans)));
@@ -90,18 +91,31 @@ PI.quiz = (function () {
       const sameG = L.group && c.group === L.group, sameC = c.chapter === L.chapter;
       cand.push({ ...c, rank: nameLike ? (sameG ? 2 : 0) + (sameC ? 1 : 0) : (sameG ? 0 : sameC ? 1 : 2) });
     });
+    // 螢光筆標的考點：選項不夠時放寬——同一棵樹的其他答案、資料裡寫好的錯誤選項都可以用（只排除這一句自己的答案），
+    //   先用同類型、再用同一章、最後其他
+    if (cand.length < 3 && isHl) {
+      const mine = new Set(L.p.blanks.map(x => norm(x.ans))), here = norm(plain(L.p));   // 這一句裡已經寫到的詞也不能當選項
+      const pool = [...bank.byType.values()].flat();
+      const optsPool = bank.lines.flatMap(X => X.p.blanks.flatMap(x => (x.opts || []).map(o => ({ ans: o, type: x.type, chapter: X.chapter }))));
+      shuffle([...pool, ...optsPool]).map(c => ({ ...c, rank: (c.type === b.type ? 4 : 0) + (c.chapter === L.chapter ? 1 : 0) })).forEach(c => {
+        const k = norm(c.ans);
+        if (mine.has(k) || seen.has(k) || here.includes(k) || k.includes(a0) || a0.includes(k)) return;
+        seen.add(k); cand.push(c);
+      });
+    }
     cand.sort((x, y) => y.rank - x.rank);
     return cand.length >= 3 ? cand.slice(0, 3).map(c => c.ans) : null;
   }
 
   function clozeQ(L, k) {
-    const b = L.p.blanks[k], wrong = distractors(L, b); if (!wrong) return null;
+    const isHl = !!(L.kmap && typeof L.kmap[k] === "string");   // 自己用螢光筆標的考點
+    const b = L.p.blanks[k], wrong = distractors(L, b, isHl); if (!wrong) return null;
     // 流程圖的題目：標題帶上第幾步；如果答案就寫在步驟名稱裡（例如「脫殼」），就不顯示步驟名稱，免得直接看到答案
     const ctxLabel = c => { const showTitle = c.title && !norm(c.title).includes(norm(b.ans)) && !norm(b.ans).includes(norm(c.title));
       return `第 ${c.n} 步${showTitle ? "・" + c.title : ""}${c.block ? "・⊖ 抑制" : ""}`; };
     const who = L.unit ? (L.unit.type === "topic" ? L.unit.name : `${L.unit.name}・${FIELD[L.field] || ""}`) : (L.ctx ? ctxLabel(L.ctx) : (L.item.title || ""));
     return {
-      kind: "cloze", qid: `${L.qid}:${k}`, label: who,
+      kind: "cloze", qid: `${L.qid}:${L.kmap && L.kmap[k] != null ? L.kmap[k] : k}`, label: who,
       prompt: render(L.p, k, false), answer: render(L.p, k, true), hint: L.p.hint,
       options: shuffle([{ text: b.ans, ok: true }, ...wrong.map(t => ({ text: t, ok: false }))])
     };
@@ -216,6 +230,9 @@ PI.quiz = (function () {
   return {
     forUnit, forTree, start,
     rebuild() { bank = null; },   // 知識卡片改過之後重建題庫
+    // 螢光筆標的字：如果別的地方已經有同一個答案，就用它的類型（錯誤選項比較像樣）
+    typeOf(ans) { if (!bank) build(); const a = norm(ans);
+      for (const [t, list] of bank.byType) if (t && list.some(c => norm(c.ans) === a)) return t; return null; },
     countTree: key => forTree(key).length,
     isOpen: () => !!run
   };
