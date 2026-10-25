@@ -54,7 +54,7 @@ PI.quiz = (function () {
     PI.UNITS.forEach(u => (PI.UNIT_FIELDS || []).forEach(([k]) => (u[k] || []).forEach((line, li) =>
       add(`u:${u.id}`, { unit: u, field: k, chapter: u.chapter, group: u.group || null, qid: `u:${u.id}:${k}:${li}` }, line))));
     Object.entries(PI.KNOWLEDGE || {}).forEach(([key, K]) => (K.sections || []).forEach((sec, si) => (sec.items || []).forEach((it, ii) => {
-      if (it.unit) return;   // 引用格子的內容：題目算在格子上
+      if (it.unit || it.hidden) return;   // 引用格子的內容：題目算在格子上；隱藏的卡片不出題（位置照算，題目編號不變）
       // 流程圖（flow）的每一步也可以出題：步驟說明、抑制框的標題、藥名、說明
       //   題目標題會帶上是哪一步，例如「脫殼 Uncoating・⊖ 抑制」，才知道在問哪裡
       const flowLines = (it.flow || []).flatMap((st, n) => [
@@ -62,6 +62,8 @@ PI.quiz = (function () {
         ...(st.block ? [st.block.label, st.block.drugs, st.block.note].map((t, k) => [t, { n: n + 1, title: k === 2 ? "" : st.title || "", block: true }]) : [])]);   // 補充說明常在講這一步本身，不顯示步驟名稱
       [...[it.text, ...(it.points || [])].map(t => [t, null]), ...flowLines].forEach(([line, ctx], li) => line &&
         add(`t:${key}`, { tree: key, item: it, ctx, chapter: K.chapter, group: null, qid: `t:${key}:${si}:${ii}:${li}` }, line));
+      // 自己新增的行（js/edits.js）：題目編號用 x<id>，不會擠到原本的行
+      (it.extra || []).forEach(x => x.text && add(`t:${key}`, { tree: key, item: it, ctx: null, chapter: K.chapter, group: null, qid: `t:${key}:${si}:${ii}:x${x.id}` }, x.text));
     })));
     const ownerText = new Map();
     lines.forEach(L => ownerText.set(L.owner, (ownerText.get(L.owner) || "") + "|" + norm(plain(L.p))));
@@ -213,6 +215,7 @@ PI.quiz = (function () {
 
   return {
     forUnit, forTree, start,
+    rebuild() { bank = null; },   // 知識卡片改過之後重建題庫
     countTree: key => forTree(key).length,
     isOpen: () => !!run
   };

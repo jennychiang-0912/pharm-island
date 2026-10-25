@@ -411,3 +411,32 @@ button { font: inherit; color: inherit; cursor: pointer; }
   .is-amulet .k-item p, .is-amulet .k-item li { font-size: 15px; }
   .is-amulet .k-diagram img { max-width: 540px; }
 }
+/* 知識卡片的個人修改（js/edits.js） */
+.k-item-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 8px; }
+.k-item-head h4 { margin: 0 0 4px; }
+.k-tools { display: flex; align-items: center; gap: 6px; flex: none; }
+.k-tool { font: inherit; font-size: 12px; color: var(--deep); background: var(--mint); border: 0; border-radius: 999px; padding: 3px 10px; cursor: pointer; white-space: nowrap; }
+.k-tool:hover { background: #DCEBD2; }
+.k-edited { font-size: 11px; color: var(--muted); }
+.k-item.is-hidden { background: transparent; border-style: dashed; padding: 8px 12px; }
+.k-item.is-hidden p { font-size: 13px; }
+.k-item li.is-extra::marker { color: var(--leaf); }
+.k-mark { display: inline-block; font-size: 11px; font-weight: 700; line-height: 1.5; border-radius: 6px; padding: 0 6px; margin-right: 4px; vertical-align: 1px; }
+.k-mark.m-ai { color: #6E7F72; background: #fff; border: 1px dashed #9AA89D; }
+.k-mark.m-teacher { color: #fff; background: #D9897A; }
+.k-mark.m-exam { color: #7A5A14; background: #F6DE9C; }
+.k-mark.m-mine { color: #fff; background: #5E9A62; }
+.k-edit { display: flex; flex-direction: column; gap: 10px; border-color: var(--leaf); }
+.k-ed-help { font-size: 12px !important; color: var(--muted) !important; }
+.k-ed-help code { font-size: 11px; background: var(--mint); border-radius: 4px; padding: 0 3px; }
+.k-ed-row { display: flex; flex-direction: column; gap: 4px; }
+.k-ed-label { font-size: 12px; font-weight: 700; color: var(--deep); }
+.k-ed-row textarea, .k-ed-title { font: inherit; font-size: 14px; color: var(--ink); border: 1px solid var(--line); border-radius: 8px; padding: 6px 8px; resize: vertical; background: #fff; width: 100%; box-sizing: border-box; }
+.k-ed-row.is-del textarea { text-decoration: line-through; color: var(--muted); background: #F5F3EE; }
+.k-ed-row.is-extra textarea { border-color: var(--leaf); }
+.k-ed-row-tools { display: flex; justify-content: space-between; gap: 6px; flex-wrap: wrap; }
+.k-ed-mark { font: inherit; font-size: 12px; border: 1px solid var(--line); border-radius: 8px; padding: 2px 6px; background: #fff; color: var(--ink); }
+.k-ed-extra { display: flex; flex-direction: column; gap: 10px; }
+.k-ed-msg { font-size: 13px !important; color: #C0624F !important; }
+.k-ed-foot { display: flex; flex-wrap: wrap; gap: 8px; }
+.set-btns { display: flex; gap: 6px; flex-wrap: wrap; justify-content: flex-end; }
