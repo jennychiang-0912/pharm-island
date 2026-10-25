@@ -45,7 +45,7 @@ PI.KNOWLEDGE = {
       ] },
       { id: "mechanism", title: "藥理機制", items: [
         { title: "流感病毒生命週期與藥物作用點", source: "講義圖（Arch Bronconeumol. 2017;53(1):19-26）",
-          diagram: "assets/knowledge/flu-lifecycle.svg",
+          diagram: "assets/knowledge/flu-lifecycle.svg?v=2",
           original: "assets/knowledge/flu-lifecycle.jpg",
           flow: [
             { title: "進入細胞",
