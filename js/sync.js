@@ -8,7 +8,7 @@
 window.PI = window.PI || {};
 
 PI.SYNC_CONFIG = PI.SYNC_CONFIG || {
-  url: "",   // 例：https://xxxx.supabase.co
+  url: "https://qdngravyrtyxxbmfoqsc.supabase.co",   // Project URL
   key: "sb_publishable_Pegc7iFrv-z08_taecTFLw_QqpRZI67"    // publishable key（公開金鑰；安全靠資料表的 RLS）
 };
 
@@ -46,7 +46,10 @@ PI.sync = (function () {
       }
       set(`已同步（${new Date().toLocaleTimeString("zh-TW", { hour: "2-digit", minute: "2-digit" })}）・${user.email}`);
     } catch (err) {
-      set(`同步失敗，稍後會再試：${err.message || err}`);
+      const m = String(err.message || err), code = err.code || "";
+      set(code === "PGRST205" || code === "42P01" || /does not exist|schema cache/.test(m) ? "雲端還沒有資料表：請到 Supabase 的 SQL Editor 執行建表指令"
+        : code === "42501" || /permission|row-level security/i.test(m) ? "雲端拒絕存取：請確認建表指令裡的權限（grant、policy）都有執行"
+        : `同步失敗，稍後會再試：${m}`);
     } finally {
       busy = false;
       if (again) { again = false; schedule(); }

@@ -436,8 +436,10 @@
       <p class="confirm" id="syMsg" role="status" hidden></p>`;
     const foot = $("settings").querySelector(".dialog-foot");
     [...row.children].forEach(c => foot.before(c));
+    const resetNote = $("setReset").closest(".set-row").querySelector(".muted"), resetText = resetNote.textContent;
     PI.sync.onStatus((st, user) => {
       $("syStat").textContent = st;
+      resetNote.textContent = user ? "清除所有領土與經驗值（已登入同步：每台裝置都會一起清除）" : resetText;
       $("syOut").hidden = !user; $("syForm").hidden = !!user || !PI.sync.enabled;
     });
     const say = t => { $("syMsg").textContent = t; $("syMsg").hidden = false; };
