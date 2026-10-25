@@ -1,0 +1,131 @@
+<!doctype html>
+<!-- 這頁是 index.html 的複本，只多載入 js/subjects/pharmacognosy.js（換成生藥的章節與內容）。改版面時要一起改。 -->
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>PHARMA ISLAND 生藥</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chiron+GoRound+TC:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css?v=20261027a">
+</head>
+<body>
+<div class="app">
+
+  <!-- A. 頂部導覽列 -->
+  <header class="topbar">
+    <div class="brand">
+      <h1>PHARMA ISLAND</h1>
+      <p>生藥學，逐格征服</p>
+    </div>
+    <nav class="subjects" aria-label="科目">
+      <a href="index.html"><svg class="sub-ico" viewBox="0 0 20 22" width="14" height="15" aria-hidden="true"><path d="M10 1.5 18.5 6.3v9.4L10 20.5 1.5 15.7V6.3Z" fill="#A8C98F"/></svg>藥理</a>
+      <a href="pharmaceutics.html"><svg class="sub-ico" viewBox="0 0 20 22" width="14" height="15" aria-hidden="true"><path d="M10 1.5 18.5 6.3v9.4L10 20.5 1.5 15.7V6.3Z" fill="#A8CBE0"/></svg>藥劑</a>
+      <a href="analysis.html"><svg class="sub-ico" viewBox="0 0 20 22" width="14" height="15" aria-hidden="true"><path d="M10 1.5 18.5 6.3v9.4L10 20.5 1.5 15.7V6.3Z" fill="#EAD796"/></svg>藥分</a>
+      <a href="pharmacognosy.html" aria-current="page"><svg class="sub-ico" viewBox="0 0 20 22" width="14" height="15" aria-hidden="true"><path d="M10 1.5 18.5 6.3v9.4L10 20.5 1.5 15.7V6.3Z" fill="#CFC594"/></svg>生藥</a>
+      <a href="amulet.html"><svg class="sub-ico" viewBox="0 0 20 22" width="14" height="15" aria-hidden="true"><path d="M10 1.5 18.5 6.3v9.4L10 20.5 1.5 15.7V6.3Z" fill="#ECB4A5"/></svg>藥理藥化平安符</a>
+    </nav>
+    <div class="top-stats">
+      <span class="pill" title="已佔領的格子">
+        <svg viewBox="0 0 20 22" width="16" height="18" aria-hidden="true"><path d="M10 1.5 18.5 6.3v9.4L10 20.5 1.5 15.7V6.3Z" fill="#A8C98F" stroke="#F3E5B5" stroke-width="2" stroke-linejoin="round"/></svg>
+        <span id="topTerritory">領土 0 格</span>
+      </span>
+      <span class="pill" title="玩家等級">
+        <svg viewBox="0 0 20 20" width="16" height="16" aria-hidden="true"><path d="M10 2.5l2.3 4.8 5.2.7-3.8 3.6.9 5.2L10 14.3l-4.6 2.5.9-5.2-3.8-3.6 5.2-.7Z" fill="#F3E5B5"/></svg>
+        <span id="topLevel">LV. 1</span>
+      </span>
+      <button class="icon-btn" id="settingsBtn" type="button" aria-label="設定">
+        <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M12 15.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Z"/><path fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1Z"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <div class="body">
+    <!-- B. 左側資訊面板 -->
+    <aside class="panel" aria-label="玩家資訊">
+      <section class="card player">
+        <div class="player-top">
+          <span class="lv" id="pLevel">LV. 1</span>
+          <span class="muted" id="pExpText">EXP 0 / 50</span>
+        </div>
+        <div class="bar" role="progressbar" aria-label="經驗值" id="pExpBar"><i></i></div>
+        <div class="stats">
+          <div><b id="pCells">0</b><span>已佔領格數</span></div>
+          <div><b id="pPct">0%</b><span>學習進度</span></div>
+        </div>
+      </section>
+
+      <section class="card chapters">
+        <div class="card-head">
+          <h2>章節</h2>
+          <button class="link-btn" id="allBtn" type="button" aria-pressed="true">全部章節</button>
+        </div>
+        <div id="chapterList"></div>
+      </section>
+
+      <section class="card legend">
+        <h2>格子狀態</h2>
+        <ul>
+          <li><span class="sw sw-occ"></span>已佔領</li>
+          <li><span class="sw sw-avail"></span>可挑戰</li>
+          <li><span class="sw sw-lock"></span>未解鎖</li>
+        </ul>
+      </section>
+    </aside>
+
+    <!-- C. 中央領土地圖 -->
+    <main class="map-wrap">
+      <div class="map" id="map">
+        <p class="map-hint">拖曳移動・滾輪或雙指縮放・點島嶼看章節・點格子看單元・點知識樹看背景知識</p>
+        <div class="map-ctrl" role="group" aria-label="地圖縮放">
+          <button type="button" id="zoomIn" aria-label="放大">+</button>
+          <button type="button" id="zoomOut" aria-label="縮小">−</button>
+          <button type="button" id="zoomFit" aria-label="顯示整張地圖" title="顯示整張地圖">
+            <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><circle cx="12" cy="12" r="7" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="2" fill="currentColor"/><path stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M12 2v3M12 19v3M2 12h3M19 12h3"/></svg>
+          </button>
+          <button type="button" id="fullBtn" aria-label="全螢幕" title="全螢幕" aria-pressed="false">
+            <svg class="ico-enter" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg>
+            <svg class="ico-exit" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M9 4v5H4M15 4v5h5M9 20v-5H4M15 20v-5h5"/></svg>
+          </button>
+        </div>
+        <div class="info" id="info" hidden></div>
+        <!-- 知識面板：點島上的知識樹打開，內容在 js/knowledge.js -->
+        <section class="kpanel" id="kpanel" role="dialog" aria-labelledby="kTitle" hidden></section>
+      </div>
+    </main>
+  </div>
+</div>
+
+<!-- 設定 -->
+<div class="overlay" id="settings" hidden>
+  <div class="dialog" role="dialog" aria-modal="true" aria-labelledby="setTitle">
+    <h2 id="setTitle">設定</h2>
+    <div class="set-row">
+      <div><b>重設地圖視角</b><span class="muted">把地圖移回中央、顯示全部格子</span></div>
+      <button type="button" class="btn" id="setFit">重設</button>
+    </div>
+    <div class="set-row">
+      <div><b>清除學習進度</b><span class="muted">清除這台裝置上的所有領土與經驗值</span></div>
+      <button type="button" class="btn btn-warn" id="setReset">清除</button>
+    </div>
+    <p class="confirm" id="resetConfirm" hidden>確定要清除嗎？清除後無法復原。
+      <button type="button" class="btn btn-warn" id="resetYes">確定清除</button>
+      <button type="button" class="btn" id="resetNo">取消</button>
+    </p>
+    <div class="dialog-foot"><button type="button" class="btn btn-primary" id="setClose">關閉</button></div>
+  </div>
+</div>
+
+<script src="js/data.js?v=20261027a"></script>
+<script src="js/units.js?v=20261027a"></script>
+<script src="js/knowledge.js?v=20261027a"></script>
+<script src="js/subjects/pharmacognosy.js?v=20261027a"></script>
+<script src="js/state.js?v=20261027a"></script>
+<script src="js/edits.js?v=20261027a"></script>
+<script src="js/sync.js?v=20261027a"></script>
+<script src="js/map.js?v=20261027a"></script>
+<script src="js/quiz.js?v=20261027a"></script>
+<script src="js/app.js?v=20261027a"></script>
+</body>
+</html>
