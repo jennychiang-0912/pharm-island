@@ -17,6 +17,8 @@
     return body + (hint && !noHint ? ` <span class="hint">${esc(hint)}</span>` : "");
   }
   // 這個單元資料裡的口訣（句尾的 #…），當作筆記欄的預設內容
+  const noteText = u => PI.state.getNote(u.id) ?? mnemonicsOf(u).join("\n");
+  const noteRows = u => Math.min(8, Math.max(2, noteText(u).split("\n").length));   // 筆記欄高度跟著行數，口訣不會被切掉
   const mnemonicsOf = u => (PI.UNIT_FIELDS || []).flatMap(([k]) => u[k] || []).map(l => splitHint(l)[1]).filter(Boolean);
 
   let focus = null;        // 目前篩選的章節
@@ -86,7 +88,7 @@
         ${u ? `<span class="tag">${esc(PI.UNIT_TYPES[u.type] || u.type)}</span>${u.group ? `<span class="tag">${esc(u.group)}</span>` : ""}` : `<span class="tag">尚未加入藥物資料</span>`}</div>
       ${u ? unitBody(u) : ""}
       ${u ? `<div class="u-note"><label for="uNote">我的筆記<span class="muted" id="uNoteSaved"></span></label>
-        <textarea id="uNote" rows="3" placeholder="寫下自己的口訣或重點…">${esc(PI.state.getNote(u.id) ?? mnemonicsOf(u).join("\n"))}</textarea></div>` : ""}
+        <textarea id="uNote" rows="${noteRows(u)}" placeholder="寫下自己的口訣或重點…">${esc(noteText(u))}</textarea></div>` : ""}
       <p>${note}</p>
       ${u && st !== "locked" ? `<div class="info-actions"><button type="button" class="btn btn-primary" id="infoQuiz">${st === "available" ? "挑戰這格" : "再練習一次"}</button></div>` : ""}`;
     box.hidden = false;
