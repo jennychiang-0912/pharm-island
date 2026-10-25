@@ -9,7 +9,7 @@ window.PI = window.PI || {};
 
 PI.SYNC_CONFIG = PI.SYNC_CONFIG || {
   url: "",   // 例：https://xxxx.supabase.co
-  key: ""    // publishable key（sb_publishable_…）或舊版 anon key
+  key: "sb_publishable_Pegc7iFrv-z08_taecTFLw_QqpRZI67"    // publishable key（公開金鑰；安全靠資料表的 RLS）
 };
 
 PI.sync = (function () {
