@@ -296,185 +296,42 @@ PI.map = (function () {
     return cells;
   }
 
-  /* ================= 島嶼地形（與格子分開） =================
-     地形不是用格子拼出來的。做法：
-     1. 在陸地範圍內建立一張「地形場」：每一格在自己附近貢獻一點高度（高斯分布），再加上低頻雜訊，
-        讓海岸有自然的海灣與岬角。
-     2. 用等高線（marching squares）在不同高度切出淺水、浪花、沙灘、草地、內陸淺草地的輪廓。
-     3. 輪廓再做一次平滑。格子只是放在草地裡，外圍六角格的邊不會變成海岸線。
-     新增格子後重新呼叫 drawTerrain(陸地) 就會更新地形。 */
-  function valueNoise(x, y, seed) {
-    const ix = Math.floor(x), iy = Math.floor(y), fx = x - ix, fy = y - iy;
-    const sx = fx * fx * (3 - 2 * fx), sy = fy * fy * (3 - 2 * fy);
-    const n00 = noise(ix, iy, seed), n10 = noise(ix + 1, iy, seed), n01 = noise(ix, iy + 1, seed), n11 = noise(ix + 1, iy + 1, seed);
-    return (n00 * (1 - sx) + n10 * sx) * (1 - sy) + (n01 * (1 - sx) + n11 * sx) * sy;
-  }
-  // 主島各章之間的陸橋位置：先算每兩章「最靠近的兩格」，再用最小生成樹挑出要接的章（加上本來就很近的）
-  function bridgesOf(land) {
-    const regs = land.regions; if (regs.length < 2) return [];
-    const pair = [];
-    regs.forEach((A, i) => regs.forEach((B, j) => {
-      if (j <= i) return;
-      let best = null;
-      A.cells.forEach(a => B.cells.forEach(b => { const d = Math.hypot(a.x - b.x, a.y - b.y); if (!best || d < best.d) best = { a, b, d, i, j }; }));
-      pair.push(best);
-    }));
-    pair.sort((p, q) => p.d - q.d);
-    const root = regs.map((_, i) => i), find = i => root[i] === i ? i : (root[i] = find(root[i]));
-    return pair.filter(p => {
-      const x = find(p.i), y = find(p.j);
-      if (x !== y) { root[x] = y; return true; }   // 最小生成樹的邊：一定要接
-      return p.d <= R * 6;                         // 其他本來就很近的也接起來
-    });
-  }
-  function terrainField(land) {
-    const T = PI.MAP.terrain, step = T.step, sig = R * T.sigma, inv = 1 / (2 * sig * sig);
-    // 只有「已解鎖」（可挑戰＋已佔領）的格子底下才是陸地；未解鎖的格子浮在海上
-    // 只有「已佔領」的格子底下才是陸地：一開始只看得到灰色線框，佔領越多島越完整
-    const open = isl => isl.cells.filter(c => PI.state.statusOf(c) === "occupied");
-    const pts = land.regions.flatMap(open).map(c => ({ x: c.x, y: c.y, w: 1 }));
-    if (!pts.length) return null;
-    const seed0 = land.regions[0].chapter * 131;
-    // 地形專用的額外高度點（不是格子）：
-    // (1) 陸橋：主島上相鄰的章節之間各有一座（用「最小生成樹」挑相鄰關係，保證全部連得起來），主島一開始就是完整的一塊。
-    //     主島的各章已經拼在同一張格子上、彼此相鄰，不需要陸橋（加了反而會在格子外多出空地）。
-    (land.occ && land.occ.size ? [] : bridgesOf(land)).forEach(({ a, b, d }) => {
-      const n = Math.ceil(d / (R * 0.5)), ux = (b.x - a.x) / d, uy = (b.y - a.y) / d;
-      for (let k = 1; k < n; k++) for (const off of [-1.1, -0.35, 0.35, 1.1]) {
-        const t = k / n;
-        pts.push({ x: a.x + (b.x - a.x) * t - uy * off * R, y: a.y + (b.y - a.y) * t + ux * off * R, w: 1 });
-      }
-    });
-    // (2) 岬角與小半島：沿著幾個方向把陸地往外延伸，海岸線才不會跟著六角格的外形走
-    const cells0 = land.regions.flatMap(open), cxm = cells0.reduce((s, c) => s + c.x, 0) / cells0.length, cym = cells0.reduce((s, c) => s + c.y, 0) / cells0.length;
-    const lobes = cells0.length < 4 ? 0 : 4 + Math.floor(noise(seed0, 1, 1) * 3);   // 很小的島不加，避免蓋到未解鎖格
-    for (let i = 0; i < lobes; i++) {
-      const a = (i / lobes + noise(seed0, i, 2) * 0.6 / lobes) * Math.PI * 2;
-      const ux = Math.cos(a), uy = Math.sin(a);
-      // 從這個方向上最外側的格子往外長，確保半島和陸地連在一起
-      const along = cells0.filter(c => Math.abs(-(c.x - cxm) * uy + (c.y - cym) * ux) < R * 1.6);
-      if (!along.length) continue;
-      const tip = along.reduce((m, c) => ((c.x - cxm) * ux + (c.y - cym) * uy > (m.x - cxm) * ux + (m.y - cym) * uy ? c : m));
-      const ext = R * (0.1 + noise(seed0, i, 3) * 0.35);   // 只是海岸的小凸出
-      for (let d = 0; d <= ext; d += R * 0.3)
-        pts.push({ x: tip.x + ux * d, y: tip.y + uy * d, w: 0.8 + noise(seed0, i, 4) * 0.2 });
-    }
-    const margin = R * 3;
-    const x0 = Math.min(...pts.map(c => c.x)) - margin, y0 = Math.min(...pts.map(c => c.y)) - margin;
-    const x1 = Math.max(...pts.map(c => c.x)) + margin, y1 = Math.max(...pts.map(c => c.y)) + margin;
-    const nx = Math.ceil((x1 - x0) / step) + 1, ny = Math.ceil((y1 - y0) / step) + 1;
-    const B = sig * 3, buckets = new Map();
-    pts.forEach(c => { const k = `${Math.floor(c.x / B)},${Math.floor(c.y / B)}`; if (!buckets.has(k)) buckets.set(k, []); buckets.get(k).push(c); });
-    const F = new Float32Array(nx * ny), seed = land.regions[0].chapter * 101 + 7;
-    for (let j = 0; j < ny; j++) for (let i = 0; i < nx; i++) {
-      const x = x0 + i * step, y = y0 + j * step, bx = Math.floor(x / B), by = Math.floor(y / B);
-      let sum = 0;
-      for (let a = -1; a <= 1; a++) for (let b = -1; b <= 1; b++) {
-        const list = buckets.get(`${bx + a},${by + b}`);
-        if (list) for (const c of list) { const dx = c.x - x, dy = c.y - y; sum += c.w * Math.exp(-(dx * dx + dy * dy) * inv); }
-      }
-      const n = 0.65 * valueNoise(x / 420, y / 420, seed) + 0.35 * valueNoise(x / 190, y / 190, seed + 1);
-      F[j * nx + i] = sum + T.noise * (n - 0.42) * Math.min(1, sum * 1.6);   // 雜訊只影響陸地附近，不會在遠海冒出小島
-    }
-    // 邊框強制為 0，等高線一定是封閉的
-    for (let i = 0; i < nx; i++) { F[i] = 0; F[(ny - 1) * nx + i] = 0; }
-    for (let j = 0; j < ny; j++) { F[j * nx] = 0; F[j * nx + nx - 1] = 0; }
-    return { F, nx, ny, x0, y0, step, x1, y1 };
-  }
-  // marching squares：切出高度 t 的所有封閉輪廓（世界座標）
-  function contours(field, t) {
-    const { F, nx, ny, x0, y0, step } = field;
-    const adj = new Map(), P = new Map();
-    const v = (i, j) => F[j * nx + i];
-    const link = (a, b) => { (adj.get(a) || adj.set(a, []).get(a)).push(b); (adj.get(b) || adj.set(b, []).get(b)).push(a); };
-    for (let j = 0; j < ny - 1; j++) for (let i = 0; i < nx - 1; i++) {
-      const a = v(i, j), b = v(i + 1, j), c = v(i + 1, j + 1), d = v(i, j + 1);
-      const idx = (a > t) * 8 + (b > t) * 4 + (c > t) * 2 + (d > t);
-      if (idx === 0 || idx === 15) continue;
-      const E = {
-        T: () => { const k = `h${i},${j}`; P.has(k) || P.set(k, [i + (t - a) / (b - a), j]); return k; },
-        R: () => { const k = `v${i + 1},${j}`; P.has(k) || P.set(k, [i + 1, j + (t - b) / (c - b)]); return k; },
-        B: () => { const k = `h${i},${j + 1}`; P.has(k) || P.set(k, [i + (t - d) / (c - d), j + 1]); return k; },
-        L: () => { const k = `v${i},${j}`; P.has(k) || P.set(k, [i, j + (t - a) / (d - a)]); return k; }
-      };
-      const segs = { 1: ["LB"], 2: ["BR"], 3: ["LR"], 4: ["TR"], 5: ["TR", "LB"], 6: ["TB"], 7: ["TL"], 8: ["TL"], 9: ["TB"], 10: ["TL", "RB"], 11: ["TR"], 12: ["LR"], 13: ["RB"], 14: ["LB"] }[idx];
-      segs.forEach(sg => link(E[sg[0]](), E[sg[1]]()));
-    }
-    const loops = [], seen = new Set();
-    adj.forEach((_, start) => {
-      if (seen.has(start)) return;
-      const loop = []; let prev = null, cur = start;
-      while (cur && !seen.has(cur)) {
-        seen.add(cur); loop.push(P.get(cur));
-        const nb = adj.get(cur).filter(k => k !== prev && !seen.has(k));
-        prev = cur; cur = nb[0];
-      }
-      if (loop.length > 4) loops.push(loop.map(([gx, gy]) => [x0 + gx * step, y0 + gy * step]));
-    });
-    return loops;
-  }
-  function smoothPath(loops) {   // Chaikin 平滑一次後轉成 SVG 路徑
-    return loops.map(L => {
-      const S = [];
-      for (let i = 0; i < L.length; i++) {
-        const p = L[i], q = L[(i + 1) % L.length];
-        S.push([p[0] * .75 + q[0] * .25, p[1] * .75 + q[1] * .25], [p[0] * .25 + q[0] * .75, p[1] * .25 + q[1] * .75]);
-      }
-      return "M" + S.map(p => p[0].toFixed(1) + "," + p[1].toFixed(1)).join("L") + "Z";
-    }).join("");
-  }
-
+  /* ================= 島嶼地形（六角形組成） =================
+     陸地只長在已佔領的格子底下，每一格就是一塊六角形的地；見 drawTerrain。 */
   function drawTerrain(land) {
+    /* 島由六角形組成：每一個已佔領的格子就是一塊六角形的地。
+       海岸的淺水、浪花、沙灘、土坡也都是同一格放大一點的六角形，疊在一起就是沿著六角格邊緣的海岸線。 */
     const g = land.g; g.textContent = "";
-    const T = PI.MAP.terrain, C = PI.MAP.coast, P = land.def.palette || { ground: "#B4D69A", light: "#C5E2AA", cliff: "#8CB57A" };
-    const field = terrainField(land);
-    if (!field) { land.bounds = null; return; }
-    land.bounds = { minX: field.x0, minY: field.y0, maxX: field.x1, maxY: field.y1 };
-    // 去掉被陸地包住的「洞」（內陸小湖），只保留外圍海岸線，主島才是完整的一塊地
-    const inside = (p, poly) => { let c = false; for (let i = 0, j = poly.length - 1; i < poly.length; j = i++) {
-      const [xi, yi] = poly[i], [xj, yj] = poly[j];
-      if ((yi > p[1]) !== (yj > p[1]) && p[0] < (xj - xi) * (p[1] - yi) / (yj - yi) + xi) c = !c; } return c; };
-    const loops = {}; ["shallow", "foam", "sand", "grass", "inner"].forEach(k => {
-      const all = contours(field, T[k]);
-      loops[k] = k === "inner" ? all : all.filter(L => !all.some(M => M !== L && M.length > L.length && inside(L[0], M)));
-    });
-    const shape = (k, fill, op, dy = 0, cls = "") => el("path", { d: smoothPath(loops[k]), fill, "fill-opacity": op, "fill-rule": "evenodd",
-      transform: dy ? `translate(0,${dy})` : "", class: `t-${cls || k}` });
-    const seed = land.regions[0].chapter;
+    const C = PI.MAP.coast, P = land.def.palette || { ground: "#B4D69A", light: "#C5E2AA", cliff: "#8CB57A" };
+    const all = land.regions.flatMap(r => r.cells);
+    const occ = all.filter(c => PI.state.statusOf(c) === "occupied");
+    if (!occ.length) { land.bounds = null; land.groundEls = null; return; }
+    const xs = occ.map(c => c.x), ys = occ.map(c => c.y), pad = R * 1.8;
+    land.bounds = { minX: Math.min(...xs) - pad, minY: Math.min(...ys) - pad, maxX: Math.max(...xs) + pad, maxY: Math.max(...ys) + pad + 24 };
+    const V = [...Array(6)].map((_, i) => { const a = Math.PI / 180 * (60 * i - 90); return [Math.cos(a), Math.sin(a)]; });
+    const hexes = r => occ.map(c => V.map(([vx, vy], i) => (i ? "L" : "M") + (c.x + r * vx).toFixed(1) + "," + (c.y + r * vy).toFixed(1)).join("") + "Z").join("");
+    const shape = (r, fill, op, dy = 0, cls) => el("path", { d: hexes(r), fill, "fill-opacity": op, transform: dy ? `translate(0,${dy})` : "", class: `t-${cls}` });
 
-    // 海岸外的礁石、迷你小島：沿著淺水邊緣挑幾個點
-    const rocks = PI.ART.decor.filter(d => d.kind === "rock"), tiny = PI.ART.decor.filter(d => d.kind === "island");
-    const outer = loops.shallow.reduce((a, b) => (b.length > a.length ? b : a), []);
-    const decoImgs = [];
-    const nDeco = 3 + Math.floor(noise(seed, 5, 1) * 3);
-    for (let i = 0; i < nDeco && outer.length; i++) {
-      const p = outer[Math.floor(noise(seed, i, 17) * outer.length)];
-      const big = i === 0 && land.regions.length > 1;
-      const d = big ? tiny[Math.floor(noise(seed, i, 2) * tiny.length)] : rocks[Math.floor(noise(seed, i, 3) * rocks.length)];
-      const sc = big ? 0.75 : 1, w = d.w * sc, h = d.h * sc;
-      const dx = p[0] - land.center.x, dy = p[1] - land.center.y, len = Math.hypot(dx, dy) || 1;
-      const push = big ? w * 0.6 : 10;
-      const x = p[0] + dx / len * push, y = p[1] + dy / len * push;
-      decoImgs.push(el("image", { href: d.src, x: (x - w / 2).toFixed(1), y: (y - h / 2).toFixed(1), width: w.toFixed(1), height: h.toFixed(1), class: "decor" }));
+    // 海岸外的礁石：挑幾個「旁邊還是海」的格子，在海那一側放一顆
+    const seed = land.regions[0].chapter, rocks = PI.ART.decor.filter(d => d.kind === "rock"), decoImgs = [];
+    const taken = new Set(occ.map(c => `${Math.round(c.x)},${Math.round(c.y)}`));
+    const edge = [];
+    occ.forEach(c => V.forEach(([vx, vy], k) => {
+      const a = Math.PI / 180 * (60 * k - 60), nx = c.x + Math.cos(a) * SQ3 * R, ny = c.y + Math.sin(a) * SQ3 * R;
+      if (!occ.some(o => Math.hypot(o.x - nx, o.y - ny) < R)) edge.push({ c, a });
+    }));
+    const nRock = Math.min(edge.length, 2 + Math.floor(noise(seed, 5, 1) * 3));
+    for (let i = 0; i < nRock; i++) {
+      const e = edge[Math.floor(noise(seed, i, 17) * edge.length)], d = rocks[Math.floor(noise(seed, i, 3) * rocks.length)];
+      const x = e.c.x + Math.cos(e.a) * R * 1.75, y = e.c.y + Math.sin(e.a) * R * 1.75;
+      decoImgs.push(el("image", { href: d.src, x: (x - d.w / 2).toFixed(1), y: (y - d.h / 2).toFixed(1), width: d.w, height: d.h, class: "decor" }));
     }
 
-    g.append(shape("sand", C.shadow, .2, 24, "shadow"), shape("shallow", C.shallow, .55), ...decoImgs,
-      shape("foam", C.foam, .85), shape("sand", C.sandShade, 1, 7, "sand-shade"), shape("sand", C.sand, 1),
-      shape("grass", P.cliff, 1, 9, "cliff"), shape("grass", P.ground, 1), shape("inner", P.light, .45));
-    // 地面顏色：還沒佔領的島是灰米色的未探索地，佔領越多越接近島的顏色（只改顏色，不重算地形）
-    land.groundEls = { cliff: g.querySelector(".t-cliff"), grass: g.querySelector(".t-grass"), inner: g.querySelector(".t-inner") };
+    g.append(shape(R * 1.16, C.shadow, .2, 22, "shadow"), shape(R * 1.5, C.shallow, .55, 0, "shallow"), ...decoImgs,
+      shape(R * 1.28, C.foam, .85, 0, "foam"), shape(R * 1.16, C.sandShade, 1, 7, "sand-shade"), shape(R * 1.16, C.sand, 1, 0, "sand"),
+      shape(R + 1, P.cliff, 1, 9, "cliff"), shape(R + 1, P.ground, 1, 0, "grass"));
+    land.groundEls = { cliff: g.querySelector(".t-cliff"), grass: g.querySelector(".t-grass"), inner: null };
     land.frac = null; tintLand(land);
-    // 草地邊緣的小花與草叢：沿著草地輪廓，往內一點
-    const deco = el("g", { class: "t-deco" });
-    loops.grass.forEach(L => L.forEach((p, i) => {
-      if (i % 9) return;   // 只挑少數幾個點，避免一大堆小元件
-      const pick = noise(Math.round(p[0]), Math.round(p[1]), seed + 23);
-      if (pick > 0.28) return;
-      const dx = land.center.x - p[0], dy = land.center.y - p[1], len = Math.hypot(dx, dy) || 1;
-      const x = p[0] + dx / len * 18, y = p[1] + dy / len * 18;
-      deco.appendChild(pick < 0.09 ? flower(x, y, pick) : tuft(x, y));
-    }));
-    g.appendChild(deco);
   }
   const mixHex = (a, b, t) => "#" + [0, 2, 4].map(i => Math.round(parseInt(a.substr(i + 1, 2), 16) * (1 - t) + parseInt(b.substr(i + 1, 2), 16) * t).toString(16).padStart(2, "0")).join("");
   function tintLand(land) {
@@ -489,17 +346,8 @@ PI.map = (function () {
     e.grass.setAttribute("fill", mixHex(W.ground, P.ground, frac));
     if (e.inner) e.inner.setAttribute("fill", mixHex(W.light, P.light, frac));
   }
-  function flower(x, y, t) {
-    const colors = ["#FFFFFF", "#F7D9E3", "#FBEFA8"], col = colors[Math.floor(t * 100) % 3];
-    const f = el("g", { class: "t-flower", transform: `translate(${x.toFixed(1)},${y.toFixed(1)})` });
-    [[-5, -2], [4, -4], [1, 5]].forEach(([dx, dy]) => f.appendChild(el("circle", { cx: dx, cy: dy, r: 3.4, fill: col })));
-    f.appendChild(el("circle", { cx: 0, cy: 0, r: 2.2, fill: "#F2C14E" }));
-    return f;
-  }
-  function tuft(x, y) {
-    return el("path", { class: "t-tuft", d: `M${(x - 7).toFixed(1)},${(y + 4).toFixed(1)} q3,-9 5,-11 M${x.toFixed(1)},${(y + 4).toFixed(1)} q0,-10 1,-13 M${(x + 7).toFixed(1)},${(y + 4).toFixed(1)} q-2,-8 -4,-10`,
-      fill: "none", stroke: "#7FAE6A", "stroke-width": 2.6, "stroke-linecap": "round" });
-  }
+
+
 
   // 格子裡的名字：超過格子寬度就截短（中文字比較寬，依實際寬度算）
   function fitName(name, maxW = 86) {

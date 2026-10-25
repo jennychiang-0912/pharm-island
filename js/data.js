@@ -64,7 +64,7 @@ PI.MAP = {
     sand: "#F2E3B5",      // 沙灘
     sandShade: "#E3CF97", // 沙灘靠水那側的陰影
   },
-  terrain: {            // 地形場的等高線門檻：數字越小越靠外
+  terrain: {            // （目前沒用到：島改成由已佔領的六角格組成，見 map.js 的 drawTerrain）地形場的等高線門檻
     shallow: 0.16, foam: 0.33, sand: 0.4, grass: 0.55, inner: 1.35,
     sigma: 0.85,        // 每一格對地形的影響範圍（格半徑的倍數）：小一點，陸地才會只在已解鎖的格子底下
     noise: 0.2,         // 海岸不規則程度
