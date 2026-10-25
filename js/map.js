@@ -211,7 +211,7 @@ PI.map = (function () {
     sea = document.createElement("div"); sea.className = "map-sea";
     sea.style.backgroundImage = `url("${PI.ART.seaTile.src}")`;
     HEX_PATH = hexPath(R, PI.MAP.corner);
-    SHINE_PATH = hexPath(R - PI.MAP.cell.lineWidth / 2, PI.MAP.corner);
+    SHINE_PATH = hexPath(R - PI.MAP.cell.locked.lineWidth / 2, PI.MAP.corner);
     RING_PATH = hexPath(R * 0.62, 6);
 
     svg = el("svg", { class: "map-svg", role: "img", "aria-label": "藥理學群島地圖" });
@@ -283,15 +283,14 @@ PI.map = (function () {
   function terrainField(land) {
     const T = PI.MAP.terrain, step = T.step, sig = R * T.sigma, inv = 1 / (2 * sig * sig);
     // 只有「已解鎖」（可挑戰＋已佔領）的格子底下才是陸地；未解鎖的格子浮在海上
-    const open = isl => isl.cells.filter(c => PI.state.statusOf(c) !== "locked");
+    // 整座島從一開始就是完整的陸地：所有格子（含未解鎖）底下都是地，佔領只改變格子的顏色
+    const open = isl => isl.cells;
     const pts = land.regions.flatMap(open).map(c => ({ x: c.x, y: c.y, w: 1 }));
     if (!pts.length) return null;
     const seed0 = land.regions[0].chapter * 131;
     // 地形專用的額外高度點（不是格子）：
-    // (1) 陸橋：主島上相鄰的章節之間各有一座（用「最小生成樹」挑相鄰關係，保證全部連得起來）。
-    //     陸橋兩端是兩章彼此最靠近的那兩格；兩格都解鎖後陸橋才出現，所以全部解鎖完，整座主島會連成一塊。
+    // (1) 陸橋：主島上相鄰的章節之間各有一座（用「最小生成樹」挑相鄰關係，保證全部連得起來），主島一開始就是完整的一塊。
     bridgesOf(land).forEach(({ a, b, d }) => {
-      if (PI.state.statusOf(a) === "locked" || PI.state.statusOf(b) === "locked") return;
       const n = Math.ceil(d / (R * 0.5)), ux = (b.x - a.x) / d, uy = (b.y - a.y) / d;
       for (let k = 1; k < n; k++) for (const off of [-1.1, -0.35, 0.35, 1.1]) {
         const t = k / n;
@@ -308,7 +307,7 @@ PI.map = (function () {
       const along = cells0.filter(c => Math.abs(-(c.x - cxm) * uy + (c.y - cym) * ux) < R * 1.6);
       if (!along.length) continue;
       const tip = along.reduce((m, c) => ((c.x - cxm) * ux + (c.y - cym) * uy > (m.x - cxm) * ux + (m.y - cym) * uy ? c : m));
-      const ext = R * (0.1 + noise(seed0, i, 3) * 0.35);   // 只是海岸的小凸出，不往未解鎖格子裡長
+      const ext = R * (0.1 + noise(seed0, i, 3) * 0.35);   // 只是海岸的小凸出
       for (let d = 0; d <= ext; d += R * 0.3)
         pts.push({ x: tip.x + ux * d, y: tip.y + uy * d, w: 0.8 + noise(seed0, i, 4) * 0.2 });
     }
@@ -414,6 +413,9 @@ PI.map = (function () {
     g.append(shape("sand", C.shadow, .2, 24, "shadow"), shape("shallow", C.shallow, .55), ...decoImgs,
       shape("foam", C.foam, .85), shape("sand", C.sandShade, 1, 7, "sand-shade"), shape("sand", C.sand, 1),
       shape("grass", P.cliff, 1, 9, "cliff"), shape("grass", P.ground, 1), shape("inner", P.light, .45));
+    // 地面顏色：還沒佔領的島是灰米色的未探索地，佔領越多越接近島的顏色（只改顏色，不重算地形）
+    land.groundEls = { cliff: g.querySelector(".t-cliff"), grass: g.querySelector(".t-grass"), inner: g.querySelector(".t-inner") };
+    land.frac = null; tintLand(land);
     // 草地邊緣的小花與草叢：沿著草地輪廓，往內一點
     const deco = el("g", { class: "t-deco" });
     loops.grass.forEach(L => L.forEach((p, i) => {
@@ -425,6 +427,19 @@ PI.map = (function () {
       deco.appendChild(pick < 0.09 ? flower(x, y, pick) : tuft(x, y));
     }));
     g.appendChild(deco);
+  }
+  const mixHex = (a, b, t) => "#" + [0, 2, 4].map(i => Math.round(parseInt(a.substr(i + 1, 2), 16) * (1 - t) + parseInt(b.substr(i + 1, 2), 16) * t).toString(16).padStart(2, "0")).join("");
+  function tintLand(land) {
+    if (!land.groundEls || !land.groundEls.grass) return;
+    const all = land.regions.flatMap(r => r.cells), occ = all.filter(c => PI.state.statusOf(c) === "occupied").length;
+    const frac = all.length ? occ / all.length : 0;
+    if (land.frac !== null && Math.abs(frac - land.frac) < 1e-6) return;
+    land.frac = frac;
+    const P = land.def.palette || { ground: "#B4D69A", light: "#C5E2AA", cliff: "#8CB57A" }, W = PI.MAP.wild;
+    const e = land.groundEls;
+    e.cliff.setAttribute("fill", mixHex(W.cliff, P.cliff, frac));
+    e.grass.setAttribute("fill", mixHex(W.ground, P.ground, frac));
+    if (e.inner) e.inner.setAttribute("fill", mixHex(W.light, P.light, frac));
   }
   function flower(x, y, t) {
     const colors = ["#FFFFFF", "#F7D9E3", "#FBEFA8"], col = colors[Math.floor(t * 100) % 3];
@@ -529,23 +544,25 @@ PI.map = (function () {
   }
 
   const STATUS_TEXT = { occupied: "已佔領", available: "可挑戰", locked: "未解鎖" };
+  const tintQueue = new Set();
   function render() {
     cells.forEach(c => {
       const st = PI.state.statusOf(c);
       const tab = st === "locked" && focusCh !== c.chapter ? "-1" : "0";
       if (c.tab !== tab) { c.tab = tab; c.el.setAttribute("tabindex", tab); }
       if (c.st === st) return;   // 狀態沒變就不碰 DOM
-      // 解鎖狀態改變時，這塊陸地的地形要跟著長大（同一個畫面內合併成一次）
-      if (c.st && (c.st === "locked") !== (st === "locked")) queueTerrain(landOf.get(c.chapter));
+      const claimed = c.st && c.st !== "occupied" && st === "occupied";   // 這一次剛佔領（不是載入時）
+      if (c.st === "occupied" || st === "occupied") tintQueue.add(landOf.get(c.chapter));
       c.st = st;
       const g = c.el, hex = g.firstChild, M = PI.MAP.cell;
       g.dataset.status = st;
-      if (st === "locked") {   // 未解鎖：透明，只留低調的灰框
-        hex.setAttribute("fill", "#FFFFFF"); hex.setAttribute("fill-opacity", 0);
-        hex.setAttribute("stroke", M.lockedLine); hex.setAttribute("stroke-opacity", M.lockedLineOpacity); hex.setAttribute("stroke-width", M.lockedLineWidth);
-      } else {                 // 已解鎖：同一座島統一用島的底色，格線是淡奶油色
-        hex.setAttribute("fill", (landOf.get(c.chapter).def.palette || {}).ground || "#B4D69A"); hex.setAttribute("fill-opacity", M.unlockedOpacity);
-        hex.setAttribute("stroke", M.line); hex.setAttribute("stroke-opacity", M.lineOpacity); hex.setAttribute("stroke-width", M.lineWidth);
+      const S = M[st];   // 未解鎖、可挑戰：灰米色的未探索地；已佔領：島的顏色（綠色草地等）
+      hex.setAttribute("fill", st === "occupied" ? ((landOf.get(c.chapter).def.palette || {}).ground || "#B4D69A") : S.fill);
+      hex.setAttribute("fill-opacity", S.opacity);
+      hex.setAttribute("stroke", S.line); hex.setAttribute("stroke-opacity", S.lineOpacity); hex.setAttribute("stroke-width", S.lineWidth);
+      if (claimed) {   // 佔領動畫：一圈淡淡的光，播完就移除
+        const glow = el("path", { class: "claim-glow", d: HEX_PATH, "pointer-events": "none" });
+        g.appendChild(glow); setTimeout(() => glow.remove(), 1200);
       }
       const old = g.querySelector(".cell-ring, .cell-flag"); if (old) old.remove();
       if (st === "available") g.insertBefore(el("path", { class: "cell-ring", d: RING_PATH }), hex.nextSibling);
@@ -553,6 +570,7 @@ PI.map = (function () {
         transform: c.hasTree ? "translate(30,22) scale(.6)" : "" }), hex.nextSibling);   // 有樹的格子：旗子放右下角
       g.setAttribute("aria-label", `第 ${c.chapter} 章 ${chapterOf(c.chapter).name}，${c.unit ? c.unit.name : "預留格"}，${STATUS_TEXT[st]}`);
     });
+    tintQueue.forEach(tintLand); tintQueue.clear();
     islands.forEach(isl => { const dim = focusCh !== null && isl.chapter !== focusCh; if (isl.dim !== dim) { isl.dim = dim; Object.values(isl.g).forEach(g => g.classList.toggle("is-dim", dim)); } });
     trees.forEach(t => { const dim = focusCh !== null && t.cell.chapter !== focusCh; if (t.dim !== dim) { t.dim = dim; t.g.classList.toggle("is-dim", dim); } });   // 知識樹跟著自己的章節變淡
     placeRing(selected);
