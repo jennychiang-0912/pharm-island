@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 440 600" font-family="Chiron GoRound TC, PingFang TC, Microsoft JhengHei, sans-serif">
+  <!-- 生物鹼合成與代謝【通則】（依生物鹼講義 p.1 印刷內容重畫）
+       直欄：左 L=120、右 R=320、中 C=220；主流程箭頭 2.5px，同一個箭頭頭部 -->
+  <defs>
+    <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerUnits="userSpaceOnUse" markerWidth="12" markerHeight="12" orient="auto">
+      <path d="M0 0L10 5L0 10z" fill="#315B43"/>
+    </marker>
+  </defs>
+  <rect width="440" height="600" fill="#F7F5EC"/>
+  <text x="220" y="30" font-size="14" fill="#315B43" text-anchor="middle" font-weight="700">★前驅物：2 個胺基酸</text>
+
+  <!-- 兩個胺基酸 -->
+  <rect x="50" y="48" width="140" height="50" rx="12" fill="#fff" stroke="#9C8F57" stroke-width="2"/>
+  <text x="120" y="70" font-size="13" fill="#24372C" text-anchor="middle" font-weight="700">α-Amino acid</text>
+  <text x="120" y="88" font-size="11" fill="#6E7F72" text-anchor="middle">H₂N–CH(R)–COOH</text>
+  <rect x="250" y="48" width="140" height="50" rx="12" fill="#fff" stroke="#9C8F57" stroke-width="2"/>
+  <text x="320" y="70" font-size="13" fill="#24372C" text-anchor="middle" font-weight="700">α-Amino acid</text>
+  <text x="320" y="88" font-size="11" fill="#6E7F72" text-anchor="middle">H₂N–CH(R)–COOH</text>
+
+  <!-- 脫 CO₂ / 轉胺作用 -->
+  <path d="M120 98V164" stroke="#315B43" stroke-width="2.5" marker-end="url(#ar)"/>
+  <text x="132" y="128" font-size="12" fill="#C0624F" font-weight="700">–CO₂</text>
+  <text x="132" y="144" font-size="11" fill="#6E7F72">脫去 CO₂</text>
+  <path d="M320 98V164" stroke="#315B43" stroke-width="2.5" marker-end="url(#ar)"/>
+  <text x="332" y="128" font-size="12" fill="#C0624F" font-weight="700">transamination</text>
+  <text x="332" y="144" font-size="11" fill="#6E7F72">轉胺作用</text>
+
+  <!-- 胺類 / 醛類 -->
+  <rect x="50" y="170" width="140" height="50" rx="12" fill="#E8F1E1" stroke="#7FA86C" stroke-width="2"/>
+  <text x="120" y="192" font-size="13" fill="#24372C" text-anchor="middle" font-weight="700">Amine 胺類</text>
+  <text x="120" y="210" font-size="11" fill="#426C50" text-anchor="middle">R–NH₂</text>
+  <rect x="250" y="170" width="140" height="50" rx="12" fill="#E8F1E1" stroke="#7FA86C" stroke-width="2"/>
+  <text x="320" y="192" font-size="13" fill="#24372C" text-anchor="middle" font-weight="700">Aldehyde 醛類</text>
+  <text x="320" y="210" font-size="11" fill="#426C50" text-anchor="middle">R–CHO</text>
+
+  <!-- 匯合：脫水 -->
+  <path d="M120 220V250Q120 262 132 262H208Q220 262 220 274V306" fill="none" stroke="#315B43" stroke-width="2.5" marker-end="url(#ar)"/>
+  <path d="M320 220V250Q320 262 308 262H232Q220 262 220 274" fill="none" stroke="#315B43" stroke-width="2.5"/>
+  <text x="232" y="292" font-size="12" fill="#C0624F" font-weight="700">–H₂O 脫水</text>
+
+  <!-- Schiff base -->
+  <rect x="130" y="312" width="180" height="62" rx="14" fill="#FDF1EE" stroke="#D9897A" stroke-width="2.5"/>
+  <text x="220" y="336" font-size="14" fill="#C0624F" text-anchor="middle" font-weight="700">★中間產物 Schiff base</text>
+  <text x="220" y="358" font-size="12" fill="#24372C" text-anchor="middle">R–CH=N–R'</text>
+
+  <!-- + Carbanion -->
+  <path d="M220 374V440" stroke="#315B43" stroke-width="2.5" marker-end="url(#ar)"/>
+  <text x="232" y="404" font-size="12" fill="#C0624F" font-weight="700">H⁺ ＋ Carbanion</text>
+
+  <!-- Mannich -->
+  <rect x="110" y="446" width="220" height="56" rx="14" fill="#fff" stroke="#9C8F57" stroke-width="2"/>
+  <text x="220" y="469" font-size="13" fill="#24372C" text-anchor="middle" font-weight="700">Mannich-Type Condensation</text>
+  <text x="220" y="488" font-size="11" fill="#6E7F72" text-anchor="middle">縮合反應</text>
+  <path d="M220 502V540" stroke="#315B43" stroke-width="2.5" marker-end="url(#ar)"/>
+
+  <rect x="160" y="546" width="120" height="38" rx="19" fill="#315B43"/>
+  <text x="220" y="571" font-size="15" fill="#fff" text-anchor="middle" font-weight="700">生物鹼</text>
+</svg>
