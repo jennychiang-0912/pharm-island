@@ -471,6 +471,7 @@ PI.map = (function () {
   /* ---------- 知識告示牌：每一章一個，自己是一座一格大的小島（不放格子、不出格子的題） ----------
      哪些章節有告示牌、內容是什麼，都在 js/knowledge.js（或各科目的 js/subjects/*.js）。
      位置：緊靠在這一章的島邊（貼著最外圈的格子），離起點格越近越好；不壓到任何格子，和其他告示牌島至少隔一格海。
+     放好之後，這一章的起點格改成緊貼告示牌的那一格。
      點告示牌島打開知識面板。 */
   const trees = new Map();   // 知識樹 id → { chapter, x, y, g }
   const ringOffsets = k => { const out = []; for (let q = -k; q <= k; q++) for (let r = -k; r <= k; r++) if (hexDist(q, r) === k) out.push([q, r]); return out; };
@@ -495,6 +496,11 @@ PI.map = (function () {
       }
       if (!pos) return;
       used.push(pos);
+      // 起點格換成「緊貼告示牌島」的那一格（這一章的格子裡，離原本起點最近的）：一開始可挑戰的格子就在告示牌旁邊
+      const hasUnits = isl.cells.some(c => c.unit);   // 有正式內容的章節：起點一定要是有題目的格子（預留格不能挑戰）
+      const touch = isl.cells.filter(c => Math.hypot(c.x - pos.x, c.y - pos.y) < D + 1 && (c.unit || !hasUnits))
+        .sort((a, b) => Math.hypot(a.x - start.x, a.y - start.y) - Math.hypot(b.x - start.x, b.y - start.y));
+      if (touch.length && touch[0] !== start) { start.isStart = false; touch[0].isStart = true; }
       const moved = !isl.signPos || isl.signPos.x !== pos.x || isl.signPos.y !== pos.y;
       isl.signPos = pos; if (moved && !isl.shared) drawLabel(isl);   // 主島上各章的告示牌靠得很近，牌子放上去會疊在一起，所以只有獨立的島才搬
       let t = trees.get(key);
