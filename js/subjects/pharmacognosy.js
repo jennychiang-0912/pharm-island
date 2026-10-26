@@ -436,7 +436,7 @@ PI.KNOWLEDGE = {
             "Theophylline 茶鹼：1,3-dimethylxanthine（2 個甲基）[★國考]4 個 N",
             "[★國考]{{Murexide test|試驗|Dragendorff's/Mayer's/Wagner's}}（紫脲酸銨試驗）：取少量 Caffeine 結晶蒸發至乾，再加入兩滴 Ammonium hydroxide，可得{{紫色|顏色|紅棕色/淡黃色/棕褐色}}殘餘物"
           ],
-          diagram: "assets/knowledge/caffeine-structure.svg", original: "assets/knowledge/caffeine-structure.jpg" }
+          diagram: "assets/knowledge/caffeine-structure.svg?v=2", original: "assets/knowledge/caffeine-structure.jpg" }
       ] },
       { id: "coumarin", title: "Coumarin", items: [
         { title: "Coumarin 與其衍生物", group: "Rodenticide", source: "生物鹼講義（續）p.13",

@@ -132,7 +132,7 @@ L 90.0 51.3
 L 91.5 51.3
 ' fill='#000000'/>
 
-</svg><text class="lab" x="135" y="388">Caffeine</text><rect class="box" x="270" y="180" width="520" height="230" rx="12"/><path d="M530 180V410M270 214H790M270 244H790" stroke="#E3DDC2" stroke-width="1.5"/><text class="lab" x="400" y="197">Theobromine 可可鹼</text><text class="lab" x="660" y="197">Theophylline 茶鹼 [★國考] 4 個 N</text><text class="sub" x="530" y="229">2 個甲基</text><svg x="305" y="250" width="190" height="135" viewBox="0 0 190 135">
+</svg><text class="lab" x="135" y="388">Caffeine</text><rect class="box" x="270" y="180" width="520" height="230" rx="12"/><path d="M530 180V214M530 244V410M270 214H790M270 244H790" stroke="#E3DDC2" stroke-width="1.5"/><text class="lab" x="400" y="197">Theobromine 可可鹼</text><text class="lab" x="660" y="197">Theophylline 茶鹼 [★國考] 4 個 N</text><text class="sub" x="530" y="229">2 個甲基</text><svg x="305" y="250" width="190" height="135" viewBox="0 0 190 135">
 
 <ellipse cx='56.4' cy='113.3' rx='10.5' ry='10.5' class='atom-0'  style='fill:#F9CCC1;fill-rule:evenodd;stroke:#F9CCC1;stroke-width:1.0px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1' />
 <ellipse cx='96.9' cy='21.3' rx='10.5' ry='10.5' class='atom-12'  style='fill:#F9CCC1;fill-rule:evenodd;stroke:#F9CCC1;stroke-width:1.0px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1' />

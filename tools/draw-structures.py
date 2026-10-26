@@ -105,7 +105,7 @@ for i,t in enumerate(txt): g.append(f'<text class="tx" x="20" y="{62+i*26}">{t}<
 g.append(f'<rect class="box" x="20" y="180" width="230" height="230" rx="12"/>'+place('Caffeine',40,195,190,170,hl_methyl=True)+lab(135,388,'Caffeine'))
 tx=270; 
 g.append(f'<rect class="box" x="{tx}" y="180" width="520" height="230" rx="12"/>')
-g.append(f'<path d="M{tx+260} 180V410M{tx} 214H{tx+520}M{tx} 244H{tx+520}" stroke="#E3DDC2" stroke-width="1.5"/>')
+g.append(f'<path d="M{tx+260} 180V214M{tx+260} 244V410M{tx} 214H{tx+520}M{tx} 244H{tx+520}" stroke="#E3DDC2" stroke-width="1.5"/>')
 g.append(lab(tx+130,197,'Theobromine 可可鹼')+lab(tx+390,197,'Theophylline 茶鹼 [★國考] 4 個 N'))
 g.append(lab(tx+260,229,'2 個甲基','sub'))
 g.append(place('Theobromine',tx+35,250,190,135,hl_methyl=True)+lab(tx+130,394,'3,7-dimethylxanthine'))
