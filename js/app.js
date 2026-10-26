@@ -114,8 +114,13 @@
 
   /* 單元內容：依 PI.UNIT_FIELDS 的順序列出有資料的欄位 */
   function unitBody(u) {
-    const rows = (PI.UNIT_FIELDS || []).filter(([k]) => u[k] && u[k].length).map(([k, label]) =>
-      `<div class="u-row"><span class="u-label">${esc(label)}</span><ul>${u[k].map(l => `<li>${clozeLine(l, true)}</li>`).join("")}</ul></div>`).join("");   // 口訣移到下面的筆記欄
+    // 每個欄位一個框框；內容短的（例如科別、部位）兩個並排，長的佔整行
+    const plainLen = l => splitHint(l)[0].replace(CLOZE, "$1").length;
+    const rows = (PI.UNIT_FIELDS || []).filter(([k]) => u[k] && u[k].length).map(([k, label]) => {
+      const wide = u[k].length > 2 || u[k].some(l => plainLen(l) > 18);
+      return `<div class="u-row${wide ? " is-wide" : ""}"><span class="u-label">${esc(label)}</span>${u[k].length === 1
+        ? `<p class="u-one">${clozeLine(u[k][0], true)}</p>` : `<ul>${u[k].map(l => `<li>${clozeLine(l, true)}</li>`).join("")}</ul>`}</div>`;
+    }).join("");   // 口訣移到下面的筆記欄
     const extra = [u.generation, u.source && `出處：${u.source}`].filter(Boolean).map(esc).join("・");
     const cls = u.class ? `<p class="u-class">類別共通內容（機轉、藥動、副作用等）在本章知識樹</p>` : "";
     return rows || cls || extra ? `<div class="u-body">${rows}${cls}${extra ? `<p class="u-meta">${extra}</p>` : ""}</div>` : "";
