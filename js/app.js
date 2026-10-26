@@ -127,6 +127,8 @@
     const F = Object.fromEntries(PI.UNIT_FIELDS || []), has = k => u[k] && u[k].length;
     const list = k => u[k].length === 1 ? `<p class="u-one">${clozeLine(u[k][0], true)}</p>`
       : `<ul>${u[k].map(l => `<li>${clozeLine(l, true)}</li>`).join("")}</ul>`;   // 口訣移到下面的筆記欄
+    // 框框裡的小欄位（例如來源的基源）：好幾項就接在同一行，不用點點；項目裡有「：」（自己是一小段說明）時改用「；」分開
+    const inline = k => `<p class="u-one">${u[k].map(l => clozeLine(l, true)).join(u[k].some(l => /：/.test(plainOf(l))) ? "；" : "、")}</p>`;
     const used = new Set(PI.UNIT_TITLE_FIELD && titleBits(u).zh ? [PI.UNIT_TITLE_FIELD] : []);
     const boxes = (PI.UNIT_BOXES || []).map(b => ({ ...b, fields: b.fields.filter(has) })).filter(b => b.fields.length);
     boxes.forEach(b => b.fields.forEach(k => used.add(k)));
@@ -134,7 +136,7 @@
     const rows = boxes.map(b => {
       if (b.fields.length > 1)   // 一框裡好幾個欄位：左邊小標、右邊內容
         return `<div class="u-row is-wide"><span class="u-label">${esc(b.label || "")}</span><div class="u-sub">${b.fields.map(k =>
-          `<span class="u-sublabel">${esc(F[k] || k)}</span><div>${list(k)}</div>`).join("")}</div></div>`;
+          `<span class="u-sublabel">${esc(F[k] || k)}</span><div>${inline(k)}</div>`).join("")}</div></div>`;
       const k = b.fields[0], wide = !b.auto || u[k].length > 2 || u[k].some(l => plainOf(l).length > 18);
       return `<div class="u-row${wide ? " is-wide" : ""}"><span class="u-label">${esc(b.label || F[k] || k)}</span>${list(k)}</div>`;
     }).join("");
