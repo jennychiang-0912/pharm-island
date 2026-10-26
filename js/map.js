@@ -457,7 +457,7 @@ PI.map = (function () {
       boxes.push([cx - total / 2, cx + total / 2, y - 22, y + 12]);
       // 這一類在知識樹裡有內容（item.group）：名牌可以點，打開這一類的機轉
       const kKey = Object.keys(PI.KNOWLEDGE || {}).find(k => PI.KNOWLEDGE[k].chapter === isl.chapter);
-      const has = kKey && (PI.KNOWLEDGE[kKey].sections || []).some(sec => (sec.items || []).some(it => it.group === name));
+      const has = kKey && (PI.KNOWLEDGE[kKey].sections || []).some(sec => (sec.items || []).some(it => [].concat(it.group || []).includes(name)));
       const sign = el("g", has ? { class: "grp-sign k-tree", "data-tree": kKey, "data-group": name, tabindex: 0, role: "button", "aria-label": `${name}：打開這一類的機轉`,
         transform: `translate(${cx.toFixed(1)},${y.toFixed(1)})` } : { class: "grp-sign", transform: `translate(${cx.toFixed(1)},${y.toFixed(1)})`, "pointer-events": "none" });
       if (has) { const tip = el("title"); tip.textContent = `${name}・點一下看這一類的機轉`; sign.append(tip, el("rect", { class: "grp-hit", x: -total / 2 - 8, y: -FS - 2, width: total + 16, height: FS + 10, rx: 6 })); }

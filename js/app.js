@@ -222,7 +222,7 @@
         ${it.table ? tableHtml(it.table) : ""}
         ${pts || isEd ? `<ul class="k-pts">${pts}</ul>` : ""}
         ${it.diagram ? `<figure class="k-diagram" title="點圖放大／再點一下縮回"><img src="${esc(it.diagram)}" alt="${esc(it.title || "示意圖")}" loading="lazy"></figure>
-          ${PI.GLOSSARY && !isEd ? `<p class="k-gl-row"><span class="muted">點名詞看小框框：</span>${Object.keys(PI.GLOSSARY).map(esc).join("・")}</p>` : ""}` : ""}
+          ${PI.GLOSSARY && Object.keys(PI.GLOSSARY).length && !isEd ? `<p class="k-gl-row"><span class="muted">點名詞看小框框：</span>${Object.keys(PI.GLOSSARY).map(esc).join("・")}</p>` : ""}` : ""}
         ${it.flow ? (it.diagram ? `<details class="k-flow-wrap"${isEd ? " open" : ""}><summary>看文字步驟</summary>${flowHtml(it)}</details>` : flowHtml(it)) : ""}
         ${it.original ? `<details class="k-orig"><summary>看原始講義圖</summary><img class="k-img" src="${esc(it.original)}" alt="原始講義圖" loading="lazy"></details>` : ""}
         ${it.source ? `<p class="k-src">出處：${esc(it.source)}</p>` : ""}</article>`;
@@ -230,11 +230,11 @@
       return html;
     };
     // 表格（item.table）：{ head: ["欄1", …], rows: [[格, …], …], note: "表格下方的小字" }
-    //   格可以是字串，或 { t: "內容", rs: 跨幾列, b: true 粗體 }；被上一列跨過去的格子寫 null。表格內容不出題。
+    //   格可以是字串，或 { t: "內容", rs: 跨幾列, cs: 跨幾欄, b: true 粗體 }；被上一列跨過去的格子寫 null。表格內容不出題。
     function tableHtml(T) {
       const cell = (c, tag) => { if (c === null) return ""; const o = typeof c === "object" ? c : { t: c };
-        return `<${tag}${o.rs ? ` rowspan="${o.rs}"` : ""}${o.b ? ' class="is-b"' : ""}>${esc(o.t).replace(/\n/g, "<br>")}</${tag}>`; };
-      return `<div class="k-table-wrap"><table class="k-table"><thead><tr>${T.head.map(h => cell(h, "th")).join("")}</tr></thead>
+        return `<${tag}${o.rs ? ` rowspan="${o.rs}"` : ""}${o.cs ? ` colspan="${o.cs}"` : ""}${o.b ? ' class="is-b"' : ""}>${esc(o.t).replace(/\n/g, "<br>")}</${tag}>`; };
+      return `<div class="k-table-wrap"><table class="k-table${T.lastRed ? " last-red" : ""}">${T.head ? `<thead><tr>${T.head.map(h => cell(h, "th")).join("")}</tr></thead>` : ""}
         <tbody>${T.rows.map(r => `<tr>${r.map(c => cell(c, "td")).join("")}</tr>`).join("")}</tbody></table></div>
         ${T.note ? `<p class="k-table-note">${esc(T.note)}</p>` : ""}`;
     }
@@ -259,7 +259,7 @@
       }).join("")}</ol>`;
     }
     // 這棵樹有幾題（一個挖空＝一題）；看單一結構分類時，只算這一類卡片的題目和這一類生藥的認藥題
-    const inGroup = (sec, si) => (sec.items || []).map((it, ii) => [it, ii]).filter(([it]) => !group || it.group === group);
+    const inGroup = (sec, si) => (sec.items || []).map((it, ii) => [it, ii]).filter(([it]) => !group || [].concat(it.group || []).includes(group));
     const prefixes = group ? (K.sections || []).flatMap((sec, si) => inGroup(sec, si).map(([, ii]) => `t:${key}:${si}:${ii}:`)) : null;
     const treeQs = PI.quiz.forTree(key).filter(q => !group || prefixes.some(p => q.qid.startsWith(p))
       || (q.qid.startsWith("w:") && (PI.UNITS.find(u => "w:" + u.id === q.qid) || {}).group === group)), nQ = treeQs.length;

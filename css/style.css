@@ -530,7 +530,7 @@ mark.cloze.is-hl.hl-mine { background: linear-gradient(transparent 35%, #BFE3A6 
 .k-table th { background: #EBE5CC; color: var(--deep); font-weight: 700; font-size: 12.5px; text-align: left; padding: 7px 10px; white-space: nowrap; }
 .k-table td { padding: 7px 10px; border-top: 1px solid #EEE9D8; vertical-align: middle; color: var(--ink); }
 .k-table td.is-b { font-weight: 700; color: var(--forest); background: #FAF8F0; border-right: 1px solid #EEE9D8; }
-.k-table td:last-child { color: #B4533F; font-weight: 700; }
+.k-table.last-red td:last-child { color: #B4533F; font-weight: 700; }   /* 表格設 lastRed：最後一欄（例如中間產物）用紅字 */
 .k-table-note { margin: 6px 0 0 !important; font-size: 12.5px !important; color: var(--muted) !important; }
 @media (max-width: 600px) {
   .k-table { font-size: 12px; min-width: 400px; }   /* 手機：表格不擠成一字一行，可以左右滑 */
