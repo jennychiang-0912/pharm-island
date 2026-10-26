@@ -425,7 +425,7 @@ PI.KNOWLEDGE = {
             { title: "去甲基 → Codeine（2 個甲基）", text: ["Codeine：{{止咳、輕微止痛|作用|無療效/止痛（具成癮性）/降血壓}}"] },
             { title: "去甲基 → Morphine（1 個甲基）", text: ["Morphine：{{止痛（具成癮性）|作用|無療效/止咳、輕微止痛/降血壓}}"] }
           ],
-          image: "assets/knowledge/morphine-biosynthesis.jpg" }
+          diagram: "assets/knowledge/morphine-biosynthesis.svg", original: "assets/knowledge/morphine-biosynthesis.jpg" }
       ] },
       { id: "caffeine", title: "Caffeine", items: [
         { title: "Caffeine：[★國考]2,6-Dioxypurine 衍生物", group: "Purine", source: "生物鹼講義（續）",
@@ -436,7 +436,7 @@ PI.KNOWLEDGE = {
             "Theophylline 茶鹼：1,3-dimethylxanthine（2 個甲基）[★國考]4 個 N",
             "[★國考]{{Murexide test|試驗|Dragendorff's/Mayer's/Wagner's}}（紫脲酸銨試驗）：取少量 Caffeine 結晶蒸發至乾，再加入兩滴 Ammonium hydroxide，可得{{紫色|顏色|紅棕色/淡黃色/棕褐色}}殘餘物"
           ],
-          image: "assets/knowledge/caffeine-structure.jpg" }
+          diagram: "assets/knowledge/caffeine-structure.svg", original: "assets/knowledge/caffeine-structure.jpg" }
       ] },
       { id: "coumarin", title: "Coumarin", items: [
         { title: "Coumarin 與其衍生物", group: "Rodenticide", source: "生物鹼講義（續）p.13",
@@ -446,7 +446,7 @@ PI.KNOWLEDGE = {
             "Dicumarol：{{Bishydroxycoumarin|結構|6-Methoxy-7-hydroxycoumarin/4-Hydroxycoumarin/o-coumaric acid}}",
             "Scopoletin：{{6-Methoxy-7-hydroxycoumarin|結構|Bishydroxycoumarin/4-Hydroxycoumarin/o-coumaric acid}}"
           ],
-          image: "assets/knowledge/coumarin-derivatives.jpg" }
+          diagram: "assets/knowledge/coumarin-derivatives.svg", original: "assets/knowledge/coumarin-derivatives.jpg" }
       ] },
       { id: "amine", title: "Alkaloidal Amine", items: [
         { title: "Alkaloidal Amine（AA）", group: "Alkaloidal Amine", source: "生物鹼講義（續）",
