@@ -178,7 +178,7 @@ PI.KNOWLEDGE = {
     sections: [
       { id: "general", title: "通則：生物鹼合成與代謝", items: [
         { title: "生物鹼合成與代謝【通則】", source: "生物鹼講義 p.1",
-          diagram: "assets/knowledge/alkaloid-general.svg",
+          diagram: "assets/knowledge/alkaloid-general.svg?v=2",
           text: "需謹記的是不同的生物鹼其胺基酸和中間產物為何",
           points: [
             "★前驅物：{{2 個胺基酸|前驅物|Schiff base/Carbanion/Aldehyde}}",
@@ -194,7 +194,7 @@ PI.KNOWLEDGE = {
           ] }
       ] },
       { id: "biosynthesis", title: "各類生物鹼的生合成", items: [
-        { title: "前驅物 → 中間產物一覽", source: "生物鹼講義 p.2–4", diagram: "assets/knowledge/alkaloid-precursors.svg" },
+        { title: "前驅物 → 中間產物一覽", source: "生物鹼講義 p.2–4", diagram: "assets/knowledge/alkaloid-precursors.svg?v=2" },
         { title: "Pyridine-Piperidine：Nicotine 生合成", group: "Pyridine-Piperidine", source: "生物鹼講義 p.2",
           points: [
             "Pyrrolidine：由★{{Ornithine|前驅物|Aspartic acid/Phenylalanine/Tryptophan}} 生合成，再形成★中間產物 {{N-Methylpyrrolinium ion|中間產物|Nicotinic acid/Tropine/(-)-Tropic acid}}",
@@ -212,7 +212,7 @@ PI.KNOWLEDGE = {
           points: ["Isoquinoline 的合成前驅物為★{{phenylalanine|前驅物|Ornithine/Tryptophan/Aspartic acid}} 與 {{tyrosine|前驅物|Secologanin/Acetate/Methionine}}"] }
       ] },
       { id: "tests", title: "生物鹼的檢定方式", items: [
-        { title: "生物鹼試劑", source: "生物鹼講義 p.5", diagram: "assets/knowledge/alkaloid-tests.svg",
+        { title: "生物鹼試劑", source: "生物鹼講義 p.5", diagram: "assets/knowledge/alkaloid-tests.svg?v=2",
           points: [
             "Wagner's：{{碘溶於碘化鉀溶液|組成|碘化汞鉀溶液/碘化鉍鉀溶液/氯化鐵溶液}} → {{棕褐色沉澱|反應結果|淡黃色/紅棕色沉澱/淡紅色鹽類}}",
             "Mayer's：{{碘化汞鉀溶液|組成|碘溶於碘化鉀溶液/碘化鉍鉀溶液/氯化鐵溶液}} → {{淡黃色|反應結果|棕褐色沉澱/紅棕色沉澱/淡紅色鹽類}}",

@@ -1,55 +1,70 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 560" font-family="Chiron GoRound TC, PingFang TC, Microsoft JhengHei, sans-serif">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 620" font-family="PingFang TC, Microsoft JhengHei, Noto Sans TC, Heiti TC, sans-serif">
   <!-- 各類生物鹼：前驅物 → 中間產物（依生物鹼講義 p.2–4 印刷內容；拼字錯誤已訂正）
-       欄：類別 x=16–136、前驅物 x=150–352、中間產物 x=376–504 -->
+       對齊基準：小標欄 x=24（左對齊）；前驅物欄 x=150–374（置中 262）；箭頭 380–404；中間產物欄 x=410–546（置中 478）。
+       每一列的文字都用 dominant-baseline="central" 對齊到同一條中線。 -->
   <defs>
     <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto">
       <path d="M0 0L10 5L0 10z" fill="#315B43"/>
     </marker>
+    <style>
+      text { dominant-baseline: central; }
+      .h { font-size: 13px; font-weight: 700; fill: #6E7F72; }
+      .t { font-size: 17px; font-weight: 800; fill: #315B43; }
+      .s { font-size: 12.5px; font-weight: 600; fill: #6E7F72; }
+      .k { font-size: 13px; font-weight: 700; fill: #8A7550; }
+      .p { font-size: 14px; font-weight: 700; fill: #24372C; text-anchor: middle; }
+      .m { font-size: 14px; font-weight: 800; fill: #B4533F; text-anchor: middle; }
+      .n { font-size: 12px; font-weight: 600; fill: #6E7F72; }
+      .pill { fill: #EBE5CC; }
+      .mid { fill: #FBE6E0; }
+      .card { fill: #fff; stroke: #E3DDC2; stroke-width: 1.5; }
+      .arw { stroke: #315B43; stroke-width: 2.5; }
+    </style>
   </defs>
-  <rect width="520" height="560" fill="#F7F5EC"/>
-  <text x="76" y="28" font-size="12" fill="#6E7F72" text-anchor="middle">類別</text>
-  <text x="251" y="28" font-size="12" fill="#6E7F72" text-anchor="middle">★前驅物</text>
-  <text x="440" y="28" font-size="12" fill="#6E7F72" text-anchor="middle">★中間產物</text>
+  <rect width="560" height="620" fill="#F7F5EC"/>
+  <text class="h" x="24" y="24">類別</text>
+  <text class="h" x="262" y="24" text-anchor="middle">★前驅物</text>
+  <text class="h" x="478" y="24" text-anchor="middle">★中間產物</text>
 
   <!-- Pyridine-Piperidine -->
-  <rect x="10" y="40" width="500" height="150" rx="14" fill="#fff" stroke="#E3DDC2"/>
-  <text x="20" y="66" font-size="14" fill="#315B43" font-weight="700">Pyridine-Piperidine</text>
-  <text x="20" y="84" font-size="11" fill="#6E7F72">Nicotine 生合成</text>
-  <text x="20" y="116" font-size="11" fill="#9C8762">Pyrrolidine</text>
-  <rect x="150" y="100" width="202" height="26" rx="13" fill="#EFEBD6"/><text x="251" y="118" font-size="12" fill="#24372C" text-anchor="middle" font-weight="700">Ornithine</text>
-  <path d="M352 113H372" stroke="#315B43" stroke-width="2" marker-end="url(#ar)"/>
-  <rect x="376" y="100" width="128" height="26" rx="13" fill="#FDF1EE"/><text x="440" y="111" font-size="9.5" fill="#C0624F" text-anchor="middle" font-weight="700">N-Methylpyrrolinium</text><text x="440" y="122" font-size="9.5" fill="#C0624F" text-anchor="middle" font-weight="700">ion</text>
-  <text x="20" y="152" font-size="11" fill="#9C8762">Pyridine</text>
-  <rect x="150" y="136" width="202" height="44" rx="13" fill="#EFEBD6"/>
-  <text x="251" y="153" font-size="12" fill="#24372C" text-anchor="middle" font-weight="700">Aspartic acid ＋</text>
-  <text x="251" y="170" font-size="11" fill="#24372C" text-anchor="middle" font-weight="700">Glyceraldehyde-3-phosphate</text>
-  <path d="M352 158H372" stroke="#315B43" stroke-width="2" marker-end="url(#ar)"/>
-  <rect x="376" y="145" width="128" height="26" rx="13" fill="#FDF1EE"/><text x="440" y="163" font-size="12" fill="#C0624F" text-anchor="middle" font-weight="700">Nicotinic acid</text>
-  <text x="440" y="185" font-size="9.5" fill="#6E7F72" text-anchor="middle">（中間經 Quinolinic acid）</text>
+  <rect class="card" x="10" y="42" width="540" height="184" rx="14"/>
+  <text class="t" x="24" y="68">Pyridine-Piperidine</text>
+  <text class="s" x="24" y="92">Nicotine 生合成</text>
+  <text class="k" x="24" y="128">Pyrrolidine</text>
+  <rect class="pill" x="150" y="112" width="224" height="32" rx="16"/><text class="p" x="262" y="128">Ornithine</text>
+  <path class="arw" d="M378 128H404" marker-end="url(#ar)"/>
+  <rect class="mid" x="410" y="108" width="136" height="40" rx="14"/>
+  <text class="m" x="478" y="120" font-size="12.5">N-Methyl-</text><text class="m" x="478" y="137" font-size="12.5">pyrrolinium ion</text>
+  <text class="k" x="24" y="176">Pyridine</text>
+  <rect class="pill" x="150" y="156" width="224" height="40" rx="16"/>
+  <text class="p" x="262" y="168">Aspartic acid ＋</text><text class="p" x="262" y="185" font-size="12.5">Glyceraldehyde-3-phosphate</text>
+  <path class="arw" d="M378 176H404" marker-end="url(#ar)"/>
+  <rect class="mid" x="410" y="160" width="136" height="32" rx="16"/><text class="m" x="478" y="176">Nicotinic acid</text>
+  <text class="n" x="478" y="208" text-anchor="middle">（中間經 Quinolinic acid）</text>
 
   <!-- Tropane -->
-  <rect x="10" y="202" width="500" height="150" rx="14" fill="#fff" stroke="#E3DDC2"/>
-  <text x="20" y="228" font-size="14" fill="#315B43" font-weight="700">★Tropane</text>
-  <text x="20" y="246" font-size="11" fill="#6E7F72">Hyoscyamine 生合成</text>
-  <text x="20" y="278" font-size="11" fill="#9C8762">Pyrrolidine</text>
-  <rect x="150" y="262" width="202" height="26" rx="13" fill="#EFEBD6"/><text x="251" y="280" font-size="11" fill="#24372C" text-anchor="middle" font-weight="700">Ornithine、Acetate、Methionine</text>
-  <path d="M352 275H372" stroke="#315B43" stroke-width="2" marker-end="url(#ar)"/>
-  <rect x="376" y="262" width="128" height="26" rx="13" fill="#FDF1EE"/><text x="440" y="280" font-size="12" fill="#C0624F" text-anchor="middle" font-weight="700">Tropine</text>
-  <text x="20" y="314" font-size="11" fill="#9C8762">Pyridine</text>
-  <rect x="150" y="298" width="202" height="26" rx="13" fill="#EFEBD6"/><text x="251" y="316" font-size="12" fill="#24372C" text-anchor="middle" font-weight="700">Phenylalanine</text>
-  <path d="M352 311H372" stroke="#315B43" stroke-width="2" marker-end="url(#ar)"/>
-  <rect x="376" y="298" width="128" height="26" rx="13" fill="#FDF1EE"/><text x="440" y="316" font-size="12" fill="#C0624F" text-anchor="middle" font-weight="700">(-)-Tropic acid</text>
-  <text x="20" y="342" font-size="10.5" fill="#6E7F72">[★國考] 生成物不具光學活性，互為 enantiomer</text>
+  <rect class="card" x="10" y="238" width="540" height="174" rx="14"/>
+  <text class="t" x="24" y="264">★Tropane</text>
+  <text class="s" x="24" y="288">Hyoscyamine 生合成</text>
+  <text class="k" x="24" y="324">Pyrrolidine</text>
+  <rect class="pill" x="150" y="308" width="224" height="32" rx="16"/><text class="p" x="262" y="324" font-size="12">Ornithine、Acetate、Methionine</text>
+  <path class="arw" d="M378 324H404" marker-end="url(#ar)"/>
+  <rect class="mid" x="410" y="308" width="136" height="32" rx="16"/><text class="m" x="478" y="324">Tropine</text>
+  <text class="k" x="24" y="364">Pyridine</text>
+  <rect class="pill" x="150" y="348" width="224" height="32" rx="16"/><text class="p" x="262" y="364">Phenylalanine</text>
+  <path class="arw" d="M378 364H404" marker-end="url(#ar)"/>
+  <rect class="mid" x="410" y="348" width="136" height="32" rx="16"/><text class="m" x="478" y="364">(-)-Tropic acid</text>
+  <text class="n" x="24" y="400">[★國考] 生成物不具光學活性，互為 enantiomer</text>
 
   <!-- Quinoline -->
-  <rect x="10" y="364" width="500" height="80" rx="14" fill="#fff" stroke="#E3DDC2"/>
-  <text x="20" y="390" font-size="14" fill="#315B43" font-weight="700">Quinoline</text>
-  <text x="20" y="408" font-size="11" fill="#6E7F72">Quinine 前驅物</text>
-  <rect x="150" y="390" width="202" height="26" rx="13" fill="#EFEBD6"/><text x="251" y="408" font-size="12" fill="#24372C" text-anchor="middle" font-weight="700">Tryptophan ＋ Secologanin</text>
+  <rect class="card" x="10" y="424" width="540" height="84" rx="14"/>
+  <text class="t" x="24" y="454">Quinoline</text>
+  <text class="s" x="24" y="478">Quinine 前驅物</text>
+  <rect class="pill" x="150" y="450" width="224" height="32" rx="16"/><text class="p" x="262" y="466">Tryptophan ＋ Secologanin</text>
 
   <!-- Isoquinoline -->
-  <rect x="10" y="456" width="500" height="80" rx="14" fill="#fff" stroke="#E3DDC2"/>
-  <text x="20" y="482" font-size="14" fill="#315B43" font-weight="700">Isoquinoline</text>
-  <text x="20" y="500" font-size="11" fill="#6E7F72">合成前驅物</text>
-  <rect x="150" y="482" width="202" height="26" rx="13" fill="#EFEBD6"/><text x="251" y="500" font-size="12" fill="#24372C" text-anchor="middle" font-weight="700">phenylalanine ＋ tyrosine</text>
+  <rect class="card" x="10" y="520" width="540" height="84" rx="14"/>
+  <text class="t" x="24" y="550">Isoquinoline</text>
+  <text class="s" x="24" y="574">合成前驅物</text>
+  <rect class="pill" x="150" y="546" width="224" height="32" rx="16"/><text class="p" x="262" y="562">Phenylalanine ＋ Tyrosine</text>
 </svg>

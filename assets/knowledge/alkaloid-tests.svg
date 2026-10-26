@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 262" font-family="Chiron GoRound TC, PingFang TC, Microsoft JhengHei, sans-serif">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 262" font-family="PingFang TC, Microsoft JhengHei, Noto Sans TC, Heiti TC, sans-serif">
   <!-- 生物鹼的檢定方式（依生物鹼講義 p.5 印刷內容）：試劑 → 組成 → 反應結果（色塊是示意的顏色） -->
   <rect width="520" height="262" fill="#F7F5EC"/>
   <text x="20" y="30" font-size="12" fill="#6E7F72">生物鹼試劑</text>
