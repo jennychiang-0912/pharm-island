@@ -487,6 +487,6 @@ mark.cloze.is-hl.hl-mine { background: linear-gradient(transparent 35%, #BFE3A6 
 /* 小分類交界線與好萊塢式名牌（PI.GROUP_REGIONS，目前生藥頁） */
 .grp-border { fill: none; stroke: #6E6538; stroke-width: 3.5; stroke-linecap: round; stroke-opacity: .75; }
 .grp-border-shadow { fill: none; stroke: #FFFDF2; stroke-width: 7; stroke-linecap: round; stroke-opacity: .55; }
-.grp-letter { font-family: var(--font); font-size: 13px; font-weight: 800; fill: #FFFDF5; text-anchor: middle; dominant-baseline: alphabetic;
-  stroke: #4A4527; stroke-width: 3; stroke-linejoin: round; paint-order: stroke; }
-.grp-leg { stroke: #6E6538; stroke-width: 1.2; stroke-linecap: round; stroke-opacity: .55; }
+.grp-letter, .grp-letter-shadow { font-family: "Bebas Neue", "Oswald", "Arial Narrow", "Roboto Condensed", sans-serif; font-stretch: condensed; font-size: 20px; font-weight: 400; text-anchor: middle; letter-spacing: 0; }
+.grp-letter { fill: #FFFFFF; }
+.grp-letter-shadow { fill: #2F2C18; fill-opacity: .6; }
