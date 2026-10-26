@@ -533,7 +533,7 @@ mark.cloze.is-hl.hl-mine { background: linear-gradient(transparent 35%, #BFE3A6 
 .k-table td:last-child { color: #B4533F; font-weight: 700; }
 .k-table-note { margin: 6px 0 0 !important; font-size: 12.5px !important; color: var(--muted) !important; }
 @media (max-width: 600px) {
-  .k-table { font-size: 12px; min-width: 460px; }   /* 手機：表格不擠成一字一行，可以左右滑 */
+  .k-table { font-size: 12px; min-width: 400px; }   /* 手機：表格不擠成一字一行，可以左右滑 */
   .k-table th, .k-table td { padding: 6px 6px; }
   .k-table th { font-size: 11.5px; }
 }

@@ -196,14 +196,14 @@ PI.KNOWLEDGE = {
       { id: "biosynthesis", title: "各類生物鹼的生合成", items: [
         { title: "前驅物 → 中間產物一覽", source: "生物鹼講義 p.2–4",
           table: {
-            head: ["類別", "環", "★前驅物", "★中間產物"],
+            head: ["類別", "★前驅物", "★中間產物"],
             rows: [
-              [{ t: "Pyridine-Piperidine\n（Nicotine）", rs: 2, b: true }, "Pyrrolidine", "Ornithine", "N-Methyl-\npyrrolinium ion"],
-              [null, "Pyridine", "Aspartic acid +\nGlyceraldehyde-3-phosphate\n（經 Quinolinic acid）", "Nicotinic acid"],
-              [{ t: "★Tropane\n（Hyoscyamine）", rs: 2, b: true }, "Pyrrolidine", "Ornithine、Acetate、Methionine", "Tropine"],
-              [null, "Pyridine", "Phenylalanine", "(-)-Tropic acid"],
-              [{ t: "Quinoline\n（Quinine）", b: true }, "—", "Tryptophan + Secologanin", "—"],
-              [{ t: "Isoquinoline", b: true }, "—", "Phenylalanine + Tyrosine", "—"]
+              [{ t: "Pyridine-Piperidine", rs: 2, b: true }, "Pyrrolidine：Ornithine", "N-Methylpyrrolinium ion"],
+              [null, "Pyridine：Aspartic acid + Glyceraldehyde-3-phosphate", "Nicotinic acid"],
+              [{ t: "★Tropane", rs: 2, b: true }, "Pyrrolidine：Ornithine、Acetate、Methionine", "Tropine"],
+              [null, "Pyridine：Phenylalanine", "(-)-Tropic acid"],
+              [{ t: "Quinoline", b: true }, "Tryptophan + Secologanin", ""],
+              [{ t: "Isoquinoline", b: true }, "Phenylalanine + Tyrosine", ""]
             ],
             note: "[★國考] Tropane 生成物不具光學活性，互為 enantiomer"
           } },
