@@ -31,7 +31,7 @@ PI.UNIT_TYPES = { drug: "生藥", preparation: "製劑", category: "分類", top
 
 /* 章節：之後拿到課程章節再改名、往後加（加章節時記得在下面的 PI.LANDMASSES 把章節編號放進同一座島） */
 PI.CHAPTERS = [
-  { id: 1, name: "生物鹼", cat: "pharmacognosy", estimate: 24, unitType: "drug", note: "講義：生物鹼（p.1–4）。依講義的印刷字，手寫和螢光筆沒有放進來。" }
+  { id: 1, name: "生物鹼", cat: "pharmacognosy", estimate: 24, unitType: "drug", note: "講義：生物鹼（p.1–5）。依講義的印刷字，手寫和螢光筆沒有放進來。" }
 ];
 
 /* 一座島 */
@@ -144,7 +144,29 @@ PI.UNITS = [
     constituents: ["{{Hydrastine|成分}}（最主要）、Berberine、Canadine"],
     uses: ["作為黏膜發炎的{{收斂劑|用途}}"],
     notes: ["Hydrastine 含有 {{Phthalideisoquinoline|結構}}（γ-lactone ring）結構", "Berberine 含有{{四級胺|結構}}的結構，易溶於水",
-      "★三種含有四級胺的生物鹼：{{Berberine|成分}}、Sanguinarine、Tubocurarine"] }
+      "★三種含有四級胺的生物鹼：{{Berberine|成分}}、Sanguinarine、Tubocurarine"] },
+  /* ===== Isoquinoline Alkaloid（講義 p.5）===== */
+  { id: "sanguinaria", chapter: 1, name: "Sanguinaria", type: "drug", group: "Isoquinoline", source: SRC + " p.5",
+    names: ["中文：{{血根|生藥中文名}}", "別名：bloodroot"],
+    origin: ["{{Sanguinaria canadensis|學名}}"], family: ["{{罌粟科|科別}}（Papaveraceae）"], part: ["{{乾燥根莖|部位}}"],
+    constituents: ["{{Sanguinarine|成分}}（{{四級胺|結構}}，含有★{{Benzophenanthridine|結構}} 結構）、Chelerythrine、Protopine、Allocryptopine"],
+    uses: ["{{祛痰|用途}}、催吐", "作為{{牙膏及漱口水|用途}}，可預防牙菌斑及牙周病"],
+    notes: ["Sanguinarine + 硝酸或硫酸 → {{淡紅色鹽類|顏色}}", "Sanguinarine + Chelerythrine → {{淡黃色鹽類|顏色}}"] },
+  { id: "tubocurarine", chapter: 1, name: "Tubocurarine chloride", short: "Tubocurarine", type: "drug", group: "Isoquinoline", source: SRC + " p.5",
+    names: ["中文：{{箭毒|生藥中文名}}", "別名：Curare、South American arrow poison"],
+    origin: ["馬錢子科（Loganiaceae）：{{Strychnos castelnaei|學名}}、S. toxifera、S. crevauxii", "防己科（Menispermaceae）：{{Chondodendron tomentosum|學名}}"],
+    family: ["{{馬錢子科|科別}}（Loganiaceae）", "{{防己科|科別}}（Menispermaceae）"], part: ["{{樹皮根莖的乾燥萃取物|部位}}"],
+    constituents: ["{{(+)-Tubocurarine|成分}}（四級胺化合物，含★{{bis-benzylisoquinoline|結構}}）", "{{兔子垂頭試驗|名詞}}：分析 Tubocurarine 的效價"],
+    uses: ["{{骨骼肌鬆弛劑|用途}}", "診斷{{重症肌無力|疾病}}"] },
+  { id: "opium", chapter: 1, name: "Opium", type: "drug", group: "Isoquinoline", generation: "講義標示 ★★★", source: SRC + " p.5",
+    names: ["中文：{{鴉片|生藥中文名}}", "別名：Gum opium"],
+    origin: ["{{Papaver somniferum|學名}} Linne", "睡夢之神之稱的藥用植物"], family: ["{{罌粟科|科別}}（Papaveraceae）"],
+    part: ["★★{{未成熟|性質}}的罌粟蒴果割開後滲出的{{白色乳汁|部位}}"],
+    constituents: ["★{{Morphine|成分}}（止痛以 {{C-13|結構}} 為中心）", "★{{Codeine|成分}}（{{止咳|用途}}、麻醉、止痛）", "★{{Meconic acid|成分}}",
+      "Noscapine、{{Papaverine|成分}}（{{平滑肌放鬆|作用}}）、Thebaine"],
+    uses: ["先興奮後抑制中樞神經", "★止痛、安眠、麻醉", "★{{止瀉劑|用途}}", "★{{縮瞳劑|用途}}", "{{Dover's powder|製劑}}"],
+    notes: ["Meconic acid 僅存於天然的鴉片中，加入{{氯化鐵|物質}}（FeCl₃）後溶液成{{紅色|顏色}}，可用來鑑定鴉片的真偽",
+      "{{Paregoric|製劑}}（Camphorated opium tincture 複方鴉片樟腦酊）、{{Laudanum|製劑}}（Opium tincture 鴉片酊）可作為{{止瀉劑|用途}}"] }
 ];
 
 /* 知識樹：通則（合成與代謝）＋各類生物鹼的生合成。
@@ -187,6 +209,24 @@ PI.KNOWLEDGE = {
           points: ["Quinine 前驅物為★{{Tryptophan|前驅物|Ornithine/Phenylalanine/Aspartic acid}} 與 {{Secologanin|前驅物|Acetate/Methionine/Glyceraldehyde-3-phosphate}}"] },
         { title: "Isoquinoline：合成前驅物", source: "生物鹼講義 p.4",
           points: ["Isoquinoline 的合成前驅物為★{{phenylalanine|前驅物|Ornithine/Tryptophan/Aspartic acid}} 與 {{tyrosine|前驅物|Secologanin/Acetate/Methionine}}"] }
+      ] },
+      { id: "tests", title: "生物鹼的檢定方式", items: [
+        { title: "生物鹼試劑", source: "生物鹼講義 p.5", diagram: "assets/knowledge/alkaloid-tests.svg",
+          points: [
+            "Wagner's：{{碘溶於碘化鉀溶液|組成|碘化汞鉀溶液/碘化鉍鉀溶液/氯化鐵溶液}} → {{棕褐色沉澱|反應結果|淡黃色/紅棕色沉澱/淡紅色鹽類}}",
+            "Mayer's：{{碘化汞鉀溶液|組成|碘溶於碘化鉀溶液/碘化鉍鉀溶液/氯化鐵溶液}} → {{淡黃色|反應結果|棕褐色沉澱/紅棕色沉澱/淡紅色鹽類}}",
+            "Dragendorff's：{{碘化鉍鉀溶液|組成|碘溶於碘化鉀溶液/碘化汞鉀溶液/氯化鐵溶液}} → {{紅棕色沉澱|反應結果|棕褐色沉澱/淡黃色/淡紅色鹽類}}"
+          ] }
+      ] },
+      { id: "isoquinoline-classes", title: "Isoquinoline 分類", items: [
+        { title: "Isoquinoline 分類", source: "生物鹼講義 p.5",
+          points: [
+            "{{Benzylisoquinolines|分類|Benzophenanthridines/Morphinans/Protoberberines}}：Papaverine 罌粟鹼、Tubocurarine 箭毒鹼",
+            "{{Benzophenanthridines|分類|Benzylisoquinolines/Phthalideisoquinolines/Morphinans}}：Sanguinarine 血根樹鹼",
+            "{{Phthalideisoquinolines|分類|Benzylisoquinolines/Benzophenanthridines/Protoberberines}}：Hydrastine 白毛茛鹼",
+            "{{Morphinans|分類|Protoberberines/Benzylisoquinolines/Phthalideisoquinolines}}：Opium Alkaloid 鴉片生物鹼",
+            "{{Protoberberines|分類|Morphinans/Benzophenanthridines/Benzylisoquinolines}}：Berberine 小蘗鹼"
+          ] }
       ] },
       { id: "summary", title: "重點整理", items: [
         { title: "含四級胺的生物鹼", source: "生物鹼講義 p.4",

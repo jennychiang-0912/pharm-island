@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 262" font-family="Chiron GoRound TC, PingFang TC, Microsoft JhengHei, sans-serif">
+  <!-- 生物鹼的檢定方式（依生物鹼講義 p.5 印刷內容）：試劑 → 組成 → 反應結果（色塊是示意的顏色） -->
+  <rect width="520" height="262" fill="#F7F5EC"/>
+  <text x="20" y="30" font-size="12" fill="#6E7F72">生物鹼試劑</text>
+  <text x="196" y="30" font-size="12" fill="#6E7F72">組成</text>
+  <text x="380" y="30" font-size="12" fill="#6E7F72">反應結果</text>
+  <g font-weight="700">
+    <!-- Wagner's -->
+    <rect x="10" y="44" width="500" height="62" rx="14" fill="#fff" stroke="#E3DDC2"/>
+    <text x="24" y="81" font-size="15" fill="#315B43">Wagner's</text>
+    <rect x="148" y="60" width="200" height="30" rx="15" fill="#EFEBD6"/><text x="248" y="80" font-size="12" fill="#24372C" text-anchor="middle">碘溶於碘化鉀溶液</text>
+    <path d="M352 75H368" stroke="#315B43" stroke-width="2"/><path d="M366 70L374 75L366 80Z" fill="#315B43"/>
+    <circle cx="396" cy="75" r="15" fill="#7B4A26" stroke="#5A3418" stroke-width="1.5"/>
+    <text x="420" y="80" font-size="13" fill="#24372C">棕褐色沉澱</text>
+    <!-- Mayer's -->
+    <rect x="10" y="116" width="500" height="62" rx="14" fill="#fff" stroke="#E3DDC2"/>
+    <text x="24" y="153" font-size="15" fill="#315B43">Mayer's</text>
+    <rect x="148" y="132" width="200" height="30" rx="15" fill="#EFEBD6"/><text x="248" y="152" font-size="12" fill="#24372C" text-anchor="middle">碘化汞鉀溶液</text>
+    <path d="M352 147H368" stroke="#315B43" stroke-width="2"/><path d="M366 142L374 147L366 152Z" fill="#315B43"/>
+    <circle cx="396" cy="147" r="15" fill="#F3E2A0" stroke="#C9B060" stroke-width="1.5"/>
+    <text x="420" y="152" font-size="13" fill="#24372C">淡黃色</text>
+    <!-- Dragendorff's -->
+    <rect x="10" y="188" width="500" height="62" rx="14" fill="#fff" stroke="#E3DDC2"/>
+    <text x="24" y="225" font-size="15" fill="#315B43">Dragendorff's</text>
+    <rect x="148" y="204" width="200" height="30" rx="15" fill="#EFEBD6"/><text x="248" y="224" font-size="12" fill="#24372C" text-anchor="middle">碘化鉍鉀溶液</text>
+    <path d="M352 219H368" stroke="#315B43" stroke-width="2"/><path d="M366 214L374 219L366 224Z" fill="#315B43"/>
+    <circle cx="396" cy="219" r="15" fill="#A1442A" stroke="#76301C" stroke-width="1.5"/>
+    <text x="420" y="224" font-size="13" fill="#24372C">紅棕色沉澱</text>
+  </g>
+</svg>
