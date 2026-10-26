@@ -492,3 +492,13 @@ mark.cloze.is-hl.hl-mine { background: linear-gradient(transparent 35%, #BFE3A6 
 .grp-letter-shadow { fill: #2F2C18; fill-opacity: .6; }
 .grp-hit { fill: #FFFFFF; fill-opacity: 0; stroke: #FFFFFF; stroke-width: 2; stroke-opacity: 0; transition: stroke-opacity .15s, fill-opacity .15s; }
 .grp-sign.k-tree:hover .grp-hit, .grp-sign.k-tree:focus-visible .grp-hit { stroke-opacity: .9; fill-opacity: .12; }
+/* 手機：知識面板標題列不要擠——標題和 × 同一行，「看整棵知識樹／全螢幕」換到下一行 */
+@media (max-width: 600px) {
+  .k-head { flex-wrap: wrap; row-gap: 8px; }
+  .k-head .info-title { order: 1; flex: 1 1 calc(100% - 52px); min-width: 0; }
+  .k-head .close { order: 2; }
+  .k-head .k-full-btn { order: 3; font-size: 12px; padding: 4px 10px; }
+  .k-head .k-full-btn:first-of-type { margin-left: 0; }
+  .k-head h3 { font-size: 18px; word-break: break-word; }
+  .kpanel .k-chips { display: none; }   /* 「第 1 章」標籤在手機上省略，上面標題已經有島名 */
+}
