@@ -511,3 +511,4 @@ mark.cloze.is-hl.hl-mine { background: linear-gradient(transparent 35%, #BFE3A6 
   .kpanel .k-chips { display: none; }   /* 「第 1 章」標籤在手機上省略，上面標題已經有島名 */
 }
 .info-title h3 .tag-inline { font-size: 12px; font-weight: 600; vertical-align: 3px; margin-left: 4px; white-space: nowrap; }
+.k-exp.is-btn { background: none; padding: 0; }

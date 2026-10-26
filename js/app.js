@@ -261,9 +261,7 @@
         <button type="button" class="close" id="kClose" aria-label="關閉知識面板">×</button></div>
       ${chips ? `<div class="k-chips">${chips}</div>` : ""}
 
-      <div class="k-exp">${nQ ? `<p>★ ${group ? "這一類有" : "這棵樹有"} <b>${nQ}</b> 題，第一次答對每題 <b>+${expQ} EXP</b>
-            <span class="muted">已答對 ${nDone} / ${nQ}（${nDone * expQ} / ${nQ * expQ} EXP）</span></p>
-          <button type="button" class="btn btn-primary" id="kQuiz">開始答題（${Math.min(5, nQ)} 題）</button>`
+      <div class="k-exp${nQ ? " is-btn" : ""}">${nQ ? `<button type="button" class="btn btn-primary" id="kQuiz">開始答題（${Math.min(5, nQ)} 題）</button>`
         : nRef ? `<p>★ 這裡的挖空題在本章的格子上作答，佔領一格 <b>+${PI.LEVEL.expPerCell} EXP</b></p>`
         : `<p>★ 加入內容後，挖空題答對每題 <b>+${expQ} EXP</b></p>`}</div>
       <div class="k-body">${(K.sections || []).map((sec, si) => [sec, si, inGroup(sec, si)]).filter(([, , its]) => !group || its.length).map(([sec, si, its]) => `<section class="k-sec">
