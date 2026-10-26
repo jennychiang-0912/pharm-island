@@ -512,3 +512,15 @@ mark.cloze.is-hl.hl-mine { background: linear-gradient(transparent 35%, #BFE3A6 
 }
 .info-title h3 .tag-inline { font-size: 12px; font-weight: 600; vertical-align: 3px; margin-left: 4px; white-space: nowrap; }
 .k-exp.is-btn { background: none; padding: 0; }
+/* 島嶼資訊卡：佔領進度＋數量 */
+.isl-stats { display: flex; gap: 8px; margin: 8px 0 4px; }
+.isl-prog, .isl-num { background: #F3EFE2; border-radius: 10px; padding: 8px 12px; }
+.isl-prog { flex: 1; display: flex; flex-direction: column; justify-content: center; gap: 6px; min-width: 0; }
+.isl-prog-top { display: flex; justify-content: space-between; align-items: baseline; font-size: 12px; color: var(--muted); }
+.isl-prog-top b { font-size: 18px; color: var(--forest); }
+.isl-prog-top small { font-size: 12px; font-weight: 400; color: var(--muted); }
+.isl-bar { height: 6px; background: #E3DDC8; border-radius: 3px; overflow: hidden; }
+.isl-bar i { display: block; height: 100%; background: var(--forest); border-radius: 3px; }
+.isl-num { display: flex; flex-direction: column; align-items: center; justify-content: center; min-width: 64px; }
+.isl-num b { font-size: 18px; color: var(--forest); line-height: 1.2; }
+.isl-num span { font-size: 11px; color: var(--muted); }

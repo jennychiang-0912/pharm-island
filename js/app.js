@@ -155,9 +155,11 @@
     box.innerHTML = `<div class="info-top">${badge(ch, cat)}
         <div class="info-title"><h3>${esc(ch.name)}</h3><span class="muted">${esc(cat.name)}</span></div>
         <button type="button" class="close" id="infoClose" aria-label="關閉">×</button></div>
-      <div class="tags"><span class="tag">${isl.cells.length} 格</span><span class="tag">已加入 ${isl.unitCount} 個${esc(PI.UNIT_TYPES[ch.unitType] || "單元")}</span>
-        ${isl.slotCount ? `<span class="tag">預留 ${isl.slotCount} 格</span>` : ""}<span class="tag">已佔領 ${pr.done}/${pr.total}</span></div>
-      <p>${ch.note ? esc(ch.note) + " " : ""}島的大小先依預估約 ${ch.estimate} 個單元預留，加入正式資料後會自動調整。</p>`;
+      <div class="isl-stats">
+        <div class="isl-prog"><div class="isl-prog-top"><span>已佔領</span><b>${pr.done}<small> / ${pr.total} 格</small></b></div>
+          <div class="isl-bar"><i style="width:${pr.total ? Math.round(pr.done / pr.total * 100) : 0}%"></i></div></div>
+        <div class="isl-num"><b>${isl.unitCount}</b><span>${esc(PI.UNIT_TYPES[ch.unitType] || "單元")}</span></div>
+        ${isl.slotCount ? `<div class="isl-num"><b>${isl.slotCount}</b><span>預留格</span></div>` : ""}</div>`;
     box.hidden = false;
     $("infoClose").onclick = () => { box.hidden = true; };
   }
