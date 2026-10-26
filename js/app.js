@@ -82,10 +82,8 @@
       occupied: "這格已經是你的領土了。"
     }[st];
     box.innerHTML = `<div class="info-top">${badge(ch, cat)}
-        <div class="info-title"><h3>${u ? esc(u.name) : "預留格"}</h3><span class="muted">第 ${ch.id} 章・${esc(ch.name)}</span></div>
+        <div class="info-title"><h3>${u ? esc(u.name) : "預留格"}${u && u.group ? ` <span class="tag tag-inline">${esc(u.group)}</span>` : ""}</h3><span class="muted">第 ${ch.id} 章・${esc(ch.name)}</span></div>
         <button type="button" class="close" id="infoClose" aria-label="關閉">×</button></div>
-      <div class="tags"><span class="tag st-${st}">${STATUS[st]}</span>
-        ${u ? `<span class="tag">${esc(PI.UNIT_TYPES[u.type] || u.type)}</span>${u.group ? `<span class="tag">${esc(u.group)}</span>` : ""}` : `<span class="tag">尚未加入藥物資料</span>`}</div>
       ${u ? unitBody(u) : ""}
       ${u ? `<div class="u-note"><label for="uNote">我的筆記<span class="muted" id="uNoteSaved"></span></label>
         <textarea id="uNote" rows="${noteRows(u)}" placeholder="寫下自己的口訣或重點…">${esc(noteText(u))}</textarea></div>` : ""}
