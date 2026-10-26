@@ -468,7 +468,7 @@ PI.map = (function () {
 
   /* ---------- 知識告示牌：每一章一個，自己是一座一格大的小島（不放格子、不出格子的題） ----------
      哪些章節有告示牌、內容是什麼，都在 js/knowledge.js（或各科目的 js/subjects/*.js）。
-     位置：這一章的格子外面，離起點格最近、和所有格子與其他告示牌島都隔至少一格海的地方。
+     位置：緊靠在這一章的島邊（貼著最外圈的格子），離起點格越近越好；不壓到任何格子，和其他告示牌島至少隔一格海。
      點告示牌島打開知識面板。 */
   const trees = new Map();   // 知識樹 id → { chapter, x, y, g }
   const ringOffsets = k => { const out = []; for (let q = -k; q <= k; q++) for (let r = -k; r <= k; r++) if (hexDist(q, r) === k) out.push([q, r]); return out; };
@@ -480,11 +480,11 @@ PI.map = (function () {
       const start = isl.cells.find(c => c.isStart) || isl.cells[0];
       const others = cells.filter(c => Math.abs(c.x - start.x) < D * 14 && Math.abs(c.y - start.y) < D * 14);
       let pos = null;
-      for (let k = 2; k <= 6 && !pos; k++) {
+      for (let k = 1; k <= 6 && !pos; k++) {
         const offs = ringOffsets(k); let best = Infinity;
         isl.cells.forEach(c => offs.forEach(([dq, dr]) => {
           const [ox, oy] = toXY(dq, dr), x = c.x + ox, y = c.y + oy;
-          if (others.some(o => Math.hypot(o.x - x, o.y - y) < 2 * D - 1)) return;   // 和格子之間至少隔一格海
+          if (others.some(o => Math.hypot(o.x - x, o.y - y) < D - 1)) return;   // 不壓到格子（可以緊貼）
           if (used.some(u => Math.hypot(u.x - x, u.y - y) < 2 * D - 1)) return;
           // 越靠近起點格越好；獨立島的上方是章節牌子，避開
           const s = Math.hypot(x - start.x, y - start.y) + (!isl.shared && y < isl.bounds.minY + R * 2.2 ? 3 * D : 0) + noise(Math.round(x), Math.round(y), 7) * 0.2 * D;
@@ -494,7 +494,13 @@ PI.map = (function () {
       if (!pos) return;
       used.push(pos);
       let t = trees.get(key);
-      if (!t) { t = { g: drawTree(key, K) }; treeLayer.appendChild(t.g); trees.set(key, t); }
+      if (!t) {
+        // 小島的地畫在地形層（在格子底下，淺水和浪花不會蓋到旁邊的格子）；告示牌畫在格子上面
+        const P = (landOf.get(K.chapter) || { def: {} }).def.palette || { ground: "#B4D69A", light: "#C5E2AA", cliff: "#8CB57A" };
+        const land = el("g", { class: "k-tree k-islet", "data-tree": key }); land.append(...isletLand(P));
+        t = { g: drawTree(key, K), land }; terrainLayer.appendChild(land); treeLayer.appendChild(t.g); trees.set(key, t);
+      }
+      t.land.setAttribute("transform", `translate(${pos.x.toFixed(1)},${pos.y.toFixed(1)})`);
       Object.assign(t, { chapter: K.chapter, x: pos.x, y: pos.y });
       t.g.setAttribute("transform", `translate(${pos.x.toFixed(1)},${pos.y.toFixed(1)})`);
     });
@@ -519,8 +525,6 @@ PI.map = (function () {
     const title = K.title || chapterOf(K.chapter).name;
     const cat = catOf(chapterOf(K.chapter).cat) || {};
     const g = el("g", { class: "k-tree k-sign", "data-tree": key, tabindex: 0, role: "button", "aria-label": `${title}知識樹：打開背景知識` });
-    const P = (landOf.get(K.chapter) || { def: {} }).def.palette || { ground: "#B4D69A", light: "#C5E2AA", cliff: "#8CB57A" };
-    const land = el("g", { class: "k-islet" }); land.append(...isletLand(P));
     const sign = el("g", { class: "k-sign-art", transform: "translate(0,6) scale(1.3)" });   // 島上只有告示牌
     const tip = el("title"); tip.textContent = `${title}・知識樹（點一下看背景知識）`;
     const badge = el("g", { class: "k-badge", transform: "translate(0,-19)" });
@@ -528,7 +532,7 @@ PI.map = (function () {
       el("path", { d: hexPath(13, 3), fill: "#FFF9EE", stroke: cat.color || "#7FB069", "stroke-width": 2.6 }),   // 六角徽章（框色跟著分類）
       el("path", { d: hexPath(9.6, 2), fill: cat.tint || "#E4F1DA", "fill-opacity": .9 }),
       ...(BADGE_ICONS[K.badge] || BADGE_ICONS.molecule)());
-    g.append(tip, land, sign);
+    g.append(tip, sign);
     sign.append(
       el("circle", { class: "k-hit", cx: 0, cy: -10, r: 30 }),                                // 滑鼠移上去會出現外圈
       el("ellipse", { cx: 0, cy: 19, rx: 18, ry: 4, fill: "#24372C", "fill-opacity": .1 }),   // 淡淡的影子
@@ -584,7 +588,7 @@ PI.map = (function () {
     });
     tintQueue.forEach(tintLand); tintQueue.clear();
     islands.forEach(isl => { const dim = focusCh !== null && isl.chapter !== focusCh; if (isl.dim !== dim) { isl.dim = dim; Object.values(isl.g).forEach(g => g.classList.toggle("is-dim", dim)); } });
-    trees.forEach(t => { const dim = focusCh !== null && t.chapter !== focusCh; if (t.dim !== dim) { t.dim = dim; t.g.classList.toggle("is-dim", dim); } });   // 知識樹跟著自己的章節變淡
+    trees.forEach(t => { const dim = focusCh !== null && t.chapter !== focusCh; if (t.dim !== dim) { t.dim = dim; t.g.classList.toggle("is-dim", dim); t.land.classList.toggle("is-dim", dim); } });   // 知識樹跟著自己的章節變淡
     placeRing(selected);
   }
 
