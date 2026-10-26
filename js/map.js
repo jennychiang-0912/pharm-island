@@ -443,9 +443,13 @@ PI.map = (function () {
       // 名牌放在這一類某一排的上緣（從最上面一排開始試），和別的名牌至少隔 28px
       const rows = [...new Set(mine.map(c => Math.round(c.ly)))].sort((a, b) => a - b);
       let cx, y;
-      for (const ry of rows) {
+      // 候選位置：每一排的上緣，再來每一排的下緣（只有一兩格的小分類常常上面已經有別的名牌）
+      //   都擠到時，再左右挪一點試試
+      const base = [...rows.map(ry => [ry, -R * 0.4]), ...rows.slice().reverse().map(ry => [ry, R * 0.98])];
+      const cands = [0, 0.6, -0.6, 1.2, -1.2].flatMap(sx => base.map(([ry, dy]) => [ry, dy, sx * R]));
+      for (const [ry, dy, sx] of cands) {
         const row = mine.filter(c => Math.round(c.ly) === ry);
-        const x0 = row.reduce((s, c) => s + c.lx, 0) / row.length, y0 = ry - R * 0.4;
+        const x0 = row.reduce((s, c) => s + c.lx, 0) / row.length + sx, y0 = ry + dy;
         const box = [x0 - total / 2 - 28, x0 + total / 2 + 28, y0 - 22, y0 + 12];
         if (cx === undefined) { cx = x0; y = y0; }
         if (!boxes.some(b => box[0] < b[1] && box[1] > b[0] && box[2] < b[3] && box[3] > b[2])) { cx = x0; y = y0; break; }

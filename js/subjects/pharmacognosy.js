@@ -31,7 +31,7 @@ PI.UNIT_TYPES = { drug: "生藥", preparation: "製劑", category: "分類", top
 
 /* 章節：之後拿到課程章節再改名、往後加（加章節時記得在下面的 PI.LANDMASSES 把章節編號放進同一座島） */
 PI.CHAPTERS = [
-  { id: 1, name: "生物鹼", cat: "pharmacognosy", estimate: 24, unitType: "drug", note: "講義：生物鹼（p.1–5）。依講義的印刷字，手寫和螢光筆沒有放進來。" }
+  { id: 1, name: "生物鹼", cat: "pharmacognosy", estimate: 56, unitType: "drug", note: "講義：生物鹼（p.1–5、續篇）。依講義的印刷字，手寫和螢光筆沒有放進來。" }
 ];
 
 /* 一座島 */
@@ -44,6 +44,7 @@ PI.LANDMASSES = [
    內容只照講義印刷字，手寫筆記、螢光筆、畫線都沒有放。講義上的拼字錯誤已改成正確寫法（例：Nicotinc → Nicotinic、Scopolica → Scopolia）。
    generation 欄位拿來放講義上的星號（★／★★）。 */
 const SRC = "生物鹼講義";
+const SRC2 = "生物鹼講義（續）";
 PI.UNITS = [
   /* ===== Pyridine-Piperidine Alkaloid（講義 p.2）===== */
   { id: "lobelia", chapter: 1, name: "Lobelia", type: "drug", group: "Pyridine-Piperidine", generation: "講義標示 ★★", source: SRC + " p.2",
@@ -62,7 +63,8 @@ PI.UNITS = [
     origin: ["{{Nicotiana tabacum|學名}}"], family: ["{{茄科|科別}}，煙草"], part: ["{{乾燥葉|部位}}"],
     constituents: ["{{Nicotine|成分}}（[★國考]液態）：{{pyridine-pyrrolidine|結構}} 型"],
     uses: ["Nicotine 為{{神經節膽鹼受體作用劑|作用}}，增加自主神經、腎上腺髓質、神經肌肉連結處、大腦等活性", "農業{{殺蟲劑|用途}}",
-      "Nicotine 穿皮或咀嚼製劑，用於{{戒菸|用途}}", "長期使用 Nicotine 會導致{{依賴性|副作用}}"] },
+      "Nicotine 穿皮或咀嚼製劑，用於{{戒菸|用途}}", "長期使用 Nicotine 會導致{{依賴性|副作用}}"],
+    notes: ["殺蟲（Insecticides）：成分 {{Nicotine sulfate|成分}}；用途：神經節膽鹼性受器作用劑、局部刺激劑、Paralyzing effect"] },
   { id: "conium", chapter: 1, name: "Conium", type: "drug", group: "Pyridine-Piperidine", source: SRC + " p.2",
     names: ["中文：{{毒芹子|生藥中文名}}", "英文：Poison Hemlock"],
     origin: ["{{Conium maculatum|學名}}"], family: ["{{繖形科|科別}}"], part: ["{{充份成長但未成熟的乾燥果實|部位}}"],
@@ -166,7 +168,170 @@ PI.UNITS = [
       "Noscapine、{{Papaverine|成分}}（{{平滑肌放鬆|作用}}）、Thebaine"],
     uses: ["先興奮後抑制中樞神經", "★止痛、安眠、麻醉", "★{{止瀉劑|用途}}", "★{{縮瞳劑|用途}}", "{{Dover's powder|製劑}}"],
     notes: ["Meconic acid 僅存於天然的鴉片中，加入{{氯化鐵|物質}}（FeCl₃）後溶液成{{紅色|顏色}}，可用來鑑定鴉片的真偽",
-      "{{Paregoric|製劑}}（Camphorated opium tincture 複方鴉片樟腦酊）、{{Laudanum|製劑}}（Opium tincture 鴉片酊）可作為{{止瀉劑|用途}}"] }
+      "{{Paregoric|製劑}}（Camphorated opium tincture 複方鴉片樟腦酊）、{{Laudanum|製劑}}（Opium tincture 鴉片酊）可作為{{止瀉劑|用途}}"] },
+
+  /* ===== 講義第二份（13.pdf）：只用印刷字；表格欄位照講義（生藥｜基源｜科別｜部位｜成分｜用途），表格下方合併的說明列放在「其他重點」 ===== */
+  /* ===== Indole Alkaloid（p.7）===== */
+  { id: "catharanthus", chapter: 1, name: "Catharanthus", type: "drug", group: "Indole", source: SRC2 + " p.7",
+    names: ["中文：{{長春花|生藥中文名}}、日日春", "別名：Vinca"],
+    origin: ["{{Catharanthus roseus|學名}}"], family: ["★{{Apocynaceae|科別}} 夾竹桃科"], part: ["★{{全草|部位}}"],
+    constituents: ["{{Vinblastine|成分}}（-NCH₃，★{{N-Methyl|結構}}）", "{{Vincristine|成分}}（-NCHO，★{{N-Formyl|結構}}）"],
+    uses: ["可治療 {{Hodgkin's disease|疾病}}、Lymphocytic leukemia 等癌症"],
+    notes: ["具有抗腫瘤活性是因為★{{Bisindole|結構}} 結構，且含有★{{4 個 N|數值}}", "常製成★{{硫酸鹽|性質}}",
+      "半合成其他抗癌藥物衍生物的最大意義：★治療不同癌症且{{無交互抗藥性|性質}}", "[★國考]可用於治療 {{Acute Lymphocytic leukemia|疾病}}：Vincristine"] },
+  { id: "rauwolfia", chapter: 1, name: "Rauwolfia", type: "drug", group: "Indole", source: SRC2 + " p.7",
+    names: ["中文：{{印度蛇木|生藥中文名}}、蛇根、蘿芙木"],
+    origin: ["{{Rauwolfia serpentina|學名}}", "產地：★{{印度|產地}}"], family: ["★★{{Apocynaceae|科別}} 夾竹桃科"], part: ["{{根莖及根|部位}}"],
+    constituents: ["{{Reserpine|成分}}（coryanthe）、Rescinnamine、Deserpidine"],
+    uses: ["{{鎮靜|用途}}", "{{降血壓|用途}}、治療高血壓"],
+    notes: ["Reserpine → Reserpic acid、Methanol、3,4,5-Trimethoxy{{benzoic acid|物質}}", "Rescinnamine → Reserpic acid、Methanol、3,4,5-Trimethoxy{{cinnamic acid|物質}}",
+      "[★國考]{{紅河蛇根|生藥中文名}}（serpentary）- {{馬兜鈴科|科別}}"] },
+  { id: "yohimbe", chapter: 1, name: "Yohimbe", type: "drug", group: "Indole", source: SRC2 + " p.7",
+    names: ["中文：{{育亨賓|生藥中文名}}"],
+    origin: ["{{Pausinystalia yohimbe|學名}}", "產地：★{{西非|產地}}"], family: ["{{Rubiaceae|科別}} 茜草科"], part: ["{{樹皮|部位}}"],
+    constituents: ["{{Yohimbine|成分}}"],
+    uses: ["減少{{交感神經|作用}}活性", "★{{天然威爾鋼|名詞}}：促進副交感神經，治療 {{impotence|疾病}}"] },
+  { id: "physostigma", chapter: 1, name: "Physostigma", type: "drug", group: "Indole", source: SRC2 + " p.7",
+    names: ["中文：{{毒扁豆|生藥中文名}}、[★國考]{{神判豆|生藥中文名}}", "英文：(Ordeal / Calabar) bean"],
+    origin: ["{{Physostigma venenosum|學名}}"], family: ["{{Fabaceae|科別}}（Leguminosae）豆科"], part: ["{{乾燥成熟種子|部位}}"],
+    constituents: ["{{Physostigmine|成分}}（{{Eserine|成分}}）"],
+    uses: ["可逆性抑制{{乙醯膽鹼酯酶|作用}}：縮瞳、降眼壓、治療{{青光眼|疾病}}", "{{Atropine|成分}} 拮抗劑"],
+    notes: ["暴露於熱、光、空氣、微量金屬，Eserine 會水解成 {{Eseroline|成分}} 再氧化成★{{紅色|顏色}}的 Rubreserine"] },
+  { id: "nux-vomica", chapter: 1, name: "Nux vomica", type: "drug", group: "Indole", source: SRC2 + " p.7、p.13",
+    names: ["中文：{{馬錢子|生藥中文名}}、番木鼈"],
+    origin: ["{{Strychnos nux-vomica|學名}}"], family: ["★{{Loganiaceae|科別}} 馬錢科"], part: ["{{乾燥成熟種子|部位}}（殺鼠表：★乾燥盤狀種子）"],
+    constituents: ["{{Strychnine|成分}}", "{{Brucine|成分}}（{{dimethoxystrychnine|結構}}）"],
+    uses: ["Strychnine：{{中樞興奮|作用}}（阻斷突觸後抑制性衝動）→ {{Tonic convulsion|副作用}}", "Strychnine 為{{劇毒藥|性質}}，可當殺蟲劑",
+      "Brucine：★{{毒性較小|性質}}，極苦", "Brucine：商業上作★{{酒精變性劑|用途}}"],
+    notes: ["殺鼠（Rodenticide）：★Strychnine → {{毒性較強|性質}}；滅野生哺乳類（ex：野狗、狐狸、囓齒動物）"] },
+  { id: "ergot", chapter: 1, name: "Ergot", type: "drug", group: "Indole", source: SRC2,
+    names: ["中文：{{麥角|生藥中文名}}"],
+    origin: ["寄生於黑麥之 {{Claviceps purpurea|學名}}"], family: ["{{Clavicipitaceae|科別}} 麥角菌科", "[★國考]亦可發現於{{旋花科|科別}} Convolvulaceae"], part: ["★{{菌核|部位}}"],
+    constituents: ["水不溶 雙肽類：{{Ergotamine|成分}}（★{{5 個 N|數值}}）、Ergotoxine（Ergocristine + Ergocryptine + Ergocornine）",
+      "水溶性 非雙肽類：★{{Ergonovine|成分}}", "{{Ergoloid|成分}} = Dihydro-Ergotoxine", "{{LSD|成分}}：(+)-Lysergic acid diethylamide"],
+    uses: ["Ergotamine：★治療{{偏頭痛|疾病}}", "Ergonovine：[★國考]{{催產劑|用途}}、減少產後子宮出血", "Ergoloid：[★國考]{{血管擴張|作用}} → 改善記憶、老人痴呆",
+      "LSD：★可由 Ergot 合成，為中樞交感興奮劑，有{{迷幻|作用}}作用"],
+    notes: ["※Ergot 前驅物為 {{Tryptophan|前驅物}}", "[★國考]均為 {{(+)-Lysergic acid|成分}} 之衍生物",
+      "(+)-Lysergic acid 很容易轉變成無活性之 {{(+)-Isolysergic acid|成分}}，但兩者皆為{{右旋|性質}}化合物"] },
+
+  /* ===== Steroidal Alkaloid ===== */
+  { id: "green-hellebore", chapter: 1, name: "Green hellebore", type: "drug", group: "Steroidal", source: SRC2,
+    names: ["中文：{{綠藜蘆|生藥中文名}}", "別名：American hellebore"],
+    origin: ["{{Veratrum viride|學名}}"], family: ["{{Liliaceae|科別}} 百合科"], part: ["{{乾燥根莖|部位}}"],
+    constituents: ["{{Protoveratrine|成分}}、Germidine、Germitrine"],
+    uses: ["{{降血壓|用途}}、抑制心臟、鎮靜", "可當{{殺蟲劑|用途}}"],
+    notes: ["Protoveratrine A = Protoverine + Acetic acid + Methylbutyric acid + {{Methylhydroxybutyric acid|物質}}",
+      "Protoveratrine B = Protoverine + Acetic acid + Methylbutyric acid + {{Methyldihydroxybutyric acid|物質}}"] },
+  { id: "white-hellebore", chapter: 1, name: "White hellebore", type: "drug", group: "Steroidal", source: SRC2,
+    names: ["中文：{{白藜蘆|生藥中文名}}", "別名：European hellebore"],
+    origin: ["{{Veratrum album|學名}}"], family: ["{{Liliaceae|科別}} 百合科"], part: ["{{乾燥根莖|部位}}"],
+    constituents: ["{{Protoveratrine|成分}}"], uses: ["{{不供藥用|用途}}", "可當殺蟲劑"] },
+  { id: "fritillaria", chapter: 1, name: "Fritillaria", type: "drug", group: "Steroidal", source: SRC2,
+    names: ["中文：{{貝母|生藥中文名}}"],
+    origin: ["{{Fritillaria thunbergii|學名}}", "{{Fritillaria cirrhosa|學名}}"], family: ["★{{Liliaceae|科別}} 百合科"], part: ["★{{鱗莖|部位}}"],
+    constituents: ["★{{Verticine|成分}}（考是生物鹼 or 固醇）"], uses: ["{{潤燥化痰|用途}}"] },
+  { id: "christmas-rose", chapter: 1, name: "Christmas rose", type: "drug", group: "Steroidal", source: SRC2,
+    names: ["中文：比較：{{黑藜蘆|生藥中文名}}"],
+    origin: ["{{Helleborus niger|學名}}"], family: ["{{Ranunculaceae|科別}} 毛茛科"], part: ["{{根莖|部位}}"],
+    constituents: ["Hellebrin：{{Bufadienolide|結構}}（{{非生物鹼，為配醣體|性質}}）"], uses: ["{{刺激心臟|作用}}（與綠藜蘆相反）"] },
+
+  /* ===== Imidazole Alkaloid（p.6）===== */
+  { id: "pilocarpus", chapter: 1, name: "Pilocarpus", type: "drug", group: "Imidazole", source: SRC2 + " p.6",
+    names: ["中文：{{毛果芸香葉|生藥中文名}}", "別名：Jaborandi"],
+    origin: ["{{Pilocarpus jaborandi|學名}}", "Pilocarpus microphyllus", "Pilocarpus pinnatifolius"], family: ["{{Rutaceae|科別}} 芸香科"], part: ["{{小葉 Leaflet|部位}}"],
+    constituents: ["{{Pilocarpine|成分}}：[★國考]具 {{Imidazole|結構}}（鹼性質來源）和 {{γ-Lactone|結構}} 結構"],
+    uses: ["{{縮瞳|作用}}、治療{{青光眼|疾病}}"],
+    notes: ["Lactone 具★{{2 個不對稱碳原子|結構}}，且易被水解，★為 Pilocarpine {{不安定|性質}}原因（儲存一年生物鹼含量折損一半 → 儲存兩年變為無效藥）",
+      "直接作用於 {{Muscarine|標的}} 受體，可產生 Pupil 瞳孔收縮（治療{{窄角型|疾病}}青光眼）及 Ciliary muscle 睫狀肌收縮（治療廣角型青光眼）"] },
+  /* ===== Diterpenoidal alkaloid（p.6）===== */
+  { id: "aconite", chapter: 1, name: "Aconite", type: "drug", group: "Diterpenoidal", source: SRC2 + " p.6",
+    names: ["中文：{{烏頭|生藥中文名}}、附子", "Aconite ★{{炮製|性質}}才能使用"],
+    origin: ["{{Aconitum napellus|學名}}"], family: ["★{{Ranunculaceae|科別}} 毛茛科"], part: ["★{{乾燥塊根|部位}}"],
+    constituents: ["{{Aconitine|成分}}", "{{Atisines|成分}}（amino alcohol）"],
+    uses: ["Aconitine：{{劇毒|性質}}", "Atisines：{{毒性較低|性質}}"] },
+  /* ===== Pyrrolizidine alkaloid（p.6）===== */
+  { id: "comfrey", chapter: 1, name: "Comfrey", type: "drug", group: "Pyrrolizidine", source: SRC2 + " p.6",
+    names: ["中文：{{康復力|生藥中文名}}"],
+    origin: ["{{Symphytum officinale|學名}}"], family: ["{{Boraginaceae|科別}} 紫草科"],
+    constituents: ["地下部：{{Allantoin|成分}}", "{{Lasiocarpine|成分}}：{{肝毒性|副作用}}"],
+    uses: ["外型與{{毛地黃|生藥中文名}}相似，易誤食"] },
+
+  /* ===== Alkaloidal Amine（AA）→ 沒有含 N 雜環的生物鹼 ===== */
+  { id: "ephedra", chapter: 1, name: "Ephedra", type: "drug", group: "Alkaloidal Amine", source: SRC2,
+    names: ["中文：★{{麻黃|生藥中文名}}（[★國考]{{內蒙|產地}}地區）", "別名：Ma Huang"],
+    origin: ["{{Ephedra sinica|學名}}（大陸）", "Ephedra equisetina", "Ephedra distachya", "[★國考]{{裸子植物|性質}}"],
+    family: ["麻黃科 {{Gnetaceae|科別}}"], part: ["{{全草|部位}}、草質莖（莖-{{發汗|作用}}；根-止汗）"],
+    constituents: ["{{D(-)-Ephedrine|成分}}：[★國考](-)-erythro-α-[1-(methylamino)ethyl]benzyl alcohol", "{{(+)-Pseudoephedrine|成分}}", "Norephedrine"],
+    uses: ["α、β₁、β₂ {{agonist|作用}}", "紓解{{氣喘|疾病}}、解鼻充血、枯草熱（花粉過敏）", "[★國考]{{非抗發炎藥物|性質}}"] },
+  { id: "colchicine", chapter: 1, name: "Colchicine", type: "drug", group: "Alkaloidal Amine", source: SRC2,
+    names: ["中文：{{秋水仙|生藥中文名}}", "別名：Autumn crocus、秋天番紅花"],
+    origin: ["{{Colchicum autumnale|學名}}"], family: ["百合科 {{Liliaceae|科別}}"], part: ["[★國考]{{種子|部位}}（0.8%）、{{球莖|部位}}（0.6%）"],
+    constituents: ["Colchicine：{{不定形黃白色|性質}}生物鹼，其 amide 為{{中性|性質}}，不與酸形成鹽類"],
+    uses: ["{{急性痛風|疾病}}", "{{抗有絲分裂|作用}}：抗癌、雙倍染色體（{{無子西瓜|名詞}}）", "減少發炎反應"] },
+  { id: "khat", chapter: 1, name: "Khat", type: "drug", group: "Alkaloidal Amine", source: SRC2,
+    names: ["中文：{{恰特草|生藥中文名}}", "別名：Abyssinian tea、阿比西尼亞茶"],
+    origin: ["{{Catha edulis|學名}}"], family: ["衛矛科 {{Celastraceae|科別}}"], part: ["★{{新鮮嫩葉|部位}}"],
+    constituents: ["{{(-)-Cathinone|成分}}（{{嫩葉|部位}}）", "{{(+)-Norpseudoephedrine|成分}}（老葉）", "[★國考]{{不含咖啡因|性質}}"],
+    uses: ["{{止餓|用途}}、抗疲勞", "活性似 {{Amphetamine|成分}}"] },
+  { id: "peyote", chapter: 1, name: "Peyote", type: "drug", group: "Alkaloidal Amine", source: SRC2,
+    names: ["中文：{{摩根|生藥中文名}}", "別名：Mescal buttons"],
+    origin: ["{{Lophophora williamsii|學名}}"], family: ["仙人掌科 {{Cactaceae|科別}}"], part: ["{{乾燥枝梢|部位}}（Dried tops）"],
+    constituents: ["{{Mescaline|成分}}"], uses: ["{{Hallucinogen|用途}} 迷幻藥（被視為迷幻藥的先驅）"] },
+
+  /* ===== Purine Alkaloids（p.11）===== */
+  { id: "cocoa", chapter: 1, name: "Cocoa bean", short: "Cocoa", type: "drug", group: "Purine", source: SRC2 + " p.11",
+    names: ["中文：{{可可豆|生藥中文名}}"],
+    origin: ["{{Theobroma cacao|學名}}"], family: ["★梧桐科 {{Sterculiaceae|科別}}"], part: ["{{乾燥成熟種子|部位}}"],
+    constituents: ["{{Theobromine|成分}}（可可鹼）：{{弱酸中溶解度大|性質}}"], uses: ["{{平滑肌舒張|作用}}、利尿、中樞刺激"] },
+  { id: "coffee", chapter: 1, name: "Coffee bean", short: "Coffee", type: "drug", group: "Purine", source: SRC2 + " p.11",
+    names: ["中文：{{咖啡豆|生藥中文名}}"],
+    origin: ["{{Coffea arabica|學名}}", "{{Coffea liberica|學名}}"], family: ["★茜草科 {{Rubiaceae|科別}}"], part: ["{{乾燥成熟種子|部位}}"],
+    constituents: ["{{Caffeol|成分}}（揮發油，為咖啡{{香味|性質}}的來源），烘烤後另含有約 {{50%|數值}} 的 Furfurol"], uses: ["{{中樞興奮|作用}}、利尿"] },
+  { id: "kola", chapter: 1, name: "Kola", type: "drug", group: "Purine", source: SRC2 + " p.11",
+    names: ["中文：{{可拉|生藥中文名}}", "別名：Cola nut、Kolanuts"],
+    origin: ["★{{Cola nitida|學名}}"], family: ["梧桐科 {{Sterculiaceae|科別}}"], part: ["{{乾燥子葉|部位}}（Cotyledon）"],
+    constituents: ["Caffeine（{{3.5%|數值}}）", "Theobromine（<1%）"], uses: ["中樞興奮、製造{{可樂飲料|用途}}"] },
+  { id: "guarana", chapter: 1, name: "Guarana", type: "drug", group: "Purine", source: SRC2 + " p.11",
+    names: ["中文：{{瓜拉那子|生藥中文名}}", "別名：Brazilian cocoa、巴西可可、巴西野茶膏"],
+    origin: ["{{Paullinia cupana|學名}}"], family: ["★無患子科 {{Sapindaceae|科別}}"], part: ["{{壓碎種子的乾燥糊劑|部位}}"],
+    constituents: ["Caffeine（{{2.5~5%|數值}}）", "{{Tannin|成分}}（25%）"], uses: ["Caffeine：中樞興奮", "★Tannin：{{收斂|作用}}"] },
+  { id: "mate", chapter: 1, name: "Maté", type: "drug", group: "Purine", source: SRC2 + " p.11",
+    names: ["中文：{{巴拿圭茶|生藥中文名}}", "別名：Paraguay tea"],
+    origin: ["{{Ilex paraguariensis|學名}}"], family: ["冬青科 {{Aquifoliaceae|科別}}"], part: ["{{葉|部位}}"],
+    constituents: ["★Caffeine（{{0.2~2%|數值}}）", "★{{Chlorogenic acid|成分}}（10~16%）"], uses: ["{{發汗|作用}}、利尿、瀉劑（大劑量）"] },
+  { id: "tea", chapter: 1, name: "Tea leaf", short: "Tea", type: "drug", group: "Purine", source: SRC2 + " p.11",
+    names: ["中文：{{茶葉|生藥中文名}}", "別名：Thea"],
+    origin: ["{{Camellia sinensis|學名}}"], family: ["茶科 {{Theaceae|科別}}"], part: ["{{葉、葉芽|部位}}"],
+    constituents: ["Caffeine（{{1~4%|數值}}）", "少量 Adenine、Xanthine、Tannin、Theobromine、{{Theophylline|成分}}（茶鹼）", "{{Gallotannic acid|成分}}（15%）→ {{含量最多|性質}}"],
+    uses: ["Caffeine：中樞神經興奮", "Tannin：收斂、與{{蛋白質沉澱|作用}}", "Theophylline：平滑肌舒張、利尿、治{{氣喘|疾病}}", "Gallotannic acid：收斂"],
+    notes: ["綠茶 Green tea：新鮮葉直接{{溫火迅速乾燥|性質}}（中國、日本）[★國考]{{Polyphenol|成分}} 多酚類具強抗氧化作用，有益人體防癌",
+      "紅茶 Black tea：先將新鮮葉堆積至{{醱酵|反應}}，再人工加熱迅速乾燥（斯里蘭卡、印度）"] },
+
+  /* ===== Insecticides 殺蟲（Nicotiana 見上面 Pyridine-Piperidine）===== */
+  { id: "pyrethrum", chapter: 1, name: "Pyrethrum flower", short: "Pyrethrum", type: "drug", group: "Insecticides", source: SRC2,
+    names: ["中文：{{除蟲菊|生藥中文名}}"],
+    origin: ["{{Chrysanthemum coccineum|學名}}"], family: ["菊科 {{Asteraceae|科別}}"], part: ["{{頭狀花|部位}}（筒狀花）"],
+    constituents: ["{{Pyrethrin|成分}} I、II", "Cinerin I、II", "Jasmolin I、II"],
+    uses: ["攻擊昆蟲的{{神經系統|作用}}，尤其是蚊子和蒼蠅", "★{{Sesamolin|成分}} 會與其產生{{協同作用|作用}}"] },
+  { id: "derris", chapter: 1, name: "Rotenone", type: "drug", group: "Insecticides", source: SRC2,
+    names: ["中文：{{毒魚藤|生藥中文名}}"],
+    origin: ["{{Derris trifoliata|學名}}"], family: ["豆科 {{Fabaceae|科別}}"], part: ["{{根|部位}}"],
+    constituents: ["Rotenone（{{魚藤酮|成分}}）"], uses: ["毒魚、殺蟲"] },
+
+  /* ===== Rodenticide 殺鼠（p.13；Nux vomica 見上面 Indole）===== */
+  { id: "tonka", chapter: 1, name: "Coumarin", type: "drug", group: "Rodenticide", source: SRC2 + " p.13",
+    names: ["中文：★{{香豆素|生藥中文名}}（見苯丙烷類）", "來源：Tonka beans、黑香豆"],
+    origin: ["{{Dipteryx odorata|學名}}", "Dipteryx oppositifolia"], family: ["豆科 {{Fabaceae|科別}}"], part: ["{{種子|部位}}"],
+    constituents: ["Coumarin"], uses: ["★{{抗凝血|作用}}", "{{芳香劑|用途}}（FDA 禁用）"],
+    notes: ["Coumarin：具有 {{lactone|結構}}，為 ortho-羥基與其側鏈的羧基{{環化|反應}}而成"] },
+  { id: "sweet-clover", chapter: 1, name: "Dicumarol", type: "drug", group: "Rodenticide", source: SRC2 + " p.13",
+    names: ["中文：{{雙羥香豆素|生藥中文名}}（見苯丙烷類）", "來源：Yellow sweet clover 黃香草木樨"],
+    origin: ["{{Melilotus officinalis|學名}}"], family: ["豆科 {{Fabaceae|科別}}"], part: ["{{未完全燻製葉|部位}}、花芽（flowering tops）"],
+    constituents: ["Dicumarol（{{Bishydroxycoumarin|結構}}）：{{4-Hydroxycoumarin|物質}} 和{{甲醛|物質}}反應合成製造"], uses: ["{{抗凝血|作用}}"] },
+  { id: "red-squill", chapter: 1, name: "Red squill", type: "drug", group: "Rodenticide", source: SRC2 + " p.13",
+    names: ["中文：★{{紅海蔥|生藥中文名}}（見 glycosides）"],
+    origin: ["{{Urginea maritima|學名}}"], family: ["百合科 {{Liliaceae|科別}}"], part: ["{{鱗莖|部位}}（Bulb）"],
+    constituents: ["{{Scilliroside|成分}}"], uses: ["{{殺鼠|用途}}"] }
 ];
 
 /* 知識樹：通則（合成與代謝）＋各類生物鹼的生合成。
@@ -246,6 +411,46 @@ PI.KNOWLEDGE = {
           points: ["★三種含有四級胺的生物鹼：{{Berberine|成分|Hydrastine/Canadine/Emetine}}、{{Sanguinarine|成分|Cephaeline/Coniine/Piperine}}、{{Tubocurarine|成分|Cocaine/Quinine/Nicotine}}"] },
         { title: "Tropane 類：唯一非茄科", group: "Tropane", source: "生物鹼講義 p.3",
           points: ["Tropane alkaloid 的生藥中，{{古柯|生藥中文名|顛茄/東莨菪葉/曼陀羅葉}}（古柯樹科）是唯一非茄科"] }
+      ] },
+      { id: "morphine", title: "★★★★★Morphine 的合成與代謝", items: [
+        { title: "Morphine 的合成與代謝", group: "Isoquinoline", source: "生物鹼講義（續）",
+          text: "Morphine 的生合成只須注意下面三項即可，詳細的步驟請參考生藥共筆 Vol. 14 p.32",
+          points: [
+            "前驅物：{{2 個 Tyrosine|前驅物|2 個 Tryptophan/2 個 Ornithine/2 個 Phenylalanine}}",
+            "重要的中間產物：{{(S)-Norcoclaurine|中間產物|(S)-Reticuline/Salutaridine/Codeinone}}",
+            "重要反應路徑：{{Mannich-type condensation|反應|Oxidative phenolic coupling/轉胺作用/去甲基}}"
+          ],
+          flow: [
+            { title: "Thebaine（3 個甲基）", text: ["Thebaine：{{無療效|作用|止咳、輕微止痛/止痛（具成癮性）/降血壓}}"] },
+            { title: "去甲基 → Codeine（2 個甲基）", text: ["Codeine：{{止咳、輕微止痛|作用|無療效/止痛（具成癮性）/降血壓}}"] },
+            { title: "去甲基 → Morphine（1 個甲基）", text: ["Morphine：{{止痛（具成癮性）|作用|無療效/止咳、輕微止痛/降血壓}}"] }
+          ],
+          image: "assets/knowledge/morphine-biosynthesis.jpg" }
+      ] },
+      { id: "caffeine", title: "Caffeine", items: [
+        { title: "Caffeine：[★國考]2,6-Dioxypurine 衍生物", group: "Purine", source: "生物鹼講義（續）",
+          points: [
+            "結構：[★國考]{{3 個甲基|結構|2 個甲基/1 個甲基/4 個甲基}} → 1,3,7-trimethylxanthine",
+            "兩個環 → {{pyrimidine|結構|pyridine/pyrrolidine/piperidine}} × {{imidazole|結構|indole/quinoline/tropane}}",
+            "Theobromine 可可鹼：3,7-dimethylxanthine（{{2 個甲基|結構|3 個甲基/1 個甲基/4 個甲基}}）",
+            "Theophylline 茶鹼：1,3-dimethylxanthine（2 個甲基）[★國考]4 個 N",
+            "[★國考]{{Murexide test|試驗|Dragendorff's/Mayer's/Wagner's}}（紫脲酸銨試驗）：取少量 Caffeine 結晶蒸發至乾，再加入兩滴 Ammonium hydroxide，可得{{紫色|顏色|紅棕色/淡黃色/棕褐色}}殘餘物"
+          ],
+          image: "assets/knowledge/caffeine-structure.jpg" }
+      ] },
+      { id: "coumarin", title: "Coumarin", items: [
+        { title: "Coumarin 與其衍生物", group: "Rodenticide", source: "生物鹼講義（續）p.13",
+          points: [
+            "Coumarin：具有 {{lactone|結構|lactam/epoxide/imidazole}}，為 ortho-羥基與其側鏈的羧基環化而成",
+            "cinnamic acid → o-coumaric acid → o-coumaric acid-β-D-Glucoside ⇌ 環化 → coumarin",
+            "Dicumarol：{{Bishydroxycoumarin|結構|6-Methoxy-7-hydroxycoumarin/4-Hydroxycoumarin/o-coumaric acid}}",
+            "Scopoletin：{{6-Methoxy-7-hydroxycoumarin|結構|Bishydroxycoumarin/4-Hydroxycoumarin/o-coumaric acid}}"
+          ],
+          image: "assets/knowledge/coumarin-derivatives.jpg" }
+      ] },
+      { id: "amine", title: "Alkaloidal Amine", items: [
+        { title: "Alkaloidal Amine（AA）", group: "Alkaloidal Amine", source: "生物鹼講義（續）",
+          points: ["Alkaloidal Amine（AA）→ {{沒有含 N 雜環|結構|含 N 雜環/含四級胺/含 lactone}}的生物鹼"] }
       ] }
     ]
   }
