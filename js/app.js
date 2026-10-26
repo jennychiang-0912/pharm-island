@@ -82,7 +82,8 @@
       occupied: "這格已經是你的領土了。"
     }[st];
     box.innerHTML = `<div class="info-top">${badge(ch, cat)}
-        <div class="info-title"><h3>${u ? esc(u.name) : "預留格"}${u && u.group ? ` <span class="tag tag-inline">${esc(u.group)}</span>` : ""}</h3><span class="muted">第 ${ch.id} 章・${esc(ch.name)}</span></div>
+        <div class="info-title"><h3>${u ? esc(u.name) : "預留格"}${u && titleBits(u).zh ? ` <span class="u-zh">${esc(titleBits(u).zh)}</span>` : ""}${u && u.group ? ` <span class="tag tag-inline">${esc(u.group)}</span>` : ""}</h3>
+          ${u && titleBits(u).alias ? `<span class="u-alias">${esc(titleBits(u).alias)}</span>` : ""}<span class="muted">第 ${ch.id} 章・${esc(ch.name)}</span></div>
         <button type="button" class="close" id="infoClose" aria-label="關閉">×</button></div>
       ${u ? unitBody(u) : ""}
       ${u ? `<div class="u-note"><label for="uNote">我的筆記<span class="muted" id="uNoteSaved"></span></label>
@@ -112,15 +113,31 @@
       onClose: () => { showInfo(cell); } });
   }
 
-  /* 單元內容：依 PI.UNIT_FIELDS 的順序列出有資料的欄位 */
+  /* 標題列：科目設定 PI.UNIT_TITLE_FIELD 時（生藥是 names），「中文：…」放在名稱旁邊，其他名稱（英文、別名）小字放下面 */
+  const plainOf = l => splitHint(l)[0].replace(CLOZE, "$1");
+  function titleBits(u) {
+    const f = PI.UNIT_TITLE_FIELD, lines = (f && u[f]) || [];
+    const zhLine = lines.find(l => /^中文：/.test(plainOf(l)));
+    return { zh: zhLine ? plainOf(zhLine).replace(/^中文：/, "") : "",
+             alias: lines.filter(l => l !== zhLine).map(plainOf).join("・") };
+  }
+  /* 單元內容：分成幾個框框。科目可以用 PI.UNIT_BOXES 把幾個欄位放進同一框（例如生藥的「來源」＝基源＋科別＋部位）；
+     沒有設定時，每個欄位一框，短的兩框並排。 */
   function unitBody(u) {
-    // 每個欄位一個框框；內容短的（例如科別、部位）兩個並排，長的佔整行
-    const plainLen = l => splitHint(l)[0].replace(CLOZE, "$1").length;
-    const rows = (PI.UNIT_FIELDS || []).filter(([k]) => u[k] && u[k].length).map(([k, label]) => {
-      const wide = u[k].length > 2 || u[k].some(l => plainLen(l) > 18);
-      return `<div class="u-row${wide ? " is-wide" : ""}"><span class="u-label">${esc(label)}</span>${u[k].length === 1
-        ? `<p class="u-one">${clozeLine(u[k][0], true)}</p>` : `<ul>${u[k].map(l => `<li>${clozeLine(l, true)}</li>`).join("")}</ul>`}</div>`;
-    }).join("");   // 口訣移到下面的筆記欄
+    const F = Object.fromEntries(PI.UNIT_FIELDS || []), has = k => u[k] && u[k].length;
+    const list = k => u[k].length === 1 ? `<p class="u-one">${clozeLine(u[k][0], true)}</p>`
+      : `<ul>${u[k].map(l => `<li>${clozeLine(l, true)}</li>`).join("")}</ul>`;   // 口訣移到下面的筆記欄
+    const used = new Set(PI.UNIT_TITLE_FIELD && titleBits(u).zh ? [PI.UNIT_TITLE_FIELD] : []);
+    const boxes = (PI.UNIT_BOXES || []).map(b => ({ ...b, fields: b.fields.filter(has) })).filter(b => b.fields.length);
+    boxes.forEach(b => b.fields.forEach(k => used.add(k)));
+    (PI.UNIT_FIELDS || []).forEach(([k, label]) => { if (has(k) && !used.has(k)) boxes.push({ label, fields: [k], auto: true }); });
+    const rows = boxes.map(b => {
+      if (b.fields.length > 1)   // 一框裡好幾個欄位：左邊小標、右邊內容
+        return `<div class="u-row is-wide"><span class="u-label">${esc(b.label || "")}</span><div class="u-sub">${b.fields.map(k =>
+          `<span class="u-sublabel">${esc(F[k] || k)}</span><div>${list(k)}</div>`).join("")}</div></div>`;
+      const k = b.fields[0], wide = !b.auto || u[k].length > 2 || u[k].some(l => plainOf(l).length > 18);
+      return `<div class="u-row${wide ? " is-wide" : ""}"><span class="u-label">${esc(b.label || F[k] || k)}</span>${list(k)}</div>`;
+    }).join("");
     const extra = [u.generation, u.source && `出處：${u.source}`].filter(Boolean).map(esc).join("・");
     const cls = u.class ? `<p class="u-class">類別共通內容（機轉、藥動、副作用等）在本章知識樹</p>` : "";
     return rows || cls || extra ? `<div class="u-body">${rows}${cls}${extra ? `<p class="u-meta">${extra}</p>` : ""}</div>` : "";

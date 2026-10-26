@@ -2,21 +2,13 @@
    這個檔案只在 pharmacognosy.html 載入，會把藥理的章節、單元、知識樹換成生藥的。
    格式和藥理一樣（見 js/data.js、js/units.js、js/knowledge.js 的說明）；版面參考藥理藥化平安符頁。
    內容只取自講義「生物鹼」（123_1.pdf）的印刷字；手寫、螢光筆、劃線都不算（劃線劃掉的印刷字照樣收錄）。
-   基源的學名和生藥名同屬名的（例如 Hyoscyamus niger）不挖空，題目標題就有生藥名，一看就知道。
-   講義上的拼字照原樣保留（例如 Quinolinic acid、Nicotinic acid、Quinidine），沒有自己更正。 */
+   講義上的拼字錯誤已改成正確寫法（見下面 PI.UNITS 的說明）。 */
 window.PI = window.PI || {};
 
 PI.STORAGE_KEY = "pharma-island-pharmacognosy-v1";   // 進度和其他科目分開存
 
 PI.CATEGORIES = [
   { id: "pharmacognosy", name: "生藥學", color: "#A39A5C", tint: "#ECE8CF" }
-];
-
-/* 生藥的格子用自己的欄位（講義表格的欄位：基源、科別、部位、成分、用途） */
-PI.UNIT_TYPES = { drug: "生藥", preparation: "製劑", category: "分類", topic: "主題" };
-PI.UNIT_FIELDS = [
-  ["alias", "別名"], ["origin", "基源"], ["family", "科別"], ["part", "部位"],
-  ["constituents", "成分"], ["uses", "用途"], ["notes", "其他重點"]
 ];
 
 /* 地圖：小分類（Pyridine-Piperidine、Tropane…）畫交界線和好萊塢式名牌（js/map.js 的 drawGroups） */
@@ -26,6 +18,14 @@ PI.GROUP_REGIONS = true;
 PI.UNIT_FIELDS = [
   ["names", "名稱"], ["origin", "基源"], ["family", "科別"], ["part", "部位"],
   ["constituents", "成分"], ["uses", "用途"], ["notes", "其他重點"]
+];
+/* 資訊卡：中文名放在標題旁邊；基源、科別、部位合成一框「來源」；成分、用途各一框 */
+PI.UNIT_TITLE_FIELD = "names";
+PI.UNIT_BOXES = [
+  { label: "來源", fields: ["origin", "family", "part"] },
+  { label: "成分", fields: ["constituents"] },
+  { label: "用途", fields: ["uses"] },
+  { label: "其他重點", fields: ["notes"] }
 ];
 PI.UNIT_TYPES = { drug: "生藥", preparation: "製劑", category: "分類", topic: "主題" };
 

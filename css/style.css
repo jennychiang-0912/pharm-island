@@ -288,7 +288,12 @@ button { font: inherit; color: inherit; cursor: pointer; }
 /* 格子資訊卡裡的單元內容 */
 .info { max-height: calc(100% - 32px); overflow-y: auto; overscroll-behavior: contain; }
 .u-body { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: 6px 0 10px; }
-.u-row { grid-column: span 1; display: flex; flex-direction: column; gap: 3px; font-size: 13.5px; background: #fff; border: 1px solid var(--line); border-radius: 10px; padding: 7px 10px 8px; min-width: 0; }
+.u-row { grid-column: span 1; display: flex; flex-direction: column; gap: 3px; font-size: 13.5px; background: #F3EFE2; border-radius: 10px; padding: 8px 12px 9px; min-width: 0; }
+.u-sub { display: grid; grid-template-columns: auto 1fr; gap: 3px 12px; align-items: baseline; }
+.u-sublabel { font-size: 12px; color: var(--muted); white-space: nowrap; }
+.u-sub ul { padding-left: 16px; }
+.u-zh { font-size: 15px; font-weight: 700; color: var(--deep); margin-left: 2px; }
+.u-alias { display: block; font-size: 12px; color: var(--muted); margin: 1px 0 2px; }
 .u-row.is-wide { grid-column: 1 / -1; }
 .u-label { color: var(--deep); font-weight: 700; font-size: 11.5px; letter-spacing: .08em; white-space: nowrap; }
 .u-row ul { margin: 0; padding-left: 16px; color: var(--ink); line-height: 1.6; }
