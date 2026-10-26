@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 560" font-family="Chiron GoRound TC, PingFang TC, Microsoft JhengHei, sans-serif">
-  <!-- 各類生物鹼：前驅物 → 中間產物（依生物鹼講義 p.2–4 印刷內容；拼字照講義原樣）
+  <!-- 各類生物鹼：前驅物 → 中間產物（依生物鹼講義 p.2–4 印刷內容；拼字錯誤已訂正）
        欄：類別 x=16–136、前驅物 x=150–352、中間產物 x=376–504 -->
   <defs>
     <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto">
@@ -24,8 +24,8 @@
   <text x="251" y="153" font-size="12" fill="#24372C" text-anchor="middle" font-weight="700">Aspartic acid ＋</text>
   <text x="251" y="170" font-size="11" fill="#24372C" text-anchor="middle" font-weight="700">Glyceraldehyde-3-phosphate</text>
   <path d="M352 158H372" stroke="#315B43" stroke-width="2" marker-end="url(#ar)"/>
-  <rect x="376" y="145" width="128" height="26" rx="13" fill="#FDF1EE"/><text x="440" y="163" font-size="12" fill="#C0624F" text-anchor="middle" font-weight="700">Nicotinc acid</text>
-  <text x="440" y="185" font-size="9.5" fill="#6E7F72" text-anchor="middle">（中間經 Quonolinic acid）</text>
+  <rect x="376" y="145" width="128" height="26" rx="13" fill="#FDF1EE"/><text x="440" y="163" font-size="12" fill="#C0624F" text-anchor="middle" font-weight="700">Nicotinic acid</text>
+  <text x="440" y="185" font-size="9.5" fill="#6E7F72" text-anchor="middle">（中間經 Quinolinic acid）</text>
 
   <!-- Tropane -->
   <rect x="10" y="202" width="500" height="150" rx="14" fill="#fff" stroke="#E3DDC2"/>

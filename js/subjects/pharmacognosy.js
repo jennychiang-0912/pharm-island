@@ -3,7 +3,7 @@
    格式和藥理一樣（見 js/data.js、js/units.js、js/knowledge.js 的說明）；版面參考藥理藥化平安符頁。
    內容只取自講義「生物鹼」（123_1.pdf）的印刷字；手寫、螢光筆、劃線都不算（劃線劃掉的印刷字照樣收錄）。
    基源的學名和生藥名同屬名的（例如 Hyoscyamus niger）不挖空，題目標題就有生藥名，一看就知道。
-   講義上的拼字照原樣保留（例如 Quonolinic acid、Nicotinc acid、Qunidine），沒有自己更正。 */
+   講義上的拼字照原樣保留（例如 Quinolinic acid、Nicotinic acid、Quinidine），沒有自己更正。 */
 window.PI = window.PI || {};
 
 PI.STORAGE_KEY = "pharma-island-pharmacognosy-v1";   // 進度和其他科目分開存
@@ -38,14 +38,14 @@ PI.LANDMASSES = [
 ];
 
 /* 學習單元：一個生藥一格，欄位見上面的 PI.UNIT_FIELDS。
-   內容只照講義印刷字（學名拼字照講義原樣），手寫筆記、螢光筆、畫線都沒有放。
+   內容只照講義印刷字，手寫筆記、螢光筆、畫線都沒有放。講義上的拼字錯誤已改成正確寫法（例：Nicotinc → Nicotinic、Scopolica → Scopolia）。
    generation 欄位拿來放講義上的星號（★／★★）。 */
 const SRC = "生物鹼講義";
 PI.UNITS = [
   /* ===== Pyridine-Piperidine Alkaloid（講義 p.2）===== */
   { id: "lobelia", chapter: 1, name: "Lobelia", type: "drug", group: "Pyridine-Piperidine", generation: "講義標示 ★★", source: SRC + " p.2",
     names: ["中文：{{北美山梗菜|生藥中文名}}", "英文：Indian tobacco／祛痰菜"],
-    origin: ["{{Lobelia inflate|學名}}", "{{L. sessilifolia|學名}}、L. chinensi"],
+    origin: ["{{Lobelia inflata|學名}}", "{{L. sessilifolia|學名}}、L. chinensis"],
     family: ["{{山梗菜科|科別}}"], part: ["{{乾燥葉及枝端|部位}}"],
     constituents: ["{{(-)-Lobeline|成分}}：{{piperidine|結構}} 衍生物"],
     uses: ["{{祛痰劑|用途}}；治療氣管與慢性支氣管炎", "具有★{{催吐 Emetic|作用}}及呼吸興奮作用", "做為{{戒菸劑|用途}}，類似 nicotine，但效果較弱"] },
@@ -56,7 +56,7 @@ PI.UNITS = [
     uses: ["{{獸醫驅蟲|用途}}，殺蟎蟲藥、驅條蟲藥"] },
   { id: "nicotiana", chapter: 1, name: "Nicotiana", type: "drug", group: "Pyridine-Piperidine", generation: "講義標示 ★★", source: SRC + " p.2",
     names: ["中文：{{菸葉|生藥中文名}}", "英文：Tobacco leaves"],
-    origin: ["{{Nicotiana tobacum|學名}}"], family: ["{{茄科|科別}}，煙草"], part: ["{{乾燥葉|部位}}"],
+    origin: ["{{Nicotiana tabacum|學名}}"], family: ["{{茄科|科別}}，煙草"], part: ["{{乾燥葉|部位}}"],
     constituents: ["{{Nicotine|成分}}（[★國考]液態）：{{pyridine-pyrrolidine|結構}} 型"],
     uses: ["Nicotine 為{{神經節膽鹼受體作用劑|作用}}，增加自主神經、腎上腺髓質、神經肌肉連結處、大腦等活性", "農業{{殺蟲劑|用途}}",
       "Nicotine 穿皮或咀嚼製劑，用於{{戒菸|用途}}", "長期使用 Nicotine 會導致{{依賴性|副作用}}"] },
@@ -67,7 +67,7 @@ PI.UNITS = [
     uses: ["治療{{痙攣性|疾病}}、癲癇性疾病；{{運動神經末梢阻斷劑|作用}}"] },
   { id: "granatum", chapter: 1, name: "Granatum", type: "drug", group: "Pyridine-Piperidine", source: SRC + " p.2",
     names: ["中文：{{石榴皮|生藥中文名}}", "英文：Pomegranate／安石榴"],
-    origin: ["{{Punica granatuum|學名}}"], family: ["{{石榴科|科別}}"], part: ["{{根或莖的皮部|部位}}"],
+    origin: ["{{Punica granatum|學名}}"], family: ["{{石榴科|科別}}"], part: ["{{根或莖的皮部|部位}}"],
     constituents: ["{{Pelletierine|成分}}：{{piperidine|結構}} 衍生物，揮發性液體"],
     uses: ["{{驅蟲劑|用途}}、驅條蟲劑", "具鞣質 {{28%|數值}}，為{{收斂劑|用途}}，治療腹瀉"] },
   { id: "pepper", chapter: 1, name: "Pepper", type: "drug", group: "Pyridine-Piperidine", source: SRC + " p.2",
@@ -80,7 +80,7 @@ PI.UNITS = [
   /* ===== Tropane alkaloid（講義 p.3）===== */
   { id: "belladonna", chapter: 1, name: "Belladonna", type: "drug", group: "Tropane", generation: "講義標示 ★★", source: SRC + " p.3",
     names: ["中文：{{顛茄|生藥中文名}}", "英文：Deadly nightshade leaf"],
-    origin: ["{{Atropa belladonna|學名}}", "{{A. acuminate|學名}}"], family: ["{{茄科|科別}}"], part: ["{{乾燥葉、根、花、果頂|部位}}"],
+    origin: ["{{Atropa belladonna|學名}}", "{{A. acuminata|學名}}"], family: ["{{茄科|科別}}"], part: ["{{乾燥葉、根、花、果頂|部位}}"],
     constituents: ["葉：(3/4) {{(-)-Hyoscyamine|成分}}、(1/4) Atropine", "根：(-)-Hyoscyamine、Atropine、{{Scopolamine|成分}}", "{{Atropine|成分}} = (±)-Hyoscyamine"],
     uses: ["{{抗膽鹼|作用}}：散瞳、解痙、止痛、手術前抗黏液", "有機磷或毒扁豆鹼的{{解毒劑|用途}}", "顛茄生物鹼治{{消化性潰瘍|疾病}}"] },
   { id: "hyoscyamus", chapter: 1, name: "Hyoscyamus", type: "drug", group: "Tropane", generation: "講義標示 ★", source: SRC + " p.3",
@@ -90,18 +90,18 @@ PI.UNITS = [
     uses: ["{{副交感神經抑制劑|作用}}：鎮痛解痙劑、CNS Depressant、止吐止暈（{{動暈症|疾病}}）"] },
   { id: "datura", chapter: 1, name: "Jimson weed", type: "drug", group: "Tropane", generation: "講義標示 ★", source: SRC + " p.3",
     names: ["中文：{{曼陀羅葉|生藥中文名}}", "英文：Thornapple／James-town weed"],
-    origin: ["{{Datura stramoniuma|學名}}"], family: ["{{茄科|科別}}"], part: ["{{乾燥葉、枝端|部位}}"],
+    origin: ["{{Datura stramonium|學名}}"], family: ["{{茄科|科別}}"], part: ["{{乾燥葉、枝端|部位}}"],
     constituents: ["(-)-Hyoscyamine：主要，毒", "(-)-Scopolamine：含有 {{Epoxide|結構}}"],
     uses: ["副交感神經抑制劑：鎮痛解痙劑", "稱為 {{Asthma powder|名詞}}", "當做調味（{{Pot herb|名詞}}），會致死"] },
   { id: "coca", chapter: 1, name: "Coca", type: "drug", group: "Tropane", generation: "講義標示 ★★", source: SRC + " p.3",
     names: ["中文：{{古柯（葉）|生藥中文名}}", "英文：Coca leaves"],
-    origin: ["{{Erythrosylum coca|學名}}", "{{E. truxillense|學名}}"],
+    origin: ["{{Erythroxylum coca|學名}}", "{{E. truxillense|學名}}"],
     family: ["{{古柯樹科|科別}} → 主產地{{南美|產地}}（玻利維亞、秘魯）", "＜唯一非茄科＞"], part: ["{{乾燥葉|部位}}"],
     constituents: ["{{Ecgonine|結構}} 衍生物：{{Cocaine|成分}}、Cinnamylcocaine、α-與β-Truxilline", "Cocaine 水解得{{苯甲酸|物質}}、甲醇、(-)-Ecgonine"],
     uses: ["生藥為{{二級管制品|性質}}，被稱為{{印加神樹|名詞}}", "Cocaine（又稱快克）：{{局部麻醉劑|用途}}，具{{成癮性|副作用}}"] },
-  { id: "scopolia", chapter: 1, name: "Scopolica", type: "drug", group: "Tropane", source: SRC + " p.3",
+  { id: "scopolia", chapter: 1, name: "Scopolia", type: "drug", group: "Tropane", source: SRC + " p.3",
     names: ["中文：{{東莨菪根|生藥中文名}}"],
-    origin: ["{{Scopolica japonica|學名}}"], family: ["{{茄科|科別}}"], part: ["{{根莖及根|部位}}"],
+    origin: ["{{Scopolia japonica|學名}}"], family: ["{{茄科|科別}}"], part: ["{{根莖及根|部位}}"],
     constituents: ["Hyoscyamine、Atropine、Scopolamine"], uses: ["副交感神經抑制劑"] },
   { id: "mandragora", chapter: 1, name: "Mandragora", type: "drug", group: "Tropane", source: SRC + " p.3",
     names: ["中文：{{毆傷牛根草|生藥中文名}}", "英文：曼德拉／mandrake"],
@@ -123,21 +123,21 @@ PI.UNITS = [
   { id: "cuprea", chapter: 1, name: "Cuprea bark", short: "Cuprea", type: "drug", group: "Quinoline", source: SRC + " p.4",
     names: ["中文：{{銅色金雞納皮|生藥中文名}}"],
     origin: ["{{Remijia purdieana|學名}}", "{{R. pedunculata|學名}}"], family: ["{{茜草科|科別}}"], part: ["{{樹皮|部位}}"],
-    constituents: ["Quinine", "{{Cupreine|成分}}"], uses: ["銅色金雞納皮為 {{Qunidine|成分}} 商業上主要來源"] },
+    constituents: ["Quinine", "{{Cupreine|成分}}"], uses: ["銅色金雞納皮為 {{Quinidine|成分}} 商業上主要來源"] },
   { id: "camptotheca", chapter: 1, name: "Camptotheca", type: "drug", group: "Quinoline", source: SRC + " p.4",
     names: ["中文：{{喜樹|生藥中文名}}"],
-    origin: ["{{Camptotheca acuminata|學名}}"], family: ["{{Nysaceae|科別}}"], part: ["{{樹皮、木材、果實|部位}}"],
+    origin: ["{{Camptotheca acuminata|學名}}"], family: ["{{Nyssaceae|科別}}"], part: ["{{樹皮、木材、果實|部位}}"],
     constituents: ["{{Camptothecin|成分}} 喜樹鹼"], uses: ["{{抗腫瘤藥|用途}}", "{{Topotecan|藥名}} 及 Irinotecan 原料"] },
 
   /* ===== Isoquinoline Alkaloid（講義 p.4）===== */
   { id: "ipecac", chapter: 1, name: "Ipecac", type: "drug", group: "Isoquinoline", source: SRC + " p.4",
     names: ["中文：{{吐根|生藥中文名}}"],
-    origin: ["{{Cephaelis ipecacuanha|學名}}", "Cephaelis acuminate"], family: ["{{茜草科|科別}}（Rubiaceae）"], part: ["{{乾燥根莖、根|部位}}"],
+    origin: ["{{Cephaelis ipecacuanha|學名}}", "Cephaelis acuminata"], family: ["{{茜草科|科別}}（Rubiaceae）"], part: ["{{乾燥根莖、根|部位}}"],
     constituents: ["★{{Cephaeline|成分}}、Emetine（{{甲基化|反應}}的 Cephaeline）"],
     uses: ["{{Ipecac syrup|製劑}}：{{催吐|作用}}", "{{Dover's powder|製劑}}（Ipecac + Opium）：{{發汗|作用}}", "{{Emetine hydrochloride|成分}}：治{{阿米巴痢疾|疾病}}、齒槽膿溢"] },
   { id: "hydrastis", chapter: 1, name: "Hydrastis", type: "drug", group: "Isoquinoline", source: SRC + " p.4",
     names: ["中文：{{北美黃連|生藥中文名}}", "英文：Goldenseal"],
-    origin: ["{{Hydrastis Canadensis|學名}}"], family: ["{{毛茛科|科別}}（Ranunculaceae）"], part: ["{{乾燥根莖、根|部位}}"],
+    origin: ["{{Hydrastis canadensis|學名}}"], family: ["{{毛茛科|科別}}（Ranunculaceae）"], part: ["{{乾燥根莖、根|部位}}"],
     constituents: ["{{Hydrastine|成分}}（最主要）、Berberine、Canadine"],
     uses: ["作為黏膜發炎的{{收斂劑|用途}}"],
     notes: ["Hydrastine 含有 {{Phthalideisoquinoline|結構}}（γ-lactone ring）結構", "Berberine 含有{{四級胺|結構}}的結構，易溶於水",
@@ -171,14 +171,14 @@ PI.KNOWLEDGE = {
         { title: "前驅物 → 中間產物一覽", source: "生物鹼講義 p.2–4", diagram: "assets/knowledge/alkaloid-precursors.svg" },
         { title: "Pyridine-Piperidine：Nicotine 生合成", source: "生物鹼講義 p.2",
           points: [
-            "Pyrrolidine：由★{{Ornithine|前驅物|Aspartic acid/Phenylalanine/Tryptophan}} 生合成，再形成★中間產物 {{N-Methylpyrrolinium ion|中間產物|Nicotinc acid/Tropine/(-)-Tropic acid}}",
-            "Pyridine：★{{Aspartic acid|前驅物|Ornithine/Phenylalanine/Tyrosine}} 與 {{Glyceraldehyde-3-phosphate|前驅物|Acetate/Methionine/Secologanin}} 縮合形成 Quonolinic acid，再形成★中間產物 {{Nicotinc acid|中間產物|N-Methylpyrrolinium ion/Tropine/(-)-Tropic acid}}"
+            "Pyrrolidine：由★{{Ornithine|前驅物|Aspartic acid/Phenylalanine/Tryptophan}} 生合成，再形成★中間產物 {{N-Methylpyrrolinium ion|中間產物|Nicotinic acid/Tropine/(-)-Tropic acid}}",
+            "Pyridine：★{{Aspartic acid|前驅物|Ornithine/Phenylalanine/Tyrosine}} 與 {{Glyceraldehyde-3-phosphate|前驅物|Acetate/Methionine/Secologanin}} 縮合形成 Quinolinic acid，再形成★中間產物 {{Nicotinic acid|中間產物|N-Methylpyrrolinium ion/Tropine/(-)-Tropic acid}}"
           ] },
         { title: "Tropane：Hyoscyamine 生合成", source: "生物鹼講義 p.3",
           points: [
             "[★國考]生成物{{不具光學活性|性質|具光學活性/為非鏡像異構物/含四級胺}}，互為 enantiomer",
-            "Pyrrolidine：由★{{Ornithine|前驅物|Tryptophan/Tyrosine/Aspartic acid}}、Acetate、Methionine 生合成，再形成★中間產物 {{Tropine|中間產物|(-)-Tropic acid/Nicotinc acid/N-Methylpyrrolinium ion}}",
-            "Pyridine：★{{Phenylalanine|前驅物|Ornithine/Tryptophan/Aspartic acid}}，再形成★中間產物 {{(-)-Tropic acid|中間產物|Tropine/Nicotinc acid/N-Methylpyrrolinium ion}}"
+            "Pyrrolidine：由★{{Ornithine|前驅物|Tryptophan/Tyrosine/Aspartic acid}}、Acetate、Methionine 生合成，再形成★中間產物 {{Tropine|中間產物|(-)-Tropic acid/Nicotinic acid/N-Methylpyrrolinium ion}}",
+            "Pyridine：★{{Phenylalanine|前驅物|Ornithine/Tryptophan/Aspartic acid}}，再形成★中間產物 {{(-)-Tropic acid|中間產物|Tropine/Nicotinic acid/N-Methylpyrrolinium ion}}"
           ] },
         { title: "Quinoline：Quinine 前驅物", source: "生物鹼講義 p.4",
           points: ["Quinine 前驅物為★{{Tryptophan|前驅物|Ornithine/Phenylalanine/Aspartic acid}} 與 {{Secologanin|前驅物|Acetate/Methionine/Glyceraldehyde-3-phosphate}}"] },
