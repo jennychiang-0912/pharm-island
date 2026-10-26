@@ -170,6 +170,7 @@ PI.UNITS = [
 ];
 
 /* 知識樹：通則（合成與代謝）＋各類生物鹼的生合成。
+   item.group：這張卡片屬於哪一個結構分類；地圖上點那一類的好萊塢名牌，就只看這一類的卡片（機轉）和題目。
    題庫還小，挖空自己指定錯誤選項（{{答案|類型|錯1/錯2/錯3}}），選項都取自同一份講義。 */
 PI.KNOWLEDGE = {
   ch1: {
@@ -194,20 +195,20 @@ PI.KNOWLEDGE = {
       ] },
       { id: "biosynthesis", title: "各類生物鹼的生合成", items: [
         { title: "前驅物 → 中間產物一覽", source: "生物鹼講義 p.2–4", diagram: "assets/knowledge/alkaloid-precursors.svg" },
-        { title: "Pyridine-Piperidine：Nicotine 生合成", source: "生物鹼講義 p.2",
+        { title: "Pyridine-Piperidine：Nicotine 生合成", group: "Pyridine-Piperidine", source: "生物鹼講義 p.2",
           points: [
             "Pyrrolidine：由★{{Ornithine|前驅物|Aspartic acid/Phenylalanine/Tryptophan}} 生合成，再形成★中間產物 {{N-Methylpyrrolinium ion|中間產物|Nicotinic acid/Tropine/(-)-Tropic acid}}",
             "Pyridine：★{{Aspartic acid|前驅物|Ornithine/Phenylalanine/Tyrosine}} 與 {{Glyceraldehyde-3-phosphate|前驅物|Acetate/Methionine/Secologanin}} 縮合形成 Quinolinic acid，再形成★中間產物 {{Nicotinic acid|中間產物|N-Methylpyrrolinium ion/Tropine/(-)-Tropic acid}}"
           ] },
-        { title: "Tropane：Hyoscyamine 生合成", source: "生物鹼講義 p.3",
+        { title: "Tropane：Hyoscyamine 生合成", group: "Tropane", source: "生物鹼講義 p.3",
           points: [
             "[★國考]生成物{{不具光學活性|性質|具光學活性/為非鏡像異構物/含四級胺}}，互為 enantiomer",
             "Pyrrolidine：由★{{Ornithine|前驅物|Tryptophan/Tyrosine/Aspartic acid}}、Acetate、Methionine 生合成，再形成★中間產物 {{Tropine|中間產物|(-)-Tropic acid/Nicotinic acid/N-Methylpyrrolinium ion}}",
             "Pyridine：★{{Phenylalanine|前驅物|Ornithine/Tryptophan/Aspartic acid}}，再形成★中間產物 {{(-)-Tropic acid|中間產物|Tropine/Nicotinic acid/N-Methylpyrrolinium ion}}"
           ] },
-        { title: "Quinoline：Quinine 前驅物", source: "生物鹼講義 p.4",
+        { title: "Quinoline：Quinine 前驅物", group: "Quinoline", source: "生物鹼講義 p.4",
           points: ["Quinine 前驅物為★{{Tryptophan|前驅物|Ornithine/Phenylalanine/Aspartic acid}} 與 {{Secologanin|前驅物|Acetate/Methionine/Glyceraldehyde-3-phosphate}}"] },
-        { title: "Isoquinoline：合成前驅物", source: "生物鹼講義 p.4",
+        { title: "Isoquinoline：合成前驅物", group: "Isoquinoline", source: "生物鹼講義 p.4",
           points: ["Isoquinoline 的合成前驅物為★{{phenylalanine|前驅物|Ornithine/Tryptophan/Aspartic acid}} 與 {{tyrosine|前驅物|Secologanin/Acetate/Methionine}}"] }
       ] },
       { id: "tests", title: "生物鹼的檢定方式", items: [
@@ -219,7 +220,7 @@ PI.KNOWLEDGE = {
           ] }
       ] },
       { id: "isoquinoline-classes", title: "Isoquinoline 分類", items: [
-        { title: "Isoquinoline 分類", source: "生物鹼講義 p.5",
+        { title: "Isoquinoline 分類", group: "Isoquinoline", source: "生物鹼講義 p.5",
           points: [
             "{{Benzylisoquinolines|分類|Benzophenanthridines/Morphinans/Protoberberines}}：Papaverine 罌粟鹼、Tubocurarine 箭毒鹼",
             "{{Benzophenanthridines|分類|Benzylisoquinolines/Phthalideisoquinolines/Morphinans}}：Sanguinarine 血根樹鹼",
@@ -229,9 +230,9 @@ PI.KNOWLEDGE = {
           ] }
       ] },
       { id: "summary", title: "重點整理", items: [
-        { title: "含四級胺的生物鹼", source: "生物鹼講義 p.4",
+        { title: "含四級胺的生物鹼", group: "Isoquinoline", source: "生物鹼講義 p.4",
           points: ["★三種含有四級胺的生物鹼：{{Berberine|成分|Hydrastine/Canadine/Emetine}}、{{Sanguinarine|成分|Cephaeline/Coniine/Piperine}}、{{Tubocurarine|成分|Cocaine/Quinine/Nicotine}}"] },
-        { title: "Tropane 類：唯一非茄科", source: "生物鹼講義 p.3",
+        { title: "Tropane 類：唯一非茄科", group: "Tropane", source: "生物鹼講義 p.3",
           points: ["Tropane alkaloid 的生藥中，{{古柯|生藥中文名|顛茄/東莨菪葉/曼陀羅葉}}（古柯樹科）是唯一非茄科"] }
       ] }
     ]

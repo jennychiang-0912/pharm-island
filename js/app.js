@@ -141,10 +141,12 @@
   }
 
   /* ---------- 知識面板：點知識樹打開，關閉後地圖回到打開前的位置 ---------- */
-  let kView = null, kFrom = null, kKey = null, kEditing = null, kFull = false;   // kEditing：正在編輯的卡片 key；kFull：知識面板全螢幕
-  function openKnowledge(key) {
-    if (kKey !== key) kEditing = null;
-    kKey = key;
+  let kView = null, kFrom = null, kKey = null, kEditing = null, kFull = false, kGroup = null;   // kEditing：正在編輯的卡片 key；kFull：知識面板全螢幕
+  // group：只看某一個結構分類（地圖上的好萊塢名牌）——只列出 item.group 是這一類的卡片和這一類的題目
+  function openKnowledge(key, group) {
+    group = group || null;
+    if (kKey !== key || kGroup !== group) kEditing = null;
+    kKey = key; kGroup = group;
     const K = (PI.KNOWLEDGE || {})[key]; if (!K) return;
     const land = PI.LANDMASSES.find(l => l.chapters.includes(K.chapter)) || { name: "" };
     if ($("kpanel").hidden) { kView = PI.map.getView(); kFrom = document.activeElement; }   // 換別棵樹時不覆蓋最早的位置
@@ -222,39 +224,44 @@
           <div class="k-step-body"><b class="k-step-title">${esc(st.title || "")}</b>${texts}${block}</div></li>`;
       }).join("")}</ol>`;
     }
-    // 這棵樹有幾題（一個挖空＝一題）
-    const treeQs = PI.quiz.forTree(key), nQ = treeQs.length;
+    // 這棵樹有幾題（一個挖空＝一題）；看單一結構分類時，只算這一類卡片的題目和這一類生藥的認藥題
+    const inGroup = (sec, si) => (sec.items || []).map((it, ii) => [it, ii]).filter(([it]) => !group || it.group === group);
+    const prefixes = group ? (K.sections || []).flatMap((sec, si) => inGroup(sec, si).map(([, ii]) => `t:${key}:${si}:${ii}:`)) : null;
+    const treeQs = PI.quiz.forTree(key).filter(q => !group || prefixes.some(p => q.qid.startsWith(p))
+      || (q.qid.startsWith("w:") && (PI.UNITS.find(u => "w:" + u.id === q.qid) || {}).group === group)), nQ = treeQs.length;
     const nDone = treeQs.filter(q => PI.state.isTreeDone(q.qid)).length;
     const expQ = PI.LEVEL.expPerTreeQuestion || 0;
     const nRef = (K.sections || []).flatMap(sec => sec.items || []).filter(it => it.unit).length;
     $("kpanel").innerHTML = `<div class="k-head">
-        <div class="info-title"><span class="muted">${land.name ? esc(land.name) + "・" : ""}知識樹</span><h3 id="kTitle">${esc(K.title || ch.name)}</h3></div>
+        <div class="info-title"><span class="muted">${land.name ? esc(land.name) + "・" : ""}${group ? `${esc(K.title || ch.name)}・結構分類` : "知識樹"}</span><h3 id="kTitle">${esc(group || K.title || ch.name)}</h3></div>
+        ${group ? `<button type="button" class="k-full-btn" id="kAll">看整棵知識樹</button>` : ""}
         <button type="button" class="k-full-btn" id="kFull" aria-pressed="${kFull}">${kFull ? "縮小" : "⛶ 全螢幕"}</button>
         <button type="button" class="close" id="kClose" aria-label="關閉知識面板">×</button></div>
       ${chips ? `<div class="k-chips">${chips}</div>` : ""}
 
-      <div class="k-exp">${nQ ? `<p>★ 這棵樹有 <b>${nQ}</b> 題，第一次答對每題 <b>+${expQ} EXP</b>
+      <div class="k-exp">${nQ ? `<p>★ ${group ? "這一類有" : "這棵樹有"} <b>${nQ}</b> 題，第一次答對每題 <b>+${expQ} EXP</b>
             <span class="muted">已答對 ${nDone} / ${nQ}（${nDone * expQ} / ${nQ * expQ} EXP）</span></p>
           <button type="button" class="btn btn-primary" id="kQuiz">開始答題（${Math.min(5, nQ)} 題）</button>`
         : nRef ? `<p>★ 這裡的挖空題在本章的格子上作答，佔領一格 <b>+${PI.LEVEL.expPerCell} EXP</b></p>`
         : `<p>★ 加入內容後，挖空題答對每題 <b>+${expQ} EXP</b></p>`}</div>
-      <div class="k-body">${(K.sections || []).map((sec, si) => `<section class="k-sec">
+      <div class="k-body">${(K.sections || []).map((sec, si) => [sec, si, inGroup(sec, si)]).filter(([, , its]) => !group || its.length).map(([sec, si, its]) => `<section class="k-sec">
           <h4 class="k-sec-title">${esc(sec.title)}</h4>
-          ${sec.items && sec.items.length ? sec.items.map((it, ii) => item(it, si, ii)).join("")
+          ${its.length ? its.map(([it, ii]) => item(it, si, ii)).join("")
             : `<p class="k-empty">尚未加入內容，之後依課堂講義補充。</p>`}</section>`).join("")}</div>`;
     $("kpanel").hidden = false;
     $("kpanel").classList.toggle("is-full", kFull);
     $("kFull").onclick = () => { kFull = !kFull; rerenderKnowledge(); };
+    if ($("kAll")) $("kAll").onclick = () => openKnowledge(key);
     glossify($("kpanel").querySelector(".k-body"));
     $("kClose").onclick = closeKnowledge;
     if ($("kQuiz")) $("kQuiz").onclick = () => {
       // 先出還沒答對過的題目
       const qs = [...treeQs].sort(() => Math.random() - .5).sort((a, b) => PI.state.isTreeDone(a.qid) - PI.state.isTreeDone(b.qid)).slice(0, 5);
       let gained = 0;
-      PI.quiz.start({ qs, need: 0, kicker: `${K.title || ch.name}・知識樹`, title: "知識樹答題",
+      PI.quiz.start({ qs, need: 0, kicker: `${group || K.title || ch.name}・知識樹`, title: "知識樹答題",
         onRight: q => { if (PI.state.markTree(q.qid)) gained += expQ; },
         onFinish: () => {}, okText: () => { return gained ? `這次獲得 ${gained} EXP！` : "這幾題之前都答對過了，這次沒有新的經驗值。"; },
-        badText: "", onClose: () => openKnowledge(key) });
+        badText: "", onClose: () => openKnowledge(key, group) });
     };
     $("kClose").focus();
   }
@@ -322,7 +329,7 @@
   // 重畫面板，捲動位置不變
   function rerenderKnowledge() {
     const body = $("kpanel").querySelector(".k-body"), top = body ? body.scrollTop : 0;
-    openKnowledge(kKey);
+    openKnowledge(kKey, kGroup);
     const nb = $("kpanel").querySelector(".k-body"); if (nb) nb.scrollTop = top;
   }
   function collectEdit(card, ekey) {
