@@ -476,3 +476,11 @@ mark.cloze.is-hl.hl-mine { background: linear-gradient(transparent 35%, #BFE3A6 
 .ed-chip.is-hl.hl-teacher { background: linear-gradient(transparent 35%, #F9B4C6 35%); }
 .ed-chip.is-hl.hl-exam { background: linear-gradient(transparent 35%, #C9C2F5 35%); }
 .ed-chip:hover { outline: 2px solid rgba(49,91,67,.25); }
+/* 知識面板全螢幕 */
+.k-full-btn { font: inherit; font-size: 13px; font-weight: 700; color: var(--deep); background: var(--mint); border: 0; border-radius: 999px; padding: 4px 12px; cursor: pointer; white-space: nowrap; }
+.k-full-btn:hover { background: #DCEBD2; }
+.kpanel.is-full { position: fixed; inset: 0; width: auto !important; border-radius: 0; z-index: 60; border: 0; }
+.kpanel.is-full .k-body, .kpanel.is-full .k-head, .kpanel.is-full .k-chips { width: 100%; max-width: 980px; margin-left: auto; margin-right: auto; box-sizing: border-box; }
+.kpanel.is-full .k-exp { width: calc(100% - 36px); max-width: 944px; margin: 10px auto 0; }
+.kpanel.is-full .k-item p, .kpanel.is-full .k-item li { font-size: 16px; }
+.kpanel.is-full .k-diagram img { max-width: 720px; }

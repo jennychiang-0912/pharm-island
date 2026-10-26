@@ -141,7 +141,7 @@
   }
 
   /* ---------- 知識面板：點知識樹打開，關閉後地圖回到打開前的位置 ---------- */
-  let kView = null, kFrom = null, kKey = null, kEditing = null;   // kEditing：正在編輯的卡片 key
+  let kView = null, kFrom = null, kKey = null, kEditing = null, kFull = false;   // kEditing：正在編輯的卡片 key；kFull：知識面板全螢幕
   function openKnowledge(key) {
     if (kKey !== key) kEditing = null;
     kKey = key;
@@ -229,6 +229,7 @@
     const nRef = (K.sections || []).flatMap(sec => sec.items || []).filter(it => it.unit).length;
     $("kpanel").innerHTML = `<div class="k-head">
         <div class="info-title"><span class="muted">${land.name ? esc(land.name) + "・" : ""}知識樹</span><h3 id="kTitle">${esc(K.title || ch.name)}</h3></div>
+        <button type="button" class="k-full-btn" id="kFull" aria-pressed="${kFull}">${kFull ? "縮小" : "⛶ 全螢幕"}</button>
         <button type="button" class="close" id="kClose" aria-label="關閉知識面板">×</button></div>
       ${chips ? `<div class="k-chips">${chips}</div>` : ""}
 
@@ -242,6 +243,8 @@
           ${sec.items && sec.items.length ? sec.items.map((it, ii) => item(it, si, ii)).join("")
             : `<p class="k-empty">尚未加入內容，之後依課堂講義補充。</p>`}</section>`).join("")}</div>`;
     $("kpanel").hidden = false;
+    $("kpanel").classList.toggle("is-full", kFull);
+    $("kFull").onclick = () => { kFull = !kFull; rerenderKnowledge(); };
     glossify($("kpanel").querySelector(".k-body"));
     $("kClose").onclick = closeKnowledge;
     if ($("kQuiz")) $("kQuiz").onclick = () => {
@@ -449,6 +452,7 @@
 
   function closeKnowledge() {
     if ($("kpanel").hidden) return;
+    kFull = false; $("kpanel").classList.remove("is-full");
     hideChipPop();
     $("kpanel").hidden = true;
     PI.map.setView(kView, true);   // 回到打開面板前的地圖位置
