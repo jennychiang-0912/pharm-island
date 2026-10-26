@@ -219,6 +219,7 @@
         <div class="k-item-head">${head}${tools}</div>
         ${it.text ? `<p>${line(it, 0, it.text)}</p>` : ""}
         ${it.image ? `<img class="k-img" src="${esc(it.image)}" alt="${esc(it.title || "")}" loading="lazy">` : ""}
+        ${it.table ? tableHtml(it.table) : ""}
         ${pts || isEd ? `<ul class="k-pts">${pts}</ul>` : ""}
         ${it.diagram ? `<figure class="k-diagram" title="點圖放大／再點一下縮回"><img src="${esc(it.diagram)}" alt="${esc(it.title || "示意圖")}" loading="lazy"></figure>
           ${PI.GLOSSARY && !isEd ? `<p class="k-gl-row"><span class="muted">點名詞看小框框：</span>${Object.keys(PI.GLOSSARY).map(esc).join("・")}</p>` : ""}` : ""}
@@ -228,6 +229,15 @@
       edNow = false;
       return html;
     };
+    // 表格（item.table）：{ head: ["欄1", …], rows: [[格, …], …], note: "表格下方的小字" }
+    //   格可以是字串，或 { t: "內容", rs: 跨幾列, b: true 粗體 }；被上一列跨過去的格子寫 null。表格內容不出題。
+    function tableHtml(T) {
+      const cell = (c, tag) => { if (c === null) return ""; const o = typeof c === "object" ? c : { t: c };
+        return `<${tag}${o.rs ? ` rowspan="${o.rs}"` : ""}${o.b ? ' class="is-b"' : ""}>${esc(o.t).replace(/\n/g, "<br>")}</${tag}>`; };
+      return `<div class="k-table-wrap"><table class="k-table"><thead><tr>${T.head.map(h => cell(h, "th")).join("")}</tr></thead>
+        <tbody>${T.rows.map(r => `<tr>${r.map(c => cell(c, "td")).join("")}</tr>`).join("")}</tbody></table></div>
+        ${T.note ? `<p class="k-table-note">${esc(T.note)}</p>` : ""}`;
+    }
     // 流程圖：一步一步往下，被藥擋住的步驟旁邊有「⊖ 抑制」框
     //   li：每一行的位置，順序和出題一樣（text、points 之後接流程；抑制框固定佔 3 行）
     function flowHtml(it) {

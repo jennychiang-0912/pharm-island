@@ -194,7 +194,19 @@ PI.KNOWLEDGE = {
           ] }
       ] },
       { id: "biosynthesis", title: "各類生物鹼的生合成", items: [
-        { title: "前驅物 → 中間產物一覽", source: "生物鹼講義 p.2–4", diagram: "assets/knowledge/alkaloid-precursors.svg?v=2" },
+        { title: "前驅物 → 中間產物一覽", source: "生物鹼講義 p.2–4",
+          table: {
+            head: ["類別", "環", "★前驅物", "★中間產物"],
+            rows: [
+              [{ t: "Pyridine-Piperidine\n（Nicotine）", rs: 2, b: true }, "Pyrrolidine", "Ornithine", "N-Methyl-\npyrrolinium ion"],
+              [null, "Pyridine", "Aspartic acid +\nGlyceraldehyde-3-phosphate\n（經 Quinolinic acid）", "Nicotinic acid"],
+              [{ t: "★Tropane\n（Hyoscyamine）", rs: 2, b: true }, "Pyrrolidine", "Ornithine、Acetate、Methionine", "Tropine"],
+              [null, "Pyridine", "Phenylalanine", "(-)-Tropic acid"],
+              [{ t: "Quinoline\n（Quinine）", b: true }, "—", "Tryptophan + Secologanin", "—"],
+              [{ t: "Isoquinoline", b: true }, "—", "Phenylalanine + Tyrosine", "—"]
+            ],
+            note: "[★國考] Tropane 生成物不具光學活性，互為 enantiomer"
+          } },
         { title: "Pyridine-Piperidine：Nicotine 生合成", group: "Pyridine-Piperidine", source: "生物鹼講義 p.2",
           points: [
             "Pyrrolidine：由★{{Ornithine|前驅物|Aspartic acid/Phenylalanine/Tryptophan}} 生合成，再形成★中間產物 {{N-Methylpyrrolinium ion|中間產物|Nicotinic acid/Tropine/(-)-Tropic acid}}",
