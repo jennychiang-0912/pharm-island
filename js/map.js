@@ -395,6 +395,8 @@ PI.map = (function () {
     const ch = chapterOf(isl.chapter), cat = catOf(ch.cat);
     const g = isl.g.label; g.textContent = "";
     let x = isl.coast.cx, y = isl.coast.minY + R * 0.35;
+    if (isl.signPos && !isl.shared) { x = isl.signPos.x - isl.origin.x; y = isl.signPos.y - isl.origin.y - R * 1.25; }   // 有告示牌島：章節牌子放在告示牌上面
+    else
     if (isl.shared && isl.cells.length) {   // 主島：牌子放在這一章的中心附近（各章的牌子才不會擠在一起）
       x = isl.cells.reduce((s, c) => s + c.lx, 0) / isl.cells.length;
       y = isl.cells.reduce((s, c) => s + c.ly, 0) / isl.cells.length - R * 0.9;
@@ -493,6 +495,8 @@ PI.map = (function () {
       }
       if (!pos) return;
       used.push(pos);
+      const moved = !isl.signPos || isl.signPos.x !== pos.x || isl.signPos.y !== pos.y;
+      isl.signPos = pos; if (moved && !isl.shared) drawLabel(isl);   // 主島上各章的告示牌靠得很近，牌子放上去會疊在一起，所以只有獨立的島才搬
       let t = trees.get(key);
       if (!t) {
         // 小島的地畫在地形層（在格子底下，淺水和浪花不會蓋到旁邊的格子）；告示牌畫在格子上面
