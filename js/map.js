@@ -410,8 +410,63 @@ PI.map = (function () {
     const name = el("text", { class: "label-name", x: -w / 2 + 43, y: 1 }); name.textContent = ch.name;
     inner.append(num, name);
     lab.appendChild(inner);
+    if (PI.GROUP_REGIONS) drawGroups(isl, g);   // 小分類的交界線與名牌（畫在章節牌子底下）
     g.appendChild(lab);
     isl.labelInner = inner;
+  }
+
+  /* ---------- 小分類（unit.group）：交界線＋好萊塢招牌式的名牌 ----------
+     只在科目檔設定 PI.GROUP_REGIONS = true 時畫（目前是生藥頁）。
+     交界線：相鄰兩格屬於不同小分類（或一邊是預留格）時，沿著共用的那條六角形邊畫線；靠海的邊不畫。
+     名牌：每一類在自己區塊最上面一排的上緣，一個字一塊白色立牌，下面有兩根小柱子，像山坡上的 HOLLYWOOD。 */
+  function drawGroups(isl, g) {
+    const lines = el("g", { class: "grp-borders", "pointer-events": "none" });
+    let d = "";
+    isl.cells.forEach(c => DIRS.forEach(([dq, dr]) => {
+      const n = isl.occ.get(`${c.q + dq},${c.r + dr}`);
+      if (!n || n.group === c.group || (!c.group && !n.group) || c.id > n.id) return;   // 每條邊只畫一次
+      const mx = (c.lx + n.lx) / 2, my = (c.ly + n.ly) / 2, vx = n.lx - c.lx, vy = n.ly - c.ly, L = Math.hypot(vx, vy);
+      const px = -vy / L * R / 2, py = vx / L * R / 2;   // 共用邊：垂直於兩格中心連線、長度 R
+      d += `M${(mx + px).toFixed(1)},${(my + py).toFixed(1)}L${(mx - px).toFixed(1)},${(my - py).toFixed(1)}`;
+    }));
+    lines.append(el("path", { d, class: "grp-border-shadow" }), el("path", { d, class: "grp-border" }));
+    g.appendChild(lines);
+    const groups = [...new Set(isl.cells.map(c => c.group).filter(Boolean))];
+    measure.font = `800 13px ${getComputedStyle(document.body).fontFamily}`;
+    const boxes = [];   // 已放好的名牌範圍，彼此不要擠在一起
+    groups.forEach((name, gi) => {
+      const mine = isl.cells.filter(c => c.group === name);
+      const letters = name.toUpperCase().split(""), gapX = 1.5;
+      const ws = letters.map(ch => ch === " " ? 5 : Math.max(measure.measureText(ch).width, 5) + 3);
+      const total = ws.reduce((a, b) => a + b, 0) + gapX * (letters.length - 1);
+      // 名牌放在這一類某一排的上緣（從最上面一排開始試），和別的名牌至少隔 28px
+      const rows = [...new Set(mine.map(c => Math.round(c.ly)))].sort((a, b) => a - b);
+      let cx, y;
+      for (const ry of rows) {
+        const row = mine.filter(c => Math.round(c.ly) === ry);
+        const x0 = row.reduce((s, c) => s + c.lx, 0) / row.length, y0 = ry - R * 0.42;
+        const box = [x0 - total / 2 - 28, x0 + total / 2 + 28, y0 - 18, y0 + 16];
+        if (cx === undefined) { cx = x0; y = y0; }
+        if (!boxes.some(b => box[0] < b[1] && box[1] > b[0] && box[2] < b[3] && box[3] > b[2])) { cx = x0; y = y0; break; }
+      }
+      boxes.push([cx - total / 2, cx + total / 2, y - 18, y + 16]);
+      const sign = el("g", { class: "grp-sign", transform: `translate(${cx.toFixed(1)},${y.toFixed(1)})`, "pointer-events": "none" });
+      let x = -total / 2;
+      letters.forEach((ch, i) => {
+        const w = ws[i];
+        if (ch !== " ") {
+          const tilt = (noise(gi, i, 31) - 0.5) * 5, dy = (noise(gi, i, 37) - 0.5) * 3;   // 每塊字牌稍微歪一點、高低不齊
+          const L = el("g", { transform: `translate(${(x + w / 2).toFixed(1)},${dy.toFixed(1)}) rotate(${tilt.toFixed(1)})` });
+          L.append(
+            el("path", { d: `M${-w / 2 + 2.5},5V11M${w / 2 - 2.5},5V11`, class: "grp-leg" }),
+            el("text", { class: "grp-letter", y: 0 }));
+          L.lastChild.textContent = ch;
+          sign.appendChild(L);
+        }
+        x += w + gapX;
+      });
+      g.appendChild(sign);
+    });
   }
 
   /* ---------- 知識告示牌：每一章一個，自己是一座一格大的小島（不放格子、不出格子的題） ----------

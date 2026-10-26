@@ -484,3 +484,9 @@ mark.cloze.is-hl.hl-mine { background: linear-gradient(transparent 35%, #BFE3A6 
 .kpanel.is-full .k-exp { width: calc(100% - 36px); max-width: 944px; margin: 10px auto 0; }
 .kpanel.is-full .k-item p, .kpanel.is-full .k-item li { font-size: 16px; }
 .kpanel.is-full .k-diagram img { max-width: 720px; }
+/* 小分類交界線與好萊塢式名牌（PI.GROUP_REGIONS，目前生藥頁） */
+.grp-border { fill: none; stroke: #6E6538; stroke-width: 3.5; stroke-linecap: round; stroke-opacity: .75; }
+.grp-border-shadow { fill: none; stroke: #FFFDF2; stroke-width: 7; stroke-linecap: round; stroke-opacity: .55; }
+.grp-letter { font-family: var(--font); font-size: 13px; font-weight: 800; fill: #FFFDF5; text-anchor: middle; dominant-baseline: alphabetic;
+  stroke: #4A4527; stroke-width: 3; stroke-linejoin: round; paint-order: stroke; }
+.grp-leg { stroke: #6E6538; stroke-width: 1.2; stroke-linecap: round; stroke-opacity: .55; }

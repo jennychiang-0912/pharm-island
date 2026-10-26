@@ -19,6 +19,9 @@ PI.UNIT_FIELDS = [
   ["constituents", "成分"], ["uses", "用途"], ["notes", "其他重點"]
 ];
 
+/* 地圖：小分類（Pyridine-Piperidine、Tropane…）畫交界線和好萊塢式名牌（js/map.js 的 drawGroups） */
+PI.GROUP_REGIONS = true;
+
 /* 生藥的欄位（取代藥理的「機轉、抗菌範圍…」）：照講義表格的欄位 */
 PI.UNIT_FIELDS = [
   ["names", "名稱"], ["origin", "基源"], ["family", "科別"], ["part", "部位"],
