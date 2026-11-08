@@ -513,6 +513,318 @@ PI.UNITS = [
     "孕婦禁用：{{Phenytoin|藥名}}、Topiramate",
     "無藥物交互作用：{{Ethosuximide|藥名}}、Gabapentin、Levetiracetam",
     "Steve-Johnson 症狀：Phenytoin、Carbamazepine、{{Lamotrigine|藥名}}"
+  ] },
+
+/* ===== 第 3 章 抗憂鬱藥物（統整（一）參，p.32–43）===== */
+{ id: "ad-classes", chapter: 3, name: "抗憂鬱藥物分類總表", short: "抗憂鬱分類", type: "topic", group: "總論", source: "統整（一）p.32",
+  bold: [
+    "NSRI（非選擇性正腎上腺素與血清素再回收抑制劑）：Amitriptyline 類 TCA、Imipramine 類 TCA、非 TCA（Venlafaxine、Milnacipran、Duloxetine）",
+    "SNRI（選擇性正腎上腺素再回收抑制劑）：TCA（Desipramine、Nortriptyline、Amoxapine、Protriptyline、Maprotiline）、非 TCA（Reboxetine、Atomoxetine）",
+    "SSRI（選擇性血清素再回收抑制劑）：Fluoxetine、Paroxetine、Citalopram、Sertraline、Fluvoxamine",
+    "DNRI（多巴胺與正腎上腺素再回收抑制劑）：{{Bupropion|藥名}}",
+    "SRM/SARI（血清素受體調節劑）：Trazodone、Aripiprazole、Vilazone",
+    "NaSSA（正腎上腺素與選擇性血清素拮抗劑）：Mianserin、Mirtazapine",
+    "MAOI（單胺氧化酶抑制劑）：選擇性 Moclobemide；非選擇性 Phenelzine、Tranylcypromine",
+    "心情穩定劑：{{Lithium|藥名}}、Valproic acid、Carbamazepine"
+  ] },
+
+/* 一、NSRI：含末端三級胺之 TCA — Amitriptyline 類（環外有雙鍵） */
+{ id: "amitriptyline", chapter: 3, name: "Amitriptyline", type: "drug", group: "TCA-NSRIs：Amitriptyline 類", source: "統整（一）p.33", img: "assets/medchem/amitriptyline.png",
+  use: ["{{抗憂鬱|用途}}"],
+  bold: [
+    "屬於 {{Dibenzocycloheptene|結構}} 類 TCA",
+    "5 號位為 C 原子，且接有 {{propylidene|取代基}}",
+    "結構和 {{Nortriptyline|藥名}} 相似（SNRIs）",
+    "對光敏感，須避光保存，以防{{氧化成酮|性質}}而沉澱",
+    "主要由 {{CYP2D6|酵素}} 經 N-demethylation 代謝成有活性的二級胺 {{Nortriptyline|代謝物}}",
+    "可在 C₁₀ 進行水解，產生有活性的 {{E-10-hydroxy|代謝物}} 代謝物"
+  ] },
+{ id: "doxepin", chapter: 3, name: "Doxepin", type: "drug", group: "TCA-NSRIs：Amitriptyline 類", source: "統整（一）p.33", img: "assets/medchem/doxepin.png",
+  use: ["{{抗憂鬱|用途}}"],
+  bold: [
+    "屬於 {{Dibenzoxepine|結構}} 類 TCA",
+    "七元雜環中含有 {{O 原子|結構}}（11 號位）→ 造成三環系統不對稱",
+    "{{E form|結構}} 較穩定但 {{Z form|結構}} 活性較大（市售多販售 E/Z=85/15）",
+    "代謝：主要進行 N-desmethylation；E form 由 {{CYP2D6|酵素}}、CYP2C19 代謝；Z form 只由 {{CYP2C19|酵素}} 代謝"
+  ] },
+{ id: "dosulepin", chapter: 3, name: "Dosulepin", type: "drug", group: "TCA-NSRIs：Amitriptyline 類", source: "統整（一）p.33", img: "assets/medchem/dosulepin.png",
+  use: ["{{抗憂鬱|用途}}"],
+  bold: [
+    "為 Doxepin 的 {{Thio-isoster|名詞}}",
+    "七元雜環中含有 {{S 原子|結構}}（11 號位）",
+    "只有 {{E form|結構}} 具有活性",
+    "容易在腸胃道 GI 被吸收，會經{{肝臟首渡代謝|代謝}}",
+    "主要經 {{S-oxidation|代謝}} 生成有活性的 Dosulepin S-oxide；其次經 N-demethylation 代謝為無活性產物",
+    "TCA 大多具高度首渡代謝，且有 Antihistamine、α-blocker、Antimuscarinic 的副作用（抗 {{HAM|名詞}}）"
+  ] },
+
+/* NSRI：Imipramine 類（結構無雙鍵、C5 為 N、字尾 -pramine） */
+{ id: "imipramine", chapter: 3, name: "Imipramine", type: "drug", group: "TCA-NSRIs：Imipramine 類", source: "統整（一）p.34", img: "assets/medchem/imipramine.png",
+  use: ["{{抗憂鬱|用途}}，可改善{{兒童遺尿|疾病}}"],
+  bold: [
+    "皆為 {{10,11-dihydrodibenzazepine|結構}} 類 TCA（結構無雙鍵，C₅ 為 N，字尾 -pramine）",
+    "對 {{5-HT|受體}} 的選擇性較佳",
+    "若 3 號位接{{鹵素或氰基|取代基}}，可增強對 SERT 的選擇性",
+    "主要由 CYP2C19、{{CYP1A2|酵素}} 行 N-demethylation，產生活性代謝物二級胺 {{Desipramine|代謝物}}（SNRIs）→ 失去抑制 5-HT 活性，選擇性抑制 NE 的再吸收"
+  ] },
+{ id: "clomipramine", chapter: 3, name: "Clomipramine", type: "drug", group: "TCA-NSRIs：Imipramine 類", source: "統整（一）p.34", img: "assets/medchem/clomipramine.png",
+  use: ["{{抗憂鬱|用途}}"],
+  bold: [
+    "3 號位上有 {{Cl|取代基}} 取代基★ → 藥效提升 50 倍",
+    "與 {{Chlorpromazine|藥名}} 為 isostere",
+    "主要由 {{CYP2D6|酵素}} 進行 N-demethylation，產生之活性代謝物選擇性、藥效皆比原來更高",
+    "也可進行 C₂、C₈ 的 {{hydroxylation|代謝}}"
+  ] },
+{ id: "trimipramine", chapter: 3, name: "Trimipramine", type: "drug", group: "TCA-NSRIs：Imipramine 類", source: "統整（一）p.34", img: "assets/medchem/trimipramine.png",
+  use: ["{{抗憂鬱|用途}}"],
+  bold: [
+    "結構中共有{{三個甲基|取代基}}（Trimi-）",
+    "5-propyl 的側鏈多接一個甲基 → 形成 {{chiral center|名詞}}（★）",
+    "主要以{{消旋|性質}}化合物上市",
+    "(-)-Trimipramine 經 {{CYP2D6|酵素}} 行 2-hydroxylation；(+)-Trimipramine 經 {{CYP2C19|酵素}} 行 N-demethylation"
+  ] },
+{ id: "lofepramine", chapter: 3, name: "Lofepramine", type: "drug", group: "TCA-NSRIs：Imipramine 類", source: "統整（一）p.34", img: "assets/medchem/lofepramine.png",
+  use: ["{{抗憂鬱|用途}}"],
+  bold: [
+    "末端 N 上接了 {{para-chlorophenacyl|取代基}} → 親脂性提升，更容易進入 CNS，對 NET 的選擇性也更高",
+    "進行 N-demethylation，形成二級胺 {{Desipramine|代謝物}} → 失去抑制 5-HT 活性，選擇性抑制 NE 的再吸收"
+  ] },
+
+/* 非三環結構之 NE/5-HT 再回收抑制劑（Non-TCA NSRIs） */
+{ id: "venlafaxine", chapter: 3, name: "Venlafaxine / Desvenlafaxine", short: "Venlafaxine", type: "drug", group: "Non-TCA NSRIs", source: "統整（一）p.35", img: "assets/medchem/venlafaxine.png",
+  use: ["{{抗憂鬱|用途}}"],
+  bold: [
+    "以 {{methoxyphenylethylamine|結構}} 為骨架，屬 TCA 開環後的化合物，一邊接苯環，另一邊接 {{cyclohexanol|結構}}",
+    "側鏈之距離為{{一個 C|數值}}（TCA 是 3 個）",
+    "與阿片類止痛藥 {{Tramadol|藥名}} 結構類似",
+    "主要由 {{CYP2D6|酵素}} 進行 O-demethylation → 產生活性代謝物 O-desmethylvenlafaxine（ODV），直接用此代謝物作為新藥：{{Desvenlafaxine|代謝物}}",
+    "次要由 CYP3A4 進行 N-demethylation"
+  ] },
+{ id: "milnacipran", chapter: 3, name: "Milnacipran", type: "drug", group: "Non-TCA NSRIs", source: "統整（一）p.35", img: "assets/medchem/milnacipran.png",
+  use: ["{{抗憂鬱|用途}}"],
+  bold: [
+    "具有 {{Cyclopropane|結構}} 結構（-cipran）",
+    "由 phenylcyclopropanecarboxamide 修飾而得的 {{cis-aminomethyl|結構}} 衍生物",
+    "若用 aminopropyl 取代 aminomethyl，會變成強效的 {{NMDA 受體拮抗劑|機轉}}",
+    "對 {{5-HT|受體}} 選擇性較佳；對 α、M、H₁ 受體有較弱親和力 → 副作用較 TCA 少",
+    "代謝：50% 藥物會直接經{{尿液|代謝}}排出"
+  ] },
+{ id: "duloxetine", chapter: 3, name: "Duloxetine", type: "drug", group: "Non-TCA NSRIs", source: "統整（一）p.35", img: "assets/medchem/duloxetine.png",
+  use: ["{{抗憂鬱|用途}}（作用強弱：Duloxetine > Milnacipran > Venlafaxine）"],
+  bold: [
+    "以 Fluoxetine（SSRIs）為模板進行改良：Phenoxy → {{Naphthyloxy|結構}}；Benzene → {{Thiophene|結構}}（isostere）",
+    "CYP2D6 進行 N-demethylation，形成活性代謝物",
+    "CYP1A2 在萘環的 4/5/6 號位進行 hydroxylation → {{4-hydroxy|代謝物}} 代謝物仍具活性，但選擇性抑制 SERT",
+    "次要代謝會在 Thiophene 上行 oxidation，代謝物會導致類似{{黃疸|副作用}}的症狀（Jaundice-like condition）"
+  ] },
+
+/* 二、SNRI：含末端二級胺之 TCA */
+{ id: "desipramine", chapter: 3, name: "Desipramine", type: "drug", group: "TCA-SNRIs", source: "統整（一）p.36", img: "assets/medchem/desipramine.png",
+  use: ["{{抗憂鬱|用途}}（選擇性抑制 NE 再吸收）"],
+  bold: [
+    "為 {{Imipramine|藥名}} 經 N-去甲基化後的活性代謝物（Des-）",
+    "屬於 {{Dihydrobenzazepine|結構}} 類",
+    "主要由 {{CYP2D6|酵素}} 在 N 之對位進行 2-hydroxylation",
+    "次要由 CYP1A2、CYP2C19 於支鏈進行 N-去甲基化，形成{{一級胺|結構}}（以上兩者均為無活性代謝物）"
+  ] },
+{ id: "nortriptyline", chapter: 3, name: "Nortriptyline", type: "drug", group: "TCA-SNRIs", source: "統整（一）p.36", img: "assets/medchem/nortriptyline.png",
+  use: ["{{抗憂鬱|用途}}（選擇性抑制 NE 再吸收）"],
+  bold: [
+    "為 {{Amitriptyline|藥名}} 經 N-去甲基化後的活性代謝物（Nor-）",
+    "屬於 {{Dibenzocycloheptene|結構}} 類",
+    "主要由 CYP2D6 在支鏈進行 N-demethylation，形成一級胺（無活性）",
+    "次要由 CYP2D 在 benzylic / C₁₀ 進行 hydroxylation，形成活性代謝物 {{E-10-hydroxynortriptyline|代謝物}}（Z form 無活性）"
+  ] },
+{ id: "amoxapine", chapter: 3, name: "Amoxapine", type: "drug", group: "TCA-SNRIs", source: "統整（一）p.36", img: "assets/medchem/amoxapine.png",
+  use: ["{{抗憂鬱|用途}}（為最快代謝排除的 TCA）"],
+  bold: [
+    "屬於 {{Dibenzoxepine|結構}} 類（含 N、O 七元雜環）",
+    "支鏈非三個碳：以 {{piperazinyl|取代基}} 取代；2 號位有 Cl 取代",
+    "由 {{Loxapine|藥名}}（抗精神病藥）經 N-demethylation 而來",
+    "可由 {{CYP3A4|酵素}} 在沒有接 Cl 的環上進行 hydroxylation，形成 7/8-hydroxyamoxapine（皆具活性）",
+    "不可和 {{Ketoconazole|藥名}} 併服，因兩者都由 CYP3A4 代謝"
+  ] },
+{ id: "protriptyline", chapter: 3, name: "Protriptyline", type: "drug", group: "TCA-SNRIs", source: "統整（一）p.37", img: "assets/medchem/protriptyline.png",
+  use: ["{{抗憂鬱|用途}}（選擇性抑制 NE 再吸收）"],
+  bold: [
+    "屬於 {{Dibenzocycloheptriene|結構}} TCA",
+    "TCA 中唯一中間環有 {{C=C 雙鍵|結構}}者",
+    "與 Nortriptyline 只差再一個雙鍵在環內、一個雙鍵再環外",
+    "中央環之雙鍵容易形成 {{epoxide|代謝物}}，再被 H₂O 開環接上兩個 OH 基，形成無活型的 {{diol|代謝物}} 代謝物"
+  ] },
+{ id: "maprotiline", chapter: 3, name: "Maprotiline", type: "drug", group: "TCA-SNRIs", source: "統整（一）p.37", img: "assets/medchem/maprotiline.png",
+  use: ["{{抗憂鬱|用途}}（選擇性抑制 NE 再吸收）"],
+  bold: [
+    "屬 {{Dibenzobicyclooctadiene|結構}} 四環類 TCA",
+    "第四環由雙碳橋 ethylene bridge 連接中央六元環之 para 位，形成 {{bicyclo-molecular|結構}}",
+    "主要由多型 Polymorphic 的 {{CYP2D6|酵素}}、CYP2C19 代謝",
+    "N-demethylation 形成有活性的代謝物；N-oxidation 形成{{無活性|性質}}的 Maprotiline-N-oxide"
+  ] },
+
+/* 非三環結構之選擇性 NE 再回收抑制劑（Non-TCA SNRIs） */
+{ id: "reboxetine", chapter: 3, name: "Reboxetine", type: "drug", group: "Non-TCA SNRIs", source: "統整（一）p.37", img: "assets/medchem/reboxetine.png",
+  use: ["{{抗憂鬱|用途}}（選擇性抑制 NE 再吸收）"],
+  bold: [
+    "結構為 {{Phenoxyphenylpropylamine|結構}} 類",
+    "含有 {{Morpholine|結構}} 結構",
+    "有兩個 chiral center → {{S,S-(+)-enantiomer|結構}} 活性較大",
+    "由 {{CYP3A4|酵素}} 負責代謝，主要進行 O-dealkylation，產生無活性代謝物（去除乙氧基的 ethyl group）"
+  ] },
+{ id: "atomoxetine", chapter: 3, name: "R-(-)-Atomoxetine", short: "Atomoxetine", type: "drug", group: "Non-TCA SNRIs", source: "統整（一）p.37", img: "assets/medchem/atomoxetine.png",
+  use: ["治療孩童過動症 {{ADHD|疾病}} 及成人憂鬱症"],
+  bold: [
+    "結構為 Phenoxyphenylpropylamine 類",
+    "{{R form|結構}} 與 NET 的親和力強 10 倍",
+    "較無抗膽鹼及心血管方面的副作用",
+    "主要由 {{CYP2D6|酵素}} 在 phenoxy group 對位進行 hydroxylation，形成有活性的 4-hydroxy-(R)-代謝物",
+    "次要由 CYP2C19 在支鏈進行 N-demethylation"
+  ] },
+
+/* 三、SSRI：憂鬱症首選用藥（同時為第一線抗焦慮用藥） */
+{ id: "fluoxetine-ad", chapter: 3, name: "Fluoxetine", type: "drug", group: "SSRI：Phenoxyphenylalkylamine", source: "統整（一）p.38", img: "assets/medchem/fluoxetine.png",
+  use: ["{{抗焦慮|用途}}、抗憂鬱（SSRI 為憂鬱症首選用藥）"],
+  bold: [
+    "市售為消旋化合物，但 {{S form|結構}} 效果較強",
+    "含有 {{CF₃|取代基}} 取代基",
+    "為 {{CYP2D6|酵素}} 強力抑制劑",
+    "主要由 CYP2D6 行 N-去甲基化，形成活性代謝物 {{Norfluoxetine|代謝物}}",
+    "本分類的三個藥物之胺基都會質子化並與自身氧原子形成氫鍵 → 形成 {{β-arylamino-like group|結構}}"
+  ] },
+{ id: "paroxetine", chapter: 3, name: "Paroxetine", type: "drug", group: "SSRI：Phenoxyphenylalkylamine", source: "統整（一）p.38", img: "assets/medchem/paroxetine.png",
+  use: ["{{抗焦慮|用途}}、抗憂鬱"],
+  bold: [
+    "Fluoxetine 的{{閉環|結構}}類似物",
+    "具有兩個 chiral center，所以有 4 個異構物 → 市售以 {{(3S,4R)-(-)-enantiomer|結構}} 為主",
+    "為 {{CYP2D6|酵素}} 強力抑制劑"
+  ] },
+{ id: "citalopram", chapter: 3, name: "Citalopram / Escitalopram", short: "Citalopram", type: "drug", group: "SSRI：Phenoxyphenylalkylamine", source: "統整（一）p.38", img: "assets/medchem/citalopram.png",
+  use: ["{{抗焦慮|用途}}、抗憂鬱"],
+  bold: [
+    "由 Talopram、S-Talsupram 衍生而來",
+    "含有 {{C≡N|結構}}、F 原子",
+    "其 S-enantiomer 稱為 {{Escitalopram|藥名}}，對受體有高度親和力與選擇性",
+    "進行 N-demethylation，主要代謝物仍有 {{50%|數值}}活性"
+  ] },
+{ id: "sertraline", chapter: 3, name: "Sertraline", type: "drug", group: "SSRI：Phenylalkylamine", source: "統整（一）p.39", img: "assets/medchem/sertraline.png",
+  use: ["{{抗焦慮|用途}}、抗憂鬱"],
+  bold: [
+    "含有 {{tetralin|結構}} 結構，為 phenylaminotetralin",
+    "具有兩個 chiral center → 市售以 {{S,S-(+)-diastereomer|結構}} 為主",
+    "主要經 {{CYP2B6|酵素}} 行 N-去甲基化，主要代謝物活性比原來小 5-10 倍 → 仍屬於活性代謝物"
+  ] },
+{ id: "fluvoxamine", chapter: 3, name: "Fluvoxamine", type: "drug", group: "SSRI：Miscellaneous", source: "統整（一）p.39", img: "assets/medchem/fluvoxamine.png",
+  use: ["{{抗焦慮|用途}}、抗憂鬱"],
+  bold: [
+    "屬於 {{nontricyclic SERT inhibitor|名詞}}",
+    "使用上以 {{E form|結構}} 為主（異側）",
+    "由 {{Noxiptilin|藥名}} 開環修飾得到",
+    "苯環對位上有 {{CF₃|取代基}} 取代基，具有長碳鏈脂溶性端（aliphatic）",
+    "{{CYP2D6|酵素}} 行 O-去甲基化，最後氧化成酸"
+  ] },
+
+/* 四、DNRI */
+{ id: "bupropion", chapter: 3, name: "Bupropion", type: "drug", group: "DNRI", source: "統整（一）p.40", img: "assets/medchem/bupropion.png",
+  use: ["{{抗憂鬱|用途}}，也能降低菸癮作為{{戒菸用藥|用途}}"],
+  bold: [
+    "結構為 {{phenylisopropylaminoketone|結構}}，由甲基安非他命衍生而來",
+    "含有 {{tert-butyl|取代基}} group → 可防止藥物進行 N-dealkylation 代謝 → 防止擬交感神經活性或厭食症 anorexigenic",
+    "為{{最不會|性質}}有體重增加的副作用★",
+    "tert-butyl 其中任一甲基可由 {{CYP2B6|酵素}} 氧化形成 hydroxybupropion（50% 活性代謝物）",
+    "酮也可被還原成 OH，形成具兩個 chiral center 之活性代謝物"
+  ] },
+
+/* 五、SRM/SARI */
+{ id: "trazodone", chapter: 3, name: "Trazodone", type: "drug", group: "SRM/SARI：Arylpiperazine", source: "統整（一）p.41", img: "assets/medchem/trazodone.png",
+  use: ["{{抗憂鬱|用途}}（具雙重作用）"],
+  bold: [
+    "為 {{phenylpiperazine-triazolopyridine|結構}}★類",
+    "雙重作用：{{5-HT2A antagonist|機轉}}★、弱的 5-HT reuptake inhibitor",
+    "主要由 CYP3A4 進行 N-dealkylation，產生 Triazolopyridinone-propionic acid / TPP 和 {{m-CPP|代謝物}}（活性★代謝物）",
+    "次要由 CYP3A4 在苯環 para 位加上 OH 後，於 pyridine 形成環氧基，若用親核基開環產生{{肝毒性|副作用}}"
+  ] },
+{ id: "aripiprazole", chapter: 3, name: "Aripiprazole", type: "drug", group: "SRM/SARI：Arylpiperazine", source: "統整（一）p.41", img: "assets/medchem/aripiprazole.png",
+  use: ["抗精神病、{{抗憂鬱|用途}}（用於急性躁狂及躁鬱症，青少年及成人皆可）"],
+  bold: [
+    "結構含有 {{quinolinone|結構}}，苯環有兩個 Cl",
+    "同時為第二代{{抗精神病|用途}}藥物，具有雙重作用",
+    "經 {{CYP3A4|酵素}} 進行 Dehydroxylation，脫水形成雙鍵 → 產生活性代謝物 Dehydroaripiprazole",
+    "經 CYP3A4 進行 N-dealkylation，產生有活性的 {{DCPP|代謝物}}"
+  ] },
+{ id: "vilazone", chapter: 3, name: "Vilazone", type: "drug", group: "SRM/SARI：Indole", source: "統整（一）p.41", img: "assets/medchem/vilazone.png",
+  use: ["{{抗憂鬱|用途}}（5-HT 的部分促效劑及再回收抑制劑）"],
+  bold: [
+    "為 {{phenylpiperazine-2-benzofuran-carboxamide|結構}} 類",
+    "含有 {{Indole|結構}}、C≡N 結構，具有雙重作用",
+    "主要由 {{CYP3A4|酵素}} 代謝；次要為 CYP2C19、CYP2D6",
+    "在苯環 6 號位進行 hydroxylation，產生{{無活性|性質}}代謝物"
+  ] },
+
+/* 六、NaSSA */
+{ id: "nassa-topic", chapter: 3, name: "NaSSA 機轉與比較", short: "NaSSA 比較", type: "topic", group: "NaSSA", source: "統整（一）p.42",
+  bold: [
+    "機轉：{{α₂-antagonist|機轉}} 和 5-HT₃ antagonist，可以增強傳遞 NE 或 5-HT（沒有抑制再回收的作用）",
+    "Mirtazapine 屬於 {{pyrazinopyridobenzazepine|結構}} 類抗憂鬱藥",
+    "Mirtazapine 和 Mianserin 互為 {{isostere|名詞}}（生物等效物）",
+    "Mirtazapine 含有 {{pyridine|結構}} 結構；Mianserin 含有 benzene 結構",
+    "右邊苯環之 6 號位：Mianserin 為 C（benzene）、Mirtazapine 為 N（pyridine）",
+    "對 NET 之影響：Mianserin 為 {{NET inhibitor|機轉}}、Mirtazapine 無影響",
+    "Mianserin 僅在歐洲使用，美國不使用，會造成{{顆粒性白血球缺乏症|副作用}}、白血球減少症",
+    "Mirtazapine 以 pyridine 取代苯環，造成極性增加、分配係數下降（水溶性↑）、鹼度下降、NET 抑制劑活性較弱",
+    "副作用：鎮靜、{{體重上升|副作用}}★，但不會影響性功能",
+    "代謝：2 號位 C 進行 N-desmethylation、8 號位 C 水解加上 OH 形成 8-hydroxymirtazapine（皆微弱活性）；{{N-oxide|代謝}} 之代謝產物無活性"
+  ] },
+{ id: "mianserin", chapter: 3, name: "Mianserin", type: "drug", group: "NaSSA", source: "統整（一）p.42", img: "assets/medchem/mianserin.png",
+  use: ["{{抗憂鬱|用途}}（僅歐洲使用）"],
+  bold: [
+    "右邊第六號位為 {{C|離子}}（benzene）",
+    "對 NET 為 {{NET inhibitor|機轉}}",
+    "副作用太大，改用 Mirtazapine"
+  ] },
+{ id: "mirtazapine", chapter: 3, name: "Mirtazapine", type: "drug", group: "NaSSA", source: "統整（一）p.42", img: "assets/medchem/mirtazapine.png",
+  use: ["{{抗憂鬱|用途}}"],
+  bold: [
+    "右邊第六號位為 {{N|離子}}（pyridine，-aza-）",
+    "對 NET {{無影響|性質}}",
+    "副作用：鎮靜、{{體重上升|副作用}}★，但不影響性功能"
+  ] },
+
+/* 七、MAOI */
+{ id: "maoi-topic", chapter: 3, name: "MAOI 藥物簡介", short: "MAOI 簡介", type: "topic", group: "MAOI", source: "統整（一）p.43",
+  bold: [
+    "由 {{Isoniazid|藥名}}（抗分枝桿菌藥物）衍生而來，具有單胺氧化酶抑制作用（減緩單胺被降解），可治療憂鬱症",
+    "不能和富含 {{Tyramine|物質}} 的食物併服，會有產生{{高血壓|副作用}}的風險（Tyramine 富含於發酵食物，如紅酒、乳酪、優格、味噌、香腸、培根）",
+    "因 MAOI 與多種藥物有交互作用，為抗憂鬱症之{{最後一線|名詞}}用藥"
+  ] },
+{ id: "phenelzine", chapter: 3, name: "Phenelzine", type: "drug", group: "MAOI", source: "統整（一）p.43", img: "assets/medchem/phenelzine.png",
+  use: ["{{抗憂鬱|用途}}（不可逆、無選擇性 MAOI）"],
+  bold: [
+    "結構為 2-(phenylethyl)-hydrazine，為 {{Hydrazine|結構}} 類的 MAOI",
+    "主要代謝物為 {{Phenylacetic acid|代謝物}} 及 p-hydroxyphenylacetic acid",
+    "代謝物 β-phenylethylamine 可能會提高腦中 {{GABA|物質}} 的濃度",
+    "以 {{N-acetylation|代謝}} 的方式經尿液排出"
+  ] },
+{ id: "tranylcypromine", chapter: 3, name: "Tranylcypromine", type: "drug", group: "MAOI", source: "統整（一）p.43", img: "assets/medchem/tranylcypromine.png",
+  use: ["{{抗憂鬱|用途}}（不可逆、無選擇性 MAOI）"],
+  bold: [
+    "結構為 (±)-trans-2-phenylcyclopropylamine，為 {{non-Hydrazine|結構}} 類的 MAOI",
+    "為 {{Amphetamine|藥名}} 的 cyclopropyl 衍生物",
+    "Tranylcypromine = trans-form + {{cyclopropyl|結構}} + amphetamine 衍生物"
+  ] },
+{ id: "moclobemide", chapter: 3, name: "Moclobemide", type: "drug", group: "MAOI", source: "統整（一）p.43", img: "assets/medchem/moclobemide.png",
+  use: ["{{抗憂鬱|用途}}（可逆、具選擇性 MAOI）"],
+  bold: [
+    "為 {{Benzamide|結構}} 的衍生物，且含有 Morpholine 結構",
+    "Moclobemide = morpholine + para-chloro + benzamide 衍生物",
+    "具有 {{MAO-A|標的}} 選擇性，可避免嚴重{{低血壓|副作用}}的副作用"
+  ] },
+
+/* 八、情緒穩定劑 */
+{ id: "lithium", chapter: 3, name: "Lithium（情緒穩定劑）", short: "Lithium", type: "topic", group: "情緒穩定劑", source: "統整（一）p.43",
+  bold: [
+    "阻斷 {{IP turnover|機轉}}，減少 IP₃ 和 DAG 之合成，進而降低細胞興奮性",
+    "抑制 {{GSK-3|標的}} receptor（屬 Serine/Threonine protein kinase，與阿滋海默症、雙極症有關）",
+    "可抑制心臟傳導，因此患有心臟疾病之患者應小心使用",
+    "使受體和其 G protein {{去偶合|機轉}}★，如使 TSH 受體失效造成甲狀腺功能低下、使 ADH 受體失效造成{{腎因性尿崩症|疾病}}"
   ] }
 ];
 
@@ -532,6 +844,17 @@ PI.KNOWLEDGE = {
       { id: "partial", title: "一、局部性及全身強直-痙攣性發作", items: [] },
       { id: "absence", title: "二、失神性發作", items: [] },
       { id: "summary", title: "總整理", items: [{ unit: "ae-ureide" }, { unit: "ae-se-summary" }] }
+    ] },
+  ch3: { chapter: 3, title: "抗憂鬱藥物",
+    sections: [
+      { id: "classes", title: "分類總表", items: [{ unit: "ad-classes" }] },
+      { id: "nsri", title: "一、NSRI", items: [] },
+      { id: "snri", title: "二、SNRI", items: [] },
+      { id: "ssri", title: "三、SSRI", items: [] },
+      { id: "dnri-srm", title: "四、DNRI／五、SRM・SARI", items: [] },
+      { id: "nassa", title: "六、NaSSA", items: [{ unit: "nassa-topic" }] },
+      { id: "maoi", title: "七、MAOI", items: [{ unit: "maoi-topic" }] },
+      { id: "mood", title: "八、情緒穩定劑", items: [{ unit: "lithium" }] }
     ] }
 };
 PI.GLOSSARY = {};
