@@ -1371,7 +1371,150 @@ PI.UNITS = [
   bold: ["為 {{hydantoin|結構}}★衍生物（有 {{ureide|結構}} 骨架），也具有 furan、nitrobenzene 結構", "代謝還原後形成 {{Aminodantrolene|代謝物}}（NO₂→NH₂）"] },
 { id: "tizanidine", chapter: 6, name: "Tizanidine", type: "drug", group: "抗痙攣劑", source: "統整（一）p.67", img: "assets/medchem/tizanidine.png",
   use: ["促進運動神經元前突觸的 {{α₂受體|受體}} → 抑制興奮性神經活性", "有{{中樞|器官}}活性的肌肉鬆弛效果", "治療因腦或脊髓損傷造成的痙攣"],
-  bold: ["為 {{Clonidine|藥名}} 的類似物", "有 {{imidazoline|結構}}、benzothiadiazole 結構", "代謝：三個環的 {{oxidation|代謝}}"] }
+  bold: ["為 {{Clonidine|藥名}} 的類似物", "有 {{imidazoline|結構}}、benzothiadiazole 結構", "代謝：三個環的 {{oxidation|代謝}}"] },
+
+/* ===== 第 7 章 利尿劑（統整（三）柒，p.39–46）===== */
+{ id: "diu-location", chapter: 7, name: "利尿劑作用位置總論", short: "作用位置", type: "topic", group: "總論", source: "統整（三）p.39",
+  bold: [
+    "近曲小管：{{碳酸酐酶抑制劑|藥物類別}}（Acetazolamide、Dichlorphenamide）",
+    "亨氏套上升支：{{環利尿劑|藥物類別}} Loop（Furosemide、Bumetanide、Torsemide、Ethacrynic acid）",
+    "遠曲小管：{{Thiazides|藥物類別}} 利尿劑（Chlorothiazide、Metolazone、Chlorthalidone、Indapamide）",
+    "集尿管（阻斷 NaCl）：{{保鉀型利尿劑|藥物類別}}（Spironolactone、Eplerenone、Triamterene、Amiloride）",
+    "集尿管（阻斷 H₂O）：抗利尿激素受體拮抗劑 ADH antagonist（{{Tolvaptan|藥名}}）"
+  ] },
+{ id: "osmotic-intro", chapter: 7, name: "滲透壓型利尿劑總論", short: "滲透壓總論", type: "topic", group: "滲透壓型利尿劑", source: "統整（三）p.40",
+  bold: [
+    "滲透壓型利尿劑作用在{{亨、近、集|位置}}，副作用為{{心衰竭|副作用}}",
+    "可自由通過{{鮑氏囊|器官}}進入腎小管，不會被再吸收（含豐富 OH 基、水溶性極高）",
+    "管腔內{{滲透壓增加|機轉}}，使水分從血管進入腎小管",
+    "其他類：醣類 Glucose、Sucrose；尿素（{{Urea|物質}}）不具多羥基，但過去還是當作 Osmotic diuretics 使用"
+  ] },
+{ id: "mannitol", chapter: 7, name: "Mannitol", type: "drug", group: "滲透壓型利尿劑", source: "統整（三）p.40", img: "assets/medchem/mannitol.png",
+  use: ["{{滲透壓型利尿劑|用途}}：最被廣泛使用", "口服吸收不佳，容易被腎小球過濾，但{{不被腎小管再吸收|性質}}★"],
+  bold: ["屬於 {{Polyol|結構}} 類（多羥基）化合物", "Mannitol 與 Sorbitol 兩者互為 {{R、S 異構物|性質}}（2-OH 方向不同）", "兩者作用機轉相同"] },
+{ id: "sorbitol", chapter: 7, name: "Sorbitol", type: "drug", group: "滲透壓型利尿劑", source: "統整（三）p.40", img: "assets/medchem/sorbitol.png",
+  use: ["{{滲透壓型利尿劑|用途}}"],
+  bold: ["與 Mannitol 互為 {{R、S 異構物|性質}}（2-OH 方向不同）", "兩者作用機轉相同"] },
+{ id: "isosorbide", chapter: 7, name: "Isosorbide", type: "drug", group: "滲透壓型利尿劑", source: "統整（三）p.40", img: "assets/medchem/isosorbide.png",
+  use: ["可口服", "同時可{{降低眼壓|用途}}，治療青光眼 → 降眼壓效果較利尿效果強", "衍生物 Isosorbide Dinitrate 可治療心絞痛"],
+  bold: ["為 Sorbitol 之{{雙五環|結構}}★型態（將 Sorbitol 環化）"] },
+
+{ id: "cai-intro", chapter: 7, name: "碳酸酐酶抑制劑總論", short: "CAI 總論", type: "topic", group: "碳酸酐酶抑制劑", source: "統整（三）p.41",
+  bold: [
+    "碳酸酐酶抑制劑作用在{{近曲小管|位置}}，字尾 -amide",
+    "CA 催化 CO₂+H₂O → {{H₂CO₃|物質}}，碳酸解離為 H⁺+HCO₃⁻",
+    "H⁺分泌到腎小管交換 Na⁺、HCO₃⁻再吸收（吸鈉留水）；CAI 抑制此反應使 {{Na⁺|離子}} 無法再吸收",
+    "作用點太前面，一般用以治療{{青光眼|疾病}}；副作用：{{代謝性酸中毒|副作用}}"
+  ] },
+{ id: "acetazolamide", chapter: 7, name: "Acetazolamide", type: "drug", group: "碳酸酐酶抑制劑", source: "統整（三）p.41", img: "assets/medchem/acetazolamide.png",
+  use: ["{{碳酸酐酶抑制劑|用途}}：可用於急性高山症、青光眼、癲癇、代謝性鹼中毒、尿液鹼化劑", "會產生全身性{{酸中毒|副作用}}，使用上受限制"],
+  bold: ["具有 {{thiadiazole|結構}}★結構", "本類藥物皆含有 {{Sulfonamide|結構}}★結構", "第一個{{口服有效|性質}}的 CA 抑制劑"] },
+{ id: "methazolamide", chapter: 7, name: "Methazolamide", type: "drug", group: "碳酸酐酶抑制劑", source: "統整（三）p.41", img: "assets/medchem/methazolamide.png",
+  use: ["碳酸酐酶抑制劑"],
+  bold: ["與 Acetazolamide 差別僅在 thiadiazole 環 N 上有{{甲基|取代基}}取代 → 增加藥物{{脂溶性|性質}}，使其更容易進入眼內"] },
+{ id: "ethoxzolamide", chapter: 7, name: "Ethoxzolamide", type: "drug", group: "碳酸酐酶抑制劑", source: "統整（三）p.41", img: "assets/medchem/ethoxzolamide.png",
+  use: ["碳酸酐酶抑制劑"],
+  bold: ["具 {{1,3-benzothiazole|結構}} 結構", "Sulfonamide 接在雜環上", "具有{{乙氧基|取代基}}（ethoxy）"] },
+{ id: "dichlorphenamide", chapter: 7, name: "Dichlorphenamide", type: "drug", group: "碳酸酐酶抑制劑", source: "統整（三）p.41", img: "assets/medchem/dichlorphenamide.png",
+  use: ["碳酸酐酶抑制劑"],
+  bold: ["具有 {{disulfonamide|結構}}★結構", "{{沒有 thiazole ring|結構}}★：與 Acetazolamide 不同", "2、3 位上有 {{Cl|取代基}} 取代"] },
+{ id: "dorzolamide", chapter: 7, name: "Dorzolamide", type: "drug", group: "碳酸酐酶抑制劑", source: "統整（三）p.41", img: "assets/medchem/dorzolamide.png",
+  use: ["僅適用於{{青光眼|疾病}}的眼部局部給藥"],
+  bold: ["具有可解離的 {{2 級胺|結構}}結構", "仍具相當脂溶性，可穿透角膜"] },
+{ id: "brinzolamide", chapter: 7, name: "Brinzolamide", type: "drug", group: "碳酸酐酶抑制劑", source: "統整（三）p.41", img: "assets/medchem/brinzolamide.png",
+  use: ["僅適用於{{青光眼|疾病}}的眼部局部給藥"],
+  bold: ["與 Dorzolamide 類似，具可解離的 {{2 級胺|結構}}結構，可穿透角膜"] },
+
+{ id: "thiazide-sar", chapter: 7, name: "Thiazide 利尿劑 SAR", short: "Thiazide SAR", type: "topic", group: "Thiazide Diuretics", source: "統整（三）p.42", img: "assets/medchem/benzothiadiazine.png",
+  bold: [
+    "Thiazide（Benzothiadiazine）主要作用在{{遠曲小管|位置}}，競爭 Na⁺/Cl⁻通道的氯離子結合位 → 抑制 Na⁺、Cl⁻再吸收",
+    "副作用：{{低血鉀|副作用}}（Na⁺-K⁺ pump 補償使 K⁺被分泌）",
+    "具有 benzothiadiazine {{1,1-dioxide|結構}} 基本結構，C₇上須有磺胺基-SO₂NH₂，呈{{弱酸性|性質}}",
+    "若 3、4 號間的雙鍵{{飽和|性質|不飽和}}，則利尿活性上升★（Hydrochlorothiazide>Chlorothiazide）",
+    "{{3 號位|位置}}★上的親脂基團決定 Potency 及 Duration",
+    "藥物合成：Chloraminophenamide 與 {{Acylating agents|物質}} 環化可得 Thiazide；與 Aldehydes 脫水環化可得 Hydrothiazide"
+  ] },
+{ id: "chlorothiazide", chapter: 7, name: "Chlorothiazide", type: "drug", group: "Thiazide Diuretics", source: "統整（三）p.42", img: "assets/medchem/chlorothiazide.png",
+  use: ["{{Thiazide 利尿劑|用途}}"],
+  bold: ["3 號位親脂基團：{{H|取代基}}", "3、4 號間為{{不飽和雙鍵|結構|飽和單鍵}}（活性較 Hydrochlorothiazide 低）", "C₂的磺胺基酸度較大★，容易和 NaOH 形成水溶性鈉鹽"] },
+{ id: "hydrochlorothiazide", chapter: 7, name: "Hydrochlorothiazide", type: "drug", group: "Thiazide Diuretics", source: "統整（三）p.42", img: "assets/medchem/hydrochlorothiazide.png",
+  use: ["{{Thiazide 利尿劑|用途}}"],
+  bold: ["與 Chlorothiazide 僅差在 3、4 號間{{不飽和雙鍵|結構}}飽和 → 利尿{{活性上升|性質}}★", "3 號位親脂基團：{{H|取代基}}"] },
+{ id: "benzthiazide", chapter: 7, name: "Benzthiazide", type: "drug", group: "Thiazide Diuretics", source: "統整（三）p.42",
+  use: ["{{Thiazide 利尿劑|用途}}"],
+  bold: ["3 號位親脂基團為 {{benzylthiomethyl|取代基}}（-CH₂-S-benzyl）", "3、4 號間為{{不飽和雙鍵|結構}}"] },
+{ id: "methyclothiazide", chapter: 7, name: "Methyclothiazide", type: "drug", group: "Thiazide Diuretics", source: "統整（三）p.42",
+  use: ["{{Thiazide 利尿劑|用途}}"],
+  bold: ["3 號位親脂基團為 {{ClCH₂|取代基}}", "2 號 N 上有{{甲基|取代基}}取代"] },
+{ id: "trichlormethiazide", chapter: 7, name: "Trichlormethiazide", type: "drug", group: "Thiazide Diuretics", source: "統整（三）p.42",
+  use: ["{{Thiazide 利尿劑|用途}}"],
+  bold: ["3 號位親脂基團為 {{CHCl₂|取代基}}（二氯甲基）", "3、4 號間為{{飽和單鍵|結構}}"] },
+{ id: "polythiazide", chapter: 7, name: "Polythiazide", type: "drug", group: "Thiazide Diuretics", source: "統整（三）p.42",
+  use: ["{{Thiazide 利尿劑|用途}}"],
+  bold: ["3 號位親脂基團為 {{-CH₂-S-CH₂CF₃|取代基}}", "2 號 N 上有{{甲基|取代基}}取代"] },
+{ id: "hydroflumethiazide", chapter: 7, name: "Hydroflumethiazide", type: "drug", group: "Thiazide Diuretics", source: "統整（三）p.42",
+  use: ["{{Thiazide 利尿劑|用途}}"],
+  bold: ["3 號位親脂基團：{{H|取代基}}", "6 號位為 {{CF₃|取代基}}（非 Cl）"] },
+{ id: "bendroflumethiazide", chapter: 7, name: "Bendroflumethiazide", type: "drug", group: "Thiazide Diuretics", source: "統整（三）p.42",
+  use: ["{{Thiazide 利尿劑|用途}}"],
+  bold: ["3 號位親脂基團為{{苯環|取代基}}（benzyl）", "6 號位為 {{CF₃|取代基}}"] },
+{ id: "metolazone", chapter: 7, name: "Metolazone", type: "drug", group: "Thiazide-like（Quinazolinone）", source: "統整（三）p.43", img: "assets/medchem/metolazone.png",
+  use: ["{{Thiazide-like 利尿劑|用途}}"],
+  bold: ["不含 Benzothiadiazine 結構，但仍有 {{Sulfonamide|結構}} 結構★，與 Thiazide 有類似作用", "由 Thiazide 之 1(4) 號位的 {{Sulfone|取代基}} 基團置換成 {{C=O|取代基}}★所得", "2 號 N 上有 {{Toluidine|取代基}} 取代基", "3 號 C 上接{{甲基|取代基}}"] },
+{ id: "quinethazone", chapter: 7, name: "Quinethazone", type: "drug", group: "Thiazide-like（Quinazolinone）", source: "統整（三）p.43", img: "assets/medchem/quinethazone.png",
+  use: ["{{Thiazide-like 利尿劑|用途}}"],
+  bold: ["與 Metolazone 一樣含有 {{Quinazolinone|結構}} 雜環★", "2 號 N 上{{沒有取代基|結構}}", "3 號 C 上接{{乙基|取代基}}"] },
+{ id: "chlorthalidone", chapter: 7, name: "Chlorthalidone", type: "drug", group: "Thiazide-like（Phthalimidine）", source: "統整（三）p.43", img: "assets/medchem/chlorthalidone.png",
+  use: ["{{Thiazide-like 利尿劑|用途}}"],
+  bold: ["屬於 {{Phthalimidine|結構}}★類衍生物", "代謝：在體內會{{開環|代謝}}（含 Benzophenone 結構）"] },
+{ id: "indapamide", chapter: 7, name: "Indapamide", type: "drug", group: "Thiazide-like（Indoline）", source: "統整（三）p.43", img: "assets/medchem/indapamide.png",
+  use: ["{{Thiazide-like 利尿劑|用途}}"],
+  bold: ["屬於 {{Indoline|結構}} 類衍生物", "代謝：透過羥基化、水解、酯化、氧化{{四種|數值}}路徑代謝"] },
+
+{ id: "loop-intro", chapter: 7, name: "環利尿劑總論", short: "環利尿劑總論", type: "topic", group: "環利尿劑", source: "統整（三）p.44",
+  bold: [
+    "環利尿劑作用在{{亨氏套粗上升支|位置}}的 Na⁺/K⁺/2Cl⁻通道",
+    "Onset 快、Duration 短，利尿效果較其他類佳，故稱 {{High-Ceiling|名詞}} Diuretics",
+    "此類藥物較無類似結構，是因相似的藥理作用而歸類在一起"
+  ] },
+{ id: "furosemide", chapter: 7, name: "Furosemide", type: "drug", group: "環利尿劑", source: "統整（三）p.44", img: "assets/medchem/furosemide.png",
+  use: ["{{環利尿劑|用途}}", "酸性強（因具有-COOH）", "2 號位取代基影響活性：{{furfuryl|取代基}}>benzyl>thienylmethyl★"],
+  bold: ["{{ortho-aminobenzoic acid|結構}}★衍生物（5-sulfomyl-2-aminobenzoic acid）", "含有 {{anthranilic acid|結構}} 類似結構", "取代基：胺基+Furan、Cl、SO₂NH₂"] },
+{ id: "bumetanide", chapter: 7, name: "Bumetanide", type: "drug", group: "環利尿劑", source: "統整（三）p.44", img: "assets/medchem/bumetanide.png",
+  use: ["{{環利尿劑|用途}}：效價最強（Furosemide 的 {{40|數值}} 倍）"],
+  bold: ["{{meta-aminobenzoic acid|結構}}★衍生物（5-sulfomyl-3-aminobenzoic acid）", "3 號位含有{{正丁基|取代基}}結構（Butyl group）", "4 號位上有 {{Phenoxy|取代基}} 取代（O 改成 N 或 S 仍具活性）"] },
+{ id: "torsemide", chapter: 7, name: "Torsemide", type: "drug", group: "環利尿劑", source: "統整（三）p.44", img: "assets/medchem/torsemide.png",
+  use: ["{{環利尿劑|用途}}"],
+  bold: ["以 {{Pyridine|結構}} 為骨架（不同於其他三者）", "SO₂NH₂ 修飾成 {{Sulfonylurea|結構}}★結構", "N 上有 {{Toluidine|取代基}} 結構", "半衰期{{最長|性質}}"] },
+{ id: "ethacrynic-acid", chapter: 7, name: "Ethacrynic acid", type: "drug", group: "環利尿劑", source: "統整（三）p.44", img: "assets/medchem/ethacrynic-acid.png",
+  use: ["{{環利尿劑|用途}}", "生體可用率最高（100%）", "可用在對磺胺類過敏的病患", "比其他環利尿劑有更嚴重的{{耳毒性|副作用}}★及腸胃副作用"],
+  bold: ["唯一{{不含 Sulfonamide|結構}}★結構的環利尿劑", "含有 {{Acrylic acid|結構}} 結構，Cl 取代在 2、3 位", "Oxyacetic acid 與 αβ-unsaturated carbonyl 為 {{para-position|位置}}★時利尿效果最好", "與腎小管的-SH 形成{{共價鍵|機轉}}結合"] },
+
+{ id: "mra-intro", chapter: 7, name: "保鉀型（MRA）總論", short: "MRA 總論", type: "topic", group: "保鉀型（MRA）", source: "統整（三）p.45",
+  bold: [
+    "礦物性腎上腺皮質受體抑制劑（MRA）同時歸類為{{保鉀型利尿劑|藥物類別}}",
+    "主要抑制{{醛固酮 Aldosterone|物質}}的作用 → 需要 Aldosterone 存在才可作用★",
+    "受體（含 {{Methionine|物質}}）被抑制，使 Na⁺和水無法再吸收（K⁺留在體內）"
+  ] },
+{ id: "spironolactone", chapter: 7, name: "Spironolactone", type: "drug", group: "保鉀型（MRA）", source: "統整（三）p.45", img: "assets/medchem/spironolactone.png",
+  use: ["{{保鉀型利尿劑|用途}}", "副作用：{{男性女乳症|副作用}}（gynocomastia）、腸胃不適、昏睡"],
+  bold: ["7α★：-SC(O)CH₃（{{Ethanethiolate|取代基}}）★", "17 號：{{γ-lactone ring|結構}}", "7 號取代基可拮抗 Aldosterone 與受體 {{Methionine|物質}}★活化", "代謝：經肝臟首渡代謝脫去-SC(O)CH₃★形成 {{Canrenone|代謝物}}★（有活性）"] },
+{ id: "eplerenone", chapter: 7, name: "Eplerenone", type: "drug", group: "保鉀型（MRA）", source: "統整（三）p.45", img: "assets/medchem/eplerenone.png",
+  use: ["{{保鉀型利尿劑|用途}}"],
+  bold: ["在 9α、11α 上有 {{epoxy group|取代基}} → 對 MR 親合度較 Spironolactone {{低|性質|高}}", "代謝：經 {{CYP3A4|酵素}} 產生 4 種代謝物"] },
+
+{ id: "ksparing-intro", chapter: 7, name: "保鉀型（Na⁺通道）總論", short: "保鉀型總論", type: "topic", group: "保鉀型（Na⁺通道）", source: "統整（三）p.46",
+  bold: [
+    "保鉀型利尿劑作用在{{遠曲、集尿管|位置}}的 Na⁺通道，副作用：{{高血鉀|副作用}}",
+    "與 Spironolactone、Eplerenone 不同，{{不需要|性質}} Aldosterone 存在即可作用★",
+    "皆含有 N 原子，弱酸環境被質子化形成陽離子 BH⁺，與 Na⁺通道上的陰離子基團結合而抑制 Na⁺再吸收"
+  ] },
+{ id: "triamterene", chapter: 7, name: "Triamterene", type: "drug", group: "保鉀型（Na⁺通道）", source: "統整（三）p.46", img: "assets/medchem/triamterene.png",
+  use: ["{{保鉀型利尿劑|用途}}"],
+  bold: ["由 {{Pteridine|結構}}★（4N）發展而來：與葉酸、Methotrexate★結構類似", "結構中有 {{3 個|數值}}胺基-NH₂，故稱 Triamterene", "代謝：經 {{CYP1A2|酵素}} 代謝成 4'-hydroxytriamterene + Sulfate-conjugated，均有活性"] },
+{ id: "amiloride", chapter: 7, name: "Amiloride", type: "drug", group: "保鉀型（Na⁺通道）", source: "統整（三）p.46", img: "assets/medchem/amiloride.png",
+  use: ["{{保鉀型利尿劑|用途}}"],
+  bold: ["由 Triamterene {{開環|結構}}而來，具有 {{pyrazine|結構}}★結構", "具有 Aminopyrazine、{{Guanidine|結構}}★的結構", "鹼性較強，較易質子化", "代謝：幾乎不會代謝，以{{原型|代謝}}排出體外"] }
 ];
 
 /* 知識樹：第 1 章。總論類的主題格用 unit 引用（題目算在格子上）；
@@ -1419,6 +1562,16 @@ PI.KNOWLEDGE = {
       { id: "central", title: "一、中樞性骨骼肌鬆弛劑", items: [] },
       { id: "peripheral", title: "二、週邊性骨骼肌鬆弛劑（抗Nm）", items: [{ unit: "nm-blocker-intro" }] },
       { id: "antispasm", title: "三、抗痙攣劑", items: [] }
+    ] },
+  ch7: { chapter: 7, title: "利尿劑",
+    sections: [
+      { id: "overview", title: "總論（作用位置）", items: [{ unit: "diu-location" }] },
+      { id: "osmotic", title: "一、滲透壓型利尿劑", items: [{ unit: "osmotic-intro" }] },
+      { id: "cai", title: "二、碳酸酐酶抑制劑", items: [{ unit: "cai-intro" }] },
+      { id: "thiazide", title: "三、Thiazide 利尿劑", items: [{ unit: "thiazide-sar" }] },
+      { id: "loop", title: "四、環利尿劑", items: [{ unit: "loop-intro" }] },
+      { id: "mra", title: "五、保鉀型（MRA）", items: [{ unit: "mra-intro" }] },
+      { id: "ksparing", title: "六、保鉀型（Na⁺通道）", items: [{ unit: "ksparing-intro" }] }
     ] }
 };
 PI.GLOSSARY = {};
