@@ -140,6 +140,20 @@ PI.quiz = (function () {
     };
   }
 
+  /* 認結構題（藥化）：給講義上的結構圖，問是哪一個藥；選項都是同章有結構圖的其他藥（同一組優先） */
+  function structQ(u) {
+    if (u.type !== "drug" || !u.img) return null;
+    const others = shuffle(PI.UNITS.filter(x => x.type === "drug" && x.img && x.id !== u.id && x.chapter === u.chapter))
+      .sort((a, b) => (b.group === u.group) - (a.group === u.group)).slice(0, 3);
+    if (others.length < 3) return null;
+    return {
+      kind: "which", qid: `s:${u.id}`, label: "認結構：這是哪一個藥？",
+      prompt: `<figure class="q-struct"><img src="${esc(u.img)}" alt="結構式"></figure>`,
+      answer: `答案是 <b>${esc(u.name)}</b>`, hint: "",
+      options: shuffle([{ text: u.name, ok: true }, ...others.map(x => ({ text: x.name, ok: false }))])
+    };
+  }
+
   function forUnit(u, n = 3) {
     if (!bank) build();
     const qs = [];   // 格子上不出認藥題：標題就是藥名，一看就知道
@@ -156,7 +170,7 @@ PI.quiz = (function () {
     bank.lines.filter(L => L.owner === `t:${key}`).forEach(L => L.p.blanks.forEach((_, k) => { const q = clozeQ(L, k); if (q) out.push(q); }));
     // 認藥題放在知識樹：這裡看不到藥名，才真的考得到「這是哪個藥」
     const ch = (PI.KNOWLEDGE[key] || {}).chapter;
-    PI.UNITS.filter(u => u.chapter === ch).forEach(u => { const q = whichQ(u); if (q) out.push(q); });
+    PI.UNITS.filter(u => u.chapter === ch).forEach(u => { const q = whichQ(u); if (q) out.push(q); const s = structQ(u); if (s) out.push(s); });
     return out;
   }
 

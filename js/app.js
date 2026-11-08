@@ -142,7 +142,9 @@
     }).join("");
     const extra = [u.generation, u.source && `出處：${u.source}`].filter(Boolean).map(esc).join("・");
     const cls = u.class ? `<p class="u-class">類別共通內容（機轉、藥動、副作用等）在本章知識樹</p>` : "";
-    return rows || cls || extra ? `<div class="u-body">${rows}${cls}${extra ? `<p class="u-meta">${extra}</p>` : ""}</div>` : "";
+    // 結構圖（藥化）：講義裁下來的原圖，放在最上面
+    const img = u.img ? `<figure class="u-struct"><img src="${esc(u.img)}" alt="${esc(u.name)} 結構" loading="lazy"></figure>` : "";
+    return img || rows || cls || extra ? `<div class="u-body">${img}${rows}${cls}${extra ? `<p class="u-meta">${extra}</p>` : ""}</div>` : "";
   }
 
   /* ---------- 島嶼資訊卡：點島嶼的海岸或章節牌子 ---------- */

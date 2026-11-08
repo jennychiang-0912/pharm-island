@@ -537,3 +537,9 @@ mark.cloze.is-hl.hl-mine { background: linear-gradient(transparent 35%, #BFE3A6 
   .k-table th, .k-table td { padding: 6px 6px; }
   .k-table th { font-size: 11.5px; }
 }
+
+/* 藥化：結構圖（資訊卡、認結構題） */
+.u-struct{margin:0 0 10px;padding:8px;background:#fff;border:1.5px solid #E3DDC2;border-radius:12px;text-align:center}
+.u-struct img{max-width:100%;max-height:190px;object-fit:contain}
+.q-struct{margin:6px 0 4px;padding:10px;background:#fff;border:1.5px solid #E3DDC2;border-radius:12px;text-align:center}
+.q-struct img{max-width:100%;max-height:220px;object-fit:contain}

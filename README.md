@@ -8,7 +8,7 @@
 - 藥理：`index.html`
 - 藥劑：`pharmaceutics.html`（內容在 `js/subjects/pharmaceutics.js`，目前一座島、一章、20 個預留格）
 - 藥分：`analysis.html`（內容在 `js/subjects/analysis.js`，目前一座島、一章、20 個預留格）
-- 藥化：`medchem.html`（內容在 `js/subjects/medchem.js`，兩座島：中樞神經島第 1～6 章、心血管島第 7～10 章，目前都是預留格）
+- 藥化：`medchem.html`（內容在 `js/subjects/medchem.js`，兩座島：中樞神經島第 1～6 章、心血管島第 7～10 章）。內容取自期中考複習講義（國考統整），只收分類、結構圖、粗體字；目前有第 1 章到講義 p.14（37 格），其餘是預留格。結構圖是講義原圖，放在 `assets/medchem/`，資訊卡會顯示；知識樹會出「看結構選藥名」的認結構題。
 - 藥理藥化平安符：`amulet.html`（內容在 `js/subjects/amulet.js`，目前一座島、一章、20 個預留格）
 
 藥劑、藥分、平安符頁是 `index.html` 的複本，只多載入自己的 `js/subjects/*.js`，把章節、單元、知識樹換掉；格式和藥理一樣。改版面時四頁要一起改。
