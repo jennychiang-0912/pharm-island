@@ -1291,7 +1291,87 @@ PI.UNITS = [
   ] },
 { id: "perospirone", chapter: 5, name: "Perospirone", type: "drug", group: "第二代：Benzisothiazole（-rasidone）", source: "統整（一）p.62", img: "assets/medchem/perospirone.png",
   use: ["{{抗精神病|用途}}（在日本上市）"],
-  bold: ["Benzisothiazole 類衍生物（補充），在{{日本|名詞}}上市"] }
+  bold: ["Benzisothiazole 類衍生物（補充），在{{日本|名詞}}上市"] },
+
+/* ===== 第 6 章 肌肉鬆弛劑及抗痙攣藥物（統整（一）陸，p.63–67）===== */
+/* 骨骼肌鬆弛劑：中樞性（Glycerol Monoethers、Substituted Alkanediols、Benzoxazole、Miscellaneous） */
+{ id: "antodyne", chapter: 6, name: "Antodyne", type: "drug", group: "Glycerol Monoethers 類衍生物", source: "統整（一）p.63", img: "assets/medchem/antodyne.png",
+  use: ["為本類藥物之原型 {{Prototype|名詞}}", "具有{{鎮痛|用途}} Analgesic、{{退燒|用途}} Antipyretics 作用，但肌肉鬆弛效果太短暫，臨床上並不好用"],
+  bold: ["結構為 {{3-phenoxy-1,2-propanediol|結構}}"] },
+{ id: "mephenesin", chapter: 6, name: "Mephenesin", type: "drug", group: "Glycerol Monoethers 類衍生物", source: "統整（一）p.63", img: "assets/medchem/mephenesin.png",
+  use: ["{{肌肉鬆弛劑|用途}}"],
+  bold: ["屬於 {{Glycerol monoether|結構}} 衍生物", "結構比 Antodyne 多一個{{甲基|取代基}} → 苯環的 {{ortho|位置}} 位多一個甲基"] },
+{ id: "chlorphenesin-carbamate", chapter: 6, name: "Chlorphenesin carbamate", type: "drug", group: "Glycerol Monoethers 類衍生物", source: "統整（一）p.63", img: "assets/medchem/chlorphenesin-carbamate.png",
+  use: ["{{肌肉鬆弛劑|用途}}：為 Mephenesin 的 {{carbamate analog|名詞}}，較為長效"],
+  bold: ["具有 {{carbamate|結構}} 結構", "苯環的 {{para|位置}} 位有 Cl 取代"] },
+{ id: "methocarbamol", chapter: 6, name: "Methocarbamol", type: "drug", group: "Glycerol Monoethers 類衍生物", source: "統整（一）p.63", img: "assets/medchem/methocarbamol.png",
+  use: ["{{肌肉鬆弛劑|用途}}：為 Mephenesin 的 carbamate analog，較為長效", "市售多為{{消旋 Racemic|性質}}"],
+  bold: ["具有 {{carbamate|結構}} 結構", "苯環的 {{ortho|位置}} 位有{{甲氧基|取代基}}", "標示★為 {{chiral center|名詞}} → 實驗測得 {{R form|結構|S form}} 活性較佳"] },
+
+{ id: "meprobamate", chapter: 6, name: "Meprobamate", type: "drug", group: "Substituted Alkanediols 類衍生物", source: "統整（一）p.64", img: "assets/medchem/meprobamate.png",
+  use: ["為 {{Carisoprodol|藥名}} 之代謝產物", "具 BZD 藥物之{{鎮靜安眠|用途}}作用 → 常被依賴與濫用"],
+  bold: ["結構：具有{{兩個|數值}} carbamate"] },
+{ id: "carisoprodol", chapter: 6, name: "Carisoprodol", type: "drug", group: "Substituted Alkanediols 類衍生物", source: "統整（一）p.64", img: "assets/medchem/carisoprodol.png",
+  use: ["有類似 {{BZD|藥物類別}} 藥物之{{鎮靜安眠|用途}}作用 → 常被依賴與濫用"],
+  bold: ["結構：具有 isopropyl、{{biscarbamate|結構}}", "與 Meprobamate 只相差在其中一個 carbamate 的 N 上 H 取代為{{異丙基|取代基}}", "代謝：經 {{N-dealkylation|代謝}} 代謝後變成 {{Meprobamate|代謝物}}"] },
+{ id: "metaxalone", chapter: 6, name: "Metaxalone", type: "drug", group: "Substituted Alkanediols 類衍生物", source: "統整（一）p.64", img: "assets/medchem/metaxalone.png",
+  use: ["{{肌肉鬆弛劑|用途}}：無濫用情況"],
+  bold: ["具有 {{oxazolidin-2-one|結構}} 結構", "苯環的兩個 {{meta|位置}} 位具有{{甲基|取代基}}"] },
+
+{ id: "chlorzoxazone", chapter: 6, name: "Chlorzoxazone", type: "drug", group: "Benzoxazole 類衍生物", source: "統整（一）p.65", img: "assets/medchem/chlorzoxazone.png",
+  use: ["{{肌肉鬆弛劑|用途}}：市售常見的肌肉鬆弛劑，是否有解痙攣功能仍未知"],
+  bold: ["具有 {{oxazolidin-2-one|結構}} 結構", "Cl 取代基接在相對於 O 之{{苯環對位|位置}}"] },
+
+{ id: "orphenadrine", chapter: 6, name: "Orphenadrine", type: "drug", group: "Miscellaneous 雜類藥物", source: "統整（一）p.65", img: "assets/medchem/orphenadrine.png",
+  use: ["屬 {{diphenhydramine|藥名}} 類{{抗組織胺|藥物類別}}藥物 → 副作用：頭暈、嗜睡", "具有 CNS {{抗膽鹼|機轉}}作用 → 副作用：{{口乾|副作用}}"],
+  bold: ["結構：{{ethanolamine ether|結構}}"] },
+{ id: "cyclobenzaprine", chapter: 6, name: "Cyclobenzaprine", type: "drug", group: "Miscellaneous 雜類藥物", source: "統整（一）p.65", img: "assets/medchem/cyclobenzaprine.png",
+  use: ["有明顯的{{抗膽鹼|機轉}}作用", "為 {{5-HT₂|受體}} 受體拮抗劑，所以有肌肉鬆弛效果，但不強", "{{沒有|性質}}抗憂鬱作用"],
+  bold: ["結構與 {{Amitriptyline|藥名}} 非常類似，僅相差在七元環上的{{雙鍵|取代基}}"] },
+
+/* 骨骼肌鬆弛劑：週邊性（抗 Nm 受體藥物） */
+{ id: "nm-blocker-intro", chapter: 6, name: "抗Nm 受體藥物總論", short: "抗Nm 總論", type: "topic", group: "抗Nm 總論", source: "統整（一）p.66",
+  bold: [
+    "非去極化型尼古丁受體拮抗劑（競爭型）共同結構為 {{Tetrahydroisoquinoline|結構}}",
+    "類固醇尼古丁受體拮抗劑（Pancuronium、Vecuronium）屬於{{非去極化|名詞|去極化}}性阻斷劑",
+    "去極化性阻斷劑（非競爭型）：{{Succinylcholine|藥名}}",
+    "肝腎功能不佳之患者可使用：{{Succinylcholine|藥名}}、Atracurium、Mivacurium"
+  ] },
+{ id: "d-tubocurarine", chapter: 6, name: "d-Tubocurarine", type: "drug", group: "抗Nm：非去極化（競爭型）", source: "統整（一）p.66", img: "assets/medchem/d-tubocurarine.png",
+  use: ["{{非去極化型|機轉}}尼古丁受體拮抗劑（競爭型）"],
+  bold: ["共同結構為 {{Tetrahydroisoquinoline|結構}}"] },
+{ id: "atracurium", chapter: 6, name: "Atracurium", type: "drug", group: "抗Nm：非去極化（競爭型）", source: "統整（一）p.66", img: "assets/medchem/atracurium.png",
+  use: ["{{非去極化型|機轉}}（競爭型）；適合用於{{肝腎疾病|疾病}}之患者"],
+  bold: ["經由 {{Hofmann degradation|代謝}}★代謝，形成 {{Laudanosine|代謝物}}★", "也會經由 {{BuchE|酵素}} 代謝"] },
+{ id: "mivacurium", chapter: 6, name: "Mivacurium", type: "drug", group: "抗Nm：非去極化（競爭型）", source: "統整（一）p.66", img: "assets/medchem/mivacurium.png",
+  use: ["{{非去極化型|機轉}}（競爭型）；適合用於{{肝腎疾病|疾病}}之患者"],
+  bold: ["經由 {{BuchE|酵素}} 代謝"] },
+{ id: "doxacurium", chapter: 6, name: "Doxacurium", type: "drug", group: "抗Nm：非去極化（競爭型）", source: "統整（一）p.66", img: "assets/medchem/doxacurium.png",
+  use: ["{{非去極化型|機轉}}尼古丁受體拮抗劑（競爭型）"],
+  bold: [] },
+{ id: "pancuronium", chapter: 6, name: "Pancuronium", type: "drug", group: "抗Nm：類固醇型", source: "統整（一）p.66", img: "assets/medchem/pancuronium.png",
+  use: ["{{非去極化型|機轉}}尼古丁受體拮抗劑（類固醇型）"],
+  bold: ["具有 {{5α-Androstane steroid|結構}} 骨架"] },
+{ id: "vecuronium", chapter: 6, name: "Vecuronium", type: "drug", group: "抗Nm：類固醇型", source: "統整（一）p.66", img: "assets/medchem/vecuronium.png",
+  use: ["{{非去極化型|機轉}}尼古丁受體拮抗劑（類固醇型）"],
+  bold: ["具有 {{5α-Androstane steroid|結構}} 骨架"] },
+{ id: "succinylcholine", chapter: 6, name: "Succinylcholine", type: "drug", group: "抗Nm：去極化型", source: "統整（一）p.66", img: "assets/medchem/succinylcholine.png",
+  use: ["{{去極化性|機轉}}阻斷劑（非競爭型）"],
+  bold: ["為 {{Acetylcholine|藥名}} 的雙體結構（{{diquaternary ammonium ester|結構}}）", "半衰期{{極短|性質}}"] },
+
+/* 抗痙攣劑 */
+{ id: "msr-diazepam", chapter: 6, name: "Diazepam", type: "drug", group: "抗痙攣劑", source: "統整（一）p.67", img: "assets/medchem/msr-diazepam.png",
+  use: ["當{{肌肉鬆弛劑|用途}}使用，但 FDA 沒有核准這項適應症"],
+  bold: ["屬於 {{Benzodiazepines|藥物類別}} 類藥物", "結合到 GABA_A 的 {{BZD 受體|受體}}，增加 {{Cl⁻|離子}} 的流入"] },
+{ id: "baclofen", chapter: 6, name: "Baclofen", type: "drug", group: "抗痙攣劑", source: "統整（一）p.67", img: "assets/medchem/baclofen.png",
+  use: ["為 {{GABA_B|受體}} 受體的{{促效劑|機轉}}★", "減少 {{Ca²⁺|離子}} 的向內電流，抑制脊髓神經元的過極化，降低其活性"],
+  bold: ["{{兩性化合物|性質}}，含有 {{GABA|結構}}★結構", "(R)-enantiomer 較具活性，但核准的是{{消旋|性質}}化合物"] },
+{ id: "dantrolene", chapter: 6, name: "Dantrolene", type: "drug", group: "抗痙攣劑", source: "統整（一）p.67", img: "assets/medchem/dantrolene.png",
+  use: ["作用位置：骨骼肌細胞的肌漿網 SR，阻斷骨骼肌 {{ryanodine|標的}} Ca²⁺ release channel，抑制離子釋放", "具{{周邊|名詞}}解痙攣效果", "可治療麻醉劑引發的{{惡性高熱|疾病}}"],
+  bold: ["為 {{hydantoin|結構}}★衍生物（有 {{ureide|結構}} 骨架），也具有 furan、nitrobenzene 結構", "代謝還原後形成 {{Aminodantrolene|代謝物}}（NO₂→NH₂）"] },
+{ id: "tizanidine", chapter: 6, name: "Tizanidine", type: "drug", group: "抗痙攣劑", source: "統整（一）p.67", img: "assets/medchem/tizanidine.png",
+  use: ["促進運動神經元前突觸的 {{α₂受體|受體}} → 抑制興奮性神經活性", "有{{中樞|器官}}活性的肌肉鬆弛效果", "治療因腦或脊髓損傷造成的痙攣"],
+  bold: ["為 {{Clonidine|藥名}} 的類似物", "有 {{imidazoline|結構}}、benzothiadiazole 結構", "代謝：三個環的 {{oxidation|代謝}}"] }
 ];
 
 /* 知識樹：第 1 章。總論類的主題格用 unit 引用（題目算在格子上）；
@@ -1333,6 +1413,12 @@ PI.KNOWLEDGE = {
       { id: "overview", title: "總論", items: [{ unit: "ap-pathways" }, { unit: "ap-se-summary" }] },
       { id: "gen1", title: "一、第一代（典型）", items: [{ unit: "ptz-sar" }, { unit: "butyrophenone" }] },
       { id: "gen2", title: "二、第二代（非典型）", items: [{ unit: "ap2-misc" }, { unit: "benzazepine-table" }, { unit: "benzisox-table" }] }
+    ] },
+  ch6: { chapter: 6, title: "肌肉鬆弛劑及抗痙攣藥物",
+    sections: [
+      { id: "central", title: "一、中樞性骨骼肌鬆弛劑", items: [] },
+      { id: "peripheral", title: "二、週邊性骨骼肌鬆弛劑（抗Nm）", items: [{ unit: "nm-blocker-intro" }] },
+      { id: "antispasm", title: "三、抗痙攣劑", items: [] }
     ] }
 };
 PI.GLOSSARY = {};
