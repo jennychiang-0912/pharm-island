@@ -1553,7 +1553,76 @@ PI.UNITS = [
   bold: ["{{作用時間最長|作用時間}}★"] },
 { id: "molsidomine", chapter: 8, name: "Molsidomine", type: "drug", group: "NO Donor", source: "統整（三）p.48", img: "assets/medchem/molsidomine.png",
   use: ["{{心絞痛|疾病}}（NO donor）", "具光敏性、藥效短，治療劑量時有{{抗血小板|用途}}作用"],
-  bold: ["不需要雙硫鍵催化，可直接提供 {{NO|物質}}", "化學結構屬於 {{Mesionic compound|結構}}★", "經 liver esterases 水解成活性代謝物 {{Linsidomine|代謝物}}★（含 imine 結構），再開環成 SIN-1A"] }
+  bold: ["不需要雙硫鍵催化，可直接提供 {{NO|物質}}", "化學結構屬於 {{Mesionic compound|結構}}★", "經 liver esterases 水解成活性代謝物 {{Linsidomine|代謝物}}★（含 imine 結構），再開環成 SIN-1A"] },
+
+/* ===== 第 9 章 心衰竭藥物（統整（三）玖，p.49–53）===== */
+{ id: "cg-intro", chapter: 9, name: "強心配醣體：作用機轉與必要結構", short: "強心配醣體總論", type: "topic", group: "強心配醣體", source: "統整（三）p.49", img: "assets/medchem/cg-structure.png",
+  bold: [
+    "作用機轉：抑制 {{Na⁺/K⁺-ATPase|標的}}，間接使細胞內 {{Ca²⁺|離子}} 濃度上升★，增加心肌收縮力",
+    "{{5β,14β-Androstane-3β,14β-diol|結構}} 為抑制 Na⁺/K⁺-ATPase 必須的先導結構",
+    "主要為固醇類 C6-C6-C6-C5 結構；環之間結合為 {{cis-trans-cis|結構}}★ form（類固醇 trans-trans-trans、膽酸 cis-trans-trans）",
+    "醣基以 {{β-1,4-glucosidic|結構}}★鍵結在 C3 位置；10、13 位有甲基，3、14 位有 β-OH（OH 越多 onset 越快）",
+    "17β★位有不飽和 lactone ring：{{Cardenolide|藥物類別}} 為 γ-lactone（五元環★）、Bufadienolides 為 δ-lactone（六元環）"
+  ] },
+{ id: "cg-compare", chapter: 9, name: "強心配醣體比較（genin／OH／藥動）", short: "強心配醣體比較", type: "topic", group: "強心配醣體", source: "統整（三）p.50",
+  bold: [
+    "Cardiac genin：Digoxin→{{Digoxigenin|代謝物}}、Digitoxin→Digitoxigenin、Ouabain→Ouabagenin",
+    "非醣基 OH 位置：Digoxin 在 3β、12β、14β★（Lanatoside C 同）；Digitoxin 在 3β、14β",
+    "脂溶性：Digitoxin（2 OH）>Digoxin（3 OH）>Ouabain（6 OH）；血漿蛋白結合率同序",
+    "口服生體可用率：{{Digitoxin|藥名}}>Digoxin>Ouabain（100%／70-85%／0%）",
+    "分布體積大小：{{Ouabain|藥名}}>Digoxin>Digitoxin",
+    "強心配醣體用於{{左心室收縮異常|疾病}}之病人，不適用舒張型/右心衰竭；也適合原發性高血壓引起之心衰竭"
+  ] },
+{ id: "digoxin-interactions", chapter: 9, name: "Digoxin 藥物交互作用", short: "Digoxin 交互作用", type: "topic", group: "強心配醣體", source: "統整（三）p.51",
+  bold: [
+    "使 Digoxin 濃度下降：促進 {{P-gp|標的}}（Rifampin、St. John wort）、破壞腸道絨毛（Neomycin）、與藥物結合（Cholestyramine）、制酸劑、Metoclopramide",
+    "使 Digoxin 濃度上升：抑制 P-gp（{{Quinidine|藥名}}、Amiodarone、CCBs 等）、減少腸道菌叢代謝（Erythromycin）、Spironolactone",
+    "{{低血鉀|副作用}}★、低血鎂★、高血鈣★皆會增強 Digoxin 毒性；中毒症狀有心室心搏過速、{{T wave 反轉|副作用}}",
+    "Digoxin 中毒解毒劑：{{Lidocaine|藥名}}★（首選）、Phenytoin 或 Procainamide，禁用 Quinidine",
+    "Digoxin 治療心房顫動：擬副交感神經作用使 PR interval 延長、抑制 {{AV node|標的}} 傳導"
+  ] },
+{ id: "digoxin", chapter: 9, name: "Digoxin", type: "drug", group: "強心配醣體", source: "統整（三）p.50",
+  use: ["{{強心配醣體|用途}}（心衰竭、心房顫動）"],
+  bold: ["Cardiac genin 為 {{Digoxigenin|代謝物}}，非醣基 OH 在 {{3β、12β、14β|位置}}★，醣基為 3 digitoxose", "脂溶性中（3 個 OH）、Onset {{快|性質}}★、半衰期短、主要由{{腎臟|器官}}★排泄"] },
+{ id: "digitoxin", chapter: 9, name: "Digitoxin", type: "drug", group: "強心配醣體", source: "統整（三）p.50",
+  use: ["{{強心配醣體|用途}}"],
+  bold: ["Cardiac genin 為 Digitoxigenin，非醣基 OH 在 {{3β、14β|位置}}", "脂溶性{{高|性質}}★（2 個 OH）、口服吸收 100%、蛋白結合率 97%、經{{肝臟|器官}}代謝"] },
+{ id: "ouabain", chapter: 9, name: "Ouabain", type: "drug", group: "強心配醣體", source: "統整（三）p.50",
+  use: ["{{強心配醣體|用途}}"],
+  bold: ["Cardiac genin 為 Ouabagenin，有 {{6 個|數值}} OH，醣基為 1 {{Rhamnose|物質}}★", "脂溶性低、口服吸收 0%、{{分布體積最大|性質}}"] },
+
+{ id: "milrinone", chapter: 9, name: "Milrinone", type: "drug", group: "PDE-3 抑制劑", source: "統整（三）p.52", img: "assets/medchem/milrinone.png",
+  use: ["{{心衰竭|疾病}}（抑制 PDE-3 使 cAMP↑★、收縮力↑）", "與 {{furosemide|藥名}} 併用會沉澱", "半衰期較短"],
+  bold: ["以 {{pyridine-pyridone|結構}} 為骨架", "有甲基、{{CN|取代基}} 取代"] },
+{ id: "inamrinone", chapter: 9, name: "Inamrinone", type: "drug", group: "PDE-3 抑制劑", source: "統整（三）p.52", img: "assets/medchem/inamrinone.png",
+  use: ["{{心衰竭|疾病}}（PDE-3 抑制劑）", "副作用：{{血小板減少症|副作用}}（thrombocytopenia）", "造成肝功能損害，不適合長期使用"],
+  bold: ["以 {{pyridine-pyridone|結構}} 為骨架", "有 {{-NO₂|取代基}} 取代"] },
+{ id: "dobutamine", chapter: 9, name: "Dobutamine", type: "drug", group: "β-agonist", source: "統整（三）p.52", img: "assets/medchem/dobutamine.png",
+  use: ["{{β₁-agonist|機轉}}★，使心肌細胞 cAMP、Ca²⁺濃度上升，促進心臟收縮", "{{IV|給藥途徑}} 給予治療急性心衰竭", "長期使用會導致 β 受體去敏感化"],
+  bold: ["由 Dopamine 修飾而來，兩者都屬{{兒茶酚胺|藥物類別}}類（Catecholamine）"] },
+
+{ id: "hf-other", chapter: 9, name: "其他心衰竭治療藥物", short: "其他心衰竭藥物", type: "topic", group: "其他心衰竭藥物", source: "統整（三）p.53",
+  bold: [
+    "{{Aldosterone antagonist|藥物類別}}（Spironolactone、Eplerenone）：預防鹽類滯留、心肌肥大與低血鉀",
+    "{{Ivabradine|藥名}}：抑制 SA node 之 funny channel★降低心跳，CYP3A4 代謝，副作用為光幻視",
+    "Nesiritide：抑制 {{BNP|物質}}、Carperitide：抑制 ANP，皆 IV 用於急性心衰竭",
+    "{{Levosimendan|藥名}}：增加 troponin 對 Ca²⁺敏感性、也抑制 PDE，血管舒張並促心臟收縮",
+    "Bosentan：競爭型 {{endothelin|標的}} 抑制劑，核准治療肺動脈高血壓"
+  ] },
+{ id: "pde5-intro", chapter: 9, name: "PDE-5 抑制劑總論", short: "PDE-5 總論", type: "topic", group: "PDE-5 抑制劑", source: "統整（三）p.53",
+  bold: [
+    "PDE-5 抑制劑用於治療{{勃起障礙|疾病}}，也用於肺動脈高血壓或高山症",
+    "不可和其他 PDE 抑制劑或(亞){{硝酸酯類|藥物類別}}血管擴張劑併用"
+  ] },
+{ id: "sildenafil", chapter: 9, name: "Sildenafil", type: "drug", group: "PDE-5 抑制劑", source: "統整（三）p.53", img: "assets/medchem/sildenafil.png",
+  use: ["{{勃起障礙|疾病}}（Viagra®）", "也可用於治療肺動脈高壓（20 mg）"],
+  bold: ["另外會抑制 {{PDE-6|標的}}，造成{{視覺障礙|副作用}}"] },
+{ id: "tadalafil", chapter: 9, name: "Tadalafil", type: "drug", group: "PDE-5 抑制劑", source: "統整（三）p.53", img: "assets/medchem/tadalafil.png",
+  use: ["{{勃起障礙|疾病}}（Cialis®）"],
+  bold: ["抑制 {{PDE-11|標的}} 最強，會造成{{肌肉痠痛|副作用}}"] },
+{ id: "vardenafil", chapter: 9, name: "Vardenafil", type: "drug", group: "PDE-5 抑制劑", source: "統整（三）p.53", img: "assets/medchem/vardenafil.png",
+  use: ["{{勃起障礙|疾病}}（Levitra®）"],
+  bold: ["與 Sildenafil 結構相似（{{imidazotriazinone|結構}} 核）"] }
 ];
 
 /* 知識樹：第 1 章。總論類的主題格用 unit 引用（題目算在格子上）；
@@ -1616,6 +1685,13 @@ PI.KNOWLEDGE = {
     sections: [
       { id: "pde", title: "一、PDE 抑制劑", items: [] },
       { id: "nitrate", title: "二、硝酸酯類", items: [{ unit: "nitrate-intro" }] }
+    ] },
+  ch9: { chapter: 9, title: "心衰竭藥物",
+    sections: [
+      { id: "cg", title: "一、強心配醣體", items: [{ unit: "cg-intro" }, { unit: "cg-compare" }, { unit: "digoxin-interactions" }] },
+      { id: "pde3", title: "二、PDE-3 抑制劑", items: [] },
+      { id: "bagonist", title: "三、β 受體作用劑", items: [] },
+      { id: "others", title: "四、其他／PDE-5 抑制劑", items: [{ unit: "hf-other" }, { unit: "pde5-intro" }] }
     ] }
 };
 PI.GLOSSARY = {};
