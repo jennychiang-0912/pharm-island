@@ -1622,7 +1622,182 @@ PI.UNITS = [
   bold: ["抑制 {{PDE-11|標的}} 最強，會造成{{肌肉痠痛|副作用}}"] },
 { id: "vardenafil", chapter: 9, name: "Vardenafil", type: "drug", group: "PDE-5 抑制劑", source: "統整（三）p.53", img: "assets/medchem/vardenafil.png",
   use: ["{{勃起障礙|疾病}}（Levitra®）"],
-  bold: ["與 Sildenafil 結構相似（{{imidazotriazinone|結構}} 核）"] }
+  bold: ["與 Sildenafil 結構相似（{{imidazotriazinone|結構}} 核）"] },
+
+/* ===== 第 10 章 抗凝血及其血液相關藥物（統整（三）壹拾壹，p.58–69）===== */
+/* 一、抗凝血因子藥物 */
+{ id: "coag-overview", chapter: 10, name: "凝血級聯與抗凝血藥物總覽", short: "凝血級聯總覽", type: "topic", group: "總論", source: "統整（三）p.58", img: "assets/medchem/coag-cascade.png",
+  bold: [
+    "內在途徑（XII→XIIa…）與外在途徑（TF-VIIa）匯合於 {{Xa|名詞}}，再使 Prothrombin(II)→Thrombin(IIa)，最後 Fibrinogen(I)→Crosslink Fibrin",
+    "Heparin／LMWH：形成 ATIII-Heparins Complex，間接抑制 Xa 與 {{Thrombin|標的}}",
+    "{{Fondaparinux|藥名}} 與 Direct Xa inhibitors（Rivaroxaban、Apixaban、Edoxaban）選擇性抑制 Xa",
+    "DTIs 直接抑制 {{Thrombin|標的}}（IIa）；口服抗凝血劑經 Vit K cycle 抑制凝血因子 2、7、9、10 活化",
+    "Thrombolytic drugs 使 {{Plasminogen|物質}}→Plasmin（纖維溶解酶）分解 fibrin"
+  ] },
+{ id: "warfarin", chapter: 10, name: "Warfarin", type: "drug", group: "口服抗凝血劑", source: "統整（三）p.60", img: "assets/medchem/warfarin.png",
+  use: ["{{口服抗凝血劑|用途}}", "會與血球蛋白高度結合，Vd 小、血漿半衰期長；僅在體內有效；50%肝臟代謝物由尿液排出"],
+  bold: ["Coumarin 4-OH 可做成鈉鹽增加水溶性；4-OH 易與右邊 C=O 形成 {{hemiacetal|結構}} 結構→仍具活性", "{{S form|結構}} 活性較高", "代謝：S form 經 {{CYP2C9|酵素}}★在 6、7 位加-OH；R form 經 CYP1A2、CYP2C19 在 6、8 位加-OH"] },
+{ id: "acenocoumarol", chapter: 10, name: "Acenocoumarol", type: "drug", group: "口服抗凝血劑", source: "統整（三）p.60", img: "assets/medchem/acenocoumarol.png",
+  use: ["{{口服抗凝血劑|用途}}"],
+  bold: ["與 Warfarin 只相差一個 {{-NO₂|取代基}} group", "也容易形成 hemiacetal 結構", "{{S form|結構}} 活性較高"] },
+{ id: "phenprocoumon", chapter: 10, name: "Phenprocoumon", type: "drug", group: "口服抗凝血劑", source: "統整（三）p.60", img: "assets/medchem/phenprocoumon.png",
+  use: ["{{口服抗凝血劑|用途}}（在歐洲使用）"],
+  bold: ["與 Warfarin 相差在 C3 上的取代基：有 {{phenyl|取代基}} group", "C3 上具 {{propanyl|取代基}} 支鏈"] },
+{ id: "dicoumarol", chapter: 10, name: "Dicoumarol", type: "drug", group: "口服抗凝血劑", source: "統整（三）p.60", img: "assets/medchem/dicoumarol.png",
+  use: ["{{口服抗凝血劑|用途}}（在歐洲使用）"],
+  bold: ["具有 {{dimer|結構}} 形式（兩個 coumarin 以 CH₂ 相接）"] },
+{ id: "phenindione", chapter: 10, name: "Phenindione", type: "drug", group: "1,3-Indandione", source: "統整（三）p.61", img: "assets/medchem/phenindione.png",
+  use: ["{{口服抗凝血劑|用途}}（1,3-Indandione 類，支鏈接在 C2 上）"],
+  bold: ["支鏈上接了 {{Phenyl|取代基}} group"] },
+{ id: "anisindione", chapter: 10, name: "Anisindione", type: "drug", group: "1,3-Indandione", source: "統整（三）p.61", img: "assets/medchem/anisindione.png",
+  use: ["{{口服抗凝血劑|用途}}"],
+  bold: ["支鏈上接了 {{Anisole|取代基}}（對位 OCH₃ 苯環）"] },
+{ id: "chlorophacinone", chapter: 10, name: "Chlorophacinone", type: "drug", group: "1,3-Indandione", source: "統整（三）p.61", img: "assets/medchem/chlorophacinone.png",
+  use: ["現今多用來當作{{殺蟲劑|用途}}"],
+  bold: ["支鏈具有 {{Cl|取代基}} 原子", "支鏈具有{{兩個|數值}} Phenyl group", "支鏈以丙酮基與苯環相接"] },
+{ id: "heparin-intro", chapter: 10, name: "肝素（Heparin）", short: "Heparin", type: "topic", group: "肝素", source: "統整（三）p.62",
+  bold: [
+    "結構：帶負電的黏多醣硫酸酯（{{Sulfated mucopolysaccharides|結構}}★）聚合物，單體為 N-acetyl-D-glucosamine（NAG）與 glucuronic acid 以 α-1,4 鍵結",
+    "作用機轉：五個帶負電硫酸根與 {{Antithrombin III|標的}} 的五個正電基團結合，使其構型改變，加速抑制凝血因子 {{IIa 和 Xa|名詞}} → 類催化劑、間接抑制 Thrombin",
+    "副作用：內出血、血小板低下、血脂過低、骨質疏鬆、肝功能異常",
+    "引發血小板減少症（{{HIT|疾病}}）時應停用 Heparin，改用 Lepirudin 或 Fondaparinux"
+  ] },
+{ id: "lmwh-intro", chapter: 10, name: "低分子量肝素（LMWH）", short: "LMWH", type: "topic", group: "肝素", source: "統整（三）p.62",
+  bold: [
+    "因 Heparin 分子量太大、易與血漿蛋白結合且口服吸收差，發展出小分子肝素，更具{{專一性|性質}}",
+    "{{腎功能不足|疾病}}的病患不適合使用",
+    "藥物：Ardeparin、Dalteparin、{{Enoxaparin|藥名}}、Tinzaparin；Enoxaparin 可治療 DVT、肺栓塞"
+  ] },
+{ id: "fondaparinux-xa", chapter: 10, name: "Fondaparinux 與 Direct Xa 抑制劑", short: "Fondaparinux/Xa", type: "topic", group: "Xa 抑制劑", source: "統整（三）p.62",
+  bold: [
+    "Fondaparinux：人工合成、高度硫化的{{五醣|結構}}（Sulfonated Pentasaccharide★），選擇性抑制凝血因子 {{Xa|名詞}}",
+    "Direct Xa Inhibitors（直接抑制 Xa）：{{Rivaroxaban|藥名}}、Apixaban、Edoxaban"
+  ] },
+{ id: "hirudin", chapter: 10, name: "Hirudin", type: "drug", group: "DTI（直接凝血酶抑制劑）", source: "統整（三）p.63",
+  use: ["{{DTI|藥物類別}}：直接抑制凝血因子 II（{{bivalent|名詞}} DTI、不可逆）"],
+  bold: ["自 {{medicinal leech|物質}} 的唾腺萃取而來", "屬蛋白質藥物，由 {{65 個|數值}} 胺基酸組成"] },
+{ id: "lepirudin", chapter: 10, name: "Lepirudin", type: "drug", group: "DTI（直接凝血酶抑制劑）", source: "統整（三）p.63",
+  use: ["{{DTI|藥物類別}}（bivalent DTI、不可逆）"],
+  bold: ["N 端胺基酸為 {{leucine-1、threonin-2|名詞}}", "由 65 個胺基酸組成"] },
+{ id: "desirudin", chapter: 10, name: "Desirudin", type: "drug", group: "DTI（直接凝血酶抑制劑）", source: "統整（三）p.63",
+  use: ["{{DTI|藥物類別}}（bivalent DTI、不可逆）"],
+  bold: ["N 端胺基酸為 {{valine-1、valine-2|名詞}}", "由 65 個胺基酸組成"] },
+{ id: "bivalirudin", chapter: 10, name: "Bivalirudin", type: "drug", group: "DTI（直接凝血酶抑制劑）", source: "統整（三）p.63",
+  use: ["{{DTI|藥物類別}}（短效 bivalent DTI、可逆）"],
+  bold: ["由 {{20 個|數值}} 胺基酸組成", "Onset {{快速、短效|作用時間}}"] },
+{ id: "argatroban", chapter: 10, name: "Argatroban", type: "drug", group: "DTI（直接凝血酶抑制劑）", source: "統整（三）p.63", img: "assets/medchem/argatroban.png",
+  use: ["{{DTI|藥物類別}}：{{Monovalent|名詞}} DTI，選擇性結合 Catalytic site（可逆）"],
+  bold: ["具 arginine、{{tetrahydroquinoline|結構}}、piperidine、sulfonamide、-COOH", "代謝：經 {{CYP3A4/5|酵素}} 代謝"] },
+{ id: "dabigatran", chapter: 10, name: "Dabigatran Etexilate", short: "Dabigatran", type: "drug", group: "DTI（直接凝血酶抑制劑）", source: "統整（三）p.63", img: "assets/medchem/dabigatran.png",
+  use: ["{{DTI|藥物類別}}：口服非擬肽藥物（non-peptidomimetic）", "用於關節置換手術引起的深層靜脈栓塞（VTE）"],
+  bold: ["以 {{Benzamidine|結構}} 為基本結構", "為{{前驅藥|性質}}（prodrug）★"] },
+
+/* 二、抗血小板藥物 */
+{ id: "antiplatelet-overview", chapter: 10, name: "抗血小板藥物總覽", short: "抗血小板總覽", type: "topic", group: "總論", source: "統整（三）p.59", img: "assets/medchem/antiplatelet-diagram.png",
+  bold: [
+    "{{COX-1|標的}} 抑制劑（Aspirin、Triflusal、Indobufen）：阻斷 Arachidonic acid→TXA₂",
+    "PDE 抑制劑（Dipyridamole、Cilostazol）：使 cAMP↑",
+    "{{GP IIb/IIIa|標的}} 抑制劑（Abciximab、Tirofiban、Eptifibatide…）：阻斷血小板凝集最終共同路徑",
+    "{{P2Y|受體}} 抑制劑（不可逆：Ticlopidine、Clopidogrel、Prasugrel；可逆：Ticagrelor、Cangrelor）：阻斷 ADP"
+  ] },
+{ id: "aspirin", chapter: 10, name: "Aspirin", type: "drug", group: "COX-1 抑制劑", source: "統整（三）p.64", img: "assets/medchem/aspirin.png",
+  use: ["{{抗血小板|用途}}（正常劑量即可發揮）", "在胃中快速吸收（pH 低、酸性藥好吸收）"],
+  bold: ["{{不可逆|性質}}乙醯化 Cyclooxygenase，抑制 {{TXA₂|物質}} 生成（影響 prostaglandin 代謝）", "不是每個 COX-1 抑制劑都可作為 antiplatelet drug"] },
+{ id: "triflusal", chapter: 10, name: "Triflusal", type: "drug", group: "COX-1 抑制劑", source: "統整（三）p.64", img: "assets/medchem/triflusal.png",
+  use: ["{{抗血小板|用途}}", "去乙醯化的代謝物仍具有活性"],
+  bold: ["以 {{salicylic acid|結構}} 為骨架", "具 {{-CF₃|取代基}} 基團"] },
+{ id: "indobufen", chapter: 10, name: "Indobufen", type: "drug", group: "COX-1 抑制劑", source: "統整（三）p.64", img: "assets/medchem/indobufen.png",
+  use: ["{{抗血小板|用途}}：{{可逆型|性質}}抑制劑", "臨床上目前僅有歐洲使用"],
+  bold: ["以 {{isoindolone|結構}} 為骨架", "具 butyric acid 結構"] },
+{ id: "dipyridamole-ap", chapter: 10, name: "Dipyridamole", type: "drug", group: "PDE 抑制劑", source: "統整（三）p.64", img: "assets/medchem/dipyridamole.png",
+  use: ["{{抗血小板|用途}}（PDEi，同時具血管擴張作用）", "抑制 PDE3 使 cAMP↑，同時抑制 adenosine 再回收"],
+  bold: ["以 {{pyrimidopyrimidine|結構}}★為骨架", "具 piperidine 結構"] },
+{ id: "cilostazol-ap", chapter: 10, name: "Cilostazol", type: "drug", group: "PDE 抑制劑", source: "統整（三）p.64", img: "assets/medchem/cilostazol.png",
+  use: ["{{抗血小板|用途}}：口服藥，對 PDE3A 更具選擇性", "可治療{{間歇性跛行|疾病}}"],
+  bold: ["以 {{quinolinone|結構}} 為骨架", "具 {{tetrazole|結構}}★結構", "代謝後仍具活性"] },
+{ id: "ticlopidine", chapter: 10, name: "Ticlopidine", type: "drug", group: "P2Y 抑制劑", source: "統整（三）p.65", img: "assets/medchem/ticlopidine.png",
+  use: ["{{抗血小板|用途}}：P2Y 抑制劑（不可逆）", "為 prodrug，需經 CYP2C19 代謝產生-SH 才有活性，與受質形成雙硫共價鍵結", "副作用：嗜中性白血球低下（Neutropenia）、TTP"],
+  bold: ["以 {{thienopyridine|結構}} 為骨架（含 N、S 雜環）"] },
+{ id: "clopidogrel", chapter: 10, name: "(S)-Clopidogrel", short: "Clopidogrel", type: "drug", group: "P2Y 抑制劑", source: "統整（三）p.65", img: "assets/medchem/clopidogrel.png",
+  use: ["{{抗血小板|用途}}：P2Y 抑制劑（不可逆）", "為 prodrug，需經 CYP2C19 活化"],
+  bold: ["含有 {{Cl|取代基}} 原子", "比 Ticlopidine 多了{{酯類|結構}}結構"] },
+{ id: "prasugrel", chapter: 10, name: "Prasugrel", type: "drug", group: "P2Y 抑制劑", source: "統整（三）p.65", img: "assets/medchem/prasugrel.png",
+  use: ["{{抗血小板|用途}}：P2Y 抑制劑（不可逆）", "為 prodrug，透過{{水解|代謝}}即可形成活性代謝產物"],
+  bold: ["以 {{thienopyridine|結構}} 為骨架", "具 {{Cyclopropane|結構}} 結構，含有 F 原子"] },
+{ id: "ticagrelor", chapter: 10, name: "Ticagrelor", type: "drug", group: "P2Y 抑制劑", source: "統整（三）p.65", img: "assets/medchem/ticagrelor.png",
+  use: ["第一個口服的{{可逆型|性質}} P2Y₁₂ 抑制劑", "FDA 核准用於急性冠心症（ACS）"],
+  bold: ["含 {{triazolopyrimidine|結構}} 結構", "具 Cyclopropane 結構，含有 F 原子"] },
+{ id: "cangrelor", chapter: 10, name: "Cangrelor", type: "drug", group: "P2Y 抑制劑", source: "統整（三）p.65", img: "assets/medchem/cangrelor.png",
+  use: ["{{抗血小板|用途}}：P2Y 抑制劑（可逆）", "{{IV|給藥途徑}} 給藥、Onset 快、短效"],
+  bold: ["含 {{diazolopyrimidine|結構}} 結構"] },
+{ id: "abciximab", chapter: 10, name: "Abciximab", type: "drug", group: "GP IIb/IIIa 抑制劑", source: "統整（三）p.66",
+  use: ["{{GP IIb/IIIa 抑制劑|用途}}"],
+  bold: ["{{-ximab|名詞}} 表示結構源自動物的嵌合式單株抗體"] },
+{ id: "eptifibatide", chapter: 10, name: "Eptifibatide", type: "drug", group: "GP IIb/IIIa 抑制劑", source: "統整（三）p.66", img: "assets/medchem/eptifibatide.png",
+  use: ["{{GP IIb/IIIa 抑制劑|用途}}", "RGD 與受體鍵結力較弱，故為{{可逆型|性質}}抑制"],
+  bold: ["含有 {{RGD|名詞}} group（Arg-Gly-Asp）", "為合成的{{環狀七肽鏈|結構}}★，Mercaptopropionyl residue 與 Cys 形成雙硫鍵"] },
+{ id: "tirofiban", chapter: 10, name: "Tirofiban", type: "drug", group: "GP IIb/IIIa 抑制劑", source: "統整（三）p.66", img: "assets/medchem/tirofiban.png",
+  use: ["{{GP IIb/IIIa 抑制劑|用途}}"],
+  bold: ["{{擬肽或非胜肽|性質}}類，與蛇毒蛋白（disintegrin）結構相似", "分子內 COO⁻和 NH₃⁺的距離與 {{RGD|名詞}} 相符，能和受體結合"] },
+{ id: "roxifiban", chapter: 10, name: "Roxifiban", type: "drug", group: "GP IIb/IIIa 抑制劑", source: "統整（三）p.66", img: "assets/medchem/roxifiban.png",
+  use: ["{{GP IIb/IIIa 抑制劑|用途}}（補充）"], bold: [] },
+{ id: "lamifiban", chapter: 10, name: "Lamifiban", type: "drug", group: "GP IIb/IIIa 抑制劑", source: "統整（三）p.66", img: "assets/medchem/lamifiban.png",
+  use: ["{{GP IIb/IIIa 抑制劑|用途}}（補充）"], bold: [] },
+{ id: "lefradafiban", chapter: 10, name: "Lefradafiban", type: "drug", group: "GP IIb/IIIa 抑制劑", source: "統整（三）p.66", img: "assets/medchem/lefradafiban.png",
+  use: ["{{GP IIb/IIIa 抑制劑|用途}}（補充）"], bold: [] },
+
+/* 三、溶血栓藥物 */
+{ id: "thrombolytic-intro", chapter: 10, name: "溶血栓藥物總論", short: "溶血栓總論", type: "topic", group: "溶血栓藥物", source: "統整（三）p.67",
+  bold: [
+    "溶血栓藥物使 {{Plasminogen|物質}}→Plasmin，分解 fibrin",
+    "{{fibrin-nonspecific|名詞}} drug：Streptokinase、Urokinase（也催化 Fibrinogen）",
+    "{{fibrin-specific|名詞}} drug：Alteplase(tPA)，結合態(tPA-Fibrin)>>游離態"
+  ] },
+{ id: "streptokinase", chapter: 10, name: "Streptokinase", type: "drug", group: "溶血栓藥物", source: "統整（三）p.67",
+  use: ["{{溶血栓藥物|用途}}：唯一 FDA 認可用於周邊血管疾病的藥品"],
+  bold: ["來源：{{β-溶血性鏈球菌|物質}}（β-hemolytic streptococci）", "與 Plasminogen 結合活化成 Plasmin，同時催化 Fibrinogen 降解 → {{fibrin-nonspecific|名詞}} drug"] },
+{ id: "urokinase", chapter: 10, name: "Urokinase", type: "drug", group: "溶血栓藥物", source: "統整（三）p.67",
+  use: ["{{溶血栓藥物|用途}}", "人體無相對應 agonist，可直接服用"],
+  bold: ["來源：人類胎兒腎臟細胞", "半衰期短（15 mins）、較不易引發過敏", "直接催化 plasminogen→plasmin，屬 fibrin-nonspecific drug"] },
+{ id: "alteplase", chapter: 10, name: "Alteplase (tPA)", short: "Alteplase", type: "drug", group: "溶血栓藥物", source: "統整（三）p.67",
+  use: ["{{溶血栓藥物|用途}}", "低劑量時有較佳選擇性"],
+  bold: ["來源：人類黑色素瘤細胞（melanoma），為人體未經修飾的 tPA", "與 Plasminogen 結合：結合態(tPA-Fibrin)>>游離態 → {{fibrin-specific|名詞}} drug"] },
+{ id: "prourokinase", chapter: 10, name: "Prourokinase", type: "drug", group: "溶血栓藥物", source: "統整（三）p.67",
+  use: ["{{溶血栓藥物|用途}}：活化 plasminogen（似 Urokinase）"],
+  bold: ["較無免疫抗原性（immunogenicity）→ 較第一代安全"] },
+{ id: "reteplase", chapter: 10, name: "Reteplase", type: "drug", group: "溶血栓藥物", source: "統整（三）p.67",
+  use: ["{{溶血栓藥物|用途}}：可用於心肌梗塞（MI）"],
+  bold: ["由 tPA 修飾而來，刪除 {{1-172|名詞}} 的胺基酸 → 降低肝臟排除率、延長半衰期（14-18 min）", "與 fibrin 結合力與選擇性降低"] },
+{ id: "tenecteplase", chapter: 10, name: "Tenecteplase (TNKase)", short: "Tenecteplase", type: "drug", group: "溶血栓藥物", source: "統整（三）p.67",
+  use: ["{{溶血栓藥物|用途}}"],
+  bold: ["由 tPA 修飾而來，發生{{三處|數值}}點突變，使藥物半衰期上升（~17 min）"] },
+
+/* 四、凝血劑 */
+{ id: "vitamin-k", chapter: 10, name: "Vitamin K (Phytonadione)", short: "Vitamin K", type: "drug", group: "凝血劑", source: "統整（三）p.68", img: "assets/medchem/vitamin-k.png",
+  use: ["{{凝血劑|用途}}：與凝血因子 2、7、9、10 的活化有關（治療速度緩慢）", "口服使用需膽鹽存在才可被小腸吸收", "拮抗 Warfarin 出血症狀；頭孢菌素等抗生素會影響其吸收"],
+  bold: ["結構為 {{naphthoquinone|結構}} 接 isoprenoid 側鏈"] },
+{ id: "coagulants-other", chapter: 10, name: "其他凝血劑", short: "其他凝血劑", type: "topic", group: "凝血劑", source: "統整（三）p.68",
+  bold: [
+    "{{Protamine|藥名}}：結構富含 Arginine、鹼性極高，與 Antithrombin III 競爭抑制酸性的 Heparin（拮抗肝素）",
+    "Aminocaproic acid、Tranexamic acid：抑制 {{Plasminogen|物質}} 之活化",
+    "Cryoprecipitate：治療 {{Fibrinogen|物質}} 缺乏★（von Willebrand's disease、甲型血友病）",
+    "Aprotinin：為 {{Serine protease inhibitor|標的}}，阻斷纖維蛋白酶控制出血"
+  ] },
+
+/* 五、血球缺乏與貧血 */
+{ id: "hematopoietic", chapter: 10, name: "血球缺乏藥物治療", short: "血球缺乏治療", type: "topic", group: "血球缺乏", source: "統整（三）p.68",
+  bold: [
+    "白血球不足：人類重組 GM-CSF（{{Sargramostim|藥名}}）、G-CSF（Filgrastim）→ 骨髓生長因子",
+    "紅血球不足：人類重組 Erythropoetin（{{Epoetin alfa|藥名}}、Darbopoetin alfa）→ 治療慢性腎衰竭貧血，副作用高血壓",
+    "血小板不足：人類重組 IL-11（{{Oprelvekin|藥名}}）、血小板生成素受體致效劑（Eltrombopag）"
+  ] },
+{ id: "anemia-intro", chapter: 10, name: "貧血治療藥物", short: "貧血治療", type: "topic", group: "血球缺乏", source: "統整（三）p.69",
+  bold: [
+    "缺鐵性貧血：血紅素低（Hypochromic）、紅血球小（Microcytic）→ 使用{{鐵劑|物質}}；巨母紅血球/惡性貧血：高（Hyperchromic）、大（Macrocytic）→ 葉酸、Vitamin B₁₂",
+    "惡性貧血缺乏 {{Vit B₁₂|物質}}，需與胃壁細胞分泌的內在因子結合才能由小腸吸收",
+    "鐮刀型貧血：Hydroxyurea（增加 HbF）；地中海型貧血：{{Deferoxamine|藥名}}（防止鐵質沉積）；Sideroblastic：Pyridoxine（Vit B₆）",
+    "鐵劑補充 {{Fe²⁺|離子}}：口服需飯前，過量用活性碳解毒；注射劑解毒劑為 Deferoxamine"
+  ] }
 ];
 
 /* 知識樹：第 1 章。總論類的主題格用 unit 引用（題目算在格子上）；
@@ -1692,6 +1867,14 @@ PI.KNOWLEDGE = {
       { id: "pde3", title: "二、PDE-3 抑制劑", items: [] },
       { id: "bagonist", title: "三、β 受體作用劑", items: [] },
       { id: "others", title: "四、其他／PDE-5 抑制劑", items: [{ unit: "hf-other" }, { unit: "pde5-intro" }] }
+    ] },
+  ch10: { chapter: 10, title: "抗凝血及其血液相關藥物",
+    sections: [
+      { id: "factor", title: "一、抗凝血因子藥物", items: [{ unit: "coag-overview" }, { unit: "heparin-intro" }, { unit: "lmwh-intro" }, { unit: "fondaparinux-xa" }] },
+      { id: "antiplatelet", title: "二、抗血小板藥物", items: [{ unit: "antiplatelet-overview" }] },
+      { id: "thrombolytic", title: "三、溶血栓藥物", items: [{ unit: "thrombolytic-intro" }] },
+      { id: "coagulant", title: "四、凝血劑", items: [{ unit: "coagulants-other" }] },
+      { id: "anemia", title: "五、血球缺乏與貧血", items: [{ unit: "hematopoietic" }, { unit: "anemia-intro" }] }
     ] }
 };
 PI.GLOSSARY = {};
