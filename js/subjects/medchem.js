@@ -1514,7 +1514,46 @@ PI.UNITS = [
   bold: ["由 {{Pteridine|結構}}★（4N）發展而來：與葉酸、Methotrexate★結構類似", "結構中有 {{3 個|數值}}胺基-NH₂，故稱 Triamterene", "代謝：經 {{CYP1A2|酵素}} 代謝成 4'-hydroxytriamterene + Sulfate-conjugated，均有活性"] },
 { id: "amiloride", chapter: 7, name: "Amiloride", type: "drug", group: "保鉀型（Na⁺通道）", source: "統整（三）p.46", img: "assets/medchem/amiloride.png",
   use: ["{{保鉀型利尿劑|用途}}"],
-  bold: ["由 Triamterene {{開環|結構}}而來，具有 {{pyrazine|結構}}★結構", "具有 Aminopyrazine、{{Guanidine|結構}}★的結構", "鹼性較強，較易質子化", "代謝：幾乎不會代謝，以{{原型|代謝}}排出體外"] }
+  bold: ["由 Triamterene {{開環|結構}}而來，具有 {{pyrazine|結構}}★結構", "具有 Aminopyrazine、{{Guanidine|結構}}★的結構", "鹼性較強，較易質子化", "代謝：幾乎不會代謝，以{{原型|代謝}}排出體外"] },
+
+/* ===== 第 8 章 心絞痛藥物（統整（三）捌，p.47–48）===== */
+{ id: "dipyridamole", chapter: 8, name: "Dipyridamole", type: "drug", group: "PDE 抑制劑", source: "統整（三）p.47", img: "assets/medchem/dipyridamole.png",
+  use: ["{{心絞痛|疾病}}（PDE 抑制劑，Persantine®）", "抑制 {{PDE-3|標的}}，使 cAMP↑", "同時抑制 {{adenosine|物質}} 再回收★，刺激 adenyl cyclase 使 cAMP↑"],
+  bold: ["以 {{pyrimidopyrimidine|結構}} 為骨架", "具 {{piperidine|結構}} 結構"] },
+{ id: "cilostazol", chapter: 8, name: "Cilostazol", type: "drug", group: "PDE 抑制劑", source: "統整（三）p.47", img: "assets/medchem/cilostazol.png",
+  use: ["{{口服|給藥途徑}}藥，對 {{PDE-3A|標的}} 更具選擇性", "同時抑制 adenosine 再回收，使 cAMP↑", "可治療{{間歇性跛行|疾病}}"],
+  bold: ["以 {{quinolinone|結構}} 為骨架", "具 {{tetrazole|結構}} 結構", "具環己烷結構"] },
+{ id: "papaverine", chapter: 8, name: "Papaverine", type: "drug", group: "PDE 抑制劑", source: "統整（三）p.47", img: "assets/medchem/papaverine.png",
+  use: ["{{心絞痛|疾病}}（作用於血管平滑肌使血管舒張）"],
+  bold: ["以 {{Benzoisoquinoline|結構}} 為骨架"] },
+{ id: "minoxidil", chapter: 8, name: "Minoxidil", type: "drug", group: "心絞痛（補充）", source: "統整（三）p.47", img: "assets/medchem/minoxidil.png",
+  use: ["具有降血壓、血管擴張作用，但{{不用在心衰竭治療|用途}}", "後被發現有促進{{毛髮再生|用途}}的能力"],
+  bold: ["為 {{K⁺通道促效劑|機轉}}"] },
+
+{ id: "nitrate-intro", chapter: 8, name: "硝酸酯類總論", short: "硝酸酯總論", type: "topic", group: "硝酸酯類", source: "統整（三）p.48",
+  bold: [
+    "含硝基血管擴張劑與組織中游離的{{硫醇基|物質}}（R-SH）結合，產生雙硫鍵釋放 NO₂⁻，最後生成 {{NO|物質}}（內生性 NO 由 L-arginine★生合成）",
+    "NO 生合成為 nitrosothiol（R-SNO），刺激 {{guanylate cyclase|酵素}}★生成 cGMP",
+    "活化 PKG 使 myosine light chain 之{{磷酸化減少|機轉}}★，造成血管平滑肌放鬆（{{靜脈擴張|性質}}>動脈擴張★）",
+    "特性：揮發性強、脂溶性高；具爆炸性需防潮；與 amines 形成 {{nitrosamines|物質}} 具致癌性",
+    "做成{{舌下錠|給藥途徑}}治療緊急心絞痛；可作{{氰化物|物質}}★中毒之解毒劑",
+    "不可和 {{PDE-5 inhibitors|藥物類別}}（Sildenafil、Tadalafil）併用"
+  ] },
+{ id: "glyceryl-trinitrate", chapter: 8, name: "Glyceryl Trinitrate", type: "drug", group: "硝酸酯類", source: "統整（三）p.48", img: "assets/medchem/glyceryl-trinitrate.png",
+  use: ["{{心絞痛|疾病}}（舌下錠）"],
+  bold: ["又名 nitroglycerin，{{結構式和化學式|名詞}}★要記"] },
+{ id: "amyl-nitrite", chapter: 8, name: "Amyl Nitrite", type: "drug", group: "硝酸酯類", source: "統整（三）p.48", img: "assets/medchem/amyl-nitrite.png",
+  use: ["{{心絞痛|疾病}}"],
+  bold: ["屬於 {{Nitrite ester|結構}}★亞硝酸酯", "以{{氣體|給藥途徑}}給藥，油溶性高、{{Onset 最快|作用時間}}★"] },
+{ id: "isosorbide-dinitrate", chapter: 8, name: "Isosorbide Dinitrate", type: "drug", group: "硝酸酯類", source: "統整（三）p.48", img: "assets/medchem/isosorbide-dinitrate.png",
+  use: ["{{心絞痛|疾病}}"],
+  bold: ["具有 {{4 個|數值}}★不對稱中心", "{{活性代謝物|性質}}作用時間更長★"] },
+{ id: "pentaerythritol-tetranitrate", chapter: 8, name: "Pentaerythritol Tetranitrate", type: "drug", group: "硝酸酯類", source: "統整（三）p.48", img: "assets/medchem/pentaerythritol-tetranitrate.png",
+  use: ["{{心絞痛|疾病}}"],
+  bold: ["{{作用時間最長|作用時間}}★"] },
+{ id: "molsidomine", chapter: 8, name: "Molsidomine", type: "drug", group: "NO Donor", source: "統整（三）p.48", img: "assets/medchem/molsidomine.png",
+  use: ["{{心絞痛|疾病}}（NO donor）", "具光敏性、藥效短，治療劑量時有{{抗血小板|用途}}作用"],
+  bold: ["不需要雙硫鍵催化，可直接提供 {{NO|物質}}", "化學結構屬於 {{Mesionic compound|結構}}★", "經 liver esterases 水解成活性代謝物 {{Linsidomine|代謝物}}★（含 imine 結構），再開環成 SIN-1A"] }
 ];
 
 /* 知識樹：第 1 章。總論類的主題格用 unit 引用（題目算在格子上）；
@@ -1572,6 +1611,11 @@ PI.KNOWLEDGE = {
       { id: "loop", title: "四、環利尿劑", items: [{ unit: "loop-intro" }] },
       { id: "mra", title: "五、保鉀型（MRA）", items: [{ unit: "mra-intro" }] },
       { id: "ksparing", title: "六、保鉀型（Na⁺通道）", items: [{ unit: "ksparing-intro" }] }
+    ] },
+  ch8: { chapter: 8, title: "心絞痛藥物",
+    sections: [
+      { id: "pde", title: "一、PDE 抑制劑", items: [] },
+      { id: "nitrate", title: "二、硝酸酯類", items: [{ unit: "nitrate-intro" }] }
     ] }
 };
 PI.GLOSSARY = {};
