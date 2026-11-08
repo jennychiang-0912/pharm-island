@@ -498,8 +498,15 @@ mark.cloze.is-hl.hl-mine { background: linear-gradient(transparent 35%, #BFE3A6 
 .grp-letter, .grp-letter-shadow { font-family: "Bebas Neue", "Oswald", "Arial Narrow", "Roboto Condensed", sans-serif; font-stretch: condensed; font-size: 20px; font-weight: 400; text-anchor: middle; letter-spacing: 0; }
 .grp-letter { fill: #FFFFFF; }
 .grp-letter-shadow { fill: #2F2C18; fill-opacity: .6; }
-.grp-hit { fill: #FFFFFF; fill-opacity: 0; stroke: #FFFFFF; stroke-width: 2; stroke-opacity: 0; transition: stroke-opacity .15s, fill-opacity .15s; }
-.grp-sign.k-tree:hover .grp-hit, .grp-sign.k-tree:focus-visible .grp-hit { stroke-opacity: .9; fill-opacity: .12; }
+.grp-hit { fill: #FFFFFF; fill-opacity: 0; stroke: #FFFFFF; stroke-width: 2; stroke-opacity: 0; transition: stroke-opacity .15s, fill-opacity .15s; cursor: pointer; pointer-events: all; }
+.grp-sign { cursor: pointer; }
+.grp-sign:hover .grp-hit, .grp-sign:focus-visible .grp-hit { stroke-opacity: .9; fill-opacity: .12; }
+/* 點名牌圈出這一類：名牌本身變金色，該類格子描金邊，其餘格子變淡 */
+.grp-sign.is-lit .grp-letter { fill: #FFCF3F; }
+.grp-sign.is-lit .grp-hit { stroke: #FFCF3F; stroke-opacity: .9; fill: #FFCF3F; fill-opacity: .14; }
+.map-svg.has-grp-lit .layer-cells .cell:not(.grp-lit) { opacity: .26; transition: opacity .15s; }
+.map-svg.has-grp-lit .layer-cells .cell.grp-lit .cell-hex { stroke: #FFCF3F; stroke-width: 5; stroke-opacity: 1; }
+.map-svg.has-grp-lit .layer-cells .cell.grp-lit .cell-name { fill: #4A3B10; font-weight: 700; }
 /* 手機：知識面板標題列不要擠——標題和 × 同一行，「看整棵知識樹／全螢幕」換到下一行 */
 @media (max-width: 600px) {
   .k-head { flex-wrap: wrap; row-gap: 8px; }

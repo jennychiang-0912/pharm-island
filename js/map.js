@@ -468,9 +468,13 @@ PI.map = (function () {
       // 這一類在知識樹裡有內容（item.group）：名牌可以點，打開這一類的機轉
       const kKey = Object.keys(PI.KNOWLEDGE || {}).find(k => PI.KNOWLEDGE[k].chapter === isl.chapter);
       const has = kKey && (PI.KNOWLEDGE[kKey].sections || []).some(sec => (sec.items || []).some(it => [].concat(it.group || []).includes(name)));
-      const sign = el("g", has ? { class: "grp-sign k-tree", "data-tree": kKey, "data-group": name, tabindex: 0, role: "button", "aria-label": `${name}：打開這一類的機轉`,
-        transform: `translate(${cx.toFixed(1)},${y.toFixed(1)})` } : { class: "grp-sign", transform: `translate(${cx.toFixed(1)},${y.toFixed(1)})`, "pointer-events": "none" });
-      if (has) { const tip = el("title"); tip.textContent = `${name}・點一下看這一類的機轉`; sign.append(tip, el("rect", { class: "grp-hit", x: -total / 2 - 8, y: -fs - 2, width: total + 16, height: fs + 10, rx: 6 })); }
+      // 名牌一律可點：有機轉的打開知識樹，其餘點一下「圈出這一類的藥」
+      const attrs = { class: "grp-sign" + (has ? " k-tree" : ""), "data-group": name, "data-ch": String(isl.chapter), tabindex: 0, role: "button",
+        "aria-label": has ? `${name}：打開這一類的機轉` : `${name}：圈出這一類的藥`, transform: `translate(${cx.toFixed(1)},${y.toFixed(1)})` };
+      if (has) attrs["data-tree"] = kKey;
+      const sign = el("g", attrs);
+      const tip = el("title"); tip.textContent = has ? `${name}・點一下看這一類的機轉` : `${name}・點一下圈出這一類的藥`;
+      sign.append(tip, el("rect", { class: "grp-hit", x: -total / 2 - 10, y: -fs - 4, width: total + 20, height: fs + 14, rx: 6 }));
       letters.forEach((ch, i) => {
         if (ch === " ") return;
         const x = xs[i].toFixed(1);
@@ -801,11 +805,13 @@ PI.map = (function () {
         container.classList.remove("is-dragging");
         if (moved < 6 && e.type === "pointerup") {
           const hit = document.elementFromPoint(e.clientX, e.clientY);
-          const g = hit?.closest(".cell"), isl = hit?.closest("[data-island]"), land = hit?.closest("[data-land]"), tree = hit?.closest(".k-tree");
-          if (tree) onOpenTree(tree.dataset.tree, tree.dataset.group);
-          else if (g) select(g.dataset.id);
-          else if (isl) selectIsland(+isl.dataset.island);
+          const g = hit?.closest(".cell"), isl = hit?.closest("[data-island]"), land = hit?.closest("[data-land]"), tree = hit?.closest(".k-tree"), sign = hit?.closest(".grp-sign");
+          if (tree) { clearLit(); onOpenTree(tree.dataset.tree, tree.dataset.group); }
+          else if (sign && sign.dataset.group) highlightGroup(+sign.dataset.ch, sign.dataset.group);   // 點名牌：圈出這一類的藥
+          else if (g) { clearLit(); select(g.dataset.id); }
+          else if (isl) { clearLit(); selectIsland(+isl.dataset.island); }
           else if (land) {   // 點到草地或沙灘：找這塊陸地上最近的章節區域
+            clearLit();
             const [sx, sy] = local(e), wx = (sx - view.x) / view.k, wy = (sy - view.y) / view.k;
             const L = lands.find(l => l.id === land.dataset.land);
             const near = L.regions.reduce((m, r) => {
@@ -814,7 +820,7 @@ PI.map = (function () {
             }, null);
             selectIsland(near.r.chapter);
           }
-          else select(null);
+          else { clearLit(); select(null); }
         }
       }
     };
@@ -823,13 +829,30 @@ PI.map = (function () {
     svg.addEventListener("wheel", e => { e.preventDefault(); const [x, y] = local(e); zoomAt(Math.exp(-e.deltaY * 0.0015), x, y); }, { passive: false });
     svg.addEventListener("keydown", e => {
       if (e.key !== "Enter" && e.key !== " ") return;
-      const g = e.target.closest?.(".cell"), isl = e.target.closest?.(".island-label"), tree = e.target.closest?.(".k-tree");
-      if (tree) { e.preventDefault(); onOpenTree(tree.dataset.tree, tree.dataset.group); }
-      else if (g) { e.preventDefault(); select(g.dataset.id); }
-      else if (isl) { e.preventDefault(); selectIsland(+isl.dataset.island); }
+      const g = e.target.closest?.(".cell"), isl = e.target.closest?.(".island-label"), tree = e.target.closest?.(".k-tree"), sign = e.target.closest?.(".grp-sign");
+      if (tree) { e.preventDefault(); clearLit(); onOpenTree(tree.dataset.tree, tree.dataset.group); }
+      else if (sign && sign.dataset.group) { e.preventDefault(); highlightGroup(+sign.dataset.ch, sign.dataset.group); }
+      else if (g) { e.preventDefault(); clearLit(); select(g.dataset.id); }
+      else if (isl) { e.preventDefault(); clearLit(); selectIsland(+isl.dataset.island); }
     });
   }
 
+
+  // ---------- 點分類名牌：圈出（高亮）這一類的所有格子 ----------
+  let litGroup = null;
+  function highlightGroup(ch, name) {
+    const same = litGroup && litGroup.ch === ch && litGroup.name === name;
+    cells.forEach(c => c.el && c.el.classList.remove("grp-lit"));
+    svg.querySelectorAll(".grp-sign.is-lit").forEach(s => s.classList.remove("is-lit"));
+    svg.classList.remove("has-grp-lit");
+    litGroup = null;
+    if (same) return;   // 再點一次同一個 → 取消
+    let n = 0;
+    cells.forEach(c => { if (c.el && c.island && c.island.chapter === ch && c.group === name) { c.el.classList.add("grp-lit"); n++; } });
+    svg.querySelectorAll(".grp-sign").forEach(s => { if (s.dataset.group === name && +s.dataset.ch === ch) s.classList.add("is-lit"); });
+    if (n) { svg.classList.add("has-grp-lit"); litGroup = { ch, name }; }
+  }
+  function clearLit() { if (litGroup) highlightGroup(litGroup.ch, litGroup.name); }
 
   function select(id) {
     selected = id; render();
