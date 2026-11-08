@@ -434,37 +434,44 @@ PI.map = (function () {
     lines.append(el("path", { d, class: "grp-border-shadow" }), el("path", { d, class: "grp-border" }));
     g.appendChild(lines);
     const groups = [...new Set(isl.cells.map(c => c.group).filter(Boolean))];
-    const FS = 20, SLOT = FS * 0.56;   // 每個字一格同寬（像 HOLLYWOOD 一塊一塊的字牌），字型還沒載好也不會跑版
+    const FS0 = 20, MAXW = 270;   // 字級、名牌最寬像素（超過就整排等比縮小）
+    // 名牌字體（Bebas Neue…）只有拉丁字母，中文字會 fallback 到系統字型、比較寬，要給比較寬的位，不然會疊在一起
+    const advOf = (ch, fs) => ch === " " ? fs * 0.32 : (ch.charCodeAt(0) > 0x2E00 ? fs * 1.02 : fs * 0.56);
+    // 地圖名牌只留重點：拿掉「類衍生物／衍生物／類藥物／之衍生物」這種贅字（分類本身的 group 字串不變）
+    const labelOf = name => (name.replace(/\s*(類衍生物|類藥物|之衍生物|衍生物)\s*$/, "").trim() || name).toUpperCase();
     const boxes = [];   // 已放好的名牌範圍，彼此不要擠在一起
     groups.forEach(name => {
       const mine = isl.cells.filter(c => c.group === name);
-      const letters = name.toUpperCase().split("");
-      const total = letters.length * SLOT;
-      // 名牌放在這一類某一排的上緣（從最上面一排開始試），和別的名牌至少隔 28px
+      const letters = labelOf(name).split("");
+      const raw = letters.reduce((s, ch) => s + advOf(ch, FS0), 0);
+      const scale = Math.min(1, Math.max(0.6, MAXW / raw));   // 太長就等比縮，但字級不低於 0.6
+      const fs = FS0 * scale, total = raw * scale;
+      // 每個字的中心 x（相對名牌中心），依中英文各自的寬度累加
+      let acc = -total / 2; const xs = letters.map(ch => { const a = advOf(ch, fs); const c = acc + a / 2; acc += a; return c; });
+      // 名牌放在這一類某一排的上緣（從最上面一排開始試）
       const rows = [...new Set(mine.map(c => Math.round(c.ly)))].sort((a, b) => a - b);
       let cx, y;
-      // 候選位置：每一排的上緣，再來每一排的下緣（只有一兩格的小分類常常上面已經有別的名牌）
-      //   都擠到時，再左右挪一點試試
+      // 候選位置：每一排的上緣，再來每一排的下緣（只有一兩格的小分類常常上面已經有別的名牌）；都擠到時再左右挪一點試試
       const base = [...rows.map(ry => [ry, -R * 0.4]), ...rows.slice().reverse().map(ry => [ry, R * 0.98])];
       const cands = [0, 0.6, -0.6, 1.2, -1.2].flatMap(sx => base.map(([ry, dy]) => [ry, dy, sx * R]));
       for (const [ry, dy, sx] of cands) {
         const row = mine.filter(c => Math.round(c.ly) === ry);
         const x0 = row.reduce((s, c) => s + c.lx, 0) / row.length + sx, y0 = ry + dy;
-        const box = [x0 - total / 2 - 28, x0 + total / 2 + 28, y0 - 22, y0 + 12];
+        const box = [x0 - total / 2 - 24, x0 + total / 2 + 24, y0 - fs * 1.1, y0 + fs * 0.6];
         if (cx === undefined) { cx = x0; y = y0; }
         if (!boxes.some(b => box[0] < b[1] && box[1] > b[0] && box[2] < b[3] && box[3] > b[2])) { cx = x0; y = y0; break; }
       }
-      boxes.push([cx - total / 2, cx + total / 2, y - 22, y + 12]);
+      boxes.push([cx - total / 2 - 6, cx + total / 2 + 6, y - fs * 1.1, y + fs * 0.6]);
       // 這一類在知識樹裡有內容（item.group）：名牌可以點，打開這一類的機轉
       const kKey = Object.keys(PI.KNOWLEDGE || {}).find(k => PI.KNOWLEDGE[k].chapter === isl.chapter);
       const has = kKey && (PI.KNOWLEDGE[kKey].sections || []).some(sec => (sec.items || []).some(it => [].concat(it.group || []).includes(name)));
       const sign = el("g", has ? { class: "grp-sign k-tree", "data-tree": kKey, "data-group": name, tabindex: 0, role: "button", "aria-label": `${name}：打開這一類的機轉`,
         transform: `translate(${cx.toFixed(1)},${y.toFixed(1)})` } : { class: "grp-sign", transform: `translate(${cx.toFixed(1)},${y.toFixed(1)})`, "pointer-events": "none" });
-      if (has) { const tip = el("title"); tip.textContent = `${name}・點一下看這一類的機轉`; sign.append(tip, el("rect", { class: "grp-hit", x: -total / 2 - 8, y: -FS - 2, width: total + 16, height: FS + 10, rx: 6 })); }
+      if (has) { const tip = el("title"); tip.textContent = `${name}・點一下看這一類的機轉`; sign.append(tip, el("rect", { class: "grp-hit", x: -total / 2 - 8, y: -fs - 2, width: total + 16, height: fs + 10, rx: 6 })); }
       letters.forEach((ch, i) => {
         if (ch === " ") return;
-        const x = (-total / 2 + SLOT * (i + 0.5)).toFixed(1);
-        const sh = el("text", { class: "grp-letter-shadow", x: (+x + 1).toFixed(1), y: 2 }), t = el("text", { class: "grp-letter", x, y: 0 });
+        const x = xs[i].toFixed(1);
+        const sh = el("text", { class: "grp-letter-shadow", x: (+x + 1).toFixed(1), y: 2, "font-size": fs.toFixed(1) }), t = el("text", { class: "grp-letter", x, y: 0, "font-size": fs.toFixed(1) });
         sh.textContent = t.textContent = ch;
         sign.append(sh, t);
       });
