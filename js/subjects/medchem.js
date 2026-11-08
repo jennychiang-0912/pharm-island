@@ -231,6 +231,45 @@ PI.UNITS = [
     "代謝：經肝臟 CYP3A4 代謝成 {{1-PP|代謝物}}★，會進入腦中作為 {{α₂-antagonist|機轉}}",
     "1-PP：1-(2-{{pyrimidyl|結構}}★)-piperazine"] },
 
+/* ----- 第 1 章補充：p.15–18（SSRIs 抗焦慮、褪黑激素、H₁-blocker、Orexin）----- */
+{ id: "ssri-anxiolytic", chapter: 1, name: "SSRIs（第一線抗焦慮）", short: "SSRI 抗焦慮", type: "topic", group: "SSRI（抗焦慮）", source: "統整（一）p.15–16",
+  bold: [
+    "SSRIs（Selective Serotonin Reuptake Inhibitors）為{{第一線抗焦慮|用途}}用藥",
+    "Phenoxyphenylalkylamine 類：Fluoxetine（含 CF₃、S form 較強）、Paroxetine、Citalopram/Escitalopram",
+    "胺基都會質子化並與自身氧原子形成氫鍵 → 形成 {{β-arylamino-like group|結構}}",
+    "（結構與個論見第 3 章 SSRI；此處為抗焦慮用途）"
+  ] },
+{ id: "melatonin-intro", chapter: 1, name: "褪黑激素受體促效劑總論", short: "褪黑激素總論", type: "topic", group: "褪黑激素促效劑", source: "統整（一）p.17",
+  bold: [
+    "褪黑激素由{{松果體|器官}}（Pineal gland）分泌，受體在 SCN（上視交叉神經核）密度極高",
+    "MT₁：刺激可{{抑制 SCN|機轉}}促進睡眠；MT₂：影響生理時鐘",
+    "Melatonin 與 Serotonin 都由 {{L-tryptophan|物質}}★生合成（L-tryptophan→Serotonin→Melatonin）",
+    "此類藥物會影響催乳素（Prolactin）和睪固酮（Testosterone）分泌"
+  ] },
+{ id: "melatonin", chapter: 1, name: "Melatonin", type: "drug", group: "褪黑激素促效劑", source: "統整（一）p.17", img: "assets/medchem/melatonin.png",
+  use: ["{{鎮靜安眠|用途}}：直接補充褪黑激素，刺激受體"],
+  bold: ["{{不具立體中心|性質}}★", "含有 {{Indole|結構}} 結構", "3 號位有 acylaminoethyl 取代、5 號位有 {{Methoxy|取代基}} 取代"] },
+{ id: "ramelteon", chapter: 1, name: "S-Ramelteon", type: "drug", group: "褪黑激素促效劑", source: "統整（一）p.17", img: "assets/medchem/ramelteon.png",
+  use: ["{{鎮靜安眠|用途}}：可口服，選擇性作用於 MT₁和 MT₂受體", "代謝主要經 {{CYP1A2|酵素}}（側鏈 hydroxylation 為活性代謝物）；吸菸誘導 CYP1A2 加速代謝產生毒性"],
+  bold: ["與 Melatonin 相異：5 號位 Methoxy→{{Furan|結構}}；芳香環 Indole→{{Indane|結構}}；支鏈乙醯基→丙醯基", "S form 活性較 R form 高 {{500|數值}} 倍"] },
+{ id: "h1-intro", chapter: 1, name: "第一代 H₁-blocker（鎮靜安眠）", short: "H₁-blocker 總論", type: "topic", group: "第一代 H₁-blocker", source: "統整（一）p.18",
+  bold: [
+    "第一代抗組織胺藥可通過 {{BBB|名詞}}，有抑制 CNS 的作用；副作用{{嗜睡|副作用}}最常見 → 用作鎮靜安眠",
+    "Ethanolamine ether 類：{{Diphenhydramine|藥名}}（Antimuscarinic 最強）、Doxylamine（差一個甲基）",
+    "Tricyclic 類：Doxepine，具含 O 七元雜環（{{Oxepin|結構}}），E form 有 CNS 抑制活性（結構見第 3、4 章）"
+  ] },
+{ id: "doxylamine", chapter: 1, name: "Doxylamine", type: "drug", group: "第一代 H₁-blocker", source: "統整（一）p.18", img: "assets/medchem/doxylamine.png",
+  use: ["{{鎮靜安眠|用途}}（第一代 H₁-blocker）"],
+  bold: ["Ethanolamine ether 類，和 {{Diphenhydramine|藥名}} 差一個{{甲基|取代基}}", "具有高結合力"] },
+{ id: "orexin-intro", chapter: 1, name: "Orexin 拮抗劑總論", short: "Orexin 總論", type: "topic", group: "Orexin 拮抗劑", source: "統整（一）p.18",
+  bold: [
+    "食慾素（Orexin）又稱腦下泌素（{{hypocretin|物質}}），由下視丘分泌的 neuropeptide",
+    "食慾素神經元負責大腦{{覺醒|名詞}}（arousal）；缺乏食慾素的典型病態是猝睡症（narcolepsy）"
+  ] },
+{ id: "suvorexant", chapter: 1, name: "Suvorexant", type: "drug", group: "Orexin 拮抗劑", source: "統整（一）p.18", img: "assets/medchem/suvorexant.png",
+  use: ["{{鎮靜安眠|用途}}：可顯著縮短入睡及延長睡眠時間（Belsomra®）"],
+  bold: ["作用在食慾素受體 A 與 B 的{{雙重食慾素阻斷劑|機轉}}，影響大腦覺醒神經路徑"] },
+
 /* ===== 第 2 章 抗癲癇藥物（統整（一）貳，p.19–31）===== */
 { id: "ae-intro", chapter: 2, name: "抗癲癇精神藥理學簡介", short: "抗癲癇簡介", type: "topic", group: "總論", source: "統整（一）p.19",
   bold: [
@@ -1808,7 +1847,11 @@ PI.KNOWLEDGE = {
       { id: "overview", title: "總覽", items: [{ unit: "sh-barb-vs-bzd" }] },
       { id: "barb", title: "一、Barbiturates", items: [{ unit: "sh-barb-general" }] },
       { id: "bzd", title: "二、Benzodiazepines", items: [{ unit: "sh-bzd-general" }, { unit: "sh-bzd-3oh" }] },
-      { id: "5ht", title: "五、Serotonin Agonists", items: [{ unit: "sh-serotonin" }] }
+      { id: "5ht", title: "五、Serotonin Agonists", items: [{ unit: "sh-serotonin" }] },
+      { id: "ssri-ax", title: "六、SSRIs（抗焦慮）", items: [{ unit: "ssri-anxiolytic" }] },
+      { id: "melatonin", title: "七、褪黑激素促效劑", items: [{ unit: "melatonin-intro" }] },
+      { id: "h1", title: "八、第一代 H₁-blocker", items: [{ unit: "h1-intro" }] },
+      { id: "orexin", title: "九、Orexin 拮抗劑", items: [{ unit: "orexin-intro" }] }
     ] },
   ch2: { chapter: 2, title: "抗癲癇藥物",
     sections: [
