@@ -505,8 +505,9 @@ mark.cloze.is-hl.hl-mine { background: linear-gradient(transparent 35%, #BFE3A6 
 .grp-sign.is-lit .grp-letter { fill: #FFCF3F; }
 .grp-sign.is-lit .grp-hit { stroke: #FFCF3F; stroke-opacity: .9; fill: #FFCF3F; fill-opacity: .14; }
 .map-svg.has-grp-lit .layer-cells .cell:not(.grp-lit) { opacity: .26; transition: opacity .15s; }
-.map-svg.has-grp-lit .layer-cells .cell.grp-lit .cell-hex { stroke: #FFCF3F; stroke-width: 5; stroke-opacity: 1; }
-.map-svg.has-grp-lit .layer-cells .cell.grp-lit .cell-name { fill: #4A3B10; font-weight: 700; }
+.map-svg.has-grp-lit .layer-cells .cell.grp-lit .cell-name { font-weight: 700; }
+/* 沿著整個分類外緣的連續金線（把這一類整個圈起來） */
+.grp-lit-ring { stroke: #FFCF3F; stroke-width: 5.5; stroke-linecap: round; stroke-linejoin: round; filter: drop-shadow(0 0 4px rgba(255,180,40,.75)); }
 /* 手機：知識面板標題列不要擠——標題和 × 同一行，「看整棵知識樹／全螢幕」換到下一行 */
 @media (max-width: 600px) {
   .k-head { flex-wrap: wrap; row-gap: 8px; }

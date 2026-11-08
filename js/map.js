@@ -243,7 +243,7 @@ PI.map = (function () {
   }
 
   /* ================= 繪製 ================= */
-  let hl, hov, svg, world, mapEl, stage, sea, decorLayer, terrainLayer, cellLayer, labelLayer, treeLayer, onSelect = () => {}, onSelectIsland = () => {}, onOpenTree = () => {}, selected = null, focusCh = null;
+  let hl, hov, litRing, svg, world, mapEl, stage, sea, decorLayer, terrainLayer, cellLayer, labelLayer, treeLayer, onSelect = () => {}, onSelectIsland = () => {}, onOpenTree = () => {}, selected = null, focusCh = null;
   let grpBoxes = [];   // 全部島共用的名牌範圍（世界座標），連相鄰島的名牌也不會疊在一起
   const CH = PI.ART.chunkSize;
   const decorChunks = new Map();   // 海上裝飾：區塊 → 群組（需要時才產生）
@@ -287,7 +287,9 @@ PI.map = (function () {
     hl = el("path", { class: "sel-ring", d: HEX_PATH, fill: "none", "stroke-width": 6, "pointer-events": "none" });   // 選取外框
     hov = el("path", { class: "hover-hex", d: SHINE_PATH, "pointer-events": "none" });   // 滑鼠所在格子的高亮（全地圖共用一個）
     hov.style.display = "none";
-    world.append(decorLayer, terrainLayer, cellLayer, hov, treeLayer, labelLayer, hl);
+    litRing = el("path", { class: "grp-lit-ring", fill: "none", "pointer-events": "none" });   // 點名牌時圈住整個分類的外框線
+    litRing.style.display = "none";
+    world.append(decorLayer, terrainLayer, cellLayer, hov, treeLayer, labelLayer, litRing, hl);
     svg.appendChild(world);
     stage.append(sea, svg);
     container.appendChild(stage);
@@ -845,12 +847,25 @@ PI.map = (function () {
     cells.forEach(c => c.el && c.el.classList.remove("grp-lit"));
     svg.querySelectorAll(".grp-sign.is-lit").forEach(s => s.classList.remove("is-lit"));
     svg.classList.remove("has-grp-lit");
+    if (litRing) litRing.style.display = "none";
     litGroup = null;
     if (same) return;   // 再點一次同一個 → 取消
-    let n = 0;
-    cells.forEach(c => { if (c.el && c.island && c.island.chapter === ch && c.group === name) { c.el.classList.add("grp-lit"); n++; } });
+    const mine = cells.filter(c => c.el && c.chapter === ch && c.group === name);
+    if (!mine.length) return;
+    mine.forEach(c => c.el.classList.add("grp-lit"));
     svg.querySelectorAll(".grp-sign").forEach(s => { if (s.dataset.group === name && +s.dataset.ch === ch) s.classList.add("is-lit"); });
-    if (n) { svg.classList.add("has-grp-lit"); litGroup = { ch, name }; }
+    // 沿著這一類的外緣畫一圈連續的線：只畫「鄰居不是同一類」的那幾條六角形邊
+    const has = new Set(mine.map(c => `${c.q},${c.r}`));
+    let d = "";
+    mine.forEach(c => DIRS.forEach(([dq, dr]) => {
+      if (has.has(`${c.q + dq},${c.r + dr}`)) return;   // 內部邊（和同類相鄰）不畫
+      const nx = c.x + R * SQ3 * (dq + dr / 2), ny = c.y + R * 1.5 * dr;   // 鄰格中心（不管有沒有格子）
+      const mx = (c.x + nx) / 2, my = (c.y + ny) / 2, vx = nx - c.x, vy = ny - c.y, L = Math.hypot(vx, vy);
+      const px = -vy / L * R / 2, py = vx / L * R / 2;                     // 共用邊：垂直於連線、長度 R
+      d += `M${(mx + px).toFixed(1)},${(my + py).toFixed(1)}L${(mx - px).toFixed(1)},${(my - py).toFixed(1)}`;
+    }));
+    if (litRing) { litRing.setAttribute("d", d); litRing.style.display = ""; }
+    svg.classList.add("has-grp-lit"); litGroup = { ch, name };
   }
   function clearLit() { if (litGroup) highlightGroup(litGroup.ch, litGroup.name); }
 
