@@ -244,6 +244,7 @@ PI.map = (function () {
 
   /* ================= 繪製 ================= */
   let hl, hov, svg, world, mapEl, stage, sea, decorLayer, terrainLayer, cellLayer, labelLayer, treeLayer, onSelect = () => {}, onSelectIsland = () => {}, onOpenTree = () => {}, selected = null, focusCh = null;
+  let grpBoxes = [];   // 全部島共用的名牌範圍（世界座標），連相鄰島的名牌也不會疊在一起
   const CH = PI.ART.chunkSize;
   const decorChunks = new Map();   // 海上裝飾：區塊 → 群組（需要時才產生）
   const view = { x: 0, y: 0, k: 1 };
@@ -293,6 +294,7 @@ PI.map = (function () {
 
     buildWorld();
     lands.forEach(land => { land.g = el("g", { class: "land-terrain", "data-land": land.id }); terrainLayer.appendChild(land.g); });
+    grpBoxes = [];
     islands.forEach(isl => {
       isl.g.cells = el("g", { class: "island-g island-cells" });
       isl.g.label = el("g", { class: "island-g" });
@@ -439,7 +441,8 @@ PI.map = (function () {
     const advOf = (ch, fs) => ch === " " ? fs * 0.32 : (ch.charCodeAt(0) > 0x2E00 ? fs * 1.02 : fs * 0.56);
     // 地圖名牌只留重點：拿掉「類衍生物／衍生物／類藥物／之衍生物」這種贅字（分類本身的 group 字串不變）
     const labelOf = name => (name.replace(/\s*(類衍生物|類藥物|之衍生物|衍生物)\s*$/, "").trim() || name).toUpperCase();
-    const boxes = [];   // 已放好的名牌範圍，彼此不要擠在一起
+    const ox = isl.origin.x, oy = isl.origin.y;
+    grpBoxes = grpBoxes.filter(b => b.ch !== isl.chapter);   // 重畫這座島時先移除它自己舊的名牌框
     groups.forEach(name => {
       const mine = isl.cells.filter(c => c.group === name);
       const letters = labelOf(name).split("");
@@ -457,11 +460,11 @@ PI.map = (function () {
       for (const [ry, dy, sx] of cands) {
         const row = mine.filter(c => Math.round(c.ly) === ry);
         const x0 = row.reduce((s, c) => s + c.lx, 0) / row.length + sx, y0 = ry + dy;
-        const box = [x0 - total / 2 - 24, x0 + total / 2 + 24, y0 - fs * 1.1, y0 + fs * 0.6];
+        const box = [x0 - total / 2 - 24 + ox, x0 + total / 2 + 24 + ox, y0 - fs * 1.1 + oy, y0 + fs * 0.6 + oy];
         if (cx === undefined) { cx = x0; y = y0; }
-        if (!boxes.some(b => box[0] < b[1] && box[1] > b[0] && box[2] < b[3] && box[3] > b[2])) { cx = x0; y = y0; break; }
+        if (!grpBoxes.some(b => box[0] < b[1] && box[1] > b[0] && box[2] < b[3] && box[3] > b[2])) { cx = x0; y = y0; break; }
       }
-      boxes.push([cx - total / 2 - 6, cx + total / 2 + 6, y - fs * 1.1, y + fs * 0.6]);
+      grpBoxes.push({ ch: isl.chapter, 0: cx - total / 2 - 6 + ox, 1: cx + total / 2 + 6 + ox, 2: y - fs * 1.1 + oy, 3: y + fs * 0.6 + oy });
       // 這一類在知識樹裡有內容（item.group）：名牌可以點，打開這一類的機轉
       const kKey = Object.keys(PI.KNOWLEDGE || {}).find(k => PI.KNOWLEDGE[k].chapter === isl.chapter);
       const has = kKey && (PI.KNOWLEDGE[kKey].sections || []).some(sec => (sec.items || []).some(it => [].concat(it.group || []).includes(name)));
