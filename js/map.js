@@ -428,13 +428,16 @@ PI.map = (function () {
   function drawGroups(isl, g) {
     const lines = el("g", { class: "grp-borders", "pointer-events": "none" });
     let d = "";
-    isl.cells.forEach(c => DIRS.forEach(([dq, dr]) => {
+    isl.cells.forEach(c => { if (!c.group) return; DIRS.forEach(([dq, dr]) => {
       const n = isl.occ.get(`${c.q + dq},${c.r + dr}`);
-      if (!n || n.group === c.group || (!c.group && !n.group) || c.id > n.id) return;   // 每條邊只畫一次
-      const mx = (c.lx + n.lx) / 2, my = (c.ly + n.ly) / 2, vx = n.lx - c.lx, vy = n.ly - c.ly, L = Math.hypot(vx, vy);
+      if (n && n.group === c.group) return;          // 同一類：內部邊不畫
+      if (n && n.group && c.id > n.id) return;        // 兩個分類的共用邊只畫一次（由 id 小的那格畫）
+      // 朝海的外緣(!n)、朝未分類格、朝不同分類：都要畫，每一類才會完整框起來、不破洞
+      const nx = c.lx + R * SQ3 * (dq + dr / 2), ny = c.ly + R * 1.5 * dr;   // 鄰格中心（不管有沒有格子）
+      const mx = (c.lx + nx) / 2, my = (c.ly + ny) / 2, vx = nx - c.lx, vy = ny - c.ly, L = Math.hypot(vx, vy);
       const px = -vy / L * R / 2, py = vx / L * R / 2;   // 共用邊：垂直於兩格中心連線、長度 R
       d += `M${(mx + px).toFixed(1)},${(my + py).toFixed(1)}L${(mx - px).toFixed(1)},${(my - py).toFixed(1)}`;
-    }));
+    }); });
     lines.append(el("path", { d, class: "grp-border-shadow" }), el("path", { d, class: "grp-border" }));
     g.appendChild(lines);
     const groups = [...new Set(isl.cells.map(c => c.group).filter(Boolean))];
