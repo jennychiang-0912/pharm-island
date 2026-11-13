@@ -731,9 +731,6 @@ PI.UNITS.push(
     origin: ["{{Andira araroba|學名}}"], family: ["{{豆科|科別}} Leguminosae"], part: ["柯亞粉末（{{Goa powder|部位}}）"],
     constituents: ["大黃酚蒽酮（{{Chrysophanol anthrone|成分}}）、大黃蒽酚（Chrysophanol anthranol）、大黃素蒽酮（Emodin anthrone）、去氫大黃素蒽酮（Dehydro-emodin anthrone）"],
     uses: ["緩瀉劑，但{{不能口服|性質}}，因為柯亞素的黏膜刺激性強", "★唯一不口服 Anthraquinone!!"] },
-  { id: "anthraquinone-r1", chapter: 2, name: "Anthraquinone R₁ Substituents", short: "R₁ 結構", type: "topic", group: "Anthraquinone Glycosides", source: SRC3 + " p.23",
-    names: ["中文：蒽醌類 R₁ 取代基"],
-    constituents: ["大黃酚（Chrysophanol）、蘆薈大黃素（Aloe-emodin）、大黃酸（Rhein）的 R₁ 為 {{H|結構|OH/CH₃/COOH}}；大黃素（Emodin）的 R₁ 為 {{OH|結構|H/CH₃/COOH}}"] }
 );
 
 /* 知識樹：照講義的黑色標題分段；表格照講義的欄位排，結構式另畫成向量圖 */
