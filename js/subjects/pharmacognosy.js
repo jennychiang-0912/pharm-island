@@ -465,7 +465,7 @@ document.documentElement.classList.add("is-amulet");
 /* ================= 第 2 章：醣類、配醣體（講義 p.14–25，只用印刷字） =================
    地圖上是另一座島「配醣體島」；小分類照講義的黑色標題（同質型多糖、滲出膠、海產膠…）。
    講義上的拼字錯誤已改成正確寫法；被筆劃掉的印刷字（學名）照樣收錄。 */
-PI.CHAPTERS.push({ id: 2, name: "醣類、配醣體", cat: "pharmacognosy", 47, unitType: "drug", note: "講義：醣類、配醣體（p.14–25）。依講義的印刷字。" });
+PI.CHAPTERS.push({ id: 2, name: "醣類、配醣體", cat: "pharmacognosy", estimate: 47, unitType: "drug", note: "講義：醣類、配醣體（p.14–25）。依講義的印刷字。" });
 PI.LANDMASSES.push({ id: "glycoside", name: "配醣體島", chapters: [2], palette: { ground: "#B9CFA0", light: "#CDDDB9", cliff: "#8FA878" } });
 
 const SRC3 = "醣類、配醣體講義";
