@@ -819,7 +819,7 @@ PI.KNOWLEDGE.ch2 = {
         diagram: "assets/knowledge/anthraquinone-structures.svg",
         points: [
           "此類配醣體皆含有蒽類（Anthracene）的非醣基，因此可以當成★{{峻瀉劑|用途|止瀉劑/強心劑/祛痰劑}}（Cathartics）[★國考]",
-          "蒽醌類（Anthraquinone），又稱 Dioxoanthracene 或 Anthracenedione",
+          "蒽醌類（Anthraquinone），又稱 Dioxoanthracene 或 Anthracenedione", "代表性蒽醌的 R₁：大黃酚（Chrysophanol）、蘆薈大黃素（Aloe-emodin）、大黃酸（Rhein）為 {{H|結構|OH/CH₃/COOH}}；大黃素（Emodin）為 {{OH|結構|H/CH₃/COOH}}",
           "★第 3 碳上甲基之氧化生合成[★國考]：R₂ 由 CH₃（大黃酚、大黃素）→ CH₂OH（蘆薈大黃素）→ {{COOH|結構|CHO/CH₃/OH}}（大黃酸 {{Rhein|成分|Emodin/Chrysophanol/Aloe-emodin}}），越往下越氧化"
         ] }
     ] }
