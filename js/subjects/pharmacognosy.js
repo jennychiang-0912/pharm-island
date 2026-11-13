@@ -465,7 +465,7 @@ document.documentElement.classList.add("is-amulet");
 /* ================= 第 2 章：醣類、配醣體（講義 p.14–25，只用印刷字） =================
    地圖上是另一座島「配醣體島」；小分類照講義的黑色標題（同質型多糖、滲出膠、海產膠…）。
    講義上的拼字錯誤已改成正確寫法；被筆劃掉的印刷字（學名）照樣收錄。 */
-PI.CHAPTERS.push({ id: 2, name: "醣類、配醣體", cat: "pharmacognosy", estimate: 47, unitType: "drug", note: "講義：醣類、配醣體（p.14–25）。依講義的印刷字。" });
+PI.CHAPTERS.push({ id: 2, name: "醣類、配醣體", cat: "pharmacognosy", estimate: 55, unitType: "drug", note: "講義：醣類、配醣體（p.14–29）。依講義的印刷字。" });
 PI.LANDMASSES.push({ id: "glycoside", name: "配醣體島", chapters: [2], palette: { ground: "#B9CFA0", light: "#CDDDB9", cliff: "#8FA878" } });
 
 const SRC3 = "醣類、配醣體講義";
@@ -731,6 +731,90 @@ PI.UNITS.push(
     origin: ["{{Andira araroba|學名}}"], family: ["{{豆科|科別}} Leguminosae"], part: ["柯亞粉末（{{Goa powder|部位}}）"],
     constituents: ["大黃酚蒽酮（{{Chrysophanol anthrone|成分}}）、大黃蒽酚（Chrysophanol anthranol）、大黃素蒽酮（Emodin anthrone）、去氫大黃素蒽酮（Dehydro-emodin anthrone）"],
     uses: ["緩瀉劑，但{{不能口服|性質}}，因為柯亞素的黏膜刺激性強", "★唯一不口服 Anthraquinone!!"] },
+  /* ===== 氰苷配糖體 Cyanogenic Glycosides（p.27）===== */
+  { id: "bitter-almond", chapter: 2, name: "Bitter Almond", short: "Almond", type: "drug", group: "Cyanogenic Glycosides", source: SRC3 + " p.27",
+    names: ["中文：{{苦杏仁|生藥中文名}}", "別名：Amygdala amara"],
+    origin: ["{{Prunus communis|學名}}"], family: ["{{薔薇科|科別}} Rosaceae"], part: ["{{乾燥成熟核仁|部位}}"],
+    constituents: ["{{Amygdalin|成分}}，可分解出具毒性的 {{Cyanide|成分}}"], uses: ["{{矯味劑、止咳劑|用途}}"] },
+  { id: "apricot-pits", chapter: 2, name: "Apricot Pits", short: "Apricot", type: "drug", group: "Cyanogenic Glycosides", source: SRC3 + " p.27",
+    names: ["中文：{{杏核|生藥中文名}}"],
+    origin: ["{{Prunus armeniaca|學名}}"], family: ["{{薔薇科|科別}} Rosaceae"], part: ["{{乾燥成熟核仁|部位}}"],
+    constituents: ["{{Amygdalin|成分}}，可分解出具毒性的 Cyanide"], uses: ["{{矯味劑、止咳劑|用途}}"] },
+  { id: "wild-cherry", chapter: 2, name: "Wild Cherry", type: "drug", group: "Cyanogenic Glycosides", source: SRC3 + " p.27",
+    names: ["中文：{{野櫻皮|生藥中文名}}", "別名：Prunus virginiana、Wild black cherry tree"],
+    origin: ["{{Prunus serotina|學名}}"], family: ["{{薔薇科|科別}} Rosaceae"], part: ["{{乾燥莖的樹皮|部位}}"],
+    constituents: ["{{Prunasin|成分}}〔(R) 或 (D)-Mandelonitrile glucoside〕，屬 {{O-glycoside|結構}}"],
+    uses: ["糖漿矯味劑", "★{{鎮定性祛痰藥|用途}}（Sedative expectorant）"] },
+
+  /* ===== 異硫氰酸苷 Isothiocyanate glycosides（Glucosinolates，含 SCN⁻）（p.27）===== */
+  { id: "black-mustard", chapter: 2, name: "Black Mustard", short: "B. Mustard", type: "drug", group: "Isothiocyanate glycosides", source: SRC3 + " p.27",
+    names: ["中文：{{黑芥子|生藥中文名}}", "別名：Sinapis nigra、brown mustard"],
+    origin: ["英國：{{Brassica nigra|學名}}", "印度：B. juncea"], family: ["{{十字花科|科別}} Cruciferae（Brassicaceae）"], part: ["{{乾燥成熟種子|部位}}"],
+    constituents: ["主成份 {{Sinigrin|成分}}（Potassium myronate）：屬 {{S-glycoside|結構}}，水解產生 {{Allyl isothiocyanate|成分}}（揮發芥子油）[★國考]、Glucose、KHSO₄",
+      "{{Myrosinase|成分}}（芥子酶）"],
+    uses: ["主要為{{調味劑|用途}}，類似辣椒", "局部刺激劑，可用作{{催吐劑|用途}}", "皮膚外用為發紅劑、發泡劑"] },
+  { id: "white-mustard", chapter: 2, name: "White Mustard", short: "W. Mustard", type: "drug", group: "Isothiocyanate glycosides", source: SRC3 + " p.27",
+    names: ["中文：{{白芥子|生藥中文名}}", "別名：Sinapis alba"],
+    origin: ["{{Brassica alba|學名}}"], family: ["{{十字花科|科別}} Cruciferae（Brassicaceae）"], part: ["{{乾燥成熟種子|部位}}"],
+    constituents: ["主成份 {{Sinalbin|成分}}（Sinapine glucosinalbate）：屬 S-glycoside，水解產生 {{p-Hydroxybenzyl isothiocyanate|成分}}（{{辛辣無臭味，揮發性較低|性質}}）、glucose、Sinapine acid sulphate",
+      "Myrosinase（芥子酶）"],
+    uses: ["主要為{{調味劑|用途}}，類似辣椒", "局部刺激劑，可用作催吐劑", "皮膚外用為{{發紅劑、發泡劑|用途}}"] },
+
+  /* ===== 其他有機硫化物 Other Organosulfur Drugs（p.27）===== */
+  { id: "garlic", chapter: 2, name: "Garlic", type: "drug", group: "Organosulfur Drugs", source: SRC3 + " p.27",
+    names: ["中文：{{大蒜|生藥中文名}}"],
+    origin: ["{{Allium sativum|學名}}"], family: ["{{百合科|科別}} Liliaceae"], part: ["{{球莖|部位}}"],
+    constituents: ["主成份 {{Alliin|成分}}：{{無味且含硫的氨基酸衍生物|性質}}，接觸氧氣後 {{Alliinase|成分}} 被活化，分解為 Allicin",
+      "大蒜素（{{Allicin|成分}}，Diallyldisulfide-S-oxide，Diallylthiosulfinate[★國考]）：{{蒜味來源|性質}}（含 S 原子）[★國考]",
+      "衍生物 (E)-Ajoene 與 {{(Z)-Ajoene|成分}} 能抑制血小板上的纖維蛋白受體，後者{{抗血栓|作用}}效果較好"],
+    uses: ["抗菌、降血脂、{{抑制血小板凝集|作用}}、增進血纖維溶解作用[★國考]"] },
+
+  /* ===== 醇類配糖體 Alcohol Glycosides（p.28）===== */
+  { id: "salicin", chapter: 2, name: "Salicin", type: "drug", group: "Alcohol Glycosides", source: SRC3 + " p.28",
+    names: ["中文：{{水楊素|生藥中文名}}"],
+    origin: ["{{Salix purpurea|學名}}", "S. fragilis"], family: ["{{楊柳科|科別}} Salicaceae"], part: ["{{樹皮|部位}}"],
+    constituents: ["{{Salicin|成分}}：水解得到 D-glucose 和 {{Saligenin|成分}}（Salicyl alcohol）"],
+    uses: ["抗風濕", "{{解熱鎮痛|用途}}"],
+    notes: ["Salicin 在人體內代謝生成 {{Salicylic acid|成分}}，具類似 {{Aspirin|藥物}} 的作用"] },
+
+  /* ===== 醛類配糖體 Aldehyde glycosides（p.28）===== */
+  { id: "vanilla", chapter: 2, name: "Vanilla", type: "drug", group: "Aldehyde glycosides", source: SRC3 + " p.28",
+    names: ["中文：{{香莢蘭|生藥中文名}}", "別名：Vanilla bean"],
+    origin: ["墨西哥（品質最佳）：{{Vanilla planifolia|學名}}", "大溪地：V. tahitensis"], family: ["{{蘭科|科別}} Orchidaceae"],
+    part: ["經發酵、發育完全但{{未成熟的果實|部位}}"],
+    constituents: ["{{Glucovanillin|成分}}（Avenein）：經發酵水解（★{{Curing process|反應}}）形成 Glucose + {{Vanillin|成分}}[★國考]",
+      "★{{Glucovanillic alcohol|成分}}：水解形成 Glucose + Vanillic alcohol，再氧化成 Vanillic aldehyde（Vanillin）（香味來源）"],
+    uses: ["{{食品香料|用途}}", "藥品矯味劑"] },
+
+  /* ===== 酚類配糖體 Phenol glycosides（p.29）===== */
+  { id: "methyl-salicylate", chapter: 2, name: "Methyl salicylate", short: "Methyl sal…", type: "drug", group: "Phenol glycosides", source: SRC3 + " p.29",
+    names: ["中文：{{甲基水楊酸|生藥中文名}}", "別名：綠油精、冬綠油、Winter green oil、Sweet birch oil、Betula oil、Teaberry oil"],
+    origin: ["{{Salix purpurea|學名}}", "S. fragilis"], family: ["{{楊柳科|科別}} Salicaceae"], part: ["{{樹皮|部位}}"],
+    constituents: ["甲基水楊酸（Methyl salicylate）：2-Hydroxybenzoic acid methyl ester（C₈H₈O₃），可由{{冬綠苷|成分}}（Gaultherin）經酵素水解而得"],
+    uses: ["芳香、防腐、殺菌", "{{止癢|用途}}、治療蟲子咬傷（消炎、解熱鎮痛）"] },
+  { id: "arbutin", chapter: 2, name: "Arbutin", type: "drug", group: "Phenol glycosides", source: SRC3 + " p.29",
+    names: ["中文：{{熊果素|生藥中文名}}", "別名：Ursin、Arbutoside、Uvasol、Uva ursi、Bearberry leaves、Busserole"],
+    origin: ["{{Bergenia crassifolia|學名}}：{{虎耳草科|科別}} Saxifragaceae", "{{Uva ursi|學名}} 熊果葉（主要）：{{杜鵑花科|科別}} Ericaceae"],
+    family: ["虎耳草科 Saxifragaceae", "杜鵑花科 Ericaceae"], part: ["{{乾燥葉|部位}}"],
+    constituents: ["熊果葉苷（{{Arbutin|成分}}）：白色針狀結晶，能迅速溶於水和乙醇中，可被{{稀酸|性質}}或苦杏仁酶（{{Emulsin|成分}}）水解，形成對苯二酚（{{Hydroquinone|成分}}）和 D-glucose"],
+    uses: ["{{防腐抗菌劑|用途}}（antiseptic）", "{{利尿劑|用途}}", "{{收斂劑|用途}}（astringent）：用於清洗傷口，防止局部感染"] },
+  { id: "st-johns-wort", chapter: 2, name: "St. John's Wort", short: "St. John's", type: "drug", group: "Phenol glycosides", source: SRC3 + " p.29",
+    names: ["中文：{{聖約翰草|生藥中文名}}", "別名：金絲桃、貫葉連翹"],
+    origin: ["{{Hypericum perforatum|學名}}"], family: ["{{金絲桃科|科別}} Hypericaceae"], part: ["{{乾燥地上部分|部位}}"],
+    constituents: ["金絲桃素（{{Hypericin|成分}}）"],
+    uses: ["治療{{輕度至中度憂鬱症|疾病}}，被稱為大自然的百憂解（{{Nature Prozac|名詞}}）"] },
+
+  /* ===== Furanocoumarin Glycoside（p.29）===== */
+  { id: "cantharidin-beetles", chapter: 2, name: "Cantharidin Beetles", short: "Cantharides", type: "drug", group: "Furanocoumarin Glycoside", source: SRC3 + " p.29",
+    names: ["中文：{{斑蝥甲蟲|生藥中文名}}", "別名：Spanish flies、Russian flies、Blistering flies"],
+    origin: ["{{Cantharis vesicatoria|學名}}"], family: ["{{地膽科|科別}} Meloidae"], part: ["{{乾燥甲蟲|部位}}"],
+    constituents: ["斑蝥素（{{Cantharidin|成分}}）"],
+    uses: ["{{起泡劑、發紅劑|用途}}", "皮膚外用，{{刺激頭髮生長|用途}}", "用於除去特定類型的疣", "斑蝥甲蟲現多被 {{Mylabris|生藥}} 取代"] },
+  { id: "mylabris", chapter: 2, name: "Mylabris", type: "drug", group: "Furanocoumarin Glycoside", source: SRC3 + " p.29",
+    names: ["中文：{{斑蝥|生藥中文名}}"],
+    origin: ["{{Mylabris cichorii|學名}}", "Mylabris pustulata"], family: ["{{地膽科|科別}} Meloidae"], part: ["{{乾燥甲蟲|部位}}"],
+    constituents: ["斑蝥素（{{Cantharidin|成分}}）"],
+    uses: ["起泡劑、發紅劑", "皮膚外用，刺激頭髮生長", "用於除去特定類型的疣", "斑蝥甲蟲現多被 Mylabris 取代"] },
 );
 
 /* 知識樹：照講義的黑色標題分段；表格照講義的欄位排，結構式另畫成向量圖 */
@@ -822,6 +906,54 @@ PI.KNOWLEDGE.ch2 = {
           "蒽醌類（Anthraquinone），又稱 Dioxoanthracene 或 Anthracenedione", "代表性蒽醌的 R₁：大黃酚（Chrysophanol）、蘆薈大黃素（Aloe-emodin）、大黃酸（Rhein）為 {{H|結構|OH/CH₃/COOH}}；大黃素（Emodin）為 {{OH|結構|H/CH₃/COOH}}",
           "★第 3 碳上甲基之氧化生合成[★國考]：R₂ 由 CH₃（大黃酚、大黃素）→ CH₂OH（蘆薈大黃素）→ {{COOH|結構|CHO/CH₃/OH}}（大黃酸 {{Rhein|成分|Emodin/Chrysophanol/Aloe-emodin}}），越往下越氧化"
         ] }
+    ] },
+    { id: "cyanogenic", title: "氰苷配糖體（Cyanogenic Glycoside）", items: [
+      { title: "合成與代謝", group: "Cyanogenic Glycosides", source: SRC3 + " p.26",
+        points: [
+          "氰苷配醣體為 {{Mandelonitrile|成分|Benzaldehyde/Amygdalin/Phenylalanine}}（Benzaldehyde-Cyanohydrin）的衍生物，含有 {{CN⁻|結構|SCN⁻/COOH/OH}}，依化學結構可分為下表",
+          "合成途徑：{{Shikimate pathway|反應|Acetate-Mevalonate pathway/Acetate-Malonate pathway/Mannich-type condensation}} → Phenylalanine（Amino acid）→ Mandelonitrile → Prunasin"
+        ],
+        table: {
+          head: ["結構", "衍生之配糖體", "來源"],
+          rows: [
+            [{ t: "D-mandelonitrile 或 R-mandelonitrile", rs: 2, b: true }, "苦杏仁苷（Amygdalin）", "1. 分布最廣，亦被歸類為醛苷（Aldehyde glycoside）　2. 大量存在於苦杏仁、杏核仁、櫻桃、桃子、梅、李等薔薇科植物種子中"],
+            [null, "櫻芽苷（Prunasin）", "來自野生黑櫻桃（Prunus serotina）"],
+            [{ t: "L-mandelonitrile 或 S-mandelonitrile", b: true }, "接骨木苷（Sambunigrin）", "來自接骨木花（Sambucus nigra）"]
+          ]
+        } },
+      { title: "結構與特性：產氰現象（Cyanogenesis）[國考必考★★★]", group: "Cyanogenic Glycosides", source: SRC3 + " p.26",
+        points: [
+          "反應共有三個步驟（特別注意酵素及醣基的變化以及原始物、反應物、產物之間的關係）",
+          "Step 1：Amygdalin（Mandelonitrile-β-gentiobioside）被 {{Amygdalase|酵素|Prunase/Hydroxynitrilase/Myrosinase}}（Amygdalin hydrolase）水解，生成 D-glucose 和 Prunasin（Mandelonitrile-β-glucoside），即 Amygdalin 含有{{兩種糖|結構|一種糖/三種糖/四種糖}}",
+          "Step 2：Prunasin 被 {{Prunase|酵素|Amygdalase/Hydroxynitrilase/Emulsin}}（Prunasin hydrolase）水解，生成 D-glucose 和 (R)-Mandelonitrile（Benzaldehyde cyanohydrin）；此步驟切斷 glycone 與 aglycone 連結",
+          "Step 3：(R)-Mandelonitrile 被 {{Hydroxynitrilase|酵素|Amygdalase/Prunase/Myrosinase}}（Mandelonitrile lyase）分解，生成 {{HCN|成分|CO₂/NH₃/H₂S}} 和 Benzaldehyde（有香味）",
+          "苦杏仁酶（{{Emulsin|酵素|Myrosinase/Alliinase/Rhamnase}}，β-glucosidases）由 Amygdalase 和 Prunase 所組成",
+          "配醣體經 Amygdalase（Amygdalin hydrolase）、Prunase（Prunasin hydrolase）、Myrosin（Myrosinase）水解後可得葡萄糖，但 {{Rhamnase|酵素|Emulsin/Prunase/Amygdalase}} 除外"
+        ],
+        table: {
+          head: ["步驟", "★酵素", "反應物", "產物"],
+          rows: [
+            [{ t: "Step 1", b: true }, "Amygdalase", "Amygdalin（C₆H₁₀O₅–O–C₆H₁₁O₅，Gentibiose）+ H₂O", "Prunasin（Mandelonitrile Glucoside）+ C₆H₁₂O₆（Glucose）"],
+            [{ t: "Step 2", b: true }, "Prunase", "Prunasin + H₂O", "Mandelonitrile（Benzaldehyde Cyanohydrin）+ C₆H₁₂O₆"],
+            [{ t: "Step 3", b: true }, "Hydroxynitrilase", "Mandelonitrile", "HCN（Hydrocyanic Acid）+ Benzaldehyde"]
+          ]
+        } }
+    ] },
+    { id: "aldehyde", title: "醛類配糖體（Aldehyde glycosides）", items: [
+      { title: "合成與代謝", group: "Aldehyde glycosides", source: SRC3 + " p.28",
+        points: [
+          "合成途徑 1：{{Glucovanillin|成分|Glucovanillic alcohol/Coniferin/Salicin}} 經水解 → 得到 Glucose + Vanillin（香草醛）",
+          "合成途徑 2：Glucovanillic alcohol 經水解 → 得到 Glucose + Vanillic alcohol；Vanillic alcohol 再經{{氧化|反應|還原/水解/乙醯化}} → 得到 Vanillic aldehyde（Vanillin），為香味來源",
+          "Vanillin 結構：4-Hydroxy-3-methoxybenzaldehyde（苯環上 1 號位 CHO、3 號位 OCH₃、4 號位 OH）"
+        ],
+        table: {
+          head: ["", "Glucovanillin", "Vanillin"],
+          rows: [
+            [{ t: "別名", b: true }, "Vanilloside、Avenein、Vanillin-D-glucoside", "4-Hydroxy-3-methoxybenzaldehyde、Methylprotocatechuic aldehyde"],
+            [{ t: "來源／製備", b: true }, "Coniferin 經 Chromium-6-oxide（CrO₃）氧化而得", "天然：Vanilla bean 經 Curing process（醃晒）[★國考★] 乾燥而成；合成：木質素（Lignin）為市售 Vanillin 主要來源"],
+            [{ t: "性質", b: true }, "1. 針狀，具苦味　2. 親水性物質，可快速溶於熱水及乙醇中，幾乎不溶於醚類", "1. 白中帶黃的針狀結晶物　2. 易溶於酒精、氯仿及醚類，微溶於水及甘油"]
+          ]
+        } }
     ] }
   ]
 };
