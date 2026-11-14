@@ -95,6 +95,7 @@ PI.state = (function () {
     /* 格子狀態：已佔領 / 可挑戰 / 未解鎖
        可挑戰 = 每章的起點格，或緊鄰一個已佔領格的格子 */
     statusOf(cell) {
+      if (!cell.unit) return "locked";   // 預留格：還沒有內容，不能挑戰
       if (occupied.has(cell.id)) return "occupied";
       if (cell.isStart) return "available";
       if (cell.neighbors.some(n => occupied.has(n))) return "available";
@@ -103,8 +104,8 @@ PI.state = (function () {
 
     /* 玩家進度 */
     progress(cells) {
-      const total = cells.length;
-      const done = cells.filter(c => occupied.has(c.id)).length;
+      const real = cells.filter(c => c.unit), total = real.length;   // 預留格不算
+      const done = real.filter(c => occupied.has(c.id)).length;
       const exp = done * PI.LEVEL.expPerCell + treeDone.size * (PI.LEVEL.expPerTreeQuestion || 0);
       const level = Math.floor(exp / PI.LEVEL.expPerLevel) + 1;
       const expInLevel = exp % PI.LEVEL.expPerLevel;
@@ -113,7 +114,7 @@ PI.state = (function () {
     },
 
     chapterProgress(cells, chapterId) {
-      const mine = cells.filter(c => c.chapter === chapterId);
+      const mine = cells.filter(c => c.chapter === chapterId && c.unit);   // 預留格不算
       return { total: mine.length, done: mine.filter(c => occupied.has(c.id)).length };
     }
   };

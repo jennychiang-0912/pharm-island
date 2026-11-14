@@ -216,7 +216,10 @@ PI.quiz = (function () {
     draw();
   }
   function next() {
-    if (run.i + 1 >= run.qs.length) { run.finished = true; const ok = run.right >= run.need; run.onFinish && run.onFinish(ok, run.right); draw(); return; }
+    if (run.i + 1 >= run.qs.length) {
+      run.finished = true; const ok = run.right >= run.need; run.onFinish && run.onFinish(ok, run.right);
+      if (ok && run.skipOk) return close();   // 成功時不停在結果頁，直接關掉（由 onClose 決定下一步）
+      draw(); return; }
     run.i++; run.picked = null; run.hinted = false; draw();
   }
   function close() { box.hidden = true; box.parentNode.classList.remove("is-quizzing"); const r = run; run = null; r && r.onClose && r.onClose(); }

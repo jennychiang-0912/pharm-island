@@ -100,18 +100,35 @@
     }
   }
 
-  /* 挑戰格子：這格的每個知識點各出一題，全部答對才佔領；已佔領的格子練習時隨機 3 題 */
+  /* 挑戰格子：這格的每個知識點各出一題，全部答對才佔領；已佔領的格子練習時隨機 3 題
+     佔領成功就不停在結果頁，直接跳到下一個可挑戰的格子（打開它的資訊卡） */
   function challenge(cell) {
     const practice = PI.state.statusOf(cell) === "occupied";
     const qs = practice ? PI.quiz.forUnit(cell.unit, 3) : PI.quiz.allForUnit(cell.unit);
     if (!qs.length) { $("info").querySelector("p:last-of-type").textContent = "這格的資料還不夠出題。"; return; }
     const need = practice ? 0 : qs.length;   // 挑戰：知識點全部答對才佔領
     const ch = chOf(cell.chapter);
-    PI.quiz.start({ qs, need, kicker: `第 ${ch.id} 章・${ch.name}`, title: `${practice ? "練習" : "挑戰"}：${cell.unit.name}`,
-      okText: practice ? "複習完成！" : `全部答對，佔領成功！+${PI.LEVEL.expPerCell} EXP，旁邊的格子解鎖了。`,
+    let won = false;
+    PI.quiz.start({ qs, need, skipOk: !practice, kicker: `第 ${ch.id} 章・${ch.name}`, title: `${practice ? "練習" : "挑戰"}：${cell.unit.name}`,
+      okText: "複習完成！",
       badText: practice ? "再複習一下資訊卡上的內容吧。" : `這格有 ${need} 個知識點，要全部答對才能佔領。看完資訊卡再挑戰一次吧。`,
-      onFinish: ok => { if (ok && !practice) PI.state.occupy(cell.id); },
-      onClose: () => { showInfo(cell); } });
+      onFinish: ok => { if (ok && !practice) { won = true; PI.state.occupy(cell.id); } },
+      onClose: () => { won ? goNext(cell) : showInfo(cell); } });
+  }
+  /* 下一格：剛解鎖、在旁邊的格子優先（同一小分類 > 同一章），沒有的話找這一章其他可挑戰的格子 */
+  function goNext(cell) {
+    const avail = c => c.unit && PI.state.statusOf(c) === "available";
+    const byId = new Map(cells.map(c => [c.id, c]));
+    const near = cell.neighbors.map(id => byId.get(id)).filter(c => c && avail(c));
+    const rank = c => (c.chapter === cell.chapter ? 2 : 0) + (cell.unit.group && c.unit.group === cell.unit.group ? 1 : 0);
+    const next = near.sort((a, b) => rank(b) - rank(a))[0] || cells.find(c => c.chapter === cell.chapter && avail(c));
+    toast(next ? `佔領成功！+${PI.LEVEL.expPerCell} EXP` : `佔領成功！+${PI.LEVEL.expPerCell} EXP　這一章的格子都佔領了 🎉`);
+    PI.map.select(next ? next.id : cell.id);
+  }
+  function toast(text) {
+    let t = $("piToast");
+    if (!t) { t = document.createElement("div"); t.id = "piToast"; t.className = "pi-toast"; t.setAttribute("role", "status"); $("map").appendChild(t); }
+    t.textContent = text; t.classList.remove("is-on"); void t.offsetWidth; t.classList.add("is-on");
   }
 
   /* 標題列：科目設定 PI.UNIT_TITLE_FIELD 時（生藥是 names），「中文：…」放在名稱旁邊，其他名稱（英文、別名）小字放下面 */

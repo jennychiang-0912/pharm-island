@@ -551,3 +551,14 @@ mark.cloze.is-hl.hl-mine { background: linear-gradient(transparent 35%, #BFE3A6 
 .u-struct img{max-width:100%;max-height:190px;object-fit:contain}
 .q-struct{margin:6px 0 4px;padding:10px;background:#fff;border:1.5px solid #E3DDC2;border-radius:12px;text-align:center}
 .q-struct img{max-width:100%;max-height:220px;object-fit:contain}
+
+/* 預留格：還沒有內容，不能點 */
+.cell.is-slot { cursor: default; pointer-events: none; }
+.cell.is-slot .cell-hex { pointer-events: none; }
+
+/* 佔領成功的提示：跳到下一格時在地圖上方閃一下 */
+.pi-toast { position: absolute; top: 16px; left: 50%; transform: translate(-50%, -8px); z-index: 30; padding: 8px 16px; border-radius: 999px;
+  background: var(--forest); color: #fff; font-weight: 600; font-size: 14px; box-shadow: 0 4px 14px rgba(0,0,0,.18); opacity: 0; pointer-events: none; }
+.pi-toast.is-on { animation: piToast 2.4s ease forwards; }
+@keyframes piToast { 0% { opacity: 0; transform: translate(-50%, -8px); } 10%, 80% { opacity: 1; transform: translate(-50%, 0); } 100% { opacity: 0; transform: translate(-50%, 0); } }
+@media (prefers-reduced-motion: reduce) { .pi-toast.is-on { animation-duration: 2.4s; animation-timing-function: steps(1); } }
