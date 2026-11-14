@@ -4,7 +4,7 @@
    - 認藥題：給這個藥「獨有」的一兩句特徵，問是哪一個藥；錯誤選項是同一組／同一章的其他藥。
      只出現在知識樹答題（格子的標題就是藥名，在格子上出沒有意義）。
    會排除「這個藥本身其他句子也成立」的錯誤選項，避免一題有兩個正確答案。
-   挑戰格子：這格的每一個知識點（每一個挖空）各出一題，全部答對才佔領；已佔領的格子練習時隨機 3 題。
+   挑戰格子：每次隨機 5 題（先出還沒答對過的知識點），答對的知識點會記住；這格的知識點全部答對過就佔領。已佔領的格子練習時隨機 3 題。
    知識樹：每次 5 題；每一題第一次答對 +PI.LEVEL.expPerTreeQuestion EXP。 */
 window.PI = window.PI || {};
 
@@ -218,7 +218,7 @@ PI.quiz = (function () {
   function next() {
     if (run.i + 1 >= run.qs.length) {
       run.finished = true; const ok = run.right >= run.need; run.onFinish && run.onFinish(ok, run.right);
-      if (ok && run.skipOk) return close();   // 成功時不停在結果頁，直接關掉（由 onClose 決定下一步）
+      if (ok && (typeof run.skipOk === "function" ? run.skipOk() : run.skipOk)) return close();   // 成功時不停在結果頁，直接關掉（由 onClose 決定下一步）
       draw(); return; }
     run.i++; run.picked = null; run.hinted = false; draw();
   }
@@ -232,7 +232,8 @@ PI.quiz = (function () {
       const ok = r.right >= r.need;
       box.innerHTML = `<div class="q-card">` + head + `<div class="q-result ${ok ? "is-ok" : "is-bad"}">
           <p class="q-score">答對 <b>${r.right}</b> / ${r.qs.length}</p>
-          <p>${esc(ok ? (typeof r.okText === "function" ? r.okText() : r.okText) : r.badText)}</p></div>
+          <p>${esc(ok ? (typeof r.okText === "function" ? r.okText() : r.okText) : r.badText)}</p>
+          ${r.resultHtml ? r.resultHtml() : ""}</div>
         <div class="q-foot"><button type="button" class="btn btn-primary" data-close>${ok ? "好" : "再看一下"}</button></div></div>`;
       box.querySelector("[data-close].btn").focus();
       return;

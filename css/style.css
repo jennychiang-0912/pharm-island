@@ -562,3 +562,9 @@ mark.cloze.is-hl.hl-mine { background: linear-gradient(transparent 35%, #BFE3A6 
 .pi-toast.is-on { animation: piToast 2.4s ease forwards; }
 @keyframes piToast { 0% { opacity: 0; transform: translate(-50%, -8px); } 10%, 80% { opacity: 1; transform: translate(-50%, 0); } 100% { opacity: 0; transform: translate(-50%, 0); } }
 @media (prefers-reduced-motion: reduce) { .pi-toast.is-on { animation-duration: 2.4s; animation-timing-function: steps(1); } }
+
+/* 攻略進度：資訊卡上（這格／此島）與挑戰結果頁 */
+.info-prog { margin: 10px 0 2px; }
+.info-prog .isl-prog-top b { font-size: 15px; }
+.q-prog { margin-top: 12px; text-align: left; }
+.q-prog .isl-prog { background: rgba(255,255,255,.6); }

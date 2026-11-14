@@ -9,7 +9,7 @@ window.PI = window.PI || {};
 PI.state = (function () {
   const KEY = PI.STORAGE_KEY || "pharma-island-v1";   // 每個科目（藥理、藥劑、藥分）各自存進度
   let occupied = new Set();
-  let treeDone = new Set();   // 知識樹已答對過的題目（每題只算一次經驗值）
+  let treeDone = new Set();   // 已答對過的題目：知識樹的題目（每題只算一次經驗值），以及格子的知識點（qid 以 u: 開頭，用來算攻略進度，不另外給經驗值）
   let notes = {};             // 格子的「我的筆記」：單元 id → 文字
   let edits = {};             // 知識卡片的個人修改紀錄（原始資料不動，見 js/edits.js）：卡片 key → 修改內容
   let ts = { occ: {}, done: {}, notes: {}, edits: {}, resetAt: 0 };
@@ -106,7 +106,8 @@ PI.state = (function () {
     progress(cells) {
       const real = cells.filter(c => c.unit), total = real.length;   // 預留格不算
       const done = real.filter(c => occupied.has(c.id)).length;
-      const exp = done * PI.LEVEL.expPerCell + treeDone.size * (PI.LEVEL.expPerTreeQuestion || 0);
+      const nTree = [...treeDone].filter(q => !q.startsWith("u:")).length;   // 格子知識點（u:）不算知識樹經驗值
+      const exp = done * PI.LEVEL.expPerCell + nTree * (PI.LEVEL.expPerTreeQuestion || 0);
       const level = Math.floor(exp / PI.LEVEL.expPerLevel) + 1;
       const expInLevel = exp % PI.LEVEL.expPerLevel;
       return { total, done, exp, level, expInLevel, expNeed: PI.LEVEL.expPerLevel,

@@ -77,7 +77,7 @@
     const ch = chOf(cell.chapter), cat = catOf(ch.cat), st = PI.state.statusOf(cell);
     const u = cell.unit;
     const note = {
-      available: "這格可以挑戰：這格的知識點全部答對才能佔領。",
+      available: "這格可以挑戰：每次 5 題，答對的知識點會記住，全部答對過就佔領。",
       locked: "先佔領旁邊的格子，這格才會解鎖。",
       occupied: "這格已經是你的領土了。"
     }[st];
@@ -88,6 +88,7 @@
       ${u ? unitBody(u) : ""}
       ${u ? `<div class="u-note"><label for="uNote">我的筆記<span class="muted" id="uNoteSaved"></span></label>
         <textarea id="uNote" rows="${noteRows(u)}" placeholder="寫下自己的口訣或重點…">${esc(noteText(u))}</textarea></div>` : ""}
+      ${u ? progressBars(cell, st) : ""}
       <p>${note}</p>
       ${u && st !== "locked" ? `<div class="info-actions"><button type="button" class="btn btn-primary" id="infoQuiz">${st === "available" ? "挑戰這格" : "再練習一次"}</button></div>` : ""}`;
     box.hidden = false;
@@ -100,20 +101,36 @@
     }
   }
 
-  /* 挑戰格子：這格的每個知識點各出一題，全部答對才佔領；已佔領的格子練習時隨機 3 題
-     佔領成功就不停在結果頁，直接跳到下一個可挑戰的格子（打開它的資訊卡） */
+  /* 挑戰格子：每次隨機 5 題，先出還沒答對過的知識點；答對的知識點會記住（攻略進度），
+     這格的知識點全部答對過就佔領，並直接跳到下一個可挑戰的格子。已佔領的格子練習時隨機 3 題。 */
+  const pointsOf = u => PI.quiz.allForUnit(u);
+  function cellProgress(cell) {
+    const all = pointsOf(cell.unit), done = all.filter(q => PI.state.isTreeDone(q.qid)).length;
+    return { all, done, total: all.length };
+  }
+  const bar = (label, done, total, unit) => `<div class="isl-prog"><div class="isl-prog-top"><span>${label}</span><b>${done}<small> / ${total} ${unit}</small></b></div>
+      <div class="isl-bar"><i style="width:${total ? Math.round(done / total * 100) : 0}%"></i></div></div>`;
   function challenge(cell) {
     const practice = PI.state.statusOf(cell) === "occupied";
-    const qs = practice ? PI.quiz.forUnit(cell.unit, 3) : PI.quiz.allForUnit(cell.unit);
-    if (!qs.length) { $("info").querySelector("p:last-of-type").textContent = "這格的資料還不夠出題。"; return; }
-    const need = practice ? 0 : qs.length;   // 挑戰：知識點全部答對才佔領
+    const { all } = cellProgress(cell);
+    if (!all.length) { $("info").querySelector("p:last-of-type").textContent = "這格的資料還不夠出題。"; return; }
+    const rnd = a => a.sort(() => Math.random() - .5);
+    const qs = practice ? rnd([...all]).slice(0, 3)
+      : [...rnd(all.filter(q => !PI.state.isTreeDone(q.qid))), ...rnd(all.filter(q => PI.state.isTreeDone(q.qid)))].slice(0, 5);   // 還沒答對的先出，不夠 5 題再用答對過的複習
     const ch = chOf(cell.chapter);
     let won = false;
-    PI.quiz.start({ qs, need, skipOk: !practice, kicker: `第 ${ch.id} 章・${ch.name}`, title: `${practice ? "練習" : "挑戰"}：${cell.unit.name}`,
-      okText: "複習完成！",
-      badText: practice ? "再複習一下資訊卡上的內容吧。" : `這格有 ${need} 個知識點，要全部答對才能佔領。看完資訊卡再挑戰一次吧。`,
-      onFinish: ok => { if (ok && !practice) { won = true; PI.state.occupy(cell.id); } },
+    PI.quiz.start({ qs, need: 0, skipOk: () => won, kicker: `第 ${ch.id} 章・${ch.name}`, title: `${practice ? "練習" : "挑戰"}：${cell.unit.name}`,
+      onRight: q => { PI.state.markTree(q.qid); },
+      okText: () => practice ? "複習完成！" : `還差 ${cellProgress(cell).total - cellProgress(cell).done} 個知識點就能佔領這格，再挑戰一次吧！`,
+      resultHtml: () => practice ? "" : `<div class="q-prog">${bar("攻略進度", cellProgress(cell).done, cellProgress(cell).total, "知識點")}</div>`,
+      onFinish: () => { if (!practice) { const p = cellProgress(cell); if (p.done >= p.total) { won = true; PI.state.occupy(cell.id); } } },
       onClose: () => { won ? goNext(cell) : showInfo(cell); } });
+  }
+  /* 資訊卡上的兩條進度：這格的攻略進度（知識點）、這座島的佔領進度（格子） */
+  function progressBars(cell, st) {
+    const p = cellProgress(cell), pr = PI.state.chapterProgress(cells, cell.chapter);
+    const done = st === "occupied" ? p.total : p.done;
+    return `<div class="isl-stats info-prog">${p.total ? bar("這格攻略", done, p.total, "知識點") : ""}${bar("此島攻略", pr.done, pr.total, "格")}</div>`;
   }
   /* 下一格：剛解鎖、在旁邊的格子優先（同一小分類 > 同一章），沒有的話找這一章其他可挑戰的格子 */
   function goNext(cell) {
