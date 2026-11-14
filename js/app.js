@@ -77,7 +77,7 @@
     const ch = chOf(cell.chapter), cat = catOf(ch.cat), st = PI.state.statusOf(cell);
     const u = cell.unit;
     const note = {
-      available: "這格可以挑戰：答完這格的題目就佔領，答對幾題都可以。",
+      available: "這格可以挑戰：這格的知識點全部答對才能佔領。",
       locked: "先佔領旁邊的格子，這格才會解鎖。",
       occupied: "這格已經是你的領土了。"
     }[st];
@@ -100,15 +100,16 @@
     }
   }
 
-  /* 挑戰格子：答完就佔領（不限答對題數）；已佔領的格子只是練習 */
+  /* 挑戰格子：這格的每個知識點各出一題，全部答對才佔領；已佔領的格子練習時隨機 3 題 */
   function challenge(cell) {
-    const qs = PI.quiz.forUnit(cell.unit, 3);
+    const practice = PI.state.statusOf(cell) === "occupied";
+    const qs = practice ? PI.quiz.forUnit(cell.unit, 3) : PI.quiz.allForUnit(cell.unit);
     if (!qs.length) { $("info").querySelector("p:last-of-type").textContent = "這格的資料還不夠出題。"; return; }
-    const practice = PI.state.statusOf(cell) === "occupied", need = 0;   // 不限答對題數：答完就佔領
+    const need = practice ? 0 : qs.length;   // 挑戰：知識點全部答對才佔領
     const ch = chOf(cell.chapter);
     PI.quiz.start({ qs, need, kicker: `第 ${ch.id} 章・${ch.name}`, title: `${practice ? "練習" : "挑戰"}：${cell.unit.name}`,
-      okText: practice ? "複習完成！" : `佔領成功！+${PI.LEVEL.expPerCell} EXP，旁邊的格子解鎖了。答錯的題目可以看資訊卡複習。`,
-      badText: practice ? "再複習一下資訊卡上的內容吧。" : `要答對 ${need} 題才能佔領，看完資訊卡再挑戰一次吧。`,
+      okText: practice ? "複習完成！" : `全部答對，佔領成功！+${PI.LEVEL.expPerCell} EXP，旁邊的格子解鎖了。`,
+      badText: practice ? "再複習一下資訊卡上的內容吧。" : `這格有 ${need} 個知識點，要全部答對才能佔領。看完資訊卡再挑戰一次吧。`,
       onFinish: ok => { if (ok && !practice) PI.state.occupy(cell.id); },
       onClose: () => { showInfo(cell); } });
   }

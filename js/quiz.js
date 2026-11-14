@@ -4,7 +4,7 @@
    - 認藥題：給這個藥「獨有」的一兩句特徵，問是哪一個藥；錯誤選項是同一組／同一章的其他藥。
      只出現在知識樹答題（格子的標題就是藥名，在格子上出沒有意義）。
    會排除「這個藥本身其他句子也成立」的錯誤選項，避免一題有兩個正確答案。
-   挑戰格子：連答最多 3 題，答完就佔領（不限答對題數）。
+   挑戰格子：這格的每一個知識點（每一個挖空）各出一題，全部答對才佔領；已佔領的格子練習時隨機 3 題。
    知識樹：每次 5 題；每一題第一次答對 +PI.LEVEL.expPerTreeQuestion EXP。 */
 window.PI = window.PI || {};
 
@@ -164,6 +164,14 @@ PI.quiz = (function () {
         const ks = shuffle(L.p.blanks.map((_, k) => k)); const q = clozeQ(L, ks[round]); if (q && !qs.some(x => x.qid === q.qid)) qs.push(q); });
     return shuffle(qs).slice(0, n);
   }
+  /* 這格的所有知識點：每一句的每一個挖空各一題（出不了題的挖空——例如找不到錯誤選項——略過） */
+  function allForUnit(u) {
+    if (!bank) build();
+    const qs = [];
+    bank.lines.filter(L => L.owner === `u:${u.id}`).forEach(L => L.p.blanks.forEach((_, k) => {
+      const q = clozeQ(L, k); if (q && !qs.some(x => x.qid === q.qid)) qs.push(q); }));
+    return shuffle(qs);
+  }
   function forTree(key) {
     if (!bank) build();
     const out = [];
@@ -242,7 +250,7 @@ PI.quiz = (function () {
   }
 
   return {
-    forUnit, forTree, start,
+    forUnit, allForUnit, forTree, start,
     rebuild() { bank = null; },   // 知識卡片改過之後重建題庫
     // 螢光筆標的字：如果別的地方已經有同一個答案，就用它的類型（錯誤選項比較像樣）
     typeOf(ans) { if (!bank) build(); const a = norm(ans);
