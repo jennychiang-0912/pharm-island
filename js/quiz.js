@@ -71,6 +71,7 @@ PI.quiz = (function () {
     bank = { lines, ownerAns, byType, facts, ownerText };
   }
 
+  const isCJK = t => /^[^A-Za-z0-9]*[\u3400-\u9fff]/.test(String(t).replace(/^[★\s]+/, ""));
   /* 錯誤選項：同類型、不是這個藥（或這棵樹這句）已知成立的答案 */
   function distractors(L, b, isHl) {
     if (b.opts && b.opts.length) return shuffle(b.opts.slice(0, 3));   // 資料裡自己指定的錯誤選項優先
@@ -89,7 +90,9 @@ PI.quiz = (function () {
       seen.add(k);
       // 藥名：同一組最難；其他類型（疾病、菌種、副作用……）：同章的藥抗菌範圍常重疊、可能其實也對，所以優先用別章的
       const sameG = L.group && c.group === L.group, sameC = c.chapter === L.chapter;
-      cand.push({ ...c, rank: nameLike ? (sameG ? 2 : 0) + (sameC ? 1 : 0) : (sameG ? 0 : sameC ? 1 : 2) });
+      // 中英文要一致：答案是英文（Liliaceae）時錯誤選項也用英文，不然一眼就看得出哪個不一樣
+      const sameScript = isCJK(c.ans) === isCJK(b.ans) ? 4 : 0;
+      cand.push({ ...c, rank: sameScript + (nameLike ? (sameG ? 2 : 0) + (sameC ? 1 : 0) : (sameG ? 0 : sameC ? 1 : 2)) });
     });
     // 螢光筆標的考點：選項不夠時放寬——同一棵樹的其他答案、資料裡寫好的錯誤選項都可以用（只排除這一句自己的答案），
     //   先用同類型、再用同一章、最後其他
@@ -107,16 +110,54 @@ PI.quiz = (function () {
     return cand.length >= 3 ? cand.slice(0, 3).map(c => c.ans) : null;
   }
 
+  /* 防爆雷 ①科別：同一句裡另一種語言的科名（「Liliaceae 百合科」的「百合科」）出題時先藏起來，看答案時才顯示 */
+  const FAMILY_RE = /[（(]?\s*[A-Z][a-z]+(?:aceae|idae|ae)\s*(?:[（(][A-Za-z]+[）)])?\s*[）)]?|[\u3400-\u9fff]+科/g;
+  function hideFamily(p, k) {
+    if (p.blanks[k].type !== "科別") return p;
+    return { ...p, parts: p.parts.map(t => t.replace(FAMILY_RE, " ").replace(/\s{2,}/g, " ")),
+             blanks: p.blanks.map((x, i) => i !== k && x.type === "科別" ? { ...x, ans: "" } : x) };   // 同一句的另一個科名挖空也藏起來
+  }
+  /* 防爆雷 ②學名：學名裡有一半就是格子的名字（Fritillaria → Fritillaria thunbergii、Belladonna → Atropa belladonna），
+     這時只挖另一半（種小名或屬名），錯誤選項也用其他學名的同一半 */
+  function nameWords(u) {
+    return new Set([u.name, u.short].filter(Boolean).join(" ").toLowerCase().split(/[\s\-\/（）()]+/).filter(w => w.length > 2));
+  }
+  function splitBinomial(L, k) {
+    const b = L.p.blanks[k];
+    if (b.type !== "學名" || b.opts) return null;
+    const tok = b.ans.split(/\s+/); if (tok.length < 2) return null;
+    const W = L.unit ? nameWords(L.unit) : new Set(), g = tok[0], rest = tok.slice(1).join(" ");
+    // 縮寫的屬名（C. calisaya）：其他選項都是全名，一看就知道，所以也只考種小名
+    const part = /\.$/.test(g) || W.has(g.toLowerCase()) ? 1 : W.has(rest.toLowerCase()) ? 0 : -1;
+    if (part < 0) return null;
+    // 這個生藥自己的其他學名的同一半也不能當錯誤選項
+    const own = new Set(bank.lines.filter(X => X.owner === L.owner).flatMap(X => X.p.blanks).filter(x => x.type === "學名")
+      .map(x => x.ans.split(/\s+/)).filter(t => t.length > 1).map(t => norm(part ? t.slice(1).join(" ") : t[0])));
+    const ans = part ? rest : g, seen = new Set(own);
+    const pool = shuffle((bank.byType.get("學名") || []).map(c => c.ans.split(/\s+/)).filter(t => t.length > 1)
+      .map(t => part ? t.slice(1).join(" ") : t[0]).filter(x => !/\.$/.test(x)));   // 縮寫的屬名（A.）不當選項
+    const wrong = [];
+    pool.forEach(x => { const n = norm(x); if (wrong.length < 3 && !seen.has(n)) { seen.add(n); wrong.push(x); } });
+    if (wrong.length < 3) return null;
+    const show = part ? g + " " : " " + rest;   // 留下來的那一半
+    const parts = L.p.parts.slice();
+    if (part) parts[k] = parts[k] + show; else parts[k + 1] = show + parts[k + 1];
+    const p = { ...L.p, parts, blanks: L.p.blanks.map((x, i) => i === k ? { ...x, ans } : x) };
+    return { p, ans, wrong };
+  }
+
   function clozeQ(L, k) {
     const isHl = !!(L.kmap && typeof L.kmap[k] === "string");   // 自己用螢光筆標的考點
-    const b = L.p.blanks[k], wrong = distractors(L, b, isHl); if (!wrong) return null;
+    const half = splitBinomial(L, k);
+    const b = half ? { ...L.p.blanks[k], ans: half.ans } : L.p.blanks[k], wrong = half ? half.wrong : distractors(L, b, isHl); if (!wrong) return null;
+    const P = half ? half.p : L.p, Pq = hideFamily(P, k);
     // 流程圖的題目：標題帶上第幾步；如果答案就寫在步驟名稱裡（例如「脫殼」），就不顯示步驟名稱，免得直接看到答案
     const ctxLabel = c => { const showTitle = c.title && !norm(c.title).includes(norm(b.ans)) && !norm(b.ans).includes(norm(c.title));
       return `第 ${c.n} 步${showTitle ? "・" + c.title : ""}${c.block ? "・⊖ 抑制" : ""}`; };
     const who = L.unit ? (L.unit.type === "topic" ? L.unit.name : `${L.unit.name}・${FIELD[L.field] || ""}`) : (L.ctx ? ctxLabel(L.ctx) : (L.item.title || ""));
     return {
       kind: "cloze", qid: `${L.qid}:${L.kmap && L.kmap[k] != null ? L.kmap[k] : k}`, label: who,
-      prompt: render(L.p, k, false), answer: render(L.p, k, true), hint: L.p.hint,
+      prompt: render(Pq, k, false), answer: render(P, k, true), hint: L.p.hint,
       options: shuffle([{ text: b.ans, ok: true }, ...wrong.map(t => ({ text: t, ok: false }))])
     };
   }
