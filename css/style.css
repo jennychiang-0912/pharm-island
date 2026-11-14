@@ -568,3 +568,6 @@ mark.cloze.is-hl.hl-mine { background: linear-gradient(transparent 35%, #BFE3A6 
 .info-prog .isl-prog-top b { font-size: 15px; }
 .q-prog { margin-top: 12px; text-align: left; }
 .q-prog .isl-prog { background: rgba(255,255,255,.6); }
+
+/* 島的解鎖說明（島嶼資訊卡） */
+.isl-gate { margin: 8px 0 0; font-size: 13px; color: var(--muted); line-height: 1.5; }

@@ -26,6 +26,41 @@
 
   const cells = PI.map.init($("map"), { onSelect: showInfo, onSelectIsland: showIsland, onOpenTree: openKnowledge });
 
+  /* ---------- 島的解鎖：完成一座島（格子全部佔領＋告示牌的題目全部答對）才能進入下一座島 ----------
+     順序照 PI.CHAPTERS；沒有內容的章節跳過。已經佔領過格子的島維持開放（舊進度不會被鎖住）。 */
+  const islandOrder = PI.CHAPTERS.map(ch => ch.id).filter(id => cells.some(c => c.chapter === id && c.unit));
+  let treeQidCache = null, openCache = null;
+  const rebuild0 = PI.quiz.rebuild;
+  PI.quiz.rebuild = () => { rebuild0(); treeQidCache = null; openCache = null; };   // 知識卡片改過：題目跟著變
+  function signQids(chId) {   // 這座島所有告示牌的題目
+    if (!treeQidCache) treeQidCache = new Map();
+    if (!treeQidCache.has(chId)) treeQidCache.set(chId, [...new Set(Object.keys(PI.KNOWLEDGE || {})
+      .filter(k => PI.KNOWLEDGE[k].chapter === chId).flatMap(k => PI.quiz.forTree(k).map(q => q.qid)))]);
+    return treeQidCache.get(chId);
+  }
+  function signProgress(chId) { const q = signQids(chId); return { done: q.filter(id => PI.state.isTreeDone(id)).length, total: q.length }; }
+  function islandCleared(chId) {
+    const pr = PI.state.chapterProgress(cells, chId), sp = signProgress(chId);
+    return pr.done >= pr.total && sp.done >= sp.total;
+  }
+  const prevIsland = chId => { const i = islandOrder.indexOf(chId); return i > 0 ? islandOrder[i - 1] : null; };
+  function computeOpen() {
+    const open = new Set();
+    islandOrder.forEach((id, i) => {
+      if (i === 0 || cells.some(c => c.chapter === id && PI.state.isOccupied(c.id)) || (open.has(islandOrder[i - 1]) && islandCleared(islandOrder[i - 1]))) open.add(id);
+    });
+    PI.CHAPTERS.forEach(ch => { if (!islandOrder.includes(ch.id)) open.add(ch.id); });
+    return open;
+  }
+  const islandOpen = chId => (openCache || (openCache = computeOpen())).has(chId);
+  PI.state.setGate(islandOpen);
+  PI.map.render();
+  function lockNote(chId) {
+    const p = prevIsland(chId), ch = p && chOf(p); if (!ch) return "";
+    const pr = PI.state.chapterProgress(cells, p), sp = signProgress(p);
+    return `🔒 先完成第 ${ch.id} 章「${ch.short || ch.name}」才能進入這座島：佔領全部格子（${pr.done}/${pr.total}），並答對告示牌的全部題目（${sp.done}/${sp.total}）。`;
+  }
+
   /* ---------- 導覽列與玩家面板 ---------- */
   function renderStats() {
     const p = PI.state.progress(cells);
@@ -78,7 +113,7 @@
     const u = cell.unit;
     const note = {
       available: "這格可以挑戰：每次 5 題，答對的知識點會記住，全部答對過就佔領。",
-      locked: "先佔領旁邊的格子，這格才會解鎖。",
+      locked: islandOpen(cell.chapter) ? "先佔領旁邊的格子，這格才會解鎖。" : lockNote(cell.chapter),
       occupied: "這格已經是你的領土了。"
     }[st];
     box.innerHTML = `<div class="info-top">${badge(ch, cat)}
@@ -139,8 +174,14 @@
     const near = cell.neighbors.map(id => byId.get(id)).filter(c => c && avail(c));
     const rank = c => (c.chapter === cell.chapter ? 2 : 0) + (cell.unit.group && c.unit.group === cell.unit.group ? 1 : 0);
     const next = near.sort((a, b) => rank(b) - rank(a))[0] || cells.find(c => c.chapter === cell.chapter && avail(c));
-    toast(next ? `佔領成功！+${PI.LEVEL.expPerCell} EXP` : `佔領成功！+${PI.LEVEL.expPerCell} EXP　這一章的格子都佔領了 🎉`);
-    PI.map.select(next ? next.id : cell.id);
+    const pr = PI.state.chapterProgress(cells, cell.chapter), sp = signProgress(cell.chapter);
+    if (next) { toast(`佔領成功！+${PI.LEVEL.expPerCell} EXP`); PI.map.select(next.id); return; }
+    if (pr.done >= pr.total && sp.done < sp.total) {   // 格子都佔領了：告示牌的題目還沒答完
+      toast(`這座島的格子都佔領了 🎉 答對告示牌的全部題目（${sp.done}/${sp.total}）就能進入下一座島`);
+      PI.map.select(null); showIsland(cell.chapter); return;
+    }
+    toast(`佔領成功！+${PI.LEVEL.expPerCell} EXP`);
+    PI.map.select(cell.id);
   }
   function toast(text) {
     let t = $("piToast");
@@ -196,7 +237,11 @@
         <div class="isl-prog"><div class="isl-prog-top"><span>已佔領</span><b>${pr.done}<small> / ${pr.total} 格</small></b></div>
           <div class="isl-bar"><i style="width:${pr.total ? Math.round(pr.done / pr.total * 100) : 0}%"></i></div></div>
         <div class="isl-num"><b>${isl.unitCount}</b><span>${esc(PI.UNIT_TYPES[ch.unitType] || "單元")}</span></div>
-        ${isl.slotCount ? `<div class="isl-num"><b>${isl.slotCount}</b><span>預留格</span></div>` : ""}</div>`;
+        ${isl.slotCount ? `<div class="isl-num"><b>${isl.slotCount}</b><span>預留格</span></div>` : ""}</div>
+      ${signProgress(chId).total ? `<div class="isl-stats">${bar("告示牌題目", signProgress(chId).done, signProgress(chId).total, "題")}</div>` : ""}
+      <p class="isl-gate">${!islandOpen(chId) ? esc(lockNote(chId))
+        : islandCleared(chId) ? "✓ 這座島已經完成" + (islandOrder.indexOf(chId) < islandOrder.length - 1 ? "，下一座島已解鎖。" : "！")
+        : "完成這座島（格子全部佔領＋告示牌的題目全部答對）就能進入下一座島。"}</p>`;
     box.hidden = false;
     $("infoClose").onclick = () => { box.hidden = true; };
   }
@@ -327,10 +372,15 @@
       // 先出還沒答對過的題目
       const qs = [...treeQs].sort(() => Math.random() - .5).sort((a, b) => PI.state.isTreeDone(a.qid) - PI.state.isTreeDone(b.qid)).slice(0, 5);
       let gained = 0;
+      const nx0 = islandOrder[islandOrder.indexOf(ch.id) + 1], wasOpen = nx0 == null || islandOpen(nx0);
       PI.quiz.start({ qs, need: 0, kicker: `${group || K.title || ch.name}・知識樹`, title: "知識樹答題",
         onRight: q => { if (PI.state.markTree(q.qid)) gained += expQ; },
         onFinish: () => {}, okText: () => { return gained ? `這次獲得 ${gained} EXP！` : "這幾題之前都答對過了，這次沒有新的經驗值。"; },
-        badText: "", onClose: () => openKnowledge(key, group) });
+        badText: "", onClose: () => {
+          openKnowledge(key, group);
+          const i = islandOrder.indexOf(ch.id), nx = islandOrder[i + 1];
+          if (nx != null && !wasOpen && islandOpen(nx)) toast(`🎉 第 ${ch.id} 章完成！解鎖下一座島：第 ${nx} 章「${chOf(nx).short || chOf(nx).name}」`);
+        } });
     };
     $("kClose").focus();
   }
@@ -648,7 +698,7 @@
   PI.addUnit = u => { const c = PI.map.addUnit(u); renderStats(); renderChapters(); return c; };
 
   /* ---------- 進度變動時全部更新 ---------- */
-  PI.state.onChange(() => { PI.map.render(); renderStats(); renderChapters(); if (current) showInfo(current); });
+  PI.state.onChange(() => { openCache = null; PI.map.render(); renderStats(); renderChapters(); if (current) showInfo(current); });
 
   renderStats();
   renderChapters();

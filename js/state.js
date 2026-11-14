@@ -14,6 +14,7 @@ PI.state = (function () {
   let edits = {};             // 知識卡片的個人修改紀錄（原始資料不動，見 js/edits.js）：卡片 key → 修改內容
   let ts = { occ: {}, done: {}, notes: {}, edits: {}, resetAt: 0 };
   const listeners = [], saveHooks = [];
+  let gate = () => true;      // 島（章節）能不能進入：由 app.js 設定
   const now = () => Date.now();
   const obj = v => v && typeof v === "object" && !Array.isArray(v) ? v : {};
 
@@ -63,6 +64,7 @@ PI.state = (function () {
 
   return {
     onChange(fn) { listeners.push(fn); },
+    setGate(fn) { gate = fn; },
 
     isOccupied(cellId) { return occupied.has(cellId); },
 
@@ -97,6 +99,7 @@ PI.state = (function () {
     statusOf(cell) {
       if (!cell.unit) return "locked";   // 預留格：還沒有內容，不能挑戰
       if (occupied.has(cell.id)) return "occupied";
+      if (!gate(cell.chapter)) return "locked";   // 這座島還沒解鎖（上一座島沒完成，見 app.js 的 islandGate）
       if (cell.isStart) return "available";
       if (cell.neighbors.some(n => occupied.has(n))) return "available";
       return "locked";
