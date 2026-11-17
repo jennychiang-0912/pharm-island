@@ -461,6 +461,9 @@ PI.map = (function () {
     g.appendChild(lines);
     // 名牌：每個小分類＋它的上層分類（第三層小標）；上層自己沒有格子時，名牌放在整個上層區塊上
     const groups = [...new Set(isl.cells.flatMap(c => c.group ? [topOf(c.group), c.group] : []))];
+    // 格子少的小分類先放名牌（能放的位置少，最容易被擠到別人家）；格子多的大區塊後放，位置多比較好找
+    const sizeOf = g => isl.cells.filter(c => c.group && (c.group === g || topOf(c.group) === g)).length;
+    groups.sort((a, b) => sizeOf(a) - sizeOf(b));
     const FS0 = 20, MAXW = 270;   // 字級、名牌最寬像素（超過就整排等比縮小）
     // 名牌字體（Bebas Neue…）只有拉丁字母，中文字會 fallback 到系統字型、比較寬，要給比較寬的位，不然會疊在一起
     // 中文字給 1.2 個字寬（fallback 字型比 1 個字寬還寬，原本 1.02 會黏在一起）；英數字也多留一點字距
@@ -477,10 +480,8 @@ PI.map = (function () {
       const isSub = topOf(name) !== name, F0 = isSub ? 15 : FS0;
       const letters = labelOf(name).split("");
       const raw = letters.reduce((s, ch) => s + advOf(ch, F0), 0);
-      const scale = Math.min(1, Math.max(0.6, MAXW / raw));   // 太長就等比縮，但字級不低於 0.6
-      const fs = F0 * scale, total = raw * scale;
-      // 每個字的中心 x（相對名牌中心），依中英文各自的寬度累加
-      let acc = -total / 2; const xs = letters.map(ch => { const a = advOf(ch, fs); const c = acc + a / 2; acc += a; return c; });
+      const scale0 = Math.min(1, Math.max(0.6, MAXW / raw));   // 太長就等比縮，但字級不低於 0.6
+      let fs, total;
       // 名牌放在這一類某一排的上緣（從最上面一排開始試）
       const rows = [...new Set(mine.map(c => Math.round(c.ly)))].sort((a, b) => a - b);
       let cx, y;
@@ -501,7 +502,11 @@ PI.map = (function () {
       //   2. 離這一類的藥越遠越扣分（名牌要貼著自己的藥）
       //   3. 留白邊距碰到別的名牌 → 小扣分（擠一點沒關係）
       // 名牌橫跨的範圍裡，有幾格是自己這一類的：越多越好（名牌壓在自己的格子交界上，而不是別類的）
-      let least = Infinity;
+      // 先用原本的字級找位置；找不到「貼著自己的藥又不疊到別人」的位置，就把字縮小一點再找（寧可小一點，也不要跑到別人家）
+      let best = null;
+      for (const shrink of [1, 0.82, 0.68]) {
+        fs = F0 * scale0 * shrink; total = raw * scale0 * shrink;
+        let least = Infinity, pick = null;
       for (const [ry, dy, sx, cellX] of cands) {
         const row = mine.filter(c => Math.round(c.ly) === ry);
         const x0 = cellX != null ? cellX : row.reduce((s, c) => s + c.lx, 0) / row.length + sx, y0 = ry + dy;
@@ -509,9 +514,17 @@ PI.map = (function () {
         const real = overlap([x0 - total / 2 + ox, x0 + total / 2 + ox, y0 - fs + oy, y0 + fs * 0.3 + oy]);
         const near = Math.min(...mine.map(c => Math.hypot(x0 - c.lx, y0 - c.ly)));
         const under = mine.filter(c => Math.abs(c.lx - x0) < total / 2 + R * 0.4 && Math.abs(c.ly - y0) < R * 1.2).length;
-        const cost = real * 1e6 + near * 20 - under * R * 6 + overlap(box) * 0.2;
-        if (cost < least) { least = cost; cx = x0; y = y0; }
+        // 離自己的藥超過一格半就重罰：名牌寧可小擠一點，也不要跑到別類的區塊
+        const far = Math.max(0, near - R * 1.5);
+        const cost = real * 1e6 + near * 20 + far * 2000 - under * R * 6 + overlap(box) * 0.2;
+        if (cost < least) { least = cost; pick = { cx: x0, y: y0, fs, total, ok: !real && near <= R * 0.95, cost }; }
       }
+        if (!best || (pick.ok && !best.ok) || (pick.ok === best.ok && pick.cost < best.cost)) best = pick;
+        if (pick.ok) break;
+      }
+      cx = best.cx; y = best.y; fs = best.fs; total = best.total;
+      // 每個字的中心 x（相對名牌中心），依中英文各自的寬度累加
+      let acc = -total / 2; const xs = letters.map(ch => { const a = advOf(ch, fs); const c = acc + a / 2; acc += a; return c; });
       grpBoxes.push({ ch: isl.chapter, 0: cx - total / 2 - 6 + ox, 1: cx + total / 2 + 6 + ox, 2: y - fs * 1.1 + oy, 3: y + fs * 0.6 + oy });
       // 這一類在知識樹裡有內容（item.group）：名牌可以點，打開這一類的機轉
       const kKey = Object.keys(PI.KNOWLEDGE || {}).find(k => PI.KNOWLEDGE[k].chapter === isl.chapter);
@@ -532,7 +545,7 @@ PI.map = (function () {
       letters.forEach((ch, i) => {
         if (ch === " ") return;
         const x = xs[i].toFixed(1);
-        const sh = el("text", { class: "grp-letter-shadow", x: (+x + 1).toFixed(1), y: 2, "font-size": fs.toFixed(1) }), t = el("text", { class: "grp-letter", x, y: 0, "font-size": fs.toFixed(1) });
+        const sh = el("text", { class: "grp-letter-shadow", x: (+x + 1).toFixed(1), y: 2, style: `font-size:${fs.toFixed(1)}px` }), t = el("text", { class: "grp-letter", x, y: 0, style: `font-size:${fs.toFixed(1)}px` });
         sh.textContent = t.textContent = ch;
         sign.append(sh, t);
       });
