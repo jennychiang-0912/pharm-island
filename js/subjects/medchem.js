@@ -28,19 +28,22 @@ PI.GROUP_PARENTS = {
   "Class B（imidazo-benzodiazepine）": "Benzodiazepine 類衍生物：藥理研究"
 };
 
-/* 地圖名牌太長會疊在一起：這些小白標在地圖上改顯示短名（group 本身仍是講義表格的完整標題） */
+/* 地圖名牌：和生藥頁一樣用短的英文（名牌字型只有英文字母，中文字寬、長的名牌會擠成一團）。
+   group 本身仍是講義表格的完整標題，滑鼠提示、知識樹、題目都用完整名稱。 */
 PI.GROUP_LABELS = {
   "巴比妥類（Barbiturates）": "Barbiturates",
+  "抗癲癇巴比妥類用藥": "Antiepileptic",
   "Benzodiazepine 類衍生物：藥理研究": "BZD",
-  "Class A（字尾-azepam）": "BZD Class A",
-  "Class B（s-triazolo-benzodiazepine，含有 1,3,4-triazole ring）": "Class B s-triazolo",
-  "Class B（imidazo-benzodiazepine）": "Class B imidazo",
+  "Class A（字尾-azepam）": "Class A",
+  "Class B（s-triazolo-benzodiazepine，含有 1,3,4-triazole ring）": "Triazolo",
+  "Class B（imidazo-benzodiazepine）": "Imidazo",
   "Nonbenzodiazepine GABA_A Agonists（Z-drugs）": "Z-drugs",
-  "血清素受體活化劑（Serotonin Receptor Active Agents）": "血清素受體活化劑",
+  "GABA 受體拮抗劑": "GABA Antagonists",
+  "血清素受體活化劑（Serotonin Receptor Active Agents）": "5-HT Agonist",
   "選擇性血清素再回收抑制劑（SSRIs）": "SSRIs",
-  "褪黑激素受體促效劑（Melatonin Receptor Agonists）": "褪黑激素促效劑",
-  "第一代 H₁ 受體拮抗劑（Histamine H₁ Receptor Antagonists）": "第一代 H₁ 拮抗劑",
-  "食慾素拮抗劑（Orexin Antagonist）": "食慾素拮抗劑"
+  "褪黑激素受體促效劑（Melatonin Receptor Agonists）": "Melatonin",
+  "第一代 H₁ 受體拮抗劑（Histamine H₁ Receptor Antagonists）": "H1-blockers",
+  "食慾素拮抗劑（Orexin Antagonist）": "Orexin"
 };
 
 /* 藥化的欄位：照講義表格的欄位（藥物｜結構｜特性｜藥理及臨床應用） */

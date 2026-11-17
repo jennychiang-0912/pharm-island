@@ -504,7 +504,7 @@ PI.map = (function () {
       // 名牌橫跨的範圍裡，有幾格是自己這一類的：越多越好（名牌壓在自己的格子交界上，而不是別類的）
       // 先用原本的字級找位置；找不到「貼著自己的藥又不疊到別人」的位置，就把字縮小一點再找（寧可小一點，也不要跑到別人家）
       let best = null;
-      for (const shrink of [1, 0.82, 0.68]) {
+      for (const shrink of [1]) {   // 和生藥頁一樣：名牌字都一樣大，不縮小（縮小的名牌大小不一很亂）
         fs = F0 * scale0 * shrink; total = raw * scale0 * shrink;
         let least = Infinity, pick = null;
       for (const [ry, dy, sx, cellX] of cands) {
@@ -515,8 +515,8 @@ PI.map = (function () {
         const near = Math.min(...mine.map(c => Math.hypot(x0 - c.lx, y0 - c.ly)));
         const under = mine.filter(c => Math.abs(c.lx - x0) < total / 2 + R * 0.4 && Math.abs(c.ly - y0) < R * 1.2).length;
         // 離自己的藥超過一格半就重罰：名牌寧可小擠一點，也不要跑到別類的區塊
-        const far = Math.max(0, near - R * 1.5);
-        const cost = real * 1e6 + near * 20 + far * 2000 - under * R * 6 + overlap(box) * 0.2;
+        const far = Math.max(0, near - R * 0.9);
+        const cost = real * 1e6 + near * 20 + far * 5000 - under * R * 6 + overlap(box) * 0.02;
         if (cost < least) { least = cost; pick = { cx: x0, y: y0, fs, total, ok: !real && near <= R * 0.95, cost }; }
       }
         if (!best || (pick.ok && !best.ok) || (pick.ok === best.ok && pick.cost < best.cost)) best = pick;
