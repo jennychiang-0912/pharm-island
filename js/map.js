@@ -260,7 +260,7 @@ PI.map = (function () {
   }
 
   /* ================= 繪製 ================= */
-  let hl, hov, litRing, svg, world, mapEl, stage, sea, decorLayer, terrainLayer, cellLayer, labelLayer, titleLayer, treeLayer, onSelect = () => {}, onSelectIsland = () => {}, onOpenTree = () => {}, selected = null, focusCh = null;
+  let titleBoxes = {}, hl, hov, litRing, svg, world, mapEl, stage, sea, decorLayer, terrainLayer, cellLayer, labelLayer, titleLayer, treeLayer, onSelect = () => {}, onSelectIsland = () => {}, onOpenTree = () => {}, selected = null, focusCh = null;
   let grpBoxes = [];   // 全部島共用的名牌範圍（世界座標），連相鄰島的名牌也不會疊在一起
   const CH = PI.ART.chunkSize;
   const decorChunks = new Map();   // 海上裝飾：區塊 → 群組（需要時才產生）
@@ -322,6 +322,7 @@ PI.map = (function () {
       cellLayer.appendChild(isl.g.cells); labelLayer.appendChild(isl.g.label); titleLayer.appendChild(isl.g.title);
       isl.cells.forEach(drawCell); drawLabel(isl);
     });
+    islands.forEach(drawLabel);   // 再畫一次名牌：第一輪時後面幾座島的章節牌子還沒算出來，前面的島的名牌會壓到它們
     layout();   // 決定位置，並畫出每塊陸地的地形
 
     svg.addEventListener("focusin", e => { const g = e.target.closest?.(".cell"); if (g) placeRing(g.dataset.id); });
@@ -428,6 +429,8 @@ PI.map = (function () {
     const inner = el("g", { class: "label-inner" });
     measure.font = `700 17px ${getComputedStyle(document.body).fontFamily}`;
     const w = Math.ceil(measure.measureText(ch.name).width) + 62;
+    // 章節牌子的範圍（世界座標）：分類名牌要避開，不然會被蓋在牌子底下（牌子畫在最上層）
+    titleBoxes[isl.chapter] = { 0: x - w / 2 - 6 + isl.origin.x, 1: x + w / 2 + 6 + isl.origin.x, 2: y - 24 + isl.origin.y, 3: y + 24 + isl.origin.y };
     inner.appendChild(el("rect", { class: "label-shadow", x: -w / 2, y: -19, width: w, height: 42, rx: 21 }));   // 簡單的底影，不用濾鏡
     inner.appendChild(el("rect", { class: "label-bg", x: -w / 2, y: -21, width: w, height: 42, rx: 21 }));
     inner.appendChild(el("circle", { cx: -w / 2 + 21, cy: 0, r: 14, fill: cat.tint, stroke: cat.color, "stroke-width": 2.5 }));
@@ -498,6 +501,7 @@ PI.map = (function () {
       // 每個候選位置和已放好的名牌重疊多少；完全不重疊就用，都會重疊就挑重疊最少的（不再直接退回第一個位置）
       // 同一座島的名牌重疊算重（一定避開）；別章的名牌只算輕一點——主島上別章的名牌框可能是排版移動前留下來的舊位置，
       // 算太重的話這一章的名牌會被擠到離自己的藥很遠、甚至疊到自己島上的名牌
+      const titleHit = box => Object.values(titleBoxes).reduce((s, b) => s + (b ? Math.max(0, Math.min(box[1], b[1]) - Math.max(box[0], b[0])) * Math.max(0, Math.min(box[3], b[3]) - Math.max(box[2], b[2])) : 0), 0);   // 壓到章節牌子：和同島名牌一樣硬性避開
       const overlap = (box, own = true) => grpBoxes.reduce((s, b) => s + ((b.ch === isl.chapter) === own ? 1 : 0) * Math.max(0, Math.min(box[1], b[1]) - Math.max(box[0], b[0])) * Math.max(0, Math.min(box[3], b[3]) - Math.max(box[2], b[2])), 0);
       // 每個候選位置打分數，挑最低的：
       //   1. 和別的名牌真的疊到 → 重罰（一定避開）
@@ -514,7 +518,7 @@ PI.map = (function () {
         const x0 = cellX != null ? cellX : row.reduce((s, c) => s + c.lx, 0) / row.length + sx, y0 = ry + dy;
         const box = [x0 - total / 2 - 24 + ox, x0 + total / 2 + 24 + ox, y0 - fs * 1.1 + oy, y0 + fs * 0.6 + oy];
         const tight = [x0 - total / 2 + ox, x0 + total / 2 + ox, y0 - fs + oy, y0 + fs * 0.3 + oy];
-        const real = overlap(tight), other = overlap(tight, false);   // real：同島（硬性避開）；other：別章（只輕扣分）
+        const real = overlap(tight) + titleHit(tight), other = overlap(tight, false);   // real：同島（硬性避開）；other：別章（只輕扣分）
         const near = Math.min(...mine.map(c => Math.hypot(x0 - c.lx, y0 - c.ly)));
         const under = mine.filter(c => Math.abs(c.lx - x0) < total / 2 + R * 0.4 && Math.abs(c.ly - y0) < R * 1.2).length;
         // 離自己的藥超過一格半就重罰：名牌寧可小擠一點，也不要跑到別類的區塊
