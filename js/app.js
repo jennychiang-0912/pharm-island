@@ -320,6 +320,7 @@
     const unitOf = id => PI.UNITS.find(u => u.id === id);
     const refItem = u => `<article class="k-item is-ref">
         <h4>${esc(u.name)}</h4>
+        ${u.img ? `<figure class="u-struct"><img src="${esc(u.img)}" alt="${esc(u.name)} 結構" loading="lazy"></figure>` : ""}
         ${(PI.UNIT_FIELDS || []).filter(([k]) => u[k] && u[k].length).map(([k, label]) =>
           `${k === "points" ? "" : `<p class="k-field">${esc(label)}</p>`}<ul>${u[k].map(l => `<li>${clozeLine(l)}</li>`).join("")}</ul>`).join("")}
         <p class="k-src">在格子「${esc(u.short || u.name)}」上作答${u.source ? `・出處：${esc(u.source)}` : ""}</p></article>`;
@@ -372,11 +373,12 @@
     // 表格（item.table）：{ head: ["欄1", …], rows: [[格, …], …], note: "表格下方的小字" }
     //   格可以是字串，或 { t: "內容", rs: 跨幾列, cs: 跨幾欄, b: true 粗體 }；被上一列跨過去的格子寫 null。表格內容不出題。
     function tableHtml(T) {
+      const tcl = t => esc(t).replace(CLOZE, (m, ans) => `<mark class="cloze">${ans}</mark>`).replace(/\n/g, "<br>");   // 表格裡的挖空：標成考點
       const cell = (c, tag) => { if (c === null) return ""; const o = typeof c === "object" ? c : { t: c };
-        return `<${tag}${o.rs ? ` rowspan="${o.rs}"` : ""}${o.cs ? ` colspan="${o.cs}"` : ""}${o.b ? ' class="is-b"' : ""}>${esc(o.t).replace(/\n/g, "<br>")}</${tag}>`; };
+        return `<${tag}${o.rs ? ` rowspan="${o.rs}"` : ""}${o.cs ? ` colspan="${o.cs}"` : ""}${o.b ? ' class="is-b"' : ""}>${tcl(o.t)}</${tag}>`; };
       return `<div class="k-table-wrap"><table class="k-table${T.lastRed ? " last-red" : ""}">${T.head ? `<thead><tr>${T.head.map(h => cell(h, "th")).join("")}</tr></thead>` : ""}
         <tbody>${T.rows.map(r => `<tr>${r.map(c => cell(c, "td")).join("")}</tr>`).join("")}</tbody></table></div>
-        ${T.note ? `<p class="k-table-note">${esc(T.note)}</p>` : ""}`;
+        ${T.note ? `<p class="k-table-note">${tcl(T.note)}</p>` : ""}`;
     }
     // 流程圖：一步一步往下，被藥擋住的步驟旁邊有「⊖ 抑制」框
     //   li：每一行的位置，順序和出題一樣（text、points 之後接流程；抑制框固定佔 3 行）

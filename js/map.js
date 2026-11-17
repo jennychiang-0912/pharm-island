@@ -452,7 +452,8 @@ PI.map = (function () {
     // 名牌字體（Bebas Neue…）只有拉丁字母，中文字會 fallback 到系統字型、比較寬，要給比較寬的位，不然會疊在一起
     const advOf = (ch, fs) => ch === " " ? fs * 0.32 : (ch.charCodeAt(0) > 0x2E00 ? fs * 1.02 : fs * 0.56);
     // 地圖名牌只留重點：拿掉「類衍生物／衍生物／類藥物／之衍生物」這種贅字（分類本身的 group 字串不變）
-    const labelOf = name => (name.replace(/\s*(類衍生物|類藥物|之衍生物|衍生物)\s*$/, "").trim() || name).toUpperCase();
+    // 科目檔可以用 PI.GROUP_LABELS 指定比較短的名牌字（完整名稱仍用在提示、知識樹）
+    const labelOf = name => ((PI.GROUP_LABELS || {})[name] || name.replace(/\s*(類衍生物|類藥物|之衍生物|衍生物)\s*$/, "").trim() || name).toUpperCase();
     const ox = isl.origin.x, oy = isl.origin.y;
     grpBoxes = grpBoxes.filter(b => b.ch !== isl.chapter);   // 重畫這座島時先移除它自己舊的名牌框
     groups.forEach(name => {

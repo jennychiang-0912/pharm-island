@@ -63,6 +63,13 @@ PI.quiz = (function () {
       const km = it.kmaps || {};   // 改過的行：挖空的編號後綴（js/edits.js 的 kmapOf）
       [...[it.text, ...(it.points || [])].map(t => [t, null]), ...flowLines].forEach(([line, ctx], li) => line &&
         add(`t:${key}`, { tree: key, item: it, ctx, chapter: K.chapter, group: null, qid: `t:${key}:${si}:${ii}:${li}`, kmap: km[li] }, line));
+      // 表格裡的挖空也出題：題目標題帶上「列・欄」，例如「解毒劑・Barbiturates」
+      if (it.table) { const T = it.table, txt = c => c == null ? "" : typeof c === "object" ? (c.t || "") : String(c);
+        const head = (T.head || []).map(txt);
+        (T.rows || []).forEach((r, ri) => r.forEach((c, ci) => { const t = txt(c); if (!t.includes("{{")) return;
+          const rowName = txt(r[0]).replace(/\{\{([^|}]*)[^}]*\}\}/g, "$1"), col = ci > 0 ? head[ci] || "" : "";
+          add(`t:${key}`, { tree: key, item: it, ctx: { tb: true, title: [it.title, ci > 0 ? rowName : "", col].filter(Boolean).join("・") }, chapter: K.chapter, group: null, qid: `t:${key}:${si}:${ii}:tb${ri}_${ci}` }, t); }));
+        if (T.note && T.note.includes("{{")) add(`t:${key}`, { tree: key, item: it, ctx: { tb: true, title: it.title || "" }, chapter: K.chapter, group: null, qid: `t:${key}:${si}:${ii}:tbn` }, T.note); }
       // 自己新增的行（js/edits.js）：題目編號用 x<id>，不會擠到原本的行
       (it.extra || []).forEach(x => x.text && add(`t:${key}`, { tree: key, item: it, ctx: null, chapter: K.chapter, group: null, qid: `t:${key}:${si}:${ii}:x${x.id}`, kmap: km["x" + x.id] }, x.text));
     })));
@@ -152,7 +159,7 @@ PI.quiz = (function () {
     const b = half ? { ...L.p.blanks[k], ans: half.ans } : L.p.blanks[k], wrong = half ? half.wrong : distractors(L, b, isHl); if (!wrong) return null;
     const P = half ? half.p : L.p, Pq = hideFamily(P, k);
     // 流程圖的題目：標題帶上第幾步；如果答案就寫在步驟名稱裡（例如「脫殼」），就不顯示步驟名稱，免得直接看到答案
-    const ctxLabel = c => { const showTitle = c.title && !norm(c.title).includes(norm(b.ans)) && !norm(b.ans).includes(norm(c.title));
+    const ctxLabel = c => { if (c.tb) return c.title; const showTitle = c.title && !norm(c.title).includes(norm(b.ans)) && !norm(b.ans).includes(norm(c.title));
       return `第 ${c.n} 步${showTitle ? "・" + c.title : ""}${c.block ? "・⊖ 抑制" : ""}`; };
     const who = L.unit ? (L.unit.type === "topic" ? L.unit.name : `${L.unit.name}・${FIELD[L.field] || ""}`) : (L.ctx ? ctxLabel(L.ctx) : (L.item.title || ""));
     return {
