@@ -2,7 +2,7 @@
    這個檔案只在 medchem.html 載入，會把藥理的章節、單元、知識樹換成藥物化學的。
    格式和生藥頁一樣（見 js/data.js、js/units.js、js/knowledge.js 的說明）。
    章節照「藥物化學國考統整」的目錄：
-     統整（一）中樞神經系統：壹～陸 → 第 1～6 章（中樞神經島）
+     統整（一）中樞神經系統：壹～陸 → 第 1～6 章、柒～捌 → 第 11～12 章（中樞神經島）
      統整（三）心臟血管系統：柒、捌、玖、壹拾壹 → 第 7～10 章（心血管島）
    內容來自教授給的期中考複習講義（藥物化學國考統整），只擷取：分類、結構圖、粗體字。
    目前已加入第 1 章到講義 p.14；之後的章節還是預留格。
@@ -63,7 +63,17 @@ PI.GROUP_PARENTS = {
   "Miscellaneous 雜類藥物（肌肉鬆弛劑）": "骨骼肌鬆弛劑（Skeletal Muscle Relaxants）",
   "非去極化型尼古丁受體拮抗劑（競爭型，Non-depolarizing agents）": "抗 Nm 受體藥物（週邊性骨骼肌鬆弛劑）",
   "類固醇尼古丁受體拮抗劑（屬於非去極化性阻斷劑）": "抗 Nm 受體藥物（週邊性骨骼肌鬆弛劑）",
-  "去極化性阻斷劑（非競爭型）": "抗 Nm 受體藥物（週邊性骨骼肌鬆弛劑）"
+  "去極化性阻斷劑（非競爭型）": "抗 Nm 受體藥物（週邊性骨骼肌鬆弛劑）",
+  // 第 11 章
+  "Benzoic acid 苯甲酸衍生物": "酯類結構（Ester）",
+  "para-amino benzoic acid（PABA）衍生物": "酯類結構（Ester）",
+  // 第 12 章
+  "含鹵素的揮發性麻醉劑：除 Halothane 外皆為醚類": "吸入型全身麻醉劑：沒有特定的目標受器與之結合",
+  "Phenol 類衍生物": "IV 注射型全身麻醉劑",
+  "Phencyclidine（PCP）類衍生物": "IV 注射型全身麻醉劑",
+  "Barbiturate 類衍生物：超短效型": "IV 注射型全身麻醉劑",
+  "Carboxylated Imidazole 類衍生物": "IV 注射型全身麻醉劑",
+  "Benzodiazepines 類衍生物（BZD）：常用有 Midazolam、Lorazepam、Diazepam": "IV 注射型全身麻醉劑"
 };
 
 /* 地圖名牌：和生藥頁一樣用短的英文（名牌字型只有英文字母，中文字寬、長的名牌會擠成一團）。
@@ -155,7 +165,21 @@ PI.GROUP_LABELS = {
   "非去極化型尼古丁受體拮抗劑（競爭型，Non-depolarizing agents）": "Non-depolarizing",
   "類固醇尼古丁受體拮抗劑（屬於非去極化性阻斷劑）": "Steroidal",
   "去極化性阻斷劑（非競爭型）": "Depolarizing",
-  "抗痙攣劑": "Antispasmodics"
+  "抗痙攣劑": "Antispasmodics",
+  // 第 11 章
+  "酯類結構（Ester）": "Ester",
+  "Benzoic acid 苯甲酸衍生物": "Benzoic acid",
+  "para-amino benzoic acid（PABA）衍生物": "PABA",
+  "醯胺類結構（Amide）": "Amide",
+  // 第 12 章
+  "吸入型全身麻醉劑：沒有特定的目標受器與之結合": "Inhaled",
+  "含鹵素的揮發性麻醉劑：除 Halothane 外皆為醚類": "Halogenated",
+  "IV 注射型全身麻醉劑": "IV Agents",
+  "Phenol 類衍生物": "Phenol",
+  "Phencyclidine（PCP）類衍生物": "PCP",
+  "Barbiturate 類衍生物：超短效型": "Barbiturates",
+  "Carboxylated Imidazole 類衍生物": "Imidazole",
+  "Benzodiazepines 類衍生物（BZD）：常用有 Midazolam、Lorazepam、Diazepam": "BZD"
 };
 
 /* 藥化的欄位：照講義表格的欄位（藥物｜結構｜特性｜藥理及臨床應用） */
@@ -178,6 +202,8 @@ PI.CHAPTERS = [
   { id: 4, name: "神經疾病相關藥物（帕金森氏症、阿茲海默症等）", short: "神經疾病相關藥物", cat: "cns", estimate: 15, unitType: "drug", note: "統整（一）肆，p.44–48。" },
   { id: 5, name: "抗精神病藥物", cat: "cns", estimate: 25, unitType: "drug", note: "統整（一）伍，p.49–62。" },
   { id: 6, name: "肌肉鬆弛劑及抗痙攣藥物", cat: "cns", estimate: 12, unitType: "drug", note: "統整（一）陸，p.63–67。" },
+  { id: 11, name: "局部麻醉劑", cat: "cns", estimate: 17, unitType: "drug", note: "統整（一）柒，p.68–70。" },
+  { id: 12, name: "全身麻醉劑", cat: "cns", estimate: 17, unitType: "drug", note: "統整（一）捌，p.71–76。" },
   { id: 7, name: "利尿劑", cat: "cv", estimate: 20, unitType: "drug", note: "統整（三）柒，p.39–46。" },
   { id: 8, name: "心絞痛藥物", cat: "cv", estimate: 8, unitType: "drug", note: "統整（三）捌，p.47–48。" },
   { id: 9, name: "心衰竭藥物", cat: "cv", estimate: 10, unitType: "drug", note: "統整（三）玖，p.49–53。" },
@@ -205,6 +231,10 @@ PI.LANDMASSES = [
     palette: { ground: "#D3B8E0", light: "#E1CDEA", cliff: "#AA8EBD" } },
   { id: "cns6", name: "肌鬆島",     chapters: [6], cluster: "cns", angle: 120,
     palette: { ground: "#BFB0D8", light: "#D2C7E4", cliff: "#9686B5" } },
+  { id: "cns11", name: "局麻島",     chapters: [11], cluster: "cns", angle: 165,
+    palette: { ground: "#C8AFDC", light: "#DACAE8", cliff: "#A087BB" } },
+  { id: "cns12", name: "全麻島",     chapters: [12], cluster: "cns", angle: 315,
+    palette: { ground: "#B6AEDD", light: "#CBC6EA", cliff: "#8E87BC" } },
   { id: "cv7",  name: "利尿島",     chapters: [7], cluster: "cv", angle: 0,
     palette: { ground: "#E8B4B0", light: "#F0C9C6", cliff: "#C48A86" } },
   { id: "cv8",  name: "心絞痛島",   chapters: [8], cluster: "cv", angle: 270,
@@ -1467,6 +1497,225 @@ PI.UNITS = [
     "治療因腦或脊髓損傷造成的痙攣",
     "代謝：三個環的 oxidation"] },
 
+/* ===== 第 11 章 局部麻醉劑（統整（一）柒，p.68–70）===== */
+/* 講義黑底「酯類結構（Ester）」底下分兩個灰底（Benzoic acid、PABA）→ 第三層小標；「醯胺類結構（Amide）」沒有灰底，黑底就是分類本身。
+   講義這三頁的藥物表格沒有欄位標題，只有一欄說明 → 用 desc；名字底下的小字（Cocaine 的古柯鹼、Crack）放 use。
+   共同結構、藥理作用、EMLA 沒有分類 → 告示牌；PABA 說明列、PABA 結構、Amide 代謝速率 → 各自的小白標。
+   行首「- 」＝子項目、「> 」＝接續行、「→」縮排，[u]…[/u]＝底線、[i]…[/i]＝斜體 */
+
+/* 酯類結構 > Benzoic acid 苯甲酸衍生物 */
+{ id: "la-cocaine", chapter: 11, name: "Cocaine", type: "drug", group: "Benzoic acid 苯甲酸衍生物", source: "統整（一）p.69", img: "assets/medchem/la-cocaine.png",
+  use: ["古柯鹼、Crack"],
+  desc: ["作用機轉：",
+    "> 阻斷{{單胺類|物質}}化合物（NE、5-HT、Dopamine）的{{再回收|機轉}}，會使體溫{{過高|副作用}}",
+    "臨床上作為{{局部麻醉劑|用途}}，可阻斷 Na⁺通道",
+    "→ {{唯一使血管收縮|性質}}的局部麻醉劑，不須併用收縮劑",
+    "代謝：去酯化+去甲基形成 Benzoylecgonine，",
+    "> 水解產生 Benzoic acid、Menthol、{{Ecgonine|代謝物}}★",
+    "副作用：心律不整、焦慮"] },
+{ id: "la-piperocaine", chapter: 11, name: "Piperocaine", type: "drug", group: "Benzoic acid 苯甲酸衍生物", source: "統整（一）p.69", img: "assets/medchem/la-piperocaine.png" },
+
+/* 酯類結構 > para-amino benzoic acid（PABA）衍生物 */
+{ id: "la-benzocaine", chapter: 11, name: "Benzocaine", type: "drug", group: "para-amino benzoic acid（PABA）衍生物", source: "統整（一）p.69", img: "assets/medchem/la-benzocaine.png",
+  desc: ["缺乏 {{Aliphatic amine|結構}}",
+    "→ 不易和酸製成鹽類，{{不適合作注射劑使用|性質|適合作注射劑使用}}★",
+    "Atropine 會{{抑制|機轉|活化}} esterase，併用容易產生毒性"] },
+{ id: "la-procaine", chapter: 11, name: "Procaine", type: "drug", group: "para-amino benzoic acid（PABA）衍生物", source: "統整（一）p.69", img: "assets/medchem/la-procaine.png",
+  desc: ["由 {{pseudo-esterase|酵素}} 和 cholinesterase 水解",
+    "和 {{Penicillin G|藥名}} 併用可減少 IM 注射疼痛"] },
+{ id: "la-tetracaine", chapter: 11, name: "Tetracaine", type: "drug", group: "para-amino benzoic acid（PABA）衍生物", source: "統整（一）p.69", img: "assets/medchem/la-tetracaine.png",
+  desc: ["芳香胺接上 butyl group：{{脂溶性增加|性質|脂溶性下降}}",
+    "藥效強，作為{{長效深層脊髓麻醉|用途}}用",
+    "有血管舒張作用，須併用{{血管收縮劑|藥物類別}}"] },
+{ id: "la-chloroprocaine", chapter: 11, name: "Chloroprocaine", type: "drug", group: "para-amino benzoic acid（PABA）衍生物", source: "統整（一）p.69", img: "assets/medchem/la-chloroprocaine.png",
+  desc: ["苯環之 {{ortho|位置|meta/para}} 位★以 Cl 取代",
+    "→ {{誘導效應|機轉|共振效應}}★，容易被酯酶水解"] },
+
+/* 醯胺類結構（Amide） */
+{ id: "la-lidocaine", chapter: 11, name: "Lidocaine", type: "drug", group: "醯胺類結構（Amide）", source: "統整（一）p.70", img: "assets/medchem/la-lidocaine.png",
+  desc: ["由 {{Isogramine|藥名}}★經生物等價原理設計而成",
+    "IV 可治療{{心律不整|疾病}}（Class Ib）",
+    "代謝物 {{Monoethylglycinexylidide|代謝物}}★（MEGX）",
+    "> 產生 CNS 毒性"] },
+{ id: "la-prilocaine", chapter: 11, name: "Prilocaine", type: "drug", group: "醯胺類結構（Amide）", source: "統整（一）p.70", img: "assets/medchem/la-prilocaine.png",
+  desc: ["非 {{Xylene|結構}} 衍生物★",
+    "代謝物 {{Toluidine|代謝物}} 引發{{變性紅血球症|副作用}}",
+    "→ 治療：{{Methylene blue|藥名}}"] },
+{ id: "la-bupivacaine", chapter: 11, name: "Bupivacaine", type: "drug", group: "醯胺類結構（Amide）", source: "統整（一）p.70", img: "assets/medchem/la-bupivacaine.png",
+  desc: ["{{半衰期最長|性質|半衰期最短}}，以注射方式給藥",
+    "具有{{心臟毒性|副作用}}，打入血管易導致 CV collapse",
+    "{{S(-)|結構|R(+)}} form★之心毒性和 CNS 毒性較小"] },
+{ id: "la-etidocaine", chapter: 11, name: "Etidocaine", type: "drug", group: "醯胺類結構（Amide）", source: "統整（一）p.70", img: "assets/medchem/la-etidocaine.png",
+  desc: ["比 Lidocaine 多了{{α-ethyl|取代基}}和 {{N-propyl|取代基}}",
+    "藥效強，具有{{心毒性|副作用}}"] },
+{ id: "la-ropivacaine", chapter: 11, name: "Ropivacaine", type: "drug", group: "醯胺類結構（Amide）", source: "統整（一）p.70", img: "assets/medchem/la-ropivacaine.png",
+  desc: ["具有{{血管收縮|性質|血管擴張}}的效果",
+    "具有一個 chiral center，{{S(-)|結構|R(+)}} form 活性最強",
+    "主要經肝臟的 {{CYP1A2|酵素}}、3A4 代謝成",
+    "> {{3-hydroxy|代謝物}} 代謝物"] },
+{ id: "la-articaine", chapter: 11, name: "Articaine", type: "drug", group: "醯胺類結構（Amide）", source: "統整（一）p.70", img: "assets/medchem/la-articaine.png",
+  desc: ["含有 {{thiophene|結構}}★結構 →易穿透細胞膜",
+    "Onset {{快|性質|慢}}、Duration {{短|性質|長}}",
+    "{{牙科|用途}}首選用藥"] },
+{ id: "la-dibucaine", chapter: 11, name: "Dibucaine", type: "drug", group: "醯胺類結構（Amide）", source: "統整（一）p.70", img: "assets/medchem/la-dibucaine.png",
+  desc: ["含有 {{quinoline|結構}}★結構",
+    "{{不可口服|性質|可口服}}，常製成軟膏劑型",
+    "OTC 用於{{曬傷|疾病}}及痔瘡",
+    "可供蜘蛛網膜下注射使用"] },
+{ id: "la-tocainide", chapter: 11, name: "Tocainide", type: "drug", group: "醯胺類結構（Amide）", source: "統整（一）p.70", img: "assets/medchem/la-tocainide.png",
+  desc: ["為 glycine+{{xylidine|結構}} 之 amide 衍生物",
+    "不會產生 {{Carboline|結構}} 衍生物，CNS 毒性小",
+    "也可作為{{抗心律不整|用途}}藥物"] },
+{ id: "la-mepivacaine", chapter: 11, name: "Mepivacaine", type: "drug", group: "醯胺類結構（Amide）", source: "統整（一）p.70", img: "assets/medchem/la-mepivacaine.png",
+  desc: ["N 上有接{{甲基|取代基}}",
+    "作用與 Lidocaine 類似，但{{沒有血管擴張|性質|有血管擴張}}的作用"] },
+{ id: "la-tolycaine", chapter: 11, name: "Tolycaine", type: "drug", group: "醯胺類結構（Amide）", source: "統整（一）p.70", img: "assets/medchem/la-tolycaine.png",
+  desc: ["{{極性高|性質|極性低}}，無 CNS 毒性",
+    "用來治療{{心律不整|疾病}}"] },
+
+/* ===== 第 12 章 全身麻醉劑（統整（一）捌，p.71–76）===== */
+/* 欄位照講義表格（特性／藥理及臨床應用）。講義黑底「吸入型…」「IV 注射型…」是分類；灰底是子分類，用第三層小標掛在黑底下。
+   Nitrous Oxide 直接在黑底底下沒有灰底，所以屬於黑底這一類本身。
+   Meyer-Overton 性質表、※ 比較列沒有分類 → 告示牌；※ 註解放進所屬小白標。
+   Midazolam、Lorazepam、Diazepam 共用一格說明 → 各自都放；只講到 Midazolam 的 Flumazenil 句子只放 Midazolam。 */
+
+/* 吸入型全身麻醉劑 */
+{ id: "ga-nitrous-oxide", chapter: 12, name: "Nitrous Oxide（N₂O）", short: "N₂O", type: "drug", group: "吸入型全身麻醉劑：沒有特定的目標受器與之結合", source: "統整（一）p.72", img: "assets/medchem/ga-nitrous-oxide.png",
+  feat: ["對血液溶解度差：λ(Blood/Gas){{小|性質|大}}",
+    "→ 麻醉{{誘導快|性質|誘導慢}}★、{{恢復快|性質|恢復慢}}、{{作用時間短|性質|作用時間長}}",
+    "{{MAC 值太大|性質|MAC 值太小}}，無法在一般氣壓下達到麻醉功效"],
+  pharm: ["單獨使用會{{缺氧|副作用}} →需與 20% {{O₂|物質}} 併用",
+    "強力{{止痛劑|用途}}，但無{{肌肉鬆弛|用途}}效果",
+    "副作用：因 {{Vit B₁₂|物質}}↓，造成{{巨母紅血球貧血|疾病}}"] },
+
+/* 吸入型 > 含鹵素的揮發性麻醉劑 */
+{ id: "ga-halothane", chapter: 12, name: "Halothane", type: "drug", group: "含鹵素的揮發性麻醉劑：除 Halothane 外皆為醚類", source: "統整（一）p.72", img: "assets/medchem/ga-halothane.png",
+  feat: ["含兩個碳的{{烷類|結構|醚類}}",
+    "唯一含有 {{Br|取代基|F/Cl}}★的揮發性麻醉劑",
+    "> （同時含有 F、Cl、Br）",
+    "代謝不會產生 {{F⁻|代謝物}}→不會造成{{腎毒性|副作用}}"],
+  pharm: ["常用於{{兒科麻醉|用途}}（Pediatric anesthesia）",
+    "麻醉效果強，但[u]{{止痛效果差|性質|止痛效果強}}[/u]",
+    "副作用：{{肝毒性|副作用}}（產生{{自由基|代謝物}}）、{{惡性盜熱|副作用}}，造成低血壓",
+    "→ Halothane 影響{{心血管|器官}}最劇"] },
+{ id: "ga-enflurane", chapter: 12, name: "Enflurane", type: "drug", group: "含鹵素的揮發性麻醉劑：除 Halothane 外皆為醚類", source: "統整（一）p.72", img: "assets/medchem/ga-enflurane.png",
+  feat: ["含有 {{5 個|數值|6 個/7 個}} F 原子（E→第五個英文字母）",
+    "與 Isoflurane 互為{{結構異構物|名詞}}",
+    "常溫下為澄清無色、不可燃液體"],
+  pharm: ["經肝臟代謝約 2~5%為有效劑量",
+    "不可用於{{癲癇|疾病}}患者",
+    "副作用：{{腎毒性|副作用}}、{{惡性盜熱|副作用}}"] },
+{ id: "ga-isoflurane", chapter: 12, name: "Isoflurane", type: "drug", group: "含鹵素的揮發性麻醉劑：除 Halothane 外皆為醚類", source: "統整（一）p.72", img: "assets/medchem/ga-isoflurane.png",
+  feat: ["將 Enflurane 的 F、Cl 位置互調，兩者互為",
+    "> {{結構異構物|名詞}}（Structural isomer）",
+    "代謝：肝臟代謝先形成 CF₃CHO、CF₃COCl，",
+    "> 再形成 {{CF₃COOH|代謝物}}★"],
+  pharm: ["肝臟代謝率<{{2%|數值}}",
+    "心血管副作用較 Enflurane {{少|性質|多}}"] },
+{ id: "ga-desflurane", chapter: 12, name: "Desflurane", type: "drug", group: "含鹵素的揮發性麻醉劑：除 Halothane 外皆為醚類", source: "統整（一）p.73", img: "assets/medchem/ga-desflurane.png",
+  feat: ["結構中沒有 Cl 原子，含有 {{6 個|數值|5 個/7 個}} F 原子",
+    "血液中溶解度差：λ(Blood/Gas) {{最小|性質|最大}}",
+    "→ 麻醉誘導快、恢復快、作用時間短",
+    "為不可燃、對[u]{{金屬無腐蝕性|性質|金屬有腐蝕性}}[/u]的刺激性氣體"],
+  pharm: ["適合{{門診手術|用途}}的麻醉，不用住院",
+    "體內代謝率{{最低|性質|最高}}★，屬於較安全麻醉劑"] },
+{ id: "ga-sevoflurane", chapter: 12, name: "Sevoflurane", type: "drug", group: "含鹵素的揮發性麻醉劑：除 Halothane 外皆為醚類", source: "統整（一）p.73", img: "assets/medchem/ga-sevoflurane.png",
+  feat: ["含有 {{7 個|數值|5 個/6 個}} F 原子（Sevo→七個）",
+    "血液中溶解度差",
+    "→ 麻醉誘導快、恢復快、作用時間短",
+    "不可燃、{{無刺激|性質|有刺激}}且味道佳的氣體"],
+  pharm: ["代謝量約 {{3%|數值}}，雖會代謝產生 F⁻，但因代謝率低，很少造成{{肝腎毒性|副作用}}"] },
+{ id: "ga-methoxyflurane", chapter: 12, name: "Methoxyflurane", type: "drug", group: "含鹵素的揮發性麻醉劑：除 Halothane 外皆為醚類", source: "統整（一）p.73", img: "assets/medchem/ga-methoxyflurane.png",
+  feat: ["結構含有{{甲氧基|取代基}}（Methoxy group）",
+    "血液中溶解度{{最高|性質|最低}}",
+    "→ 麻醉誘導速率{{最慢|性質|最快}}、恢復慢"],
+  pharm: ["代謝量高達 {{50%|數值}}，穩定度低",
+    "副作用：{{強烈腎毒性|副作用}}★，目前少用",
+    "> （因一分子藥物會產生 {{2 個|數值}} F⁻）"] },
+
+/* IV 注射型 > Phenol 類衍生物 */
+{ id: "ga-propofol", chapter: 12, name: "Propofol", type: "drug", group: "Phenol 類衍生物", source: "統整（一）p.74", img: "assets/medchem/ga-propofol.png",
+  feat: ["結構：[u]{{2,6-diisopropylphenol|結構}}[/u]",
+    "{{脂溶性高|性質|水溶性高}}，在水中溶解度差"],
+  pharm: ["{{無止痛作用|性質|有止痛作用}}★，不會造成術後噁心嘔吐",
+    "與體內的蛋白質結合度高",
+    "代謝：主要在{{肝臟|器官}}行共軛反應（{{Conjugation|代謝}}）"] },
+{ id: "ga-fospropofol", chapter: 12, name: "Fospropofol", type: "drug", group: "Phenol 類衍生物", source: "統整（一）p.74", img: "assets/medchem/ga-fospropofol.png",
+  feat: ["為 Propofol 的{{磷酸鹽前驅藥 Prodrug|名詞}}",
+    "{{水溶性佳|性質|脂溶性佳}}，注射時較不疼痛"],
+  pharm: ["被體內的 {{Alkaline phosphatase|酵素}} 快速[u]水解[/u]成",
+    "> 脂溶性的 Propofol"] },
+
+/* IV 注射型 > Phencyclidine（PCP）類衍生物 */
+{ id: "ga-ketamine", chapter: 12, name: "Ketamine", type: "drug", group: "Phencyclidine（PCP）類衍生物", source: "統整（一）p.74", img: "assets/medchem/ga-ketamine.png",
+  feat: ["結構與 {{Phencyclidine|藥名}}（PCP）相似",
+    "含 ketone、amine、{{2-chlorophenyl|結構}} 結構",
+    "{{S (+)|結構|R (-)}}-form 具有較大的活性",
+    "水溶性、脂溶性都很好"],
+  pharm: ["{{NMDA 受體|受體}}（興奮性）拮抗劑",
+    "→ 屬於{{解離型麻醉劑|藥物類別}}",
+    "口服有{{首渡效應|代謝}} →口服生物可用率{{低|性質|高}}",
+    "因 Duration 短，[u]沒有{{骨骼肌鬆弛|用途}}作用[/u]",
+    "主要由 {{CYP3A4|酵素}} 代謝，其次為 2B6/2C9",
+    "> 進行 {{N-demethylation|代謝}}"] },
+
+/* IV 注射型 > Barbiturate 類衍生物：超短效型 */
+{ id: "ga-thiopental", chapter: 12, name: "Thiopental", type: "drug", group: "Barbiturate 類衍生物：超短效型", source: "統整（一）p.75", img: "assets/medchem/ga-thiopental.png",
+  feat: ["{{Thiobarbiturate|藥物類別}} 衍生物",
+    "五號位接 {{Methylbutyl|取代基}}（5C）和乙基"],
+  pharm: ["抑制{{呼吸中樞|器官}}，降低對 CO₂ 的敏感性",
+    "{{高脂溶性|性質|低脂溶性}}，易通過 BBB、Onset 快",
+    "Duration 短，會再分布到肌肉或脂肪組織，剩下血",
+    "> 中游離的部分由肝臟進行代謝",
+    "代謝：進行 oxidative desulfurization",
+    "→ {{氧化脫硫|代謝}}形成 {{pentobarbital|代謝物}}"] },
+{ id: "ga-thiamylal", chapter: 12, name: "Thiamylal", type: "drug", group: "Barbiturate 類衍生物：超短效型", source: "統整（一）p.75", img: "assets/medchem/ga-thiamylal.png",
+  feat: ["{{Thiobarbiturate|藥物類別}} 衍生物",
+    "五號位接 {{Methylbutyl|取代基}} 和 {{allyl group|取代基}}",
+    "與 Thiopental 只差{{一個雙鍵|結構}}"],
+  pharm: ["高脂溶性",
+    "結構特徵與生理性質和 Thiopental 相似",
+    "IV 注射 {{Onset 快|性質|Onset 慢}}、{{Duration 短|性質|Duration 長}}"] },
+{ id: "ga-methohexital", chapter: 12, name: "Methohexital", type: "drug", group: "Barbiturate 類衍生物：超短效型", source: "統整（一）p.75", img: "assets/medchem/ga-methohexital.png",
+  feat: ["{{N-methyl barbiturate|結構}} 衍生物",
+    "N 接上甲基後，[u]pKa={{8.4|數值}} 鹼性更強[/u]",
+    "→ {{脂溶性游離酸濃度增加|性質|脂溶性游離酸濃度減少}}"],
+  pharm: ["{{親脂性高|性質|親脂性低}}",
+    "代謝：參鍵旁的 α-CH₂ 被代謝，為{{無活性|性質}}產物"] },
+
+/* IV 注射型 > Carboxylated Imidazole 類衍生物 */
+{ id: "ga-etomidate", chapter: 12, name: "Etomidate", type: "drug", group: "Carboxylated Imidazole 類衍生物", source: "統整（一）p.76", img: "assets/medchem/ga-etomidate.png",
+  feat: ["具有 [u]{{Ethyl acetate|結構}}[/u] 酯類結構",
+    "含 [u]{{imidazole|結構}}[/u] 環",
+    "有立體中心，為 {{R(+)|結構|S(-)}}-isomer",
+    "pKa={{4.5|數值}}，為{{弱酸性|性質|弱鹼性}}藥物"],
+  pharm: ["GABA_A 受體的{{異位致效劑|機轉}}（allosteric agonist）",
+    "為強力、短效、Onset 快的安眠劑（hypnotic），但",
+    "> {{沒有止痛效果|性質|有止痛效果}}",
+    "被肝臟及血漿中的 {{esterase|酵素}} 代謝成{{無活性|性質}}",
+    "{{門診手術|用途}}常用之 IV 麻醉劑",
+    "→ 比較：門診手術常用{{吸入型|藥物類別}}為 {{Desflurane|藥名}}"] },
+
+/* IV 注射型 > Benzodiazepines 類衍生物（BZD） */
+{ id: "ga-midazolam", chapter: 12, name: "Midazolam", type: "drug", group: "Benzodiazepines 類衍生物（BZD）：常用有 Midazolam、Lorazepam、Diazepam", source: "統整（一）p.76", img: "assets/medchem/ga-midazolam.png", imgMore: ["assets/medchem/ga-flumazenil.png"],
+  use: ["屬於 {{Class B|藥物類別}} 的 {{imidazo-BZD|藥物類別}}"],
+  pharm: ["GABA_A 受體的{{異位致效劑|機轉}}（allosteric agonist）",
+    "→ 提高 Cl⁻通道開啟的[u]{{頻率|機轉|持續時間}}[/u]",
+    "副作用：{{鎮靜|副作用}}",
+    "> {{Flumazenil|藥名}} 可異位拮抗 Midazolam 的鎮靜作用，",
+    "> 可作為{{解毒劑|用途}}（結構補充如下）",
+    "通常只做{{麻醉誘導|用途}}，常和其他麻醉劑併用"] },
+{ id: "ga-lorazepam", chapter: 12, name: "Lorazepam", type: "drug", group: "Benzodiazepines 類衍生物（BZD）：常用有 Midazolam、Lorazepam、Diazepam", source: "統整（一）p.76", img: "assets/medchem/ga-lorazepam.png",
+  pharm: ["GABA_A 受體的{{異位致效劑|機轉}}（allosteric agonist）",
+    "→ 提高 Cl⁻通道開啟的[u]{{頻率|機轉|持續時間}}[/u]",
+    "副作用：{{鎮靜|副作用}}",
+    "通常只做{{麻醉誘導|用途}}，常和其他麻醉劑併用"] },
+{ id: "ga-diazepam", chapter: 12, name: "Diazepam", type: "drug", group: "Benzodiazepines 類衍生物（BZD）：常用有 Midazolam、Lorazepam、Diazepam", source: "統整（一）p.76", img: "assets/medchem/ga-diazepam.png",
+  pharm: ["GABA_A 受體的{{異位致效劑|機轉}}（allosteric agonist）",
+    "→ 提高 Cl⁻通道開啟的[u]{{頻率|機轉|持續時間}}[/u]",
+    "副作用：{{鎮靜|副作用}}",
+    "通常只做{{麻醉誘導|用途}}，常和其他麻醉劑併用"] },
+
 /* ===== 第 7 章 利尿劑（統整（三）柒，p.39–46）===== */
 { id: "diu-location", chapter: 7, name: "利尿劑作用位置總論", short: "作用位置", type: "topic", group: "總論", source: "統整（三）p.39",
   bold: [
@@ -2374,6 +2623,92 @@ PI.KNOWLEDGE = {
           "非去極化型尼古丁受體拮抗劑（競爭型，Non-depolarizing agents）：共同結構為 {{Tetrahydroisoquinoline|結構|5α-Androstane steroid}}★"] }
       ] },
       { id: "antispasm", title: "抗痙攣劑", items: [] }
+    ] },
+  ch11: { chapter: 11, title: "局部麻醉劑",
+    sections: [
+      { id: "overview", title: "柒、局部麻醉劑（Local Anesthetics）", items: [
+        { title: "局部麻醉劑共同結構", source: "統整（一）p.68", images: ["assets/medchem/la-structure.svg"], points: [
+          "1. 親脂基：決定藥物{{疏水性|性質|親水性}}，為羧基或是雜環系統，影響局部麻醉劑穿透神經細胞膜的能力。",
+          "> （若苯環接上推電子基，使 C=O 電子密度↑，藥物不容易被 esterase 水解）",
+          "2. 親水基：決定藥物{{帶電性|性質|疏水性}}，為二級胺或三級胺系統，與水溶解度有關，也會影響局部麻醉劑穿透神經細胞膜的能力",
+          "3. 酯類或醯胺類：決定藥物{{代謝速率|性質|疏水性}}",
+          "- (1) 酯類（ester）：由 {{Pseudocholinesterase|酵素}} 代謝，代謝速度快",
+          "→ 藥物名稱只有{{一個|數值|兩個}} i",
+          "- (2) 醯胺（amide）：由肝臟的 {{CYP450|酵素}} 代謝，代謝速度較慢",
+          "→ 藥物名稱中有{{兩個|數值|一個}} i",
+          "4. 多數的局部麻醉劑 pKa 值界於 8.0~9.0（{{弱鹼性|性質|弱酸性}}★），於生理 pH 值下呈現[u]{{非離子型|性質|離子型}}[/u]才能穿透細胞膜。"] },
+        { title: "局部麻醉劑藥理作用", source: "統整（一）p.68", points: [
+          "1. 局部麻醉劑{{抑制 Voltage-gated Na⁺通道|機轉}}★，使去極化的神經無法產生動作電位。",
+          "2. 可以抑制神經軸上痛覺衝動傳導。{{直徑較細|性質|直徑較粗}}的神經會先被麻醉，而在相同直徑下，{{有髓鞘|性質|無髓鞘}}的神經會先被麻醉。（比較順序：有髓鞘>直徑細）",
+          "3. 可以併用{{血管收縮劑|藥物類別}}（如 Epinephrine）來增加作用時間，但 {{Cocaine|藥名}} 除外★（本身就具有血管收縮的作用）。",
+          "4. 若對局部麻醉劑過敏，可改用 {{Diphenhydramine|藥名}}、{{Promethazine|藥名}}"] },
+        { title: "EMLA 軟膏（Eutectic Mixture of Local Anesthetic）", source: "統整（一）p.68", points: [
+          "1. 含有 2.5% {{Lidocaine|藥名}} 和 2.5% {{Prilocaine|藥名}}",
+          "2. 適用於{{表皮|位置|黏膜}}，但不建議用於黏膜 →可能會增加{{變性血紅蛋白血症|疾病}}發生之風險"] }
+      ] },
+      { id: "ester", title: "酯類結構（Ester）", items: [
+        { title: "※ PABA 衍生物", group: "para-amino benzoic acid（PABA）衍生物", source: "統整（一）p.69", points: [
+          "含 PABA 結構，苯環對位具有{{胺基|取代基}}，容易{{拮抗磺胺藥|機轉}}★之作用"] },
+        { title: "※ PABA 結構", group: "para-amino benzoic acid（PABA）衍生物", source: "統整（一）p.69", structs: ["assets/medchem/la-paba.png"], points: [
+          "※ PABA 結構",
+          "[i]para[/i]-aminobenzoic acid"] }
+      ] },
+      { id: "amide", title: "醯胺類結構（Amide）", items: [
+        { title: "※ 補充", group: "醯胺類結構（Amide）", source: "統整（一）p.70", points: [
+          "※ Amide 類代謝速率：{{Prilocaine|藥名}} > Etidocaine > Lidocaine > Mepivacaine > Ropivacaine > {{Bupivacaine|藥名}}"] }
+      ] }
+    ] },
+  ch12: { chapter: 12, title: "全身麻醉劑",
+    sections: [
+      { id: "overview", title: "捌、全身麻醉劑（General Anesthetics）", items: [
+        { title: "全身麻醉劑的性質：Meyer-Overton Theory", source: "統整（一）p.71",
+          table: { head: ["性質", "影響因素", "定義", "說明"],
+            rowNames: ["最小肺泡濃度（MAC）", "分布係數 λ (Oil/Gas)", "吸入劑量", "換氣速率", "心輸出量", "分布係數 λ (Blood/Gas)", "治療指數"],
+            rows: [
+              [{ t: "強度\nPotency", rs: 2 }, "最小肺泡濃度（MAC）\nMinimal Alveolar Concentration", "肺中有多少濃度才達到麻醉\n→ 最低麻醉作用劑量",
+                "● MAC ↓、Potency ↑\n（藥效強表示低濃度即可達到麻醉劑量）\n● MAC 可{{互相加成|性質|互相抵消}}"],
+              [null, "分布係數\nλ (Oil/Gas)", "代表藥物的{{親脂性|性質|親水性}}\n（類似分配係數的概念）",
+                "● 分布係數↑、溶解度↓、{{親脂性|性質|親水性}}↑、Potency↑\n（親脂性越大表示更容易進入細胞作用）\n● 親脂性↑、作用時間 Duration 越長、{{排出速率越慢|性質|排出速率越快}}"],
+              [{ t: "誘導速率", rs: 4 }, "吸入劑量", { t: "吸入劑量提高，表示濃度{{增高|性質|降低}}、作用變快，可快速通過誘導期", cs: 2 }, null],
+              [null, "換氣速率", { t: "換氣速率提高，使麻醉劑進入體內速率{{變快|性質|變慢}}、作用變快、誘導速率{{加快|性質|變慢}}\n（高脂溶性麻醉劑影響更大）", cs: 2 }, null],
+              [null, "心輸出量", { t: "心輸出量增加，雖然會增加麻醉劑運輸到肺部的濃度，但同時會將藥物送到體內其他地方，\n使誘導速率變慢 → 心輸出量{{↑|性質|↓}}、誘導速率{{↓|性質|↑}}", cs: 2 }, null],
+              [null, "分布係數\nλ (Blood/Gas)", { t: "定義：藥物在{{血中|性質|肺中}}的溶解度，代表誘導速率 → 血中溶解度{{↑|性質|↓}}、誘導速率{{↓|性質|↑}}\n分布係數/血中溶解度越{{小|性質|大}}、Onset 越{{快|性質|慢}}（溶解度高會使藥物黏在血液中，無法作用）", cs: 2 }, null],
+              [{ t: "治療指數\nTherapeutic index" }, { t: "MAC 和 LP₅₀ 之間的距離\n（LP₅₀：半致死濃度，Lethal pressure）", cs: 2 }, null,
+                "● 判斷麻醉劑的安全性及安全劑量\n● 治療指數越{{小|性質|大}}、距離越小，表示麻醉劑越{{危險|性質|安全}}"]] } },
+        { title: "麻醉劑比較", source: "統整（一）p.71", points: [
+          "※ 代謝率：{{Methoxyflurane|藥名}} > Halothane > Sevoflurane > Enflurane > Isoflurane > Desflurane > N₂O",
+          "※ λ (Oil/Gas)：{{Methoxyflurane|藥名}} > Halothane > [u]Enflurane[/u] > Isoflurane > Ether > Sevoflurane > {{Desflurane|藥名}} > N₂O →即{{親脂性|性質|親水性}}大小，和 MAC 相反",
+          "※ λ (Blood/Gas)：{{Methoxyflurane|藥名}} > Halothane > [u]Isoflurane[/u] > Enflurane > Ether > Sevoflurane > N₂O > {{Desflurane|藥名}} →即[u]{{血中溶解度|性質|親脂性}}[/u]，和誘導速率相反",
+          "※ 麻醉效果最佳：{{Methoxyflurane|藥名}}",
+          "※ 誘導速率：最快 {{Desflurane|藥名}}、最慢 {{Methoxyflurane|藥名}}",
+          "※ 具有肝毒性：{{Halothane|藥名}}",
+          "※ 嚴重腎毒性：{{Methoxyflurane|藥名}}",
+          "※ 用於門診手術：{{Desflurane|藥名}}",
+          "※ 對呼吸道無刺激性：{{Sevoflurane|藥名}}"] }
+      ] },
+      { id: "inhaled", title: "一、吸入型全身麻醉劑", items: [
+        { title: "※ 補充（毒性來源）", group: "吸入型全身麻醉劑：沒有特定的目標受器與之結合", source: "統整（一）p.72", points: [
+          "※ [u]肝毒性[/u]是因為代謝產生{{自由基|代謝物|F⁻}}★造成；[u]腎毒性[/u]是因為代謝產生 {{F⁻|代謝物|自由基}} 造成"] },
+        { title: "※ 補充（代謝）", group: "吸入型全身麻醉劑：沒有特定的目標受器與之結合", source: "統整（一）p.73", points: [
+          "※ 吸入型麻醉劑經 {{CYP2E1|酵素}}★代謝產生 {{acyl halide|代謝物}} 的衍生物",
+          "→ 與蛋白質上的親核基反應形成 antigen protein（{{Methoxyflurane|藥名}} 和 {{Sevoflurane|藥名}} 不會產生）"] },
+        { title: "鹵烷與烷類之理化性質比較", group: "含鹵素的揮發性麻醉劑：除 Halothane 外皆為醚類", source: "統整（一）p.73", points: [
+          "※ 鹵烷與烷類之理化性質比較：",
+          "- (1) 均{{不易溶於水|性質|易溶於水}}",
+          "- (2) 低碳數的烷類和鹵烷之沸點均低，另外烷類具有{{燃燒性|性質}}及爆炸性",
+          "- (3) 同碳數的鹵烷和烷類具有{{不同的偶極矩|性質|相同的偶極矩}}★"] }
+      ] },
+      { id: "iv", title: "二、IV 注射型全身麻醉劑", items: [
+        { title: "※ PCP", group: "Phencyclidine（PCP）類衍生物", source: "統整（一）p.74", structs: ["assets/medchem/ga-pcp.png"], points: [
+          "PCP = [u]P[/u]henyl + [u]C[/u]yclohexyl + [u]P[/u]iperidine"] },
+        { title: "Barbiturate 類衍生物共通說明", group: "Barbiturate 類衍生物：超短效型", source: "統整（一）p.75", points: [
+          "機轉：GABA_A 受體的{{異位致效劑|機轉}}（allosteric agonist），作用於大腦和脊髓的受體，延長 Cl⁻通道開啟的[u]{{持續時間|機轉|頻率}}[/u]",
+          "特性：(1) {{Onset 快|性質|Onset 慢}}，常用於外科手術前[u]誘導麻醉[/u]　(2) 作用時間短（Duration）　(3) 具安眠作用但{{無止痛|性質|有止痛}}作用",
+          "Barbiturates 均製成{{鈉鹽|物質}}水溶液，以 {{IV|給藥途徑}} 注射為主 → 本身為{{弱酸性|性質|弱鹼性}}",
+          "副作用：{{呼吸抑制|副作用}}"] },
+        { title: "※ Flumazenil 之結構", group: "Benzodiazepines 類衍生物（BZD）：常用有 Midazolam、Lorazepam、Diazepam", source: "統整（一）p.76", structs: ["assets/medchem/ga-flumazenil.png"], points: [
+          "※ Flumazenil 之結構"] }
+      ] }
     ] },
   ch7: { chapter: 7, title: "利尿劑",
     sections: [

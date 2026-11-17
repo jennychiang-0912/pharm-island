@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 150" width="640" height="150" font-family="'Noto Sans TC','Microsoft JhengHei',sans-serif" font-size="20" fill="#2b2b2b">
+  <!-- 講義 p.68 局部麻醉劑共同結構（重畫） -->
+  <g stroke="#2b2b2b" fill="none">
+    <!-- Bridge 括號 -->
+    <path d="M150,14 h8 M150,14 V126 M150,126 h8" stroke-width="1.6"/>
+    <path d="M482,14 h-8 M482,14 V126 M482,126 h-8" stroke-width="1.6"/>
+    <!-- 連接線 -->
+    <path d="M118,62 H178 M310,62 H352 M444,62 H510" stroke-width="2"/>
+  </g>
+  <g fill="#fff" stroke="#2b2b2b" stroke-width="2.5">
+    <rect x="12" y="44" width="106" height="36"/>
+    <rect x="178" y="44" width="132" height="36"/>
+    <rect x="352" y="44" width="92" height="36"/>
+    <rect x="510" y="44" width="106" height="36"/>
+  </g>
+  <g font-weight="700" text-anchor="middle" font-size="21">
+    <text x="65" y="70">親脂基</text>
+    <text x="244" y="70">酯類或醯胺類</text>
+    <text x="398" y="70">中間鏈</text>
+    <text x="563" y="70">親水基</text>
+  </g>
+  <g text-anchor="middle" font-size="16">
+    <text x="65" y="106">Lipophilic center</text>
+    <text x="316" y="106">Bridge</text>
+    <text x="563" y="106">Hydrophilic center</text>
+  </g>
+</svg>
