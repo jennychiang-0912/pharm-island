@@ -608,3 +608,11 @@ mark.cloze.is-hl.hl-mine { background: linear-gradient(transparent 35%, #BFE3A6 
 /* 講義的子項目：行首「- 」縮排成空心點，行首「→」縮排不加點（js/app.js 的 subCls） */
 li.k-sub { margin-left: 1.3em; list-style-type: circle; }
 li.k-sub.k-arrow { list-style-type: none; }
+
+/* 地圖名牌的浮動提示：這一類有哪些藥（js/map.js 的 showGrpTip） */
+.grp-tip { position: fixed; z-index: 60; max-width: 320px; padding: 8px 11px; border-radius: 10px; background: #FFFDF5; color: var(--ink);
+  border: 1px solid #E3DDC2; box-shadow: 0 6px 18px rgba(40, 36, 20, .18); font-size: 13px; line-height: 1.55; pointer-events: none; }
+.grp-tip b { display: block; color: var(--deep); margin-bottom: 3px; }
+.grp-tip-row { margin-top: 2px; }
+.grp-tip-sub { display: inline-block; margin-right: 6px; padding: 0 6px; border-radius: 6px; background: #DDF4F6; color: #1F5E68; font-size: 12px; font-weight: 600; }
+.grp-tip-hint { margin-top: 5px; font-size: 11.5px; color: var(--muted); }

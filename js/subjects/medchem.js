@@ -31,7 +31,7 @@ PI.GROUP_PARENTS = {
 /* 地圖名牌太長會疊在一起：這些小白標在地圖上改顯示短名（group 本身仍是講義表格的完整標題） */
 PI.GROUP_LABELS = {
   "巴比妥類（Barbiturates）": "Barbiturates",
-  "Benzodiazepine 類衍生物：藥理研究": "BZD 藥理研究",
+  "Benzodiazepine 類衍生物：藥理研究": "BZD",
   "Class A（字尾-azepam）": "BZD Class A",
   "Class B（s-triazolo-benzodiazepine，含有 1,3,4-triazole ring）": "Class B s-triazolo",
   "Class B（imidazo-benzodiazepine）": "Class B imidazo",

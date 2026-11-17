@@ -54,6 +54,27 @@ PI.map = (function () {
     return isl;
   }
 
+  /* 名牌的浮動提示：這一類有哪些藥（滑鼠移上去或用鍵盤選到時出現） */
+  let grpTip = null;
+  const escT = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+  function showGrpTip(name, rows, has, e) {
+    if (!grpTip) { grpTip = document.createElement("div"); grpTip.className = "grp-tip"; grpTip.setAttribute("role", "tooltip"); document.body.appendChild(grpTip); }
+    grpTip.innerHTML = `<b>${escT(name)}</b>` + (rows.length
+      ? rows.map(r => `<div class="grp-tip-row">${r.label ? `<span class="grp-tip-sub">${escT(r.label)}</span>` : ""}${r.drugs.map(escT).join("、")}</div>`).join("")
+      : `<div class="grp-tip-row muted">這一類沒有藥物格子</div>`)
+      + `<div class="grp-tip-hint">${has ? "點一下看這一類的機轉" : "點一下圈出這一類的藥"}</div>`;
+    grpTip.hidden = false; moveGrpTip(e);
+  }
+  function moveGrpTip(e) {
+    if (!grpTip || grpTip.hidden) return;
+    const w = grpTip.offsetWidth, h = grpTip.offsetHeight;
+    let x = e.clientX + 14, y = e.clientY + 16;
+    if (x + w > innerWidth - 8) x = Math.max(8, e.clientX - w - 14);
+    if (y + h > innerHeight - 8) y = Math.max(8, e.clientY - h - 12);
+    grpTip.style.left = x + "px"; grpTip.style.top = y + "px";
+  }
+  function hideGrpTip() { if (grpTip) grpTip.hidden = true; }
+
   /* 第三層小標：PI.GROUP_PARENTS 把小分類掛到上一層（例如 Class A → Benzodiazepine 類衍生物）。
      topOf(group) 是最上層的那一類；沒有設定就是自己。 */
   const topOf = g => (g && (PI.GROUP_PARENTS || {})[g]) || g;
@@ -463,7 +484,8 @@ PI.map = (function () {
     const groups = [...new Set(isl.cells.flatMap(c => c.group ? [topOf(c.group), c.group] : []))];
     const FS0 = 20, MAXW = 270;   // 字級、名牌最寬像素（超過就整排等比縮小）
     // 名牌字體（Bebas Neue…）只有拉丁字母，中文字會 fallback 到系統字型、比較寬，要給比較寬的位，不然會疊在一起
-    const advOf = (ch, fs) => ch === " " ? fs * 0.32 : (ch.charCodeAt(0) > 0x2E00 ? fs * 1.02 : fs * 0.56);
+    // 中文字給 1.2 個字寬（fallback 字型比 1 個字寬還寬，原本 1.02 會黏在一起）；英數字也多留一點字距
+    const advOf = (ch, fs) => ch === " " ? fs * 0.36 : (ch.charCodeAt(0) > 0x2E00 ? fs * 1.2 : fs * 0.62);
     // 地圖名牌只留重點：拿掉「類衍生物／衍生物／類藥物／之衍生物」這種贅字（分類本身的 group 字串不變）
     // 科目檔可以用 PI.GROUP_LABELS 指定比較短的名牌字（完整名稱仍用在提示、知識樹）
     const labelOf = name => ((PI.GROUP_LABELS || {})[name] || name.replace(/\s*(類衍生物|類藥物|之衍生物|衍生物)\s*$/, "").trim() || name).toUpperCase();
@@ -484,11 +506,13 @@ PI.map = (function () {
       const rows = [...new Set(mine.map(c => Math.round(c.ly)))].sort((a, b) => a - b);
       let cx, y;
       // 候選位置：每一排的上緣，再來每一排的下緣（只有一兩格的小分類常常上面已經有別的名牌）；都擠到時再左右挪一點試試
-      // 每一排再加「格子中間」的位置（大分類和子分類常常共用最上面一排的上緣，會疊在一起）
-      const base = [...rows.map(ry => [ry, -R * 0.4]), ...rows.slice().reverse().map(ry => [ry, R * 0.98]), ...rows.map(ry => [ry, R * 0.35])];
-      const cands = [0, 0.6, -0.6, 1.2, -1.2, 1.8, -1.8].flatMap(sx => base.map(([ry, dy]) => [ry, dy, sx * R]))
-        // 最後再試每一格自己的位置（格子上緣／中間），大區塊裡總找得到空位
-        .concat(mine.flatMap(c => [-R * 0.4, R * 0.35].map(dy => [Math.round(c.ly), dy, null, c.lx])));
+      // 名牌只放在格子的上下緣（格子交界線上），不壓到格子中間的藥名；
+      // 先試整排置中，再左右挪，再試每一格自己的上下緣；都不行才退到格子中間（最後手段）
+      const base = [...rows.map(ry => [ry, -R * 0.4]), ...rows.slice().reverse().map(ry => [ry, R * 0.98])];
+      const cands = [0, 0.6, -0.6, 1.2, -1.2, 1.8, -1.8, 2.4, -2.4, 3, -3].flatMap(sx => base.map(([ry, dy]) => [ry, dy, sx * R]))
+        // 每一格自己的上下緣，以及再往外一排的交界線，左右也挪一點（周圍名牌很擠時才用得到）
+        .concat(mine.flatMap(c => [-R * 0.4, R * 0.98, -R * 1.9, R * 2.48].flatMap(dy => [0, R * 0.9, -R * 0.9].map(sx => [Math.round(c.ly), dy, null, c.lx + sx]))))
+        .concat(mine.map(c => [Math.round(c.ly), R * 0.35, null, c.lx]));
       // 每個候選位置和已放好的名牌重疊多少；完全不重疊就用，都會重疊就挑重疊最少的（不再直接退回第一個位置）
       const overlap = box => grpBoxes.reduce((s, b) => s + Math.max(0, Math.min(box[1], b[1]) - Math.max(box[0], b[0])) * Math.max(0, Math.min(box[3], b[3]) - Math.max(box[2], b[2])), 0);
       let least = Infinity;
@@ -511,8 +535,17 @@ PI.map = (function () {
         "aria-label": has ? `${name}：打開這一類的機轉` : `${name}：圈出這一類的藥`, transform: `translate(${cx.toFixed(1)},${y.toFixed(1)})` };
       if (has) attrs["data-tree"] = kKey;
       const sign = el("g", attrs);
-      const tip = el("title"); tip.textContent = has ? `${name}・點一下看這一類的機轉` : `${name}・點一下圈出這一類的藥`;
-      sign.append(tip, el("rect", { class: "grp-hit", x: -total / 2 - 10, y: -fs - 4, width: total + 20, height: fs + 14, rx: 6 }));
+      // 滑鼠移到名牌上：浮出這一類有哪些藥（大分類會照子分類分行列出）
+      const drugsIn = gname => [...new Set(isl.cells.filter(c => c.unit && c.unit.type !== "topic" && c.group === gname).map(c => c.unit.name))];
+      const kids = [...new Set(isl.cells.filter(c => c.group && c.group !== name && topOf(c.group) === name).map(c => c.group))];
+      const tipRows = [drugsIn(name).length ? { label: kids.length ? "（本類）" : "", drugs: drugsIn(name) } : null,
+        ...kids.map(k => ({ label: (PI.GROUP_LABELS || {})[k] || k, drugs: drugsIn(k) }))].filter(r => r && r.drugs.length);
+      sign.addEventListener("pointerenter", e => showGrpTip(name, tipRows, has, e));
+      sign.addEventListener("pointermove", e => moveGrpTip(e));
+      sign.addEventListener("pointerleave", hideGrpTip);
+      sign.addEventListener("focus", () => { const r = sign.getBoundingClientRect(); showGrpTip(name, tipRows, has, { clientX: r.left + r.width / 2, clientY: r.bottom }); });
+      sign.addEventListener("blur", hideGrpTip);
+      sign.append(el("rect", { class: "grp-hit", x: -total / 2 - 10, y: -fs - 4, width: total + 20, height: fs + 14, rx: 6 }));
       letters.forEach((ch, i) => {
         if (ch === " ") return;
         const x = xs[i].toFixed(1);
