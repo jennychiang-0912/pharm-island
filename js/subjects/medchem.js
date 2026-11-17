@@ -48,7 +48,14 @@ PI.GROUP_PARENTS = {
   "非麥角生物鹼類": "活化 Dopamine 受體",
   "阻斷中樞毒蕈鹼受體": "降低 ACh 活性",
   "第一代 H₁-blockers": "降低 ACh 活性",
-  "Adenosine A₂A antagonist": "促進 Dopamine 釋放"
+  "Adenosine A₂A antagonist": "促進 Dopamine 釋放",
+  // 第 5 章
+  "Aliphatic 直鏈衍生物（字尾-promazine）": "第一代精神疾病藥物：Phenothiazine（PTZ）類衍生物",
+  "Piperidine 衍生物（字尾-ridazine）": "第一代精神疾病藥物：Phenothiazine（PTZ）類衍生物",
+  "Piperazine 衍生物（末端 OH 字尾-phenazine；末端 CH₃ 字尾-perazine）": "第一代精神疾病藥物：Phenothiazine（PTZ）類衍生物",
+  "末端環化成 pyrrolidine，字尾-piride": "第一代精神疾病藥物：Benzamide 類衍生物",
+  "Benzisoxazole 類衍生物（-peridone）": "第二代精神疾病藥物：Benzisoxazole/Benzisothiazole 類衍生物",
+  "Benzisothiazole 類衍生物（-rasidone）": "第二代精神疾病藥物：Benzisoxazole/Benzisothiazole 類衍生物"
 };
 
 /* 地圖名牌：和生藥頁一樣用短的英文（名牌字型只有英文字母，中文字寬、長的名牌會擠成一團）。
@@ -114,11 +121,26 @@ PI.GROUP_LABELS = {
   "Adenosine A₂A antagonist": "A2A Antagonist",
   "可逆型膽鹼酯酶抑制劑：皆有三級胺結構，可穿過 BBB 增加 ACh 濃度": "AChEI",
   "NMDA 受體拮抗劑（NMDA antagonist）": "NMDA Antagonist",
-  "治療藥物：降低 Dopamine 的濃度": "Huntington"
+  "治療藥物：降低 Dopamine 的濃度": "Huntington",
+  // 第 5 章
+  "第一代精神疾病藥物：Phenothiazine（PTZ）類衍生物": "Phenothiazine",
+  "Aliphatic 直鏈衍生物（字尾-promazine）": "Aliphatic",
+  "Piperidine 衍生物（字尾-ridazine）": "Piperidine",
+  "Piperazine 衍生物（末端 OH 字尾-phenazine；末端 CH₃ 字尾-perazine）": "Piperazine",
+  "第一代精神疾病藥物：Thioxanthene 類衍生物（名字中有-thix-）": "Thioxanthene",
+  "第一代精神疾病藥物：Butyrophenone 類衍生物（字尾-peridol / -perone）": "Butyrophenone",
+  "第一代精神疾病藥物：Diphenylbutyl piperidine 類衍生物": "Diphenylbutyl",
+  "第一代精神疾病藥物：Benzamide 類衍生物": "Benzamide",
+  "末端環化成 pyrrolidine，字尾-piride": "Pyrrolidine",
+  "第二代精神疾病藥物：Miscellaneous 雜類藥物": "Miscellaneous",
+  "第二代精神疾病藥物：Benzazepine 類衍生物（字尾-apine）": "Benzazepine",
+  "第二代精神疾病藥物：Benzisoxazole/Benzisothiazole 類衍生物": "Benzisoxazole/thiazole",
+  "Benzisoxazole 類衍生物（-peridone）": "Benzisoxazole",
+  "Benzisothiazole 類衍生物（-rasidone）": "Benzisothiazole"
 };
 
 /* 藥化的欄位：照講義表格的欄位（藥物｜結構｜特性｜藥理及臨床應用） */
-PI.UNIT_FIELDS = [["use", "分類／用途"], ["desc", "說明"], ["feat", "特性"], ["pharm", "藥理及臨床應用"], ["metab", "藥物代謝"], ["clin", "藥理及臨床用途"], ["bold", "粗體重點"]];   // 第 1、2 章照講義欄位（說明／特性／藥理及臨床應用），第 3 章是特性／藥物代謝，第 4 章是特性／藥理及臨床用途，其他章還是粗體重點
+PI.UNIT_FIELDS = [["use", "分類／用途"], ["desc", "說明"], ["feat", "特性"], ["pharm", "藥理及臨床應用"], ["metab", "藥物代謝"], ["clin", "藥理及臨床用途"], ["bold", "粗體重點"]];   // 第 1、2 章照講義欄位（說明／特性／藥理及臨床應用），第 3 章是特性／藥物代謝，第 4 章是特性／藥理及臨床用途，第 5 章是特性／藥理及臨床應用，其他章還是粗體重點
 PI.UNIT_TITLE_FIELD = null;
 PI.UNIT_BOXES = [];
 PI.UNIT_TYPES = { drug: "藥物", preparation: "製劑", category: "分類", topic: "主題" };
@@ -1082,260 +1104,231 @@ PI.UNITS = [
 { id: "clozapine", chapter: 4, name: "Clozapine", type: "drug", group: "治療藥物：降低 Dopamine 的濃度", source: "統整（一）p.48", img: "assets/medchem/clozapine-ap.png",
   clin: ["{{非典型|藥物類別|典型}}抗精神病藥物"] },
 
-/* ===== 第 5 章 抗精神病藥物（統整（一）伍，p.49–62）===== */
-/* 總論 */
-{ id: "ap-pathways", chapter: 5, name: "思覺失調症與多巴胺傳導路徑", short: "多巴胺路徑", type: "topic", group: "總論", source: "統整（一）p.49",
-  bold: [
-    "精神分裂症與中腦邊緣系統（Mesolimbic-frontal pathway）中的{{多巴胺神經活動增加|機轉}}★有關",
-    "黑質紋狀體（Nigrostriatal）管運動，阻斷後產生{{錐體外作用|副作用}}（EPS，類似帕金森氏症）",
-    "中腦皮質與邊緣系統（Mesocortical & Mesolimbic）管情緒行為，阻斷後可改善精神分裂症",
-    "結節漏斗（Tuberoinfundibular）管荷爾蒙，阻斷後導致{{泌乳激素分泌增加|副作用}}（Prolactin），可使用 Bromocriptine 治療",
-    "多巴胺分泌過多：{{精神分裂症|疾病}}★、藥物或酒精濫用；分泌過少：帕金森氏症★、高泌乳激素血症",
-    "大多數抗精神病藥物阻斷中樞神經節後 {{D₂ receptor|標的}}",
-    "Anticholinergic agents（如 {{Benztropine|藥名}}）可改善錐體外症狀的副作用"
-  ] },
-{ id: "ap-se-summary", chapter: 5, name: "抗精神病藥物副作用總整理", short: "抗精神病副作用", type: "topic", group: "總論", source: "統整（一）p.48,62",
-  bold: [
-    "錐體外症狀（EPS）：主要由{{第一代|名詞}}★抗精神病藥物引起",
-    "高泌乳素血症：{{Risperidone|藥名}}★、Paliperidone 容易產生（Prolactin 分泌被 Dopamine 所抑制）",
-    "顆粒性白血球減少：嚴重程度 {{Clozapine|藥名}}★ > Chlorpromazine > Olanzapine",
-    "體重增加：第二代較易產生（與阻斷 5-HT 受體有關），程度 {{Olanzapine|藥名}}★ > Risperidone > Quetiapine",
-    "鎮靜最強：{{Chlorpromazine|藥名}}；EPS 最強：Haloperidol；最不會增加體重：Ziprasidone"
-  ] },
-{ id: "ptz-sar", chapter: 5, name: "Phenothiazine（PTZ）結構與 SAR", short: "PTZ SAR", type: "topic", group: "第一代：Phenothiazine", source: "統整（一）p.49",
-  bold: [
-    "第一代主要治療{{正向症狀|名詞}}，且具有止吐作用（第二代無止吐作用）",
-    "依 N-10 取代基分三類：Aliphatic 直鏈（-promazine，活性最弱、EPS 最弱、{{鎮靜最強|性質}}★）、Piperidine（-ridazine）、Piperazine（末端 CH₃：-perazine／末端 OH：-phenazine，活性最強、{{EPS 最強|性質}}★、鎮靜最弱）",
-    "Site A：當末端從 -CH₃ 變成 {{-NC₂H₅OH|取代基}} 時，為最強效之 PTZs",
-    "Site B：只有{{三個碳|數值}}★的長度才具抗精神病活性，且三個碳上都不可有分支；若為兩個碳，則具抗組織胺 H₁、抗毒蕈鹼活性（為帕金森氏症藥物）",
-    "Site C：Phenothiazine 結構非同平面，而是折成{{蝶翼|名詞}}的形狀；Site A 和 C 必為 cis form；取代基只能在 2 號碳上（S 的對位）；取代基為拉電子基時可增加活性（-Cl、-CF₃★等）",
-    "本章藥物主要以 {{D₂-receptor blockers|藥物類別}} 為主（以 mesolimbic-frontal pathway 為主）"
-  ] },
-/* Phenothiazine — Aliphatic（-promazine） */
-{ id: "chlorpromazine", chapter: 5, name: "Chlorpromazine", type: "drug", group: "第一代：Phenothiazine（Aliphatic）", source: "統整（一）p.50", img: "assets/medchem/chlorpromazine.png",
-  use: ["{{抗精神病|用途}}（CPZ，鎮靜副作用最強）"],
-  bold: [
-    "2 號位上有 {{Cl|取代基}} 取代基",
-    "10 號位有 propyldimethylamino group（三級胺）",
-    "為了模仿 Dopamine 的構型，直鏈胺基支鏈會偏向含氯取代的環",
-    "代謝：由 {{CYP2D6|酵素}} 進行 C₇-Hydroxylation；{{Sulfoxide|代謝物}} 代謝物沒有活性★",
-    "{{鎮靜|副作用}}副作用最強；具有光敏感性"
-  ] },
-{ id: "triflupromazine", chapter: 5, name: "Triflupromazine", type: "drug", group: "第一代：Phenothiazine（Aliphatic）", source: "統整（一）p.50", img: "assets/medchem/triflupromazine.png",
-  use: ["{{抗精神病|用途}}"],
-  bold: ["2 號位上有 {{CF₃|取代基}} 取代基"] },
-/* Phenothiazine — Piperidine（-ridazine） */
-{ id: "thioridazine", chapter: 5, name: "Thioridazine", type: "drug", group: "第一代：Phenothiazine（Piperidine）", source: "統整（一）p.50", img: "assets/medchem/thioridazine.png",
-  use: ["{{抗精神病|用途}}"],
-  bold: [
-    "2 號位上有 {{-SCH₃|取代基}} 取代基",
-    "氧化代謝為兩倍活性代謝物 {{Mesoridazine|代謝物}}，多巴胺受體效價從 10nM→4nM（藥物會拮抗多巴胺受體）"
-  ] },
-{ id: "mesoridazine", chapter: 5, name: "Mesoridazine", type: "drug", group: "第一代：Phenothiazine（Piperidine）", source: "統整（一）p.50", img: "assets/medchem/mesoridazine.png",
-  use: ["{{抗精神病|用途}}（Thioridazine 的活性代謝物）"],
-  bold: ["meso：甲基接在 {{S|離子}} 上"] },
-/* Phenothiazine — Piperazine（-phenazine／-perazine） */
-{ id: "perphenazine", chapter: 5, name: "Perphenazine", type: "drug", group: "第一代：Phenothiazine（Piperazine）", source: "統整（一）p.51", img: "assets/medchem/perphenazine.png",
-  use: ["{{抗精神病|用途}}"],
-  bold: [
-    "Piperazine 末端有 -NCH₃CH₃OH；2 號位上有 {{Cl|取代基}} 取代基（結構與 chlorpromazine 相似）",
-    "末端 OH 可做成脂肪酸鹽類 Perphenazine enanthate → {{長效 IM|給藥途徑}} 注射"
-  ] },
-{ id: "fluphenazine", chapter: 5, name: "Fluphenazine", type: "drug", group: "第一代：Phenothiazine（Piperazine）", source: "統整（一）p.51", img: "assets/medchem/fluphenazine.png",
-  use: ["{{抗精神病|用途}}（高效價，有嚴重 EPS）"],
-  bold: [
-    "Piperazine 末端有 -NCH₃CH₃OH；2 號位上有 {{CF₃|取代基}} 取代基（結構與 triflupromazine 相似）",
-    "末端 OH 可做成酯類前驅藥 Fluphenazine decanoate/enanthate → {{長效 IM|給藥途徑}} 注射★"
-  ] },
-{ id: "trifluperazine", chapter: 5, name: "Trifluperazine", type: "drug", group: "第一代：Phenothiazine（Piperazine）", source: "統整（一）p.51", img: "assets/medchem/trifluperazine.png",
-  use: ["{{抗精神病|用途}}（高效價，有嚴重 EPS）"],
-  bold: ["Piperazine 末端有 {{-CH₃|取代基}}；結構與 Fluphenazine 相似"] },
-{ id: "prochlorperazine", chapter: 5, name: "Prochlorperazine", type: "drug", group: "第一代：Phenothiazine（Piperazine）", source: "統整（一）p.51", img: "assets/medchem/prochlorperazine.png",
-  use: ["{{抗精神病|用途}}"],
-  bold: ["末端有 -CH₃，結構與 {{Perphenazine|藥名}} 相似"] },
-{ id: "thiethylperazine", chapter: 5, name: "Thiethylperazine", type: "drug", group: "第一代：Phenothiazine（Piperazine）", source: "統整（一）p.51", img: "assets/medchem/thiethylperazine.png",
-  use: ["{{抗精神病|用途}}"],
-  bold: ["末端有 -CH₃，結構與 {{Thioridazine|藥名}} 相似"] },
-{ id: "acetophenazine", chapter: 5, name: "Acetophenazine", type: "drug", group: "第一代：Phenothiazine（Piperazine）", source: "統整（一）p.51", img: "assets/medchem/acetophenazine.png",
-  use: ["{{抗精神病|用途}}"],
-  bold: ["末端含 {{OH|取代基}} 基"] },
-/* Thioxanthene（-thix-） */
-{ id: "thiothixene", chapter: 5, name: "Thiothixene", type: "drug", group: "第一代：Thioxanthene", source: "統整（一）p.52", img: "assets/medchem/thiothixene.png",
-  use: ["{{抗精神病|用途}}"],
-  bold: [
-    "Thioxanthene 類：C9 上接烯雙鍵（olefinic double bond），存在順反異構物且 {{cis form|結構}} 活性大",
-    "具有 {{Sulfonamide|結構}} 結構；cis form（Z form）的活性較強；可製成 hydrochloride 鹽類"
-  ] },
-{ id: "flupenthixol", chapter: 5, name: "Flupenthixol", type: "drug", group: "第一代：Thioxanthene", source: "統整（一）p.52", img: "assets/medchem/flupenthixol.png",
-  use: ["{{抗精神病|用途}}"],
-  bold: [
-    "末端 piperazine 上的 OH 可被做成脂肪酸鹽類 Flupenthixol decanoate，用於{{長效 IM|給藥途徑}} 注射"
-  ] },
-/* Butyrophenone（-peridol／-perone） */
-{ id: "butyrophenone", chapter: 5, name: "Butyrophenone 藥效基團", short: "Butyrophenone", type: "topic", group: "第一代：Butyrophenone", source: "統整（一）p.55", img: "assets/medchem/butyrophenone.png",
-  bold: ["Butyrophenone 為此類藥物之{{藥效基團|名詞}}；字尾 -peridol（R group 含 OH）、-perone（R group 含 C=O）"] },
-{ id: "haloperidol", chapter: 5, name: "Haloperidol", type: "drug", group: "第一代：Butyrophenone", source: "統整（一）p.55", img: "assets/medchem/haloperidol.png",
-  use: ["{{抗精神病|用途}}（高效價，有最嚴重 EPS）"],
-  bold: [
-    "R group 有 OH 基（-peridol），具有 {{Fluorobutyrophenone|結構}} 結構；含 F、Cl 兩種鹵素",
-    "Piperidine 與羰基隔 {{3C|數值}} 時活性最強；苯環對位有 F 取代 → 減少藥物被代謝去活化",
-    "代謝：高低劑量有不同代謝酵素 {{CYP3A4|酵素}}（高）、CYP2D6（低）、CYP1A2（抽菸）；代謝物 p-fluorophenylacetic acid 和 glycine 結合",
-    "{{遲發性運動困難|副作用}}（Tardive dyskinesia）：代謝後產物不可逆烷化 D₂ 受體，使受體過度敏感而讓運動機能亢進",
-    "可製成脂肪酸鹽類 decanoate → 長效 IM 注射；也會造成{{高泌乳素血症|副作用}}★"
-  ] },
-{ id: "droperidol", chapter: 5, name: "Droperidol", type: "drug", group: "第一代：Butyrophenone", source: "統整（一）p.55", img: "assets/medchem/droperidol.png",
-  use: ["{{抗精神病|用途}}（短效型★，麻醉前處理）"],
-  bold: [
-    "R group 有 C=O 基（Dro-perone）；具 Fluorobutyrophenone 結構",
-    "具有 tetrahydropyridine 結構（有雙鍵）、{{imidazolone|取代基}} 取代基",
-    "短效型★，還有鎮靜、麻醉、止吐作用；麻醉時會與止痛藥 {{Fentanyl|藥名}} 並用"
-  ] },
-{ id: "trifluperidol", chapter: 5, name: "Trifluperidol", type: "drug", group: "第一代：Butyrophenone", source: "統整（一）p.55", img: "assets/medchem/trifluperidol.png",
-  use: ["{{抗精神病|用途}}"],
-  bold: ["R group 含 {{-OH|取代基}}"] },
-{ id: "spiperone", chapter: 5, name: "Spiperone", type: "drug", group: "第一代：Butyrophenone", source: "統整（一）p.55", img: "assets/medchem/spiperone.png",
-  use: ["{{抗精神病|用途}}"],
-  bold: ["R group 含 C=O，具有 {{Spiro|結構}} 螺環結構"] },
-/* Diphenylbutyl piperidine */
-{ id: "pimozide", chapter: 5, name: "Pimozide", type: "drug", group: "第一代：Diphenylbutyl piperidine", source: "統整（一）p.56", img: "assets/medchem/pimozide.png",
-  use: ["治療 {{Tourette syndrome|疾病}}"],
-  bold: [
-    "將 Butyrophenone 的酮基以 {{4-Fluorophenyl|取代基}} 取代，可有效降低藥物的代謝、增強作用時間",
-    "結構與 Droperidol 相似，差異在 piperidine 及 C=O 基被取代為 4-Fluorophenyl → 具有 {{di-4-fluorophenylmenthane|結構}} 結構"
-  ] },
-{ id: "penfluridol", chapter: 5, name: "Penfluridol", type: "drug", group: "第一代：Diphenylbutyl piperidine", source: "統整（一）p.56", img: "assets/medchem/penfluridol.png",
-  use: ["{{抗精神病|用途}}"],
-  bold: ["結構中共有{{五個 F 原子|數值}}（Pentafluridol）"] },
-{ id: "fluspirilene", chapter: 5, name: "Fluspirilene", type: "drug", group: "第一代：Diphenylbutyl piperidine", source: "統整（一）p.56", img: "assets/medchem/fluspirilene.png",
-  use: ["{{抗精神病|用途}}"],
-  bold: ["具有{{螺環|結構}}（Spiro）結構，結構與 Spiperone 相似"] },
-/* Benzamide */
-{ id: "metoclopramide", chapter: 5, name: "Metoclopramide", type: "drug", group: "第一代：Benzamide", source: "統整（一）p.57", img: "assets/medchem/metoclopramide.png",
-  use: ["{{抗精神病|用途}}、最常用的{{止吐藥|用途}}★（Promeran）"],
-  bold: [
-    "{{Benzamide|結構}}★衍生物；苯環上有 Cl 取代",
-    "{{D₂ 受體拮抗劑|機轉}}；增加胃的收縮力，可促進腸胃蠕動★與胃部排空"
-  ] },
-{ id: "sulpiride", chapter: 5, name: "S-(-)-Sulpiride", short: "Sulpiride", type: "drug", group: "第一代：Benzamide", source: "統整（一）p.57", img: "assets/medchem/sulpiride.png",
-  use: ["{{抗精神病|用途}}（錐體外副作用較小）"],
-  bold: [
-    "末端環化成 pyrrolidine（字尾 -piride）；具有 {{Sulfonamide|結構}}、Benzamide 結構",
-    "{{水溶性高|性質}}，難以通過 BBB → 口服吸收率低、效價低"
-  ] },
-{ id: "amisulpiride", chapter: 5, name: "Amisulpiride", type: "drug", group: "第一代：Benzamide", source: "統整（一）p.57", img: "assets/medchem/amisulpiride.png",
-  use: ["{{抗精神病|用途}}"],
-  bold: [
-    "為 Sulpiride 之對位胺基-外消旋同類物（racemic para-amino congener）；具有 {{Sulfone|結構}} 結構"
-  ] },
-{ id: "remoxipride", chapter: 5, name: "Remoxipride", type: "drug", group: "第一代：Benzamide", source: "統整（一）p.57", img: "assets/medchem/remoxipride.png",
-  use: ["{{抗精神病|用途}}（已下市）"],
-  bold: [
-    "苯環上有 {{Br|取代基}} 取代",
-    "效價與 Haloperidol 相似，但錐體外作用、自主神經副作用較少",
-    "造成{{再生不良性貧血|副作用}}（Aplastic anemia），已下市"
-  ] },
+/* ===== 第 5 章 抗精神病藥物（統整（一）伍 精神疾病相關藥物，p.49–62）===== */
+/* 照講義逐字：疾病介紹、副作用總整理、總整理放在告示牌（知識樹 ch5，沒有分類的卡片）；各類的分類表、SAR、※ 註解放進各自的小白標。
+   藥物格子的欄位照講義表格（特性／藥理及臨床應用）；p.58「結構補充」欄的結構放在格子的結構圖旁邊（imgMore）。
+   行首「- 」＝子項目、「> 」＝接續行，[u]…[/u]＝底線、[i]…[/i]＝斜體 */
 
-/* 二、第二代精神病藥物（非典型）：主要阻斷 5-HT₂ receptor */
-{ id: "ap2-misc", chapter: 5, name: "第二代（非典型）總論", short: "第二代總論", type: "topic", group: "第二代：總論", source: "統整（一）p.56",
-  bold: ["第二代精神病藥物（非典型）主要阻斷 {{5-HT₂|受體}} receptor"] },
-{ id: "aripiprazole-ap", chapter: 5, name: "Aripiprazole", type: "drug", group: "第二代：Miscellaneous", source: "統整（一）p.58", img: "assets/medchem/aripiprazole.png",
-  use: ["{{抗精神病|用途}}、抗憂鬱"],
-  bold: [
-    "{{Arylpiperazine quinolinone|結構}}★衍生物（Aryl- 表示芳香環上有 piperazine 取代）"
-  ] },
-{ id: "molindone", chapter: 5, name: "Molindone", type: "drug", group: "第二代：Miscellaneous", source: "統整（一）p.58", img: "assets/medchem/molindone.png",
-  use: ["{{抗精神病|用途}}"],
-  bold: [
-    "{{Tetrahydro-indole|結構}} 的酮類衍生物（六元環上的兩個雙鍵被飽和）",
-    "與 Ondansetron★同屬 {{β-aminoketones|結構}}★（Ondansetron 為 5-HT₃ 拮抗劑，用於止吐）",
-    "具有 {{Morpholine|結構}} 取代基"
-  ] },
-{ id: "sertindole", chapter: 5, name: "Sertindole", type: "drug", group: "第二代：Miscellaneous", source: "統整（一）p.58", img: "assets/medchem/sertindole.png",
-  use: ["{{抗精神病|用途}}"],
-  bold: [
-    "{{Indole|結構}} 結構之衍生物；具有 imidazolin-2-one 取代基、piperidine 結構（比較：Aripiprazole 含 piperazine）",
-    "和血清素（Serotonin）有類似結構"
-  ] },
-/* Benzazepine（-apine） */
-{ id: "benzazepine-table", chapter: 5, name: "Benzazepine 類結構總覽", short: "Benzazepine 總覽", type: "topic", group: "第二代：Benzazepine", source: "統整（一）p.59",
-  bold: [
-    "Clozapine：X=N、R=CH₃、兩苯環、8-Cl",
-    "Olanzapine：X=N、R=CH₃、苯環+{{thiophene|結構}}、CH₃",
-    "Loxapine：X={{O|離子}}、R=CH₃、兩苯環、2-Cl",
-    "Quetiapine：X={{S|離子}}、兩苯環",
-    "Asenapine：X=O、兩苯環、3-Cl；10-11 雙鍵被飽和，且 10 號 N 被取代成 C（{{pyrrolidine-fused|結構}}，非 piperazine）"
-  ] },
-{ id: "clozapine-ap", chapter: 5, name: "Clozapine", type: "drug", group: "第二代：Benzazepine", source: "統整（一）p.59", img: "assets/medchem/clozapine-ap.png",
-  use: ["{{抗精神病|用途}}（Clozaril，第二代之原型 Prototype）"],
-  bold: [
-    "為 {{Dibenzodiazepine|結構}}★結構；苯環上有 8-Cl 取代",
-    "為多種 GPCRs 之拮抗劑；對 {{D₄ 受體|標的}}有高親和性 → EPS 最少；長期使用不會造成 Tardive dyskinesia",
-    "副作用：{{顆粒性白血球缺乏|副作用}}（Agranulocytosis）、體重增加、鎮靜、癲癇"
-  ] },
-{ id: "olanzapine", chapter: 5, name: "Olanzapine", type: "drug", group: "第二代：Benzazepine", source: "統整（一）p.59", img: "assets/medchem/olanzapine.png",
-  use: ["{{抗精神病|用途}}"],
-  bold: [
-    "為 {{Thienobenzodiazepine|結構}} 結構；含有 Thiophene 結構；多由 {{CYP1A2|酵素}} 代謝",
-    "對 D₂ 和 5-HT₂A 受體有高親和力；{{體重增加|副作用}}副作用最明顯★，但不會造成顆粒性白血球缺乏"
-  ] },
-{ id: "loxapine", chapter: 5, name: "Loxapine", type: "drug", group: "第二代：Benzazepine", source: "統整（一）p.60", img: "assets/medchem/loxapine.png",
-  use: ["{{抗精神病|用途}}"],
-  bold: [
-    "為 {{Dibenzooxazepine|結構}} 結構；苯環上有 2-Cl 取代",
-    "對 D₂、5-HT₁、H₁ 受體有高親和力，但為弱的 M₁ 拮抗劑；活性代謝物對 D₂ 的親和力更強",
-    "N-去甲基後的代謝物 {{Amoxapine|代謝物}} 被用作抗憂鬱藥物"
-  ] },
-{ id: "quetiapine", chapter: 5, name: "Quetiapine", type: "drug", group: "第二代：Benzazepine", source: "統整（一）p.60", img: "assets/medchem/quetiapine.png",
-  use: ["{{抗精神病|用途}}"],
-  bold: [
-    "為 {{Dibenzothiazepine|結構}} 結構；多由 {{CYP3A4|酵素}} 代謝；活性代謝物：7-hydroxyquetiapine",
-    "對 H₁ 受體有高度親和力；對 D₂/₃、5-HT₂A 有中度親和力；對 M₁ 為弱的拮抗劑（因側鏈非甲基）"
-  ] },
-{ id: "asenapine", chapter: 5, name: "Asenapine", type: "drug", group: "第二代：Benzazepine", source: "統整（一）p.60", img: "assets/medchem/asenapine.png",
-  use: ["{{抗精神病|用途}}"],
-  bold: [
-    "為 {{Dihydrodibenzoxepine|結構}} 結構；苯環上有 Cl 取代；由 piperazine 變成 pyrrolidine-fused 結構 → 沒有 piperazine ring",
-    "對 {{5-HT|受體}} 受體有超高親和力；副作用 EPS 較預期輕微，體重增加狀況較 Olanzapine 少；經腎臟、糞便排除"
-  ] },
-/* Benzisoxazole／Benzisothiazole */
-{ id: "benzisox-table", chapter: 5, name: "Benzisoxazole／Benzisothiazole 總覽", short: "Benzisoxazole 總覽", type: "topic", group: "第二代：Benzisoxazole/thiazole", source: "統整（一）p.61",
-  bold: [
-    "此類藥物為選擇性 monoamine neurotransmitter 拮抗劑，主要阻斷 {{5-HT₂A|受體}} 受體",
-    "Benzisoxazole（字尾 -peridone）：X=CH（Piperidine）、Y={{O|離子}}、Z=F",
-    "Benzisothiazole（字尾 -rasidone）：X=N（Piperazine）、Y={{S|離子}}、Z=H（苯環無取代）"
-  ] },
-{ id: "risperidone", chapter: 5, name: "Risperidone", type: "drug", group: "第二代：Benzisoxazole（-peridone）", source: "統整（一）p.61", img: "assets/medchem/risperidone.png",
-  use: ["{{抗精神病|用途}}（最容易發生高泌乳血症）"],
-  bold: [
-    "R=H；經 {{9-hydroxylation|代謝}} 後變成活性代謝物 {{Paliperidone|代謝物}}；主要由 CYP2D6/3A4 代謝",
-    "半衰期約為 {{22 小時|數值}}；最容易發生高泌乳血症"
-  ] },
-{ id: "paliperidone", chapter: 5, name: "Paliperidone", type: "drug", group: "第二代：Benzisoxazole（-peridone）", source: "統整（一）p.61",
-  use: ["{{抗精神病|用途}}"],
-  bold: [
-    "R={{OH|取代基}}；為 Risperidone（R=H）經 9-hydroxylation 後的活性代謝物（結構見 Risperidone）",
-    "半衰期約為 22 小時；最容易發生高泌乳血症"
-  ] },
-{ id: "iloperidone", chapter: 5, name: "Iloperidone", type: "drug", group: "第二代：Benzisoxazole（-peridone）", source: "統整（一）p.61", img: "assets/medchem/iloperidone.png",
-  use: ["{{抗精神病|用途}}"],
-  bold: [
-    "結構與 GPCR 結合位皆與 Risperidone 相似；主要由 CYP3A4、CYP2D6 代謝 → {{O-demethylation|代謝}} 產生活性代謝物"
-  ] },
-{ id: "ziprasidone", chapter: 5, name: "Ziprasidone", type: "drug", group: "第二代：Benzisothiazole（-rasidone）", source: "統整（一）p.62", img: "assets/medchem/ziprasidone.png",
-  use: ["{{抗精神病|用途}}（體重增加作用最不明顯）"],
-  bold: [
-    "R group 具有 {{Cl|取代基}} 取代基；主要由 CYP3A4、{{Aldehyde oxidase|酵素}} 進行代謝",
-    "口服生體可用率約 60%，與脂肪類食物併服可增加吸收；{{體重增加|副作用}}作用最不明顯"
-  ] },
-{ id: "lurasidone", chapter: 5, name: "Lurasidone", type: "drug", group: "第二代：Benzisothiazole（-rasidone）", source: "統整（一）p.62", img: "assets/medchem/lurasidone.png",
-  use: ["{{抗精神病|用途}}（Once-daily dosing）"],
-  bold: [
-    "側鏈由 {{Succinimide|結構}} 和 Norbornane 兩個環狀結構融合而成；主要由 CYP3A4 代謝",
-    "半衰期約 18 小時，適合做成每日服用一次的劑型"
-  ] },
-{ id: "perospirone", chapter: 5, name: "Perospirone", type: "drug", group: "第二代：Benzisothiazole（-rasidone）", source: "統整（一）p.62", img: "assets/medchem/perospirone.png",
-  use: ["{{抗精神病|用途}}（在日本上市）"],
-  bold: ["Benzisothiazole 類衍生物（補充），在{{日本|名詞}}上市"] },
+/* 一、第一代：Phenothiazine（PTZ）類衍生物 > Aliphatic 直鏈衍生物 */
+{ id: "chlorpromazine", chapter: 5, name: "Chlorpromazine", type: "drug", group: "Aliphatic 直鏈衍生物（字尾-promazine）", source: "統整（一）p.52", img: "assets/medchem/ap-chlorpromazine.png",
+  use: ["（CPZ）"],
+  feat: ["2 號位上有 {{Cl|取代基|CF₃}} 取代基",
+    "10 號位有 propyldimethylamino group（{{三級胺|結構|二級胺}}）",
+    "為了模仿 Dopamine 的構型，直鏈胺基支鏈會{{偏向含有氯取代的環|結構}}",
+    "代謝：由 {{CYP2D6|酵素}} 進行 C₇-Hydroxylation（箭頭處）；",
+    "> {{Sulfoxide|代謝物}} 代謝物沒有活性★"],
+  pharm: ["{{鎮靜|副作用}}副作用最強",
+    "具有{{光敏感性|性質}}"] },
+{ id: "triflupromazine", chapter: 5, name: "Triflupromazine", type: "drug", group: "Aliphatic 直鏈衍生物（字尾-promazine）", source: "統整（一）p.52", img: "assets/medchem/ap-triflupromazine.png",
+  feat: ["2 號位上有 {{CF₃|取代基|Cl}} 取代基"] },
+
+/* PTZ > Piperidine 衍生物 */
+{ id: "thioridazine", chapter: 5, name: "Thioridazine", type: "drug", group: "Piperidine 衍生物（字尾-ridazine）", source: "統整（一）p.52", img: "assets/medchem/ap-thioridazine.png",
+  feat: ["2 號位上有 {{-SCH₃|取代基|-CF₃/-Cl}} 取代基",
+    "Thioridazine [u]氧化[/u]代謝為{{兩倍活性代謝物|代謝物}} Mesoridazine",
+    "代謝後多巴胺受體效價從 10nM→4nM",
+    "> （藥物會拮抗多巴胺受體）"] },
+{ id: "mesoridazine", chapter: 5, name: "Mesoridazine", type: "drug", group: "Piperidine 衍生物（字尾-ridazine）", source: "統整（一）p.52", img: "assets/medchem/ap-mesoridazine.png",
+  feat: ["Thioridazine [u]氧化[/u]代謝為兩倍活性代謝物 {{Mesoridazine|藥名|Thioridazine}}",
+    "代謝後多巴胺受體效價從 {{10nM→4nM|數值}}",
+    "> （藥物會拮抗多巴胺受體）"],
+  pharm: ["※ meso：甲基接在 {{S|結構|N}} 上"] },
+
+/* PTZ > Piperazine 衍生物 */
+{ id: "perphenazine", chapter: 5, name: "Perphenazine", type: "drug", group: "Piperazine 衍生物（末端 OH 字尾-phenazine；末端 CH₃ 字尾-perazine）", source: "統整（一）p.53", img: "assets/medchem/ap-perphenazine.png",
+  feat: ["Piperazine 末端有-NCH₂CH₂{{OH|取代基|CH₃}}",
+    "2 號位上有 {{Cl|取代基|CF₃}} 取代基",
+    "> （結構與 chlorpromazine 相似）"],
+  pharm: ["末端 OH 可做成[u]脂肪酸鹽類[/u]：",
+    "> Perphenazine {{enanthate|名詞}}",
+    "→ {{長效 IM 注射|給藥途徑}}"] },
+{ id: "fluphenazine", chapter: 5, name: "Fluphenazine", type: "drug", group: "Piperazine 衍生物（末端 OH 字尾-phenazine；末端 CH₃ 字尾-perazine）", source: "統整（一）p.53", img: "assets/medchem/ap-fluphenazine.png",
+  feat: ["Piperazine 末端有-NCH₂CH₂OH",
+    "2 號位上有 {{CF₃|取代基|Cl}}★取代基",
+    "> （結構與 triflupromazine 相似）"],
+  pharm: ["末端 OH 可做成[u]酯類前驅藥[/u]：",
+    "> Fluphenazine {{decanoate|名詞}}/enanthate",
+    "→ 長效 IM 注射★",
+    "{{高效價|性質|低效價}}，有嚴重錐體外作用(EPS)"] },
+{ id: "trifluperazine", chapter: 5, name: "Trifluperazine", type: "drug", group: "Piperazine 衍生物（末端 OH 字尾-phenazine；末端 CH₃ 字尾-perazine）", source: "統整（一）p.53", img: "assets/medchem/ap-trifluperazine.png",
+  feat: ["Piperazine 末端有-{{CH₃|取代基|OH}}",
+    "結構與 {{Fluphenazine|藥名}} 相似"],
+  pharm: ["高效價，有嚴重{{錐體外作用(EPS)|副作用}}"] },
+{ id: "prochlorperazine", chapter: 5, name: "Prochlorperazine", type: "drug", group: "Piperazine 衍生物（末端 OH 字尾-phenazine；末端 CH₃ 字尾-perazine）", source: "統整（一）p.53", img: "assets/medchem/ap-prochlorperazine.png",
+  feat: ["末端有-{{CH₃|取代基|OH}}，結構與 Perphenazine 相似"] },
+{ id: "thiethylperazine", chapter: 5, name: "Thiethylperazine", type: "drug", group: "Piperazine 衍生物（末端 OH 字尾-phenazine；末端 CH₃ 字尾-perazine）", source: "統整（一）p.53", img: "assets/medchem/ap-thiethylperazine.png",
+  feat: ["末端有-CH₃，結構與 {{Thioridazine|藥名|Perphenazine}} 相似"] },
+{ id: "acetophenazine", chapter: 5, name: "Acetophenazine", type: "drug", group: "Piperazine 衍生物（末端 OH 字尾-phenazine；末端 CH₃ 字尾-perazine）", source: "統整（一）p.53", img: "assets/medchem/ap-acetophenazine.png",
+  feat: ["末端含 {{OH|取代基|CH₃}} 基"] },
+
+/* 第一代：Thioxanthene 類衍生物 */
+{ id: "thiothixene", chapter: 5, name: "Thiothixene", type: "drug", group: "第一代精神疾病藥物：Thioxanthene 類衍生物（名字中有-thix-）", source: "統整（一）p.54", img: "assets/medchem/ap-thiothixene.png",
+  feat: ["具有 {{Sulfonamide|結構}} 結構",
+    "{{cis form（Z form）|結構|trans form（E form）}} 的活性較強",
+    "可製成 hydrochloride 鹽類"] },
+{ id: "flupenthixol", chapter: 5, name: "Flupenthixol", type: "drug", group: "第一代精神疾病藥物：Thioxanthene 類衍生物（名字中有-thix-）", source: "統整（一）p.54", img: "assets/medchem/ap-flupenthixol.png",
+  feat: ["末端 piperazine 上的 OH 可被做成脂肪酸鹽類 Flupenthixol {{decanoate|名詞}}",
+    "用於{{長效 IM 注射|給藥途徑}}"] },
+
+/* 第一代：Butyrophenone 類衍生物 */
+{ id: "haloperidol", chapter: 5, name: "Haloperidol", type: "drug", group: "第一代精神疾病藥物：Butyrophenone 類衍生物（字尾-peridol / -perone）", source: "統整（一）p.55", img: "assets/medchem/ap-haloperidol.png",
+  use: ["（Halo：含 F、Cl [u]兩種[/u]鹵素）"],
+  feat: ["R group 有 {{OH|取代基|C=O}} 基團（-peridol）",
+    "具有 [u]Fluorobutyrophenone[/u] 結構",
+    "Piperidine 與羰基相隔 {{3C|數值}} 時，活性最強",
+    "苯環的{{對位|位置}}有 F 取代→減少藥物被代謝去活化",
+    "代謝：高低劑量有不同代謝酵素",
+    "> CYP3A4(高)、{{CYP2D6|酵素}}(低)、CYP1A2(抽菸)",
+    "代謝物 [i]p[/i]-fluorophenylacetic acid 和 {{glycine|物質}} 結合"],
+  pharm: ["{{高效價|性質|低效價}}，有最嚴重錐體外作用(EPS)",
+    "可製成脂肪酸鹽類 decanoate",
+    "→ 長效 IM 注射",
+    "遲發性運動困難 {{Tardive dyskinesia|副作用}}",
+    "> 代謝後產物[u]不可逆烷化[/u] D₂ 受體，使受體過度敏感而讓運動機能亢進",
+    "也會造成{{高泌乳素血症|副作用}}★"] },
+{ id: "droperidol", chapter: 5, name: "Droperidol", type: "drug", group: "第一代精神疾病藥物：Butyrophenone 類衍生物（字尾-peridol / -perone）", source: "統整（一）p.55", img: "assets/medchem/ap-droperidol.png",
+  feat: ["R group 有 {{C=O|取代基|OH}} 基團（Droperidol）",
+    "具有 [u]Fluorobutyrophenone[/u] 結構",
+    "具有 tetrahydropyridine 結構（有{{雙鍵|結構}}）",
+    "具有 {{imidazolone|取代基}} 取代基"],
+  pharm: ["{{短效型|作用時間|長效型}}★，還有鎮靜、麻醉、止吐的作用，用於麻醉前之處理",
+    "麻醉時會與止痛藥 {{Fentanyl|藥名}} 並用"] },
+{ id: "trifluperidol", chapter: 5, name: "Trifluperidol", type: "drug", group: "第一代精神疾病藥物：Butyrophenone 類衍生物（字尾-peridol / -perone）", source: "統整（一）p.55", img: "assets/medchem/ap-trifluperidol.png",
+  feat: ["R group 含 {{-OH|取代基|C=O}}"] },
+{ id: "spiperone", chapter: 5, name: "Spiperone", type: "drug", group: "第一代精神疾病藥物：Butyrophenone 類衍生物（字尾-peridol / -perone）", source: "統整（一）p.55", img: "assets/medchem/ap-spiperone.png",
+  feat: ["R group 含 {{C=O|取代基|-OH}}",
+    "具有 {{Spiro 螺環|結構}}結構"] },
+
+/* 第一代：Diphenylbutyl piperidine 類衍生物 */
+{ id: "pimozide", chapter: 5, name: "Pimozide", type: "drug", group: "第一代精神疾病藥物：Diphenylbutyl piperidine 類衍生物", source: "統整（一）p.56", img: "assets/medchem/ap-pimozide.png",
+  feat: ["結構與 {{Droperidol|藥名}} 相似，差異在 piperidine 及 C=O 基被取代為 4-Fluorophenyl",
+    "→ 具有 {{di-4-fluorophenylmethane|結構}} 結構"],
+  pharm: ["治療 {{Tourette syndrome|疾病}}"] },
+{ id: "penfluridol", chapter: 5, name: "Penfluridol", type: "drug", group: "第一代精神疾病藥物：Diphenylbutyl piperidine 類衍生物", source: "統整（一）p.56", img: "assets/medchem/ap-penfluridol.png",
+  feat: ["結構中共有{{五個|數值|四個}} F 原子（[u]Pentaflu[/u]ridol）"] },
+{ id: "fluspirilene", chapter: 5, name: "Fluspirilene", type: "drug", group: "第一代精神疾病藥物：Diphenylbutyl piperidine 類衍生物", source: "統整（一）p.56", img: "assets/medchem/ap-fluspirilene.png",
+  feat: ["具有{{螺環（Spiro）|結構}}結構",
+    "結構與 {{Spiperone|藥名}} 相似"] },
+
+/* 第一代：Benzamide 類衍生物 */
+{ id: "metoclopramide", chapter: 5, name: "Metoclopramide", type: "drug", group: "第一代精神疾病藥物：Benzamide 類衍生物", source: "統整（一）p.57", img: "assets/medchem/ap-metoclopramide.png",
+  feat: ["{{Benzamide|結構}}★衍生物",
+    "苯環上有 {{Cl|取代基}} 取代（Meto[u]clo[/u]pramide）"],
+  pharm: ["D₂ 受體拮抗劑：",
+    "> 抗精神病、最常用的{{止吐藥|用途}}★",
+    "增加胃的收縮力，可{{促進腸胃蠕動|用途}}★與胃部排空（Promeran®）"] },
+
+/* Benzamide > 末端環化成 pyrrolidine */
+{ id: "sulpiride", chapter: 5, name: "S-(-)-Sulpiride", short: "Sulpiride", type: "drug", group: "末端環化成 pyrrolidine，字尾-piride", source: "統整（一）p.57", img: "assets/medchem/ap-sulpiride.png",
+  feat: ["具有 {{Sulfonamide|結構|Sulfone}}、Benzamide 結構"],
+  pharm: ["{{水溶性高|性質|脂溶性高}}，難以通過 BBB",
+    "→ 口服吸收率低，效價低",
+    "錐體外副作用較{{小|性質|大}}"] },
+{ id: "amisulpiride", chapter: 5, name: "Amisulpride", type: "drug", group: "末端環化成 pyrrolidine，字尾-piride", source: "統整（一）p.57", img: "assets/medchem/ap-amisulpiride.png",
+  feat: ["為 Sulpiride 之{{對位胺基|取代基}}-外消旋同類物",
+    "> （racemic para-[u]amino[/u] congener）",
+    "具有 {{Sulfone|結構|Sulfonamide}} 結構"] },
+{ id: "remoxipride", chapter: 5, name: "Remoxipride", type: "drug", group: "末端環化成 pyrrolidine，字尾-piride", source: "統整（一）p.57", img: "assets/medchem/ap-remoxipride.png",
+  feat: ["苯環上有 {{Br|取代基|Cl}} 取代"],
+  pharm: ["效價與 [u]Haloperidol[/u] 相似，但錐體外作用、自主神經副作用較少",
+    "造成{{再生不良性貧血|副作用}}，已下市",
+    "> （Aplastic anemia）"] },
+
+/* 二、第二代：Miscellaneous 雜類藥物（結構補充欄的結構放在 imgMore） */
+{ id: "aripiprazole-ap", chapter: 5, name: "Aripiprazole", type: "drug", group: "第二代精神疾病藥物：Miscellaneous 雜類藥物", source: "統整（一）p.58", img: "assets/medchem/ap-aripiprazole.png", imgMore: ["assets/medchem/ap-quinolinone.png"],
+  use: ["精神病、抗憂鬱"],
+  feat: ["{{Arylpiperazine quinolinone|結構}}★衍生物",
+    "> Aryl-表示芳香環上具有取代基，表示{{芳香環上有 piperazine 取代|結構}}"] },
+{ id: "molindone", chapter: 5, name: "Molindone", type: "drug", group: "第二代精神疾病藥物：Miscellaneous 雜類藥物", source: "統整（一）p.58", img: "assets/medchem/ap-molindone.png", imgMore: ["assets/medchem/ap-morpholine.png", "assets/medchem/ap-tetrahydroindole.png"],
+  feat: ["Tetrahydro-indole 的{{酮類|結構}}衍生物",
+    "> （六元環上的[u]兩個[/u]雙鍵被飽和）",
+    "與 {{Ondansetron|藥名}}★同屬β-aminoketones★",
+    "> （Ondansetron 為 5-HT₃ 拮抗劑，用於止吐）",
+    "具有 {{Morpholine|結構|Piperazine}} 取代基"] },
+{ id: "sertindole", chapter: 5, name: "Sertindole", type: "drug", group: "第二代精神疾病藥物：Miscellaneous 雜類藥物", source: "統整（一）p.58", img: "assets/medchem/ap-sertindole.png", imgMore: ["assets/medchem/ap-indole.png", "assets/medchem/ap-imidazolinone.png"],
+  feat: ["{{Indole|結構}} 結構之衍生物（Sert[u]indole[/u]）",
+    "具有 imidazolin-2-one 取代基",
+    "具有 {{piperidine|結構|piperazine}} 結構",
+    "> 比較 Aripiprazole 含有 piperazine 結構",
+    "和血清素（Serotonin）有類似結構（[u]Sert[/u]indole）"] },
+
+/* 第二代：Benzazepine 類衍生物 */
+{ id: "clozapine-ap", chapter: 5, name: "Clozapine", type: "drug", group: "第二代精神疾病藥物：Benzazepine 類衍生物（字尾-apine）", source: "統整（一）p.59", img: "assets/medchem/ap-clozapine.png",
+  use: ["（Clozaril®）"],
+  feat: ["為 [u]Dibenzodiazepine[/u]★結構",
+    "苯環上有 {{8-Cl|取代基|2-Cl}} 取代（[u]Clo[/u]zapine）",
+    "為第二代藥物之{{原型|名詞}}（Prototype）"],
+  pharm: ["為多種 GPCRs 之拮抗劑",
+    "對 {{D₄|受體|D₂}} 受體有高親和性 →{{EPS 最少|副作用}}",
+    "長期使用不會造成 Tardive dyskinesia",
+    "副作用：",
+    "> {{顆粒性白血球缺乏|副作用}} Agranulocytosis、體重增加、鎮靜、癲癇"] },
+{ id: "olanzapine", chapter: 5, name: "Olanzapine", type: "drug", group: "第二代精神疾病藥物：Benzazepine 類衍生物（字尾-apine）", source: "統整（一）p.59", img: "assets/medchem/ap-olanzapine.png",
+  feat: ["為 {{Thienobenzodiazepine|結構}} 結構",
+    "含有 {{Thiophene|結構}} 結構",
+    "多由 {{CYP1A2|酵素|CYP3A4}} 代謝"],
+  pharm: ["對 D₂ 和 {{5-HT₂A|受體}} 受體有高親和力",
+    "{{體重增加|副作用}}副作用最明顯★",
+    "副作用與 Clozapine 相似，但不會造成顆粒性白血球缺乏"] },
+{ id: "loxapine", chapter: 5, name: "Loxapine", type: "drug", group: "第二代精神疾病藥物：Benzazepine 類衍生物（字尾-apine）", source: "統整（一）p.60", img: "assets/medchem/ap-loxapine.png",
+  feat: ["為 [u]Dibenzoxazepine[/u] 結構",
+    "苯環上有 {{2-Cl|取代基|8-Cl}} 取代"],
+  pharm: ["對 D₂ 和 5-HT₁、H₁ 受體有高親和力，但為弱的 {{M₁|受體}} 拮抗劑",
+    "活性代謝物對 D₂ 的親和力[u]更強[/u]",
+    "N-去甲基後的代謝物 {{Amoxapine|藥名}} 被用作抗憂鬱藥物"] },
+{ id: "quetiapine", chapter: 5, name: "Quetiapine", type: "drug", group: "第二代精神疾病藥物：Benzazepine 類衍生物（字尾-apine）", source: "統整（一）p.60", img: "assets/medchem/ap-quetiapine.png",
+  feat: ["為 [u]Dibenzothiazepine[/u] 結構",
+    "多由 {{CYP3A4|酵素|CYP1A2}} 代謝",
+    "活性代謝物：{{7-hydroxy|代謝物}}quetiapine"],
+  pharm: ["對 {{H₁|受體}} 受體有高度親和力；",
+    "> 對 D₂/₃、5-HT₂A 有中度親和力；",
+    "> 對 M₁ 為{{弱的拮抗劑|機轉}}（因側鏈非甲基）"] },
+{ id: "asenapine", chapter: 5, name: "Asenapine", type: "drug", group: "第二代精神疾病藥物：Benzazepine 類衍生物（字尾-apine）", source: "統整（一）p.60", img: "assets/medchem/ap-asenapine.png",
+  feat: ["為 {{Dihydrodibenzoxepine|結構}} 結構",
+    "苯環上有 Cl 取代",
+    "由 piperazine 變成 {{pyrrolidine-fused|結構}} 結構",
+    "→ 沒有 piperazine ring"],
+  pharm: ["對 {{5-HT|受體}} 受體有超高親和力",
+    "副作用：EPS 較預期輕微，體重增加狀況較 Olanzapine 少",
+    "經腎臟、糞便排除"] },
+
+/* 第二代：Benzisoxazole/Benzisothiazole > Benzisoxazole 類衍生物 */
+{ id: "risperidone", chapter: 5, name: "Risperidone", type: "drug", group: "Benzisoxazole 類衍生物（-peridone）", source: "統整（一）p.61", img: "assets/medchem/ap-risperidone.png",
+  feat: ["Risperidone：R=H",
+    "> Paliperidone：R=OH",
+    "Risperidone 經 {{9-hydroxylation|代謝}} 後，",
+    "> 變成{{活性代謝物|代謝物}} Paliperidone",
+    "主要由 CYP2D6/3A4 代謝"],
+  pharm: ["兩者之半衰期約為 {{22|數值}} 小時",
+    "最容易發生{{高泌乳血症|副作用}}"] },
+{ id: "paliperidone", chapter: 5, name: "Paliperidone", type: "drug", group: "Benzisoxazole 類衍生物（-peridone）", source: "統整（一）p.61", img: "assets/medchem/ap-risperidone.png",
+  feat: ["Risperidone：R=H",
+    "> Paliperidone：R={{OH|取代基|H}}",
+    "Risperidone 經 9-hydroxylation 後，",
+    "> 變成活性代謝物 Paliperidone",
+    "主要由 {{CYP2D6/3A4|酵素}} 代謝"],
+  pharm: ["兩者之半衰期約為 22 小時",
+    "最容易發生{{高泌乳血症|副作用}}"] },
+{ id: "iloperidone", chapter: 5, name: "Iloperidone", type: "drug", group: "Benzisoxazole 類衍生物（-peridone）", source: "統整（一）p.61", img: "assets/medchem/ap-iloperidone.png",
+  feat: ["結構與 GPCR 結合位皆與 {{Risperidone|藥名}} 相似",
+    "主要由 CYP3A4、CYP2D6 代謝",
+    "→ {{O-demethylation|代謝}} 產生活性代謝物"],
+  pharm: ["藥效與 Haloperidol、Risperidone、Ziprasidone 等其他抗精神病藥物相似"] },
+
+/* Benzisoxazole/Benzisothiazole > Benzisothiazole 類衍生物 */
+{ id: "ziprasidone", chapter: 5, name: "Ziprasidone", type: "drug", group: "Benzisothiazole 類衍生物（-rasidone）", source: "統整（一）p.62", img: "assets/medchem/ap-ziprasidone.png",
+  feat: ["R group 具有 {{Cl|取代基}} 取代基",
+    "主要由 CYP3A4、{{Aldehyde oxidase|酵素}} 進行代謝"],
+  pharm: ["口服生體可用率約 60%，與{{脂肪類食物|物質}}併服可增加吸收",
+    "體重增加作用[u]最不[/u]明顯"] },
+{ id: "lurasidone", chapter: 5, name: "Lurasidone", type: "drug", group: "Benzisothiazole 類衍生物（-rasidone）", source: "統整（一）p.62", img: "assets/medchem/ap-lurasidone.png", imgMore: ["assets/medchem/ap-succinimide-norbornane.png"],
+  feat: ["側鏈由 {{Succinimide|結構}} 和 {{Norbornane|結構}} 兩個環狀結構融合而成",
+    "主要由 CYP3A4 代謝"],
+  pharm: ["半衰期約 {{18|數值}} 小時，適合做成每日服用一次的劑型",
+    "> （Once-daily dosing）"] },
+{ id: "perospirone", chapter: 5, name: "Perospirone", type: "drug", group: "Benzisothiazole 類衍生物（-rasidone）", source: "統整（一）p.62", img: "assets/medchem/ap-perospirone.png",
+  use: ["（補充）"],
+  pharm: ["在{{日本|名詞}}上市"] },
 
 /* ===== 第 6 章 肌肉鬆弛劑及抗痙攣藥物（統整（一）陸，p.63–67）===== */
 /* 骨骼肌鬆弛劑：中樞性（Glycerol Monoethers、Substituted Alkanediols、Benzoxazole、Miscellaneous） */
@@ -2214,9 +2207,102 @@ PI.KNOWLEDGE = {
     ] },
   ch5: { chapter: 5, title: "抗精神病藥物",
     sections: [
-      { id: "overview", title: "總論", items: [{ unit: "ap-pathways" }, { unit: "ap-se-summary" }] },
-      { id: "gen1", title: "一、第一代（典型）", items: [{ unit: "ptz-sar" }, { unit: "butyrophenone" }] },
-      { id: "gen2", title: "二、第二代（非典型）", items: [{ unit: "ap2-misc" }, { unit: "benzazepine-table" }, { unit: "benzisox-table" }] }
+      { id: "overview", title: "※ 疾病介紹與藥物副作用", items: [
+        { title: "1. 思覺失調症/精神分裂症（Schizophrenia）", source: "統整（一）p.49", points: [
+          "(1) 與中腦邊緣系統（Mesolimbic-frontal pathway）中的{{多巴胺神經活動增加|機轉|多巴胺神經活動減少}}★有關"],
+          table: { head: ["Dopamine 傳導路徑", "功能", "阻斷後之情形"], cols: ["Dopamine 傳導路徑", "功能", "阻斷後之情形"],
+            rowNames: ["黑質紋狀體（Nigrostriatal）", "中腦皮質與邊緣系統（Mesocortical & Mesolimbic）", "結節漏斗（Tuberoinfundibular）"],
+            rows: [
+              ["黑質紋狀體\n（Nigrostriatal）", "運動", "產生{{錐體外作用（EPS）|副作用}}\n→ 類似帕金森氏症的症狀"],
+              ["中腦皮質與邊緣系統\n（Mesocortical & Mesolimbic）", "情緒、行為", "可改善{{精神分裂症|疾病}}之症狀\n→ Mesocortical 與{{負向|名詞|正向}}情緒有關\n→ Mesolimbic 與正向情緒有關"],
+              ["結節漏斗\n（Tuberoinfundibular）", "荷爾蒙", "導致{{泌乳激素分泌增加|副作用}}（Prolactin）\n→ 可使用 Bromocriptine 治療"]] } },
+        { title: "多巴胺與抗精神病藥物", source: "統整（一）p.49", points: [
+          "(2) 多巴胺分泌[u]過多[/u]：{{精神分裂症|疾病|帕金森氏症}}★、藥物或酒精濫用",
+          "> 多巴胺分泌[u]過少[/u]：{{帕金森氏症|疾病|精神分裂症}}★、高泌乳激素血症",
+          "(3) 大多數的抗精神病藥物可{{阻斷|機轉|活化}}中樞神經系統的節後 {{D₂ receptor|受體}}（邊緣系統的 Dopamine 過多產生正向症狀）",
+          "(4) 因多巴胺神經元之抑制作用在正常情況下可藉由膽鹼性神經元的興奮作用來達到平衡",
+          "→ Anticholinergic agents（如 {{Benztropine|藥名}}）可改善錐體外症狀的副作用",
+          "※ 本章藥物主要以 D₂-receptor blockers 為主（以 mesolimbic-frontal pathway 為主）"] },
+        { title: "2. 藥物副作用總整理", source: "統整（一）p.50",
+          table: { head: [{ t: "藥物", cs: 2 }, "EPS", "抗膽鹼作用", "體重增加", "高泌乳激素血症", "鎮靜"], rows: [
+            [{ t: "第一代抗精神疾病藥物", cs: 7, band: true }],
+            [{ t: "低效價", rs: 3 }, "Chlorpromazine", "+++", "+++", "++", "+++", { t: "++++", s: true }],
+            [null, "Thioridazine", "+++", "++++", "+", "+++", "+++"],
+            [null, "Thiothixene", { t: "++++", s: true }, "+", "+", "++++", "+"],
+            [{ t: "高效價", rs: 2 }, "Fluphenazine", { t: "++++", s: true }, "+", "+", "++++", "+"],
+            [null, "Haloperidol", { t: "++++", s: true }, "+", "+", "++++", "+"],
+            [{ t: "第二代抗精神疾病藥物", cs: 7, band: true }],
+            [{ t: "Aripiprazole", cs: 2 }, "+", "+", "+", "+", "+"],
+            [{ t: "Clozapine", cs: 2 }, "+", "++++", "+++", "+", "++++"],
+            [{ t: "Olanzapine", cs: 2 }, "++", "++", { t: "++++", s: true }, "+", "++"],
+            [{ t: "Risperidone", cs: 2 }, "++", "+", "++", { t: "++++", s: true }, "+"],
+            [{ t: "Paliperidone", cs: 2 }, "++", "+", "++", { t: "++++", s: true }, "+"]] } },
+        { title: "副作用重點", source: "統整（一）p.50", points: [
+          "(1) 錐體外症狀：主要由{{第一代|藥物類別|第二代}}★抗精神病藥物引起，會產生類帕金森氏症的症狀",
+          "(2) 高泌乳激素血症：Prolactin 的分泌會被 Dopamine 所抑制；{{Risperidone|藥名|Olanzapine/Clozapine}}★、Paliperidone 容易產生此副作用",
+          "(3) 顆粒性白血球減少：嚴重程度 {{Clozapine|藥名|Olanzapine/Risperidone}}★ > Chlorpromazine > Olanzapine",
+          "(4) 體重增加：{{第二代|藥物類別|第一代}}抗精神病藥物較容易產生，推測與阻斷 5-HT 受體有關；增加程度 {{Olanzapine|藥名|Risperidone/Quetiapine}}★ > Risperidone > Quetiapine"] }
+      ] },
+      { id: "gen1", title: "一、第一代精神疾病藥物（典型）", items: [
+        { group: "第一代精神疾病藥物：Phenothiazine（PTZ）類衍生物", source: "統整（一）p.51", points: [
+          "第一代主要治療{{正向|名詞|負向}}症狀，且具有止吐作用（第二代無止吐作用）",
+          "依據不同的 {{N-10|位置|C-2}} 取代基分為以下三類："],
+          structs: ["assets/medchem/ap-phenothiazine.png"],
+          table: { head: [{ t: "分類", cs: 2 }, "活性", "EPS", "鎮靜", "字尾"], cols: ["分類", "分類", "活性", "EPS", "鎮靜", "字尾"],
+            rowNames: ["Aliphatic 直鏈衍生物", "Piperidine 衍生物", "Piperazine 衍生物末端接-CH₃", "Piperazine 衍生物末端接-OH"],
+            rows: [
+              [{ t: "Aliphatic 直鏈衍生物", cs: 2 }, null, "最弱", "最弱", { t: "{{最強|性質|最弱}}★", s: true }, "-promazine"],
+              [{ t: "Piperidine 衍生物", cs: 2 }, null, "↓", "↓", "↓", "{{-ridazine|名詞|-perazine/-phenazine}}"],
+              [{ t: "Piperazine 衍生物", rs: 2 }, "末端接-CH₃", "↓", "↓", "↓", "-perazine"],
+              [null, "末端接-OH", "最強", { t: "{{最強|性質|最弱}}★", s: true }, "最弱", "{{-phenazine|名詞|-perazine/-promazine}}"]] } },
+        { title: "結構修飾與 SAR★ → 模擬 Dopamine 結構", group: "第一代精神疾病藥物：Phenothiazine（PTZ）類衍生物", source: "統整（一）p.51",
+          images: ["assets/medchem/ap-ptz-sar.png"],
+          table: { rowNames: ["Site A", "Site B", "Site C"], rows: [
+            [{ t: "Site A", b: true }, "● 當末端從-CH₃ 變成-{{NC₂H₅OH|取代基}} 時，為最強效之 PTZs"],
+            [{ t: "Site B", b: true }, "● 只有{{三個碳|數值|兩個碳}}★的長度才具抗精神病活性，且三個碳上都不可有分支\n● 若為兩個碳的長度，則具抗組織胺 H₁、抗毒蕈鹼活性，為{{帕金森氏症|疾病}}藥物"],
+            [{ t: "Site C", b: true }, "● Phenothiazine 之結構{{非同平面|結構}}，而是折成蝶翼的形狀\n● N-10 的側鏈必彎向 2 號碳上的取代基：Site A 和 C 必為 [u]cis form[/u]\n● 取代基只能在 [u]2 號碳[/u]★上（S 的對位），否則會影響抗精神病活性\n● 取代基為{{拉電子基|取代基|推電子基}}時，可增加活性\nex. -Cl、-CF₃★、-SCH₃、-SOCH₃、-COCH₃、-SC₂H₅"]] } },
+        { title: "SAR", group: "第一代精神疾病藥物：Thioxanthene 類衍生物（名字中有-thix-）", source: "統整（一）p.54", points: [
+          "C9 上接有{{烯雙鍵|結構}}（olefinic double bond）",
+          "→ 存在{{順反異構物|結構}}，且 [u]cis form[/u] 活性大",
+          "C9 若接飽和單鍵，活性會{{降低|性質|增加}}",
+          "其餘 SAR 與 Phenothiazine 類藥物相同"],
+          structs: ["assets/medchem/ap-thioxanthene.png"] },
+        { title: "※ 補充", group: "第一代精神疾病藥物：Thioxanthene 類衍生物（名字中有-thix-）", source: "統整（一）p.54", points: [
+          "※ 代謝：與 Phenothiazine 相似，但兩個芳香環{{不會|性質|會}} hydroxylation"] },
+        { title: "Butyrophenone（藥效基團）", group: "第一代精神疾病藥物：Butyrophenone 類衍生物（字尾-peridol / -perone）", source: "統整（一）p.55",
+          structs: ["assets/medchem/ap-butyrophenone.png"] },
+        { group: "第一代精神疾病藥物：Diphenylbutyl piperidine 類衍生物", source: "統整（一）p.56", points: [
+          "將 Butyrophenone 的酮基以 {{4-Fluorophenyl|取代基}} 取代，可有效{{降低藥物的代謝|性質}}，增強作用時間"] },
+        { title: "※ 國考", group: "第一代精神疾病藥物：Benzamide 類衍生物", source: "統整（一）p.57", points: [
+          "※ 國考：何者不是 Benzamide 類 5-HT₄ agonist 芳香環上常見之取代基？ {{-CF₃|取代基|-Cl/-OCH₃/-NH₂}}"] }
+      ] },
+      { id: "gen2", title: "二、第二代精神疾病藥物（非典型）：主要阻斷 5-HT₂ receptor", items: [
+        { title: "★ 結構總覽", group: "第二代精神疾病藥物：Benzazepine 類衍生物（字尾-apine）", source: "統整（一）p.59", points: [
+          "Asenapine 非 piperazine 結構，為 {{pyrrolidine-fused|結構}} 結構"],
+          structs: ["assets/medchem/ap-benzazepine-core.png"],
+          table: { head: ["藥物", "X", "R", "芳香環", "芳香環取代"], rows: [
+            ["Clozapine", "N", "CH₃", "兩苯環", "{{8-Cl|取代基|2-Cl/3-Cl}}"],
+            ["Olanzapine", "N", "CH₃", "苯環+{{thiophene|結構}}", "CH₃"],
+            ["Loxapine", "O", "CH₃", "兩苯環", "2-Cl"],
+            ["Quetiapine", "{{S|結構|N/O}}", "-CH₂CH₂OCH₂CH₂OH", "兩苯環", "-"],
+            ["Asenapine", "O", "CH₃", "兩苯環", "3-Cl"]],
+            note: "※ Asenapine 之 10-11 雙鍵被飽和，且 10 號 N 被取代成 C（詳見個論）" } },
+        { group: "第二代精神疾病藥物：Benzisoxazole/Benzisothiazole 類衍生物", source: "統整（一）p.61", points: [
+          "★ 此類藥物為選擇性 monoamine neurotransmitter 拮抗劑，主要阻斷 {{5-HT₂A|受體|D₂}} 受體"],
+          structs: ["assets/medchem/ap-benzisoxazole-core.png"],
+          table: { head: ["分類", "Benzisoxazole", "Benzisothiazole"], rows: [
+            ["X", "CH（Piperidine）", "N（Piperazine）"],
+            ["Y", "{{O|結構|S}}", "S"],
+            ["Z", "F", "H（苯環無取代）"],
+            ["字尾", "-[u]peri[/u]done", "-ra[u]si[/u]done"]] } }
+      ] },
+      { id: "summary", title: "總整理", items: [
+        { source: "統整（一）p.62", points: [
+          "※ 鎮靜最強：{{Chlorpromazine|藥名|Haloperidol/Thioridazine}}",
+          "※ EPS 錐體外作用最強：{{Haloperidol|藥名|Chlorpromazine/Clozapine}}",
+          "※ 最容易造成高泌乳血症：{{Risperidone|藥名|Olanzapine/Ziprasidone}}",
+          "※ 最不會增加體重：{{Ziprasidone|藥名|Olanzapine/Clozapine}}"] }
+      ] }
     ] },
   ch6: { chapter: 6, title: "肌肉鬆弛劑及抗痙攣藥物",
     sections: [
