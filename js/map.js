@@ -472,24 +472,34 @@ PI.map = (function () {
     groups.forEach(name => {
       let mine = isl.cells.filter(c => c.group === name);
       if (!mine.length) mine = isl.cells.filter(c => c.group && topOf(c.group) === name);
+      // 第三層小標（子分類）：字小一號、換顏色（和子分類的藍綠色框線同一色系）
+      const isSub = topOf(name) !== name, F0 = isSub ? 15 : FS0;
       const letters = labelOf(name).split("");
-      const raw = letters.reduce((s, ch) => s + advOf(ch, FS0), 0);
+      const raw = letters.reduce((s, ch) => s + advOf(ch, F0), 0);
       const scale = Math.min(1, Math.max(0.6, MAXW / raw));   // 太長就等比縮，但字級不低於 0.6
-      const fs = FS0 * scale, total = raw * scale;
+      const fs = F0 * scale, total = raw * scale;
       // 每個字的中心 x（相對名牌中心），依中英文各自的寬度累加
       let acc = -total / 2; const xs = letters.map(ch => { const a = advOf(ch, fs); const c = acc + a / 2; acc += a; return c; });
       // 名牌放在這一類某一排的上緣（從最上面一排開始試）
       const rows = [...new Set(mine.map(c => Math.round(c.ly)))].sort((a, b) => a - b);
       let cx, y;
       // 候選位置：每一排的上緣，再來每一排的下緣（只有一兩格的小分類常常上面已經有別的名牌）；都擠到時再左右挪一點試試
-      const base = [...rows.map(ry => [ry, -R * 0.4]), ...rows.slice().reverse().map(ry => [ry, R * 0.98])];
-      const cands = [0, 0.6, -0.6, 1.2, -1.2].flatMap(sx => base.map(([ry, dy]) => [ry, dy, sx * R]));
-      for (const [ry, dy, sx] of cands) {
+      // 每一排再加「格子中間」的位置（大分類和子分類常常共用最上面一排的上緣，會疊在一起）
+      const base = [...rows.map(ry => [ry, -R * 0.4]), ...rows.slice().reverse().map(ry => [ry, R * 0.98]), ...rows.map(ry => [ry, R * 0.35])];
+      const cands = [0, 0.6, -0.6, 1.2, -1.2, 1.8, -1.8].flatMap(sx => base.map(([ry, dy]) => [ry, dy, sx * R]))
+        // 最後再試每一格自己的位置（格子上緣／中間），大區塊裡總找得到空位
+        .concat(mine.flatMap(c => [-R * 0.4, R * 0.35].map(dy => [Math.round(c.ly), dy, null, c.lx])));
+      // 每個候選位置和已放好的名牌重疊多少；完全不重疊就用，都會重疊就挑重疊最少的（不再直接退回第一個位置）
+      const overlap = box => grpBoxes.reduce((s, b) => s + Math.max(0, Math.min(box[1], b[1]) - Math.max(box[0], b[0])) * Math.max(0, Math.min(box[3], b[3]) - Math.max(box[2], b[2])), 0);
+      let least = Infinity;
+      for (const [ry, dy, sx, cellX] of cands) {
         const row = mine.filter(c => Math.round(c.ly) === ry);
-        const x0 = row.reduce((s, c) => s + c.lx, 0) / row.length + sx, y0 = ry + dy;
+        const x0 = cellX != null ? cellX : row.reduce((s, c) => s + c.lx, 0) / row.length + sx, y0 = ry + dy;
         const box = [x0 - total / 2 - 24 + ox, x0 + total / 2 + 24 + ox, y0 - fs * 1.1 + oy, y0 + fs * 0.6 + oy];
-        if (cx === undefined) { cx = x0; y = y0; }
-        if (!grpBoxes.some(b => box[0] < b[1] && box[1] > b[0] && box[2] < b[3] && box[3] > b[2])) { cx = x0; y = y0; break; }
+        // 重疊程度用名牌實際大小算（上面的 box 多留了邊，只用來挑「完全不碰到」的位置）
+        const ov = overlap(box) && overlap([x0 - total / 2 + ox, x0 + total / 2 + ox, y0 - fs + oy, y0 + fs * 0.3 + oy]) * 1000 + overlap(box);
+        if (ov < least) { least = ov; cx = x0; y = y0; }
+        if (!ov) break;
       }
       grpBoxes.push({ ch: isl.chapter, 0: cx - total / 2 - 6 + ox, 1: cx + total / 2 + 6 + ox, 2: y - fs * 1.1 + oy, 3: y + fs * 0.6 + oy });
       // 這一類在知識樹裡有內容（item.group）：名牌可以點，打開這一類的機轉
@@ -497,7 +507,7 @@ PI.map = (function () {
       const has = kKey && (PI.KNOWLEDGE[kKey].sections || []).some(sec => (sec.items || []).some(it => [].concat(it.group || (it.unit && (PI.UNITS.find(u => u.id === it.unit) || {}).group) || []).includes(name)))
         || PI.UNITS.some(u => u.chapter === isl.chapter && u.type === "topic" && u.group === name);   // 引用格子的卡片、這一類的通論格子也算
       // 名牌一律可點：有機轉的打開知識樹，其餘點一下「圈出這一類的藥」
-      const attrs = { class: "grp-sign" + (has ? " k-tree" : ""), "data-group": name, "data-ch": String(isl.chapter), tabindex: 0, role: "button",
+      const attrs = { class: "grp-sign" + (isSub ? " grp-sign-sub" : "") + (has ? " k-tree" : ""), "data-group": name, "data-ch": String(isl.chapter), tabindex: 0, role: "button",
         "aria-label": has ? `${name}：打開這一類的機轉` : `${name}：圈出這一類的藥`, transform: `translate(${cx.toFixed(1)},${y.toFixed(1)})` };
       if (has) attrs["data-tree"] = kKey;
       const sign = el("g", attrs);

@@ -498,6 +498,8 @@ mark.cloze.is-hl.hl-mine { background: linear-gradient(transparent 35%, #BFE3A6 
 .grp-border-shadow { fill: none; stroke: #FFFDF2; stroke-width: 7; stroke-linecap: round; stroke-opacity: .55; }
 .grp-letter, .grp-letter-shadow { font-family: "Bebas Neue", "Oswald", "Arial Narrow", "Roboto Condensed", sans-serif; font-stretch: condensed; font-size: 20px; font-weight: 400; text-anchor: middle; letter-spacing: 0; }
 .grp-letter { fill: #FFFFFF; }
+.grp-sign-sub .grp-letter { fill: #A8EEF4; }   /* 第三層小標（子分類）：淺藍綠字，和子分類的藍綠色框線同一色系 */
+.grp-sign-sub .grp-letter-shadow { fill: #12424A; fill-opacity: .75; }
 .grp-letter-shadow { fill: #2F2C18; fill-opacity: .6; }
 .grp-hit { fill: #FFFFFF; fill-opacity: 0; stroke: #FFFFFF; stroke-width: 2; stroke-opacity: 0; transition: stroke-opacity .15s, fill-opacity .15s; cursor: pointer; pointer-events: all; }
 .grp-sign { cursor: pointer; }
