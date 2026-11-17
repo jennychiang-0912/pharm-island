@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 660 160" width="660" height="160" font-family="'Noto Sans TC','Microsoft JhengHei',sans-serif" font-size="15" fill="#2b2b2b">
+  <!-- 講義 p.19 抗癲癇藥物的作用方向（重畫） -->
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#2b2b2b"/></marker>
+    <marker id="h" viewBox="0 0 12 12" refX="11" refY="6" markerWidth="12" markerHeight="12" orient="auto"><path d="M0,0 L11,6 L0,12 z" fill="#fff" stroke="#2b2b2b" stroke-width="1.2"/></marker>
+  </defs>
+  <g stroke="#2b2b2b" stroke-width="1.6" fill="#fff">
+    <rect x="8" y="56" width="118" height="50" rx="3"/>
+    <rect x="166" y="56" width="140" height="50" rx="3"/>
+    <rect x="352" y="14" width="128" height="32" rx="3"/>
+    <rect x="352" y="114" width="128" height="32" rx="3"/>
+    <rect x="510" y="14" width="142" height="32" rx="3"/>
+    <rect x="510" y="114" width="142" height="32" rx="3"/>
+  </g>
+  <g stroke="#2b2b2b" stroke-width="1.6" fill="none">
+    <line x1="166" y1="81" x2="132" y2="81" marker-end="url(#h)"/>
+    <path d="M306,81 L330,81 M330,30 L330,130 M330,30 L352,30 M330,130 L352,130"/>
+    <line x1="480" y1="30" x2="508" y2="30"/>
+    <line x1="480" y1="130" x2="508" y2="130"/>
+  </g>
+  <g text-anchor="middle" font-weight="700">
+    <text x="67" y="77">癲癇發作</text><text x="67" y="97">(興奮狀態)</text>
+    <text x="236" y="77">抗癲癇藥物</text><text x="236" y="97">(阻止興奮狀態)</text>
+    <text x="416" y="36">阻止 興奮性遞質</text>
+    <text x="416" y="136">促進 抑制性遞質</text>
+    <text x="581" y="36">抑制Glutamate作用</text>
+    <text x="581" y="136">促進GABA作用</text>
+  </g>
+  <text x="420" y="86" text-anchor="middle" font-size="13" fill="#555">(負正/正負 得負)</text>
+</svg>

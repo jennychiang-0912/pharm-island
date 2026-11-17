@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 250" width="400" height="250" font-family="'Noto Sans TC','Microsoft JhengHei',Arial,sans-serif" fill="#2b2b2b">
+  <!-- 講義 p.19 離子進出細胞的方向（重畫）：Na⁺、Ca²⁺、Cl⁻ 進入，K⁺ 流出 -->
+  <defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#2b2b2b"/></marker></defs>
+  <circle cx="200" cy="118" r="84" fill="#F4F1E6" stroke="#2b2b2b" stroke-width="2.2"/>
+  <text x="186" y="128" font-size="26">K<tspan font-size="16" dy="-10">+</tspan></text>
+  <text x="200" y="184" font-size="12" text-anchor="middle">細胞內</text>
+  <text x="200" y="226" font-size="12" text-anchor="middle">細胞外</text>
+  <g stroke="#2b2b2b" stroke-width="2" stroke-dasharray="7 5" fill="none" marker-end="url(#a)">
+    <line x1="92" y1="46" x2="150" y2="72"/>
+    <line x1="92" y1="200" x2="150" y2="168"/>
+    <line x1="176" y1="118" x2="40" y2="118"/>
+    <line x1="372" y1="118" x2="240" y2="118"/>
+  </g>
+  <text x="38" y="46" font-size="22">Na<tspan font-size="14" dy="-9">+</tspan></text>
+  <text x="34" y="212" font-size="22">Ca<tspan font-size="14" dy="-9">2+</tspan></text>
+  <text x="352" y="104" font-size="22">Cl<tspan font-size="14" dy="-9">−</tspan></text>
+</svg>

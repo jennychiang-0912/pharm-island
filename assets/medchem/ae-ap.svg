@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 270" width="420" height="270" font-family="'Noto Sans TC','Microsoft JhengHei',Arial,sans-serif" fill="#2b2b2b">
+  <!-- 講義 p.19 動作電位（重畫）。y：mV → 30 + (40 − mV) × 1.4167；x：ms → 60 + ms × 60 -->
+  <g stroke="#2b2b2b" stroke-width="1.4" fill="none">
+    <line x1="60" y1="20" x2="60" y2="215"/>
+    <line x1="60" y1="215" x2="370" y2="215"/>
+    <line x1="60" y1="165" x2="360" y2="165" stroke-dasharray="5 4" stroke="#777"/>
+    <line x1="60" y1="186" x2="360" y2="186" stroke-dasharray="2 4" stroke="#999"/>
+  </g>
+  <g font-size="11" text-anchor="end">
+    <text x="54" y="34">+40</text><text x="54" y="91">0</text><text x="54" y="168">−55</text><text x="54" y="190">−70</text>
+  </g>
+  <g font-size="11" text-anchor="middle">
+    <text x="60" y="230">0</text><text x="120" y="230">1</text><text x="180" y="230">2</text><text x="240" y="230">3</text><text x="300" y="230">4</text><text x="360" y="230">5</text>
+    <text x="210" y="248">Time (ms)</text>
+  </g>
+  <text x="16" y="120" font-size="11" transform="rotate(-90 16 120)" text-anchor="middle">Voltage (mV)</text>
+  <path d="M60,186 L148,186 Q156,170 164,186 Q170,174 176,186 C181,186 186,30 194,30 C202,30 214,200 238,200 C262,200 300,186 360,186"
+        fill="none" stroke="#C0392B" stroke-width="2.6"/>
+  <rect x="24" y="21" width="34" height="18" fill="none" stroke="#2b2b2b" stroke-width="1.6"/>
+  <text x="24" y="14" font-size="14" font-weight="700">正電</text>
+  <g font-size="10.5" fill="#333">
+    <text x="200" y="26">Action potential</text>
+    <text x="64" y="160">Threshold</text>
+    <text x="300" y="180">Resting state</text>
+    <text x="118" y="202">Stimulus</text>
+    <text x="138" y="146">Failed</text><text x="138" y="157">initiations</text>
+    <text x="250" y="212">Refractory period</text>
+    <text x="170" y="120" transform="rotate(-80 170 120)">Depolarization</text>
+    <text x="210" y="70" transform="rotate(75 210 70)">Repolarization</text>
+  </g>
+  <text x="270" y="50" font-size="14" font-weight="700">動作電位產生</text>
+</svg>

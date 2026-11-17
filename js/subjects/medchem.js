@@ -2051,16 +2051,29 @@ PI.KNOWLEDGE = {
   ch2: { chapter: 2, title: "抗癲癇藥物",
     sections: [
       { id: "intro", title: "貳、抗癲癇藥物（Antiseizure Drugs）", items: [
+        // 講義 p.19 的示意圖都重畫成 SVG（assets/medchem/ae-*.svg），數字表格改成真的表格
         { title: "精神藥理學簡介", source: "統整（一）p.19", points: [
           "1. 離子通道之分布與動作電位",
           "> a. 人體主要由（生理食鹽）水組成，所以{{細胞外|位置|細胞內}} Na⁺、Cl⁻多",
-          "> b. 被動運輸：由{{高|性質|低}}濃度往低濃度方向跑",
+          "> b. 被動運輸：由{{高|性質|低}}濃度往低濃度方向跑"] },
+        { title: "細胞內外的離子分布", source: "統整（一）p.19", images: ["assets/medchem/ae-ions.svg"],
+          table: { head: [["細胞內", { t: "", rs: 2 }, "細胞外"], ["Intracellular Water (2/3)", "Extracellular Water (1/3)\nInterstitial (2/3)｜Blood (1/3)"]],
+            cols: ["細胞內", "離子", "細胞外"], rows: [
+              ["25", { t: "Na", s: true }, "★140"], ["★150", { t: "K", s: true }, "4.5"], ["★15", { t: "Mg", s: true }, "1.2"],
+              ["0.01", { t: "Ca", s: true }, "★2.4"], ["2", { t: "Cl", s: true }, "★100"], ["6", { t: "HCO₃", s: true }, "★25"], ["★50", { t: "Phos", s: true }, "1.2"]] } },
+        { title: "動作電位與抗癲癇藥物", source: "統整（一）p.19",
+          images: ["assets/medchem/ae-flux.svg", "assets/medchem/ae-ap.svg"],
+          table: { head: ["抗癲癇藥物：調節離子通道"], rows: [["1. 阻斷 Na⁺通道"], ["2. 阻斷 T-type Ca²⁺通道"], ["3. 促進 K⁺通道"], ["4. 間接促進 Cl⁻通道：BZD 藥物（輔助）"]] },
+          points: [
+            "興奮狀態（[u]癲癇發作[/u]） → 細胞產生動作電位 → {{正電|性質|負電}}狀態",
+            "抗癲癇藥物 → 抑制興奮 → {{負電|性質|正電}}狀態"] },
+        { title: "神經傳遞物質", source: "統整（一）p.19", points: [
           "2. 神經傳遞物質（Neurotransmitters）",
           "> ・興奮性神經遞質：{{Glutamate|物質}}、Serotonin、Histamine（註）",
           "> ・抑制性神經遞質：{{GABA|物質}}、Glycine",
           "> ・Acetylcholine、NE、Dopamine 等依據作用受體不同，會產生不同的反應",
           "註：此三種神經遞質並非總是造成興奮性作用，在某些受體作用時會產生抑制性反應，只是興奮的情況仍然佔大多數"],
-          images: ["assets/medchem/ae-ions.png", "assets/medchem/ae-potential.png", "assets/medchem/ae-flow.png"] },
+          images: ["assets/medchem/ae-flow.svg"] },
         { title: "各類型癲癇治療首選藥物整理（★重要）", source: "統整（一）p.19",
           table: { head: [{ t: "癲癇種類", cs: 2 }, "首選藥物"], cols: ["", "首選藥物", "首選藥物"],
             rowNames: ["局部性發作", "全身強直痙攣發作（大發作）", "失神性發作（小發作）", "肌攣性發作", "癲癇重積症"],
@@ -2075,8 +2088,9 @@ PI.KNOWLEDGE = {
           "2. 抑制性 GABA 系統被抑制",
           "3. 興奮性 Glutamate 系統被促進"] },
         { title: "藥物作用位置", source: "統整（一）p.20",
-          table: { rowNames: ["", "阻斷 Na⁺通道", "阻斷 T-type Ca²⁺通道", "促進 K⁺通道開啟", "", "抑制 GAT 再回收", "活化 GABA_A 受體", "抑制 GABA-T 代謝", "增強 GAD 作用",
-              "", "阻斷 P/Q-type Ca²⁺通道", "阻斷 NMDA 的 Ca²⁺通道", "阻斷 AMPA/KA 的 Na⁺通道", "抑制 Glutamate 釋放", "", "廣效型藥物"],
+          // 題目標題用的列名：挖空在左欄的列，列名改寫成不會洩漏答案的說法（例如「Ethosuximide 的作用位置」）
+          table: { rowNames: ["", "阻斷 Na⁺通道", "Ethosuximide 的作用位置", "促進 K⁺通道開啟", "", "抑制 GAT 再回收", "活化 GABA_A 受體", "Vigabatrin 的作用位置", "增強 GAD 作用",
+              "", "阻斷 P/Q-type Ca²⁺通道", "阻斷 NMDA 的 Ca²⁺通道", "阻斷 AMPA/KA 的 Na⁺通道", "抑制 Glutamate 釋放", "", "廣效型藥物：多重作用機轉"],
             rows: [
               [{ t: "調節離子通道", cs: 2, band: true }],
               [{ t: "阻斷 Na⁺通道\n（{{最多|性質}}藥物作用）", s: true }, "Carbamazepine、Oxcarbazepine、\nLamotrigine、Lacosamide、Phenytoin"],
@@ -2095,7 +2109,7 @@ PI.KNOWLEDGE = {
               [{ t: "廣效型藥物：多重作用機轉", cs: 2, band: true }],
               [{ t: "{{Valproate|藥名}}、Levetiracetam、Topiramate、Zonisamide、Felbamate", cs: 2 }]],
             note: "※ GAD = glutamate decarboxylase（可合成 GABA）\n※ GAT = GABA transporter（可回收 GABA）\n※ GABA-T = GABA transaminase（會代謝 GABA）" },
-          images: ["assets/medchem/ae-venn.png"] },
+          images: ["assets/medchem/ae-venn.svg"] },
         { title: "癲癇重積症（Status Epilepticus）", source: "統整（一）p.20", table: { rows: [["Diazepam、Lorazepam、Midazolam"]] } }
       ] },
       { id: "partial", title: "一、局部性及全身強直-痙攣性癲癇發作藥物（Drugs for Partial and Generalized Tonic-Clonic Seizures）", items: [
