@@ -493,16 +493,24 @@ PI.map = (function () {
         .concat(mine.flatMap(c => [-R * 0.4, R * 0.98, -R * 1.9, R * 2.48].flatMap(dy => [0, R * 0.9, -R * 0.9].map(sx => [Math.round(c.ly), dy, null, c.lx + sx]))))
         .concat(mine.map(c => [Math.round(c.ly), R * 0.35, null, c.lx]));
       // 每個候選位置和已放好的名牌重疊多少；完全不重疊就用，都會重疊就挑重疊最少的（不再直接退回第一個位置）
-      const overlap = box => grpBoxes.reduce((s, b) => s + Math.max(0, Math.min(box[1], b[1]) - Math.max(box[0], b[0])) * Math.max(0, Math.min(box[3], b[3]) - Math.max(box[2], b[2])), 0);
+      // 同一座島的名牌重疊算重（一定避開）；別章的名牌只算輕一點——主島上別章的名牌框可能是排版移動前留下來的舊位置，
+      // 算太重的話這一章的名牌會被擠到離自己的藥很遠、甚至疊到自己島上的名牌
+      const overlap = box => grpBoxes.reduce((s, b) => s + (b.ch === isl.chapter ? 1 : 0.001) * Math.max(0, Math.min(box[1], b[1]) - Math.max(box[0], b[0])) * Math.max(0, Math.min(box[3], b[3]) - Math.max(box[2], b[2])), 0);
+      // 每個候選位置打分數，挑最低的：
+      //   1. 和別的名牌真的疊到 → 重罰（一定避開）
+      //   2. 離這一類的藥越遠越扣分（名牌要貼著自己的藥）
+      //   3. 留白邊距碰到別的名牌 → 小扣分（擠一點沒關係）
+      // 名牌橫跨的範圍裡，有幾格是自己這一類的：越多越好（名牌壓在自己的格子交界上，而不是別類的）
       let least = Infinity;
       for (const [ry, dy, sx, cellX] of cands) {
         const row = mine.filter(c => Math.round(c.ly) === ry);
         const x0 = cellX != null ? cellX : row.reduce((s, c) => s + c.lx, 0) / row.length + sx, y0 = ry + dy;
         const box = [x0 - total / 2 - 24 + ox, x0 + total / 2 + 24 + ox, y0 - fs * 1.1 + oy, y0 + fs * 0.6 + oy];
-        // 重疊程度用名牌實際大小算（上面的 box 多留了邊，只用來挑「完全不碰到」的位置）
-        const ov = overlap(box) && overlap([x0 - total / 2 + ox, x0 + total / 2 + ox, y0 - fs + oy, y0 + fs * 0.3 + oy]) * 1000 + overlap(box);
-        if (ov < least) { least = ov; cx = x0; y = y0; }
-        if (!ov) break;
+        const real = overlap([x0 - total / 2 + ox, x0 + total / 2 + ox, y0 - fs + oy, y0 + fs * 0.3 + oy]);
+        const near = Math.min(...mine.map(c => Math.hypot(x0 - c.lx, y0 - c.ly)));
+        const under = mine.filter(c => Math.abs(c.lx - x0) < total / 2 + R * 0.4 && Math.abs(c.ly - y0) < R * 1.2).length;
+        const cost = real * 1e6 + near * 20 - under * R * 6 + overlap(box) * 0.2;
+        if (cost < least) { least = cost; cx = x0; y = y0; }
       }
       grpBoxes.push({ ch: isl.chapter, 0: cx - total / 2 - 6 + ox, 1: cx + total / 2 + 6 + ox, 2: y - fs * 1.1 + oy, 3: y + fs * 0.6 + oy });
       // 這一類在知識樹裡有內容（item.group）：名牌可以點，打開這一類的機轉
