@@ -25,7 +25,16 @@ PI.GROUP_PARENTS = {
   "抗癲癇巴比妥類用藥": "巴比妥類（Barbiturates）",
   "Class A（字尾-azepam）": "Benzodiazepine 類衍生物：藥理研究",
   "Class B（s-triazolo-benzodiazepine，含有 1,3,4-triazole ring）": "Benzodiazepine 類衍生物：藥理研究",
-  "Class B（imidazo-benzodiazepine）": "Benzodiazepine 類衍生物：藥理研究"
+  "Class B（imidazo-benzodiazepine）": "Benzodiazepine 類衍生物：藥理研究",
+  // 第 2 章
+  "Hydantoin 類衍生物": "Ureides 相關結構藥物",
+  "抗癲癇巴比妥類（Barbiturates）": "Ureides 相關結構藥物",
+  "GABA 類衍生物": "Miscellaneous 雜類結構藥物",
+  "含 amide group 之衍生物（字尾-amide）": "Miscellaneous 雜類結構藥物",
+  "含 acetamide group 之衍生物（字尾-acetam）": "Miscellaneous 雜類結構藥物",
+  "未分類結構": "Miscellaneous 雜類結構藥物",
+  "Oxazolidinediones 類衍生物（字尾-dione）": "Ureide 衍生物",
+  "Succinimides 類衍生物（字尾-suximide）": "Ureide 衍生物"
 };
 
 /* 地圖名牌：和生藥頁一樣用短的英文（名牌字型只有英文字母，中文字寬、長的名牌會擠成一團）。
@@ -43,7 +52,22 @@ PI.GROUP_LABELS = {
   "選擇性血清素再回收抑制劑（SSRIs）": "SSRIs",
   "褪黑激素受體促效劑（Melatonin Receptor Agonists）": "Melatonin",
   "第一代 H₁ 受體拮抗劑（Histamine H₁ Receptor Antagonists）": "H1-blockers",
-  "食慾素拮抗劑（Orexin Antagonist）": "Orexin"
+  "食慾素拮抗劑（Orexin Antagonist）": "Orexin",
+  // 第 2 章
+  "Ureides 相關結構藥物": "Ureides",
+  "Hydantoin 類衍生物": "Hydantoin",
+  "抗癲癇巴比妥類（Barbiturates）": "Barbiturates",
+  "抗癲癇 Benzodiazepines 類": "BZD",
+  "Iminostilbene 類衍生物": "Iminostilbene",
+  "Biscarbamates 類衍生物": "Biscarbamates",
+  "Miscellaneous 雜類結構藥物": "Miscellaneous",
+  "GABA 類衍生物": "GABA",
+  "含 amide group 之衍生物（字尾-amide）": "-amide",
+  "含 acetamide group 之衍生物（字尾-acetam）": "-acetam",
+  "未分類結構": "Unclassified",
+  "Ureide 衍生物": "Ureide",
+  "Oxazolidinediones 類衍生物（字尾-dione）": "Oxazolidinediones",
+  "Succinimides 類衍生物（字尾-suximide）": "Succinimides"
 };
 
 /* 藥化的欄位：照講義表格的欄位（藥物｜結構｜特性｜藥理及臨床應用） */
@@ -400,288 +424,218 @@ PI.UNITS = [
     "Suvorexant 可顯著縮短入睡及延長睡眠時間"] },
 
 /* ===== 第 2 章 抗癲癇藥物（統整（一）貳，p.19–31）===== */
-{ id: "ae-intro", chapter: 2, name: "抗癲癇精神藥理學簡介", short: "抗癲癇簡介", type: "topic", group: "總論", source: "統整（一）p.19",
-  bold: [
-    "人體主要由生理食鹽水組成，所以{{細胞外|位置|細胞內}} Na⁺、Cl⁻ 多",
-    "被動運輸：由{{高|性質|低}}濃度往低濃度方向跑",
-    "興奮性神經遞質：{{Glutamate|物質}}、Serotonin、Histamine",
-    "抑制性神經遞質：{{GABA|物質}}、Glycine",
-    "癲癇發作（興奮狀態）：阻止興奮性遞質 → 抑制 {{Glutamate|物質}} 作用；促進抑制性遞質 → 促進 {{GABA|物質}} 作用",
-    "抗癲癇藥物調節離子通道：阻斷 Na⁺通道、阻斷 {{T-type|名詞}} Ca²⁺通道、促進 K⁺通道、間接促進 Cl⁻通道（BZD 藥物）"
-  ] },
-{ id: "ae-firstline", chapter: 2, name: "各類型癲癇治療首選藥物", short: "癲癇首選藥", type: "topic", group: "總論", source: "統整（一）p.19",
-  bold: [
-    "局部性發作：{{Carbamazepine|藥名}}、Phenytoin、Valproic acid",
-    "全身強直痙攣發作（大發作）：Carbamazepine、Phenytoin、{{Valproic acid|藥名}}",
-    "失神性發作（小發作）：{{Ethosuximide|藥名}}、Lamotrigine、Valproic acid",
-    "肌攣性發作：{{Valproic acid|藥名}}、Clonazepam",
-    "癲癇重積症：{{Lorazepam|藥名}}、Diazepam"
-  ] },
-{ id: "ae-action-site", chapter: 2, name: "抗癲癇藥物作用位置整理", short: "藥物作用位置", type: "topic", group: "總論", source: "統整（一）p.20",
-  bold: [
-    "癲癇成因：離子通道異常（細胞外 Ca²⁺↓、K⁺↑）、抑制性 GABA 被抑制、興奮性 Glutamate 被促進",
-    "阻斷 Na⁺通道（{{最多|性質}}藥物作用）：Carbamazepine、Oxcarbazepine、Lamotrigine、Lacosamide、Phenytoin",
-    "阻斷 {{T-type|名詞}} Ca²⁺通道：Ethosuximide",
-    "促進 K⁺通道開啟：{{Ezogabine|藥名}}（Retigabine）",
-    "促進抑制性 GABA：抑制 GAT 再回收 → {{Tiagabine|藥名}}；活化 GABA_A 受體 → BZDs、Phenobarbital；抑制 {{GABA-T|標的}} 代謝 → Vigabatrin（不可逆）；增強 GAD → Gabapentin",
-    "抑制興奮性 Glutamate：阻斷 P/Q-type Ca²⁺通道 → Gabapentin、Pregabalin；阻斷 NMDA 的 Ca²⁺通道 → {{Felbamate|藥名}}；阻斷 AMPA/KA 的 Na⁺通道 → Topiramate；抑制 Glutamate 釋放 → Lamotrigine",
-    "廣效型（多重作用機轉）：{{Valproate|藥名}}、Levetiracetam、Topiramate、Zonisamide、Felbamate",
-    "GAD = glutamate decarboxylase（可合成 GABA）；GAT = GABA transporter（可回收 GABA）；GABA-T = GABA transaminase（會代謝 GABA）"
-  ] },
+/* 照講義逐字：精神藥理學簡介、首選藥物、作用位置、總整理放在告示牌（知識樹 ch2，沒有分類的卡片）；
+   藥物格子的欄位照講義表格（特性／藥理及臨床應用）。行首「- 」＝子項目、「> 」＝接續行，[u]…[/u]＝底線、[i]…[/i]＝斜體 */
 
-/* 一、局部性及全身強直-痙攣性：Hydantoin 類衍生物 */
+/* 一、局部性及全身強直-痙攣性：Ureides 相關結構藥物 > Hydantoin 類衍生物 */
 { id: "phenytoin", chapter: 2, name: "Phenytoin", type: "drug", group: "Hydantoin 類衍生物", source: "統整（一）p.21", img: "assets/medchem/phenytoin.png",
-  use: ["{{局部性發作|用途}}、全身強直痙攣發作（又稱 Diphenylhydantoin）"],
-  bold: [
-    "含有 {{Hydantoin|結構}} 結構",
-    "5 號位接{{兩個苯環|取代基}}",
-    "{{水溶性差|性質}}★，pKa=8 常製成鈉鹽增加溶解度（屬於{{弱酸性|性質}}★藥物）",
-    "藉三個氫鍵、Hydrophobic 作用與 {{Na⁺通道|標的}}★結合",
-    "投與劑量與血中濃度呈{{非線性|性質|線性}}關係",
+  use: ["（Diphenylhydantoin）"],
+  feat: ["含有 {{Hydantoin|結構}} 結構（Pheny[u]toin[/u]）",
+    "5 號位接{{兩個苯環|取代基}}（[u]Pheny[/u]toin）",
+    "{{水溶性差|性質}}★，pKa=8 常製成鈉鹽增加溶解度",
+    "> （屬於{{弱酸性|性質}}★藥物）"],
+  pharm: ["藉三個氫鍵、Hydrophobic 作用與 {{Na⁺通道|標的}}★結合",
+    "投與劑量與血中濃度{{非線性|性質|線性}}關係",
     "大量與血漿蛋白結合，且會{{誘導|性質|抑制}} CYP3A4",
     "對{{失神性發作|疾病}}沒有療效，可能會惡化疾病",
-    "代謝：{{CYP2C9|酵素}} 進行 para-hydroxylation★"
-  ] },
+    "代謝：{{CYP2C9|酵素}} 進行 [i]para[/i]-hydroxylation★"] },
 { id: "fosphenytoin", chapter: 2, name: "Fosphenytoin", type: "drug", group: "Hydantoin 類衍生物", source: "統整（一）p.21", img: "assets/medchem/fosphenytoin.png",
-  use: ["{{局部性發作|用途}}、全身強直痙攣發作"],
-  bold: [
-    "比 Phenytoin 多了{{磷酸鹽|結構}}結構",
+  feat: ["比 Phenytoin 多了{{磷酸鹽|結構}}結構",
     "3 號位的 N 上接甲基磷酸根 {{-CH₂OPO₃²⁻|取代基}}",
-    "{{水溶性較高|性質}}，常以 IV 或 {{IM|給藥途徑}} 給藥★",
-    "為 Phenytoin 的 {{Prodrug|性質}}★，體內被磷酸酶切掉磷酯鍵生成 Phenytoin",
-    "副作用：{{齒齦增生|副作用}}、巨球型貧血、致畸胎"
-  ] },
+    "水溶性較高，常以 IV 或 {{IM|給藥途徑}} 給藥★"],
+  pharm: ["為 Phenytoin 的 {{Prodrug|性質}}★",
+    "體內被磷酸酶切掉[u]磷酯鍵[/u]生成 Phenytoin",
+    "副作用：{{齒齦增生|副作用}}、巨球型貧血、致畸胎"] },
 { id: "ethotoin", chapter: 2, name: "Ethotoin", type: "drug", group: "Hydantoin 類衍生物", source: "統整（一）p.21", img: "assets/medchem/ethotoin.png",
-  use: ["{{強直痙攣性|用途}}及複雜性局部性發作（輔助藥物）"],
-  bold: [
-    "3 號位的 N 上接{{乙基|取代基}}",
-    "5 號位接{{一個苯環|取代基}}",
-    "毒性較 Phenytoin {{低|性質|高}}，但癲癇療效較差、鎮定效果較強，做輔助治療藥物而非首選",
-    "代謝：可進行 {{N-去乙基化|代謝}}"
-  ] },
+  feat: ["3 號位的 N 上接{{乙基|取代基}}（[u]Etho[/u]toin）",
+    "5 號位接{{一個苯環|取代基}}"],
+  pharm: ["可治療{{強直-痙攣性|疾病}}及複雜性局部性發作",
+    "毒性較 Phenytoin {{低|性質|高}}，但癲癇療效較差、鎮定效果較強，做輔助治療藥物而非首選藥物",
+    "代謝：可進行 {{N-去乙基化|代謝}}"] },
 { id: "mephenytoin", chapter: 2, name: "Mephenytoin", type: "drug", group: "Hydantoin 類衍生物", source: "統整（一）p.21", img: "assets/medchem/mephenytoin.png",
-  use: ["{{局部性發作|用途}}（第二線用藥）"],
-  bold: [
-    "3 號位的 N 上接{{甲基|取代基}}",
-    "5 號位接一個苯環及{{乙基|取代基}}",
-    "鎮定效果較 Phenytoin {{強|性質|弱}}",
-    "具強烈毒性，可能造成嚴重皮疹、{{無顆粒性白血球症|副作用}}或肝炎，為第二線用藥",
-    "{{3-N-demethylation|代謝}} 之代謝物具有毒性（5-ethyl-5-phenylhydantoin）"
-  ] },
+  feat: ["3 號位的 N 上接{{甲基|取代基}}（[u]Me[/u]phenytoin）",
+    "5 號位接一個苯環及{{乙基|取代基}}"],
+  pharm: ["鎮定效果較 Phenytoin {{強|性質|弱}}",
+    "具[u]強烈毒性[/u]，可能造成嚴重皮疹、{{無顆粒性白血球症|副作用}}或肝炎，為第二線用藥",
+    "{{3-N-demethylation|代謝}} 之代謝物具有毒性",
+    "> （5-ethyl-5-phenylhydantoin）"] },
+
+/* 講義 p.22：Barbiturates 及 Benzodiazepines 類藥物已在第 1 章介紹過，這裡再放一次供複習統整（重複的格子） */
+{ id: "ae-phenobarbital", chapter: 2, name: "Phenobarbital", type: "drug", group: "抗癲癇巴比妥類（Barbiturates）", source: "統整（一）p.22", img: "assets/medchem/phenobarbital.png",
+  use: ["鎮靜安眠、抗癲癇"] },
+{ id: "ae-mephobarbital", chapter: 2, name: "Mephobarbital", type: "drug", group: "抗癲癇巴比妥類（Barbiturates）", source: "統整（一）p.22", img: "assets/medchem/mephobarbital.png",
+  use: ["抗癲癇"] },
+{ id: "ae-primidone", chapter: 2, name: "Primidone", type: "drug", group: "抗癲癇巴比妥類（Barbiturates）", source: "統整（一）p.22", img: "assets/medchem/primidone.png",
+  use: ["抗癲癇"] },
+{ id: "ae-diazepam", chapter: 2, name: "Diazepam", type: "drug", group: "抗癲癇 Benzodiazepines 類", source: "統整（一）p.22", img: "assets/medchem/diazepam.png",
+  use: ["抗焦慮、抗癲癇", "麻醉劑、抗痙攣"] },
+{ id: "ae-clonazepam", chapter: 2, name: "Clonazepam", type: "drug", group: "抗癲癇 Benzodiazepines 類", source: "統整（一）p.22", img: "assets/medchem/clonazepam.png",
+  use: ["抗癲癇"] },
+{ id: "ae-clorazepate", chapter: 2, name: "Clorazepate", type: "drug", group: "抗癲癇 Benzodiazepines 類", source: "統整（一）p.22", img: "assets/medchem/clorazepate.png",
+  use: ["抗焦慮、抗癲癇"] },
+{ id: "ae-lorazepam", chapter: 2, name: "Lorazepam", type: "drug", group: "抗癲癇 Benzodiazepines 類", source: "統整（一）p.22", img: "assets/medchem/lorazepam.png",
+  use: ["抗焦慮、抗癲癇、麻醉劑"] },
+{ id: "ae-midazolam", chapter: 2, name: "Midazolam", type: "drug", group: "抗癲癇 Benzodiazepines 類", source: "統整（一）p.22", img: "assets/medchem/midazolam.png",
+  use: ["麻醉劑、抗焦慮、癲癇"] },
 
 /* Iminostilbene 類衍生物 */
-{ id: "iminostilbene", chapter: 2, name: "Iminostilbene", type: "drug", group: "Iminostilbene 類衍生物", source: "統整（一）p.23", img: "assets/medchem/iminostilbene.png",
-  use: ["Carbamazepine 的母核結構"],
-  bold: [
-    "為 {{Stilbene|結構}} 之衍生物",
+{ id: "iminostilbene", chapter: 2, name: "Iminostilbene", type: "drug", group: "Iminostilbene 類衍生物", source: "統整（一）p.23", img: "assets/medchem/iminostilbene.png", imgMore: ["assets/medchem/ae-stilbene.png"],
+  feat: ["為 {{Stilbene|結構}} 之衍生物（見右方說明及結構）",
     "中間結構為含 N {{七元雜環|結構}}，兩側接苯環",
-    "第 {{10、11|位置}} 號位有 C=C 雙鍵",
-    "原本 Stilbene 在 {{trans|名詞|cis}} form 比較穩定，但為了與 NH₂ 反應變成 cis form，最後生成 Iminostilbene"
-  ] },
+    "第 {{10、11|位置}} 號位有 C=C 雙鍵"],
+  pharm: ["為 Stilbene 之衍生物，原本 Stilbene 在 {{trans|名詞|cis}} form 比較穩定，但為了與 NH₂ 反應變成 cis form，最後生成 Iminostilbene"] },
 { id: "carbamazepine", chapter: 2, name: "Carbamazepine", type: "drug", group: "Iminostilbene 類衍生物", source: "統整（一）p.23", img: "assets/medchem/carbamazepine.png",
-  use: ["{{局部性發作|用途}}（單純&複雜性）首選用藥★", "也可用於治療{{三叉神經痛|疾病}}★"],
-  bold: [
-    "Iminostilbene 之衍生物，中間結構為含 N 七元雜環（-azepine）",
+  use: ["（CBZ）"],
+  feat: ["Iminostilbene 之衍生物",
+    "中間結構為含 N 七元雜環（-azepine）",
     "具有 {{Carboxamide|結構}} 結構",
-    "pKa=13，為{{酸性藥|性質}}，在酸中解離程度小",
-    "代謝：大部分由 {{CYP3A4|酵素}} 代謝，將 C10-11 之雙鍵代謝為 {{epoxide|代謝物}}★ → 活性及毒性都更強",
-    "CBZ-IQ、2-OHIS 均為活性代謝物，與{{肝毒性|副作用}}有關",
-    "代謝路徑：CBZ → 2-hydroxy-CBZ → 2-hydroxyiminostilbene({{2-OHIS|代謝物}}) → CBZ-Iminoquinone(CBZ-IQ)",
-    "Carbamazepine 和 {{Trazodone|藥名}} 都會代謝產生 Iminoquinone"
-  ] },
+    "pKa=13，為{{酸性藥|性質}}，在酸中解離程度小"],
+  pharm: ["{{局部性發作|用途}}（單純&複雜性）首選用藥★",
+    "也可用於治療{{三叉神經痛|疾病}}★",
+    "代謝：大部分由 {{CYP3A4|酵素}} 代謝，將 C10-11 之雙鍵代謝為 {{epoxide|代謝物}}★ → 活性及毒性都[u]更強[/u]",
+    "CBZ-IQ、2-OHIS※均為活性代謝物，與{{肝毒性|副作用}}有關"] },
 { id: "oxcarbazepine", chapter: 2, name: "Oxcarbazepine", type: "drug", group: "Iminostilbene 類衍生物", source: "統整（一）p.23", img: "assets/medchem/oxcarbazepine.png",
-  use: ["{{局部性發作|用途}}"],
-  bold: [
-    "Carbamazepine 之衍生物",
-    "與 CBZ 之結構差異：第 10、11 號位為{{飽和單鍵|結構|雙鍵}}；10 號位有 {{C=O|取代基}}（ketone）取代",
-    "可以阻斷 {{Na⁺通道|標的}}",
+  feat: ["Carbamazepine 之衍生物",
+    "與 CBZ 之結構差異",
+    "- 第 10、11 號位為{{飽和單鍵|結構|雙鍵}}",
+    "- 10 號位有 {{C=O|取代基}}（ketone）取代"],
+  pharm: ["可以阻斷 {{Na⁺通道|標的}}",
     "代謝：經 {{Alcohol dehydrogenase|酵素}} 還原成 10-hydroxyoxcarbazepine（活性代謝物）",
-    "半衰期較 Carbamazepine {{短|性質|長}}，藥效較弱但肝毒性較小，較容易引起{{低血鈉|副作用}}"
-  ] },
+    "半衰期較 Carbamazepine {{短|性質|長}}，藥效較弱但肝毒性較小，較容易引起{{低血鈉|副作用}}"] },
 
 /* Biscarbamates 類衍生物 */
 { id: "felbamate", chapter: 2, name: "Felbamate", type: "drug", group: "Biscarbamates 類衍生物", source: "統整（一）p.24", img: "assets/medchem/felbamate.png",
-  use: ["抗癲癇（阻斷 NMDA 的 Ca²⁺通道）"],
-  bold: [
-    "具有{{兩個|數值}} Carbamate 結構",
-    "結構與肌肉鬆弛劑 {{Meprobamate|藥名}} 相似",
-    "機轉不明，但會和 {{NMDA|受體}}★受體結合，抑制 Ca²⁺流入",
-    "形成毒性代謝物 {{2-phenylpropenal|代謝物}}★（Atropaldehyde）"
-  ] },
+  feat: ["具有{{兩個|數值}} Carbamate 結構",
+    "結構與肌肉鬆弛劑 {{Meprobamate|藥名}} 相似"],
+  pharm: ["機轉不明，但會和 {{NMDA|受體}}★受體結合，抑制 Ca²⁺流入",
+    "形成毒性代謝物 {{2-phenylpropenal|代謝物}}★（Atropaldehyde）"] },
 { id: "fluorofelbamate", chapter: 2, name: "2-Fluorofelbamate", type: "drug", group: "Biscarbamates 類衍生物", source: "統整（一）p.24", img: "assets/medchem/fluorofelbamate.png",
-  use: ["抗癲癇（研發中，尚未上市）"],
-  bold: [
-    "與 Felbamate 只差一個 F，{{C₂|位置}}上有 F 取代基",
-    "為了避免 Felbamate C₂ 上的 H 代謝產生具有毒性的 {{atropaldehyde|代謝物}}，故以 F 取代 H"
-  ] },
+  feat: ["與 Felbamate 只差一個 F",
+    "{{C₂|位置}} 上有 F 取代基"],
+  pharm: ["為了避免 Felbamate C₂ 上的 H 代謝產生具有毒性的 {{atropaldehyde|代謝物}}，故以 F 取代 H",
+    "目前還在研發，尚未上市"] },
 
-/* GABA 類衍生物 */
+/* Miscellaneous 雜類結構藥物 > GABA 類衍生物 */
 { id: "gabapentin", chapter: 2, name: "Gabapentin", type: "drug", group: "GABA 類衍生物", source: "統整（一）p.25", img: "assets/medchem/gabapentin.png",
-  use: ["{{糖尿病神經痛|疾病}}、皰疹後神經痛"],
-  bold: [
-    "含有 {{GABA|結構}} 結構",
-    "5 個 C 原子與 GABA 之 β-carbon 形成{{飽和六元環|結構}}",
-    "可增加 {{GAD|標的}} 的作用，使 GABA 合成↑",
-    "結合 {{P/Q-type|名詞}} Ca²⁺通道異位調節，減少 Ca²⁺流入",
+  feat: ["含有 {{GABA|結構}} 結構（下方補充 GABA 結構）",
+    "5 個 C 原子（Gaba[u]pentin[/u]）與 GABA 之 β-carbon 形成{{飽和六元環|結構}}"],
+  pharm: ["可增加 {{GAD|標的}} 的作用，使 GABA 合成↑",
+    "結合 {{P/Q-type|名詞}} Ca²⁺通道[u]異位[/u]調節，減少 Ca²⁺流入",
     "水溶性高，但可作用在 {{CNS|器官}}",
-    "代謝：{{不經過代謝|代謝}}，直接透過腎臟排除"
-  ] },
+    "可治療{{糖尿病神經痛|疾病}}、皰疹後神經痛",
+    "代謝：{{不經過代謝|代謝}}，直接透過腎臟排除"] },
 { id: "pregabalin", chapter: 2, name: "Pregabalin", type: "drug", group: "GABA 類衍生物", source: "統整（一）p.25", img: "assets/medchem/pregabalin.png",
-  use: ["皰疹後神經痛，輔助治療成人的{{局部性發作|用途}}"],
-  bold: [
-    "結構為 {{S-3-isobutyl|結構}} GABA",
-    "有一個 chiral center，以 {{S form|結構|R form}} 存在",
-    "結合到 P/Q-type-Ca²⁺通道的 {{α₂δ|名詞}} 次單元，可降低通道活性，減少 Ca²⁺流入",
-    "藥效為 Gabapentin 的 {{3-10|數值}} 倍"
-  ] },
+  feat: ["結構為 {{S-3-isobutyl|結構}} GABA",
+    "有一個 chiral center，以 {{S form|結構|R form}} 存在"],
+  pharm: ["結合到 P/Q-type-Ca²⁺通道的 {{α₂δ|名詞}} 次單元，可降低通道活性，減少 Ca²⁺流入",
+    "藥效為 Gabapentin 的 {{3-10|數值}} 倍",
+    "可治療皰疹後神經痛，輔助治療[u]成人[/u]的局部性發作"] },
 { id: "vigabatrin", chapter: 2, name: "Vigabatrin", type: "drug", group: "GABA 類衍生物", source: "統整（一）p.25", img: "assets/medchem/vigabatrin.png",
-  use: ["治療嬰兒痙攣，及其他藥物難以改善之成人複雜性局部發作"],
-  bold: [
-    "結構為 {{γ-vinyl|結構}} GABA",
-    "只有 {{S(+)-form|結構}}★具有活性，臨床上用消旋",
-    "{{不可逆|性質|可逆}}的 GABA-T 抑制劑★",
-    "代謝：以{{原型藥|代謝}}直接由尿液排出"
-  ] },
+  feat: ["結構為 {{γ-vinyl|結構}} GABA",
+    "只有 {{S(+)-form|結構}}★具有活性，臨床上用消旋"],
+  pharm: ["{{不可逆|性質|可逆}}的 GABA-T 抑制劑★",
+    "治療嬰兒痙攣，及在其他藥物難以改善之情況下的成人複雜性局部發作",
+    "代謝：以{{原型藥|代謝}}直接由尿液排出"] },
 
-/* 含 amide group 之衍生物 */
-{ id: "rufinamide", chapter: 2, name: "Rufinamide", type: "drug", group: "含 amide group 之衍生物", source: "統整（一）p.26", img: "assets/medchem/rufinamide.png",
-  use: ["治療{{雷葛氏症候群|疾病}}的孤兒藥"],
-  bold: [
-    "含五元雜環 {{triazole|結構}} 及一個 amide group",
-    "苯環之{{兩個 ortho 位|位置}}有 F 取代",
-    "增加 Na⁺通道的{{不活化時間|機轉}}，減少重複放電次數",
-    "代謝：主要由 {{carboxylesterase|酵素}} 將 amide 水解為 COOH"
-  ] },
-{ id: "lacosamide", chapter: 2, name: "Lacosamide", type: "drug", group: "含 amide group 之衍生物", source: "統整（一）p.26", img: "assets/medchem/lacosamide.png",
-  use: ["輔助治療 17 歲以上患者之{{局部性發作|用途}}"],
-  bold: [
-    "為 {{L-serine|物質}} 的衍生物，共有兩個 amide",
-    "N 端接 acetyl group，C 端接 benzylamine，以 {{-OCH₃|取代基}} 取代 Serine 上的 -OH",
-    "阻斷 {{Na⁺通道|標的}}，但和 phenytoin、CBZ 機轉不同",
-    "代謝：60% 會經 {{CYP2C9|酵素}} 產生無活性 O-demethyl 代謝物，其餘未經代謝者由尿液排出"
-  ] },
+/* 含 amide group 之衍生物（字尾-amide） */
+{ id: "rufinamide", chapter: 2, name: "Rufinamide", type: "drug", group: "含 amide group 之衍生物（字尾-amide）", source: "統整（一）p.26", img: "assets/medchem/rufinamide.png",
+  feat: ["含五元雜環 {{triazole|結構}} 及一個 amide group",
+    "苯環之{{兩個 ortho 位|位置}}有 F 取代"],
+  pharm: ["增加 Na⁺通道的{{不活化時間|機轉}}，減少重複放電次數",
+    "為治療{{雷葛氏症候群|疾病}}的孤兒藥",
+    "代謝：主要由 [u]{{carboxylesterase|酵素}}[/u] 將 amide 水解為 COOH，少部分會在 benzylic carbon 斷裂代謝"] },
+{ id: "lacosamide", chapter: 2, name: "Lacosamide", type: "drug", group: "含 amide group 之衍生物（字尾-amide）", source: "統整（一）p.26", img: "assets/medchem/lacosamide.png", imgMore: ["assets/medchem/ae-l-serine.png"],
+  feat: ["為 {{L-serine|物質}} 的衍生物，共有[u]兩個[/u] amide",
+    "N 端接 acetyl group，C 端接 benzylamine",
+    "以 {{-OCH₃|取代基}} 取代 Serine 上的 -OH"],
+  pharm: ["阻斷 {{Na⁺通道|標的}}，但和 phenytoin、CBZ 機轉不同",
+    "輔助治療 17 歲以上患者之局部性發作",
+    "代謝：60% 會經 {{CYP2C9|酵素}} 產生[u]無活性[/u] O-demethyl 代謝物，其餘未經代謝者由尿液排出"] },
 
-/* 含 acetamide group 之衍生物 */
-{ id: "levetiracetam", chapter: 2, name: "S-(-)-Levetiracetam", type: "drug", group: "含 acetamide group 之衍生物", source: "統整（一）p.26", img: "assets/medchem/levetiracetam.png",
-  use: ["輔助治療成人的{{局部性發作|用途}}（與 pregabalin 相同）"],
-  bold: [
-    "含有 {{pyrrolidone|結構}} 結構",
+/* 含 acetamide group 之衍生物（字尾-acetam） */
+{ id: "levetiracetam", chapter: 2, name: "S-(-)-Levetiracetam", type: "drug", group: "含 acetamide group 之衍生物（字尾-acetam）", source: "統整（一）p.26", img: "assets/medchem/levetiracetam.png",
+  feat: ["含有 {{pyrrolidone|結構}} 結構",
     "N 上接 {{acetamide|取代基}} 取代基",
-    "結構必為{{左旋|性質|右旋}}（Levorotory）",
-    "Amide 結構容易被 {{esterase|酵素}} 水解代謝",
-    "作用機轉不明",
-    "代謝：主要以{{原型藥|代謝}}★由尿液排出，其餘將 amide 水解為 COOH（無活性）後排出"
-  ] },
+    "結構必為{{左旋|性質|右旋}}（[u]Lev[/u]orotory）",
+    "Amide 結構容易被 {{esterase|酵素}} 水解代謝"],
+  pharm: ["作用機轉不明",
+    "輔助治療[u]成人[/u]的局部性發作（與 pregabalin 相同）",
+    "代謝：主要以{{原型藥|代謝}}★由尿液排出，其餘將 amide 水解為 COOH（無活性）後排出"] },
 
 /* 未分類結構 */
 { id: "ezogabine", chapter: 2, name: "Ezogabine", type: "drug", group: "未分類結構", source: "統整（一）p.27", img: "assets/medchem/ezogabine.png",
-  use: ["輔助治療成人的{{局部性發作|用途}}（又名 Retigabine）"],
-  bold: [
-    "具有 Ethyl 和 {{carbamate|結構}} 結構",
-    "機轉：促進開啟 {{K⁺通道|標的}}★，使 K⁺流出細胞造成過極化，抑制中樞神經興奮",
-    "代謝：{{不經 CYP450|代謝}} 代謝"
-  ] },
+  use: ["（Retigabine）"],
+  feat: ["具有 Ethyl 和 {{carbamate|結構}} 結構"],
+  pharm: ["機轉：促進開啟 {{K⁺通道|標的}}★，使 K⁺流出細胞造成過極化，抑制中樞神經興奮",
+    "輔助治療[u]成人[/u]的局部性發作",
+    "代謝：{{不經 CYP450|代謝}} 代謝"] },
 { id: "lamotrigine", chapter: 2, name: "Lamotrigine", type: "drug", group: "未分類結構", source: "統整（一）p.27", img: "assets/medchem/lamotrigine.png",
-  use: ["治療成人的{{雷葛氏症候群|疾病}} Lennox-Gastaut"],
-  bold: [
-    "為 {{6-phenyl-1,2,4-triazine|結構}} 衍生物",
-    "主要在 {{2 號位|位置}}★進行 glucuronidation★",
-    "機轉：阻斷 {{Na⁺通道|標的}}，也可阻斷 Ca²⁺通道",
+  feat: ["為 {{6-phenyl-1,2,4-triazine|結構}} 衍生物",
+    "主要在 {{2 號位|位置}}★進行 glucuronidation★"],
+  pharm: ["機轉：阻斷 {{Na⁺通道|標的}}，也可阻斷 Ca²⁺通道",
     "{{孕婦|名詞}}使用最安全的抗癲癇藥物",
-    "和 {{Valproic acid|藥名}}★併用可延長半衰期（Valproic acid 為 CYP 抑制劑，可抑制代謝）",
-    "副作用：{{紅疹|副作用}}、嗜睡、複視"
-  ] },
+    "和 {{Valproic acid|藥名}}★併用可延長半衰期",
+    "> （Valproic acid 為 CYP 抑制劑，可抑制代謝）",
+    "治療成人的{{雷葛氏症候群|疾病}} Lennox-Gastaut",
+    "副作用：{{紅疹|副作用}}、嗜睡、複視"] },
 { id: "tiagabine", chapter: 2, name: "Tiagabine", type: "drug", group: "未分類結構", source: "統整（一）p.27", img: "assets/medchem/tiagabine.png",
-  use: ["抑制 GABA 再吸收，抗癲癇"],
-  bold: [
-    "非 GABA 類似結構",
+  feat: ["非 GABA 類似結構",
     "含有{{兩個 Thiophene|結構}} 結構",
-    "含有 {{Nipecotic acid|結構}} 結構",
-    "機轉：抑制 GABA 的再吸收★ → 抑制 {{GAT|標的}}★",
+    "含有 {{Nipecotic acid|結構}} 結構"],
+  pharm: ["機轉：抑制 GABA 的再吸收★ → 抑制 {{GAT|標的}}★",
     "口服吸收佳，可通過 {{BBB|器官}}★",
-    "代謝：主要經 {{CYP3A4|酵素}} 在 thiophene 上進行 oxidation，之後再進行 glucuronidation"
-  ] },
+    "代謝：主要經 {{CYP3A4|酵素}} 在 thiophene 上進行 oxidation，之後再進行 glucuronidation"] },
 { id: "topiramate", chapter: 2, name: "Topiramate", type: "drug", group: "未分類結構", source: "統整（一）p.28", img: "assets/medchem/topiramate.png",
-  use: ["抗癲癇（阻斷 AMPA/KA 的 Na⁺通道）"],
-  bold: [
-    "由 {{Fructose|物質}} 形成 ketal 後與 sulfamate ester 發展而成的酯類衍生物",
-    "機轉目前仍不明",
+  feat: ["由 {{Fructose|物質}} 形成 [u]ketal[/u] 後與 sulfamate ester 後發展而成的酯類衍生物"],
+  pharm: ["目前機轉仍不明",
     "與血漿蛋白結合率{{低|性質|高}}",
-    "代謝：大部分藥物會直接經{{尿液|代謝}}排出"
-  ] },
+    "代謝：大部分藥物會直接經{{尿液|代謝}}排出"] },
 { id: "zonisamide", chapter: 2, name: "Zonisamide", type: "drug", group: "未分類結構", source: "統整（一）p.28", img: "assets/medchem/zonisamide.png",
-  use: ["輔助治療 16 歲以上且第一線藥物難以控制的病症"],
-  bold: [
-    "為 {{Sulfonamide|結構}}★的衍生物",
-    "含有 {{Benzisoxazole|結構}} 結構",
-    "機轉：阻斷 {{Na⁺通道|標的}}和 T-type Ca²⁺通道",
-    "代謝：於 Sulfonamide 的 N 上行 N-acetylation；經 {{CYP3A4|酵素}} 或 CYP2D6 進行還原；在 N-O 之間開環形成 2-sulfamoylacetyl phenol"
-  ] },
+  feat: ["為 {{Sulfonamide|結構}}★的衍生物",
+    "含有 {{Benzisoxazole|結構}} 結構"],
+  pharm: ["機轉：阻斷 {{Na⁺通道|標的}}和 T-type Ca²⁺通道",
+    "輔助治療 16 歲以上且第一線藥物難以控制的病症",
+    "代謝：",
+    "- 於 Sulfonamide 的 N 上行 N-acetylation",
+    "- 經由 {{CYP3A4|酵素}} 或 CYP2D6 進行還原",
+    "- 在 N-O 之間開環形成 2-sulfamoylacetyl phenol"] },
 { id: "valproic-acid", chapter: 2, name: "Valproic acid", type: "drug", group: "未分類結構", source: "統整（一）p.28", img: "assets/medchem/valproic-acid.png",
-  use: ["廣效型抗癲癇（VPA），各類發作皆可用"],
-  bold: [
-    "Acetic acid 上有{{兩個丙基|取代基}}，故又稱為 dipropylacetic acid",
+  use: ["（VPA）"],
+  feat: ["Acetic acid 上有{{兩個丙基|取代基}}，故又稱為 dipropylacetic acid",
     "pKa=4.7，在體內可以{{完全解離|性質}}",
-    "為 {{CYP2C9|酵素}} 的抑制劑★，與 lamotrigine 併服可延長其半衰期",
-    "機轉可能是活化 {{glutamic acid decarboxylase|標的}} 或抑制 GABA 轉胺酶 → 使 GABA 濃度上升",
+    "為 {{CYP2C9|酵素}} 的抑制劑★，與 lamotrigine 併服可延長其半衰期"],
+  pharm: ["機轉[u]可能[/u]是活化 {{glutamic acid decarboxylase|標的}} 或抑制 GABA 轉胺酶 → 使 GABA 濃度上升",
     "代謝：主要由肝臟代謝，在碳鏈上行 hydroxylation★",
-    "40% 經 β-oxidation 形成二級醇，脫水之主要代謝物為具活性的 {{(E)-2-ene-VPA|代謝物}}",
-    "15-20% 經 ω-oxidation 形成一級醇，脫水後產生毒性代謝物 {{(E)-2,4-diene-VPA|代謝物}}"
-  ] },
+    "- 30-50%進行 glucuronidation 後經尿液排出",
+    "- 40%經 β-oxidation 形成二級醇，脫水之主要代謝物為具活性的 {{(E)-2-ene-VPA|代謝物}}",
+    "- 15-20%經 ω-oxidation 形成一級醇，脫水後產生毒性代謝物 {{(E)-2,4-diene-VPA|代謝物}}"] },
 
-/* 二、失神性發作藥物：Oxazolidinediones 類衍生物 */
-{ id: "trimethadione", chapter: 2, name: "Trimethadione", type: "drug", group: "Oxazolidinediones 類衍生物", source: "統整（一）p.29", img: "assets/medchem/trimethadione.png",
-  use: ["{{失神性發作|用途}}（或其他藥物難以改善的病症）"],
-  bold: [
-    "結構中有{{三個甲基|取代基}}（trimethadione）",
-    "{{Prodrug|性質}}★，必須經 N-demethylation 代謝為 {{dimethadione|代謝物}}★才能作用在 T-type Ca²⁺通道"
-  ] },
+/* 二、失神性發作藥物：Ureide 衍生物 > Oxazolidinediones 類衍生物 */
+{ id: "trimethadione", chapter: 2, name: "Trimethadione", type: "drug", group: "Oxazolidinediones 類衍生物（字尾-dione）", source: "統整（一）p.29", img: "assets/medchem/trimethadione.png",
+  feat: ["結構中有{{三個甲基|取代基}}（[u]trimetha[/u]dione）"],
+  pharm: ["{{Prodrug|性質}}★，必須經 N-demethylation 代謝為 {{dimethadione|代謝物}}★才能作用在 T-type Ca²⁺通道",
+    "目前只用於[u]失神性發作[/u]或其他藥物難以改善的病症"] },
 
 /* Succinimides 類衍生物 */
-{ id: "ethosuximide", chapter: 2, name: "Ethosuximide", type: "drug", group: "Succinimides 類衍生物", source: "統整（一）p.29", img: "assets/medchem/ethosuximide.png",
-  use: ["治療{{失神性發作|用途}}之首選藥★"],
-  bold: [
-    "將 Oxazolidinedione 五元環上的 {{O→C|結構}}（降低毒性）",
-    "3 號位接甲基、{{乙基|取代基}}（Etho-）",
+{ id: "ethosuximide", chapter: 2, name: "Ethosuximide", type: "drug", group: "Succinimides 類衍生物（字尾-suximide）", source: "統整（一）p.29", img: "assets/medchem/ethosuximide.png",
+  feat: ["將 Oxazolidinedione 五元環上的 {{O→C|結構}}",
+    "> （降低毒性）",
+    "3 號位接甲基、{{乙基|取代基}}（Etho-）"],
+  pharm: ["治療{{失神性發作|用途}}之首選藥★",
     "{{不會|性質}}與血漿蛋白結合★",
     "副作用：刺激胃部、貧血、血小板↓",
-    "代謝：{{乙基上氧化|代謝}}為無活性代謝物，由尿液排出"
-  ] },
-{ id: "methsuximide", chapter: 2, name: "Methsuximide", type: "drug", group: "Succinimides 類衍生物", source: "統整（一）p.29", img: "assets/medchem/methsuximide.png",
-  use: ["失神性發作（毒性較強，較少使用）"],
-  bold: [
-    "N 上接有{{甲基|取代基}}（Meth-）",
-    "3 號位接甲基、{{苯環|取代基}}",
-    "毒性較 Ethosuximide {{強|性質|弱}}，較少使用",
-    "代謝：經 {{N-demethylation|代謝}} 形成之代謝物具有長半衰期（25 小時）"
-  ] },
-{ id: "phensuximide", chapter: 2, name: "Phensuximide", type: "drug", group: "Succinimides 類衍生物", source: "統整（一）p.29", img: "assets/medchem/phensuximide.png",
-  use: ["失神性發作（藥效較弱）"],
-  bold: [
-    "N 上接有{{甲基|取代基}}（Meth-）",
-    "3 號位接{{苯環|取代基}}",
+    "代謝：{{乙基上氧化|代謝}}為[u]無活性[/u]代謝物，由尿液排出"] },
+{ id: "methsuximide", chapter: 2, name: "Methsuximide", type: "drug", group: "Succinimides 類衍生物（字尾-suximide）", source: "統整（一）p.29", img: "assets/medchem/methsuximide.png",
+  feat: ["N 上接有{{甲基|取代基}}（Meth-）",
+    "3 號位接甲基、{{苯環|取代基}}"],
+  pharm: ["毒性較 Ethosuximide {{強|性質|弱}}，較少使用",
+    "代謝：經 {{N-demethylation|代謝}} 形成之代謝物具有長半衰期（25 小時）"] },
+{ id: "phensuximide", chapter: 2, name: "Phensuximide", type: "drug", group: "Succinimides 類衍生物（字尾-suximide）", source: "統整（一）p.29", img: "assets/medchem/phensuximide.png",
+  feat: ["N 上接有{{甲基|取代基}}（Meth-）",
+    "3 號位接{{苯環|取代基}}"],
+  pharm: ["藥效較 Ethosuximide 弱",
     "會使尿液變成{{粉紅色|性質}}或紅色（無毒性）",
-    "代謝：直接由{{膽汁|代謝}}或尿液排出"
-  ] },
-
-/* 總整理 */
-{ id: "ae-ureide", chapter: 2, name: "Ureide 基本結構衍生物", short: "Ureide 衍生物", type: "topic", group: "總整理", source: "統整（一）p.29–31", img: "assets/medchem/ae-ureide.png",
-  bold: [
-    "Ureide 基本結構衍生物：{{Barbiturates|藥物類別}}、Hydantoin、Oxazolidinediones、Succinimides",
-    "Ureide 可形成 {{enolic hydroxy|結構}}，在鹼性水溶液中解離程度較大",
-    "X group 改變會造成控制的{{發作類型|名詞}}顯著改變",
-    "Oxazolidinediones（X = {{O|離子|C}}）→ Trimethadione → absence seizure",
-    "Succinimides（X = CH₂）→ Ethosuximide、Methsuximide、Phensuximide → absence seizure"
-  ] },
-{ id: "ae-se-summary", chapter: 2, name: "抗癲癇藥物副作用統整", short: "副作用統整", type: "topic", group: "總整理", source: "統整（一）p.31",
-  bold: [
-    "體重增加：{{Valproic acid|藥名}}、Gabapentin、Vigabatrin",
-    "體重減少：{{Felbamate|藥名}}、Topiramate、Zonisamide",
-    "失神性發作用藥：Valproic acid、{{Ethosuximide|藥名}}、Lamotrigine",
-    "孕婦禁用：{{Phenytoin|藥名}}、Topiramate",
-    "無藥物交互作用：{{Ethosuximide|藥名}}、Gabapentin、Levetiracetam",
-    "Steve-Johnson 症狀：Phenytoin、Carbamazepine、{{Lamotrigine|藥名}}"
-  ] },
+    "代謝：直接由{{膽汁|代謝}}或尿液排出"] },
 
 /* ===== 第 3 章 抗憂鬱藥物（統整（一）參，p.32–43）===== */
 { id: "ad-classes", chapter: 3, name: "抗憂鬱藥物分類總表", short: "抗憂鬱分類", type: "topic", group: "總論", source: "統整（一）p.32",
@@ -2096,10 +2050,107 @@ PI.KNOWLEDGE = {
     ] },
   ch2: { chapter: 2, title: "抗癲癇藥物",
     sections: [
-      { id: "intro", title: "總論", items: [{ unit: "ae-intro" }, { unit: "ae-firstline" }, { unit: "ae-action-site" }] },
-      { id: "partial", title: "一、局部性及全身強直-痙攣性發作", items: [] },
-      { id: "absence", title: "二、失神性發作", items: [] },
-      { id: "summary", title: "總整理", items: [{ unit: "ae-ureide" }, { unit: "ae-se-summary" }] }
+      { id: "intro", title: "貳、抗癲癇藥物（Antiseizure Drugs）", items: [
+        { title: "精神藥理學簡介", source: "統整（一）p.19", points: [
+          "1. 離子通道之分布與動作電位",
+          "> a. 人體主要由（生理食鹽）水組成，所以{{細胞外|位置|細胞內}} Na⁺、Cl⁻多",
+          "> b. 被動運輸：由{{高|性質|低}}濃度往低濃度方向跑",
+          "2. 神經傳遞物質（Neurotransmitters）",
+          "> ・興奮性神經遞質：{{Glutamate|物質}}、Serotonin、Histamine（註）",
+          "> ・抑制性神經遞質：{{GABA|物質}}、Glycine",
+          "> ・Acetylcholine、NE、Dopamine 等依據作用受體不同，會產生不同的反應",
+          "註：此三種神經遞質並非總是造成興奮性作用，在某些受體作用時會產生抑制性反應，只是興奮的情況仍然佔大多數"],
+          images: ["assets/medchem/ae-ions.png", "assets/medchem/ae-potential.png", "assets/medchem/ae-flow.png"] },
+        { title: "各類型癲癇治療首選藥物整理（★重要）", source: "統整（一）p.19",
+          table: { head: [{ t: "癲癇種類", cs: 2 }, "首選藥物"], cols: ["", "首選藥物", "首選藥物"],
+            rowNames: ["局部性發作", "全身強直痙攣發作（大發作）", "失神性發作（小發作）", "肌攣性發作", "癲癇重積症"],
+            rows: [
+              [{ t: "局部性發作", cs: 2 }, "{{Carbamazepine|藥名}}、Phenytoin、Valproic acid"],
+              [{ t: "全身性發作", rs: 3 }, { t: "全身強直痙攣發作（大發作）", s: true }, "Carbamazepine、Phenytoin、{{Valproic acid|藥名}}"],
+              [null, { t: "失神性發作（小發作）", s: true }, "{{Ethosuximide|藥名}}、Lamotrigine、Valproic acid"],
+              [null, "肌攣性發作", "{{Valproic acid|藥名}}、Clonazepam"],
+              [{ t: "癲癇重積症", cs: 2, s: true }, "{{Lorazepam|藥名}}、Diazepam"]] } },
+        { title: "癲癇之疾病成因", source: "統整（一）p.20", points: [
+          "1. 離子通道異常：細胞外 Ca²⁺↓、K⁺↑，造成腦部異常放電",
+          "2. 抑制性 GABA 系統被抑制",
+          "3. 興奮性 Glutamate 系統被促進"] },
+        { title: "藥物作用位置", source: "統整（一）p.20",
+          table: { rowNames: ["", "阻斷 Na⁺通道", "阻斷 T-type Ca²⁺通道", "促進 K⁺通道開啟", "", "抑制 GAT 再回收", "活化 GABA_A 受體", "抑制 GABA-T 代謝", "增強 GAD 作用",
+              "", "阻斷 P/Q-type Ca²⁺通道", "阻斷 NMDA 的 Ca²⁺通道", "阻斷 AMPA/KA 的 Na⁺通道", "抑制 Glutamate 釋放", "", "廣效型藥物"],
+            rows: [
+              [{ t: "調節離子通道", cs: 2, band: true }],
+              [{ t: "阻斷 Na⁺通道\n（{{最多|性質}}藥物作用）", s: true }, "Carbamazepine、Oxcarbazepine、\nLamotrigine、Lacosamide、Phenytoin"],
+              ["阻斷 {{T-type|名詞}} Ca²⁺通道", "Ethosuximide"],
+              ["促進 K⁺通道開啟", "{{Ezogabine|藥名}}（[u]Retigabine[/u]）"],
+              [{ t: "促進抑制性 GABA 作用", cs: 2, band: true }],
+              ["抑制 GAT 再回收", { t: "{{Tiagabine|藥名}}", s: true }],
+              ["活化 GABA_A 受體", "BZDs、Phenobarbital"],
+              ["抑制 {{GABA-T|標的}} 代謝", { t: "Vigabatrin(不可逆)", s: true }],
+              ["增強 GAD 作用", "Gabapentin"],
+              [{ t: "抑制興奮性 Glutamate 作用", cs: 2, band: true }],
+              ["阻斷 P/Q-type Ca²⁺通道", "Gabapentin、Pregabalin"],
+              ["阻斷 NMDA 的 Ca²⁺通道", "{{Felbamate|藥名}}"],
+              ["阻斷 AMPA/KA 的 Na⁺通道", "Topiramate"],
+              ["抑制 Glutamate 釋放", "Lamotrigine"],
+              [{ t: "廣效型藥物：多重作用機轉", cs: 2, band: true }],
+              [{ t: "{{Valproate|藥名}}、Levetiracetam、Topiramate、Zonisamide、Felbamate", cs: 2 }]],
+            note: "※ GAD = glutamate decarboxylase（可合成 GABA）\n※ GAT = GABA transporter（可回收 GABA）\n※ GABA-T = GABA transaminase（會代謝 GABA）" },
+          images: ["assets/medchem/ae-venn.png"] },
+        { title: "癲癇重積症（Status Epilepticus）", source: "統整（一）p.20", table: { rows: [["Diazepam、Lorazepam、Midazolam"]] } }
+      ] },
+      { id: "partial", title: "一、局部性及全身強直-痙攣性癲癇發作藥物（Drugs for Partial and Generalized Tonic-Clonic Seizures）", items: [
+        { group: "抗癲癇巴比妥類（Barbiturates）", source: "統整（一）p.22", points: [
+          "（Barbiturates 及 Benzodiazpines 類藥物已經在前面介紹過，這裡在放一次供複習統整使用）",
+          "抗癲癇巴比妥類（Barbiturates）：Phenobarbital、Mephobarbital、Primidone",
+          "Phenobarbital 為{{兒童復發性癲癇|疾病}}首選藥；{{Primidone|藥名}} 需代謝為 Phenobarbital 才有活性。"] },
+        { title: "※ 補充", group: "Iminostilbene 類衍生物", source: "統整（一）p.23", points: [
+          "※ Carbamazepine 之代謝路徑：CBZ → 2-hydroxy-CBZ → 2-hydroxyiminostilbene({{2-OHIS|代謝物}}) → CBZ-Iminoquinone(CBZ-IQ)",
+          "※ Carbamazepine 和 {{Trazodone|藥名}} 都會代謝產生 Iminoquinone"] },
+        { title: "※ 補充", group: "Biscarbamates 類衍生物", source: "統整（一）p.24", points: [
+          "※ NMDA 抑制劑：Amantadine、Memantadine、{{Ketamine|藥名}}、PCP、Felbamate",
+          "※ Meprobamate"],
+          structs: ["assets/medchem/ae-meprobamate.png"] },
+        { title: "GABA★", group: "GABA 類衍生物", source: "統整（一）p.25", structs: ["assets/medchem/ae-gaba2.png"] },
+        { title: "Nipecotic acid", group: "未分類結構", source: "統整（一）p.27", structs: ["assets/medchem/ae-nipecotic.png"] }
+      ] },
+      { id: "absence", title: "二、失神性癲癇發作藥物（Drugs for Absence Seizures）：機轉皆為阻斷 T-type Ca²⁺通道", items: [
+        { group: "Succinimides 類衍生物（字尾-suximide）", source: "統整（一）p.29", points: [
+          "Succinimides 類衍生物（字尾-suximide）：結構中含有 Ureide，機轉皆為阻斷 {{T-type|名詞}} Ca²⁺通道"] }
+      ] },
+      { id: "myoclonic", title: "三、肌攣性癲癇發作藥物（Drugs for Myoclonic Seizures）", items: [
+        { source: "統整（一）p.30", points: [
+          "常用之藥物為 {{Clonazepam|藥名}} 和 Valoproate sodium（Valproic acid）",
+          "研究顯示 Lamotrigine 和 Topiramate 對於肌攣性發作都有用，但未被 FDA 核准"],
+          gallery: [
+            { img: "assets/medchem/clonazepam.png", cap: "Clonazepam" },
+            { img: "assets/medchem/valproic-acid.png", cap: "Valproic acid" },
+            { img: "assets/medchem/lamotrigine.png", cap: "Lamotrigine" },
+            { img: "assets/medchem/topiramate.png", cap: "Topiramate" }] }
+      ] },
+      { id: "status", title: "四、癲癇重積症藥物（Drugs for Status Epilepticus）", items: [
+        { source: "統整（一）p.30", points: [
+          "常用之藥物為 {{Diazepam|藥名}}★、Lorazepam 和 Midazolam（皆為 {{BZD|藥物類別}} 類藥物）",
+          "- Diazepam 可以 IV 或 IM 給藥，為{{最常使用|性質}}的藥物",
+          "- Lorazepam 和 Midazolam 沒有被 FDA 核准，但都是臨床上治療用的藥物",
+          "> （Lorazepam 的 Duration 長、Midazolam 的 Onset 快）"],
+          gallery: [
+            { img: "assets/medchem/diazepam.png", cap: "Diazepam" },
+            { img: "assets/medchem/lorazepam.png", cap: "Lorazepam" },
+            { img: "assets/medchem/midazolam.png", cap: "Midazolam" }] }
+      ] },
+      { id: "summary", title: "總整理", items: [
+        { source: "統整（一）p.31", points: [
+          "※ Ureide 基本結構衍生物：{{Barbiturates|藥物類別}}、Hydantoin、Oxazolidinediones、Succinimides",
+          "> （Ureide 可形成 {{enolic hydroxy|結構}}，在{{鹼性|性質|酸性}}水溶液中解離程度較大）"],
+          images: ["assets/medchem/ae-ureide-classes.png"] },
+        { title: "※ 副作用統整", source: "統整（一）p.31", table: { rows: [
+          [{ t: "體重增加", b: true }, "{{Valproic acid|藥名}}、Gabapentin、Vigabatrin"],
+          [{ t: "體重減少", b: true }, "{{Felbamate|藥名}}、Topiramate、Zonisamide"],
+          [{ t: "Absence seizure", b: true }, "Valproic acid、{{Ethosuximide|藥名}}、Lamotrigine"],
+          [{ t: "孕婦禁用", b: true }, "{{Phenytoin|藥名}}、Topiramate"],
+          [{ t: "無藥物交互作用", b: true }, "Ethosuximide、Gabapentin、{{Levetiracetam|藥名}}"],
+          [{ t: "Steve-Johnson 症狀", b: true }, "Phenytoin、Carbamazepine、{{Lamotrigine|藥名}}"]] } }
+      ] }
     ] },
   ch3: { chapter: 3, title: "抗憂鬱藥物",
     sections: [
