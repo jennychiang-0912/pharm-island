@@ -260,7 +260,7 @@ PI.map = (function () {
   }
 
   /* ================= 繪製 ================= */
-  let hl, hov, litRing, svg, world, mapEl, stage, sea, decorLayer, terrainLayer, cellLayer, labelLayer, treeLayer, onSelect = () => {}, onSelectIsland = () => {}, onOpenTree = () => {}, selected = null, focusCh = null;
+  let hl, hov, litRing, svg, world, mapEl, stage, sea, decorLayer, terrainLayer, cellLayer, labelLayer, titleLayer, treeLayer, onSelect = () => {}, onSelectIsland = () => {}, onOpenTree = () => {}, selected = null, focusCh = null;
   let grpBoxes = [];   // 全部島共用的名牌範圍（世界座標），連相鄰島的名牌也不會疊在一起
   const CH = PI.ART.chunkSize;
   const decorChunks = new Map();   // 海上裝飾：區塊 → 群組（需要時才產生）
@@ -300,13 +300,14 @@ PI.map = (function () {
     terrainLayer = el("g", { class: "layer-terrain" });                      // 島嶼地形與海岸線
     cellLayer = el("g", { class: "layer-cells" });                           // 六角格
     treeLayer = el("g", { class: "layer-trees" });                           // 知識樹（每座島一棵）
-    labelLayer = el("g", { class: "layer-labels" });                         // 章節標記
+    labelLayer = el("g", { class: "layer-labels" });                         // 小分類名牌
+    titleLayer = el("g", { class: "layer-titles" });                         // 章節標記：放在所有島的名牌上面，才不會被別座島的名牌壓到
     hl = el("path", { class: "sel-ring", d: HEX_PATH, fill: "none", "stroke-width": 6, "pointer-events": "none" });   // 選取外框
     hov = el("path", { class: "hover-hex", d: SHINE_PATH, "pointer-events": "none" });   // 滑鼠所在格子的高亮（全地圖共用一個）
     hov.style.display = "none";
     litRing = el("path", { class: "grp-lit-ring", fill: "none", "pointer-events": "none" });   // 點名牌時圈住整個分類的外框線
     litRing.style.display = "none";
-    world.append(decorLayer, terrainLayer, cellLayer, hov, treeLayer, labelLayer, litRing, hl);
+    world.append(decorLayer, terrainLayer, cellLayer, hov, treeLayer, labelLayer, titleLayer, litRing, hl);
     svg.appendChild(world);
     stage.append(sea, svg);
     container.appendChild(stage);
@@ -317,7 +318,8 @@ PI.map = (function () {
     islands.forEach(isl => {
       isl.g.cells = el("g", { class: "island-g island-cells" });
       isl.g.label = el("g", { class: "island-g" });
-      cellLayer.appendChild(isl.g.cells); labelLayer.appendChild(isl.g.label);
+      isl.g.title = el("g", { class: "island-g" });
+      cellLayer.appendChild(isl.g.cells); labelLayer.appendChild(isl.g.label); titleLayer.appendChild(isl.g.title);
       isl.cells.forEach(drawCell); drawLabel(isl);
     });
     layout();   // 決定位置，並畫出每塊陸地的地形
@@ -414,7 +416,7 @@ PI.map = (function () {
   // 章節標記：島的上方一塊牌子（章節徽章＋名稱），縮小地圖時牌子維持可讀的大小
   function drawLabel(isl) {
     const ch = chapterOf(isl.chapter), cat = catOf(ch.cat);
-    const g = isl.g.label; g.textContent = "";
+    const g = isl.g.label; g.textContent = ""; isl.g.title.textContent = "";
     let x = isl.coast.cx, y = isl.coast.minY + R * 0.35;
     if (isl.signPos && !isl.shared) { x = isl.signPos.x - isl.origin.x; y = isl.signPos.y - isl.origin.y - R * 1.25; }   // 有告示牌島：章節牌子放在告示牌上面
     else
@@ -434,7 +436,7 @@ PI.map = (function () {
     inner.append(num, name);
     lab.appendChild(inner);
     if (PI.GROUP_REGIONS) drawGroups(isl, g);   // 小分類的交界線與名牌（畫在章節牌子底下）
-    g.appendChild(lab);
+    isl.g.title.appendChild(lab);
     isl.labelInner = inner;
   }
 
