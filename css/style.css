@@ -571,3 +571,11 @@ mark.cloze.is-hl.hl-mine { background: linear-gradient(transparent 35%, #BFE3A6 
 
 /* 島的解鎖說明（島嶼資訊卡） */
 .isl-gate { margin: 8px 0 0; font-size: 13px; color: var(--muted); line-height: 1.5; }
+/* 選結構題：選項是結構圖（2×2，手機也維持兩欄） */
+.q-pick{margin:4px 0 0;font-size:17px}
+.q-opts.has-img{grid-template-columns:1fr 1fr}
+.q-opt.q-opt-img{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;min-height:150px;padding:28px 8px 10px;background:#fff}
+.q-opt.q-opt-img .q-key{position:absolute;top:8px;left:8px}
+.q-opt.q-opt-img img{max-width:100%;max-height:150px;object-fit:contain}
+.q-opt-name{font-size:13px;font-weight:700;color:var(--deep);text-align:center}
+@media (max-width:600px){.q-opts.has-img{grid-template-columns:1fr 1fr}.q-opt.q-opt-img{min-height:110px}.q-opt.q-opt-img img{max-height:100px}}

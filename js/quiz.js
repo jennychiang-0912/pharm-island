@@ -188,12 +188,28 @@ PI.quiz = (function () {
       .sort((a, b) => (b.group === u.group) - (a.group === u.group)).slice(0, 3);
     if (others.length < 3) return null;
     return {
-      kind: "which", qid: `s:${u.id}`, label: "認結構：這是哪一個藥？",
+      kind: "which", qid: `s:${u.id}`, label: "認結構：這是哪一個藥？", blind: true,
       prompt: `<figure class="q-struct"><img src="${esc(u.img)}" alt="結構式"></figure>`,
       answer: `答案是 <b>${esc(u.name)}</b>`, hint: "",
       options: shuffle([{ text: u.name, ok: true }, ...others.map(x => ({ text: x.name, ok: false }))])
     };
   }
+
+  /* 選結構題（藥化）：給藥名，從 4 張結構圖裡選出它的結構；錯誤選項是同章有結構圖的其他藥（同一組優先，最像） */
+  function structPickQ(u) {
+    if (u.type !== "drug" || !u.img) return null;
+    const others = shuffle(PI.UNITS.filter(x => x.type === "drug" && x.img && x.id !== u.id && x.chapter === u.chapter && x.img !== u.img))
+      .sort((a, b) => (b.group === u.group) - (a.group === u.group)).slice(0, 3);
+    if (others.length < 3) return null;
+    return {
+      kind: "which", qid: `p:${u.id}`, label: "選結構：哪一個是它的結構？",
+      prompt: `<p class="q-pick">哪一個是 <b>${esc(u.name)}</b> 的結構？</p>`,
+      answer: "", hint: "",
+      options: shuffle([{ text: u.name, img: u.img, ok: true }, ...others.map(x => ({ text: x.name, img: x.img, ok: false }))])
+    };
+  }
+  /* 格子裡的結構題：選結構＋認結構（有結構圖的藥才有） */
+  function structForUnit(u) { return [structPickQ(u), structQ(u)].filter(Boolean); }
 
   function forUnit(u, n = 3) {
     if (!bank) build();
@@ -203,7 +219,7 @@ PI.quiz = (function () {
     for (let round = 0; qs.length < n && round < 4; round++)
       lines.forEach(L => { if (qs.length >= n || round >= L.p.blanks.length) return;
         const ks = shuffle(L.p.blanks.map((_, k) => k)); const q = clozeQ(L, ks[round]); if (q && !qs.some(x => x.qid === q.qid)) qs.push(q); });
-    return shuffle(qs).slice(0, n);
+    return shuffle([...qs, ...structForUnit(u)]).slice(0, n);
   }
   /* 這格的所有知識點：每一句的每一個挖空各一題（出不了題的挖空——例如找不到錯誤選項——略過） */
   function allForUnit(u) {
@@ -211,6 +227,7 @@ PI.quiz = (function () {
     const qs = [];
     bank.lines.filter(L => L.owner === `u:${u.id}`).forEach(L => L.p.blanks.forEach((_, k) => {
       const q = clozeQ(L, k); if (q && !qs.some(x => x.qid === q.qid)) qs.push(q); }));
+    qs.push(...structForUnit(u));
     return shuffle(qs);
   }
   function forTree(key) {
@@ -267,7 +284,9 @@ PI.quiz = (function () {
 
   function draw() {
     const r = run;
-    const head = `<div class="q-head"><div class="q-title"><span class="muted">${esc(r.kicker)}</span><h3>${esc(r.title)}</h3></div>
+    const cur = !r.finished && r.qs[r.i];
+    const title = cur && cur.blind && r.blindTitle && r.picked === null ? r.blindTitle : r.title;   // 認結構題：作答前標題不顯示藥名
+    const head = `<div class="q-head"><div class="q-title"><span class="muted">${esc(r.kicker)}</span><h3>${esc(title)}</h3></div>
       <button type="button" class="close" data-close aria-label="關閉">×</button></div>`;
     if (r.finished) {
       const ok = r.right >= r.need;
@@ -284,12 +303,14 @@ PI.quiz = (function () {
     box.innerHTML = `<div class="q-card">` + head + `<div class="q-meta"><span class="q-dots" aria-label="第 ${r.i + 1} 題，共 ${r.qs.length} 題">${dots}</span><span class="q-label">${esc(q.label)}</span></div>
       <div class="q-prompt">${done && q.kind === "cloze" ? q.answer : q.prompt}</div>
       ${q.hint && !done ? (r.hinted ? `<p class="q-hint">${esc(q.hint)}</p>` : `<button type="button" class="link-btn q-hint-btn" data-hint>看口訣提示</button>`) : ""}
-      <div class="q-opts">${q.options.map((o, k) => {
+      <div class="q-opts${q.options.some(o => o.img) ? " has-img" : ""}">${q.options.map((o, k) => {
         const cls = done ? (o.ok ? "is-right" : k === r.picked ? "is-wrong" : "is-dim") : "";
-        return `<button type="button" class="q-opt ${cls}" data-opt="${k}" ${done ? "disabled" : ""}><span class="q-key">${k + 1}</span>${esc(o.text)}</button>`;
+        // 圖片選項（選結構題）：作答前只有圖，作答後在圖下面標出每張是哪個藥
+        const body = o.img ? `<img src="${esc(o.img)}" alt="結構 ${k + 1}">${done ? `<span class="q-opt-name">${esc(o.text)}</span>` : ""}` : esc(o.text);
+        return `<button type="button" class="q-opt${o.img ? " q-opt-img" : ""} ${cls}" data-opt="${k}" ${done ? "disabled" : ""}><span class="q-key">${k + 1}</span>${body}</button>`;
       }).join("")}</div>
       ${done ? `<div class="q-feedback ${q.options[r.picked].ok ? "is-ok" : "is-bad"}">
-          <b>${q.options[r.picked].ok ? "答對了！" : "差一點！"}</b>${q.kind === "which" ? " " + q.answer : ""}${q.hint ? `<span class="q-hint">${esc(q.hint)}</span>` : ""}</div>
+          <b>${q.options[r.picked].ok ? "答對了！" : "差一點！"}</b>${q.kind === "which" ? " " + (q.options.some(o => o.img) ? `正確的是第 <b>${q.options.findIndex(o => o.ok) + 1}</b> 張` : q.answer) : ""}${q.hint ? `<span class="q-hint">${esc(q.hint)}</span>` : ""}</div>
         <div class="q-foot"><button type="button" class="btn btn-primary" data-next>${r.i + 1 >= r.qs.length ? "看結果" : "下一題"}</button></div>` : ""}</div>`;
     (done ? box.querySelector("[data-next]") : box.querySelector(".q-opt"))?.focus();
   }

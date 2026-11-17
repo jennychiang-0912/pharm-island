@@ -154,7 +154,7 @@
       : [...rnd(all.filter(q => !PI.state.isTreeDone(q.qid))), ...rnd(all.filter(q => PI.state.isTreeDone(q.qid)))].slice(0, 5);   // 還沒答對的先出，不夠 5 題再用答對過的複習
     const ch = chOf(cell.chapter);
     let won = false;
-    PI.quiz.start({ qs, need: 0, skipOk: () => won, kicker: `第 ${ch.id} 章・${ch.name}`, title: `${practice ? "練習" : "挑戰"}：${cell.unit.name}`,
+    PI.quiz.start({ qs, need: 0, skipOk: () => won, kicker: `第 ${ch.id} 章・${ch.name}`, title: `${practice ? "練習" : "挑戰"}：${cell.unit.name}`, blindTitle: `${practice ? "練習" : "挑戰"}：這格的藥是？`,
       onRight: q => { PI.state.markTree(q.qid); },
       okText: () => practice ? "複習完成！" : `還差 ${cellProgress(cell).total - cellProgress(cell).done} 個知識點就能佔領這格，再挑戰一次吧！`,
       resultHtml: () => practice ? "" : `<div class="q-prog">${bar("攻略進度", cellProgress(cell).done, cellProgress(cell).total, "知識點")}</div>`,
