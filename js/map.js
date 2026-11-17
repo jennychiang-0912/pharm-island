@@ -54,6 +54,10 @@ PI.map = (function () {
     return isl;
   }
 
+  /* 第三層小標：PI.GROUP_PARENTS 把小分類掛到上一層（例如 Class A → Benzodiazepine 類衍生物）。
+     topOf(group) 是最上層的那一類；沒有設定就是自己。 */
+  const topOf = g => (g && (PI.GROUP_PARENTS || {})[g]) || g;
+
   // 下一格要放哪裡：只從已有格子旁邊的空位挑
   function nextSpot(isl, group) {
     const shared = isl.shared;
@@ -63,6 +67,10 @@ PI.map = (function () {
     const mates = group ? isl.cells.filter(c => c.group === group) : [];
     const gq = mates.length ? mates.reduce((s, c) => s + c.q, 0) / mates.length : 0;
     const gr = mates.length ? mates.reduce((s, c) => s + c.r, 0) / mates.length : 0;
+    // 同一個上層分類（第三層小標）的格子：子分類的第一格貼著上層那一塊長出來，整類才會框在一起
+    const top = topOf(group), kin = group && top !== group || group && PI.GROUP_PARENTS && Object.values(PI.GROUP_PARENTS).includes(group)
+      ? isl.cells.filter(c => c.group && topOf(c.group) === top) : [];
+    const kq = kin.length ? kin.reduce((s, c) => s + c.q, 0) / kin.length : 0, kr = kin.length ? kin.reduce((s, c) => s + c.r, 0) / kin.length : 0;
     // 主島：這一章自己的中心（讓每一章是一塊完整的拼圖，不會被拉散）
     const cq = isl.cells.reduce((s, c) => s + c.q, 0) / isl.cells.length, cr = isl.cells.reduce((s, c) => s + c.r, 0) / isl.cells.length;
     const seen = new Set(); let best = null, bestScore = -Infinity;
@@ -70,16 +78,18 @@ PI.map = (function () {
       const q = c.q + dq, r = c.r + dr, key = `${q},${r}`;
       if (taken(key) || seen.has(key)) return;
       seen.add(key);
-      let nb = 0, same = 0, other = 0;
+      let nb = 0, same = 0, other = 0, kinN = 0;
       DIRS.forEach(([a, b]) => {
         const k = `${q + a},${r + b}`, n = isl.occ.get(k);
-        if (n) { nb++; if (group && n.group === group) same++; }
+        if (n) { nb++; if (group && n.group === group) same++; if (kin.length && n.group && topOf(n.group) === top) kinN++; }
         else if (shared && shared.has(k)) other++;
       });
       const n = noise(q, r, isl.chapter * 7919);
       let score;
       if (mates.length) {        // 同組的後續格子：貼著同組、往同組中心靠（同組才會聚成一團，不會拉成長條）
-        score = nb * 3 + same * 3 - hexDist(q - gq, r - gr) * 2.5 + n * 0.5 - hexDist(q, r) * 0.75;
+        score = nb * 3 + same * 3 + kinN * 1.5 - hexDist(q - gq, r - gr) * 2.5 + n * 0.5 - hexDist(q, r) * 0.75;
+      } else if (kin.length) {   // 子分類的第一格：貼著同一個上層分類
+        score = nb * 3 + kinN * 3 - hexDist(q - kq, r - kr) * 2 + n * 0.5 - hexDist(q, r) * 0.75;
       } else {                   // 新的一組的第一格，或沒有分組的格子
         score = nb * 3 + n * (group ? 2 : 3.4) - hexDist(q, r) * 0.75;
       }
@@ -434,7 +444,7 @@ PI.map = (function () {
      名牌：每一類在自己區塊最上面一排的上緣，白色窄長的大寫字、每個字等寬排開，像山坡上的 HOLLYWOOD。 */
   function drawGroups(isl, g) {
     const lines = el("g", { class: "grp-borders", "pointer-events": "none" });
-    let d = "";
+    let d = "", dSub = "";   // d：上層分類之間的交界（土黃色）；dSub：同一個上層分類裡、子分類之間的交界（第三層小標，另一個顏色）
     isl.cells.forEach(c => { if (!c.group) return; DIRS.forEach(([dq, dr]) => {
       const n = isl.occ.get(`${c.q + dq},${c.r + dr}`);
       if (n && n.group === c.group) return;          // 同一類：內部邊不畫
@@ -443,11 +453,14 @@ PI.map = (function () {
       const nx = c.lx + R * SQ3 * (dq + dr / 2), ny = c.ly + R * 1.5 * dr;   // 鄰格中心（不管有沒有格子）
       const mx = (c.lx + nx) / 2, my = (c.ly + ny) / 2, vx = nx - c.lx, vy = ny - c.ly, L = Math.hypot(vx, vy);
       const px = -vy / L * R / 2, py = vx / L * R / 2;   // 共用邊：垂直於兩格中心連線、長度 R
-      d += `M${(mx + px).toFixed(1)},${(my + py).toFixed(1)}L${(mx - px).toFixed(1)},${(my - py).toFixed(1)}`;
+      const seg = `M${(mx + px).toFixed(1)},${(my + py).toFixed(1)}L${(mx - px).toFixed(1)},${(my - py).toFixed(1)}`;
+      if (n && n.group && topOf(n.group) === topOf(c.group)) dSub += seg; else d += seg;
     }); });
     lines.append(el("path", { d, class: "grp-border-shadow" }), el("path", { d, class: "grp-border" }));
+    if (dSub) lines.append(el("path", { d: dSub, class: "grp-border-shadow" }), el("path", { d: dSub, class: "grp-border grp-border-sub" }));
     g.appendChild(lines);
-    const groups = [...new Set(isl.cells.map(c => c.group).filter(Boolean))];
+    // 名牌：每個小分類＋它的上層分類（第三層小標）；上層自己沒有格子時，名牌放在整個上層區塊上
+    const groups = [...new Set(isl.cells.flatMap(c => c.group ? [topOf(c.group), c.group] : []))];
     const FS0 = 20, MAXW = 270;   // 字級、名牌最寬像素（超過就整排等比縮小）
     // 名牌字體（Bebas Neue…）只有拉丁字母，中文字會 fallback 到系統字型、比較寬，要給比較寬的位，不然會疊在一起
     const advOf = (ch, fs) => ch === " " ? fs * 0.32 : (ch.charCodeAt(0) > 0x2E00 ? fs * 1.02 : fs * 0.56);
@@ -457,7 +470,8 @@ PI.map = (function () {
     const ox = isl.origin.x, oy = isl.origin.y;
     grpBoxes = grpBoxes.filter(b => b.ch !== isl.chapter);   // 重畫這座島時先移除它自己舊的名牌框
     groups.forEach(name => {
-      const mine = isl.cells.filter(c => c.group === name);
+      let mine = isl.cells.filter(c => c.group === name);
+      if (!mine.length) mine = isl.cells.filter(c => c.group && topOf(c.group) === name);
       const letters = labelOf(name).split("");
       const raw = letters.reduce((s, ch) => s + advOf(ch, FS0), 0);
       const scale = Math.min(1, Math.max(0.6, MAXW / raw));   // 太長就等比縮，但字級不低於 0.6
@@ -886,7 +900,7 @@ PI.map = (function () {
     if (litRing) litRing.style.display = "none";
     litGroup = null;
     if (same) return;   // 再點一次同一個 → 取消
-    const mine = cells.filter(c => c.el && c.chapter === ch && c.group === name);
+    const mine = cells.filter(c => c.el && c.chapter === ch && c.group && (c.group === name || topOf(c.group) === name));   // 點上層分類：連子分類一起圈
     if (!mine.length) return;
     mine.forEach(c => c.el.classList.add("grp-lit"));
     svg.querySelectorAll(".grp-sign").forEach(s => { if (s.dataset.group === name && +s.dataset.ch === ch) s.classList.add("is-lit"); });

@@ -79,8 +79,12 @@
       .filter(([it]) => !it.unit && test(itemGroups(it))).map(([, ii]) => `t:${key}:${si}:${ii}:`)) : [];
     const pick = ps => tq.filter(q => ps.some(p => q.qid.startsWith(p))).map(q => q.qid);
     const groups = [...new Set(PI.UNITS.filter(u => u.chapter === chId && u.group).map(u => u.group))];
+    // 第三層小標：上層分類自己沒有格子時，它的題目併進第一個子分類的小白標（先答上層，再答子分類）
+    const P = PI.GROUP_PARENTS || {}, firstKid = new Map();
+    groups.forEach(g => { const p = P[g]; if (p && !groups.includes(p) && !firstKid.has(p)) firstKid.set(p, g); });
+    const parentQs = g => [...firstKid].filter(([, k]) => k === g).flatMap(([p]) => pick(pref(gs => gs.includes(p))));
     const f = { key, sign: pick(pref(gs => !gs.length)), groups,
-      white: new Map(groups.map(g => [g, [...pick(pref(gs => gs.includes(g))),
+      white: new Map(groups.map(g => [g, [...parentQs(g), ...pick(pref(gs => gs.includes(g))),
         ...PI.UNITS.filter(u => u.chapter === chId && u.type === "topic" && u.group === g).flatMap(u => PI.quiz.allForUnit(u).map(q => q.qid))]])) };
     flowCache.set(chId, f); return f;
   }

@@ -19,6 +19,15 @@ PI.CATEGORIES = [
 /* 地圖：小分類（Barbiturates、Benzodiazepines…）畫交界線和名牌 */
 PI.GROUP_REGIONS = true;
 
+/* 第三層小標：講義黑底的大分類 > 灰底的子分類。子分類 → 上層分類。
+   地圖上上層分類用土黃色框，裡面的子分類再用藍綠色框（js/map.js 的 topOf）。 */
+PI.GROUP_PARENTS = {
+  "抗癲癇巴比妥類用藥": "巴比妥類（Barbiturates）",
+  "Class A（字尾-azepam）": "Benzodiazepine 類衍生物：藥理研究",
+  "Class B（s-triazolo-benzodiazepine，含有 1,3,4-triazole ring）": "Benzodiazepine 類衍生物：藥理研究",
+  "Class B（imidazo-benzodiazepine）": "Benzodiazepine 類衍生物：藥理研究"
+};
+
 /* 地圖名牌太長會疊在一起：這些小白標在地圖上改顯示短名（group 本身仍是講義表格的完整標題） */
 PI.GROUP_LABELS = {
   "巴比妥類（Barbiturates）": "Barbiturates",
@@ -119,16 +128,11 @@ PI.UNITS = [
 { id: "methohexital", chapter: 1, name: "Methohexital", type: "drug", group: "巴比妥類（Barbiturates）", source: "統整（一）p.5", img: "assets/medchem/methohexital.png",
   use: ["{{麻醉劑|用途}}"],
   desc: ["IV 型全身麻醉劑"] },
-{ id: "phenobarbital", chapter: 1, name: "Phenobarbital", type: "drug", group: "巴比妥類（Barbiturates）", source: "統整（一）p.4–6", img: "assets/medchem/phenobarbital.png",
+{ id: "phenobarbital", chapter: 1, name: "Phenobarbital", type: "drug", group: "巴比妥類（Barbiturates）", source: "統整（一）p.4–5", img: "assets/medchem/phenobarbital.png",
   use: ["{{鎮靜安眠|用途}}、{{抗癲癇|用途}}"],
   desc: ["R₁ 為 Ethyl group",
     "R₂ 為 {{Benzene|取代基}}",
-    "{{長效藥|作用時間}}"],
-  feat: ["5 號位取代基：苯環、乙基",
-    "pKa=7.4 為{{弱酸性|性質}}的藥物，正常生理環境下有 {{50%|數值}} 會解離，且可分布到 CNS 中"],
-  pharm: ["阻斷 {{Na⁺|離子}}通道、正向異位調節 GABA_A 受體",
-    "{{兒童性熱痙攣|疾病}}之首選藥物",
-    "代謝：尿液中約 {{25-50%|數值}}以原型藥排出，剩下的會在苯環 {{para 位接上 OH|代謝}}，再經共軛反應排出"] },
+    "{{長效藥|作用時間}}"] },
 { id: "thiopental", chapter: 1, name: "Thiopental", type: "drug", group: "巴比妥類（Barbiturates）", source: "統整（一）p.5", img: "assets/medchem/thiopental.png",
   use: ["{{麻醉劑|用途}}",
     "又稱 Thiopentobarbital"],
@@ -146,6 +150,14 @@ PI.UNITS = [
   desc: ["{{非 barbital 結尾|名詞}}",
     "將 [u]Secobarbital[/u] 第二位的 O 改成 S",
     "IV 型全身麻醉劑"] },
+/* 講義 p.6 的 Phenobarbital（「本藥與上頁重複」）：抗癲癇巴比妥類用藥裡再放一格 */
+{ id: "phenobarbital-ae", chapter: 1, name: "Phenobarbital", type: "drug", group: "抗癲癇巴比妥類用藥", source: "統整（一）p.6", img: "assets/medchem/phenobarbital.png",
+  use: ["{{鎮靜安眠|用途}}、{{抗癲癇|用途}}", "（本藥與上頁重複）"],
+  feat: ["5 號位取代基：苯環、乙基",
+    "pKa=7.4 為{{弱酸性|性質}}的藥物，正常生理環境下有 {{50%|數值}} 會解離，且可分布到 CNS 中"],
+  pharm: ["阻斷 {{Na⁺|離子}}通道、正向異位調節 GABA_A 受體",
+    "{{兒童性熱痙攣|疾病}}之首選藥物",
+    "代謝：尿液中約 {{25-50%|數值}}以原型藥排出，剩下的會在苯環 {{para 位接上 OH|代謝}}，再經共軛反應排出"] },
 { id: "mephobarbital", chapter: 1, name: "Mephobarbital", type: "drug", group: "抗癲癇巴比妥類用藥", source: "統整（一）p.6", img: "assets/medchem/mephobarbital.png",
   use: ["{{抗癲癇|用途}}"],
   feat: ["與 Phenobarbital 只相差一個{{甲基|取代基}}",
@@ -2152,7 +2164,7 @@ PI.KNOWLEDGE = {
 (function () {
   const SIGN = ["總覽", "總論", "總整理"], moved = new Map();
   const refd = new Set(Object.values(PI.KNOWLEDGE).flatMap(K => (K.sections || []).flatMap(sec => (sec.items || []).map(it => it.unit).filter(Boolean))));
-  const cellsIn = g => PI.UNITS.filter(x => x.group === g && x.type !== "topic").length;
+  const cellsIn = g => PI.UNITS.filter(x => x.type !== "topic" && (x.group === g || (PI.GROUP_PARENTS || {})[x.group] === g)).length;   // 子分類（第三層小標）的格子也算
   PI.UNITS = PI.UNITS.filter(u => {
     if (u.type !== "topic") return true;
     if (SIGN.includes(u.group) || (u.group && refd.has(u.id) && cellsIn(u.group) > 0)) { moved.set(u.id, u); return false; }

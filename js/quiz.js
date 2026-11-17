@@ -179,7 +179,7 @@ PI.quiz = (function () {
       bank.facts.get(norm(plain(L.p))) === 1 && !norm(plain(L.p)).includes(short) && !norm(plain(L.p)).includes(name)));
     if (!mine.length) return null;
     const pick = mine.slice(0, 2);
-    const others = shuffle(PI.UNITS.filter(x => x.type === "drug" && x.id !== u.id && x.chapter === u.chapter))
+    const others = shuffle(PI.UNITS.filter(x => x.type === "drug" && x.id !== u.id && x.name !== u.name && x.chapter === u.chapter))
       .sort((a, b) => (b.group === u.group) - (a.group === u.group)).slice(0, 3);
     if (others.length < 3) return null;
     return {
@@ -193,7 +193,7 @@ PI.quiz = (function () {
   /* 認結構題（藥化）：給講義上的結構圖，問是哪一個藥；選項都是同章有結構圖的其他藥（同一組優先） */
   function structQ(u) {
     if (u.type !== "drug" || !u.img) return null;
-    const others = shuffle(PI.UNITS.filter(x => x.type === "drug" && x.img && x.id !== u.id && x.chapter === u.chapter))
+    const others = shuffle(PI.UNITS.filter(x => x.type === "drug" && x.img && x.id !== u.id && x.name !== u.name && x.chapter === u.chapter))
       .sort((a, b) => (b.group === u.group) - (a.group === u.group)).slice(0, 3);
     if (others.length < 3) return null;
     return {
@@ -207,7 +207,7 @@ PI.quiz = (function () {
   /* 選結構題（藥化）：給藥名，從 4 張結構圖裡選出它的結構；錯誤選項是同章有結構圖的其他藥（同一組優先，最像） */
   function structPickQ(u) {
     if (u.type !== "drug" || !u.img) return null;
-    const others = shuffle(PI.UNITS.filter(x => x.type === "drug" && x.img && x.id !== u.id && x.chapter === u.chapter && x.img !== u.img))
+    const others = shuffle(PI.UNITS.filter(x => x.type === "drug" && x.img && x.id !== u.id && x.name !== u.name && x.chapter === u.chapter && x.img !== u.img))
       .sort((a, b) => (b.group === u.group) - (a.group === u.group)).slice(0, 3);
     if (others.length < 3) return null;
     return {
