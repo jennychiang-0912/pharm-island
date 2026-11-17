@@ -221,7 +221,8 @@ PI.map = (function () {
     });
     lands.forEach(drawTerrain);
     placeTrees();
-    const all = [...islands.map(i => i.bounds), ...lands.map(l => l.bounds).filter(Boolean),   // 包含未解鎖格子
+    const clusterBoxes = drawClusterLabels();
+    const all = [...islands.map(i => i.bounds), ...lands.map(l => l.bounds).filter(Boolean), ...clusterBoxes,   // 包含未解鎖格子、群島名稱
       ...[...trees.values()].map(t => ({ minX: t.x - R * 1.6, maxX: t.x + R * 1.6, minY: t.y - R * 1.6, maxY: t.y + R * 1.6 }))];   // 告示牌島
     Object.assign(bounds, {
       minX: Math.min(...all.map(b => b.minX)), maxX: Math.max(...all.map(b => b.maxX)),
@@ -495,6 +496,30 @@ PI.map = (function () {
       });
       g.appendChild(sign);
     });
+  }
+
+  /* ---------- 群島名稱：同一個 cluster 的島上方放一個總名稱（PI.CLUSTERS），字體和小分類名牌一樣、但是黑字、比較大 ---------- */
+  let clusterLayer = null;
+  function drawClusterLabels() {
+    const names = PI.CLUSTERS || {}, boxes = [];
+    if (!clusterLayer) { clusterLayer = el("g", { class: "layer-clusters" }); labelLayer.appendChild(clusterLayer); }
+    clusterLayer.textContent = "";
+    Object.entries(names).forEach(([id, name]) => {
+      const isls = islands.filter(isl => (landOf.get(isl.chapter) || { def: {} }).def.cluster === id && isl.cells.length);
+      if (!isls.length) return;
+      const minX = Math.min(...isls.map(i => i.bounds.minX)), maxX = Math.max(...isls.map(i => i.bounds.maxX));
+      const minY = Math.min(...isls.map(i => i.bounds.minY));
+      const fs = 72, letters = name.split(""), adv = ch => ch === " " ? fs * 0.32 : (ch.charCodeAt(0) > 0x2E00 ? fs * 1.02 : fs * 0.56);
+      const total = letters.reduce((s, ch) => s + adv(ch), 0), cx = (minX + maxX) / 2, y = minY - R * 1.2;
+      const g = el("g", { class: "cluster-sign", transform: `translate(${cx.toFixed(1)},${y.toFixed(1)})`, "aria-hidden": "true" });
+      let acc = -total / 2;
+      letters.forEach(ch => { const a = adv(ch), x = (acc + a / 2).toFixed(1); acc += a; if (ch === " ") return;
+        const sh = el("text", { class: "cluster-letter-shadow", x: (+x + 2.5).toFixed(1), y: 3.5, "font-size": fs }), tx = el("text", { class: "cluster-letter", x, y: 0, "font-size": fs });
+        sh.textContent = tx.textContent = ch; g.append(sh, tx); });
+      clusterLayer.appendChild(g);
+      boxes.push({ minX: cx - total / 2 - R, maxX: cx + total / 2 + R, minY: y - fs * 1.2, maxY: y + R });
+    });
+    return boxes;
   }
 
   /* ---------- 知識告示牌：每一章一個，自己是一座一格大的小島（不放格子、不出格子的題） ----------

@@ -46,6 +46,9 @@ PI.CHAPTERS = [
 ];
 
 /* 兩座島：統整（一）的六章拼成一座、統整（三）的四章拼成一座 */
+/* 群島的總名稱（地圖上黑色大字，標在每片群島上方）：key 對應 LANDMASSES 的 cluster */
+PI.CLUSTERS = { cns: "中樞神經群島", cv: "心血管群島" };
+
 PI.LANDMASSES = [
   // 一章一座小島，排成兩片群島（cluster）：中樞神經群島（紫色系，第 1 章在中間、2～6 章順時針圍一圈）、心血管群島（粉紅色系，在右邊）
   { id: "cns1", name: "安眠島",     chapters: [1], cluster: "cns",
