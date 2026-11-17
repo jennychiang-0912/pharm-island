@@ -46,9 +46,6 @@ PI.CHAPTERS = [
 ];
 
 /* 兩座島：統整（一）的六章拼成一座、統整（三）的四章拼成一座 */
-/* 告示牌分細：每個小分類（BARBITURATES、BZD CLASS A…）旁邊各有一個小告示牌，章節告示牌保留（看整棵樹） */
-PI.SIGN_PER_GROUP = true;
-
 /* 群島的總名稱（地圖上黑色大字，標在每片群島上方）：key 對應 LANDMASSES 的 cluster */
 PI.CLUSTERS = { cns: "中樞神經群島", cv: "心血管群島" };
 

@@ -341,12 +341,10 @@
       }).join("")}</ol>`;
     }
     // 這棵樹有幾題（一個挖空＝一題）；看單一結構分類時，只算這一類卡片的題目和這一類生藥的認藥題
-    // 引用格子的卡片（{ unit }）沒有自己的 group：用那一格的 group
-    const groupOfItem = it => [].concat(it.group || (it.unit && (unitOf(it.unit) || {}).group) || []);
-    const inGroup = (sec, si) => (sec.items || []).map((it, ii) => [it, ii]).filter(([it]) => !group || groupOfItem(it).includes(group));
+    const inGroup = (sec, si) => (sec.items || []).map((it, ii) => [it, ii]).filter(([it]) => !group || [].concat(it.group || []).includes(group));
     const prefixes = group ? (K.sections || []).flatMap((sec, si) => inGroup(sec, si).map(([, ii]) => `t:${key}:${si}:${ii}:`)) : null;
     const treeQs = PI.quiz.forTree(key).filter(q => !group || prefixes.some(p => q.qid.startsWith(p))
-      || (/^[ws]:/.test(q.qid) && (PI.UNITS.find(u => u.id === q.qid.slice(2)) || {}).group === group)), nQ = treeQs.length;   // 這一類藥的認藥題、認結構題
+      || (q.qid.startsWith("w:") && (PI.UNITS.find(u => "w:" + u.id === q.qid) || {}).group === group)), nQ = treeQs.length;
     const nDone = treeQs.filter(q => PI.state.isTreeDone(q.qid)).length;
     const expQ = PI.LEVEL.expPerTreeQuestion || 0;
     const nRef = (K.sections || []).flatMap(sec => sec.items || []).filter(it => it.unit).length;

@@ -479,7 +479,7 @@ PI.map = (function () {
       grpBoxes.push({ ch: isl.chapter, 0: cx - total / 2 - 6 + ox, 1: cx + total / 2 + 6 + ox, 2: y - fs * 1.1 + oy, 3: y + fs * 0.6 + oy });
       // 這一類在知識樹裡有內容（item.group）：名牌可以點，打開這一類的機轉
       const kKey = Object.keys(PI.KNOWLEDGE || {}).find(k => PI.KNOWLEDGE[k].chapter === isl.chapter);
-      const has = kKey && (PI.KNOWLEDGE[kKey].sections || []).some(sec => (sec.items || []).some(it => [].concat(it.group || (it.unit && (PI.UNITS.find(u => u.id === it.unit) || {}).group) || []).includes(name)));
+      const has = kKey && (PI.KNOWLEDGE[kKey].sections || []).some(sec => (sec.items || []).some(it => [].concat(it.group || []).includes(name)));
       // 名牌一律可點：有機轉的打開知識樹，其餘點一下「圈出這一類的藥」
       const attrs = { class: "grp-sign" + (has ? " k-tree" : ""), "data-group": name, "data-ch": String(isl.chapter), tabindex: 0, role: "button",
         "aria-label": has ? `${name}：打開這一類的機轉` : `${name}：圈出這一類的藥`, transform: `translate(${cx.toFixed(1)},${y.toFixed(1)})` };
@@ -567,41 +567,6 @@ PI.map = (function () {
       t.land.setAttribute("transform", `translate(${pos.x.toFixed(1)},${pos.y.toFixed(1)})`);
       Object.assign(t, { chapter: K.chapter, x: pos.x, y: pos.y });
       t.g.setAttribute("transform", `translate(${pos.x.toFixed(1)},${pos.y.toFixed(1)})`);
-      if (PI.SIGN_PER_GROUP) placeGroupSigns(key, K, isl, used);
-    });
-  }
-  /* 小分類告示牌（PI.SIGN_PER_GROUP）：章節告示牌之外，每個小分類再放一個小一點的告示牌，緊靠在那一類的格子旁邊；
-     點下去打開「只看這一類」的知識面板（卡片＋這一類藥的認藥／認結構題）。章節告示牌保留，用來看整棵樹。 */
-  function placeGroupSigns(key, K, isl, used) {
-    const D = SQ3 * R;
-    const groups = [...new Set(isl.cells.map(c => c.group).filter(Boolean))];
-    groups.forEach(name => {
-      const mine = isl.cells.filter(c => c.group === name);
-      const cx = mine.reduce((s, c) => s + c.x, 0) / mine.length, cy = mine.reduce((s, c) => s + c.y, 0) / mine.length;
-      const others = cells.filter(c => Math.abs(c.x - cx) < D * 16 && Math.abs(c.y - cy) < D * 16);
-      let pos = null;
-      for (let k = 1; k <= 12 && !pos; k++) {
-        const offs = ringOffsets(k); let best = Infinity;
-        mine.forEach(c => offs.forEach(([dq, dr]) => {
-          const [ox, oy] = toXY(dq, dr), x = c.x + ox, y = c.y + oy;
-          if (others.some(o => Math.hypot(o.x - x, o.y - y) < D - 1)) return;
-          if (used.some(u => Math.hypot(u.x - x, u.y - y) < 2 * D - 1)) return;
-          const s = Math.hypot(x - cx, y - cy) + noise(Math.round(x), Math.round(y), 5) * 0.2 * D;
-          if (s < best) { best = s; pos = { x, y }; }
-        }));
-      }
-      if (!pos) return;
-      used.push(pos);
-      const id = `${key}|${name}`;
-      let t = trees.get(id);
-      if (!t) {
-        const P = (landOf.get(K.chapter) || { def: {} }).def.palette || { ground: "#B4D69A", light: "#C5E2AA", cliff: "#8CB57A" };
-        const land = el("g", { class: "k-tree k-islet is-group", "data-tree": key, "data-group": name }); land.append(...isletLand(P));
-        t = { g: drawTree(key, K, name), land }; terrainLayer.appendChild(land); treeLayer.appendChild(t.g); trees.set(id, t);
-      }
-      const tr = `translate(${pos.x.toFixed(1)},${pos.y.toFixed(1)})`;
-      t.land.setAttribute("transform", tr); t.g.setAttribute("transform", tr);
-      Object.assign(t, { chapter: K.chapter, x: pos.x, y: pos.y });
     });
   }
   // 告示牌島的地：和其他島一樣的海岸層次（淺水、浪花、沙灘、土坡、草地），只有一格
@@ -620,14 +585,12 @@ PI.map = (function () {
       el("circle", { cx: 7.9, cy: -4.6, r: 1.8, fill: "#315B43" }),
       el("circle", { r: 2.2, fill: "none", stroke: "#315B43", "stroke-width": 1.1 })]
   };
-  function drawTree(key, K, group) {
-    const title = group || K.title || chapterOf(K.chapter).name;
+  function drawTree(key, K) {
+    const title = K.title || chapterOf(K.chapter).name;
     const cat = catOf(chapterOf(K.chapter).cat) || {};
-    const attrs = { class: "k-tree k-sign" + (group ? " is-group" : ""), "data-tree": key, tabindex: 0, role: "button", "aria-label": `${title}${group ? "告示牌：打開這一類的知識" : "知識樹：打開背景知識"}` };
-    if (group) attrs["data-group"] = group;
-    const g = el("g", attrs);
-    const sign = el("g", { class: "k-sign-art", transform: `translate(0,6) scale(${group ? 1.05 : 1.3})` });   // 島上只有告示牌；小分類的告示牌小一點
-    const tip = el("title"); tip.textContent = group ? `${group}・告示牌（點一下看這一類的知識和題目）` : `${title}・知識樹（點一下看背景知識）`;
+    const g = el("g", { class: "k-tree k-sign", "data-tree": key, tabindex: 0, role: "button", "aria-label": `${title}知識樹：打開背景知識` });
+    const sign = el("g", { class: "k-sign-art", transform: "translate(0,6) scale(1.3)" });   // 島上只有告示牌
+    const tip = el("title"); tip.textContent = `${title}・知識樹（點一下看背景知識）`;
     const badge = el("g", { class: "k-badge", transform: "translate(0,-19)" });
     badge.append(
       el("path", { d: hexPath(13, 3), fill: "#FFF9EE", stroke: cat.color || "#7FB069", "stroke-width": 2.6 }),   // 六角徽章（框色跟著分類）
