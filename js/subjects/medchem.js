@@ -24,7 +24,7 @@ PI.GROUP_LABELS = {
   "巴比妥類（Barbiturates）": "Barbiturates",
   "Benzodiazepine 類衍生物：藥理研究": "BZD 藥理研究",
   "Class A（字尾-azepam）": "BZD Class A",
-  "Class B（s-triazolo-benzodiazepine）": "Class B s-triazolo",
+  "Class B（s-triazolo-benzodiazepine，含有 1,3,4-triazole ring）": "Class B s-triazolo",
   "Class B（imidazo-benzodiazepine）": "Class B imidazo",
   "Nonbenzodiazepine GABA_A Agonists（Z-drugs）": "Z-drugs",
   "血清素受體活化劑（Serotonin Receptor Active Agents）": "血清素受體活化劑",
@@ -93,7 +93,7 @@ PI.LANDMASSES = [
 
 PI.UNITS = [
 /* ===== 第 1 章 鎮靜安眠與抗焦慮藥物（統整（一）壹，p.3–18）===== */
-{ id: "sh-barb-general", chapter: 1, name: "Barbiturates 通論", short: "Barb 通論", type: "topic", group: "巴比妥類（Barbiturates）", source: "統整（一）p.4", img: "assets/medchem/sh-barb-general.png",
+{ id: "sh-barb-general", chapter: 1, name: "巴比妥類（Barbiturates）", short: "Barb 通論", type: "topic", group: "巴比妥類（Barbiturates）", source: "統整（一）p.4", img: "assets/medchem/sh-barb-general.png", imgMore: ["assets/medchem/sh-barb-urea-malonic.png"],
   bold: [
     "基本結構為 {{5,5-disubstituted barbituric acid|結構}}（由尿素 urea 與丙二酸 malonic acid 構成，5 號位需有{{取代基|結構}}才有活性）",
     "{{高脂溶性|性質}}，為{{弱酸性|性質}}，與 NaOH 反應可製成鈉鹽，增加水溶性",
@@ -137,9 +137,10 @@ PI.UNITS = [
   use: ["{{抗癲癇|用途}}"],
   bold: ["非 barbital 結尾；5 號位取代基：苯環、乙基", "阻斷 Na⁺通道、正向異位調節 GABA_A 受體", "FDA 核准治療局部簡單性癲癇、局部複雜性癲癇、{{強直-陣攣性|疾病}}發作癲癇", "約 {{60–80%|數值}}藥物經口服吸收，緩慢的被肝代謝", "代謝：由 {{CYP2C9|酵素}}、CYP2C19 負責", "為 phenobarbital {{2 號位去氧|結構}}之產物", "2 號位{{沒有 C=O|結構}}（carbonyl）"] },
 
-{ id: "sh-bzd-general", chapter: 1, name: "BZD 通論", type: "topic", group: "Benzodiazepine 類衍生物：藥理研究", source: "統整（一）p.7", img: "assets/medchem/sh-bzd-general.png",
+{ id: "sh-bzd-general", chapter: 1, name: "Benzodiazepine 類衍生物：藥理研究", short: "BZD 通論", type: "topic", group: "Benzodiazepine 類衍生物：藥理研究", source: "統整（一）p.7", img: "assets/medchem/sh-bzd-general.png",
   bold: [
-    "Benzodiazepines 會和 GABA_A 受體的 BZD 位結合，增加 Cl⁻ 通道開啟的{{頻率|機轉|時間/數目/速度}}"
+    "Benzodiazepines 會和 GABA_A 受體的 BZD 位結合，增加 Cl⁻ 通道開啟的{{頻率|機轉|時間/數目/速度}}",
+    "依照吸收速度、脂溶性、代謝物活性不同有不同的用途"
   ] },
 { id: "clorazepate", chapter: 1, name: "Clorazepate", type: "drug", group: "Class A（字尾-azepam）", source: "統整（一）p.8", img: "assets/medchem/clorazepate.png",
   use: ["{{抗焦慮|用途}}、{{抗癲癇|用途}}"],
@@ -176,9 +177,8 @@ PI.UNITS = [
     "被核准治療{{失張性|疾病}} akinetic、{{肌攣性|疾病}} myclonic 發作",
     "代謝：可進行 {{7-reduction|代謝}}★將 NO₂→NH₂"] },
 { id: "sh-bzd-3oh", chapter: 1, name: "含 3-OH 之 BZD（不經肝臟代謝）", short: "3-OH BZD", type: "topic", group: "Class A（字尾-azepam）", source: "統整（一）p.10",
-  bold: ["Class A（字尾 {{-azepam|結構}}）：Temazepam、Lorazepam、Oxazepam 含 {{3-OH|取代基}} 取代基，不經肝臟代謝★，為短效型藥物",
-    "不經肝臟代謝，較適合肝功能不佳者使用的 BZDs：{{Oxazepam|藥名}}★、Lorazepam、Temazepam",
-    "皆經由 Glucuronide {{conjugation|代謝}} 代謝★"] },
+  bold: ["Class A（字尾-{{azepam|結構}}）：以下三者（Temazepam、Lorazepam、Oxazepam）含 {{3-OH|取代基}} 取代基，不經肝臟代謝★，為短效型藥物",
+    "※不經肝臟代謝，較適合肝功能不佳者使用的 BZDs：{{Oxazepam|藥名}}★、Lorazepam、Temazepam →皆經由 Glucuronide {{conjugation|代謝}} 代謝★"] },
 { id: "temazepam", chapter: 1, name: "Temazepam", type: "drug", group: "Class A（字尾-azepam）", source: "統整（一）p.10", img: "assets/medchem/temazepam.png",
   use: ["{{鎮靜安眠|用途}}"],
   bold: ["3 號位接 OH；1 號 N 上接{{甲基|取代基}}", "{{短效型|作用時間}}，半衰期短", "代謝：{{不經過肝臟代謝|代謝}}，進行 glucuronide conjugation → 適合{{肝功能不佳|疾病}}的患者"] },
@@ -190,16 +190,16 @@ PI.UNITS = [
   use: ["{{抗焦慮|用途}}"],
   bold: ["與 {{Temazepam|藥名}} 只相差一個 CH₃", "{{短效型|作用時間}}，半衰期短", "為 {{Chlordiazepoxide|藥名}} 與 Diazepam 的活性代謝物",
     "代謝：{{不經過肝臟代謝|代謝}}，進行 glucuronide conjugation → 適合{{肝功能不佳|疾病}}的患者"] },
-{ id: "estazolam", chapter: 1, name: "Estazolam", type: "drug", group: "Class B（s-triazolo-benzodiazepine）", source: "統整（一）p.11", img: "assets/medchem/estazolam.png",
+{ id: "estazolam", chapter: 1, name: "Estazolam", type: "drug", group: "Class B（s-triazolo-benzodiazepine，含有 1,3,4-triazole ring）", source: "統整（一）p.11", img: "assets/medchem/estazolam.png",
   use: ["{{鎮靜安眠|用途}}"],
   bold: ["Class B：{{s-triazolo|結構}}-benzodiazepine，含有 {{1,3,4-triazole ring|結構}}",
     "{{1 個|數值}}取代基（Ring A：7-Cl）",
     "{{中效型|作用時間}}，半衰期較長", "結構中沒有甲基，{{不經 CYP3A4 代謝|代謝}}",
     "代謝物 {{4'-hydroxyestazolam|代謝物}} 脂溶性低，且因立體構型障礙使其與 GABA_A {{結合力下降|性質}}"] },
-{ id: "alprazolam", chapter: 1, name: "Alprazolam", type: "drug", group: "Class B（s-triazolo-benzodiazepine）", source: "統整（一）p.11", img: "assets/medchem/alprazolam.png",
+{ id: "alprazolam", chapter: 1, name: "Alprazolam", type: "drug", group: "Class B（s-triazolo-benzodiazepine，含有 1,3,4-triazole ring）", source: "統整（一）p.11", img: "assets/medchem/alprazolam.png",
   use: ["{{抗焦慮|用途}}"],
   bold: ["{{2 個|數值}}取代基（Ring A：7-Cl；Triazole ring：有甲基）", "{{中效型|作用時間}}抗焦慮用藥", "可以治療{{恐慌症|疾病}}"] },
-{ id: "triazolam", chapter: 1, name: "Triazolam", type: "drug", group: "Class B（s-triazolo-benzodiazepine）", source: "統整（一）p.11", img: "assets/medchem/triazolam.png",
+{ id: "triazolam", chapter: 1, name: "Triazolam", type: "drug", group: "Class B（s-triazolo-benzodiazepine，含有 1,3,4-triazole ring）", source: "統整（一）p.11", img: "assets/medchem/triazolam.png",
   use: ["{{鎮靜安眠|用途}}"],
   bold: ["{{3 個|數值}}取代基（Ring A：7-Cl；Ring C：2'-Cl；Triazole ring：有甲基）",
     "{{短效型|作用時間}}：Onset 最快、Duration 短", "副作用：{{反彈性失眠|副作用}}★ → 容易有戒斷症狀",
@@ -232,33 +232,33 @@ PI.UNITS = [
   use: ["負向異位作用於 GABA_A 受體（GABA_A antagonist）", "可用於 {{Barbiturates 過量之解毒劑|用途}}"], bold: [] },
 { id: "bemegride", chapter: 1, name: "Bemegride", type: "drug", group: "GABA 受體拮抗劑", source: "統整（一）p.13", img: "assets/medchem/bemegride.png",
   use: ["負向異位作用於 GABA_A 受體（GABA_A antagonist）", "可用於 {{Barbiturates 過量之解毒劑|用途}}"], bold: [] },
-{ id: "sh-serotonin", chapter: 1, name: "血清素（Serotonin）簡介", short: "血清素簡介", type: "topic", group: "血清素受體活化劑（Serotonin Receptor Active Agents）", source: "統整（一）p.14", img: "assets/medchem/sh-serotonin.png",
-  bold: ["目前已知的血清素受體有{{七大類|數值}}", "血清素也可作用在神經末梢的{{自體受器|名詞}}（Autoreceptor），可負回饋抑制血清素的神經傳遞", "血清素為{{抑制型|性質|興奮型}}的神經遞質，結構為 {{5-hydroxytryptamine|結構}}（5-HT）",
-    "主要由 {{L-tryptophan|物質}}★生合成；代謝主要由 MAO 進行 {{Oxidative deamination|代謝}}★",
+{ id: "sh-serotonin", chapter: 1, name: "※ 血清素（Serotonin）簡介", short: "血清素簡介", type: "topic", group: "血清素受體活化劑（Serotonin Receptor Active Agents）", source: "統整（一）p.14", img: "assets/medchem/sh-serotonin.png",
+  bold: [
+    "為{{抑制型|性質|興奮型}}的神經遞質，結構為 {{5-hydroxytryptamine|結構}}（5-HT），主要由 {{L-tryptophan|物質}}★生合成；代謝主要由 MAO 進行 {{Oxidative deamination|代謝}}★",
     "5-HT {{無法|性質|可以}}通過血腦障壁，必須靠腦中神經細胞自己合成",
-    "其中 {{5-HT1A|受體}} 和調節焦慮有關",
+    "目前已知的血清素受體有{{七大類|數值}}，其中 {{5-HT1A|受體}} 和調節焦慮有關",
     "血清素被釋放後，會結合並活化突觸後受體，{{抑制|性質|興奮}}神經元的活性",
-    "比較：{{Bupropion|藥名}} 為 NDRI，用來治療憂鬱症"] },
+    "血清素也可作用在神經末梢的{{自體受器|名詞}}（Autoreceptor），可負回饋抑制血清素的神經傳遞"
+  ] },
 { id: "buspirone", chapter: 1, name: "Buspirone", type: "drug", group: "血清素受體活化劑（Serotonin Receptor Active Agents）", source: "統整（一）p.14", img: "assets/medchem/buspirone.png",
   use: ["{{抗焦慮|用途}}"],
   bold: ["R group 為 azaspiro[4.5]decane-7,9-dione（[4.5] 表示碳數，但不包括螺環）", "Onset {{慢|性質|快}}，約 1~2 週", "屬於 {{Azaspirodecanedione|結構}}★類藥物（pyrimidinylbutylpiperazine）", "含有{{螺環|結構}}結構",
     "{{5-HT1A|受體}} 受體{{部分致效劑|機轉}}★（Partial agonist）",
     "{{沒有安眠|性質}}、抗痙攣及肌肉鬆弛作用", "用於治療{{廣泛性焦慮症|疾病}}（GAD）",
-    "代謝：經肝臟 CYP3A4 代謝成 {{1-PP|代謝物}}★，會進入腦中作為 {{α₂-antagonist|機轉}}",
-    "1-PP：1-(2-{{pyrimidyl|結構}}★)-piperazine"] },
+    "代謝：經肝臟 CYP3A4 代謝成 {{1-PP|代謝物}}★，會進入腦中作為 {{α₂-antagonist|機轉}}"] },
 
 /* ----- 第 1 章補充：p.15–18（SSRIs 抗焦慮、褪黑激素、H₁-blocker、Orexin）----- */
-{ id: "ssri-anxiolytic", chapter: 1, name: "SSRIs（第一線抗焦慮）", short: "SSRI 抗焦慮", type: "topic", group: "選擇性血清素再回收抑制劑（SSRIs）", source: "統整（一）p.15–16",
+{ id: "ssri-anxiolytic", chapter: 1, name: "選擇性血清素再回收抑制劑（SSRIs）", short: "SSRI 抗焦慮", type: "topic", group: "選擇性血清素再回收抑制劑（SSRIs）", source: "統整（一）p.15–16",
   bold: [
-    "SSRIs（Selective Serotonin Reuptake Inhibitors）為{{第一線抗焦慮|用途}}用藥",
-    "（結構與個論見第 3 章 SSRI；此處為抗焦慮用途）"
+    "選擇性血清素再回收抑制劑（Selective Serotonin Reuptake Inhibitors, SSRIs）：{{第一線抗焦慮|用途}}用藥"
   ] },
-{ id: "melatonin-intro", chapter: 1, name: "褪黑激素受體促效劑總論", short: "褪黑激素總論", type: "topic", group: "褪黑激素受體促效劑（Melatonin Receptor Agonists）", source: "統整（一）p.17",
+{ id: "melatonin-intro", chapter: 1, name: "褪黑激素受體促效劑（Melatonin Receptor Agonists）", short: "褪黑激素總論", type: "topic", group: "褪黑激素受體促效劑（Melatonin Receptor Agonists）", source: "統整（一）p.17",
   bold: [
-    "褪黑激素由{{松果體|器官}}（Pineal gland）分泌，受體在 SCN（上視交叉神經核）密度極高",
-    "MT₁：刺激可{{抑制 SCN|機轉}}促進睡眠；MT₂：影響生理時鐘",
-    "Melatonin 與 Serotonin 都由 {{L-tryptophan|物質}}★生合成（L-tryptophan→Serotonin→Melatonin）",
-    "此類藥物會影響催乳素（Prolactin）和睪固酮（Testosterone）分泌"
+    "※ 褪黑激素由{{松果體|器官}}（Pineal gland）分泌，受體在 SCN（上視交叉神經核）中有極高的密度：",
+    "MT₁：刺激 MT₁ 可以{{抑制 SCN|機轉}}來促進睡眠",
+    "MT₂：刺激 MT₂ 會影響生理時鐘",
+    "※ Melatonin 與 Serotonin 都是由 {{L-tryptophan|物質}}★生合成而來：L-tryptophan → Serotonin → Melatonin",
+    "※ 此類藥物會影響催乳素（Prolactin）和睪固酮（Testosterone）的分泌"
   ] },
 { id: "melatonin", chapter: 1, name: "Melatonin", type: "drug", group: "褪黑激素受體促效劑（Melatonin Receptor Agonists）", source: "統整（一）p.17", img: "assets/medchem/melatonin.png",
   use: ["{{鎮靜安眠|用途}}：直接補充褪黑激素，刺激受體"],
@@ -266,23 +266,22 @@ PI.UNITS = [
 { id: "ramelteon", chapter: 1, name: "S-Ramelteon", type: "drug", group: "褪黑激素受體促效劑（Melatonin Receptor Agonists）", source: "統整（一）p.17", img: "assets/medchem/ramelteon.png",
   use: ["{{鎮靜安眠|用途}}：可口服，選擇性作用於 MT₁和 MT₂受體", "代謝主要經 {{CYP1A2|酵素}}（側鏈 hydroxylation 為活性代謝物）；吸菸誘導 CYP1A2 加速代謝產生毒性"],
   bold: ["副作用：頭暈、疲勞、影響{{內分泌|名詞}}", "與 Melatonin 相異：5 號位 Methoxy→{{Furan|結構}}；芳香環 Indole→{{Indane|結構}}；支鏈乙醯基→丙醯基", "S form 活性較 R form 高 {{500|數值}} 倍"] },
-{ id: "h1-intro", chapter: 1, name: "第一代 H₁-blocker（鎮靜安眠）", short: "H₁-blocker 總論", type: "topic", group: "第一代 H₁ 受體拮抗劑（Histamine H₁ Receptor Antagonists）", source: "統整（一）p.18",
-  bold: ["副作用：鎮靜、嗜睡、減少認知能力等，其中以{{嗜睡|副作用}}最為常見", "Diphenhydramine、Doxylamine 皆具有高結合力", 
-    "第一代抗組織胺藥可通過 {{BBB|名詞}}，有抑制 CNS 的作用；副作用{{嗜睡|副作用}}最常見 → 用作鎮靜安眠",
-    "Ethanolamine ether 類：{{Diphenhydramine|藥名}}（Antimuscarinic 最強）、Doxylamine（差一個甲基）",
-    "Tricyclic 類：Doxepine，具含 O 七元雜環（{{Oxepin|結構}}），E form 有 CNS 抑制活性（結構見第 3、4 章）"
+{ id: "h1-intro", chapter: 1, name: "第一代 H₁ 受體拮抗劑（Histamine H₁ Receptor Antagonists）", short: "H₁-blocker 總論", type: "topic", group: "第一代 H₁ 受體拮抗劑（Histamine H₁ Receptor Antagonists）", source: "統整（一）p.18",
+  bold: [
+    "※ 第一代抗組織胺藥除了可以減緩過敏的症狀，因其{{可以通過 BBB|性質|無法通過 BBB}}，有{{抑制 CNS|機轉|興奮 CNS}}的作用",
+    "※ 副作用：鎮靜、嗜睡、減少認知能力等，其中以{{嗜睡|副作用}}最為常見 → 利用這項副作用來達到鎮靜安眠的效果"
   ] },
 { id: "doxylamine", chapter: 1, name: "Doxylamine", type: "drug", group: "第一代 H₁ 受體拮抗劑（Histamine H₁ Receptor Antagonists）", source: "統整（一）p.18", img: "assets/medchem/doxylamine.png",
   use: ["{{鎮靜安眠|用途}}（第一代 H₁-blocker）"],
   bold: ["Ethanolamine ether 類，和 {{Diphenhydramine|藥名}} 差一個{{甲基|取代基}}", "具有高結合力"] },
-{ id: "orexin-intro", chapter: 1, name: "Orexin 拮抗劑總論", short: "Orexin 總論", type: "topic", group: "食慾素拮抗劑（Orexin Antagonist）", source: "統整（一）p.18",
-  bold: [
-    "食慾素（Orexin）又稱腦下泌素（{{hypocretin|物質}}），由下視丘分泌的 neuropeptide",
-    "食慾素神經元負責大腦{{覺醒|名詞}}（arousal）；缺乏食慾素的典型病態是猝睡症（narcolepsy）"
-  ] },
 { id: "suvorexant", chapter: 1, name: "Suvorexant", type: "drug", group: "食慾素拮抗劑（Orexin Antagonist）", source: "統整（一）p.18", img: "assets/medchem/suvorexant.png",
-  use: ["{{鎮靜安眠|用途}}：可顯著縮短入睡及延長睡眠時間（Belsomra®）"],
-  bold: ["作用在食慾素受體 A 與 B 的{{雙重食慾素阻斷劑|機轉}}，影響大腦覺醒神經路徑"] },
+  use: ["{{鎮靜安眠|用途}}"],
+  bold: [
+    "食慾素又稱腦下泌素（{{hypocretin|物質}}），是一種由下視丘分泌的 neuropeptide",
+    "食慾素相關的神經元負責大腦的{{覺醒|名詞}}（arousal），典型的病態例子是猝睡症（narcolepsy），這些病人大多缺乏食慾素",
+    "Suvorexant（Belsomra®）是一種作用在食慾素受體 A 與 B 的{{雙重食慾素阻斷劑|機轉}}，因此影響大腦的覺醒神經路徑",
+    "Suvorexant 可顯著縮短入睡及延長睡眠時間"
+  ] },
 
 /* ===== 第 2 章 抗癲癇藥物（統整（一）貳，p.19–31）===== */
 { id: "ae-intro", chapter: 2, name: "抗癲癇精神藥理學簡介", short: "抗癲癇簡介", type: "topic", group: "總論", source: "統整（一）p.19",
@@ -1883,22 +1882,101 @@ PI.KNOWLEDGE = {
             [{ t: "Orexin Antagonist", b: true }, "抑制{{食慾素|名詞|血清素/褪黑激素/組織胺}}與受體結合", "{{Suvorexant|藥名|Zaleplon/Buspirone/Ramelteon}}"]
           ] } }
       ] },
-      { id: "barb", title: "一、Barbiturates", items: [{ unit: "sh-barb-general" },
-        { title: "Barbiturates 取代基與作用時間（表）", group: "巴比妥類（Barbiturates）", source: "統整（一）p.4", table: { head: ["藥物", "5-R₁", "5-R₂", "側鏈性質", "第 5 位雙取代基總 C 數", "脂溶性 logP", "Onset", "Duration", "分類"], rows: [[{ t: "Amobarbital", b: true }, "C₂H₅", "isoamyl", "支鏈少，作用時間較長", "7=2+5", "2.07", "45-60", "6-8", "中效型"], [{ t: "Butabarbital", b: true }, "C₂H₅", "sec-butyl", "-", "6=2+4", "1.60", "45-60", "6-8", "中效型"], [{ t: "Pentobarbital", b: true }, "C₂H₅", "2-n-pentyl", "支鏈多，作用時間短", "7=2+5", "2.10", "10-15", "3-4", "{{短效型|作用時間}}"], [{ t: "Secobarbital", b: true }, "allyl", "2-n-pentyl", "{{雙鍵|取代基}}取代，作用時間短", "8=3+5", "2.36", "10-15", "3-4", "{{短效型|作用時間}}"], [{ t: "Phenobarbital", b: true }, "C₂H₅", "benzene", "環狀結構，藥效↑", "8=2+6", "1.46", "30-60", "10-16", "{{長效型|作用時間}}"]] } },
+      { id: "barb", title: "一、GABA_A 受體促效劑：巴比妥類藥物（Barbiturates）", items: [{ unit: "sh-barb-general" },
+        { group: "巴比妥類（Barbiturates）", source: "統整（一）p.4",
+          table: { head: [
+              [{ t: "鎮靜安眠類\n巴比妥藥物", rs: 2 }, { t: "取代基", cs: 4 }, { t: "脂溶性\nlogP", rs: 2 }, { t: "Onset", rs: 2 }, { t: "Duration", cs: 2, rs: 2 }],
+              ["5-R₁", "5-R₂", "側鏈性質", "第 5 位雙取代基總 C 數"]],
+            cols: ["鎮靜安眠類巴比妥藥物", "5-R₁", "5-R₂", "側鏈性質", "第 5 位雙取代基總 C 數", "脂溶性 logP", "Onset", "Duration", "Duration"],
+            rows: [
+              ["Amobarbital", "C₂H₅", { t: "isoamyl", s: true }, "支鏈少，作用時間較長", "7=2+5", "2.07", "45-60", "6-8", "中效型"],
+              ["Butabarbital", "C₂H₅", { t: "sec-butyl", s: true }, "-", "6=2+4", "1.60", "45-60", "6-8", "中效型"],
+              ["Pentobarbital", "C₂H₅", "2-n-pentyl", "支鏈多，作用時間短", "7=2+5", "2.10", "10-15", "3-4", { t: "{{短效型|作用時間}}", s: true }],
+              ["Secobarbital", { t: "allyl", s: true }, { t: "2-n-pentyl", s: true }, "{{雙鍵|取代基}}取代，作用時間短", "8=3+5", "2.36", "10-15", "3-4", { t: "{{短效型|作用時間}}", s: true }],
+              ["Phenobarbital", "C₂H₅", { t: "benzene", s: true }, "環狀結構，藥效↑", "8=2+6", "1.46", "30-60", "10-16", { t: "{{長效型|作用時間}}", s: true }]] },
+          gallery: [
+            { img: "assets/medchem/amobarbital.png", cap: "Amobarbital" },
+            { img: "assets/medchem/butabarbital.png", cap: "Butabarbital" },
+            { img: "assets/medchem/pentobarbital.png", cap: "Pentobarbital" },
+            { img: "assets/medchem/secobarbital.png", cap: "Secobarbital" },
+            { img: "assets/medchem/phenobarbital.png", cap: "Phenobarbital" }] },
         { title: "巴比妥類用途", group: "巴比妥類（Barbiturates）", source: "統整（一）p.5", points: ["框起來的 Methohexital、Thiopental、Thiamylal 用於{{全身麻醉劑|用途}}，其餘用於鎮靜安眠"] },
         { title: "※ 補充", group: "抗癲癇巴比妥類用藥", source: "統整（一）p.6", points: ["Barbiturates 可{{促進紫質|副作用}}（Porphyrins）合成，故禁用於急性間歇性紫質症的患者"] }] },
-      { id: "bzd", title: "二、Benzodiazepines", items: [{ unit: "sh-bzd-general" },
-        { title: "吸收速度與用途（表）", group: "Benzodiazepine 類衍生物：藥理研究", source: "統整（一）p.7", table: { head: ["吸收速度", "脂溶性", "代謝物活性", "用途"], rows: [["快", "高", "無活性", { t: "{{鎮定 Sedative|用途|抗焦慮 Antianxiety}}", b: true }], ["慢", "低", "有活性", { t: "{{抗焦慮 Antianxiety|用途|鎮定 Sedative}}", b: true }]] } },
-        { title: "BZD 藥物與臨床適應症（表）", group: "Benzodiazepine 類衍生物：藥理研究", source: "統整（一）p.7", table: { head: ["分類", "藥物", "半衰期", "Duration", "Onset", "抗焦慮", "失眠", "癲癇", "痙攣", "酒精成癮", "誘導麻醉", "恐慌症"], rows: [[{ t: "Class A", b: true, rs: 10 }, "Clorazepate", { t: "長", b: true, rs: 6 }, { t: "長效", b: true, rs: 6 }, "快", "✔", "", "✔", "", "✔", "", ""], [null, "Diazepam", null, null, "快", "✔", "", "✔", "✔", "✔", "✔", ""], [null, "Flurazepam", null, null, "快", "✔", "✔", "", "", "", "", ""], [null, "Chlordiazepoxide", null, null, "中", "✔", "", "", "", "✔", "", ""], [null, "Halazepam", null, null, "中", "✔", "", "", "", "", "", ""], [null, "Quazepam", null, null, "-", "", "✔", "", "", "", "", ""], [null, "Clonazepam", "中", "中效", "慢", "", "", "✔", "", "", "", ""], [null, "Temazepam", { t: "短", b: true, rs: 3 }, { t: "短效", b: true, rs: 3 }, "慢", "", "✔", "", "", "", "", ""], [null, "Lorazepam", null, null, "中", "✔", "", "✔", "", "✔", "✔", ""], [null, "Oxazepam", null, null, "慢", "✔", "", "", "", "✔", "", ""], [{ t: "Class B", b: true, rs: 4 }, "Alprazolam", { t: "中", b: true, rs: 2 }, { t: "中效", b: true, rs: 2 }, "中", "✔", "", "", "", "", "", "✔"], [null, "Estazolam", null, null, "-", "", "✔", "", "", "", "", ""], [null, "Triazolam", { t: "短", b: true, rs: 2 }, { t: "短效", b: true, rs: 2 }, "快", "", "✔", "", "", "", "", ""], [null, "Midazolam", null, null, "快", "✔", "", "✔", "", "", "✔", ""]], note: "※ 半衰期{{越短|性質|越長}}，所造成之反彈性失眠越嚴重★　※ {{Flunitrazepam|藥名}} 為 FM2 之成分" } }, { unit: "sh-bzd-3oh" }] },
-      { id: "zdrug", title: "三、Z-drugs（Nonbenzodiazepines）", items: [
-        { title: "Z-drugs 比較（表）", group: "Nonbenzodiazepine GABA_A Agonists（Z-drugs）", source: "統整（一）p.12", table: { head: ["藥物", "Onset", "Duration", "DFA（難入睡）", "DMS（難維持）"], rows: [[{ t: "Eszopiclone", b: true }, "10-18", "{{中效|作用時間}}", "✔", "✔"], [{ t: "Zaleplon", b: true }, "15-30", "超短效", "✔", ""], [{ t: "Zolpidem", b: true }, "30", "短效", "✔", ""]] } }
+      { id: "bzd", title: "二、GABA_A 受體促效劑：Benzodiazepines", items: [{ unit: "sh-bzd-general" },
+        { group: "Benzodiazepine 類衍生物：藥理研究", source: "統整（一）p.7", table: { head: ["吸收速度", "脂溶性", "代謝物活性", "用途"], rows: [
+          ["快", "高", "無活性", { t: "{{鎮定 Sedative|用途|抗焦慮 Antianxiety}}", s: true }],
+          ["慢", "低", "有活性", { t: "{{抗焦慮 Antianxiety|用途|鎮定 Sedative}}", s: true }]] } },
+        { group: "Benzodiazepine 類衍生物：藥理研究", source: "統整（一）p.7", table: { head: ["分類", "藥物/臨床適應症", "半衰期", "Duration", "Onset", "抗焦慮", "失眠", "癲癇", "痙攣", "酒精成癮", "誘導麻醉", "恐慌症"], rows: [
+          [{ t: "Class A", rs: 10 }, "Clorazepate", { t: "長", rs: 6 }, { t: "長效", rs: 6 }, "快", "✔", "", "✔", "", "✔", "", ""],
+          [null, "Diazepam", null, null, "快", "✔", "", "✔", "✔", "✔", "✔", ""],
+          [null, "Flurazepam", null, null, { t: "快", s: true }, "✔", "✔", "", "", "", "", ""],
+          [null, "Chlordiazepoxide", null, null, "中", "✔", "", "", "", "✔", "", ""],
+          [null, "Halazepam", null, null, "中", "✔", "", "", "", "", "", ""],
+          [null, "Quazepam", null, null, "-", "", "✔", "", "", "", "", ""],
+          [null, "Clonazepam", "中", "中效", "慢", "", "", "✔", "", "", "", ""],
+          [null, "Temazepam", { t: "短", rs: 3 }, { t: "短效", rs: 3, s: true }, "慢", "", "✔", "", "", "", "", ""],
+          [null, "Lorazepam", null, null, "中", "✔", "", "✔", "", "✔", "✔", ""],
+          [null, "Oxazepam", null, null, "慢", "✔", "", "", "", "✔", "", ""],
+          [{ t: "Class B", rs: 4 }, "Alprazolam", { t: "中", rs: 2 }, { t: "中效", rs: 2 }, "中", "✔", "", "", "", "", "", "✔"],
+          [null, "Estazolam", null, null, "-", "", "✔", "", "", "", "", ""],
+          [null, "Triazolam", { t: "短", rs: 2 }, { t: "短效", rs: 2 }, "快", "", "✔", "", "", "", "", ""],
+          [null, "Midazolam", null, null, "快", "✔", "", "✔", "", "", "✔", ""]],
+          note: "※ 半衰期{{越短|性質|越長}}，所造成之反彈性失眠越嚴重★　　※ {{Flunitrazepam|藥名}} 為 FM2 之成分" } },
+        { unit: "sh-bzd-3oh" }] },
+      { id: "zdrug", title: "三、GABA_A 受體促效劑：Z-drugs（Nonbenzodiazepines）", items: [
+        { group: "Nonbenzodiazepine GABA_A Agonists（Z-drugs）", source: "統整（一）p.12", table: { head: ["藥物", "Onset", "Duration", "DFA(難入睡)", "DMS(難維持)"], rows: [
+          [{ t: "Eszopiclone", s: true }, "10-18", "{{中效|作用時間}}", "✔", "✔"],
+          [{ t: "Zaleplon", s: true }, "15-30", { t: "超短效", s: true }, "✔", ""],
+          [{ t: "Zolpidem", s: true }, "30", "短效", "✔", ""]] } }
       ] },
-      { id: "5ht", title: "五、Serotonin Agonists", items: [{ unit: "sh-serotonin" }] },
-      { id: "ssri-ax", title: "六、SSRIs（抗焦慮）", items: [{ unit: "ssri-anxiolytic" },
-        { title: "SSRIs 抗焦慮用藥（表）", group: "選擇性血清素再回收抑制劑（SSRIs）", source: "統整（一）p.15–16", table: { head: ["類別", "藥物", "特性", "代謝"], rows: [[{ t: "Phenoxyphenylalkylamine", b: true, rs: 3 }, { t: "Fluoxetine", b: true }, "市售為消旋化合物，但 S form 效果較強；含有 CF₃ 取代基", "主要由 CYP2D6 行 N-去甲基化，形成活性代謝物 Norfluoxetine"], [null, { t: "Paroxetine", b: true }, "Fluoxetine 的閉環類似物；具兩個 chiral center（4 個異構物），市售以 (3S, 4R)-(-)-enantiomer 為主", "胺基質子化並與自身氧原子形成氫鍵 → {{β-arylamino-like group|結構}}"], [null, { t: "Citalopram／Escitalopram", b: true }, "由 Talopram、S-Talsupram 衍生；含 C≡N、F 原子；S-enantiomer 稱為 Escitalopram，對受體有高度親和力與選擇性", "進行 N-demethylation，主要代謝物仍有 50% 活性"], [{ t: "Phenylalkylamine", b: true }, { t: "Sertraline", b: true }, "含有 tetralin 結構（phenylaminotetralin）；具兩個 chiral center，市售以 S, S-(+)-diastereomer 為主", "主要經 CYP2B6 行 N-去甲基化，代謝物活性小 5-10 倍，仍屬活性代謝物"], [{ t: "Miscellaneous", b: true }, { t: "Fluvoxamine", b: true }, "nontricyclic SERT inhibitor；使用上以 E form 為主；由 Noxiptilin 開環修飾；苯環對位有 CF₃；具長碳鏈脂溶性端", "CYP2D6 行 O-去甲基化，最後氧化成酸"]], note: "※ SERT（Serotonin transporter）：將突觸間隙中的血清素移除，使血清素濃度下降　※ Dexfenfluramine：曾作減肥藥，因心臟副作用已下市" } }] },
-      { id: "melatonin", title: "七、褪黑激素促效劑", items: [{ unit: "melatonin-intro" }] },
-      { id: "h1", title: "八、第一代 H₁-blocker", items: [{ unit: "h1-intro" }] },
-      { id: "orexin", title: "九、Orexin 拮抗劑", items: [{ unit: "orexin-intro" }] }
+      { id: "gaba-ant", title: "四、GABA 受體拮抗劑", items: [
+        { group: "GABA 受體拮抗劑", source: "統整（一）p.13", table: { head: ["β-Carbolines", "Bicuculline", "Flumazenil★"], rowNames: false, rows: [
+          [{ img: "assets/medchem/beta-carbolines.png", t: "β-Carbolines" }, { img: "assets/medchem/bicuculline.png", t: "Bicuculline" }, { img: "assets/medchem/flumazenil.png", t: "Flumazenil" }],
+          [{ t: "● 選擇性拮抗中樞 GABA_A 受體 Inverse agonist，可降低 BZD 之抑制作用", cs: 2 }, { t: "● GABA 負向異位調節劑，不興奮也不抑制，僅擋住受體阻斷藥物作用\n● 僅能 IV 給予\n● 可用於 BZD 與 Z-drug 過量之解毒劑", rs: 4 }],
+          [{ t: "Picrotoxin", band: true }, { t: "Bemegride", band: true }],
+          [{ img: "assets/medchem/picrotoxin.png", t: "Picrotoxin" }, { img: "assets/medchem/bemegride.png", t: "Bemegride" }],
+          [{ t: "● 負向異位作用於 GABA_A 受體 GABA_A antagonist\n● 可用於 Barbiturates 過量之解毒劑", cs: 2 }]] } }
+      ] },
+      { id: "5ht", title: "五、血清素促效劑（Serotonin Agonists）", items: [{ unit: "sh-serotonin" },
+        { title: "※ 補充", group: "血清素受體活化劑（Serotonin Receptor Active Agents）", source: "統整（一）p.14", points: [
+          "※ 1-PP：1-(2-{{pyrimidyl|結構}}★)-piperazine",
+          "※ 比較：{{Bupropion|藥名}} 為 NDRI，用來治療憂鬱症"] },
+        { unit: "ssri-anxiolytic" },
+        { group: "選擇性血清素再回收抑制劑（SSRIs）", source: "統整（一）p.15–16",
+          table: { head: ["藥物", "結構", "特性", "藥理及臨床應用"], rows: [
+            [{ t: "Phenoxyphenylalkylamine 類衍生物", cs: 4, band: true }],
+            ["Fluoxetine\n抗焦慮、抗憂鬱", { img: "assets/medchem/ax-fluoxetine.png", t: "Fluoxetine" },
+              "● 市售為消旋化合物，但 S form 效果較強（左圖★為 chiral center）\n● 含有 CF₃ 取代基（Fluoxetine）",
+              "● 代謝：主要由 CYP2D6 行 N-去甲基化，形成活性代謝物 Norfluoxetine\n● 本分類的三個藥物之胺基都會質子化並與自身氧原子形成氫鍵\n→ 形成 {{β-arylamino-like group|結構}}"],
+            ["Paroxetine\n抗焦慮、抗憂鬱", { img: "assets/medchem/ax-paroxetine.png", t: "Paroxetine" },
+              "● Fluoxetine 的閉環類似物\n● 具有兩個 chiral center，所以有 4 個異構物\n→ 市售以 (3S, 4R)-(-)-enantiomer 為主",
+              "● 代謝：胺基質子化並與自身氧原子形成氫鍵\n→ 形成β-arylamino-like group"],
+            ["Citalopram\nEscitalopram\n抗焦慮、抗憂鬱", { img: "assets/medchem/ax-citalopram.png", t: "Citalopram" },
+              "● 由 Talopram、S-Talsupram 衍生而來\n● 含有 C≡N、F 原子\n● 其 S-enantiomer 稱為 Escitalopram，對受體有高度親和力與選擇性",
+              "代謝：\n● 進行 N-demethylation，主要代謝物仍有 50%活性\n● 胺基質子化並與自身氧原子形成氫鍵 → 形成β-arylamino-like group"],
+            [{ t: "Phenylalkylamine 類衍生物", cs: 4, band: true }],
+            ["Sertraline\n抗焦慮", { img: "assets/medchem/ax-sertraline.png", t: "Sertraline" },
+              "● 含有 tetralin 結構，為 phenylaminotetralin\n● 具有兩個 chiral center\n→ 市售以 S, S-(+)-diastereomer 為主",
+              "● 代謝：主要經 CYP2B6 行 N-去甲基化，主要代謝物活性比原來小 5-10 倍\n→ 仍屬於活性代謝物"],
+            [{ t: "Miscellaneous 雜類藥物", cs: 4, band: true }],
+            ["Fluvoxamine\n抗焦慮", { img: "assets/medchem/ax-fluvoxamine.png", t: "Fluvoxamine" },
+              "● 屬於 nontricyclic SERT inhibitor※\n● 使用上以 E form 為主（異側）\n● 由 Noxiptilin 開環修飾得到\n● 苯環對位上有 CF₃ 取代基\n● 具有長碳鏈脂溶性端（aliphatic）",
+              "代謝：\n● CYP2D6 行 O-去甲基化，最後氧化成酸\n● 胺基質子化並與自身氧原子形成氫鍵 → 形成β-arylamino-like group"]],
+            note: "※ SERT（Serotonin transporter）：血清素轉運蛋白，會將移除突觸間隙中的血清素，使血清素濃度下降\n※ Dexfenfluramine：低劑量時可造成 5-HT 釋放並抑制其再回收，進而降低食慾、減輕體重，用作減肥藥，但因心臟副作用已下市" },
+          gallery: [
+            { img: "assets/medchem/talopram.png", cap: "Talopram" },
+            { img: "assets/medchem/talsupram.png", cap: "Talsupram" },
+            { img: "assets/medchem/phthalane.png", cap: "Phthalane" },
+            { img: "assets/medchem/tetralin.png", cap: "Tetralin" },
+            { img: "assets/medchem/noxiptilin.png", cap: "Noxiptilin" }] }] },
+      { id: "melatonin", title: "六、褪黑激素受體促效劑（Melatonin Receptor Agonists）", items: [{ unit: "melatonin-intro" }] },
+      { id: "h1", title: "七、第一代 H₁-blockers（Anti-histamine Agents）鎮靜安眠", items: [{ unit: "h1-intro" },
+        { group: "第一代 H₁ 受體拮抗劑（Histamine H₁ Receptor Antagonists）", source: "統整（一）p.18",
+          table: { head: [[{ t: "Ethanolamine ether 類衍生物", cs: 2 }, "Tricyclic 類衍生物"], ["Diphenhydramine", "Doxylamine", "Doxepine"]],
+            cols: ["Diphenhydramine", "Doxylamine", "Doxepine"], rowNames: false, rows: [
+              ["● {{Antimuscarinic|機轉}} 最強，可穿過 BBB\n● 具有高結合力", "● 和 Diphenhydramine 差一個甲基\n● 具有高結合力", "具有含 O 七元雜環（{{Oxepin|結構}}）\n● {{E form|結構|Z form}} 具有 CNS 抑制活性"],
+              [{ img: "assets/medchem/diphenhydramine.png", t: "Diphenhydramine" }, { img: "assets/medchem/doxylamine.png", t: "Doxylamine" }, { img: "assets/medchem/doxepin.png", t: "Doxepine" }]] } }] },
+      { id: "orexin", title: "八、Orexin Antagonist", items: [] }
     ] },
   ch2: { chapter: 2, title: "抗癲癇藥物",
     sections: [

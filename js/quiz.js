@@ -65,11 +65,12 @@ PI.quiz = (function () {
         add(`t:${key}`, { tree: key, item: it, ctx, chapter: K.chapter, group: null, qid: `t:${key}:${si}:${ii}:${li}`, kmap: km[li] }, line));
       // 表格裡的挖空也出題：題目標題帶上「列・欄」，例如「解毒劑・Barbiturates」
       if (it.table) { const T = it.table, txt = c => c == null ? "" : typeof c === "object" ? (c.t || "") : String(c);
-        const head = (T.head || []).map(txt);
+        const head = (T.cols || (Array.isArray((T.head || [])[0]) ? [] : T.head) || []).map(txt);   // 雙層表頭：用 cols 當欄名
         (T.rows || []).forEach((r, ri) => r.forEach((c, ci) => { const t = txt(c); if (!t.includes("{{")) return;
-          const rowName = txt(r[0]).replace(/\{\{([^|}]*)[^}]*\}\}/g, "$1"), col = ci > 0 ? head[ci] || "" : "";
+          // rowNames: false＝第一欄不是列名（例如每一欄是一個藥），標題只帶欄名；列名只取第一行（藥名下面的用途不放進標題）
+          const noRow = T.rowNames === false, rowName = noRow ? "" : txt(r[0]).split("\n")[0].replace(/\{\{([^|}]*)[^}]*\}\}/g, "$1"), col = ci > 0 || noRow ? head[ci] || "" : "";
           add(`t:${key}`, { tree: key, item: it, ctx: { tb: true, title: [it.title, ci > 0 ? rowName : "", col].filter(Boolean).join("・") }, chapter: K.chapter, group: null, qid: `t:${key}:${si}:${ii}:tb${ri}_${ci}` }, t); }));
-        if (T.note && T.note.includes("{{")) add(`t:${key}`, { tree: key, item: it, ctx: { tb: true, title: it.title || "" }, chapter: K.chapter, group: null, qid: `t:${key}:${si}:${ii}:tbn` }, T.note); }
+        if (T.note && T.note.includes("{{")) add(`t:${key}`, { tree: key, item: it, ctx: { tb: true, title: it.title || "表格下方註解" }, chapter: K.chapter, group: null, qid: `t:${key}:${si}:${ii}:tbn` }, T.note); }
       // 自己新增的行（js/edits.js）：題目編號用 x<id>，不會擠到原本的行
       (it.extra || []).forEach(x => x.text && add(`t:${key}`, { tree: key, item: it, ctx: null, chapter: K.chapter, group: null, qid: `t:${key}:${si}:${ii}:x${x.id}`, kmap: km["x" + x.id] }, x.text));
     })));

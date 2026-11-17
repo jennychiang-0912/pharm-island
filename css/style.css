@@ -539,6 +539,17 @@ mark.cloze.is-hl.hl-mine { background: linear-gradient(transparent 35%, #BFE3A6 
 .k-table td { padding: 7px 10px; border-top: 1px solid #EEE9D8; vertical-align: middle; color: var(--ink); }
 .k-table td.is-b { font-weight: 700; color: var(--forest); background: #FAF8F0; border-right: 1px solid #EEE9D8; }
 .k-table.last-red td:last-child { color: #B4533F; font-weight: 700; }   /* 表格設 lastRed：最後一欄（例如中間產物）用紅字 */
+.k-table td.is-s { font-weight: 700; }   /* 講義上的粗體字 */
+.k-table td.is-img { text-align: center; }
+.k-table td.is-img img { max-width: 170px; max-height: 120px; object-fit: contain; }   /* 表格裡的結構圖 */
+.k-table td.is-band { text-align: center; background: #F1EDDC; font-weight: 600; color: var(--deep); }   /* 講義表格中間的灰色分類列 */
+.k-table.multi-head th { text-align: center; vertical-align: middle; border: 1px solid #DDD6BC; white-space: normal; }   /* 和講義一樣的雙層表頭 */
+.k-table.multi-head td { text-align: center; }
+/* 表格下面一排結構圖（講義表格下方的藥物結構） */
+.k-gallery { display: flex; flex-wrap: wrap; gap: 8px; margin: 8px 0 4px; }
+.k-gallery figure { flex: 1 1 110px; margin: 0; padding: 6px; background: #fff; border: 1px solid var(--line); border-radius: 10px; text-align: center; }
+.k-gallery img { max-width: 100%; max-height: 110px; object-fit: contain; }
+.k-gallery figcaption { font-size: 12px; color: var(--muted); margin-top: 2px; }
 .k-table-note { margin: 6px 0 0 !important; font-size: 12.5px !important; color: var(--muted) !important; }
 @media (max-width: 600px) {
   .k-table { font-size: 12px; min-width: 400px; }   /* 手機：表格不擠成一字一行，可以左右滑 */
@@ -548,7 +559,8 @@ mark.cloze.is-hl.hl-mine { background: linear-gradient(transparent 35%, #BFE3A6 
 
 /* 藥化：結構圖（資訊卡、認結構題） */
 .u-struct{margin:0 0 10px;padding:8px;background:#fff;border:1.5px solid #E3DDC2;border-radius:12px;text-align:center}
-.u-struct img{max-width:100%;max-height:190px;object-fit:contain}
+.u-struct img{max-width:100%;max-height:190px;object-fit:contain;vertical-align:middle}
+.u-struct img+img{margin-left:18px;max-height:120px}   /* 同一格旁邊的其他結構（例如 urea、malonic acid） */
 .q-struct{margin:6px 0 4px;padding:10px;background:#fff;border:1.5px solid #E3DDC2;border-radius:12px;text-align:center}
 .q-struct img{max-width:100%;max-height:220px;object-fit:contain}
 

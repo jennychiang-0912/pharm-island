@@ -277,7 +277,7 @@
     const extra = [u.generation, u.source && `出處：${u.source}`].filter(Boolean).map(esc).join("・");
     const cls = u.class ? `<p class="u-class">類別共通內容（機轉、藥動、副作用等）在本章知識樹</p>` : "";
     // 結構圖（藥化）：講義裁下來的原圖，放在最上面
-    const img = u.img ? `<figure class="u-struct"><img src="${esc(u.img)}" alt="${esc(u.name)} 結構" loading="lazy"></figure>` : "";
+    const img = u.img ? `<figure class="u-struct">${[u.img, ...(u.imgMore || [])].map(s => `<img src="${esc(s)}" alt="${esc(u.name)} 結構" loading="lazy">`).join("")}</figure>` : "";   // imgMore：講義同一格旁邊的其他結構（例如 urea、malonic acid）
     return img || rows || cls || extra ? `<div class="u-body">${img}${rows}${cls}${extra ? `<p class="u-meta">${extra}</p>` : ""}</div>` : "";
   }
 
@@ -320,7 +320,7 @@
     const unitOf = id => PI.UNITS.find(u => u.id === id);
     const refItem = u => `<article class="k-item is-ref">
         <h4>${esc(u.name)}</h4>
-        ${u.img ? `<figure class="u-struct"><img src="${esc(u.img)}" alt="${esc(u.name)} 結構" loading="lazy"></figure>` : ""}
+        ${u.img ? `<figure class="u-struct">${[u.img, ...(u.imgMore || [])].map(s => `<img src="${esc(s)}" alt="${esc(u.name)} 結構" loading="lazy">`).join("")}</figure>` : ""}
         ${(PI.UNIT_FIELDS || []).filter(([k]) => u[k] && u[k].length).map(([k, label]) =>
           `${k === "points" ? "" : `<p class="k-field">${esc(label)}</p>`}<ul>${u[k].map(l => `<li>${clozeLine(l)}</li>`).join("")}</ul>`).join("")}
         <p class="k-src">在格子「${esc(u.short || u.name)}」上作答${u.source ? `・出處：${esc(u.source)}` : ""}</p></article>`;
@@ -361,6 +361,7 @@
         ${it.text ? `<p>${line(it, 0, it.text)}</p>` : ""}
         ${it.image ? `<img class="k-img" src="${esc(it.image)}" alt="${esc(it.title || "")}" loading="lazy">` : ""}
         ${it.table ? tableHtml(it.table) : ""}
+        ${it.gallery ? `<div class="k-gallery">${it.gallery.map(g => `<figure><img src="${esc(g.img)}" alt="${esc(g.cap || "")}" loading="lazy">${g.cap ? `<figcaption>${esc(g.cap)}</figcaption>` : ""}</figure>`).join("")}</div>` : ""}
         ${pts || isEd ? `<ul class="k-pts">${pts}</ul>` : ""}
         ${it.diagram ? `<figure class="k-diagram" title="點圖放大／再點一下縮回"><img src="${esc(it.diagram)}" alt="${esc(it.title || "示意圖")}" loading="lazy"></figure>
           ${PI.GLOSSARY && Object.keys(PI.GLOSSARY).length && !isEd ? `<p class="k-gl-row"><span class="muted">點名詞看小框框：</span>${Object.keys(PI.GLOSSARY).map(esc).join("・")}</p>` : ""}` : ""}
@@ -371,12 +372,16 @@
       return html;
     };
     // 表格（item.table）：{ head: ["欄1", …], rows: [[格, …], …], note: "表格下方的小字" }
-    //   格可以是字串，或 { t: "內容", rs: 跨幾列, cs: 跨幾欄, b: true 粗體 }；被上一列跨過去的格子寫 null。表格內容不出題。
+    //   格可以是字串，或 { t: "內容", rs: 跨幾列, cs: 跨幾欄, b: true 粗體標題格, s: true 講義上的粗體字 }；被上一列跨過去的格子寫 null。
+    //   head 也可以是好幾列（[[…], […]]，和講義一樣的雙層表頭），這時用 cols 給出題用的欄名。
     function tableHtml(T) {
       const tcl = t => esc(t).replace(CLOZE, (m, ans) => `<mark class="cloze">${ans}</mark>`).replace(/\n/g, "<br>");   // 表格裡的挖空：標成考點
       const cell = (c, tag) => { if (c === null) return ""; const o = typeof c === "object" ? c : { t: c };
-        return `<${tag}${o.rs ? ` rowspan="${o.rs}"` : ""}${o.cs ? ` colspan="${o.cs}"` : ""}${o.b ? ' class="is-b"' : ""}>${tcl(o.t)}</${tag}>`; };
-      return `<div class="k-table-wrap"><table class="k-table${T.lastRed ? " last-red" : ""}">${T.head ? `<thead><tr>${T.head.map(h => cell(h, "th")).join("")}</tr></thead>` : ""}
+        const cl = [o.b && "is-b", o.s && "is-s", o.img && "is-img", o.band && "is-band"].filter(Boolean).join(" ");
+        const body = o.img ? `<img src="${esc(o.img)}" alt="${esc(o.t || "結構")}" loading="lazy">` : tcl(o.t || "");   // { img: "…" }：格子裡放結構圖
+        return `<${tag}${o.rs ? ` rowspan="${o.rs}"` : ""}${o.cs ? ` colspan="${o.cs}"` : ""}${cl ? ` class="${cl}"` : ""}>${body}</${tag}>`; };
+      const heads = !T.head ? [] : Array.isArray(T.head[0]) ? T.head : [T.head];
+      return `<div class="k-table-wrap"><table class="k-table${T.lastRed ? " last-red" : ""}${heads.length > 1 ? " multi-head" : ""}">${heads.length ? `<thead>${heads.map(r => `<tr>${r.map(h => cell(h, "th")).join("")}</tr>`).join("")}</thead>` : ""}
         <tbody>${T.rows.map(r => `<tr>${r.map(c => cell(c, "td")).join("")}</tr>`).join("")}</tbody></table></div>
         ${T.note ? `<p class="k-table-note">${tcl(T.note)}</p>` : ""}`;
     }
