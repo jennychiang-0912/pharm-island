@@ -423,11 +423,12 @@
         : signOnly ? `<p>這座島的告示牌沒有總論題目，直接從下面的小白標開始。</p>`
         : nRef ? `<p>★ 這裡的挖空題在本章的格子上作答，佔領一格 <b>+${PI.LEVEL.expPerCell} EXP</b></p>`
         : `<p>★ 加入內容後，挖空題答對每題 <b>+${expQ} EXP</b></p>`}</div>
-      ${signOnly && sgList.length ? `<div class="k-sg-list"><span class="muted">各類的內容在小白標裡：</span>${sgList.map(g => `<button type="button" class="k-sg-btn" data-g="${esc(g)}">${groupOpen(K.chapter, g) ? "" : "🔒 "}${esc(g)}</button>`).join("")}</div>` : ""}
       <div class="k-body">${(K.sections || []).map((sec, si) => [sec, si, inGroup(sec, si)]).filter(([, , its]) => !(group || signOnly) || its.length).map(([sec, si, its]) => `<section class="k-sec">
           <h4 class="k-sec-title">${esc(sec.title)}</h4>
           ${its.length ? its.map(([it, ii]) => item(it, si, ii)).join("")
-            : `<p class="k-empty">尚未加入內容，之後依課堂講義補充。</p>`}</section>`).join("")}</div>`;
+            : `<p class="k-empty">尚未加入內容，之後依課堂講義補充。</p>`}</section>`).join("")}
+        ${signOnly && sgList.length ? `<section class="k-sec"><h4 class="k-sec-title">各類的內容在小白標裡</h4>
+          <div class="k-sg-list">${sgList.map(g => `<button type="button" class="k-sg-btn${groupOpen(K.chapter, g) ? "" : " is-locked"}" data-g="${esc(g)}">${esc(g)}</button>`).join("")}</div></section>` : ""}</div>`;
     $("kpanel").hidden = false;
     $("kpanel").classList.toggle("is-full", kFull);
     $("kFull").onclick = () => { kFull = !kFull; rerenderKnowledge(); };

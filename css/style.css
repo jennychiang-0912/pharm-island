@@ -584,6 +584,8 @@ mark.cloze.is-hl.hl-mine { background: linear-gradient(transparent 35%, #BFE3A6 
 .cluster-letter { fill: #1E241F; }
 .cluster-letter-shadow { fill: #FFFFFF; fill-opacity: .55; }
 /* 告示牌：連到各小白標 */
-.k-sg-list { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; margin: 0 0 10px; font-size: 13px; }
-.k-sg-btn { font: inherit; font-size: 12px; font-weight: 700; color: var(--deep); background: #fff; border: 1.5px solid var(--deep); border-radius: 6px; padding: 2px 8px; cursor: pointer; }
+.k-sg-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 8px; margin: 4px 0 8px; }
+.k-sg-btn { display: flex; align-items: center; justify-content: center; gap: 4px; min-height: 34px; font: inherit; font-size: 13px; font-weight: 700; line-height: 1.2; text-align: center; color: var(--deep); background: #fff; border: 1.5px solid var(--deep); border-radius: 8px; padding: 4px 8px; cursor: pointer; }
 .k-sg-btn:hover { background: var(--mint); }
+.k-sg-btn.is-locked { color: #7a8a80; border-color: #b9c6bd; }
+.k-sg-btn.is-locked::before { content: "🔒"; font-size: 11px; }
