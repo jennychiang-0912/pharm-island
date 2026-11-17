@@ -2147,12 +2147,21 @@ PI.KNOWLEDGE = {
     ] }
 };
 /* 整座島的總覽／總論／總整理：不放成格子，直接放進告示牌（題目在告示牌上答） */
+/* 小分類裡的通論／簡介（type: topic、有 group）：也不放成格子，改放進那一類的小白標（題目在小白標上答）。
+   只搬知識樹有引用的；這一類如果只剩它一格（例如 SSRIs），就留著當格子，不然地圖上這一類會整個不見。 */
 (function () {
   const SIGN = ["總覽", "總論", "總整理"], moved = new Map();
-  PI.UNITS = PI.UNITS.filter(u => { if (u.type === "topic" && SIGN.includes(u.group)) { moved.set(u.id, u); return false; } return true; });
+  const refd = new Set(Object.values(PI.KNOWLEDGE).flatMap(K => (K.sections || []).flatMap(sec => (sec.items || []).map(it => it.unit).filter(Boolean))));
+  const cellsIn = g => PI.UNITS.filter(x => x.group === g && x.type !== "topic").length;
+  PI.UNITS = PI.UNITS.filter(u => {
+    if (u.type !== "topic") return true;
+    if (SIGN.includes(u.group) || (u.group && refd.has(u.id) && cellsIn(u.group) > 0)) { moved.set(u.id, u); return false; }
+    return true; });
   Object.values(PI.KNOWLEDGE).forEach(K => (K.sections || []).forEach(sec => {
     sec.items = (sec.items || []).map(it => { const u = it.unit && moved.get(it.unit); if (!u) return it;
-      return { title: u.name, source: u.source, image: u.img, points: [...(u.use || []), ...(u.bold || [])] }; });
+      return { title: u.name, source: u.source, ...(SIGN.includes(u.group) ? {} : { group: u.group }),
+        ...(u.img ? { structs: [u.img, ...(u.imgMore || [])] } : {}),
+        points: [...(u.use || []), ...(u.bold || [])] }; });
   }));
 })();
 PI.GLOSSARY = {};

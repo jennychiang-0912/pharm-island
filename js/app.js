@@ -365,6 +365,7 @@
       const html = `<article class="k-item${isEd ? " k-edit" : ""}" data-key="${esc(ekey)}">${bar}
         <div class="k-item-head">${head}${tools}</div>
         ${it.text ? `<p>${line(it, 0, it.text)}</p>` : ""}
+        ${it.structs ? `<figure class="u-struct">${it.structs.map(s => `<img src="${esc(s)}" alt="${esc(it.title || "")} 結構" loading="lazy">`).join("")}</figure>` : ""}
         ${it.image ? `<img class="k-img" src="${esc(it.image)}" alt="${esc(it.title || "")}" loading="lazy">` : ""}
         ${it.table ? tableHtml(it.table) : ""}
         ${it.gallery ? `<div class="k-gallery">${it.gallery.map(g => `<figure><img src="${esc(g.img)}" alt="${esc(g.cap || "")}" loading="lazy">${g.cap ? `<figcaption>${esc(g.cap)}</figcaption>` : ""}</figure>`).join("")}</div>` : ""}
