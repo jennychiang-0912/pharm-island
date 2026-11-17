@@ -1872,7 +1872,7 @@ PI.KNOWLEDGE = {
   ch1: { chapter: 1, title: "鎮靜安眠與抗焦慮藥物",
     sections: [
       { id: "overview", title: "總覽", items: [{ unit: "sh-barb-vs-bzd" },
-        { title: "Barbiturates 與 Benzodiazepine 之比較（表）", group: "總覽", source: "統整（一）p.3",
+        { title: "Barbiturates 與 Benzodiazepine 之比較（表）", source: "統整（一）p.3",
           table: { head: ["藥物", "Barbiturates", "Benzodiazepine"], rows: [
             [{ t: "機轉", b: true }, "活化 GABA_A 之 Cl⁻ 通道，增加開啟時間", "異位活化 GABA_A 之 Cl⁻ 通道，增加開啟頻率"],
             [{ t: "劑量與中樞抑制關係", b: true, rs: 2 }, "線性", "曲線（較安全）"],
@@ -1884,7 +1884,7 @@ PI.KNOWLEDGE = {
             [{ t: "呼吸抑制", b: true }, "O", "X"],
             [{ t: "CYP450 誘導", b: true }, "O", "X"]
           ], note: "藥理補充：β-Carbolines、Bicuculline 為 Inverse agonist，可降低 GABA 之抑制作用；Flumazenil 可拮抗 BZD 和 Z-drugs 的作用" } },
-        { title: "藥物總覽", group: "總覽", source: "統整（一）p.3",
+        { title: "藥物總覽", source: "統整（一）p.3",
           table: { head: ["分類", "作用機轉", "藥物"], rows: [
             [{ t: "Barbiturates", b: true }, "異位活化 GABA_A 的 Cl⁻ 通道，增加開啟時間", "Phenobarbital、Thiopental、Primidone 等"],
             [{ t: "Benzodiazepine", b: true }, "異位活化 GABA_A 的 Cl⁻ 通道，增加開啟頻率", "Diazepam、Lorazepam、Triazolam 等"],
@@ -1978,6 +1978,15 @@ PI.KNOWLEDGE = {
       { id: "anemia", title: "五、血球缺乏與貧血", items: [{ unit: "hematopoietic" }, { unit: "anemia-intro" }] }
     ] }
 };
+/* 整座島的總覽／總論／總整理：不放成格子，直接放進告示牌（題目在告示牌上答） */
+(function () {
+  const SIGN = ["總覽", "總論", "總整理"], moved = new Map();
+  PI.UNITS = PI.UNITS.filter(u => { if (u.type === "topic" && SIGN.includes(u.group)) { moved.set(u.id, u); return false; } return true; });
+  Object.values(PI.KNOWLEDGE).forEach(K => (K.sections || []).forEach(sec => {
+    sec.items = (sec.items || []).map(it => { const u = it.unit && moved.get(it.unit); if (!u) return it;
+      return { title: u.name, source: u.source, image: u.img, points: [...(u.use || []), ...(u.bold || [])] }; });
+  }));
+})();
 PI.GLOSSARY = {};
 
 /* 和生藥頁一樣：電腦版知識面板開大一點 */
