@@ -54,27 +54,6 @@ PI.map = (function () {
     return isl;
   }
 
-  /* 名牌的浮動提示：這一類有哪些藥（滑鼠移上去或用鍵盤選到時出現） */
-  let grpTip = null;
-  const escT = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
-  function showGrpTip(name, rows, has, e) {
-    if (!grpTip) { grpTip = document.createElement("div"); grpTip.className = "grp-tip"; grpTip.setAttribute("role", "tooltip"); document.body.appendChild(grpTip); }
-    grpTip.innerHTML = `<b>${escT(name)}</b>` + (rows.length
-      ? rows.map(r => `<div class="grp-tip-row">${r.label ? `<span class="grp-tip-sub">${escT(r.label)}</span>` : ""}${r.drugs.map(escT).join("、")}</div>`).join("")
-      : `<div class="grp-tip-row muted">這一類沒有藥物格子</div>`)
-      + `<div class="grp-tip-hint">${has ? "點一下看這一類的機轉" : "點一下圈出這一類的藥"}</div>`;
-    grpTip.hidden = false; moveGrpTip(e);
-  }
-  function moveGrpTip(e) {
-    if (!grpTip || grpTip.hidden) return;
-    const w = grpTip.offsetWidth, h = grpTip.offsetHeight;
-    let x = e.clientX + 14, y = e.clientY + 16;
-    if (x + w > innerWidth - 8) x = Math.max(8, e.clientX - w - 14);
-    if (y + h > innerHeight - 8) y = Math.max(8, e.clientY - h - 12);
-    grpTip.style.left = x + "px"; grpTip.style.top = y + "px";
-  }
-  function hideGrpTip() { if (grpTip) grpTip.hidden = true; }
-
   /* 第三層小標：PI.GROUP_PARENTS 把小分類掛到上一層（例如 Class A → Benzodiazepine 類衍生物）。
      topOf(group) 是最上層的那一類；沒有設定就是自己。 */
   const topOf = g => (g && (PI.GROUP_PARENTS || {})[g]) || g;
@@ -535,17 +514,13 @@ PI.map = (function () {
         "aria-label": has ? `${name}：打開這一類的機轉` : `${name}：圈出這一類的藥`, transform: `translate(${cx.toFixed(1)},${y.toFixed(1)})` };
       if (has) attrs["data-tree"] = kKey;
       const sign = el("g", attrs);
-      // 滑鼠移到名牌上：浮出這一類有哪些藥（大分類會照子分類分行列出）
-      const drugsIn = gname => [...new Set(isl.cells.filter(c => c.unit && c.unit.type !== "topic" && c.group === gname).map(c => c.unit.name))];
-      const kids = [...new Set(isl.cells.filter(c => c.group && c.group !== name && topOf(c.group) === name).map(c => c.group))];
-      const tipRows = [drugsIn(name).length ? { label: kids.length ? "（本類）" : "", drugs: drugsIn(name) } : null,
-        ...kids.map(k => ({ label: (PI.GROUP_LABELS || {})[k] || k, drugs: drugsIn(k) }))].filter(r => r && r.drugs.length);
-      sign.addEventListener("pointerenter", e => showGrpTip(name, tipRows, has, e));
-      sign.addEventListener("pointermove", e => moveGrpTip(e));
-      sign.addEventListener("pointerleave", hideGrpTip);
-      sign.addEventListener("focus", () => { const r = sign.getBoundingClientRect(); showGrpTip(name, tipRows, has, { clientX: r.left + r.width / 2, clientY: r.bottom }); });
-      sign.addEventListener("blur", hideGrpTip);
-      sign.append(el("rect", { class: "grp-hit", x: -total / 2 - 10, y: -fs - 4, width: total + 20, height: fs + 14, rx: 6 }));
+      // 滑鼠移到名牌上（或鍵盤選到）：金黃色框框出這一類的藥（大分類連子分類一起）
+      sign.addEventListener("pointerenter", () => hoverGroup(isl.chapter, name));
+      sign.addEventListener("pointerleave", unhoverGroup);
+      sign.addEventListener("focus", () => hoverGroup(isl.chapter, name));
+      sign.addEventListener("blur", unhoverGroup);
+      const tip = el("title"); tip.textContent = has ? `${name}・點一下看這一類的機轉` : `${name}・點一下圈出這一類的藥`;
+      sign.append(tip, el("rect", { class: "grp-hit", x: -total / 2 - 10, y: -fs - 4, width: total + 20, height: fs + 14, rx: 6 }));
       letters.forEach((ch, i) => {
         if (ch === " ") return;
         const x = xs[i].toFixed(1);
@@ -943,11 +918,17 @@ PI.map = (function () {
     if (litRing) litRing.style.display = "none";
     litGroup = null;
     if (same) return;   // 再點一次同一個 → 取消
-    const mine = cells.filter(c => c.el && c.chapter === ch && c.group && (c.group === name || topOf(c.group) === name));   // 點上層分類：連子分類一起圈
+    const mine = groupCells(ch, name);
     if (!mine.length) return;
     mine.forEach(c => c.el.classList.add("grp-lit"));
     svg.querySelectorAll(".grp-sign").forEach(s => { if (s.dataset.group === name && +s.dataset.ch === ch) s.classList.add("is-lit"); });
-    // 沿著這一類的外緣畫一圈連續的線：只畫「鄰居不是同一類」的那幾條六角形邊
+    if (litRing) { litRing.setAttribute("d", ringPath(mine)); litRing.style.display = ""; }
+    svg.classList.add("has-grp-lit"); litGroup = { ch, name };
+  }
+  // 這一類的格子（上層分類連子分類一起）
+  const groupCells = (ch, name) => cells.filter(c => c.el && c.chapter === ch && c.group && (c.group === name || topOf(c.group) === name));
+  // 沿著這些格子的外緣畫一圈連續的線：只畫「鄰居不是同一類」的那幾條六角形邊
+  function ringPath(mine) {
     const has = new Set(mine.map(c => `${c.q},${c.r}`));
     let d = "";
     mine.forEach(c => DIRS.forEach(([dq, dr]) => {
@@ -957,9 +938,18 @@ PI.map = (function () {
       const px = -vy / L * R / 2, py = vx / L * R / 2;                     // 共用邊：垂直於連線、長度 R
       d += `M${(mx + px).toFixed(1)},${(my + py).toFixed(1)}L${(mx - px).toFixed(1)},${(my - py).toFixed(1)}`;
     }));
-    if (litRing) { litRing.setAttribute("d", d); litRing.style.display = ""; }
-    svg.classList.add("has-grp-lit"); litGroup = { ch, name };
+    return d;
   }
+  // 滑鼠移到名牌上（或鍵盤選到）：用金黃色框框出這一類的藥，移開就消失
+  let hoverRing = null;
+  function hoverGroup(ch, name) {
+    if (!svg) return;
+    if (!hoverRing) { hoverRing = el("path", { class: "grp-hover-ring", fill: "none", "pointer-events": "none" }); litRing.after(hoverRing); }
+    const mine = groupCells(ch, name);
+    if (!mine.length) return unhoverGroup();
+    hoverRing.setAttribute("d", ringPath(mine)); hoverRing.style.display = "";
+  }
+  function unhoverGroup() { if (hoverRing) hoverRing.style.display = "none"; }
   function clearLit() { if (litGroup) highlightGroup(litGroup.ch, litGroup.name); }
 
   function select(id) {
