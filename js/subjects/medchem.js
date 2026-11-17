@@ -42,7 +42,13 @@ PI.GROUP_PARENTS = {
   "Phenylalkylamine 類衍生物": "選擇性血清素再回收抑制劑（Selective Serotonin Reuptake Inhibitors, SSRIs）：同時為第一線抗焦慮用藥",
   "Miscellaneous 雜類藥物": "選擇性血清素再回收抑制劑（Selective Serotonin Reuptake Inhibitors, SSRIs）：同時為第一線抗焦慮用藥",
   "不可逆、無選擇性之 MAOI 藥物個論": "單胺氧化酶抑制劑（MAOI）",
-  "可逆、具選擇性之 MAOI 藥物個論": "單胺氧化酶抑制劑（MAOI）"
+  "可逆、具選擇性之 MAOI 藥物個論": "單胺氧化酶抑制劑（MAOI）",
+  // 第 4 章
+  "麥角生物鹼類": "活化 Dopamine 受體",
+  "非麥角生物鹼類": "活化 Dopamine 受體",
+  "阻斷中樞毒蕈鹼受體": "降低 ACh 活性",
+  "第一代 H₁-blockers": "降低 ACh 活性",
+  "Adenosine A₂A antagonist": "促進 Dopamine 釋放"
 };
 
 /* 地圖名牌：和生藥頁一樣用短的英文（名牌字型只有英文字母，中文字寬、長的名牌會擠成一團）。
@@ -94,11 +100,25 @@ PI.GROUP_LABELS = {
   "單胺氧化酶抑制劑（MAOI）": "MAOI",
   "不可逆、無選擇性之 MAOI 藥物個論": "Irreversible",
   "可逆、具選擇性之 MAOI 藥物個論": "Reversible",
-  "情緒穩定劑（Mood Stabilizers）": "Mood Stabilizer"
+  "情緒穩定劑（Mood Stabilizers）": "Mood Stabilizer",
+  // 第 4 章
+  "增加 Dopamine 合成": "DA Synthesis",
+  "抑制 Dopamine 代謝": "DA Metabolism",
+  "活化 Dopamine 受體": "DA Agonists",
+  "麥角生物鹼類": "Ergot",
+  "非麥角生物鹼類": "Non-ergot",
+  "降低 ACh 活性": "Anti-ACh",
+  "阻斷中樞毒蕈鹼受體": "Antimuscarinic",
+  "第一代 H₁-blockers": "H1-blockers",
+  "促進 Dopamine 釋放": "DA Release",
+  "Adenosine A₂A antagonist": "A2A Antagonist",
+  "可逆型膽鹼酯酶抑制劑：皆有三級胺結構，可穿過 BBB 增加 ACh 濃度": "AChEI",
+  "NMDA 受體拮抗劑（NMDA antagonist）": "NMDA Antagonist",
+  "治療藥物：降低 Dopamine 的濃度": "Huntington"
 };
 
 /* 藥化的欄位：照講義表格的欄位（藥物｜結構｜特性｜藥理及臨床應用） */
-PI.UNIT_FIELDS = [["use", "分類／用途"], ["desc", "說明"], ["feat", "特性"], ["pharm", "藥理及臨床應用"], ["metab", "藥物代謝"], ["bold", "粗體重點"]];   // 第 1、2 章照講義欄位（說明／特性／藥理及臨床應用），第 3 章是特性／藥物代謝，其他章還是粗體重點
+PI.UNIT_FIELDS = [["use", "分類／用途"], ["desc", "說明"], ["feat", "特性"], ["pharm", "藥理及臨床應用"], ["metab", "藥物代謝"], ["clin", "藥理及臨床用途"], ["bold", "粗體重點"]];   // 第 1、2 章照講義欄位（說明／特性／藥理及臨床應用），第 3 章是特性／藥物代謝，第 4 章是特性／藥理及臨床用途，其他章還是粗體重點
 PI.UNIT_TITLE_FIELD = null;
 PI.UNIT_BOXES = [];
 PI.UNIT_TYPES = { drug: "藥物", preparation: "製劑", category: "分類", topic: "主題" };
@@ -940,215 +960,127 @@ PI.UNITS = [
     "4. 使受體和其 G protein {{去偶合|機轉}}★，如使 TSH 受體失效造成甲狀腺功能低下、使 ADH 受體失效造成{{腎因性尿崩症|疾病}}"] },
 
 /* ===== 第 4 章 神經疾病相關藥物（統整（一）肆，p.44–48）===== */
-/* 一、帕金森氏症 */
-{ id: "pd-classes", chapter: 4, name: "帕金森氏症藥物分類與複方", short: "帕金森分類", type: "topic", group: "帕金森總論", source: "統整（一）p.44",
-  bold: [
-    "增加 Dopamine 合成：Levodopa（Dopamine 之前驅藥）",
-    "抑制 Dopamine 代謝：抑制週邊 Dopamine decarboxylase（Carbidopa、Benserazide）、抑制 COMT（Entacapone、Tolcapone）、不可逆抑制中樞 {{MAO-B|標的}}（Selegiline、Rasagiline）",
-    "活化 Dopamine 受體：麥角生物鹼類（Bromocriptine、Pergolide、Lisuride、Cabergoline）、非麥角類（Pramipexole、Ropinirole、Rotigotine、Apomorphine）",
-    "降低 ACh 活性：阻斷中樞毒蕈鹼受體（Benztropine、Biperidine、Trihexyphenidyl）、中樞抗膽鹼之 {{H₁-blocker|藥物類別}}（Ethopropazine、Diethazine、Diphenhydramine）",
-    "促進 Dopamine 釋放：{{Adenosine A₂ₐ antagonist|機轉}}（Amantadine、Memantine、Istradefylline、Sarizotan）",
-    "複方：Sinemet = Levodopa + {{Carbidopa|藥名}}；Madopar = Levodopa + Benserazide；Stalevo = Sinemet + Entacapone",
-    "MPPP 水解後可形成 MPTP，再被 {{MAO-B|標的}}★氧化代謝成毒性代謝物 MPP⁺，可產生自由基破壞多巴胺神經"
-  ] },
-{ id: "levodopa", chapter: 4, name: "Levodopa", type: "drug", group: "增加 Dopamine 合成", source: "統整（一）p.45", img: "assets/medchem/levodopa.png",
-  use: ["{{帕金森氏症|疾病}}（Dopamine 之前驅藥）"],
-  bold: [
-    "Prodrug，{{脫羧|代謝}}★形成 Dopamine，口服空腹使用",
-    "具有三級胺結構，可進入 BBB（以 {{Active transport|名詞}} 分布到中樞）",
+/* 照講義逐字：分類總表、合併使用之藥品、MPPP、作用位置圖放在告示牌（知識樹 ch4，沒有分類的卡片）；※ 註解放進各自的小白標。
+   藥物格子的欄位照講義表格（特性／藥理及臨床用途）。講義兩個藥共用一格說明時，各自的格子都放；只講到其中一個藥的句子只放在那個藥。
+   行首「- 」＝子項目、「> 」＝接續行，[u]…[/u]＝底線、[i]…[/i]＝斜體 */
+
+/* 一、帕金森氏症：增加 Dopamine 合成 */
+{ id: "levodopa", chapter: 4, name: "Levodopa", type: "drug", group: "增加 Dopamine 合成", source: "統整（一）p.45", img: "assets/medchem/pd-levodopa.png",
+  feat: ["具有三級胺結構，可進入 BBB",
+    "> （以 {{Active transport|名詞|Passive diffusion}} 分布到中樞）"],
+  clin: ["Prodrug，{{脫羧|代謝}}★形成 Dopamine，口服空腹使用",
     "可併用 Carbidopa，避免 Levodopa 進入中樞前被分解",
     "與 Pyridoxine / {{Vit B₆|物質}} 併用會降低 Levodopa 進入中樞的濃度（因 Vit B₆ 可活化 decarboxylase）",
-    "副作用：{{On-off phenomenon|副作用}}、厭食、失眠、棕色尿液"
-  ] },
-{ id: "carbidopa", chapter: 4, name: "Carbidopa", type: "drug", group: "抑制 Dopamine 代謝", source: "統整（一）p.45", img: "assets/medchem/carbidopa.png",
-  use: ["{{帕金森氏症|疾病}}（與 Levodopa 併用，Sinemet）"],
-  bold: [
-    "{{Hydrazine|結構}}★衍生物（-NHNH₂）",
-    "立體組態：{{S(-) form|結構}}★",
-    "抑制{{週邊|位置}}★ Dopamine decarboxylase → 藥物不進入 BBB（又稱 Aromatic L-amino acid decarboxylase）"
-  ] },
-{ id: "entacapone", chapter: 4, name: "Entacapone", type: "drug", group: "抑制 Dopamine 代謝", source: "統整（一）p.45", img: "assets/medchem/entacapone.png",
-  use: ["{{帕金森氏症|疾病}}（COMT 抑制劑，週邊作用）"],
-  bold: [
-    "抑制 {{COMT|酵素}} 分解 Dopamine，用做輔助治療",
+    "副作用：{{On-off phenomenon|副作用}}、厭食、失眠、棕色尿液"] },
+
+/* 抑制 Dopamine 代謝 */
+{ id: "carbidopa", chapter: 4, name: "Carbidopa", type: "drug", group: "抑制 Dopamine 代謝", source: "統整（一）p.45", img: "assets/medchem/pd-carbidopa.png",
+  feat: ["{{Hydrazine|結構}}★衍生物（-NHNH₂）",
+    "立體組態：{{S(-) form|結構|R(+) form}}★"],
+  clin: ["抑制{{週邊|位置|中樞}}★Dopamine decarboxylase →藥物不進入 BBB",
+    "> （又稱 Aromatic L-amino acid decarboxylase）",
+    "Sinemet®={{Levodopa|藥名}}+Carbidopa"] },
+{ id: "entacapone", chapter: 4, name: "Entacapone", type: "drug", group: "抑制 Dopamine 代謝", source: "統整（一）p.45", img: "assets/medchem/pd-entacapone.png",
+  clin: ["抑制 {{COMT|酵素|MAO-B}} 分解 Dopamine，用做輔助治療",
     "與{{鐵劑|物質}}併服會降低藥物吸收，需隔開使用",
-    "副作用：腹瀉、{{橘棕色尿液|副作用}}"
-  ] },
-{ id: "tolcapone", chapter: 4, name: "Tolcapone", type: "drug", group: "抑制 Dopamine 代謝", source: "統整（一）p.45", img: "assets/medchem/tolcapone.png",
-  use: ["{{帕金森氏症|疾病}}（COMT 抑制劑，中樞作用）"],
-  bold: [
-    "抑制 {{COMT|酵素}} 分解 Dopamine（中樞作用），用做輔助治療",
-    "副作用：腹瀉、橘棕色尿液"
-  ] },
-{ id: "selegiline", chapter: 4, name: "Selegiline", type: "drug", group: "抑制 Dopamine 代謝", source: "統整（一）p.45", img: "assets/medchem/selegiline.png",
-  use: ["{{帕金森氏症|疾病}}（不可逆抑制 MAO-B）"],
-  bold: [
-    "基本結構：{{Propargylamine|結構}}★",
-    "於 {{R(-)|結構}} 時活性最大",
-    "不可逆抑制 {{MAO-B|標的}}★（MAO-A 代謝 NE+5-HT、MAO-B 代謝 Dopamine）",
-    "與 Levodopa 併用可能引發{{高血壓急症|副作用}}"
-  ] },
-{ id: "rasagiline", chapter: 4, name: "Rasagiline", type: "drug", group: "抑制 Dopamine 代謝", source: "統整（一）p.45", img: "assets/medchem/rasagiline.png",
-  use: ["{{帕金森氏症|疾病}}（不可逆抑制 MAO-B）"],
-  bold: [
-    "基本結構：{{Propargylamine|結構}}★",
-    "於 {{R(+)|結構}} 時活性最大",
-    "不可逆抑制 {{MAO-B|標的}}★"
-  ] },
-/* 活化 Dopamine 受體：麥角生物鹼類 */
-{ id: "bromocriptine", chapter: 4, name: "Bromocriptine", type: "drug", group: "活化 Dopamine 受體（麥角）", source: "統整（一）p.46", img: "assets/medchem/bromocriptine.png",
-  use: ["{{帕金森氏症|疾病}}、高泌乳血症、肢端肥大症"],
-  bold: [
-    "活化 D₂、D₃ → {{不活化 5-HT2B|機轉}}，不會造成心毒性",
-    "可降低帕金森震顫（Tremor）的發生機率（震顫發生於{{休息靜止時|名詞}}）",
+    "副作用：腹瀉、橘棕色尿液"] },
+{ id: "tolcapone", chapter: 4, name: "Tolcapone", type: "drug", group: "抑制 Dopamine 代謝", source: "統整（一）p.45", img: "assets/medchem/pd-tolcapone.png",
+  clin: ["抑制 {{COMT|酵素|MAO-B}} 分解 Dopamine，用做輔助治療",
+    "與鐵劑併服會降低藥物吸收，需隔開使用",
+    "副作用：腹瀉、{{橘棕色尿液|副作用}}"] },
+{ id: "selegiline", chapter: 4, name: "Selegiline", type: "drug", group: "抑制 Dopamine 代謝", source: "統整（一）p.45", img: "assets/medchem/pd-selegiline.png",
+  feat: ["基本結構：{{Propargylamine|結構}}★",
+    "Selegiline 於 {{R(-)|結構|R(+)}} 時活性最大"],
+  clin: ["{{不可逆|性質|可逆}}抑制 MAO-B※",
+    "與 Levodopa 併用可能引發{{高血壓急症|副作用}}"] },
+{ id: "rasagiline", chapter: 4, name: "Rasagiline", type: "drug", group: "抑制 Dopamine 代謝", source: "統整（一）p.45", img: "assets/medchem/pd-rasagiline.png",
+  feat: ["基本結構：{{Propargylamine|結構}}★",
+    "Rasagiline 於 {{R(+)|結構|R(-)}} 時活性最大"],
+  clin: ["不可逆抑制 {{MAO-B|酵素|MAO-A}}※",
+    "與 Levodopa 併用可能引發高血壓急症"] },
+
+/* 活化 Dopamine 受體 > 麥角生物鹼類 */
+{ id: "bromocriptine", chapter: 4, name: "Bromocriptine", type: "drug", group: "麥角生物鹼類", source: "統整（一）p.46", img: "assets/medchem/pd-bromocriptine.png",
+  clin: ["活化 D₂、D₃ →{{不活化 5-HT₂B|機轉|活化 5-HT₂B}}，不會造成心毒性",
+    "可{{降低|性質|增加}}帕金森震顫（Tremor）的發生機率（震顫發生於{{休息靜止時|名詞}}）",
+    "治療{{高泌乳血症|疾病}}、帕金森氏症、肢端肥大症",
+    "具有強效抗膽鹼作用",
+    "麥角生物鹼類較容易有{{肋膜及心包膜纖維化|副作用}}之副作用"] },
+{ id: "lisuride", chapter: 4, name: "Lisuride", type: "drug", group: "麥角生物鹼類", source: "統整（一）p.46", img: "assets/medchem/pd-lisuride.png",
+  clin: ["活化 D₂、D₃ →不活化 5-HT₂B，{{不會|性質|會}}造成心毒性",
+    "可降低帕金森震顫（Tremor）的發生機率（震顫發生於休息靜止時）",
+    "治療高泌乳血症、帕金森氏症、{{肢端肥大症|疾病}}",
     "具有強效{{抗膽鹼|機轉}}作用",
-    "麥角生物鹼類較容易有{{肋膜及心包膜纖維化|副作用}}之副作用"
-  ] },
-{ id: "lisuride", chapter: 4, name: "Lisuride", type: "drug", group: "活化 Dopamine 受體（麥角）", source: "統整（一）p.46", img: "assets/medchem/lisuride.png",
-  use: ["{{帕金森氏症|疾病}}"],
-  bold: [
-    "活化 D₂、D₃ → {{不活化 5-HT2B|機轉}}，不會造成心毒性",
-    "麥角生物鹼類較容易有肋膜及心包膜纖維化之副作用"
-  ] },
-{ id: "pergolide", chapter: 4, name: "Pergolide", type: "drug", group: "活化 Dopamine 受體（麥角）", source: "統整（一）p.46", img: "assets/medchem/pergolide.png",
-  use: ["{{帕金森氏症|疾病}}"],
-  bold: [
-    "活化 D₂、D₃、{{5-HT2B|受體}}（活化 5-HT2B 會造成{{心毒性|副作用}}）",
-    "Pergolide 由{{肝臟|器官}}排除，半衰期長"
-  ] },
-{ id: "cabergoline", chapter: 4, name: "Cabergoline", type: "drug", group: "活化 Dopamine 受體（麥角）", source: "統整（一）p.46", img: "assets/medchem/cabergoline.png",
-  use: ["{{帕金森氏症|疾病}}"],
-  bold: [
-    "活化 D₂、D₃、{{5-HT2B|受體}}（活化 5-HT2B 會造成心毒性）"
-  ] },
-/* 活化 Dopamine 受體：非麥角生物鹼類 */
-{ id: "pramipexole", chapter: 4, name: "Pramipexole", type: "drug", group: "活化 Dopamine 受體（非麥角）", source: "統整（一）p.46", img: "assets/medchem/pramipexole.png",
-  use: ["{{帕金森氏症|疾病}}"],
-  bold: [
-    "活化 {{D₂、D₃|受體}} 受體",
-    "多巴胺 agonist 副作用：厭食、姿勢性低血壓、{{遲發性運動障礙|副作用}}（Dyskinesia）",
-    "Pramipexole 由{{腎臟|器官}}排除，併用 Cimetidine、FQ 抗生素會抑制其代謝"
-  ] },
-{ id: "ropinirole", chapter: 4, name: "Ropinirole", type: "drug", group: "活化 Dopamine 受體（非麥角）", source: "統整（一）p.46", img: "assets/medchem/ropinirole.png",
-  use: ["{{帕金森氏症|疾病}}"],
-  bold: [
-    "活化 {{D₂、D₃|受體}} 受體",
-    "多巴胺 agonist 副作用：厭食、姿勢性低血壓、遲發性運動障礙"
-  ] },
-{ id: "rotigotine", chapter: 4, name: "Rotigotine", type: "drug", group: "活化 Dopamine 受體（非麥角）", source: "統整（一）p.46", img: "assets/medchem/rotigotine.png",
-  use: ["{{帕金森氏症|疾病}}"],
-  bold: [
-    "可活化 {{D₁、D₂、D₃|受體}} 受體"
-  ] },
-{ id: "apomorphine", chapter: 4, name: "Apomorphine", type: "drug", group: "活化 Dopamine 受體（非麥角）", source: "統整（一）p.46", img: "assets/medchem/apomorphine.png",
-  use: ["{{帕金森氏症|疾病}}"],
-  bold: [
-    "可活化 {{D₁、D₂|受體}} 受體",
-    "立體組態：{{R(-)|結構}}★"
-  ] },
-/* 降低 ACh 活性：阻斷中樞毒蕈鹼受體 */
-{ id: "benztropine", chapter: 4, name: "Benztropine", type: "drug", group: "降低 ACh 活性（抗蕈鹼）", source: "統整（一）p.47", img: "assets/medchem/benztropine.png",
-  use: ["{{帕金森氏症|疾病}}"],
-  bold: [
-    "阻斷{{膽鹼性受體|標的}}，可產生類似增加多巴胺神經傳導的作用",
-    "副作用：散瞳、尿液滯留、口乾，{{青光眼|疾病}}、前列腺肥大患者應避免使用"
-  ] },
-{ id: "biperidine", chapter: 4, name: "Biperidine", type: "drug", group: "降低 ACh 活性（抗蕈鹼）", source: "統整（一）p.47", img: "assets/medchem/biperidine.png",
-  use: ["{{帕金森氏症|疾病}}"],
-  bold: [
-    "阻斷{{膽鹼性受體|標的}}，產生類似增加多巴胺神經傳導的作用"
-  ] },
-{ id: "trihexyphenidyl", chapter: 4, name: "Trihexyphenidyl", type: "drug", group: "降低 ACh 活性（抗蕈鹼）", source: "統整（一）p.47", img: "assets/medchem/trihexyphenidyl.png",
-  use: ["{{帕金森氏症|疾病}}"],
-  bold: [
-    "阻斷{{膽鹼性受體|標的}}，產生類似增加多巴胺神經傳導的作用"
-  ] },
-/* 降低 ACh 活性：第一代 H1-blockers */
-{ id: "ethopropazine", chapter: 4, name: "Ethopropazine", type: "drug", group: "降低 ACh 活性（H₁-blocker）", source: "統整（一）p.47", img: "assets/medchem/ethopropazine.png",
-  use: ["{{帕金森氏症|疾病}}（中樞抗膽鹼之 H₁-blocker）"],
-  bold: [
-    "{{Phenothiazine|結構}}★衍生物"
-  ] },
-{ id: "diethazine", chapter: 4, name: "Diethazine", type: "drug", group: "降低 ACh 活性（H₁-blocker）", source: "統整（一）p.47", img: "assets/medchem/diethazine.png",
-  use: ["{{帕金森氏症|疾病}}"],
-  bold: [
-    "{{Phenothiazine|結構}} 衍生物"
-  ] },
-{ id: "diphenhydramine", chapter: 4, name: "Diphenhydramine", type: "drug", group: "降低 ACh 活性（H₁-blocker）", source: "統整（一）p.47", img: "assets/medchem/diphenhydramine.png",
-  use: ["{{帕金森氏症|疾病}}"],
-  bold: [
-    "{{Aminoalkyl ether|結構}} 類"
-  ] },
-/* 促進 Dopamine 釋放：Adenosine A2A antagonist */
-{ id: "amantadine", chapter: 4, name: "Amantadine", type: "drug", group: "促進 Dopamine 釋放", source: "統整（一）p.47", img: "assets/medchem/amantadine.png",
-  use: ["{{帕金森氏症|疾病}}，也當作{{抗病毒|用途}}藥"],
-  bold: [
-    "抑制毒蕈鹼、{{NMDA 受體|標的}}",
-    "副作用：{{網狀青斑|副作用}}"
-  ] },
-{ id: "istradefylline", chapter: 4, name: "Istradefylline", type: "drug", group: "促進 Dopamine 釋放", source: "統整（一）p.47", img: "assets/medchem/istradefylline.png",
-  use: ["{{帕金森氏症|疾病}}（Adenosine A₂ₐ antagonist）"],
-  bold: [
-    "具有 {{Xanthine|結構}}★結構"
-  ] },
-{ id: "sarizotan", chapter: 4, name: "Sarizotan", type: "drug", group: "促進 Dopamine 釋放", source: "統整（一）p.47", img: "assets/medchem/sarizotan.png",
-  use: ["{{帕金森氏症|疾病}}"],
-  bold: [
-    "同時是 {{5-HT1A agonist|機轉}}、D₂ partial agonist"
-  ] },
+    "麥角生物鹼類較容易有肋膜及心包膜纖維化之副作用"] },
+{ id: "pergolide", chapter: 4, name: "Pergolide", type: "drug", group: "麥角生物鹼類", source: "統整（一）p.46", img: "assets/medchem/pd-pergolide.png",
+  clin: ["活化 D₂、D₃、{{5-HT₂B|受體}}（活化 5-HT₂B 會造成{{心毒性|副作用}}）",
+    "Pergolide 由{{肝臟|器官|腎臟}}排除，半衰期長"] },
+{ id: "cabergoline", chapter: 4, name: "Cabergoline", type: "drug", group: "麥角生物鹼類", source: "統整（一）p.46", img: "assets/medchem/pd-cabergoline.png",
+  clin: ["活化 D₂、D₃、{{5-HT₂B|受體}}（活化 5-HT₂B 會造成心毒性）"] },
 
-/* 二、阿茲海默症 */
-{ id: "az-intro", chapter: 4, name: "阿茲海默症藥物簡介", short: "阿茲海默簡介", type: "topic", group: "阿茲海默", source: "統整（一）p.48",
-  bold: [
-    "為一種神經退化性疾病，原因為腦部神經細胞受到破壞",
-    "治療主要有{{膽鹼酯酶抑制劑|藥物類別}}及 NMDA 受體拮抗劑，幫助患者減緩心智功能退化",
-    "可逆型膽鹼酯酶抑制劑：皆有{{三級胺|結構}}結構，可穿過 BBB 增加 ACh 濃度"
-  ] },
-{ id: "donepezil", chapter: 4, name: "Donepezil", type: "drug", group: "膽鹼酯酶抑制劑", source: "統整（一）p.48", img: "assets/medchem/donepezil.png",
-  use: ["{{阿茲海默症|疾病}}（商品名 Aricept 愛憶欣）"],
-  bold: [
-    "具有 {{piperidine|結構}} 結構",
-    "過量時可使用 {{Atropine|藥名}} 作為解毒劑"
-  ] },
-{ id: "galantamine", chapter: 4, name: "Galantamine", type: "drug", group: "膽鹼酯酶抑制劑", source: "統整（一）p.48", img: "assets/medchem/galantamine.png",
-  use: ["{{阿茲海默症|疾病}}（商品名 Reminyl 利憶靈）"],
-  bold: [
-    "天然生物鹼，結構類似 {{Codeine|藥名}}"
-  ] },
-{ id: "rivastigmine", chapter: 4, name: "Rivastigmine", type: "drug", group: "膽鹼酯酶抑制劑", source: "統整（一）p.48", img: "assets/medchem/rivastigmine.png",
-  use: ["{{阿茲海默症|疾病}}（商品名 Exelon 憶思能）"],
-  bold: [
-    "具有 {{Carbamyl|結構}} group"
-  ] },
-{ id: "tacrine", chapter: 4, name: "Tacrine", type: "drug", group: "膽鹼酯酶抑制劑", source: "統整（一）p.48", img: "assets/medchem/tacrine.png",
-  use: ["{{阿茲海默症|疾病}}（因肝毒性副作用現已下市）"],
-  bold: [
-    "具有 {{Tetrahydroacridine|結構}} 結構",
-    "活性代謝物：{{1-hydroxytacrine|代謝物}}"
-  ] },
-{ id: "memantine", chapter: 4, name: "Memantine", type: "drug", group: "NMDA 受體拮抗劑", source: "統整（一）p.48", img: "assets/medchem/memantine.png",
-  use: ["{{阿茲海默症|疾病}}（NMDA antagonist）"],
-  bold: [
-    "可阻斷因 {{Glutamate|物質}} 強度升高所導致的神經障礙",
-    "用於治療阿茲海默症（比較：Amantadine 用於治療帕金森氏症）"
-  ] },
+/* 活化 Dopamine 受體 > 非麥角生物鹼類 */
+{ id: "pramipexole", chapter: 4, name: "Pramipexole", type: "drug", group: "非麥角生物鹼類", source: "統整（一）p.46", img: "assets/medchem/pd-pramipexole.png",
+  clin: ["活化 {{D₂、D₃|受體|D₁、D₂}} 受體",
+    "多巴胺 agonist 副作用：厭食、姿勢性低血壓、{{遲發性運動障礙|副作用}} Dyskinesia",
+    "Pramipexole 由{{腎臟|器官|肝臟}}排除，併用 Cimetidine、FQ 抗生素會抑制其代謝"] },
+{ id: "ropinirole", chapter: 4, name: "Ropinirole", type: "drug", group: "非麥角生物鹼類", source: "統整（一）p.46", img: "assets/medchem/pd-ropinirole.png",
+  clin: ["活化 D₂、D₃ 受體",
+    "多巴胺 agonist 副作用：厭食、{{姿勢性低血壓|副作用}}、遲發性運動障礙 Dyskinesia"] },
+{ id: "rotigotine", chapter: 4, name: "Rotigotine", type: "drug", group: "非麥角生物鹼類", source: "統整（一）p.46", img: "assets/medchem/pd-rotigotine.png",
+  clin: ["Rotigotine 可活化 {{D₁、D₂、D₃|受體|D₁、D₂}} 受體"] },
+{ id: "apomorphine", chapter: 4, name: "Apomorphine", type: "drug", group: "非麥角生物鹼類", source: "統整（一）p.46", img: "assets/medchem/pd-apomorphine.png",
+  clin: ["Apomorphine 可活化 {{D₁、D₂|受體|D₁、D₂、D₃}} 受體",
+    "Apomorphine 立體組態：{{R(-)|結構|S(+)}} form★"] },
 
-/* 三、亨廷頓舞蹈症 */
-{ id: "hd-intro", chapter: 4, name: "亨廷頓舞蹈症藥物簡介", short: "亨廷頓簡介", type: "topic", group: "亨廷頓", source: "統整（一）p.48",
-  bold: [
-    "為一種體染色體顯性遺傳的中樞退化疾病，原因為第四對染色體的基因突變，導致 {{CAG|名詞}} 重複序列過度擴張",
-    "治療藥物：降低 {{Dopamine|物質}} 的濃度"
-  ] },
-{ id: "tetrabenazine", chapter: 4, name: "Tetrabenazine", type: "drug", group: "亨廷頓舞蹈症用藥", source: "統整（一）p.48", img: "assets/medchem/tetrabenazine.png",
-  use: ["{{亨廷頓舞蹈症|疾病}}"],
-  bold: [
-    "{{Dopamine 排空劑|機轉}}"
-  ] },
-{ id: "clozapine", chapter: 4, name: "Clozapine", type: "drug", group: "亨廷頓舞蹈症用藥", source: "統整（一）p.48", img: "assets/medchem/clozapine.png",
-  use: ["{{亨廷頓舞蹈症|疾病}}"],
-  bold: [
-    "{{非典型抗精神病|藥物類別}}藥物"
-  ] },
+/* 降低 ACh 活性 > 阻斷中樞毒蕈鹼受體（講義只有結構，說明在小白標） */
+{ id: "benztropine", chapter: 4, name: "Benztropine", type: "drug", group: "阻斷中樞毒蕈鹼受體", source: "統整（一）p.47", img: "assets/medchem/pd-benztropine.png" },
+{ id: "biperidine", chapter: 4, name: "Biperiden", type: "drug", group: "阻斷中樞毒蕈鹼受體", source: "統整（一）p.47", img: "assets/medchem/pd-biperiden.png" },
+{ id: "trihexyphenidyl", chapter: 4, name: "Trihexyphenidyl", type: "drug", group: "阻斷中樞毒蕈鹼受體", source: "統整（一）p.47", img: "assets/medchem/pd-trihexyphenidyl.png" },
+
+/* 降低 ACh 活性 > 第一代 H₁-blockers */
+{ id: "ethopropazine", chapter: 4, name: "Ethopropazine", type: "drug", group: "第一代 H₁-blockers", source: "統整（一）p.47", img: "assets/medchem/pd-ethopropazine.png",
+  feat: ["{{Phenothiazine|結構|Aminoalkyl ether}}★衍生物"] },
+{ id: "diethazine", chapter: 4, name: "Diethazine", type: "drug", group: "第一代 H₁-blockers", source: "統整（一）p.47", img: "assets/medchem/pd-diethazine.png",
+  feat: ["{{Phenothiazine|結構|Aminoalkyl ether}} 衍生物"] },
+{ id: "diphenhydramine", chapter: 4, name: "Diphenhydramine", type: "drug", group: "第一代 H₁-blockers", source: "統整（一）p.47", img: "assets/medchem/pd-diphenhydramine.png",
+  feat: ["{{Aminoalkyl ether|結構|Phenothiazine}} 類"] },
+
+/* 促進 Dopamine 釋放 > Adenosine A₂A antagonist */
+{ id: "amantadine", chapter: 4, name: "Amantadine", type: "drug", group: "Adenosine A₂A antagonist", source: "統整（一）p.47", img: "assets/medchem/pd-amantadine.png",
+  clin: ["抑制毒蕈鹼、{{NMDA 受體|受體}}",
+    "也當作{{抗病毒藥|用途}}",
+    "副作用：{{網狀青斑|副作用}}"] },
+{ id: "istradefylline", chapter: 4, name: "Istradefylline", type: "drug", group: "Adenosine A₂A antagonist", source: "統整（一）p.47", img: "assets/medchem/pd-istradefylline.png",
+  feat: ["具有 {{Xanthine|結構}}★結構"] },
+{ id: "sarizotan", chapter: 4, name: "Sarizotan", type: "drug", group: "Adenosine A₂A antagonist", source: "統整（一）p.47", img: "assets/medchem/pd-sarizotan.png",
+  clin: ["同時是 {{5-HT₁A agonist|機轉}}、D₂ partial agonist"] },
+
+/* 二、阿茲海默症 > 可逆型膽鹼酯酶抑制劑 */
+{ id: "donepezil", chapter: 4, name: "Donepezil", type: "drug", group: "可逆型膽鹼酯酶抑制劑：皆有三級胺結構，可穿過 BBB 增加 ACh 濃度", source: "統整（一）p.48", img: "assets/medchem/az-donepezil.png",
+  feat: ["具有 {{piperidine|結構}} 結構"],
+  clin: ["商品名 Aricept®（愛憶欣）",
+    "過量時可使用 {{Atropine|藥名}} 作為解毒劑"] },
+{ id: "galantamine", chapter: 4, name: "Galantamine", type: "drug", group: "可逆型膽鹼酯酶抑制劑：皆有三級胺結構，可穿過 BBB 增加 ACh 濃度", source: "統整（一）p.48", img: "assets/medchem/az-galantamine.png",
+  feat: ["{{天然生物鹼|名詞}}，結構類似 {{Codeine|藥名|Atropine/Tacrine}}"],
+  clin: ["商品名 Reminyl®（利憶靈）"] },
+{ id: "rivastigmine", chapter: 4, name: "Rivastigmine", type: "drug", group: "可逆型膽鹼酯酶抑制劑：皆有三級胺結構，可穿過 BBB 增加 ACh 濃度", source: "統整（一）p.48", img: "assets/medchem/az-rivastigmine.png",
+  feat: ["具有 {{Carbamyl|結構}} group"],
+  clin: ["商品名 Exelon®（憶思能）"] },
+{ id: "tacrine", chapter: 4, name: "Tacrine", type: "drug", group: "可逆型膽鹼酯酶抑制劑：皆有三級胺結構，可穿過 BBB 增加 ACh 濃度", source: "統整（一）p.48", img: "assets/medchem/az-tacrine.png",
+  feat: ["具有 {{Tetrahydroacridine|結構}} 結構",
+    "{{活性|性質|無活性}}代謝物：1-hydroxytacrine"],
+  clin: ["因{{肝毒性|副作用}}副作用，現已下市"] },
+
+/* 阿茲海默症 > NMDA 受體拮抗劑 */
+{ id: "memantine", chapter: 4, name: "Memantine", type: "drug", group: "NMDA 受體拮抗劑（NMDA antagonist）", source: "統整（一）p.48", img: "assets/medchem/az-memantine.png",
+  clin: ["可阻斷因 {{Glutamate|物質|GABA}} 強度升高所導致的神經障礙",
+    "用於治療阿茲海默症（比較：{{Amantadine|藥名}} 用於治療帕金森氏症）"] },
+
+/* 三、亨廷頓舞蹈症（講義這兩格的結構圖印錯成 Donepezil、Galantamine，改用正確結構） */
+{ id: "tetrabenazine", chapter: 4, name: "Tetrabenazine", type: "drug", group: "治療藥物：降低 Dopamine 的濃度", source: "統整（一）p.48", img: "assets/medchem/hd-tetrabenazine.png",
+  clin: ["{{Dopamine 排空劑|機轉}}"] },
+{ id: "clozapine", chapter: 4, name: "Clozapine", type: "drug", group: "治療藥物：降低 Dopamine 的濃度", source: "統整（一）p.48", img: "assets/medchem/clozapine-ap.png",
+  clin: ["{{非典型|藥物類別|典型}}抗精神病藥物"] },
 
 /* ===== 第 5 章 抗精神病藥物（統整（一）伍，p.49–62）===== */
 /* 總論 */
@@ -2238,9 +2170,47 @@ PI.KNOWLEDGE = {
     ] },
   ch4: { chapter: 4, title: "神經疾病相關藥物",
     sections: [
-      { id: "pd", title: "一、帕金森氏症", items: [{ unit: "pd-classes" }] },
-      { id: "az", title: "二、阿茲海默症", items: [{ unit: "az-intro" }] },
-      { id: "hd", title: "三、亨廷頓舞蹈症", items: [{ unit: "hd-intro" }] }
+      { id: "pd", title: "一、帕金森氏症藥物（Parkinson's Disease）", items: [
+        { title: "帕金森氏症藥物分類", source: "統整（一）p.44",
+          table: { head: ["分類", "作用機轉", "藥物"], cols: ["分類", "作用機轉", "藥物"],
+            rowNames: ["Dopamine 之前驅藥", "抑制週邊 Dopamine decarboxylase", "抑制 COMT 分解 Dopamine", "Selegiline、Rasagiline 的作用機轉",
+              "麥角生物鹼類", "非麥角生物鹼類", "阻斷中樞毒蕈鹼受體", "具有中樞抗膽鹼作用之 H₁-blocker", "Adenosine A₂A antagonist"],
+            rows: [
+              ["增加 Dopamine 合成", "Dopamine 之前驅藥", "Levodopa"],
+              [{ t: "抑制 Dopamine 代謝", rs: 3 }, "抑制週邊 Dopamine decarboxylase※", "{{Carbidopa|藥名|Entacapone/Selegiline}}★、Benserazide"],
+              [null, "抑制 COMT 分解 Dopamine", "Entacapone（週邊作用）、Tolcapone（{{中樞|位置|週邊}}作用）"],
+              [null, "不可逆抑制中樞的 {{MAO-B|酵素|MAO-A/COMT}}", "Selegiline、Rasagiline"],
+              [{ t: "活化 Dopamine 受體", rs: 2 }, "麥角生物鹼類", "Bromocriptine、Pergolide、Lisuride★、Cabergoline"],
+              [null, "非麥角生物鹼類", "Pramipexole、Ropinirole、Rotigotine、Apomorphine"],
+              [{ t: "降低 ACh 活性", rs: 2 }, "阻斷中樞毒蕈鹼受體", "Benztropine、Biperiden、Procyclidine、Trihexyphenidyl"],
+              [null, "具有中樞抗膽鹼作用之 H₁-blocker", "Ethopropazine、Diethazine、{{Diphenhydramine|藥名|Benztropine/Trihexyphenidyl}}"],
+              ["促進 Dopamine 釋放", "Adenosine A₂A antagonist", "{{Amantadine|藥名|Selegiline/Entacapone}}★、Memantine、Istradefylline、Sarizotan"]],
+            note: "註：Dopamine decarboxylase 又名 Aromatic L-amino acid decarboxylase" } },
+        { title: "※ 合併使用之藥品", source: "統整（一）p.44", points: [
+          "Sinemet® = Levodopa + {{Carbidopa|藥名|Benserazide/Entacapone}}",
+          "Madopar® = Levodopa + {{Benserazide|藥名|Carbidopa/Entacapone}}",
+          "Stalevo® = Sinemet® + {{Entacapone|藥名|Tolcapone/Benserazide}}"] },
+        { title: "※ MPPP 與 MPTP", source: "統整（一）p.44", points: [
+          "MPPP 水解後可形成 MPTP，再被 {{MAO-B|酵素|MAO-A/COMT}}★氧化代謝成毒性代謝物 {{MPP⁺|代謝物|MPDP⁺/MPTP}}，可產生自由基破壞多巴胺神經"],
+          images: ["assets/medchem/pd-mppp.png"] },
+        { title: "帕金森氏症藥物作用位置", source: "統整（一）p.44",
+          images: ["assets/medchem/pd-pathway.svg", "assets/medchem/pd-carbidopa.svg"] },
+        { title: "※ 補充", group: "抑制 Dopamine 代謝", source: "統整（一）p.45", points: [
+          "※ MAO-A：代謝 NE+5-HT、MAO-B：代謝 {{Dopamine|物質|NE/5-HT}}"],
+          structs: ["assets/medchem/pd-dopamine.png"] },
+        { group: "阻斷中樞毒蕈鹼受體", source: "統整（一）p.47", points: [
+          "阻斷{{膽鹼性受體|受體}}可產生類似增加多巴胺神經傳導的作用。",
+          "副作用：散瞳、尿液滯留、口乾，{{青光眼|疾病}}、{{前列腺肥大|疾病}}患者應避免使用。"] }
+      ] },
+      { id: "ad", title: "二、阿茲海默症藥物（Alzheimer's Disease）", items: [
+        { title: "阿茲海默症", source: "統整（一）p.48", points: [
+          "為一種神經退化性疾病，原因為腦部神經細胞受到破壞。治療阿茲海默症之藥物主要有{{膽鹼酯酶抑制劑|藥物類別|NMDA 受體促效劑}}及 {{NMDA 受體拮抗劑|藥物類別|膽鹼酯酶活化劑}}，幫助患者減緩心智功能退化。",
+          "另外也可給予抗精神病藥物或抗憂鬱劑等，用於改善患者的精神行為症狀。"] }
+      ] },
+      { id: "hd", title: "三、亨廷頓舞蹈症（Huntington's Disease）", items: [
+        { title: "亨廷頓舞蹈症", source: "統整（一）p.48", points: [
+          "為一種{{體染色體顯性|名詞|體染色體隱性/性聯隱性}}遺傳的中樞退化疾病，原因為第四對染色體的基因突變，導致 {{CAG|名詞}} 重複序列過度擴張。"] }
+      ] }
     ] },
   ch5: { chapter: 5, title: "抗精神病藥物",
     sections: [
