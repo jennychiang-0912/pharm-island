@@ -496,7 +496,7 @@ PI.map = (function () {
       // 每個候選位置和已放好的名牌重疊多少；完全不重疊就用，都會重疊就挑重疊最少的（不再直接退回第一個位置）
       // 同一座島的名牌重疊算重（一定避開）；別章的名牌只算輕一點——主島上別章的名牌框可能是排版移動前留下來的舊位置，
       // 算太重的話這一章的名牌會被擠到離自己的藥很遠、甚至疊到自己島上的名牌
-      const overlap = box => grpBoxes.reduce((s, b) => s + (b.ch === isl.chapter ? 1 : 0.001) * Math.max(0, Math.min(box[1], b[1]) - Math.max(box[0], b[0])) * Math.max(0, Math.min(box[3], b[3]) - Math.max(box[2], b[2])), 0);
+      const overlap = (box, own = true) => grpBoxes.reduce((s, b) => s + ((b.ch === isl.chapter) === own ? 1 : 0) * Math.max(0, Math.min(box[1], b[1]) - Math.max(box[0], b[0])) * Math.max(0, Math.min(box[3], b[3]) - Math.max(box[2], b[2])), 0);
       // 每個候選位置打分數，挑最低的：
       //   1. 和別的名牌真的疊到 → 重罰（一定避開）
       //   2. 離這一類的藥越遠越扣分（名牌要貼著自己的藥）
@@ -511,12 +511,13 @@ PI.map = (function () {
         const row = mine.filter(c => Math.round(c.ly) === ry);
         const x0 = cellX != null ? cellX : row.reduce((s, c) => s + c.lx, 0) / row.length + sx, y0 = ry + dy;
         const box = [x0 - total / 2 - 24 + ox, x0 + total / 2 + 24 + ox, y0 - fs * 1.1 + oy, y0 + fs * 0.6 + oy];
-        const real = overlap([x0 - total / 2 + ox, x0 + total / 2 + ox, y0 - fs + oy, y0 + fs * 0.3 + oy]);
+        const tight = [x0 - total / 2 + ox, x0 + total / 2 + ox, y0 - fs + oy, y0 + fs * 0.3 + oy];
+        const real = overlap(tight), other = overlap(tight, false);   // real：同島（硬性避開）；other：別章（只輕扣分）
         const near = Math.min(...mine.map(c => Math.hypot(x0 - c.lx, y0 - c.ly)));
         const under = mine.filter(c => Math.abs(c.lx - x0) < total / 2 + R * 0.4 && Math.abs(c.ly - y0) < R * 1.2).length;
         // 離自己的藥超過一格半就重罰：名牌寧可小擠一點，也不要跑到別類的區塊
         const far = Math.max(0, near - R * 0.9);
-        const cost = real * 1e6 + near * 20 + far * 5000 - under * R * 6 + overlap(box) * 0.02;
+        const cost = real * 1e6 + other * 3 + near * 20 + far * 5000 - under * R * 6 + overlap(box) * 0.02;
         if (cost < least) { least = cost; pick = { cx: x0, y: y0, fs, total, ok: !real && near <= R * 0.95, cost }; }
       }
         if (!best || (pick.ok && !best.ok) || (pick.ok === best.ok && pick.cost < best.cost)) best = pick;
