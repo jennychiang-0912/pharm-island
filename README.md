@@ -18,7 +18,7 @@
 - [x] 第一階段：首頁介面（導覽列、左側資訊面板、中央地圖容器、響應式版面）
 - [x] 第二階段：資料驅動的六角格地圖（未解鎖／可挑戰／已佔領、拖曳、縮放、點擊）
 - [x] 第三階段：答題與佔領（挖空題、認藥題；答完題目就佔領格子；知識樹答題給經驗值）
-- [ ] 第四階段：進度管理（佔領狀態已會存在瀏覽器，等級與經驗值已會跟著領土計算）
+- [ ] 第四階段：進度管理（佔領狀態已會存在瀏覽器，等級與經驗值已會跟著領土計算；登入後可以雲端同步，見下面「雲端同步」）
 
 ## 檔案
 
@@ -33,7 +33,9 @@
 | `assets/sea-tile.jpg` | 可無縫平鋪的海水紋理 |
 | `assets/decor/` | 獨立放置的小島、礁石、浪花（去背 PNG） |
 | `assets/reference/` | 原始整張海洋插畫，只當美術參考，遊戲裡不使用 |
-| `js/state.js` | 領土狀態與玩家進度，存在瀏覽器 localStorage |
+| `js/state.js` | 領土狀態與玩家進度，存在瀏覽器 localStorage；也負責和雲端存檔合併 |
+| `js/sync.js` | 雲端同步（Supabase）：email 登入、上傳下載存檔 |
+| `supabase/schema.sql` | 雲端同步用的資料表與權限，在 Supabase 的 SQL Editor 執行 |
 | `js/map.js` | 群島：島嶼配置、格子成長、海岸線、分層繪製、分區顯示、拖曳與縮放 |
 | `js/app.js` | 導覽列、側邊面板、格子資訊卡、設定 |
 
@@ -49,6 +51,26 @@
 - 每個格子的資訊卡下方有「我的筆記」欄，可以自由編輯，打字時自動儲存（存在瀏覽器，和進度放在一起；「清除學習進度」不會清掉筆記）。
 - 還沒寫過的格子，筆記欄會先放這個單元資料裡的口訣（句尾的 `#…`）；資訊卡的重點裡就不再重複顯示口訣。
 - 答題時的「看口訣提示」仍然用資料裡的口訣。
+
+## 雲端同步（`js/sync.js`）
+
+- 設定 →「雲端同步」輸入 email →「寄登入信」→ 點信裡的連結，回到網頁就會自動同步。不用密碼；每台裝置第一次都要登入一次。
+- 沒登入時，進度只存在這台裝置的瀏覽器（localStorage）。
+- 同步的內容：佔領的格子、答對紀錄、格子筆記、知識卡片的修改。每個科目各存一份（`PI.STORAGE_KEY`）。
+- 合併規則（`js/state.js` 的 `merge`）：格子和答對紀錄取聯集；筆記和卡片修改每一筆以最後修改的為準。
+- 只在 GitHub Pages（`*.github.io`）和本機（`localhost`、`127.0.0.1`）開啟，其他網址只存在瀏覽器。
+
+### Supabase 設定
+
+`js/sync.js` 開頭的 `PI.SYNC_CONFIG` 放 Project URL 和 publishable key（本來就公開；安全靠資料表的 RLS）。
+
+**換新專案或重建時：**
+1. 在 [Supabase](https://supabase.com/dashboard) 建專案，到 Project Settings → API 複製 Project URL 和 publishable key，改進 `js/sync.js` 的 `PI.SYNC_CONFIG`。
+2. SQL Editor → 貼上 `supabase/schema.sql` 整份 → Run（建 `island_saves` 資料表和只讓本人讀寫的權限）。
+3. Authentication → URL Configuration：Site URL 填 `https://jennychiang-0912.github.io/pharm-island/`，Redirect URLs 加上 `https://jennychiang-0912.github.io/pharm-island/**`（本機測試再加 `http://localhost:*/**`）。不然登入信的連結會跳到錯的地方。
+4. Authentication → Sign In / Providers：確認 Email 有開。
+
+**注意：**免費方案的專案一段時間沒人使用會被自動暫停。暫停時登入會出現「Failed to fetch」，打開 Project URL 會找不到網站；到後台按 **Restore project** 就會恢復，網址和金鑰不變，不用改程式。
 
 ## 答題（`js/quiz.js`）
 

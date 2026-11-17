@@ -22,6 +22,9 @@ PI.sync = (function () {
   let status = enabled ? "還沒登入：進度只存在這台裝置"
     : !(C.url && C.key) ? "還沒設定雲端：進度只存在這台裝置" : "這個網址不能同步（請用 GitHub Pages 的網址）：進度只存在這台裝置";
   const listeners = [];
+  // 連不到 Supabase（沒網路、網路擋住，或免費方案的專案被暫停）時，瀏覽器只會說 Failed to fetch
+  const OFFLINE = "連不到雲端：請確認網路；網路正常的話，可能是雲端專案被暫停了，請通知作者。進度仍存在這台裝置";
+  const isOffline = m => /failed to fetch|networkerror|load failed|network request failed/i.test(m);
   const set = s => { status = s; listeners.forEach(fn => fn(status, user)); };
 
   function loadLib() {
@@ -47,8 +50,9 @@ PI.sync = (function () {
       set(`已同步（${new Date().toLocaleTimeString("zh-TW", { hour: "2-digit", minute: "2-digit" })}）・${user.email}`);
     } catch (err) {
       const m = String(err.message || err), code = err.code || "";
-      set(code === "PGRST205" || code === "42P01" || /does not exist|schema cache/.test(m) ? "雲端還沒有資料表：請到 Supabase 的 SQL Editor 執行建表指令"
-        : code === "42501" || /permission|row-level security/i.test(m) ? "雲端拒絕存取：請確認建表指令裡的權限（grant、policy）都有執行"
+      set(code === "PGRST205" || code === "42P01" || /does not exist|schema cache/.test(m) ? "雲端還沒有資料表：請到 Supabase 的 SQL Editor 執行 supabase/schema.sql"
+        : code === "42501" || /permission|row-level security/i.test(m) ? "雲端拒絕存取：請重新執行 supabase/schema.sql（裡面有 grant 和 policy）"
+        : isOffline(m) ? OFFLINE
         : `同步失敗，稍後會再試：${m}`);
     } finally {
       busy = false;
@@ -82,7 +86,11 @@ PI.sync = (function () {
 
   async function signIn(email) {
     if (!client) throw new Error("這個網址不能同步");
-    const { error } = await client.auth.signInWithOtp({ email, options: { emailRedirectTo: location.origin + location.pathname, shouldCreateUser: true } });
+    let error;
+    try {
+      ({ error } = await client.auth.signInWithOtp({ email, options: { emailRedirectTo: location.origin + location.pathname, shouldCreateUser: true } }));
+    } catch (err) { error = err; }
+    if (error && isOffline(String(error.message || error))) throw new Error(OFFLINE);
     if (error) throw error;
   }
   async function signOut() { if (client) await client.auth.signOut(); user = null; set("已登出：進度只存在這台裝置"); }
