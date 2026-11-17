@@ -31,10 +31,11 @@ PI.quiz = (function () {
   }
   // 把句子組回 HTML：hide 是要挖掉的那一格（-1 表示全部顯示答案）
   function render(p, hide, mark) {
-    return p.parts.map((t, k) => esc(t) + (k < p.blanks.length
+    const html = p.parts.map((t, k) => esc(t) + (k < p.blanks.length
       ? (k === hide ? `<span class="q-blank">${mark ? esc(p.blanks[k].ans) : "＿＿＿"}</span>` : esc(p.blanks[k].ans)) : "")).join("");
+    return PI.fmt ? PI.fmt(html) : html;   // 斜體、底線、換行（app.js 的 fmt）
   }
-  const plain = p => p.parts.map((t, k) => t + (k < p.blanks.length ? p.blanks[k].ans : "")).join("").trim();
+  const plain = p => p.parts.map((t, k) => t + (k < p.blanks.length ? p.blanks[k].ans : "")).join("").replace(/\[\/?[iu]\]/g, "").trim();
 
   /* ---------- 題庫（第一次用到時建立） ---------- */
   let bank = null;

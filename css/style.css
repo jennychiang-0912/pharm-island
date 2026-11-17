@@ -601,3 +601,7 @@ mark.cloze.is-hl.hl-mine { background: linear-gradient(transparent 35%, #BFE3A6 
 .k-sg-btn:hover { background: var(--mint); }
 .k-sg-btn.is-locked { color: #7a8a80; border-color: #b9c6bd; }
 .k-sg-btn.is-locked::before { content: "🔒"; font-size: 11px; }
+
+/* 講義的子項目：行首「- 」縮排成空心點，行首「→」縮排不加點（js/app.js 的 subCls） */
+li.k-sub { margin-left: 1.3em; list-style-type: circle; }
+li.k-sub.k-arrow { list-style-type: none; }

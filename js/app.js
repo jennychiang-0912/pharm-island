@@ -11,9 +11,15 @@
   const CLOZE = /\{\{([^{}|]+)(?:\|([^{}]*))?\}\}/g;
   const splitHint = line => { const i = line.search(/\s#/); return i < 0 ? [line, ""] : [line.slice(0, i), line.slice(i).trim()]; };
   const blanks = line => (splitHint(line)[0].match(CLOZE) || []).length;
+  /* 講義的字型樣式（放在已經 esc 過的 HTML 上）：[i]斜體[/i]、[u]底線[/u]、\n 換行。
+     行首「- 」＝縮排的子項目（空心點）、「> 」＝縮排的接續行（不加點）、「→」＝縮排、箭頭照樣顯示；「- 」「> 」記號本身拿掉。
+     記號不要放進挖空 {{…}} 裡，選項會直接看到記號。 */
+  const fmt = h => h.replace(/^(- |&gt; )/, "").replace(/\[(\/?)([iu])\]/g, "<$1$2>").replace(/\n/g, "<br>");
+  PI.fmt = fmt;   // quiz.js 的題目也用同一套
+  const subCls = l => /^\s*(→|> )/.test(l) ? ' class="k-sub k-arrow"' : /^\s*- /.test(l) ? ' class="k-sub"' : "";
   function clozeLine(line, noHint) {
     const [text, hint] = splitHint(line);
-    const body = esc(text).replace(CLOZE, (m, ans, type) => `<mark class="cloze" title="${esc((type || "").split("|")[0])}">${ans}</mark>`);
+    const body = fmt(esc(text).replace(CLOZE, (m, ans, type) => `<mark class="cloze" title="${esc((type || "").split("|")[0])}">${ans}</mark>`));
     return body + (hint && !noHint ? ` <span class="hint">${esc(hint)}</span>` : "");
   }
   // 這個單元資料裡的口訣（句尾的 #…），當作筆記欄的預設內容
@@ -260,7 +266,7 @@
   function unitBody(u) {
     const F = Object.fromEntries(PI.UNIT_FIELDS || []), has = k => u[k] && u[k].length;
     const list = k => u[k].length === 1 ? `<p class="u-one">${clozeLine(u[k][0], true)}</p>`
-      : `<ul>${u[k].map(l => `<li>${clozeLine(l, true)}</li>`).join("")}</ul>`;   // 口訣移到下面的筆記欄
+      : `<ul>${u[k].map(l => `<li${subCls(l)}>${clozeLine(l, true)}</li>`).join("")}</ul>`;   // 口訣移到下面的筆記欄
     // 框框裡的小欄位（例如來源的基源）：好幾項就接在同一行，不用點點；項目裡有「：」（自己是一小段說明）時改用「；」分開
     const inline = k => `<p class="u-one">${u[k].map(l => clozeLine(l, true)).join(u[k].some(l => /：/.test(plainOf(l))) ? "；" : "、")}</p>`;
     const used = new Set(PI.UNIT_TITLE_FIELD && titleBits(u).zh ? [PI.UNIT_TITLE_FIELD] : []);
@@ -322,7 +328,7 @@
         <h4>${esc(u.name)}</h4>
         ${u.img ? `<figure class="u-struct">${[u.img, ...(u.imgMore || [])].map(s => `<img src="${esc(s)}" alt="${esc(u.name)} 結構" loading="lazy">`).join("")}</figure>` : ""}
         ${(PI.UNIT_FIELDS || []).filter(([k]) => u[k] && u[k].length).map(([k, label]) =>
-          `${k === "points" ? "" : `<p class="k-field">${esc(label)}</p>`}<ul>${u[k].map(l => `<li>${clozeLine(l)}</li>`).join("")}</ul>`).join("")}
+          `${k === "points" ? "" : `<p class="k-field">${esc(label)}</p>`}<ul>${u[k].map(l => `<li${subCls(l)}>${clozeLine(l)}</li>`).join("")}</ul>`).join("")}
         <p class="k-src">在格子「${esc(u.short || u.name)}」上作答${u.source ? `・出處：${esc(u.source)}` : ""}</p></article>`;
     // 考點標記（js/edits.js 的 MARKS）：放在那一行最前面
     const mk = (it, li) => { const t = (it.marks || {})[li], M = PI.edits && PI.edits.MARKS[t];
@@ -336,7 +342,7 @@
       const body = esc(text).replace(CLOZE, (m, ans, type) => { k++;
         const hk = km && typeof km[k] === "string" ? km[k] : null, hs = hk ? (src[`${li}:${hk}`] || "mine") : "";
         return `<mark class="cloze${hk ? ` is-hl hl-${hs}` : ""}" data-k="${k}" title="${hk ? esc((PI.edits.MARKS[hs] || {}).label || "") + "（螢光筆考點）" : esc((type || "").split("|")[0])}">${ans}</mark>`; });
-      return `${mk(it, li)}<span class="k-line" data-li="${li}">${body}</span>${hint ? ` <span class="hint">${esc(hint)}</span>` : ""}`;
+      return `${mk(it, li)}<span class="k-line" data-li="${li}">${fmt(body)}</span>${hint ? ` <span class="hint">${esc(hint)}</span>` : ""}`;
     };
     const item = (it, si, ii) => {
       if (it.unit) return unitOf(it.unit) ? refItem(unitOf(it.unit)) : "";   // 引用格子：這一版不開放修改
@@ -353,7 +359,7 @@
           <button type="button" class="k-tool" data-act="more" aria-label="更多">⋯</button></span>
           <span class="k-ed-more" hidden><button type="button" class="k-tool" data-act="hide">隱藏這張卡片</button>${it.edited ? `<button type="button" class="k-tool" data-act="restore">還原原文</button>` : ""}</span></div>
           <p class="k-ed-msg" role="alert" hidden></p>` : "";
-      const pts = (it.points || []).map((p, i) => p ? `<li>${line(it, 1 + i, p)}</li>` : "").join("")
+      const pts = (it.points || []).map((p, i) => p ? `<li${edNow ? "" : subCls(p)}>${line(it, 1 + i, p)}</li>` : "").join("")
         + (it.extra || []).map(x => `<li class="is-extra">${line(it, "x" + x.id, x.text)}</li>`).join("");
       const head = isEd && it.title != null ? `<h4 class="ed-title" contenteditable="true" spellcheck="false">${esc(it.title)}</h4>` : it.title ? `<h4>${esc(it.title)}</h4>` : "<span></span>";
       const html = `<article class="k-item${isEd ? " k-edit" : ""}" data-key="${esc(ekey)}">${bar}
@@ -375,7 +381,7 @@
     //   格可以是字串，或 { t: "內容", rs: 跨幾列, cs: 跨幾欄, b: true 粗體標題格, s: true 講義上的粗體字 }；被上一列跨過去的格子寫 null。
     //   head 也可以是好幾列（[[…], […]]，和講義一樣的雙層表頭），這時用 cols 給出題用的欄名。
     function tableHtml(T) {
-      const tcl = t => esc(t).replace(CLOZE, (m, ans) => `<mark class="cloze">${ans}</mark>`).replace(/\n/g, "<br>");   // 表格裡的挖空：標成考點
+      const tcl = t => fmt(esc(t).replace(CLOZE, (m, ans) => `<mark class="cloze">${ans}</mark>`)).replace(/(^|<br>)(- |&gt; )/g, "$1");   // 表格裡的挖空：標成考點
       const cell = (c, tag) => { if (c === null) return ""; const o = typeof c === "object" ? c : { t: c };
         const cl = [o.b && "is-b", o.s && "is-s", o.img && "is-img", o.band && "is-band"].filter(Boolean).join(" ");
         const body = o.img ? `<img src="${esc(o.img)}" alt="${esc(o.t || "結構")}" loading="lazy">` : tcl(o.t || "");   // { img: "…" }：格子裡放結構圖
