@@ -305,12 +305,12 @@
   }
 
   /* ---------- 知識面板：點知識樹打開，關閉後地圖回到打開前的位置 ---------- */
-  let kView = null, kFrom = null, kKey = null, kEditing = null, kFull = false, kGroup = null;   // kEditing：正在編輯的卡片 key；kFull：知識面板全螢幕
+  let kView = null, kFrom = null, kKey = null, kEditing = null, kFull = false, kGroup = null, kAllMode = false;   // kEditing：正在編輯的卡片 key；kFull：知識面板全螢幕
   // group：只看某一個結構分類（地圖上的好萊塢名牌）——只列出 item.group 是這一類的卡片和這一類的題目
-  function openKnowledge(key, group) {
-    group = group || null;
+  function openKnowledge(key, group, all) {
+    group = group || null; all = !group && !!all;
     if (kKey !== key || kGroup !== group) kEditing = null;
-    kKey = key; kGroup = group;
+    kKey = key; kGroup = group; kAllMode = all;
     const K = (PI.KNOWLEDGE || {})[key]; if (!K) return;
     const land = PI.LANDMASSES.find(l => l.chapters.includes(K.chapter)) || { name: "" };
     if ($("kpanel").hidden) { kView = PI.map.getView(); kFrom = document.activeElement; }   // 換別棵樹時不覆蓋最早的位置
@@ -399,7 +399,8 @@
       }).join("")}</ol>`;
     }
     // 這棵樹有幾題（一個挖空＝一題）；看單一結構分類時，只算這一類卡片的題目和這一類生藥的認藥題
-    const inGroup = (sec, si) => (sec.items || []).map((it, ii) => [it, ii]).filter(([it]) => !group || itemGroups(it).includes(group));   // 引用格子的卡片用那一格的 group
+    const signOnly = PI.GROUP_GATE && !group && !all;   // 小白標流程：告示牌只放沒有分類的卡片，有分類的放進小白標
+    const inGroup = (sec, si) => (sec.items || []).map((it, ii) => [it, ii]).filter(([it]) => group ? itemGroups(it).includes(group) : !signOnly || !itemGroups(it).length);   // 引用格子的卡片用那一格的 group
     const prefixes = group ? (K.sections || []).flatMap((sec, si) => inGroup(sec, si).map(([, ii]) => `t:${key}:${si}:${ii}:`)) : null;
     const flowF = PI.GROUP_GATE ? flowOf(K.chapter) : null;
     const signSet = flowF && !group ? new Set(flowF.sign) : null;   // 小白標流程：告示牌只考沒有分類的卡片、沒有分類的藥
@@ -407,27 +408,32 @@
       || (/^[ws]:/.test(q.qid) && (unitById(q.qid.slice(2)) || {}).group === group)),   // 這一類藥的認藥題、認結構題
       ...(group ? PI.UNITS.filter(u => u.chapter === K.chapter && u.type === "topic" && u.group === group).flatMap(u => PI.quiz.allForUnit(u)) : [])], nQ = treeQs.length;   // 小白標：這一類通論格子的題目
     const nDone = treeQs.filter(q => PI.state.isTreeDone(q.qid)).length;
+    const sgList = flowF ? (flowF.groups || []) : [];
     const expQ = PI.LEVEL.expPerTreeQuestion || 0;
     const nRef = (K.sections || []).flatMap(sec => sec.items || []).filter(it => it.unit).length;
     $("kpanel").innerHTML = `<div class="k-head">
         <div class="info-title"><span class="muted">${land.name ? esc(land.name) + "・" : ""}${group ? `${esc(K.title || ch.name)}・結構分類` : "知識樹"}</span><h3 id="kTitle">${esc(group || K.title || ch.name)}</h3></div>
-        ${group ? `<button type="button" class="k-full-btn" id="kAll">看整棵知識樹</button>` : ""}
+        ${group || signOnly ? `<button type="button" class="k-full-btn" id="kAll">看整棵知識樹</button>` : all && PI.GROUP_GATE ? `<button type="button" class="k-full-btn" id="kSign">回告示牌</button>` : ""}
         <button type="button" class="k-full-btn" id="kFull" aria-pressed="${kFull}">${kFull ? "縮小" : "⛶ 全螢幕"}</button>
         <button type="button" class="close" id="kClose" aria-label="關閉知識面板">×</button></div>
       ${chips ? `<div class="k-chips">${chips}</div>` : ""}
 
       <div class="k-exp${nQ ? " is-btn" : ""}">${group && flowF && !groupOpen(K.chapter, group) ? `<p>🔒 ${flowState(K.chapter).signOk ? `先佔領完小白標「${esc(flowState(K.chapter).current)}」這一類的格子，才會輪到這個小白標。` : "先完成這座島的告示牌題目，小白標才會打開。"}</p>`
         : nQ ? `<button type="button" class="btn btn-primary" id="kQuiz">開始答題（${Math.min(5, nQ)} 題）</button>`
+        : signOnly ? `<p>這座島的告示牌沒有總論題目，直接從下面的小白標開始。</p>`
         : nRef ? `<p>★ 這裡的挖空題在本章的格子上作答，佔領一格 <b>+${PI.LEVEL.expPerCell} EXP</b></p>`
         : `<p>★ 加入內容後，挖空題答對每題 <b>+${expQ} EXP</b></p>`}</div>
-      <div class="k-body">${(K.sections || []).map((sec, si) => [sec, si, inGroup(sec, si)]).filter(([, , its]) => !group || its.length).map(([sec, si, its]) => `<section class="k-sec">
+      ${signOnly && sgList.length ? `<div class="k-sg-list"><span class="muted">各類的內容在小白標裡：</span>${sgList.map(g => `<button type="button" class="k-sg-btn" data-g="${esc(g)}">${groupOpen(K.chapter, g) ? "" : "🔒 "}${esc(g)}</button>`).join("")}</div>` : ""}
+      <div class="k-body">${(K.sections || []).map((sec, si) => [sec, si, inGroup(sec, si)]).filter(([, , its]) => !(group || signOnly) || its.length).map(([sec, si, its]) => `<section class="k-sec">
           <h4 class="k-sec-title">${esc(sec.title)}</h4>
           ${its.length ? its.map(([it, ii]) => item(it, si, ii)).join("")
             : `<p class="k-empty">尚未加入內容，之後依課堂講義補充。</p>`}</section>`).join("")}</div>`;
     $("kpanel").hidden = false;
     $("kpanel").classList.toggle("is-full", kFull);
     $("kFull").onclick = () => { kFull = !kFull; rerenderKnowledge(); };
-    if ($("kAll")) $("kAll").onclick = () => openKnowledge(key);
+    if ($("kAll")) $("kAll").onclick = () => openKnowledge(key, null, true);
+    if ($("kSign")) $("kSign").onclick = () => openKnowledge(key);
+    $("kpanel").querySelectorAll(".k-sg-btn").forEach(b => b.onclick = () => openKnowledge(key, b.dataset.g));
     glossify($("kpanel").querySelector(".k-body"));
     $("kClose").onclick = closeKnowledge;
     if ($("kQuiz")) $("kQuiz").onclick = () => {
@@ -439,7 +445,7 @@
         onRight: q => { if (PI.state.markTree(q.qid)) gained += expQ; },
         onFinish: () => {}, okText: () => { return gained ? `這次獲得 ${gained} EXP！` : "這幾題之前都答對過了，這次沒有新的經驗值。"; },
         badText: "", onClose: () => {
-          openKnowledge(key, group);
+          openKnowledge(key, group, all);
           const i = islandOrder.indexOf(ch.id), nx = islandOrder[i + 1];
           if (nx != null && !wasOpen && islandOpen(nx)) toast(`🎉 第 ${ch.id} 章完成！解鎖下一座島：第 ${nx} 章「${chOf(nx).short || chOf(nx).name}」`);
         } });
@@ -510,7 +516,7 @@
   // 重畫面板，捲動位置不變
   function rerenderKnowledge() {
     const body = $("kpanel").querySelector(".k-body"), top = body ? body.scrollTop : 0;
-    openKnowledge(kKey, kGroup);
+    openKnowledge(kKey, kGroup, kAllMode);
     const nb = $("kpanel").querySelector(".k-body"); if (nb) nb.scrollTop = top;
   }
   function collectEdit(card, ekey) {
