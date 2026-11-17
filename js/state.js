@@ -15,6 +15,7 @@ PI.state = (function () {
   let ts = { occ: {}, done: {}, notes: {}, edits: {}, resetAt: 0 };
   const listeners = [], saveHooks = [];
   let gate = () => true;      // 島（章節）能不能進入：由 app.js 設定
+  let cellGate = () => undefined;   // 小白標流程（PI.GROUP_GATE）：回傳 true/false 取代「緊鄰已佔領格」規則；undefined＝照舊
   const now = () => Date.now();
   const obj = v => v && typeof v === "object" && !Array.isArray(v) ? v : {};
 
@@ -65,6 +66,7 @@ PI.state = (function () {
   return {
     onChange(fn) { listeners.push(fn); },
     setGate(fn) { gate = fn; },
+    setCellGate(fn) { cellGate = fn; },
 
     isOccupied(cellId) { return occupied.has(cellId); },
 
@@ -100,6 +102,7 @@ PI.state = (function () {
       if (!cell.unit) return "locked";   // 預留格：還沒有內容，不能挑戰
       if (occupied.has(cell.id)) return "occupied";
       if (!gate(cell.chapter)) return "locked";   // 這座島還沒解鎖（上一座島沒完成，見 app.js 的 islandGate）
+      const cg = cellGate(cell); if (cg !== undefined) return cg ? "available" : "locked";   // 小白標流程（app.js 的 cellGate）
       if (cell.isStart) return "available";
       if (cell.neighbors.some(n => occupied.has(n))) return "available";
       return "locked";

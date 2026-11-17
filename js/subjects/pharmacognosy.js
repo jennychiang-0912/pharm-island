@@ -12,6 +12,8 @@ PI.CATEGORIES = [
 ];
 
 /* 地圖：小分類（Pyridine-Piperidine、Tropane…）畫交界線和好萊塢式名牌（js/map.js 的 drawGroups） */
+/* 小白標先修：同一類的格子要先答完小白標（地圖上的小分類名牌）的題目才能挑戰（js/app.js 的 groupGate） */
+PI.GROUP_GATE = true;
 PI.GROUP_REGIONS = true;
 
 /* 生藥的欄位（取代藥理的「機轉、抗菌範圍…」）：照講義表格的欄位 */

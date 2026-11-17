@@ -479,7 +479,8 @@ PI.map = (function () {
       grpBoxes.push({ ch: isl.chapter, 0: cx - total / 2 - 6 + ox, 1: cx + total / 2 + 6 + ox, 2: y - fs * 1.1 + oy, 3: y + fs * 0.6 + oy });
       // 這一類在知識樹裡有內容（item.group）：名牌可以點，打開這一類的機轉
       const kKey = Object.keys(PI.KNOWLEDGE || {}).find(k => PI.KNOWLEDGE[k].chapter === isl.chapter);
-      const has = kKey && (PI.KNOWLEDGE[kKey].sections || []).some(sec => (sec.items || []).some(it => [].concat(it.group || []).includes(name)));
+      const has = kKey && (PI.KNOWLEDGE[kKey].sections || []).some(sec => (sec.items || []).some(it => [].concat(it.group || (it.unit && (PI.UNITS.find(u => u.id === it.unit) || {}).group) || []).includes(name)))
+        || PI.UNITS.some(u => u.chapter === isl.chapter && u.type === "topic" && u.group === name);   // 引用格子的卡片、這一類的通論格子也算
       // 名牌一律可點：有機轉的打開知識樹，其餘點一下「圈出這一類的藥」
       const attrs = { class: "grp-sign" + (has ? " k-tree" : ""), "data-group": name, "data-ch": String(isl.chapter), tabindex: 0, role: "button",
         "aria-label": has ? `${name}：打開這一類的機轉` : `${name}：圈出這一類的藥`, transform: `translate(${cx.toFixed(1)},${y.toFixed(1)})` };

@@ -46,6 +46,9 @@ PI.CHAPTERS = [
 ];
 
 /* 兩座島：統整（一）的六章拼成一座、統整（三）的四章拼成一座 */
+/* 小白標先修：同一類的格子要先答完小白標（地圖上的小分類名牌）的題目才能挑戰（js/app.js 的 groupGate） */
+PI.GROUP_GATE = true;
+
 /* 群島的總名稱（地圖上黑色大字，標在每片群島上方）：key 對應 LANDMASSES 的 cluster */
 PI.CLUSTERS = { cns: "中樞神經群島", cv: "心血管群島" };
 

@@ -52,6 +52,59 @@
     PI.CHAPTERS.forEach(ch => { if (!islandOrder.includes(ch.id)) open.add(ch.id); });
     return open;
   }
+  /* ---------- 小白標流程（PI.GROUP_GATE）：告示牌 → 小白標 → 這一類的格子 → 佔領完換下一個小白標 → 整座島完成解鎖下一座 ----------
+     小白標＝地圖上白色的小分類名牌（group）。順序照這一章格子在 PI.UNITS 裡出現的先後。
+     告示牌的題目：知識樹裡「沒有分類」的卡片的挖空題。完成告示牌，第一個小白標才打開。
+     小白標的題目：知識樹裡這一類卡片的挖空題＋這一類「通論」格子（type: topic）的題目。
+       小白標打開後：通論格子可以直接挑戰；小白標的題目全部答對過，這一類其他格子才能挑戰。
+     這一類的格子全部佔領 → 下一個小白標打開。沒有分類的格子：告示牌完成就能挑戰。
+     不開 PI.GROUP_GATE 的科目維持原本規則（起點格＋緊鄰已佔領格）。 */
+  const treeKeyOf = chId => Object.keys(PI.KNOWLEDGE || {}).find(k => PI.KNOWLEDGE[k].chapter === chId);
+  const unitById = id => PI.UNITS.find(u => u.id === id);
+  const itemGroups = it => [].concat(it.group || (it.unit && (unitById(it.unit) || {}).group) || []);
+  let flowCache = new Map();
+  const rebuild1 = PI.quiz.rebuild;
+  PI.quiz.rebuild = () => { rebuild1(); flowCache = new Map(); };
+  function flowOf(chId) {   // 題目 id 清單（不會變，快取起來）
+    if (flowCache.has(chId)) return flowCache.get(chId);
+    const key = treeKeyOf(chId), K = key && PI.KNOWLEDGE[key];
+    const tq = key ? PI.quiz.forTree(key) : [];
+    const pref = test => K ? (K.sections || []).flatMap((sec, si) => (sec.items || []).map((it, ii) => [it, ii])
+      .filter(([it]) => !it.unit && test(itemGroups(it))).map(([, ii]) => `t:${key}:${si}:${ii}:`)) : [];
+    const pick = ps => tq.filter(q => ps.some(p => q.qid.startsWith(p))).map(q => q.qid);
+    const groups = [...new Set(PI.UNITS.filter(u => u.chapter === chId && u.group).map(u => u.group))];
+    const f = { key, sign: pick(pref(gs => !gs.length)), groups,
+      white: new Map(groups.map(g => [g, [...pick(pref(gs => gs.includes(g))),
+        ...PI.UNITS.filter(u => u.chapter === chId && u.type === "topic" && u.group === g).flatMap(u => PI.quiz.allForUnit(u).map(q => q.qid))]])) };
+    flowCache.set(chId, f); return f;
+  }
+  const allDone = ids => ids.every(id => PI.state.isTreeDone(id));
+  const groupCleared = (chId, g) => cells.filter(c => c.chapter === chId && c.unit && c.unit.group === g).every(c => PI.state.isOccupied(c.id));
+  function flowState(chId) {   // 告示牌完成了沒、現在輪到哪一個小白標
+    const f = flowOf(chId), signOk = allDone(f.sign);
+    const current = f.groups.find(g => !groupCleared(chId, g)) || null;
+    return { f, signOk, current };
+  }
+  const groupOpen = (chId, g) => { const s = flowState(chId); return s.signOk && (!g || groupCleared(chId, g) || g === s.current); };
+  function cellGate(cell) {
+    if (!PI.GROUP_GATE) return undefined;
+    const g = cell.unit.group;
+    if (!groupOpen(cell.chapter, g)) return false;
+    if (!g || cell.unit.type === "topic") return true;
+    return allDone(flowOf(cell.chapter).white.get(g) || []);
+  }
+  // 格子為什麼還不能挑戰（資訊卡上的說明＋按鈕）
+  function flowLock(cell) {
+    if (!PI.GROUP_GATE) return null;
+    const s = flowState(cell.chapter), g = cell.unit.group, cnt = ids => `${ids.filter(id => PI.state.isTreeDone(id)).length} / ${ids.length}`;
+    if (!s.signOk) return { text: `🔒 先完成這座島的告示牌題目（${cnt(s.f.sign)}），小白標才會打開。`, btn: "打開告示牌", key: s.f.key, group: null };
+    if (g && !groupOpen(cell.chapter, g)) return { text: `🔒 先佔領完小白標「${s.current}」這一類的格子，才會輪到「${g}」。`, btn: `前往「${s.current}」`, key: s.f.key, group: s.current };
+    const w = g && s.f.white.get(g) || [];
+    if (g && !allDone(w)) return { text: `🔒 先完成小白標「${g}」的題目（${cnt(w)}），這一類的格子才能挑戰。`, btn: "打開小白標", key: s.f.key, group: g };
+    return null;
+  }
+  PI.state.setCellGate(cellGate);
+
   const islandOpen = chId => (openCache || (openCache = computeOpen())).has(chId);
   PI.state.setGate(islandOpen);
   PI.map.render();
@@ -111,11 +164,13 @@
     if (!cell) { box.hidden = true; return; }
     const ch = chOf(cell.chapter), cat = catOf(ch.cat), st = PI.state.statusOf(cell);
     const u = cell.unit;
-    const note = {
+    let note = {
       available: "這格可以挑戰：每次 5 題，答對的知識點會記住，全部答對過就佔領。",
       locked: islandOpen(cell.chapter) ? "先佔領旁邊的格子，這格才會解鎖。" : lockNote(cell.chapter),
       occupied: "這格已經是你的領土了。"
     }[st];
+    const why = st === "locked" && islandOpen(cell.chapter) ? flowLock(cell) : null;   // 小白標流程：為什麼還不能挑戰
+    if (why) note = why.text;
     box.innerHTML = `<div class="info-top">${badge(ch, cat)}
         <div class="info-title"><h3>${u ? esc(u.name) : "預留格"}${u && titleBits(u).zh ? ` <span class="u-zh">${esc(titleBits(u).zh)}</span>` : ""}${u && u.group ? ` <span class="tag tag-inline">${esc(u.group)}</span>` : ""}</h3>
           ${u && titleBits(u).alias ? `<span class="u-alias">${esc(titleBits(u).alias)}</span>` : ""}<span class="muted">第 ${ch.id} 章・${esc(ch.name)}</span></div>
@@ -125,10 +180,12 @@
         <textarea id="uNote" rows="${noteRows(u)}" placeholder="寫下自己的口訣或重點…">${esc(noteText(u))}</textarea></div>` : ""}
       ${u ? progressBars(cell, st) : ""}
       <p>${note}</p>
-      ${u && st !== "locked" ? `<div class="info-actions"><button type="button" class="btn btn-primary" id="infoQuiz">${st === "available" ? "挑戰這格" : "再練習一次"}</button></div>` : ""}`;
+      ${why && why.btn ? `<div class="info-actions"><button type="button" class="btn btn-primary" id="infoGate">${esc(why.btn)}</button></div>`
+        : u && st !== "locked" ? `<div class="info-actions"><button type="button" class="btn btn-primary" id="infoQuiz">${st === "available" ? "挑戰這格" : "再練習一次"}</button></div>` : ""}`;
     box.hidden = false;
     $("infoClose").onclick = () => PI.map.select(null);
     if ($("infoQuiz")) $("infoQuiz").onclick = () => challenge(cell);
+    if ($("infoGate")) $("infoGate").onclick = () => openKnowledge(why.key, why.group);
     if ($("uNote")) {   // 筆記：打字時自動存（存在瀏覽器，和進度放在一起）
       let t = 0;
       $("uNote").oninput = e => { clearTimeout(t); const v = e.target.value; t = setTimeout(() => { PI.state.setNote(u.id, v); $("uNoteSaved").textContent = "已儲存"; }, 400); $("uNoteSaved").textContent = ""; };
@@ -147,6 +204,7 @@
       <div class="isl-bar"><i style="width:${total ? Math.round(done / total * 100) : 0}%"></i></div></div>`;
   function challenge(cell) {
     const practice = PI.state.statusOf(cell) === "occupied";
+    if (!practice && PI.state.statusOf(cell) !== "available") { showInfo(cell); return; }
     const { all } = cellProgress(cell);
     if (!all.length) { $("info").querySelector("p:last-of-type").textContent = "這格的資料還不夠出題。"; return; }
     const rnd = a => a.sort(() => Math.random() - .5);
@@ -341,10 +399,13 @@
       }).join("")}</ol>`;
     }
     // 這棵樹有幾題（一個挖空＝一題）；看單一結構分類時，只算這一類卡片的題目和這一類生藥的認藥題
-    const inGroup = (sec, si) => (sec.items || []).map((it, ii) => [it, ii]).filter(([it]) => !group || [].concat(it.group || []).includes(group));
+    const inGroup = (sec, si) => (sec.items || []).map((it, ii) => [it, ii]).filter(([it]) => !group || itemGroups(it).includes(group));   // 引用格子的卡片用那一格的 group
     const prefixes = group ? (K.sections || []).flatMap((sec, si) => inGroup(sec, si).map(([, ii]) => `t:${key}:${si}:${ii}:`)) : null;
-    const treeQs = PI.quiz.forTree(key).filter(q => !group || prefixes.some(p => q.qid.startsWith(p))
-      || (q.qid.startsWith("w:") && (PI.UNITS.find(u => "w:" + u.id === q.qid) || {}).group === group)), nQ = treeQs.length;
+    const flowF = PI.GROUP_GATE ? flowOf(K.chapter) : null;
+    const signSet = flowF && !group ? new Set(flowF.sign) : null;   // 小白標流程：告示牌只考沒有分類的卡片、沒有分類的藥
+    const treeQs = [...PI.quiz.forTree(key).filter(q => signSet ? (signSet.has(q.qid) || (/^[ws]:/.test(q.qid) && !(unitById(q.qid.slice(2)) || {}).group)) : !group || prefixes.some(p => q.qid.startsWith(p))
+      || (/^[ws]:/.test(q.qid) && (unitById(q.qid.slice(2)) || {}).group === group)),   // 這一類藥的認藥題、認結構題
+      ...(group ? PI.UNITS.filter(u => u.chapter === K.chapter && u.type === "topic" && u.group === group).flatMap(u => PI.quiz.allForUnit(u)) : [])], nQ = treeQs.length;   // 小白標：這一類通論格子的題目
     const nDone = treeQs.filter(q => PI.state.isTreeDone(q.qid)).length;
     const expQ = PI.LEVEL.expPerTreeQuestion || 0;
     const nRef = (K.sections || []).flatMap(sec => sec.items || []).filter(it => it.unit).length;
@@ -355,7 +416,8 @@
         <button type="button" class="close" id="kClose" aria-label="關閉知識面板">×</button></div>
       ${chips ? `<div class="k-chips">${chips}</div>` : ""}
 
-      <div class="k-exp${nQ ? " is-btn" : ""}">${nQ ? `<button type="button" class="btn btn-primary" id="kQuiz">開始答題（${Math.min(5, nQ)} 題）</button>`
+      <div class="k-exp${nQ ? " is-btn" : ""}">${group && flowF && !groupOpen(K.chapter, group) ? `<p>🔒 ${flowState(K.chapter).signOk ? `先佔領完小白標「${esc(flowState(K.chapter).current)}」這一類的格子，才會輪到這個小白標。` : "先完成這座島的告示牌題目，小白標才會打開。"}</p>`
+        : nQ ? `<button type="button" class="btn btn-primary" id="kQuiz">開始答題（${Math.min(5, nQ)} 題）</button>`
         : nRef ? `<p>★ 這裡的挖空題在本章的格子上作答，佔領一格 <b>+${PI.LEVEL.expPerCell} EXP</b></p>`
         : `<p>★ 加入內容後，挖空題答對每題 <b>+${expQ} EXP</b></p>`}</div>
       <div class="k-body">${(K.sections || []).map((sec, si) => [sec, si, inGroup(sec, si)]).filter(([, , its]) => !group || its.length).map(([sec, si, its]) => `<section class="k-sec">
