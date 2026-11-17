@@ -83,9 +83,13 @@ PI.UNITS = [
     "Barbiturates：活化 GABA_A 之 Cl⁻ 通道，增加{{開啟時間|機轉}}",
     "Benzodiazepine：異位活化 GABA_A 之 Cl⁻ 通道，增加{{開啟頻率|機轉}}",
     "產生作用之順序：{{鎮靜 Sedation|名詞|催眠 Hypnosis/麻醉 Anesthesia/昏迷 Coma}} → 催眠 Hypnosis → 麻醉 Anesthesia → 昏迷 Coma",
+    "劑量與中樞抑制關係：Barbiturates 呈{{線性|性質|曲線}}；BZD 呈曲線（較安全）",
+    "高劑量下：Barbiturates {{可直接打開|機轉|不可直接打開}} Cl⁻ 通道，選擇性低，較不安全；BZD 不可直接打開，選擇性高，較安全",
     "睡眠周期之影響：增加{{第二期非快速動眼期|名詞|快速動眼期/慢波睡眠期/第一期非快速動眼期}}的睡眠時間（Stage II：non-REM）",
-    "反彈性失眠：{{短效|作用時間|長效/中效}}>長效",
-    "Barbiturates 解毒劑：{{Picrotoxin|藥名}}（GABA_A 拮抗劑）",
+    "睡眠周期之影響：縮短進入睡眠之時間、縮短{{動眼期|名詞|第二期非快速動眼期}}時間、縮短慢波睡眠期時間",
+    "反彈性失眠：{{短效|作用時間|長效/中效}}>長效，如 Barbiturates 的 {{Thiopental|藥名|Phenobarbital/Primidone}}、BZD 的 {{Triazolam|藥名|Diazepam/Lorazepam}}",
+    "Barbiturates 解毒劑：{{Picrotoxin|藥名}}（GABA_A 拮抗劑）、{{Bemegride|藥名|Flumazenil/Bicuculline}}",
+    "呼吸抑制、CYP450 誘導：{{Barbiturates|藥物類別|Benzodiazepine}} 有，BZD 沒有",
     "BZD 解毒劑：{{Flumazenil|藥名}}（GABA 之競爭型負向異位調節劑），只能 IV 給予",
     "藥理補充：{{β-Carbolines|藥名}}、Bicuculline 為 {{Inverse agonist|機轉}}",
     "{{Flumazenil|藥名}} 可拮抗 BZD 和 Z-drugs 的作用"
@@ -1867,7 +1871,38 @@ PI.UNITS = [
 PI.KNOWLEDGE = {
   ch1: { chapter: 1, title: "鎮靜安眠與抗焦慮藥物",
     sections: [
-      { id: "overview", title: "總覽", items: [{ unit: "sh-barb-vs-bzd" }] },
+      { id: "overview", title: "總覽", items: [{ unit: "sh-barb-vs-bzd" },
+        { title: "Barbiturates 與 Benzodiazepine 之比較（表）", group: "總覽", source: "統整（一）p.3",
+          table: { head: ["藥物", "Barbiturates", "Benzodiazepine"], rows: [
+            [{ t: "機轉", b: true }, "活化 GABA_A 之 Cl⁻ 通道，增加開啟時間", "異位活化 GABA_A 之 Cl⁻ 通道，增加開啟頻率"],
+            [{ t: "劑量與中樞抑制關係", b: true, rs: 2 }, "線性", "曲線（較安全）"],
+            [null, { t: "產生作用之順序：鎮靜 Sedation → 催眠 Hypnosis → 麻醉 Anesthesia → 昏迷 Coma", cs: 2 }],
+            [{ t: "高劑量下作用", b: true }, "可直接打開 Cl⁻ 通道，選擇性低，較不安全", "不可直接打開 Cl⁻ 通道，選擇性高，較安全"],
+            [{ t: "睡眠周期之影響", b: true }, { t: "增加第二期非快速動眼期的睡眠時間（Stage II：non-REM）\n縮短進入睡眠之時間、縮短動眼期時間、縮短慢波睡眠期時間", cs: 2 }],
+            [{ t: "反彈性失眠", b: true }, "短效 > 長效，如 Thiopental", "短效 > 長效，如 Triazolam"],
+            [{ t: "解毒劑", b: true }, "Picrotoxin（GABA_A 拮抗劑）、Bemegride", "Flumazenil（GABA 之競爭型負向異位調節劑），只能 IV 給予"],
+            [{ t: "呼吸抑制", b: true }, "O", "X"],
+            [{ t: "CYP450 誘導", b: true }, "O", "X"]
+          ], note: "藥理補充：β-Carbolines、Bicuculline 為 Inverse agonist，可降低 GABA 之抑制作用；Flumazenil 可拮抗 BZD 和 Z-drugs 的作用" } },
+        { title: "藥物總覽", group: "總覽", source: "統整（一）p.3",
+          table: { head: ["分類", "作用機轉", "藥物"], rows: [
+            [{ t: "Barbiturates", b: true }, "異位活化 GABA_A 的 Cl⁻ 通道，增加開啟時間", "Phenobarbital、Thiopental、Primidone 等"],
+            [{ t: "Benzodiazepine", b: true }, "異位活化 GABA_A 的 Cl⁻ 通道，增加開啟頻率", "Diazepam、Lorazepam、Triazolam 等"],
+            [{ t: "Z-Drug", b: true }, "選擇作用於 BZD₁ 受體，加強 GABA 的抑制作用", "Eszopiclone、Zolpidem、Zaleplon"],
+            [{ t: "Serotonin Agonist", b: true }, "血清素受體活化劑", "Buspirone"],
+            [{ t: "抗焦慮藥物", b: true }, "選擇性抑制血清素再回收 SSRI", "Fluoxetine、Paroxetine、Citalopram、Sertraline、Fluvoxamine"],
+            [{ t: "Melatonin Agonist", b: true }, "直接刺激上視交叉神經的 MT 受體", "Melatonin、Ramelteon"],
+            [{ t: "1st H₁-blockers", b: true }, "因第一代藥物脂溶性高，可通過 BBB 影響中樞", "Diphenhydramine、Doxylamine、Doxepine"],
+            [{ t: "Orexin Antagonist", b: true }, "抑制食慾素與受體結合", "Suvorexant"]
+          ] },
+          points: [
+            "Z-Drug：選擇作用於 {{BZD₁|受體|BZD₂/GABA_B/5-HT₁A}} 受體，加強 GABA 的抑制作用，如 Eszopiclone、{{Zolpidem|藥名|Buspirone/Ramelteon/Suvorexant}}、Zaleplon",
+            "Serotonin Agonist（血清素受體活化劑）：{{Buspirone|藥名|Zolpidem/Fluoxetine/Ramelteon}}",
+            "Melatonin Agonist：直接刺激{{上視交叉神經|部位|下視丘/松果體/腦幹}}的 MT 受體，如 Melatonin、Ramelteon",
+            "第一代 H₁-blockers 因{{脂溶性高|性質|水溶性高/分子量小/蛋白結合率低}}，可通過 BBB 影響中樞，如 Diphenhydramine、Doxylamine、Doxepine",
+            "Orexin Antagonist：抑制{{食慾素|名詞|血清素/褪黑激素/組織胺}}與受體結合，如 {{Suvorexant|藥名|Zaleplon/Buspirone/Ramelteon}}"
+          ] }
+      ] },
       { id: "barb", title: "一、Barbiturates", items: [{ unit: "sh-barb-general" }] },
       { id: "bzd", title: "二、Benzodiazepines", items: [{ unit: "sh-bzd-general" }, { unit: "sh-bzd-3oh" }] },
       { id: "5ht", title: "五、Serotonin Agonists", items: [{ unit: "sh-serotonin" }] },

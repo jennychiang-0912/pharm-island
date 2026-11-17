@@ -427,7 +427,7 @@
           <h4 class="k-sec-title">${esc(sec.title)}</h4>
           ${its.length ? its.map(([it, ii]) => item(it, si, ii)).join("")
             : `<p class="k-empty">尚未加入內容，之後依課堂講義補充。</p>`}</section>`).join("")}
-        ${signOnly && sgList.length ? `<section class="k-sec"><h4 class="k-sec-title">各類的內容在小白標裡</h4>
+        ${signOnly && sgList.length ? `<section class="k-sec"><h4 class="k-sec-title">統整內容</h4>
           <div class="k-sg-list">${sgList.map(g => `<button type="button" class="k-sg-btn${groupOpen(K.chapter, g) ? "" : " is-locked"}" data-g="${esc(g)}">${esc(g)}</button>`).join("")}</div></section>` : ""}</div>`;
     $("kpanel").hidden = false;
     $("kpanel").classList.toggle("is-full", kFull);
