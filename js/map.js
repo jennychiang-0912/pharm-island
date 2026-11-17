@@ -149,14 +149,14 @@ PI.map = (function () {
   }
   const bounds = { minX: 0, minY: 0, maxX: 0, maxY: 0 };
   // 在已放好的圓旁邊找位置：沿著指定方向（或黃金角）由近而遠找第一個不相撞的點
-  function findSpot(placed, rad, gap, angle, spread) {
-    if (!placed.length) return { x: 0, y: 0 };
+  function findSpot(placed, rad, gap, angle, spread, origin = { x: 0, y: 0 }) {   // origin：從哪一點往外找（群島：從群島的第一座島）
+    if (!placed.length) return { ...origin };
     for (let d = R; ; d += R * 0.6) {
       const steps = Math.max(12, Math.ceil(2 * Math.PI * d / (R * 1.2)));
       for (let s = 0; s < steps; s++) {
         const off = (s % 2 ? 1 : -1) * Math.ceil(s / 2) / steps * spread;   // 從偏好方向往兩側展開
         const a = angle + off;
-        const x = d * Math.cos(a), y = d * Math.sin(a) * 0.82;
+        const x = origin.x + d * Math.cos(a), y = origin.y + d * Math.sin(a) * 0.82;
         if (placed.every(p => Math.hypot(p.x - x, p.y - y) >= p.rad + rad + gap)) return { x, y };
       }
     }
@@ -185,19 +185,25 @@ PI.map = (function () {
     // 這塊陸地的格子相對於陸地中心的位置（和下面「套用位置」用同一個算法）
     const landCellsRel = land => land.regions.flatMap(isl => { const c0 = land.lc || isl.coast;
       return isl.cells.map(c => [isl.offset.x - c0.cx + c.lx, isl.offset.y - c0.cy + c.ly]); });
+    // 群島（LANDMASSES 的 cluster）：同一群的島圍著該群第一座島排；不同群之間隔 clusterGap 格海，看起來是分開的兩片群島
+    const clusterAt = new Map(), cGap = (PI.MAP.clusterGap || 7) * SQ3 * R;
     lands.forEach(land => {
-      const ang = (land.def.angle ?? 0) * Math.PI / 180;
-      land.center = findSpot(placedLands, land.radius, gap + noise(land.regions[0].chapter, 3, 9) * R * 0.5, ang, Math.PI * 0.9);
-      // 用圓形估的距離太保守（島不是圓的）：沿著方向往主島拉近，直到格子和別的島的格子剛好隔 islandGap 格海
+      const ang = (land.def.angle ?? 0) * Math.PI / 180, cl = land.def.cluster;
+      const firstOfCluster = cl && !clusterAt.has(cl) && placedLands.length > 0;
+      const origin = (cl && clusterAt.get(cl)) || { x: 0, y: 0 }, myGap = firstOfCluster ? cGap : gap;
+      land.center = findSpot(placedLands, land.radius, myGap + noise(land.regions[0].chapter, 3, 9) * R * 0.5, ang, Math.PI * 0.9, origin);
+      // 用圓形估的距離太保守（島不是圓的）：沿著方向往主島（群島的第一座島）拉近，直到格子和別的島的格子剛好隔 islandGap 格海
       const rel = landCellsRel(land);
       if (placedLands.length && rel.length) {
-        const far = { ...land.center }, need = gap + SQ3 * R;
-        const ok = t => { const cx = far.x * t, cy = far.y * t;
+        const far = { ...land.center }, need = myGap + SQ3 * R;
+        const at = t => ({ x: origin.x + (far.x - origin.x) * t, y: origin.y + (far.y - origin.y) * t });
+        const ok = t => { const { x: cx, y: cy } = at(t);
           return rel.every(([x, y]) => placedCells.every(([px, py]) => Math.hypot(cx + x - px, cy + y - py) >= need)); };
         let lo = 0, hi = 1;
         for (let k = 0; k < 18; k++) { const m = (lo + hi) / 2; if (ok(m)) hi = m; else lo = m; }
-        land.center = { x: far.x * hi, y: far.y * hi };
+        land.center = at(hi);
       }
+      if (cl && !clusterAt.has(cl)) clusterAt.set(cl, { ...land.center });
       rel.forEach(([x, y]) => placedCells.push([land.center.x + x, land.center.y + y]));
       placedLands.push({ ...land.center, rad: land.radius });
     });

@@ -47,10 +47,27 @@ PI.CHAPTERS = [
 
 /* 兩座島：統整（一）的六章拼成一座、統整（三）的四章拼成一座 */
 PI.LANDMASSES = [
-  { id: "cns", name: "中樞神經島", chapters: [1, 2, 3, 4, 5, 6],
+  // 一章一座小島，排成兩片群島（cluster）：中樞神經群島（紫色系，第 1 章在中間、2～6 章順時針圍一圈）、心血管群島（粉紅色系，在右邊）
+  { id: "cns1", name: "安眠島",     chapters: [1], cluster: "cns",
     palette: { ground: "#C3B5DE", light: "#D5CBE8", cliff: "#9C8CBF" } },
-  { id: "cv", name: "心血管島", chapters: [7, 8, 9, 10], angle: 20,
-    palette: { ground: "#E8B4B0", light: "#F0C9C6", cliff: "#C48A86" } }
+  { id: "cns2", name: "抗癲癇島",   chapters: [2], cluster: "cns", angle: 210,
+    palette: { ground: "#B9B8E0", light: "#CFCEEB", cliff: "#8F8EC0" } },
+  { id: "cns3", name: "抗憂鬱島",   chapters: [3], cluster: "cns", angle: 270,
+    palette: { ground: "#CDB3DA", light: "#DDCAE6", cliff: "#A58AB6" } },
+  { id: "cns4", name: "神經疾病島", chapters: [4], cluster: "cns", angle: 0,
+    palette: { ground: "#B3C0E0", light: "#CBD4EB", cliff: "#8A98C0" } },
+  { id: "cns5", name: "抗精神病島", chapters: [5], cluster: "cns", angle: 60,
+    palette: { ground: "#D3B8E0", light: "#E1CDEA", cliff: "#AA8EBD" } },
+  { id: "cns6", name: "肌鬆島",     chapters: [6], cluster: "cns", angle: 120,
+    palette: { ground: "#BFB0D8", light: "#D2C7E4", cliff: "#9686B5" } },
+  { id: "cv7",  name: "利尿島",     chapters: [7], cluster: "cv", angle: 0,
+    palette: { ground: "#E8B4B0", light: "#F0C9C6", cliff: "#C48A86" } },
+  { id: "cv8",  name: "心絞痛島",   chapters: [8], cluster: "cv", angle: 270,
+    palette: { ground: "#EBBFA9", light: "#F2D1C1", cliff: "#C79580" } },
+  { id: "cv9",  name: "心衰竭島",   chapters: [9], cluster: "cv", angle: 0,
+    palette: { ground: "#E6AFBE", light: "#EFC6D1", cliff: "#C28697" } },
+  { id: "cv10", name: "抗凝血島",   chapters: [10], cluster: "cv", angle: 45,
+    palette: { ground: "#E4B7A6", light: "#EDCBBE", cliff: "#C08D7B" } }
 ];
 
 PI.UNITS = [
