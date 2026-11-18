@@ -129,7 +129,10 @@ PI.GROUP_PARENTS = {
   "含次磷酸根抑制劑（Phosphinate-containing Inhibitors）": "血管收縮素轉換酶抑制劑（ACEi）",
   "含雙羧酸抑制劑（Dicarboxylate-containing Inhibitors）": "血管收縮素轉換酶抑制劑（ACEi）",
   "非前驅藥 ARB": "血管收縮素Ⅱ受體阻斷劑（ARB）",
-  "前驅藥 ARB": "血管收縮素Ⅱ受體阻斷劑（ARB）"
+  "前驅藥 ARB": "血管收縮素Ⅱ受體阻斷劑（ARB）",
+  "第一代 Sulfonylurea": "Sulfonylurea 類藥物",
+  "第二代 Sulfonylurea": "Sulfonylurea 類藥物",
+  "第三代 Sulfonylurea": "Sulfonylurea 類藥物"
 };
 
 /* 地圖名牌：和生藥頁一樣用短的英文（名牌字型只有英文字母，中文字寬、長的名牌會擠成一團）。
@@ -468,7 +471,20 @@ PI.GROUP_LABELS = {
   "HMG-CoA Reductase Inhibitors（Statins 類藥物）": "Statins",
   "Fibrates 類藥物（降 TG 最佳藥物）": "Fibrates",
   "Cholesterol Absorption Inhibitor": "Absorption Inhibitor",
-  "Niacins": "Niacins"
+  "Niacins": "Niacins",
+  "胰島素類似物（Insulin analogs）": "Insulin Analogs",
+  "Sulfonylurea 類藥物": "Sulfonylureas",
+  "第一代 Sulfonylurea": "1st Generation",
+  "第二代 Sulfonylurea": "2nd Generation",
+  "第三代 Sulfonylurea": "3rd Generation",
+  "Meglitinides 類藥物": "Meglitinides",
+  "Biguanides 類藥物": "Biguanides",
+  "Thiazolidinediones（TZD）類藥物": "TZDs",
+  "α-glucosidase Inhibitors": "α-Glucosidase Inhibitors",
+  "Dipeptidyl peptidase-4 抑制劑（DPP-4 Inhibitors）": "DPP-4 Inhibitors",
+  "SGLT-2 inhibitors": "SGLT-2 Inhibitors",
+  "GLP-1 受體致效劑（GLP-1 receptor agonists）": "GLP-1 Agonists",
+  "其他類降血糖藥物": "Other Agents"
 };
 
 /* 藥化的欄位：照講義表格的欄位（藥物｜結構｜特性｜藥理及臨床應用） */
@@ -517,6 +533,7 @@ PI.CHAPTERS = [
   { id: 34, name: "高血壓藥物", no: 6, cat: "cv", estimate: 32, unitType: "drug", note: "統整（三）陸 p.28–38：Ca²⁺通道阻斷劑、ACEi、ARB、腎素抑制劑、血管擴張劑" },
   { id: 35, name: "抗心律不整藥物", no: 10, cat: "cv", estimate: 25, unitType: "drug", note: "統整（三）壹拾 p.54–57：Class IA～IV 與其他抗心律不整藥" },
   { id: 36, name: "降血脂藥物", no: 12, cat: "cv", estimate: 17, unitType: "drug", note: "統整（三）壹拾貳 p.70–75：膽酸吸附劑、Statins、Fibrates、膽固醇吸收抑制劑、Niacin" },
+  { id: 37, name: "胰島素與口服降血糖藥物", short: "降血糖藥物", no: 13, cat: "cv", estimate: 45, unitType: "drug", note: "統整（三）壹拾參 p.76–86：胰島素、Sulfonylurea、Biguanides、TZD、DPP-4、SGLT-2 等降血糖藥" },
   { id: 16, name: "利尿劑", no: 7, cat: "cv", estimate: 20, unitType: "drug", note: "統整（三）柒，p.39–46。" },
   { id: 17, name: "心絞痛藥物", no: 8, cat: "cv", estimate: 8, unitType: "drug", note: "統整（三）捌，p.47–48。" },
   { id: 18, name: "心衰竭藥物", no: 9, cat: "cv", estimate: 10, unitType: "drug", note: "統整（三）玖，p.49–53。" },
@@ -602,6 +619,8 @@ PI.LANDMASSES = [
     palette: { ground: "#BFB6DC", light: "#D3CCEA", cliff: "#9A92BE" } },
   { id: "cv36", name: "血脂島", chapters: [36], cluster: "cv", angle: 0,
     palette: { ground: "#B6D2D8", light: "#CCE2E7", cliff: "#8FAAB0" } },
+  { id: "cv37", name: "血糖島", chapters: [37], cluster: "cv", angle: 0,
+    palette: { ground: "#D8C4A0", light: "#E7D8BC", cliff: "#B39F7B" } },
   { id: "cv16",  name: "利尿島",     chapters: [16], cluster: "cv", angle: 75,
     palette: { ground: "#E8B4B0", light: "#F0C9C6", cliff: "#C48A86" } },
   { id: "cv17",  name: "心絞痛島",   chapters: [17], cluster: "cv", angle: 270,
@@ -5294,6 +5313,201 @@ PI.UNITS = [
     "1. 葡萄糖耐受性降低：{{糖尿病|疾病}}病人不可使用★",
     "2. 皮膚潮紅：可用 {{Ibuprofen|藥名}} 緩解",
     "3. 與 Lovastatin 一樣有增加血清 aminotransferase 之副作用"] },
+
+/* ===== 第 37 章（統整（三）壹拾參 胰島素與口服降血糖藥物 p.76–86；畫面章號 13）===== */
+/* 一、胰島素類似物（灰底）沒有結構圖，講義表格的商品名／外觀／Onset／Duration 放特性，結構修飾放說明，備註放備註；速效／短效／中效／長效是表格左側分類，放特性第一行；
+   二、Sulfonylurea 沒有黑底灰底，第一／二／三代是表格左側分類，做成第三層小標；R₁、R₂ 欄放說明，特性欄放特性；機轉、SAR、代謝反應、用法、副作用與結構圖放 Sulfonylurea 知識卡；
+   三～十各節沒有黑底灰底，章節標題就是分類；GLP-1 受體致效劑、其他類降血糖藥物沒有結構圖。p.76 總論（胰島細胞、胰島素介紹、GLUT 表、影響血糖之藥物表）放知識卡。 */
+
+{ id: "dm-lispro", chapter: 37, name: "Lispro", type: "drug", group: "胰島素類似物（Insulin analogs）", source: "統整（三）p.77",
+  desc: ["B₂₈：Pro→Lys",
+    "B₂₉：Lys→Pro（互換）"],
+  feat: ["分類：{{速效|性質|短效/中效/長效}}",
+    "商品名：Humalog®",
+    "外觀：清澈",
+    "Onset：<0.25 hr；Duration：3~4 hr"],
+  rmk: ["製成鋅的結晶，需要注射時再溶解",
+    "分子量 5808，與內生胰島素相同"] },
+{ id: "dm-aspart", chapter: 37, name: "Aspart", type: "drug", group: "胰島素類似物（Insulin analogs）", source: "統整（三）p.77",
+  desc: ["B₂₈：Pro→{{Asp|物質}}"],
+  feat: ["分類：速效",
+    "商品名：Novolog®",
+    "外觀：清澈",
+    "Onset：<0.25 hr；Duration：3~4 hr"],
+  rmk: ["使胰島素僅能維持在 monomer，無法形成較安定的 hexamer，故為速效"] },
+{ id: "dm-glulisine", chapter: 37, name: "Glulisine", type: "drug", group: "胰島素類似物（Insulin analogs）", source: "統整（三）p.77",
+  desc: ["B₃：Asn→{{Lys|物質}}",
+    "B₂₉：Lys→{{Glu|物質}}",
+    "3ᴮ-Lysine-29ᴮ-Glutamic acid human insulin"],
+  feat: ["分類：速效",
+    "商品名：Apidra®",
+    "外觀：清澈",
+    "Onset：<0.25 hr；Duration：3~4 hr"],
+  rmk: ["分子量 5823，較內生胰島素大"] },
+{ id: "dm-regular", chapter: 37, name: "Regular", type: "drug", group: "胰島素類似物（Insulin analogs）", source: "統整（三）p.77",
+  desc: ["與 Zn²⁺結晶的胰島素製劑"],
+  feat: ["分類：{{短效|性質|速效/中效/長效}}",
+    "商品名：Humulin-R®",
+    "外觀：清澈",
+    "Onset：0.5~1 hr；Duration：4~6 hr"],
+  rmk: ["{{IV|給藥途徑}} 注射，目前仍在使用"] },
+{ id: "dm-lente", chapter: 37, name: "Lente", type: "drug", group: "胰島素類似物（Insulin analogs）", source: "統整（三）p.77",
+  desc: ["為 Insulin-Zn²⁺的懸浮液製劑"],
+  feat: ["分類：{{中效|性質|速效/短效/長效}}",
+    "商品名：Humulin-L®",
+    "外觀：混濁",
+    "Onset：2~4 hr；Duration：18~26 hr"],
+  rmk: ["30% Semilente + 70% Ultralente"] },
+{ id: "dm-nph", chapter: 37, name: "NPH", type: "drug", group: "胰島素類似物（Insulin analogs）", source: "統整（三）p.77",
+  desc: ["加入 {{Protamine|物質}} 和鋅形成中性結晶"],
+  feat: ["分類：中效",
+    "商品名：Humulin-N®",
+    "外觀：混濁",
+    "Onset：2~4 hr；Duration：18~26 hr"],
+  rmk: ["目前仍在使用"] },
+{ id: "dm-ultralente", chapter: 37, name: "Ultralente", type: "drug", group: "胰島素類似物（Insulin analogs）", source: "統整（三）p.77",
+  desc: ["Insulin-Zn²⁺形成大顆粒結晶，吸收較慢"],
+  feat: ["分類：{{長效|性質|速效/短效/中效}}",
+    "商品名：Humulin-U®",
+    "外觀：混濁",
+    "Onset：4~8 hr；Duration：>36 hr"],
+  rmk: ["第一個長效型胰島素製劑"] },
+{ id: "dm-glargine", chapter: 37, name: "Glargine", type: "drug", group: "胰島素類似物（Insulin analogs）", source: "統整（三）p.77",
+  desc: ["A₂₁：Asn→{{Gly|物質}}",
+    "B 鏈：C 端加上兩個 {{Arg|物質}}"],
+  feat: ["分類：長效",
+    "商品名：Lantus®",
+    "外觀：清澈",
+    "Onset：1~4 hr；Duration：20~24 hr"],
+  rmk: ["改變{{等電點|性質}}（等電點 pH=6.7）"] },
+{ id: "dm-detemir", chapter: 37, name: "Detemir", type: "drug", group: "胰島素類似物（Insulin analogs）", source: "統整（三）p.77",
+  desc: ["B₂₉：Lys 加上 {{14C 脂肪酸|結構}}",
+    "B₃₀：去除 {{Thr|物質}}"],
+  feat: ["分類：長效",
+    "商品名：Levemir®",
+    "外觀：清澈",
+    "Onset：1~4 hr；Duration：20~24 hr"] },
+{ id: "dm-tolbutamide", chapter: 37, name: "Tolbutamide", type: "drug", group: "第一代 Sulfonylurea", source: "統整（三）p.79", img: "assets/medchem/dm-tolbutamide.png",
+  desc: ["R₁：-CH₃",
+    "R₂：-(CH₂)₃CH₃"],
+  feat: ["苯環上的甲基容易被{{氧化|代謝}}代謝成無活性代謝物，故作用時間{{最短|性質|最長}}"] },
+{ id: "dm-chlorpropamide", chapter: 37, name: "Chlorpropamide", type: "drug", group: "第一代 Sulfonylurea", source: "統整（三）p.79", img: "assets/medchem/dm-chlorpropamide.png",
+  desc: ["R₁：-Cl",
+    "R₂：-(CH₂)₃CH₂"],
+  feat: ["以{{原型藥|名詞}}經由尿液排除"] },
+{ id: "dm-tolazamide", chapter: 37, name: "Tolazamide", type: "drug", group: "第一代 Sulfonylurea", source: "統整（三）p.79", img: "assets/medchem/dm-tolazamide.png",
+  desc: ["R₁：-CH₃",
+    "R₂：Azepane"],
+  feat: ["{{4′-hydroxylation|代謝}} 為活性代謝物"] },
+{ id: "dm-acetohexamide", chapter: 37, name: "Acetohexamide", type: "drug", group: "第一代 Sulfonylurea", source: "統整（三）p.79", img: "assets/medchem/dm-acetohexamide.png",
+  desc: ["R₁：Acetyl group",
+    "R₂：Cyclohexane"],
+  feat: ["經{{還原反應|代謝}}★形成 hydroxyhexamide（活性代謝物）"] },
+{ id: "dm-glyburide", chapter: 37, name: "Glyburide", type: "drug", group: "第二代 Sulfonylurea", source: "統整（三）p.79", img: "assets/medchem/dm-glyburide.png",
+  desc: ["R₁：巨大取代基",
+    "R₂：Cyclohexane"],
+  feat: ["R₂ 接環己基的效果最好",
+    "主要代謝為 R₂ {{對位|結構}}接 OH 基"] },
+{ id: "dm-glipizide", chapter: 37, name: "Glipizide", type: "drug", group: "第二代 Sulfonylurea", source: "統整（三）p.79", img: "assets/medchem/dm-glipizide.png",
+  desc: ["R₁：巨大取代基，具 {{pyrazine|結構}}★結構",
+    "R₂：Cyclohexane"],
+  feat: ["R₂ 接環己基的效果最好"] },
+{ id: "dm-glimepiride", chapter: 37, name: "Glimepiride", type: "drug", group: "第三代 Sulfonylurea", source: "統整（三）p.79", img: "assets/medchem/dm-glimepiride.png",
+  desc: ["R₁：巨大取代基，具雜環結構",
+    "R₂：較 Cyclohexane 多了甲基取代"],
+  feat: ["R₂ 上的甲基取代可延長作用時間，並且容易被代謝",
+    "唯一可提高{{胰島素受體|標的}}之敏感性"] },
+{ id: "dm-repaglinide", chapter: 37, name: "Repaglinide", type: "drug", group: "Meglitinides 類藥物", source: "統整（三）p.80", img: "assets/medchem/dm-repaglinide.png",
+  feat: ["具有 {{piperidine|結構}}、ethoxy 結構"],
+  pharm: ["相較於其他降血糖藥物 Onset 快、作用時間長",
+    "應於{{餐前|性質|餐後}}服用，由{{肝臟|器官}}代謝",
+    "較無體重增加、低血糖的副作用"] },
+{ id: "dm-nateglinide", chapter: 37, name: "Nateglinide", type: "drug", group: "Meglitinides 類藥物", source: "統整（三）p.80", img: "assets/medchem/dm-nateglinide.png",
+  feat: ["將 COOH 移位、苯環換成六元環後形成"],
+  pharm: ["主要代謝：Hydroxylation",
+    "在 isopropyl 的末端接上 OH，為主要代謝物"] },
+{ id: "dm-phenformin", chapter: 37, name: "Phenformin", type: "drug", group: "Biguanides 類藥物", source: "統整（三）p.80", img: "assets/medchem/dm-phenformin.png",
+  feat: ["含有苯環結構"],
+  pharm: ["因{{乳酸性酸中毒|副作用}}而下市"] },
+{ id: "dm-metformin", chapter: 37, name: "Metformin", type: "drug", group: "Biguanides 類藥物", source: "統整（三）p.80", img: "assets/medchem/dm-metformin.png",
+  feat: ["N 上有甲基取代"],
+  pharm: ["不會造成體重增加",
+    "單一療法使用時，不會造成低血糖"] },
+{ id: "dm-ciglitazone", chapter: 37, name: "Ciglitazone", type: "drug", group: "Thiazolidinediones（TZD）類藥物", source: "統整（三）p.81", img: "assets/medchem/dm-ciglitazone.png",
+  feat: ["含有環己烷結構"] },
+{ id: "dm-troglitazone", chapter: 37, name: "Troglitazone", type: "drug", group: "Thiazolidinediones（TZD）類藥物", source: "統整（三）p.81", img: "assets/medchem/dm-troglitazone.png",
+  feat: ["主要是苯環上的 OH 進行 sulfate / glucuronide conjugation",
+    "經過 CYP3A4/2C8 代謝會產生 {{quinone|結構}} 結構，具有{{肝毒性|副作用}}"] },
+{ id: "dm-pioglitazone", chapter: 37, name: "Pioglitazone", type: "drug", group: "Thiazolidinediones（TZD）類藥物", source: "統整（三）p.81", img: "assets/medchem/dm-pioglitazone.png",
+  feat: ["含有 {{pyridine|結構}}★雜環"],
+  pharm: ["誘導 {{CYP3A4|酵素}}",
+    "蛋白結合率 99%，半衰期 3~7 小時",
+    "代謝：pyridine 上的乙基進行氧化代謝"] },
+{ id: "dm-rosiglitazone", chapter: 37, name: "Rosiglitazone", type: "drug", group: "Thiazolidinediones（TZD）類藥物", source: "統整（三）p.81", img: "assets/medchem/dm-rosiglitazone.png",
+  feat: ["含有 pyridine 雜環",
+    "具有{{三級胺|結構}}結構"],
+  pharm: ["蛋白結合率 99%，半衰期 3~4 小時",
+    "可能使心臟病發作機率提高",
+    "代謝：pyridine 上進行 Hydroxylation，或在隔壁的 N 上進行 N-demethylation"] },
+{ id: "dm-acarbose", chapter: 37, name: "Acarbose", type: "drug", group: "α-glucosidase Inhibitors", source: "統整（三）p.82", img: "assets/medchem/dm-acarbose.png",
+  feat: ["含有 {{Carvosine|結構}}★和 Maltose 結構"],
+  pharm: ["不可用於嚴重{{腎功能不全|疾病}}之病患"] },
+{ id: "dm-voglibose", chapter: 37, name: "Voglibose", type: "drug", group: "α-glucosidase Inhibitors", source: "統整（三）p.82", img: "assets/medchem/dm-voglibose.png",
+  feat: ["精簡 Acarbose 結構，保留 N-H linkage 部分"] },
+{ id: "dm-miglitol", chapter: 37, name: "Miglitol", type: "drug", group: "α-glucosidase Inhibitors", source: "統整（三）p.82", img: "assets/medchem/dm-miglitol.png",
+  feat: ["修飾 Voglibose，用 N 取代環上的 C",
+    "具有 {{piperidine|結構}} 結構"],
+  pharm: ["不可逆抑制劑"] },
+{ id: "dm-sitagliptin", chapter: 37, name: "Sitagliptin", type: "drug", group: "Dipeptidyl peptidase-4 抑制劑（DPP-4 Inhibitors）", source: "統整（三）p.83", img: "assets/medchem/dm-sitagliptin.png",
+  feat: ["以 {{Piperazine|結構}} 和 {{Pyrazole|結構}} 的結合取代 Pyrrolidine",
+    "具有 6 個 F 原子"],
+  pharm: ["併用 {{P-gp inducer|藥物類別}} 會降低藥效"] },
+{ id: "dm-vildagliptin", chapter: 37, name: "Vildagliptin", type: "drug", group: "Dipeptidyl peptidase-4 抑制劑（DPP-4 Inhibitors）", source: "統整（三）p.83", img: "assets/medchem/dm-vildagliptin.png",
+  feat: ["具有 {{Amantadine|結構}} 結構",
+    "具有 {{C≡N|結構}} 結構"],
+  pharm: ["{{不可逆|性質|可逆}}抑制（因為有 C≡N 結構）",
+    "不經過 CYP450 代謝"] },
+{ id: "dm-saxagliptin", chapter: 37, name: "Saxagliptin", type: "drug", group: "Dipeptidyl peptidase-4 抑制劑（DPP-4 Inhibitors）", source: "統整（三）p.83", img: "assets/medchem/dm-saxagliptin.png",
+  feat: ["由 Vildagliptin 結構修飾而來",
+    "將 Amantadine 的位置改變",
+    "pyrrolidine 環接有 {{nitrile|結構}}★（C≡N）"],
+  pharm: ["不可逆抑制 DPP-4 效果約為前兩者的 10 倍",
+    "副作用小，不會造成體重增加或低血糖",
+    "併用 P-gp 或 CYP3A4 inducer 會降低藥效"] },
+{ id: "dm-linagliptin", chapter: 37, name: "Linagliptin", type: "drug", group: "Dipeptidyl peptidase-4 抑制劑（DPP-4 Inhibitors）", source: "統整（三）p.84", img: "assets/medchem/dm-linagliptin.png",
+  feat: ["{{Xanthine|結構}} 衍生物",
+    "具有 {{C≡C|結構}} 結構"],
+  pharm: ["不適用於第一型糖尿病或是有糖尿病酮酸中毒的病人"] },
+{ id: "dm-alogliptin", chapter: 37, name: "Alogliptin", type: "drug", group: "Dipeptidyl peptidase-4 抑制劑（DPP-4 Inhibitors）", source: "統整（三）p.84", img: "assets/medchem/dm-alogliptin.png",
+  feat: ["Xanthine 類似結構",
+    "具有 C≡N 結構"],
+  pharm: ["增加{{心血管疾病|疾病}}的風險"] },
+{ id: "dm-teneligliptin", chapter: 37, name: "Teneligliptin", type: "drug", group: "Dipeptidyl peptidase-4 抑制劑（DPP-4 Inhibitors）", source: "統整（三）p.84", img: "assets/medchem/dm-teneligliptin.png",
+  feat: ["含 N、S 五元雜環、Pyrazine"],
+  pharm: ["在{{日本|名詞}}核准上市"] },
+{ id: "dm-gemigliptin", chapter: 37, name: "Gemigliptin", type: "drug", group: "Dipeptidyl peptidase-4 抑制劑（DPP-4 Inhibitors）", source: "統整（三）p.84", img: "assets/medchem/dm-gemigliptin.png"  },
+{ id: "dm-anagliptin", chapter: 37, name: "Anagliptin", type: "drug", group: "Dipeptidyl peptidase-4 抑制劑（DPP-4 Inhibitors）", source: "統整（三）p.84", img: "assets/medchem/dm-anagliptin.png"  },
+{ id: "dm-trelagliptin", chapter: 37, name: "Trelagliptin", type: "drug", group: "Dipeptidyl peptidase-4 抑制劑（DPP-4 Inhibitors）", source: "統整（三）p.84", img: "assets/medchem/dm-trelagliptin.png"  },
+{ id: "dm-omarigliptin", chapter: 37, name: "Omarigliptin", type: "drug", group: "Dipeptidyl peptidase-4 抑制劑（DPP-4 Inhibitors）", source: "統整（三）p.84", img: "assets/medchem/dm-omarigliptin.png"  },
+{ id: "dm-empagliflozin", chapter: 37, name: "Empagliflozin", type: "drug", group: "SGLT-2 inhibitors", source: "統整（三）p.85", img: "assets/medchem/dm-empagliflozin.png"  },
+{ id: "dm-canagliflozin", chapter: 37, name: "Canagliflozin", type: "drug", group: "SGLT-2 inhibitors", source: "統整（三）p.85", img: "assets/medchem/dm-canagliflozin.png"  },
+{ id: "dm-dapagliflozin", chapter: 37, name: "Dapagliflozin", type: "drug", group: "SGLT-2 inhibitors", source: "統整（三）p.85", img: "assets/medchem/dm-dapagliflozin.png"  },
+{ id: "dm-exenatide", chapter: 37, name: "Exenatide", type: "drug", group: "GLP-1 受體致效劑（GLP-1 receptor agonists）", source: "統整（三）p.86",
+  feat: ["第一個應用在糖尿病治療的 GLP-1 receptor agonist",
+    "N 端倒數第二位的 Alanine 取代為 {{Glycine|物質}}，半衰期約 3 小時",
+    "由 39 個胺基酸組成，來自{{希拉毒蜥|名詞}}的唾液"] },
+{ id: "dm-liraglutide", chapter: 37, name: "Liraglutide", type: "drug", group: "GLP-1 受體致效劑（GLP-1 receptor agonists）", source: "統整（三）p.86",
+  feat: ["³⁴Lysine 取代為 ³⁴{{Arginine|物質}}（產生對 DPP-4 的抗性）、²⁶Lysine 接上 {{16C|數值}} 的脂肪酸側鏈",
+    "→ 形成 α-l-glutamyl-(N-α-hexadecanoyl)-²⁶Lys³⁴Arg-GLP-1",
+    "可能有造成{{甲狀腺 C 細胞腫瘤|副作用}}的風險"] },
+{ id: "dm-amylin", chapter: 37, name: "Amylin agonist（澱粉素致效劑）", short: "Amylin agonist", type: "drug", group: "其他類降血糖藥物", source: "統整（三）p.86",
+  feat: ["{{Pramlintide|藥名}}為人工合成的 Amylin analogue★，皮下注射可降低飯後高血糖及食物攝取（長期使用體重會下降）",
+    "Amylin 由胰臟 β cell 分泌，具有 37 個胺基酸，可減少{{升糖素|物質}}分泌★、降低血糖"] },
+{ id: "dm-glucagon-ant", chapter: 37, name: "Glucagon antagonist（升糖素拮抗劑）", short: "Glucagon antagonist", type: "drug", group: "其他類降血糖藥物", source: "統整（三）p.86",
+  feat: ["抑制{{升糖素|物質}}的釋放而使血糖降低"] },
+{ id: "dm-ptp1b", chapter: 37, name: "PTP1B 抑制劑", type: "drug", group: "其他類降血糖藥物", source: "統整（三）p.86",
+  feat: ["{{Protein Tyrosine Phosphatase 1B|酵素}} Inhibitor",
+    "PTP1B 屬於一種基因，扮演胰島素負回饋的角色，可治療產生胰島素抗性的第二型糖尿病患者"] },
 
 /* ===== 第 16 章 利尿劑（統整（三）柒，p.39–46）===== */
 { id: "diu-location", chapter: 16, name: "利尿劑作用位置總論", short: "作用位置", type: "topic", group: "總論", source: "統整（三）p.39",
@@ -10472,6 +10686,275 @@ PI.KNOWLEDGE = {
             ]
           }
         ]
+      }
+    ]
+  },
+  ch37: {
+    "chapter": 37,
+    "title": "胰島素與口服降血糖藥物",
+    "sections": [
+      {
+        "id": "over",
+        "title": "總論：血糖調控與胰島素",
+        "items": [
+          {
+            "title": "血糖調控相關酵素（蘭氏小島細胞）",
+            "source": "統整（三）p.76",
+            "points": [
+              "※ 血糖調控相關酵素：主要由胰臟之蘭氏小島細胞分泌，細胞可分為 α、β、γ 三種",
+              "1. α：又可分為 α₁、α₂ 兩種。其中 α₁ 可分泌少量{{體抑素|物質}}（somatostatin）；α₂ 可分泌{{升糖素|物質}}（Glucagon，29 個胺基酸）來升高血糖",
+              "2. β：可分泌具有降血糖作用的{{胰島素|物質}}（Insulin）和{{澱粉素|物質}}（Amylin）",
+              "3. γ：主要分泌{{體抑素|物質}}（somatostatin），可抑制胰島素和升糖素釋放"
+            ]
+          },
+          {
+            "title": "胰島素（Insuline）之介紹",
+            "source": "統整（三）p.76",
+            "points": [
+              "※ 註：{{Glucagon|物質}} 不具有雙硫鍵",
+              "1. 共 {{51|數值}} 個胺基酸，由 A chain（21 個）和 B chain（30 個）組成，並以{{雙硫鍵|結構}}連接（{{2 個|數值}}★分子間 interchain 和 {{1 個|數值}}★分子內 intrachain） #兩件內衣",
+              "2. B₂₄、B₂₅ 為受體辨識位置，可藉由結構修飾改變胰島素的性質",
+              "3. 可形成單體、二元體、六聚體。常見的六聚體（Hexamer）中心有兩個 {{Zn²⁺|離子}} 且較為安定，需要時才會崩解變成具活性的單體形式（Monomer）",
+              "4. 胰島素之作用機轉：以下用 {{GLUT4|標的}} 介紹（GLUT4 可被 Insulin 誘導）",
+              "(1) 兩個 Insulin monomer 結合到受體 α subunit，使另一端的 β subunit 受質磷酸化，引發接下來的磷酸化連鎖反應",
+              "(2) 同時促進 IRS-1&2，引起 GLUT 的 Translocation，使細胞質中的 GLUT 結合到細胞膜上，增加葡萄糖的吸收，以利細胞利用葡萄糖",
+              "(3) 胰島素受體屬於 {{Tyrosine kinase receptor|標的}}★",
+              "5. 生理作用：促進葡萄糖進入肌肉和脂肪、降低脂肪分解、TG 增加（刺激 HMG-CoA reductase）、增加蛋白質合成"
+            ]
+          },
+          {
+            "title": "Glucose Transporter（GLUT）之分類",
+            "source": "統整（三）p.76",
+            "table": {
+              "head": [
+                "GLUT",
+                "分布",
+                "功能"
+              ],
+              "rows": [
+                [
+                  {
+                    "t": "GLUT-1",
+                    "b": true
+                  },
+                  "所有組織（含腦和紅血球）",
+                  "使 Glucose 可以通過 {{BBB|部位}}，提高腦中的血糖"
+                ],
+                [
+                  {
+                    "t": "GLUT-2",
+                    "b": true
+                  },
+                  "β cell、肝臟、腸道",
+                  "調節 {{Insulin|物質}} 的釋放"
+                ],
+                [
+                  {
+                    "t": "GLUT-3",
+                    "b": true
+                  },
+                  "腦、腎臟、胎盤",
+                  "攝取 Glucose 到{{神經元|器官}}"
+                ],
+                [
+                  {
+                    "t": "GLUT-4",
+                    "b": true
+                  },
+                  "肌肉、脂肪組織",
+                  "{{Insulin|物質}} 媒介攝取得到 Glucose"
+                ]
+              ]
+            },
+            "points": [
+              "※ Glucose Transporter（GLUT）之分類",
+              "※ 若降血糖藥物使用過量，可用 {{Octreotide|藥名}}（Somatostatin analog）拮抗其作用"
+            ]
+          },
+          {
+            "title": "影響血糖之藥物",
+            "source": "統整（三）p.76",
+            "table": {
+              "head": [
+                "酒精",
+                "β-blockers",
+                "Diazoxide",
+                "利尿劑",
+                "類固醇類藥物",
+                "Niacin"
+              ],
+              "rows": [
+                [
+                  "增加 {{Tolbutamide|藥名}} 代謝",
+                  "抑制胰島素合成",
+                  "抑制胰島素合成",
+                  "低血鉀引發之高血糖",
+                  "糖質新生作用",
+                  "有高血糖的副作用"
+                ]
+              ]
+            },
+            "points": [
+              "※ 影響血糖之藥物"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "insulin",
+        "title": "一、胰島素類似物",
+        "items": []
+      },
+      {
+        "id": "su",
+        "title": "二、Sulfonylurea 類藥物",
+        "items": [
+          {
+            "title": "Sulfonylurea：機轉、SAR 與代謝",
+            "group": "Sulfonylurea 類藥物",
+            "source": "統整（三）p.78",
+            "images": [
+              "assets/medchem/dm-fig-su1.png",
+              "assets/medchem/dm-fig-su2.png",
+              "assets/medchem/dm-fig-met1.png",
+              "assets/medchem/dm-fig-met2.png"
+            ],
+            "points": [
+              "1. 機轉：抑制 {{ATP 敏感型 K⁺ 通道|標的}}，去極化使 {{Ca²⁺|離子}} 流入細胞，刺激胰島素分泌",
+              "2. SAR：基本結構為 {{Benzene Sulfonylurea|結構}}",
+              "- 第一代：R₁（para-position）具有小的親脂性取代基，如 Cl、Acetyl group；R₂ 需為立體障礙大的取代基，鏈狀或環狀皆可，但碳數不可小於 3 個",
+              "- 第二代之後：由第一代結構衍生而來，Onset 較快、作用時間較長；R₁ 的 Amide 上 N 原子與 Sulfonamide 上 N 原子間的距離很重要；R₁ 具有巨大取代基，增加對 K⁺通道親和力；如圖，Glyburide 中 p-(β-arylcarboxamidoethyl) 結構與藥效有關（較難被代謝）",
+              "3. 代謝反應",
+              "- 第一代：R₁ 進行 {{Oxidation|代謝}}（Chlorpropamide 因有 Cl 取代，不走此路徑）；R₂ 進行 {{Hydroxylation|代謝}}（Tolazamide 的 4′-hydroxylation 產生活性代謝物）",
+              "- 第二代：R₁ 脫去環上取代基，形成無活性的 N-acetyl 衍生物；R₂ 進行 Hydroxylation（para 及 meta 位置，產生低活性代謝物）；若在 R₂ 接上 Cl 可延長藥效，但也會延長代謝時間。第三代加上 CH₃ 可較容易被代謝",
+              "4. 用法：於早{{餐前|性質|餐後}} 30 分鐘服藥（{{Glipizide|藥名}} 除外），適用於還能製造胰島素的病患，具有{{天花板|名詞}}效應，但孕婦禁用",
+              "5. 副作用：{{體重增加|副作用}}、{{低血糖|副作用}}；第一代藥物容易發生腸胃道不適、過敏性紅疹、惡血質"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "megli",
+        "title": "三、Meglitinides 類藥物",
+        "items": [
+          {
+            "title": "Meglitinides：由 Sulfonylurea 衍生",
+            "group": "Meglitinides 類藥物",
+            "source": "統整（三）p.80",
+            "images": [
+              "assets/medchem/dm-fig-megli.png"
+            ],
+            "points": [
+              "由 Sulfonylurea 類藥物的 non-sulfonylurea 部分結構衍生而來，換成另一個酸性基團 {{COOH|結構}} 形成 Meglitinide（原型藥）",
+              "機轉與 Sulfonylurea 相似，都會抑制 ATP 敏感的 K⁺通道，但作用在不同結合位"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "bigu",
+        "title": "四、Biguanides 類藥物",
+        "items": [
+          {
+            "title": "Biguanides：胰島素促敏劑",
+            "group": "Biguanides 類藥物",
+            "source": "統整（三）p.80",
+            "points": [
+              "機轉不明，為{{胰島素促敏劑|名詞}}。可降低肝臟輸出葡萄糖、提升週邊組織利用葡萄糖，為第二型糖尿病之{{首選藥物|名詞}}"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "tzd",
+        "title": "五、Thiazolidinediones（TZD）類藥物",
+        "items": [
+          {
+            "title": "TZD：機轉與結構",
+            "group": "Thiazolidinediones（TZD）類藥物",
+            "source": "統整（三）p.81",
+            "images": [
+              "assets/medchem/dm-fig-tzd.png"
+            ],
+            "points": [
+              "機轉：{{PPARγ|標的}}-agonist，製造胰島素調控蛋白，並使細胞對胰島素更加敏感（增加 {{GLUT4|標的}} 合成），為胰島素促敏劑",
+              "※ TZD 類的藥物都含有兩個氧雙鍵結構，代謝後容易形成 {{quinone|結構}}，造成{{肝毒性|副作用}}（{{Acetaminophen|藥名}} 也有類似架構的代謝產物）",
+              "※ Muraglitazar、Ragaglitazar 也是降血糖藥物，可以作用在 PPARα、PPARγ；另外可提升 HDL-C"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "agi",
+        "title": "六、α-glucosidase Inhibitors",
+        "items": [
+          {
+            "title": "α-glucosidase Inhibitors：機轉與副作用",
+            "group": "α-glucosidase Inhibitors",
+            "source": "統整（三）p.82",
+            "points": [
+              "機轉：與{{雙糖|名詞}}競爭 α-glucosidase，使其無法被水解為單糖，減少糖份吸收，可降{{餐後|性質|空腹}}血糖",
+              "副作用：消化道刺激、腹痛、脹氣",
+              "若服藥後有低血糖的情況，可使用 {{glucose|物質}} 或 {{lactose|物質}} 改善（lactose 由 β-glucosidase 分解）"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "dpp",
+        "title": "七、Dipeptidyl peptidase-4 抑制劑（DPP-4 Inhibitors）",
+        "items": [
+          {
+            "title": "DPP-4 Inhibitors：基本架構與機轉",
+            "group": "Dipeptidyl peptidase-4 抑制劑（DPP-4 Inhibitors）",
+            "source": "統整（三）p.83",
+            "images": [
+              "assets/medchem/dm-fig-dpp.png"
+            ],
+            "points": [
+              "此類藥物具有兩種基本架構：{{α-aminoacylpyrrolidine|結構}}★ 或 {{Xanthine|結構}}（其中在 pyrrolidine 二號位加親電子基可使抑制效果↑）",
+              "機轉：抑制 DPP 分解 {{GLP-1|物質}} 和 GIP",
+              "1. GLP-1 和 GIP 為腸泌素/incretin，可促進 β cell 分泌胰島素並抑制 α cell 分泌升糖素，使血糖降低",
+              "2. DPP-4 為一種 {{Serine protease|酵素}}，其與膜的結合態可溶於血漿"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "sglt",
+        "title": "八、SGLT-2 inhibitors",
+        "items": [
+          {
+            "title": "SGLT-2 inhibitors：機轉",
+            "group": "SGLT-2 inhibitors",
+            "source": "統整（三）p.85",
+            "points": [
+              "機轉：抑制葡萄糖在{{腎臟|器官}}之再吸收作用，增加葡萄糖之尿液排泄量",
+              "與葡萄糖再吸收相關之轉運蛋白有 GLUTs 和 SGLTs 等，其中 SGLT-1 和 SGLT-2 在葡萄糖恆定扮演重要的角色。前者主要分布於大腦、心臟與小腸上皮細胞；後者多存在於腎臟之近曲小管"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "glp",
+        "title": "九、Glucagon-like Peptide-1 受體致效劑（GLP-1 receptor agonists）",
+        "items": [
+          {
+            "title": "GLP-1 receptor agonists：GLP-1 簡介",
+            "group": "GLP-1 受體致效劑（GLP-1 receptor agonists）",
+            "source": "統整（三）p.86",
+            "points": [
+              "由 30 個胺基酸組成的 Polypeptide，存在於腸道 {{L 細胞|器官}} 中",
+              "N 端倒數第二位置含有 {{Alanine|物質}}，會被 DPP-4 快速分解 → 在此位置進行結構修飾，且此類藥物皆{{不可口服|給藥途徑}}",
+              "GLP-1 可促進胰島 β cell 分泌胰島素，並抑制 α cell 分泌升糖素，使血糖降低"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "other",
+        "title": "十、其他類降血糖藥物",
+        "items": []
       }
     ]
   },
