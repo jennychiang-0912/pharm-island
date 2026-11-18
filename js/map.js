@@ -199,7 +199,7 @@ PI.map = (function () {
     const clusterAt = new Map(), cGap = (PI.MAP.clusterGap || 7) * SQ3 * R;
     // 環狀群島（PI.CLUSTER_RING）：群島名稱在正中央，同一群的島依章節順序（順時針、從正上方開始）圍成一圈
     const ringDone = new Set(); ringCenters.clear();
-    function placeRing(cl) {
+    function placeRing(cl, dirDeg) {
       const grp = lands.filter(l => l.def.cluster === cl && landCellsRel(l).length), n = grp.length;
       if (!n) return;
       const C = { x: 0, y: 0 }, rels = grp.map(landCellsRel), need = gap + SQ3 * R;
@@ -252,16 +252,26 @@ PI.map = (function () {
         }
         if (!moved) break;
       }
+      // 第二片以後的環狀群島：整圈往指定方向推，直到和已經放好的島隔 clusterGap 格海
+      let sh = { x: 0, y: 0 };
+      if (placedCells.length) {
+        const da = (dirDeg ?? -50) * Math.PI / 180, mine = grp.flatMap((l, i) => rels[i].map(([x, y]) => [P[i].x + x, P[i].y + y]));
+        const needC = cGap + SQ3 * R;
+        for (let d = 0; ; d += R * 0.6) {
+          const dx = d * Math.cos(da), dy = d * Math.sin(da) * 0.82;
+          if (mine.every(([x, y]) => placedCells.every(([px, py]) => Math.hypot(x + dx - px, y + dy - py) >= needC))) { sh = { x: dx, y: dy }; break; }
+        }
+      }
       grp.forEach((l, i) => {
-        l.center = P[i];
+        l.center = { x: P[i].x + sh.x, y: P[i].y + sh.y };
         rels[i].forEach(([x, y]) => placedCells.push([l.center.x + x, l.center.y + y]));
         placedLands.push({ ...l.center, rad: l.radius });
       });
-      ringCenters.set(cl, C);
+      ringCenters.set(cl, { x: C.x + sh.x, y: C.y + sh.y });
     }
     lands.forEach(land => {
       const ang = (land.def.angle ?? 0) * Math.PI / 180, cl = land.def.cluster;
-      if (cl && (PI.CLUSTER_RING || {})[cl] && !placedLands.length && !ringDone.has(cl)) { ringDone.add(cl); placeRing(cl); }
+      if (cl && (PI.CLUSTER_RING || {})[cl] && !ringDone.has(cl)) { ringDone.add(cl); placeRing(cl, (PI.CLUSTER_DIR || {})[cl]); }
       if (cl && ringDone.has(cl)) { if (!clusterAt.has(cl)) clusterAt.set(cl, { x: 0, y: 0 }); return; }
       const firstOfCluster = cl && !clusterAt.has(cl) && placedLands.length > 0;
       const origin = (cl && clusterAt.get(cl)) || { x: 0, y: 0 }, myGap = firstOfCluster ? cGap : gap;
