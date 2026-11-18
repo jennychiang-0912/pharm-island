@@ -142,7 +142,11 @@ PI.GROUP_PARENTS = {
   "C₁₉-norandrogens（C₁₀ 上沒有接甲基）": "人工合成雄性激素",
   "其他人工合成雄性激素": "人工合成雄性激素",
   "類固醇類似物（Steroidal antiandrogens）": "Antiandrogens：與 5α-dihydrotestosterone（5α-DHT）競爭結合雄激素受體",
-  "非類固醇類似物：由 3-trifluoromethyl-4-nitroaniline 衍生而來": "Antiandrogens：與 5α-dihydrotestosterone（5α-DHT）競爭結合雄激素受體"
+  "非類固醇類似物：由 3-trifluoromethyl-4-nitroaniline 衍生而來": "Antiandrogens：與 5α-dihydrotestosterone（5α-DHT）競爭結合雄激素受體",
+  "Thioamide 衍生物": "治療甲狀腺功能亢進",
+  "Bisphosphonates 雙磷酸類": "抗蝕骨作用：降低骨質流失，但無法顯著增加骨骼質量",
+  "Vitamin D 類藥物": "抗蝕骨作用：降低骨質流失，但無法顯著增加骨骼質量",
+  "其他（抗蝕骨作用）": "抗蝕骨作用：降低骨質流失，但無法顯著增加骨骼質量"
 };
 
 /* 地圖名牌：和生藥頁一樣用短的英文（名牌字型只有英文字母，中文字寬、長的名牌會擠成一團）。
@@ -534,7 +538,17 @@ PI.GROUP_LABELS = {
   "Growing hormone（GH／生長激素）": "Growth Hormone",
   "Prolactin（泌乳激素）：高泌乳素血症治療藥物": "Prolactin",
   "Oxytocin（催產素）": "Oxytocin",
-  "Human chorionic gonadotropin（HCG／人類絨毛生殖腺激素）": "HCG"
+  "Human chorionic gonadotropin（HCG／人類絨毛生殖腺激素）": "HCG",
+  "治療甲狀腺功能低下：替代療法": "Replacement Therapy",
+  "治療甲狀腺功能亢進": "Hyperthyroidism",
+  "Thioamide 衍生物": "Thioamides",
+  "抗蝕骨作用：降低骨質流失，但無法顯著增加骨骼質量": "Antiresorptive",
+  "Bisphosphonates 雙磷酸類": "Bisphosphonates",
+  "Vitamin D 類藥物": "Vitamin D",
+  "其他（抗蝕骨作用）": "Other Antiresorptive",
+  "促骨形成劑": "Bone-forming",
+  "單株抗體": "Monoclonal Ab",
+  "擬鈣劑（Calcimimetics）": "Calcimimetics"
 };
 
 /* 藥化的欄位：照講義表格的欄位（藥物｜結構｜特性｜藥理及臨床應用） */
@@ -588,6 +602,7 @@ PI.CHAPTERS = [
   { id: 39, name: "性荷爾蒙－雌激素相關藥物", short: "雌激素", no: 15, cat: "cv", estimate: 38, unitType: "drug", note: "統整（三）壹拾伍 p.93–99：雌激素作用劑與拮抗劑、芳香酶抑制劑、黃體激素作用劑與拮抗劑" },
   { id: 40, name: "性荷爾蒙－雄激素相關藥物", short: "雄激素", no: 16, cat: "cv", estimate: 25, unitType: "drug", note: "統整（三）壹拾陸 p.100–103：天然與人工合成雄激素、促性腺激素抑制劑、抗雄激素、雄激素合成抑制劑" },
   { id: 41, name: "腦下垂體激素", no: 17, cat: "cv", estimate: 22, unitType: "drug", note: "統整（三）壹拾柒 p.104–106：ADH、Somatostatin、GnRH、GH、Prolactin、Oxytocin、HCG" },
+  { id: 42, name: "甲狀腺與鈣調節相關藥物", short: "甲狀腺與鈣調節", no: 18, cat: "cv", estimate: 26, unitType: "drug", note: "統整（三）壹拾捌 p.107–112：甲狀腺素、抗甲狀腺藥、副甲狀腺素與骨質疏鬆治療藥物" },
   { id: 16, name: "利尿劑", no: 7, cat: "cv", estimate: 20, unitType: "drug", note: "統整（三）柒，p.39–46。" },
   { id: 17, name: "心絞痛藥物", no: 8, cat: "cv", estimate: 8, unitType: "drug", note: "統整（三）捌，p.47–48。" },
   { id: 18, name: "心衰竭藥物", no: 9, cat: "cv", estimate: 10, unitType: "drug", note: "統整（三）玖，p.49–53。" },
@@ -683,6 +698,8 @@ PI.LANDMASSES = [
     palette: { ground: "#A9C4DA", light: "#C3D6E6", cliff: "#8199B0" } },
   { id: "cv41", name: "腦垂島", chapters: [41], cluster: "cv", angle: 0,
     palette: { ground: "#C6B8E0", light: "#D9CEEE", cliff: "#9F93B8" } },
+  { id: "cv42", name: "甲狀腺島", chapters: [42], cluster: "cv", angle: 0,
+    palette: { ground: "#B8D8C8", light: "#CDE7DA", cliff: "#92B0A0" } },
   { id: "cv16",  name: "利尿島",     chapters: [16], cluster: "cv", angle: 75,
     palette: { ground: "#E8B4B0", light: "#F0C9C6", cliff: "#C48A86" } },
   { id: "cv17",  name: "心絞痛島",   chapters: [17], cluster: "cv", angle: 270,
@@ -5865,6 +5882,93 @@ PI.UNITS = [
 { id: "pt-hcg", chapter: 41, name: "HCG（人類絨毛生殖腺激素）", short: "HCG", type: "drug", group: "Human chorionic gonadotropin（HCG／人類絨毛生殖腺激素）", source: "統整（三）p.106",
   desc: ["由人類{{胎盤|器官}}產生，並排泄於尿液當中，可由懷孕婦女之尿中萃取並純化之。會刺激{{黃體|器官}}分泌 Progesterone 以維持子宮內膜",
     "利用單株抗體的專一性反應，可用來{{驗孕|用途}}"] },
+
+/* ===== 第 42 章（統整（三）壹拾捌 甲狀腺與鈣調節相關藥物 p.107–112；畫面章號 18）===== */
+/* 一、甲狀腺素：灰底治療甲狀腺功能低下：替代療法、治療甲狀腺功能亢進（Thioamide 衍生物為表格左側分類，做成第三層小標；放射碘、碘化物、陰離子抑制劑直接放在亢進分類下）；
+   二、副甲狀腺素與鈣調節相關藥物：骨質疏鬆治療藥物的灰底抗蝕骨作用（底下 Bisphosphonates／Vitamin D 類藥物／其他為第三層小標，其他加後綴避免重名）、促骨形成劑、單株抗體；Cinacalcet 另立擬鈣劑。
+   p.107–108 的甲狀腺素類型表、生合成表、TRH／TSH、疾病表與甲狀腺風暴放告示牌；p.109–110 欄位是特性／藥理及臨床應用，Levothyroxine／Liothyronine 比較表與 PTU／MMI 比較表依藥物拆進各自特性／藥理；
+   p.111 Vit D₂／D₃ 比較表拆進 D₃、D₂ 兩格說明（附 provitamin 結構圖）；p.112 骨質疏鬆表格沒有欄位名稱，文字放說明。 */
+
+{ id: "th-levothyroxine", chapter: 42, name: "Levothyroxine Sodium（T₄ 鈉鹽）", short: "Levothyroxine", type: "drug", group: "治療甲狀腺功能低下：替代療法", source: "統整（三）p.109", img: "assets/medchem/th-levothyroxine.png",
+  feat: ["生物活性：+；半衰期：較長，{{7 天|數值|1 天}}",
+    "口服吸收：{{80%|數值|95%}}；分布體積：10 L（血漿蛋白結合率高）",
+    "人體每日產量：{{75 μg|數值|25 μg}}；作用強度：小",
+    "IV 注射可治療{{黏液性水腫|疾病}}"] },
+{ id: "th-liothyronine", chapter: 42, name: "Liothyronine Sodium（T₃ 鈉鹽）", short: "Liothyronine", type: "drug", group: "治療甲狀腺功能低下：替代療法", source: "統整（三）p.109", img: "assets/medchem/th-liothyronine.png",
+  feat: ["生物活性：++++；半衰期：較短，{{1 天|數值|7 天}}",
+    "口服吸收：{{95%|數值|80%}}；分布體積：40 L",
+    "人體每日產量：25 μg；作用強度：{{大|性質|小}}",
+    "{{Onset|藥動}} 較快"] },
+{ id: "th-dextrothyroxine", chapter: 42, name: "Dextrothyroxine", type: "drug", group: "治療甲狀腺功能低下：替代療法", source: "統整（三）p.109", img: "assets/medchem/th-dextrothyroxine.png",
+  feat: ["T₄ 的 {{D-(+)-stereoisomer|結構}}"],
+  pharm: ["作為{{降血脂|用途}}藥物，可降低血中的高膽固醇含量",
+    "{{無法|性質|可以}}用於治療甲狀腺疾病"] },
+{ id: "th-ptu", chapter: 42, name: "Propylthiouracil（PTU）", short: "PTU", type: "drug", group: "Thioamide 衍生物", source: "統整（三）p.110", img: "assets/medchem/th-ptu.png",
+  feat: ["含有 {{uracil|結構}} 結構，且有 S 取代★",
+    "【機轉】抑制 {{TPO|酵素}}，阻止 Tyrosine 的偶合，抑制甲狀腺素合成★；另可抑制 T₄ 在周邊去碘化形成 T₃（Methimazole 無此作用）"],
+  pharm: ["血漿蛋白結合 75%；血漿半衰期：較短，75 mins（日服數次）",
+    "分布體積 20 L；肝功能不影響；腎功能不影響",
+    "穿過胎盤{{低|性質|高}}；分泌於乳汁低；作用強度 1",
+    "孕婦使用：{{首選藥物|性質|不可使用}}",
+    "副作用：{{Lupus-like|副作用}} 症狀、顆粒白血球缺乏"] },
+{ id: "th-methimazole", chapter: 42, name: "Methimazole（MMI）", short: "Methimazole", type: "drug", group: "Thioamide 衍生物", source: "統整（三）p.110", img: "assets/medchem/th-methimazole.png",
+  feat: ["【機轉】抑制 TPO，阻止 Tyrosine 的偶合，抑制甲狀腺素合成；{{不能|性質|可以}}抑制 T₄ 在周邊變成 T₃"],
+  pharm: ["血漿蛋白結合：低；血漿半衰期：較長，4~6 hr（日服一次）",
+    "分布體積 40 L；肝功能{{下降|性質|不影響}}；腎功能不影響",
+    "穿過胎盤{{高|性質|低}}；分泌於乳汁高；作用強度 {{10|數值|1}}（較強）",
+    "孕婦使用：{{不可使用|性質|首選藥物}}",
+    "副作用：{{顆粒白血球缺乏|副作用}}"] },
+{ id: "th-carbimazole", chapter: 42, name: "Carbimazole", type: "drug", group: "Thioamide 衍生物", source: "統整（三）p.110", img: "assets/medchem/th-carbimazole.png",
+  feat: ["{{Prodrug|名詞}}，代謝產生 {{Methimazole|藥名}}"] },
+{ id: "th-radioiodine", chapter: 42, name: "放射碘（Radioiodine）", short: "Radioiodine", type: "drug", group: "治療甲狀腺功能亢進", source: "統整（三）p.110",
+  feat: ["¹³¹I★變成 ¹³¹Xe 時釋放 {{β 粒子|物質}}與 γ 射線，可破壞甲狀腺組織，治療{{甲狀腺機能亢進|疾病}}，半衰期為 {{8 天|數值}}",
+    "使用方便、效果好且不會引起疼痛，但{{孕婦|族群}}不建議使用"] },
+{ id: "th-iodides", chapter: 42, name: "碘化物（Iodides）", short: "Iodides", type: "drug", group: "治療甲狀腺功能亢進", source: "統整（三）p.110",
+  feat: ["負回饋抑制甲狀腺荷爾蒙釋放，並抑制濾泡細胞主動吸收碘（即抑制 {{Na/I 幫浦|標的}}），可改善甲狀腺毒症",
+    "含碘之顯影劑（{{iopanoic acid|藥名}}）會抑制 T₄ 在周邊去碘化形成 T₃"] },
+{ id: "th-anions", chapter: 42, name: "陰離子抑制劑", short: "陰離子抑制劑", type: "drug", group: "治療甲狀腺功能亢進", source: "統整（三）p.110",
+  feat: ["Fluborate（BF₄⁻）、{{Thiocyanate|藥名}}（SCN⁻）、Pertechnetate（TcO₄⁻）、Perchlorate（ClO₄⁻）可阻止甲狀腺攝取{{碘化物|物質}}",
+    "用於治療甲狀腺機能亢進，但會引起{{再生不良性貧血|副作用}}，現臨床少用"] },
+{ id: "th-alendronate", chapter: 42, name: "Alendronate（口服）", short: "Alendronate", type: "drug", group: "Bisphosphonates 雙磷酸類", source: "統整（三）p.112", img: "assets/medchem/th-alendronate.png",
+  desc: ["給藥途徑：{{口服|給藥途徑|IV}}"] },
+{ id: "th-risedronate", chapter: 42, name: "Risedronate（口服）", short: "Risedronate", type: "drug", group: "Bisphosphonates 雙磷酸類", source: "統整（三）p.112", img: "assets/medchem/th-risedronate.png",
+  desc: ["給藥途徑：口服"] },
+{ id: "th-ibandronate", chapter: 42, name: "Ibandronate（IV）", short: "Ibandronate", type: "drug", group: "Bisphosphonates 雙磷酸類", source: "統整（三）p.112", img: "assets/medchem/th-ibandronate.png",
+  desc: ["給藥途徑：{{IV|給藥途徑|口服}}"] },
+{ id: "th-zoledronic", chapter: 42, name: "Zoledronic acid（IV）", short: "Zoledronic acid", type: "drug", group: "Bisphosphonates 雙磷酸類", source: "統整（三）p.112", img: "assets/medchem/th-zoledronic.png",
+  desc: ["給藥途徑：IV",
+    "效價{{最強|性質|最弱}}，可治療{{惡質高血鈣|疾病}}"] },
+{ id: "th-cholecalciferol", chapter: 42, name: "D₃（Cholecalciferol）", short: "Cholecalciferol", type: "drug", group: "Vitamin D 類藥物", source: "統整（三）p.111", img: "assets/medchem/th-cholecalciferol.png", imgMore: ["assets/medchem/th-d3.png"],
+  desc: ["Provitamin：{{7-dehydrocholesterol|物質}}；UV 照射使 B 環的 C₉、C₁₀ 斷裂，在{{皮膚|器官|體外}}中形成",
+    "主要來源：{{魚肝油|名詞|植物}}；吸收位置：小腸；吸收效率：{{高|性質|低}}",
+    "儲存位置：皮膚、肝",
+    "Vit D₂ 或 D₃ 在{{肝臟|器官|腎臟}}轉變為 25-Hydroxyvitamin D，再到{{腎臟|器官|肝臟}}形成 1,25-Dihydroxyvitamin D（最強活化態）",
+    "Vit D 可加強鈣在腸道的吸收，有助於鈣質與磷酸鹽的利用，治療{{低血鈣|疾病}}與副甲狀腺功能低下"] },
+{ id: "th-ergocalciferol", chapter: 42, name: "D₂（Ergocalciferol）", short: "Ergocalciferol", type: "drug", group: "Vitamin D 類藥物", source: "統整（三）p.111", img: "assets/medchem/th-ergocalciferol.png", imgMore: ["assets/medchem/th-ergosterol.png"],
+  desc: ["Provitamin：{{Ergosterol|物質}}；UV 照射使 B 環的 C₉、C₁₀ 斷裂，在{{體外|器官|皮膚}}形成",
+    "主要來源：{{植物|名詞|魚肝油}}；吸收位置：小腸；吸收效率：{{低|性質|高}}（需膽鹽協助吸收）",
+    "應用：增加{{食物營養|用途}}程度",
+    "Vit D₂ 或 D₃ 在肝臟轉變為 25-Hydroxyvitamin D，再到腎臟形成 1,25-Dihydroxyvitamin D（最強活化態）"] },
+{ id: "th-calcitriol", chapter: 42, name: "1,25-(OH)₂-Vit D", short: "1,25-(OH)₂-Vit D", type: "drug", group: "Vitamin D 類藥物", source: "統整（三）p.112",
+  desc: ["最強活化態",
+    "{{Dihydrotachysterol|藥名}}（DHT）為合成的 Vit D 類似物，不需經過{{腎臟|器官|肝臟}}行二次代謝",
+    "Vit D 可加強鈣在腸道的吸收，有助於鈣質與磷酸鹽的利用，治療低血鈣與副甲狀腺功能低下"] },
+{ id: "th-calcium", chapter: 42, name: "Calcium", type: "drug", group: "其他（抗蝕骨作用）", source: "統整（三）p.112",
+  desc: ["補充{{鈣質|物質}}",
+    "副作用：{{便秘|副作用}}、腸胃不適、腎結石"] },
+{ id: "th-calcitonin", chapter: 42, name: "Calcitonin", type: "drug", group: "其他（抗蝕骨作用）", source: "統整（三）p.112",
+  desc: ["抑制副甲狀腺素活性（阻止鈣從骨質釋出），並抑制骨質溶解，但具有{{耐藥性|副作用}}",
+    "可治療 {{Paget's disease|疾病}}（降血鈣濃度）"] },
+{ id: "th-raloxifene", chapter: 42, name: "Raloxifene", type: "drug", group: "其他（抗蝕骨作用）", source: "統整（三）p.112",
+  desc: ["主要作用在骨骼內{{雌激素受體|標的}}，可減少骨質流失並增加骨質密度"] },
+{ id: "th-teriparatide", chapter: 42, name: "Teriparatide", type: "drug", group: "促骨形成劑", source: "統整（三）p.112",
+  desc: ["人體基因重組{{副甲狀腺素|物質}}，含有 {{34|數值}} 個胺基酸（取內生性激素的前 34 個胺基酸片段）",
+    "為第一個可直接刺激{{骨母細胞|器官|蝕骨細胞}}活性並促進骨質生成之藥品"] },
+{ id: "th-denosumab", chapter: 42, name: "Denosumab", type: "drug", group: "單株抗體", source: "統整（三）p.112",
+  desc: ["專一性與 {{RANKL|標的}}（Receptor activator of nuclear kappa-B ligand）結合，使其無法與受體結合，導致{{蝕骨細胞|器官|骨母細胞}}無法生成",
+    "副作用：肌肉痠痛、{{低血鈣|副作用}}、顎骨壞死等"] },
+{ id: "th-cinacalcet", chapter: 42, name: "Cinacalcet", type: "drug", group: "擬鈣劑（Calcimimetics）", source: "統整（三）p.111",
+  desc: ["可活化 {{Ca²⁺-sensing receptor|標的}}，抑制副甲狀腺分泌，治療因 PTH 亢進引起之{{高血鈣|疾病}}"] },
 
 /* ===== 第 16 章 利尿劑（統整（三）柒，p.39–46）===== */
 { id: "diu-location", chapter: 16, name: "利尿劑作用位置總論", short: "作用位置", type: "topic", group: "總論", source: "統整（三）p.39",
@@ -12226,6 +12330,330 @@ PI.KNOWLEDGE = {
             "source": "統整（三）p.106",
             "points": [
               "TRH（促甲狀腺素釋放素）：詳見下一章"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  ch42: {
+    "chapter": 42,
+    "title": "甲狀腺與鈣調節相關藥物",
+    "sections": [
+      {
+        "id": "thy",
+        "title": "一、甲狀腺素",
+        "items": [
+          {
+            "title": "甲狀腺素之類型與組成",
+            "source": "統整（三）p.107",
+            "images": [
+              "assets/medchem/th-mit.png",
+              "assets/medchem/th-dit.png"
+            ],
+            "table": {
+              "head": [
+                "甲狀腺素",
+                "T₃（Liothyronine）",
+                "T₄（Thyroxine）"
+              ],
+              "rows": [
+                [
+                  {
+                    "t": "全名",
+                    "b": true
+                  },
+                  "3,5,3′-triiodo-L-thyronine",
+                  "3,5,3′,5′-tetraiodo-L-thyronine"
+                ],
+                [
+                  {
+                    "t": "組成單位",
+                    "b": true
+                  },
+                  "{{MIT|物質}} + DIT",
+                  "DIT + DIT"
+                ],
+                [
+                  {
+                    "t": "備註",
+                    "b": true,
+                    "rs": 1
+                  },
+                  "T₃ 與 T₄ 皆有活性，且 {{T₃|物質|T₄}} 活性較強、作用快",
+                  "T₄ 為 {{Prohormone|名詞}}，在周邊組織會代謝為 T₃；代謝：T₄ 去掉內環的 I，形成無活性的 reverse T₃"
+                ]
+              ]
+            },
+            "points": [
+              "※ 甲狀腺素介紹：甲狀腺素是由 {{L-Tyrosine|物質}} 碘化後所合成的{{脂溶性|性質|水溶性}}激素"
+            ]
+          },
+          {
+            "title": "甲狀腺素之生合成與代謝",
+            "source": "統整（三）p.107",
+            "table": {
+              "head": [
+                "步驟",
+                "說明"
+              ],
+              "rows": [
+                [
+                  {
+                    "t": "濾泡主動吸收碘",
+                    "b": true
+                  },
+                  "藉由 {{Na/I|機轉}} 同向主動運輸，將碘送入細胞。可能會被 SCN⁻、TcO₄⁻、ClO₄⁻ 等離子干擾"
+                ],
+                [
+                  {
+                    "t": "碘的氧化、合成 iodotyrosyl residues",
+                    "b": true
+                  },
+                  "{{TPO|酵素}}（Thyroid peroxidase）經由血紅素的 Fe²⁺與 H₂O₂ 催化，將碘帶至 Tg 的 Tyr 殘基，形成 Tg-MIT 及 Tg-DIT"
+                ],
+                [
+                  {
+                    "t": "殘基偶合形成 iodothyronines",
+                    "b": true
+                  },
+                  "MIT 和 DIT 會形成自由基，相接形成{{醚鍵結|結構}}（ether linkage），再從 Tg 釋放出去。※ 兩個 DIT 外環偶合形成 {{T₄|物質}}；※ 一個 MIT 和一個 DIT 偶合形成 {{T₃|物質}}"
+                ],
+                [
+                  {
+                    "t": "Tg 蛋白的水解",
+                    "b": true
+                  },
+                  "釋放 T₃ 和 T₄，並將釋出的 MIT、DIT 送回進入下次循環"
+                ],
+                [
+                  {
+                    "t": "周邊去碘化（T₄ 脫碘轉換成 T₃）",
+                    "b": true
+                  },
+                  "T₄ 經由 {{5′-deiodinase|酵素}} 形成有活性的 T₃；T₄ 經由 5-deiodinase 形成無活性的 rT₃"
+                ]
+              ]
+            },
+            "points": [
+              "※ 甲狀腺素的代謝",
+              "1. 主要路徑：在{{肝臟|器官|腎臟}}中去碘化（deiodination）",
+              "2. 次要路徑",
+              "不可逆去活化：{{Sulfonate|反應}} conjugation",
+              "可逆型去活化：{{Glucuronic acid|反應}} conjugation（腸肝循環）",
+              "※ {{β-blocker|藥物類別}}（Propranolol★）、Iodate、Corticosteroids、PTU 可抑制 T₄ 在週邊轉變成 T₃（即抑制 5′-deiodinase）"
+            ]
+          },
+          {
+            "title": "TRH 與 TSH",
+            "source": "統整（三）p.108",
+            "points": [
+              "※ 促甲狀腺素釋放激素（TRH／Thyrotropin-releasing hormone）",
+              "1. 由{{下視丘|器官|腦垂體前葉}}合成，為一種{{三肽|結構}}（Tripeptide），序列為 pyro-Glutamyl-Histidine-Proline，為內生性荷爾蒙中序列最短的",
+              "2. 可促進腦下垂體前葉合成並釋放 {{TSH|物質}}（Thyrotropin），也可促進前葉釋放泌乳素（{{Prolactin|物質}}）",
+              "3. 用於診斷甲狀腺機能亢進或低下",
+              "※ 甲狀腺釋放激素（TSH／Thyrotropin）",
+              "1. 由{{腦垂體前葉|器官|下視丘}}分泌，可和 TSH 受體結合，活化 {{Adenyl cyclase|酵素}} 使 cAMP 含量增加，促進碘的攝取",
+              "2. TSH 可刺激甲狀腺產生及合成 T₃、T₄ 和 Thyroglobulin，其分泌會受到 {{Dopamine|物質}}、Somatostatin、Corticosteroids 的抑制",
+              "3. 用於診斷甲狀腺腫瘤，也可治療分化性甲狀腺癌"
+            ]
+          },
+          {
+            "title": "甲狀腺素相關疾病介紹★",
+            "source": "統整（三）p.108",
+            "table": {
+              "head": [
+                "疾病",
+                "Hashimoto's Disease",
+                "Grave's Disease",
+                "黏液性水腫昏迷（Myxedema coma）"
+              ],
+              "rows": [
+                [
+                  {
+                    "t": "原因",
+                    "b": true
+                  },
+                  "甲狀腺功能{{低下|性質|亢進}}",
+                  "甲狀腺功能{{亢進|性質|低下}}",
+                  "甲狀腺功能低下"
+                ],
+                [
+                  {
+                    "t": "T₃ 和 T₄ 變化",
+                    "b": true
+                  },
+                  "↓",
+                  "↑",
+                  {
+                    "t": "影響通常為全面性，包括呼吸、循環、意識、體溫、血液、免疫等各方面，且黏液性水腫昏迷的病歷稀少且進程緩慢，目前仍有很高的死亡率。",
+                    "rs": 2
+                  }
+                ],
+                [
+                  {
+                    "t": "TSH 變化",
+                    "b": true
+                  },
+                  "↑",
+                  "↓",
+                  null
+                ],
+                [
+                  {
+                    "t": "症狀",
+                    "b": true
+                  },
+                  "體重增加、昏睡、對冷耐受性差",
+                  "體重減輕、心跳↑、對熱耐受性差",
+                  "-"
+                ],
+                [
+                  {
+                    "t": "治療",
+                    "b": true
+                  },
+                  "替代療法：補充甲狀腺素　Liothyronine（T₃）、Levothyroxine（T₄）",
+                  "抑制 TPO 酵素，阻止甲狀腺素合成　{{Propylthiouracil|藥名}}（PTU）、{{Methimazole|藥名}}（MMI）",
+                  "補充甲狀腺素：需考量病人年紀和心臟疾病之有無　IV loading dose {{Levothyroxine|藥名}}★（T₄）、IV Liothyronine（T₃ 的活性強、副作用較大）"
+                ]
+              ]
+            },
+            "points": [
+              "【藥理補充】引起 Radioactive iodine uptake（RAUI）變化之疾病：{{Grave's Disease|疾病}} 會使 RAUI {{上升|性質|下降}}；發炎性甲狀腺疾病會使 RAUI 下降",
+              "※ 甲狀腺風暴（Thyroid Storm）",
+              "1. 威脅生命的代償性甲狀腺毒症，與甲狀腺功能亢進不同。可能由攝入過多含碘物質或甲狀腺炎症引起",
+              "2. 急救用藥為 {{Propylthiouracil|藥名}}，靜脈投予 {{Propranolol|藥名}} 也能有效治療甲狀腺風暴（有嚴重心衰竭或氣喘的病人可改用 Diltiazem）",
+              "3. 服用 {{Iodides|藥物類別}} 藥物 2~7 天可改善甲狀腺風暴，也可給予 Corticosteroids 抑制 TSH 分泌"
+            ]
+          },
+          {
+            "title": "替代療法：Liotrix",
+            "group": "治療甲狀腺功能低下：替代療法",
+            "source": "統整（三）p.109",
+            "points": [
+              "※ 複方劑型 {{Liotrix|藥名}}：由 T₄ 與 T₃ 之鈉鹽以 {{4:1|數值}} 之比例混合而成"
+            ]
+          },
+          {
+            "title": "Thioamide 類：機轉",
+            "group": "Thioamide 衍生物",
+            "source": "統整（三）p.110",
+            "points": [
+              "【機轉】抑制 {{TPO|酵素}}，阻止 Tyrosine 的偶合，抑制甲狀腺素合成",
+              "PTU 另可抑制 T₄ 在周邊去碘化形成 T₃（Methimazole 無此作用）"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "pth",
+        "title": "二、副甲狀腺素與鈣調節相關藥物",
+        "items": [
+          {
+            "title": "副甲狀腺素（PTH）介紹",
+            "source": "統整（三）p.111",
+            "points": [
+              "※ 副甲狀腺素介紹（PTH／Parathyroid hormone）",
+              "1. 由 {{84|數值}} 個胺基酸所組成的直鏈 Peptide，由副甲狀腺分泌",
+              "2. PTH 可在骨骼及腎臟調節鈣與磷的流通，促進鈣質從骨骼釋出，使血鈣濃度{{上升|性質|下降}}、血磷濃度{{下降|性質|上升}}",
+              "(1) 骨骼：PTH 可增加{{噬骨細胞|器官}}（Osteoclast）的活性與數目",
+              "(2) 腎臟：PTH 會增加 Ca 與 Mg 的再吸收、減少磷和碳酸鹽的再吸收；同時也會刺激活性的 1,25-(OH)₂-Vit D 產生",
+              "3. 當體內鈣離子濃度下降時，PTH 的分泌就會增加"
+            ]
+          },
+          {
+            "title": "利尿劑對血鈣濃度之影響",
+            "source": "統整（三）p.111",
+            "table": {
+              "head": [
+                "利尿劑",
+                "作用",
+                "對血鈣濃度的影響"
+              ],
+              "rows": [
+                [
+                  "Loop diuretics",
+                  "促進 Ca²⁺的{{分泌|性質|再吸收}}（排泄）",
+                  "血鈣濃度{{下降|性質|上升}}，用於治療{{高血鈣|疾病}}"
+                ],
+                [
+                  "Thiazide diuretics",
+                  "促進 Ca²⁺的{{再吸收|性質|分泌}}",
+                  "血鈣濃度上升，用於治療{{高尿鈣|疾病}}"
+                ]
+              ]
+            },
+            "points": [
+              "※ 利尿劑對血鈣濃度之影響"
+            ]
+          },
+          {
+            "title": "Vit D、副甲狀腺素與 EGF23 對鈣與磷濃度之影響比較",
+            "source": "統整（三）p.111",
+            "table": {
+              "head": [
+                "比較",
+                "PTH",
+                "Vitamin D",
+                "EGF 23"
+              ],
+              "rows": [
+                [
+                  {
+                    "t": "小腸",
+                    "b": true
+                  },
+                  "增加鈣、磷再吸收；增加 Calcitriol",
+                  "增加鈣、磷再吸收；增加 Calcitriol",
+                  "減少鈣、磷再吸收；減少 Calcitriol"
+                ],
+                [
+                  {
+                    "t": "腎臟",
+                    "b": true
+                  },
+                  "增加鈣、鎂再吸收；減少磷再吸收",
+                  "增加鈣、磷再吸收",
+                  "減少磷再吸收"
+                ],
+                [
+                  {
+                    "t": "骨骼",
+                    "b": true
+                  },
+                  "促進 Ca²⁺從骨質釋出",
+                  "鈣、磷再吸收",
+                  "減少礦化"
+                ],
+                [
+                  {
+                    "t": "血中濃度",
+                    "b": true
+                  },
+                  "Ca↑、P↓",
+                  "Ca↑、P↑",
+                  "P↓"
+                ]
+              ]
+            },
+            "points": [
+              "EGF（Epidermal growth factor，表皮生長因子）"
+            ]
+          },
+          {
+            "title": "Bisphosphonates 雙磷酸類：機轉",
+            "group": "Bisphosphonates 雙磷酸類",
+            "source": "統整（三）p.112",
+            "points": [
+              "抑制蝕骨細胞 {{H⁺|離子}} 幫浦和 {{farnesyl pyrophosphate synthase|酵素}}，降低蝕骨細胞的合成與活化"
+            ]
+          },
+          {
+            "title": "Paget's disease",
+            "source": "統整（三）p.112",
+            "points": [
+              "※ {{Paget's disease|疾病}}：病理器官為{{骨骼|器官}}，病因為骨骼的鈣質再吸收異常增加，可使用 {{Calcitonin|藥名}}、Plicamycin 治療（降血鈣濃度）"
             ]
           }
         ]
