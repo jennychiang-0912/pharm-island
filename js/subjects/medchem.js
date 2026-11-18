@@ -311,6 +311,8 @@ PI.GROUP_GATE = true;
 PI.CLUSTERS = { cns: "中樞神經系統、\n止痛劑與自泌素", cv: "心血管群島" };
 /* 環狀群島：名稱放正中央，島依章節順序（順時針、從正上方開始）圍成一圈 */
 PI.CLUSTER_RING = { cns: true };
+PI.MAP.clusterGap = 22;   // 兩片群島之間隔幾格海（拉遠一點）
+PI.MAP.ringGap = 0.5;     // 環狀群島裡，島與島之間隔幾格海（小一點比較緊密）
 
 PI.LANDMASSES = [
   // 一章一座小島，排成兩片群島（cluster）：中樞神經群島（紫色系，第 1 章在中間、2～6 章順時針圍一圈）、心血管群島（粉紅色系，在右邊）

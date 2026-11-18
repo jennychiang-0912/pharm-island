@@ -233,13 +233,24 @@ PI.map = (function () {
             if (Math.hypot(P[i].x + x - P[j].x - u, P[i].y + y - P[j].y - v) < need) return false; }
         return true;
       };
-      for (let pass = 0; pass < 4; pass++) for (let i = 0; i < n; i++) {
-        let a = 0.76, b = 1;
-        for (let k = 0; k < 14; k++) { const m = (a + b) / 2;
-          P[i] = { x: C.x + (base[i].x - C.x) * m, y: C.y + (base[i].y - C.y) * m };
-          if (okOne(i)) b = m; else a = m; }
-        P[i] = { x: C.x + (base[i].x - C.x) * b, y: C.y + (base[i].y - C.y) * b };
-        base[i] = { ...P[i] };
+      // 重力：每座島一小步一小步往中心靠，直到碰到別的島或標題為止（像真實群島：靠得很近、但各有各的形狀）
+      const bs = grp.map(l => l.radius), tight = (PI.MAP.ringGap ?? 0.5) * SQ3 * R + SQ3 * R;
+      const okG = i => {
+        for (const [x, y] of rels[i]) { const ax = P[i].x + x, ay = P[i].y + y;
+          if (Math.abs(ax - C.x) < tb.hw + R * 3 && Math.abs(ay - C.y) < tb.hh + R * 3) return false; }
+        for (let j = 0; j < n; j++) { if (j === i || Math.hypot(P[i].x - P[j].x, P[i].y - P[j].y) > bs[i] + bs[j] + tight) continue;
+          for (const [x, y] of rels[i]) for (const [u, v] of rels[j])
+            if (Math.hypot(P[i].x + x - P[j].x - u, P[i].y + y - P[j].y - v) < tight) return false; }
+        return true;
+      };
+      for (let it = 0; it < 400; it++) {
+        let moved = false;
+        for (let i = 0; i < n; i++) {
+          const dx = C.x - P[i].x, dy = C.y - P[i].y, d = Math.hypot(dx, dy) || 1, st = Math.min(R * 0.5, d * 0.05);
+          const old = P[i]; P[i] = { x: old.x + dx / d * st, y: old.y + dy / d * st };
+          if (okG(i)) moved = true; else P[i] = old;
+        }
+        if (!moved) break;
       }
       grp.forEach((l, i) => {
         l.center = P[i];
