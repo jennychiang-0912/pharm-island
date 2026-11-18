@@ -207,12 +207,13 @@ PI.map = (function () {
       const Rr = sp.reduce((a, b) => a + b, 0) / (2 * Math.PI), XS = 1.25;   // 橫向拉寬一點，貼近螢幕比例
       let th = -Math.PI / 2; const angs = grp.map((l, i) => { const a = th; th += sp[i] / Rr; return a; });
       const tb = clusterTitleBox((PI.CLUSTERS || {})[cl] || "");
-      const posAt = (s, i) => ({ x: C.x + s * Rr * XS * Math.cos(angs[i]), y: C.y + s * Rr * Math.sin(angs[i]) });
+      const wob = grp.map(l => ({ da: (noise(l.regions[0].chapter, 5, 11) - 0.5) * 0.3, rj: 0.9 + noise(l.regions[0].chapter, 7, 13) * 0.2 }));   // 位置稍微錯開，看起來自然
+      const posAt = (s, i) => ({ x: C.x + s * wob[i].rj * Rr * XS * Math.cos(angs[i] + wob[i].da), y: C.y + s * wob[i].rj * Rr * Math.sin(angs[i] + wob[i].da) });
       const ok = s => {
         const P = grp.map((l, i) => posAt(s, i));
         for (let i = 0; i < n; i++) for (const [x, y] of rels[i]) {
           const ax = P[i].x + x, ay = P[i].y + y;
-          if (Math.abs(ax - C.x) < tb.hw + R * 2.5 && Math.abs(ay - C.y) < tb.hh + R * 2.5) return false;   // 不壓到中間的標題
+          if (Math.abs(ax - C.x) < tb.hw + R * 3 && Math.abs(ay - C.y) < tb.hh + R * 3) return false;   // 不壓到中間的標題
         }
         for (let i = 0; i < n; i++) for (let j = i + 1; j < n; j++)
           for (const [x, y] of rels[i]) for (const [u, v] of rels[j])
@@ -226,14 +227,14 @@ PI.map = (function () {
       const P = grp.map((l, i) => posAt(hi * 1.02, i)), base = P.map(p => ({ ...p }));
       const okOne = i => {
         for (const [x, y] of rels[i]) { const ax = P[i].x + x, ay = P[i].y + y;
-          if (Math.abs(ax - C.x) < tb.hw + R * 2.5 && Math.abs(ay - C.y) < tb.hh + R * 2.5) return false; }
+          if (Math.abs(ax - C.x) < tb.hw + R * 3 && Math.abs(ay - C.y) < tb.hh + R * 3) return false; }
         for (let j = 0; j < n; j++) { if (j === i) continue;
           for (const [x, y] of rels[i]) for (const [u, v] of rels[j])
             if (Math.hypot(P[i].x + x - P[j].x - u, P[i].y + y - P[j].y - v) < need) return false; }
         return true;
       };
-      for (let pass = 0; pass < 2; pass++) for (let i = 0; i < n; i++) {
-        let a = 0.82, b = 1;
+      for (let pass = 0; pass < 4; pass++) for (let i = 0; i < n; i++) {
+        let a = 0.76, b = 1;
         for (let k = 0; k < 14; k++) { const m = (a + b) / 2;
           P[i] = { x: C.x + (base[i].x - C.x) * m, y: C.y + (base[i].y - C.y) * m };
           if (okOne(i)) b = m; else a = m; }
