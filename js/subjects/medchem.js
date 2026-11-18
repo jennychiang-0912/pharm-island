@@ -335,7 +335,18 @@ PI.GROUP_LABELS = {
   "鹵素化合物（Halogen compounds）": "Halogen",
   "氧化性化合物（Oxidative compounds）": "Oxidative",
   "界面活性劑": "Surfactants",
-  "製劑用防腐劑": "Preservatives"
+  "製劑用防腐劑": "Preservatives",
+  "M₂ 抑制劑（M₂ inhibitors）：阻斷病毒脫殼釋放 RNA": "M2 Inhibitors",
+  "神經胺酶抑制劑（Neuraminidase inhibitors）": "Neuraminidase Inhib.",
+  "融合抑制劑（Fusion Inhibitors）：治療 HIV 病毒": "Fusion Inhibitors",
+  "非環狀核苷類似物（Acyclic Nucleoside Analogs）": "Acyclic Nucleosides",
+  "傳統核苷類似物（Conventional Nucleoside Analogs）": "Conventional Nucleosides",
+  "非核苷類似物（Non-Nucleoside Analogs）：抗病毒": "Non-Nucleoside (Antiviral)",
+  "影響核酸轉譯藥物（Agents affect the Ribosome）": "Ribosome Agents",
+  "核苷類反轉錄酶抑制劑（NRTIs）": "NRTIs",
+  "非核苷類反轉錄酶抑制劑（NNRTIs）": "NNRTIs",
+  "HIV 嵌合酶抑制劑（HIV Integrase Inhibitors）": "Integrase Inhibitors",
+  "HIV 蛋白酶抑制劑（HIV Protease Inhibitors）": "Protease Inhibitors"
 };
 
 /* 藥化的欄位：照講義表格的欄位（藥物｜結構｜特性｜藥理及臨床應用） */
@@ -373,6 +384,7 @@ PI.CHAPTERS = [
   { id: 23, name: "抗生素：蛋白質合成抑制劑", no: 4, cat: "chemo", estimate: 29, unitType: "drug", note: "統整（二）肆，p.29–40。" },
   { id: 24, name: "抗黴菌藥物", no: 5, cat: "chemo", estimate: 31, unitType: "drug", note: "統整（二）伍，p.41–46。" },
   { id: 25, name: "抗結核、抗麻風、抗瘧疾與驅蟲藥物", short: "結核、瘧疾與驅蟲", no: 6, cat: "chemo", estimate: 46, unitType: "drug", note: "統整（二）陸，p.47–54。" },
+  { id: 27, name: "抗病毒藥物", no: 8, cat: "chemo", estimate: 51, unitType: "drug", note: "統整（二）捌，p.80–93。" },
   { id: 28, name: "外用抗感染劑與防腐劑", no: 9, cat: "chemo", estimate: 18, unitType: "drug", note: "統整（二）玖，p.94–96。" },
   { id: 16, name: "利尿劑", no: 1, cat: "cv", estimate: 20, unitType: "drug", note: "統整（三）柒，p.39–46。" },
   { id: 17, name: "心絞痛藥物", no: 2, cat: "cv", estimate: 8, unitType: "drug", note: "統整（三）捌，p.47–48。" },
@@ -436,6 +448,8 @@ PI.LANDMASSES = [
     palette: { ground: "#B5D4B0", light: "#CDE3C9", cliff: "#8BAE86" } },
   { id: "chemo25", name: "抗瘧島",     chapters: [25], cluster: "chemo", angle: 250,
     palette: { ground: "#A8D2BB", light: "#C2E1D0", cliff: "#7EAC96" } },
+  { id: "chemo27", name: "抗病毒島",   chapters: [27], cluster: "chemo", angle: 345,
+    palette: { ground: "#A2CDC9", light: "#BDDDD9", cliff: "#78A6A2" } },
   { id: "chemo28", name: "外用島",     chapters: [28], cluster: "chemo", angle: 300,
     palette: { ground: "#B0D3C0", light: "#C9E2D6", cliff: "#85AC98" } },
   { id: "cv16",  name: "利尿島",     chapters: [16], cluster: "cv", angle: 75,
@@ -3700,6 +3714,272 @@ PI.UNITS = [
 { id: "tp-propylparaben", chapter: 28, name: "Propylparaben", type: "drug", group: "製劑用防腐劑", source: "統整（二）p.95", img: "assets/medchem/tp-propylparaben.png",
   desc: ["結構屬於 Esters of [i]para[/i]-hydroxylbenzoic acid★，差別在於{{酯類的碳數|結構}}"] },
 
+/* ===== 第 27 章（統整（二）捌 抗病毒藥物 p.80–93）===== */
+/* p.80 的抗病毒藥物總覽、抗反轉錄病毒藥物兩張表，p.88 的 B 型肝炎與 C 型肝炎藥物治療表，都是沒有分類的總說明，放告示牌（表格每個大類別的藥名分別放在藥物格子裡）；
+   一、流感病毒：灰底 M₂ 抑制劑、神經胺酶抑制劑；二、融合抑制劑沒有灰底，章節標題就是分類；三、核酸複製：灰底非環狀核苷類似物、傳統核苷類似物、非核苷類似物（加「抗病毒」避免和之後的章重名）、影響核酸轉譯藥物；
+   四、HIV：灰底 NRTIs、NNRTIs、HIV 嵌合酶抑制劑、HIV 蛋白酶抑制劑。p.85 的三個 B／C 肝病毒藥物（Adefovir、Entecavir、Famciclovir）屬於 p.84 的非環狀核苷類似物灰底。
+   各灰底標題後面的說明（阻斷病毒脫殼…、字尾 -navir）放該分類的知識卡；Adamantane 與 Sialic acid 骨架結構圖放知識卡；Fomivirsen 沒有結構圖，結構（寡核苷酸序列）放「說明」；
+   Atazanavir／Tipranavir／Darunavir 的文字在結構下方，放「說明」；Acyclovir／Cidofovir／Adefovir 特性欄附的小結構（Deoxyguanosine、Cytosine、Adenine）當附圖。 */
+
+{ id: "av-amantadine", chapter: 27, name: "Amantadine", type: "drug", group: "M₂ 抑制劑（M₂ inhibitors）：阻斷病毒脫殼釋放 RNA", source: "統整（二）p.81", img: "assets/medchem/av-amantadine.png",
+  feat: ["接上 NH₂（{{一級胺|結構}}★）",
+    "結構具有{{對稱性|性質}}★"],
+  pharm: ["抑制 RNA 病毒穿透細胞",
+    "有效{{預防和治療 A 型流感|用途}}",
+    "對 B 型流感、腺病毒、呼吸道融合細胞病毒 RSV {{無效|性質|有效}}",
+    "也可用於治療{{帕金森氏症|疾病}}",
+    "口服吸收好，{{酸化尿液|性質}}★可加速鹼性藥物的排泄",
+    "副作用：可穿過 BBB，可能造成嚴重 CNS 症狀（{{幻覺|副作用}}）"] },
+{ id: "av-rimantadine", chapter: 27, name: "Rimantadine", type: "drug", group: "M₂ 抑制劑（M₂ inhibitors）：阻斷病毒脫殼釋放 RNA", source: "統整（二）p.81", img: "assets/medchem/av-rimantadine.png",
+  feat: ["接上 CH₂(NH₂)CH₃"],
+  pharm: ["抑制反轉錄酶或病毒合成特定 RNA，不會抑制病毒的附著或穿透",
+    "治療大部分 A 型流感病毒，對 B 型流感無效",
+    "副作用：{{不易|性質|容易}}通過 BBB，CNS 副作用較 Amantadine {{少|性質|多}}"] },
+{ id: "av-zanamivir", chapter: 27, name: "Zanamivir（Relenza®）", short: "Zanamivir", type: "drug", group: "神經胺酶抑制劑（Neuraminidase inhibitors）", source: "統整（二）p.82", img: "assets/medchem/av-zanamivir.png",
+  feat: ["具有 {{Pyran|結構}}★結構",
+    "C₄ 具有 {{guanidine|結構}}★基團：取代 DNA 的 OH 基，提高與 NA 的專一性結合",
+    "C₆ 有 glycerol 側鏈"],
+  pharm: ["利用{{吸入|給藥途徑}}★方式給藥"] },
+{ id: "av-oseltamivir", chapter: 27, name: "Oseltamivir（Tamiflu®）", short: "Oseltamivir", type: "drug", group: "神經胺酶抑制劑（Neuraminidase inhibitors）", source: "統整（二）p.82", img: "assets/medchem/av-oseltamivir.png",
+  feat: ["具有 {{Cyclohexane|結構}}★環狀結構",
+    "C₄ 有 NH₂：取代 DNA 的 OH 基，提高與 NA 的專一性結合",
+    "C₆ 有 3-Pentyloxy 側鏈：與 NA 有最大結合"],
+  pharm: ["第一個用於{{口服|給藥途徑}}的 NA 抑制劑★",
+    "{{Prodrug|名詞}}★，水解酯基變成酸基",
+    "代謝：將末端 C 氧化成{{羧基|結構}}"] },
+{ id: "av-peramivir", chapter: 27, name: "Peramivir（Rapiacta®）", short: "Peramivir", type: "drug", group: "神經胺酶抑制劑（Neuraminidase inhibitors）", source: "統整（二）p.82", img: "assets/medchem/av-peramivir.png",
+  feat: ["具有 {{Cyclopentane|結構}}★五元環結構",
+    "C₄ 有 guanidine：取代 DAN 的 OH 基，提高與 NA 的專一性結合",
+    "C₆ 不含 glycerol 側鏈：口服生體可用率較低"],
+  pharm: ["{{IV|給藥途徑}} 注射",
+    "當其他抗病毒藥都無法治療，才用來治療嚴重 H1N1 感染"] },
+{ id: "av-enfuvirtide", chapter: 27, name: "Enfuvirtide", type: "drug", group: "融合抑制劑（Fusion Inhibitors）：治療 HIV 病毒", source: "統整（二）p.83", img: "assets/medchem/av-enfuvirtide.png",
+  feat: ["{{36|數值}} 個胺基酸組成之寡肽鏈",
+    "與血漿蛋白結合力高"],
+  pharm: ["治療 HIV-1 病毒，對 HIV-2 無效",
+    "模仿 {{gp41|標的}} 的 HR-2 片段，阻礙螺旋束形成，抑制 HIV-1 病毒融合進入 {{CD4⁺ T 細胞|器官}}"] },
+{ id: "av-maraviroc", chapter: 27, name: "Maraviroc", type: "drug", group: "融合抑制劑（Fusion Inhibitors）：治療 HIV 病毒", source: "統整（二）p.83", img: "assets/medchem/av-maraviroc.png",
+  feat: ["含有 {{amide|結構}} 及 {{triazole|結構}} 結構"],
+  pharm: ["治療 HIV-1 病毒，對 HIV-2 無效",
+    "機轉：{{CCR5|受體}} 拮抗劑（CCR5 為 HIV 病毒進入 CD4 細胞的輔助受器）",
+    "需併用其他抗反轉錄病毒藥物",
+    "屬於 {{P-gp|標的}} 受質，生體可用率低"] },
+{ id: "av-acyclovir", chapter: 27, name: "Acyclovir", type: "drug", group: "非環狀核苷類似物（Acyclic Nucleoside Analogs）", source: "統整（二）p.84", img: "assets/medchem/av-acyclovir.png", imgMore: ["assets/medchem/av-deoxyguanosine.png"],
+  feat: ["{{Deoxyguanosine|藥名}} 之合成類似物"],
+  pharm: ["經 {{Viral thymidine kinase|酵素}} 活化成 Acyclo-GTP",
+    "治療 HSV-1、HSV-2、VZV、EBV※",
+    "對 CMV（巨細胞病毒）較無敏感性",
+    "代謝物為{{無活性|性質|有活性}}★ 9-carboxymethoxymethylguanine"] },
+{ id: "av-valacyclovir", chapter: 27, name: "Valacyclovir", type: "drug", group: "非環狀核苷類似物（Acyclic Nucleoside Analogs）", source: "統整（二）p.84", img: "assets/medchem/av-valacyclovir.png",
+  feat: ["{{Acyclovir|藥名}} 之{{前驅藥|名詞}}★：",
+    "5-OH 被 {{Valine|結構}} 取代"],
+  pharm: ["{{Prodrug|名詞}}，需水解酯鍵形成 {{Acyclovir|藥名}}★",
+    "對 Thymidine kinase 有較高親和力，口服吸收較佳，也可治療 {{CMV|名詞}}"] },
+{ id: "av-ganciclovir", chapter: 27, name: "Ganciclovir", type: "drug", group: "非環狀核苷類似物（Acyclic Nucleoside Analogs）", source: "統整（二）p.84", img: "assets/medchem/av-ganciclovir.png",
+  feat: ["Acyclovir 之類似物：",
+    "多了一個 {{CH₂OH|取代基}} 基"],
+  pharm: ["需磷酸化成 Ganciclovir triphosphate 才有活性",
+    "治療愛滋病人 {{CMV|名詞}} 視網膜炎",
+    "治療 CMV 時不需要磷酸化",
+    "對人體的毒性較 Acyclovir {{大|性質|小}}"] },
+{ id: "av-cidofovir", chapter: 27, name: "Cidofovir", type: "drug", group: "非環狀核苷類似物（Acyclic Nucleoside Analogs）", source: "統整（二）p.84", img: "assets/medchem/av-cidofovir.png", imgMore: ["assets/medchem/av-cytosine.png"],
+  feat: ["{{Cytosine|結構}} 類似物",
+    "含有{{磷酸根|結構}}"],
+  pharm: ["抑制 DNA polymerase 干擾 DNA 合成與病毒複製",
+    "治療愛滋病人 CMV 視網膜炎",
+    "具有{{腎毒性|副作用}}"] },
+{ id: "av-adefovir", chapter: 27, name: "Adefovir dipivoxil", short: "Adefovir", type: "drug", group: "非環狀核苷類似物（Acyclic Nucleoside Analogs）", source: "統整（二）p.85", img: "assets/medchem/av-adefovir.png", imgMore: ["assets/medchem/av-adenine.png"],
+  feat: ["含有 {{Adenine|結構}} 結構"],
+  pharm: ["{{Prodrug|名詞}}，需水解成 Adefovir",
+    "經 {{Adenylate kinase|酵素}} 磷酸化為 Adefovir phosphate，嵌入病毒 DNA 中止複製",
+    "治療 {{B 型肝炎|疾病}}"] },
+{ id: "av-entecavir", chapter: 27, name: "Entecavir", type: "drug", group: "非環狀核苷類似物（Acyclic Nucleoside Analogs）", source: "統整（二）p.85", img: "assets/medchem/av-entecavir.png",
+  feat: ["{{Deoxyguanosine|藥名}} 之合成類似物"],
+  pharm: ["經磷酸化形成 Entecavir triphosphate",
+    "具有抑制 DNA 合成及{{反轉錄酶|酵素}}的活性",
+    "治療 B 型肝炎"] },
+{ id: "av-famciclovir", chapter: 27, name: "Famciclovir", type: "drug", group: "非環狀核苷類似物（Acyclic Nucleoside Analogs）", source: "統整（二）p.85", img: "assets/medchem/av-famciclovir.png",
+  feat: ["{{Guanine|結構}} 類似物：少了 {{C=O|結構}} 官能基",
+    "具有{{兩個乙醯基|結構}}之前驅藥★"],
+  pharm: ["{{Prodrug|名詞}}，切除 2 個 Acetyl 形成 {{Penciclovir|藥名}}★",
+    "經 Thymidine kinase 形成 Penciclovir triphosphate",
+    "治療肝臟移植患者或再度感染之慢性 B 型肝炎"] },
+{ id: "av-idoxuridine", chapter: 27, name: "Idoxuridine", type: "drug", group: "傳統核苷類似物（Conventional Nucleoside Analogs）", source: "統整（二）p.86", img: "assets/medchem/av-idoxuridine.png",
+  feat: ["含 {{I|取代基}} 的 {{Thymidine|結構}} 類似物",
+    "C₂ 沒有 OH 取代"],
+  pharm: ["經 Viral thymidine kinase 磷酸化，抑制 {{DNA polymerase|酵素}}★",
+    "治療 HSV {{角膜結膜炎|疾病}}",
+    "於 Dimethyl Sulfoxide 中可治療 HSV 造成的口鼻黏膜感染"] },
+{ id: "av-cytarabine", chapter: 27, name: "Cytarabine（Ara-C）", short: "Cytarabine", type: "drug", group: "傳統核苷類似物（Conventional Nucleoside Analogs）", source: "統整（二）p.86", img: "assets/medchem/av-cytarabine.png",
+  feat: ["Idoxuridine 類似物",
+    "→ 相差在 C₂ 有 OH 取代",
+    "醣基：{{Arabinose|結構}}★"],
+  pharm: ["磷酸化形成 {{Ara-CTP|代謝物}}，與 dCTP 競爭 DNA polymerase",
+    "代謝：脫胺產生 {{Arabinosyluracil|代謝物}}（Ara-U），由尿液排出"] },
+{ id: "av-trifluridine", chapter: 27, name: "Trifluridine（Trifluorothymidine）", short: "Trifluridine", type: "drug", group: "傳統核苷類似物（Conventional Nucleoside Analogs）", source: "統整（二）p.86", img: "assets/medchem/av-trifluridine.png",
+  feat: ["Idoxuridine 類似物",
+    "Pyrimidine 上有 {{CF₃|取代基}} 取代",
+    "C₂ 沒有 OH 取代"],
+  pharm: ["經 Thymidine kinase 三磷酸化，可取代 thymidine，使下游的 mRNA 無法合成（唯一{{抑制下游 mRNA 生成|機轉}}之藥物）",
+    "治療 HSV-1&2 感染"] },
+{ id: "av-vidarabine", chapter: 27, name: "Vidarabine（Ara-A）", short: "Vidarabine", type: "drug", group: "傳統核苷類似物（Conventional Nucleoside Analogs）", source: "統整（二）p.86", img: "assets/medchem/av-vidarabine.png",
+  feat: ["含有 {{Adenosine|結構}}★結構",
+    "C₂ 有 OH 取代",
+    "醣基：Arabinose"],
+  pharm: ["經三磷酸化後，才可抑制 DNA 合成★",
+    "治療 HSV-1&2、新生兒口唇疱疹，也曾用做{{抗腫瘤藥物|用途}}★",
+    "代謝：{{Adenosine deaminase|酵素}}★代謝為 Ara-HX（脫胺接酮）",
+    "{{Allopurinol|藥名}} 會干擾藥物之代謝"] },
+{ id: "av-ribavirin", chapter: 27, name: "Ribavirin", type: "drug", group: "非核苷類似物（Non-Nucleoside Analogs）：抗病毒", source: "統整（二）p.86", img: "assets/medchem/av-ribavirin.png",
+  feat: ["含有 1,2,4-{{Triazole|結構}}★雜環（非 Nucleoside 類似物）",
+    "唯一 C₂-OH 方向朝{{下|性質|上}}"],
+  pharm: ["經 {{Adenosine kinase|酵素}} 形成三磷酸產物，可抑制 DNA、RNA 病毒（抗病毒譜較廣）",
+    "治療 A 型或 B 型流感，可併用 {{Interferon α-2b|藥名}} 治療 {{HCV|名詞}}",
+    "口服或 IV 可至勞 Lassa fever；也可用於 SARS 治療"] },
+{ id: "av-boceprevir", chapter: 27, name: "Boceprevir", type: "drug", group: "非核苷類似物（Non-Nucleoside Analogs）：抗病毒", source: "統整（二）p.87", img: "assets/medchem/av-boceprevir.png",
+  feat: ["含有 {{Urea|結構}} 結構"],
+  pharm: ["機轉：強效 HCV {{NS3/4A protease|酵素}} 抑制劑★，抑制病毒複製",
+    "治療 {{C 型肝炎|疾病}}，可搭配 Pegylated interferon 或 Ribavirin"] },
+{ id: "av-telaprevir", chapter: 27, name: "Telaprevir", type: "drug", group: "非核苷類似物（Non-Nucleoside Analogs）：抗病毒", source: "統整（二）p.87", img: "assets/medchem/av-telaprevir.png",
+  feat: ["含有 {{Pyrazine|結構}} 結構"],
+  pharm: ["機轉：強效 HCV {{NS3/4A protease|酵素}} 抑制劑★，抑制病毒複製",
+    "治療 C 型肝炎，可搭配 Pegylated interferon 或 Ribavirin"] },
+{ id: "av-fomivirsen", chapter: 27, name: "Fomivirsen", type: "drug", group: "非核苷類似物（Non-Nucleoside Analogs）：抗病毒", source: "統整（二）p.87",
+  desc: ["結構：5'-GCG TTT GCT CTT CTT CTT GCG-3'"],
+  feat: ["{{21|數值}} 個★寡核苷酸組成之片段",
+    "屬於 {{Phosphorothioate|結構}}★結構"],
+  pharm: ["第一個{{反義寡核苷酸|藥物類別}}（Antisense）★藥物",
+    "機轉：抑制病毒基因表現之蛋白質生成",
+    "治療 CMV 視網膜炎，也可用於癌症與 Crohn disease"] },
+{ id: "av-foscarnet", chapter: 27, name: "Foscarnet", type: "drug", group: "非核苷類似物（Non-Nucleoside Analogs）：抗病毒", source: "統整（二）p.87", img: "assets/medchem/av-foscarnet.png",
+  feat: ["屬於 {{Pyrophosphate|結構}} 類似物",
+    "{{磷酸三鈉六水|物質}}★化合物",
+    "本身有磷酸根，{{不需被病毒酵素活化|性質}}★"],
+  pharm: ["機轉：抑制疱疹病毒 Herpes virus 之 DNA 合成酶",
+    "治療愛滋病人 CMV 視網膜炎",
+    "併用 Zidovudine（ZDV）可抗 CMV、HIV"] },
+{ id: "av-methisazone", chapter: 27, name: "Methisazone", type: "drug", group: "影響核酸轉譯藥物（Agents affect the Ribosome）", source: "統整（二）p.87", img: "assets/medchem/av-methisazone.png",
+  feat: ["含有 {{Thiourea|結構}} 結構"],
+  pharm: ["機轉：干擾 mRNA 轉譯",
+    "治療{{痘病毒|名詞}}（Poxvirus）及有效預防{{天花|疾病}}（Smallpox）"] },
+{ id: "av-zidovudine", chapter: 27, name: "Zidovudine（AZT／ZDV）", short: "Zidovudine", type: "drug", group: "核苷類反轉錄酶抑制劑（NRTIs）", source: "統整（二）p.89", img: "assets/medchem/av-zidovudine.png",
+  feat: ["{{Thymidine|結構}}★類似物",
+    "C₃ 接有 {{Azido group|取代基}}★（N₃）",
+    "3'-Azido-3'-deoxythymidine★"],
+  pharm: ["經 Thymidine kinase {{磷酸化|代謝}}★，形成 5'-monophosphate",
+    "可提高 CD4⁺數量，控制 AIDS 相關症狀（ARC）",
+    "治療 RNA 反轉錄病毒、HIV-1&2、EBV",
+    "副作用：{{骨髓毒性|副作用}}、嗜中性白血球減少"] },
+{ id: "av-stavudine", chapter: 27, name: "Stavudine（D4T）", short: "Stavudine", type: "drug", group: "核苷類反轉錄酶抑制劑（NRTIs）", source: "統整（二）p.89", img: "assets/medchem/av-stavudine.png",
+  feat: ["Thymidine 類似物",
+    "核醣 2、3 號位間有{{雙鍵|結構}}"],
+  pharm: ["需磷酸化成 D4T phosphate 才有活性",
+    "可降低 p24 抗原並增加 CD4⁺數量",
+    "副作用：{{周邊神經毒性|副作用}}（骨髓毒性較低）",
+    "代謝：{{Xanthine oxidase|酵素}} 氧化形成{{尿酸|代謝物}}，可併用 Allopurinol"] },
+{ id: "av-zalcitabine", chapter: 27, name: "Zalcitabine（ddC）", short: "Zalcitabine", type: "drug", group: "核苷類反轉錄酶抑制劑（NRTIs）", source: "統整（二）p.89", img: "assets/medchem/av-zalcitabine.png",
+  feat: ["{{Cytidine|結構}} 類似物",
+    "核醣上無 OH 取代（2-deoxycytidine）"],
+  pharm: ["Zidovudine 之替代用藥，可穿過 BBB",
+    "可降低 p24 抗原並增加 CD4⁺數量",
+    "主要代謝物：Dideoxyuridine"] },
+{ id: "av-lamivudine", chapter: 27, name: "Lamivudine（3TC）", short: "Lamivudine", type: "drug", group: "核苷類反轉錄酶抑制劑（NRTIs）", source: "統整（二）p.89", img: "assets/medchem/av-lamivudine.png",
+  feat: ["{{Cytidine|結構}}★類似物",
+    "由 Zalcitabine 衍生而來",
+    "核醣上 C₃ 取代為 {{S|取代基}}★（{{Oxathiol|結構}} 環★）"],
+  pharm: ["需磷酸化成 5'-3TC phosphate 才有活性",
+    "常併用 ZDV 或 D4T 治療",
+    "口服低劑量也可治療慢性 {{B 型肝炎|疾病}}"] },
+{ id: "av-emtricitabine", chapter: 27, name: "Emtricitabine", type: "drug", group: "核苷類反轉錄酶抑制劑（NRTIs）", source: "統整（二）p.90", img: "assets/medchem/av-emtricitabine.png",
+  feat: ["Cytidine 類似物",
+    "由 {{Lamivudine|藥名}} 衍生而來",
+    "Cytosine 上有 {{F|取代基}} 取代"],
+  pharm: ["口服有效，且(-)-enantiomer 活性較佳",
+    "{{不會|性質|會}}與血漿蛋白結合",
+    "併用 Efavirenz、Didanosine 時有低度抗藥性"] },
+{ id: "av-didanosine", chapter: 27, name: "Didanosine（ddI）", short: "Didanosine", type: "drug", group: "核苷類反轉錄酶抑制劑（NRTIs）", source: "統整（二）p.90", img: "assets/medchem/av-didanosine.png",
+  feat: ["{{Inosine|結構}}★類似物"],
+  pharm: ["需磷酸化成 {{ddATP|代謝物}} 才具有活性",
+    "機轉：與 dATP 競爭反轉錄酶，終止鏈延長",
+    "可降低 p24 抗原並增加 CD4⁺數量",
+    "代謝：ddI → ddATP → Hypoxanthine → {{Uric acid|代謝物}}★"] },
+{ id: "av-abacavir", chapter: 27, name: "Abacavir（ABC）", short: "Abacavir", type: "drug", group: "核苷類反轉錄酶抑制劑（NRTIs）", source: "統整（二）p.90", img: "assets/medchem/av-abacavir.png",
+  feat: ["{{Adenosine|結構}} 類似物",
+    "核醣 2、3 號位間有雙鍵",
+    "Adenosine 接有 {{Cyclopropane|結構}}"],
+  pharm: ["吸收佳可進入 BBB，常併用其他藥物治療 HIV",
+    "副作用：致命{{過敏反應|副作用}}、胃腸道問題"] },
+{ id: "av-tenofovir", chapter: 27, name: "Tenofovir disoproxil", short: "Tenofovir", type: "drug", group: "核苷類反轉錄酶抑制劑（NRTIs）", source: "統整（二）p.90", img: "assets/medchem/av-tenofovir.png",
+  feat: ["Adenosine 類似物",
+    "比 {{Adefovir|藥名}} 多一個{{甲基|取代基}}"],
+  pharm: ["經 {{esterase|酵素}} 水解成 Tenofovir diphosphate，可和 dATP 競爭使 DNA 鏈延長終止",
+    "口服有效，併用其他抗 RT 藥物有協同作用"] },
+{ id: "av-nevirapine", chapter: 27, name: "Nevirapine（NVP）", short: "Nevirapine", type: "drug", group: "非核苷類反轉錄酶抑制劑（NNRTIs）", source: "統整（二）p.91", img: "assets/medchem/av-nevirapine.png",
+  feat: ["{{Dipyridodiazepinone|結構}}★衍生物"],
+  pharm: ["機轉：可直接結合 {{HIV-1 RT|標的}}★，抑制 RNA、DNA 聚合酶活性（不需磷酸化，不會造成 {{DNA Chain Termination|機轉}}★）",
+    "不會抑制 HIV-2 的 RT★與人類的 DNA polymerase",
+    "口服快速吸收，可通過 BBB",
+    "副作用：{{肝毒性|副作用}}、皮膚疹"] },
+{ id: "av-efavirenz", chapter: 27, name: "Efavirenz", type: "drug", group: "非核苷類反轉錄酶抑制劑（NNRTIs）", source: "統整（二）p.91", img: "assets/medchem/av-efavirenz.png",
+  feat: ["含有 {{C≡C|結構}}、{{Cyclopropane|結構}}"],
+  pharm: ["替代 Indinavir 與 ZDV、3TC 併用，可通過 BBB",
+    "可減輕雞尾酒療法副作用",
+    "不可和 Midazolam、Triazolam、Ergo 類藥品併用"] },
+{ id: "av-delavirdine", chapter: 27, name: "Delavirdine", type: "drug", group: "非核苷類反轉錄酶抑制劑（NNRTIs）", source: "統整（二）p.91", img: "assets/medchem/av-delavirdine.png",
+  feat: ["Biheteroaryl piperazine 衍生物",
+    "含有 Methyl sulfone、{{Indole|結構}}、Piperazine 結構"],
+  pharm: ["機轉：直接抑制 RT 和 DNA polymerase 的活性",
+    "對 HIV-1 具專一性，可用於早期治療 HIV 感染",
+    "併用 Clarithromycin、Rifabutin、Ergo 會使其血中濃度↑",
+    "代謝：經肝臟代謝成 {{N-desisopropyl|代謝物}} 產物"] },
+{ id: "av-raltegravir", chapter: 27, name: "Raltegravir", type: "drug", group: "HIV 嵌合酶抑制劑（HIV Integrase Inhibitors）", source: "統整（二）p.91", img: "assets/medchem/av-raltegravir.png",
+  feat: ["含有 1,3,4-{{Oxadiazole|結構}}★雜環"],
+  pharm: ["FDA 第一個認可的 HIV Integrase Inhibitor",
+    "機轉：與 {{Mg²⁺|離子}} 結合，抑制 cDNA integration 並阻止 HIV-1 嵌入染色體以進入 T 細胞",
+    "HIV-1 第一線用藥，可口服治療對其他藥物產生抗藥性之病人"] },
+{ id: "av-saquinavir", chapter: 27, name: "Saquinavir", type: "drug", group: "HIV 蛋白酶抑制劑（HIV Protease Inhibitors）", source: "統整（二）p.92", img: "assets/medchem/av-saquinavir.png",
+  feat: ["{{Carboxamide|結構}} 衍生物",
+    "常被製成 {{Mesylate|物質}} 鹽類"],
+  pharm: ["FDA 第一個認可的 HIV Protease Inhibitor",
+    "機轉：專一性抑制 HIV protease，阻止轉譯後蛋白合成",
+    "治療末期 HIV，使用三重療法效果較佳（+ZDV & ddC）",
+    "{{高脂肪|性質}}食物可{{促進|性質|降低}}藥物吸收"] },
+{ id: "av-indinavir", chapter: 27, name: "Indinavir", type: "drug", group: "HIV 蛋白酶抑制劑（HIV Protease Inhibitors）", source: "統整（二）p.92", img: "assets/medchem/av-indinavir.png",
+  feat: ["{{Pentanoic acid amide|結構}}★衍生物",
+    "含有 {{Pyridine|結構}}★結構"],
+  pharm: ["與其他反轉錄酶抑制劑併用可增加活性",
+    "交互作用：Rifabutin 使濃度↑、Ketoconazole 使濃度↓"] },
+{ id: "av-ritonavir", chapter: 27, name: "Ritonavir", type: "drug", group: "HIV 蛋白酶抑制劑（HIV Protease Inhibitors）", source: "統整（二）p.92", img: "assets/medchem/av-ritonavir.png",
+  feat: ["類胜肽結構（{{Peptidomimetic|結構}}）",
+    "含有 {{thiazole|結構}}、isopropylthiazole 結構"],
+  pharm: ["機轉：可抑制 HIV-1&2 的 protease，為 {{CYP450|酵素}} 抑制劑",
+    "治療末期 HIV，可單用或和 3TC、ZDV、ddC 併用 → 增加 CD4⁺數量",
+    "代謝：主要進行 {{Isopropylthiazole oxidation|代謝}}"] },
+{ id: "av-nelfinavir", chapter: 27, name: "Nelfinavir", type: "drug", group: "HIV 蛋白酶抑制劑（HIV Protease Inhibitors）", source: "統整（二）p.92", img: "assets/medchem/av-nelfinavir.png",
+  feat: ["類胜肽結構（Peptidomimetic）",
+    "含有 {{S|取代基}} 原子"],
+  pharm: ["機轉：可抑制 HIV-1&2 的 protease",
+    "治療 HIV-1&2 及 ZDV-resistant 病人"] },
+{ id: "av-amprenavir", chapter: 27, name: "Amprenavir", type: "drug", group: "HIV 蛋白酶抑制劑（HIV Protease Inhibitors）", source: "統整（二）p.93", img: "assets/medchem/av-amprenavir.png",
+  feat: ["含有 {{Sulfonamide|結構}} 結構"],
+  pharm: ["{{高脂肪|性質}}飲食會{{降低|性質|促進}}藥物吸收",
+    "與{{磺胺類|藥物類別}}藥物會產生交互敏感性",
+    "可製成磷酸鹽 Prodrug（{{Fosamprenavir|藥名}}）"] },
+{ id: "av-lopinavir", chapter: 27, name: "Lopinavir", type: "drug", group: "HIV 蛋白酶抑制劑（HIV Protease Inhibitors）", source: "統整（二）p.93", img: "assets/medchem/av-lopinavir.png",
+  feat: ["含有 {{Urea|結構}} 結構",
+    "含有 Thiazole、Isopropylthiazole 結構"],
+  pharm: ["第一個用以治療年輕病患的 Protease Inhibitor",
+    "與 {{Ritonavir|藥名}} 併用"] },
+{ id: "av-atazanavir", chapter: 27, name: "Atazanavir", type: "drug", group: "HIV 蛋白酶抑制劑（HIV Protease Inhibitors）", source: "統整（二）p.93", img: "assets/medchem/av-atazanavir.png",
+  desc: ["具有{{兩個|數值}} methoxy group",
+    "類胜肽結構（Peptidomimetic）"] },
+{ id: "av-tipranavir", chapter: 27, name: "Tipranavir", type: "drug", group: "HIV 蛋白酶抑制劑（HIV Protease Inhibitors）", source: "統整（二）p.93", img: "assets/medchem/av-tipranavir.png",
+  desc: ["將 {{Amprenavir|藥名}} 的 NH₂ 換成 {{CF₃|取代基}}",
+    "具有 Sulfonamide 結構"] },
+{ id: "av-darunavir", chapter: 27, name: "Darunavir", type: "drug", group: "HIV 蛋白酶抑制劑（HIV Protease Inhibitors）", source: "統整（二）p.93", img: "assets/medchem/av-darunavir.png",
+  desc: ["{{第二代|性質}} HIV Protease Inhibitor",
+    "→ 有更佳的結合力"] },
+
 /* ===== 第 16 章 利尿劑（統整（三）柒，p.39–46）===== */
 { id: "diu-location", chapter: 16, name: "利尿劑作用位置總論", short: "作用位置", type: "topic", group: "總論", source: "統整（三）p.39",
   bold: [
@@ -6782,6 +7062,403 @@ PI.KNOWLEDGE = {
         "id": "preserv",
         "title": "二、防腐劑",
         "items": []
+      }
+    ]
+  },
+  ch27: {
+    "chapter": 27,
+    "title": "抗病毒藥物",
+    "sections": [
+      {
+        "id": "overview",
+        "title": "捌、抗病毒藥物：總覽",
+        "items": [
+          {
+            "title": "※ 抗病毒藥物總覽",
+            "source": "統整（二）p.80",
+            "table": {
+              "head": [
+                "抑制步驟",
+                "機轉",
+                "抑制藥物（類別）",
+                "藥物"
+              ],
+              "rowNames": [
+                "附著",
+                "融合",
+                "M₂",
+                "Neuraminidase",
+                "非環狀核苷類似物（A）",
+                "非環狀核苷類似物（C）",
+                "非環狀核苷類似物（G）",
+                "核苷類似物（A）",
+                "核苷類似物（T）",
+                "核苷類似物（Triazole）",
+                "非核苷類似物",
+                "影響轉譯"
+              ],
+              "rows": [
+                [
+                  {
+                    "t": "病毒進入或離開細胞",
+                    "rs": 4
+                  },
+                  "病毒結合 CCR5，附著於細胞上",
+                  "附著抑制劑",
+                  "{{Maraviroc|藥名}}"
+                ],
+                [
+                  null,
+                  "gp41 形成螺旋束，使病毒進入細胞",
+                  "融合抑制劑",
+                  "{{Enfuvirtide|藥名}}"
+                ],
+                [
+                  null,
+                  "H⁺進入 M₂ 通道，使病毒脫膜釋放 RNA",
+                  "M₂ 抑制劑",
+                  "Amantadine、Rimantadine"
+                ],
+                [
+                  null,
+                  "NA 切斷與 Sialic acid 連接，使病毒脫離",
+                  "Neuroaminase 抑制劑",
+                  "Zanamivir、Oseltamivir、Peramivir"
+                ],
+                [
+                  {
+                    "t": "病毒複製",
+                    "rs": 8
+                  },
+                  {
+                    "t": "形成核苷類似物競爭 DNA 聚合酶，使藥物編入病毒 DNA，進而終止鏈的延長",
+                    "rs": 7
+                  },
+                  {
+                    "t": "非環狀核苷類似物",
+                    "rs": 3
+                  },
+                  "A：Adefovir"
+                ],
+                [
+                  null,
+                  null,
+                  null,
+                  "C：Cidofovir"
+                ],
+                [
+                  null,
+                  null,
+                  null,
+                  "G：Acyclovir、Valacyclovir、Ganciclovir、Entecavir、Famciclovir"
+                ],
+                [
+                  null,
+                  null,
+                  {
+                    "t": "核苷類似物",
+                    "rs": 3
+                  },
+                  "A：Vidarabine"
+                ],
+                [
+                  null,
+                  null,
+                  null,
+                  "T：Idoxuridine、Cytarabine、Trifluridine"
+                ],
+                [
+                  null,
+                  null,
+                  null,
+                  "Triazole 結構：Ribavirin"
+                ],
+                [
+                  null,
+                  null,
+                  "非核苷類似物",
+                  "Boceprevir、Relaprevir、Fomivirsen、Foscarnet"
+                ],
+                [
+                  null,
+                  "影響轉譯作用",
+                  "影響轉譯作用",
+                  "Methisazone"
+                ]
+              ]
+            }
+          },
+          {
+            "title": "※ 抗反轉錄病毒藥物（抗 HIV 藥物）",
+            "source": "統整（二）p.80",
+            "table": {
+              "head": [
+                "抑制步驟",
+                "機轉",
+                "抑制藥物（類別）",
+                "藥物"
+              ],
+              "rowNames": [
+                "核苷類似物（A）",
+                "核苷類似物（T）",
+                "核苷類似物（C）",
+                "核苷類似物（I）",
+                "非核苷類似物",
+                "嵌入",
+                "轉譯"
+              ],
+              "rows": [
+                [
+                  {
+                    "t": "病毒複製",
+                    "rs": 5
+                  },
+                  {
+                    "t": "形成核苷類似物競爭，使藥物編入病毒 DNA，進而終止鏈的延長",
+                    "rs": 5
+                  },
+                  {
+                    "t": "核苷類似物",
+                    "rs": 4
+                  },
+                  "A：Abacavir、Tenofovir"
+                ],
+                [
+                  null,
+                  null,
+                  null,
+                  "T：Zidovudine、Stavudine"
+                ],
+                [
+                  null,
+                  null,
+                  null,
+                  "C：Zalcitabine、Lamivudine、Emtricitabine"
+                ],
+                [
+                  null,
+                  null,
+                  null,
+                  "I：Didanosine"
+                ],
+                [
+                  null,
+                  null,
+                  "非核苷類似物",
+                  "Nevirapine、Efavirenz、Delavirdine"
+                ],
+                [
+                  "嵌入",
+                  "病毒嵌入 DNA",
+                  "HIV Integrase Inhibitor",
+                  "{{Raltegravir|藥名}}"
+                ],
+                [
+                  "轉譯",
+                  "蛋白酶使病毒成熟",
+                  "HIV Protease Inhibitor",
+                  "Saquinavir、Indinavir、Nelfinavir、Amprenavir"
+                ]
+              ]
+            }
+          },
+          {
+            "title": "※ B 型肝炎藥物治療",
+            "source": "統整（二）p.88",
+            "table": {
+              "head": [
+                "藥物",
+                "機轉",
+                "副作用"
+              ],
+              "rowNames": [
+                "Interferon alfa-2b、Pegylated IFN",
+                "Lamivudine",
+                "Telbivudine",
+                "Entecavir",
+                "Adefovir",
+                "Tenofovir（TFV）",
+                "Tenofovir alafenamide（TAF）"
+              ],
+              "rows": [
+                [
+                  "Interferon alfa-2b、Pegylated IFN",
+                  "{{免疫調節作用|機轉}}",
+                  "類流感症狀、干擾情緒、白血球低下"
+                ],
+                [
+                  "Lamivudine",
+                  "{{核苷類似物|藥物類別}}",
+                  "{{乳酸中毒|副作用}}、胰臟炎"
+                ],
+                [
+                  "Telbivudine",
+                  "核苷類似物",
+                  "Creatine kinase 上升、周邊神經病變"
+                ],
+                [
+                  "Entecavir",
+                  "核苷類似物",
+                  "乳酸中毒"
+                ],
+                [
+                  "Adefovir",
+                  "核苷酸類似物",
+                  "乳酸中毒、急性腎衰竭、糖尿病"
+                ],
+                [
+                  "Tenofovir（TFV）",
+                  "核苷酸類似物",
+                  "乳酸中毒、骨質變軟、腎病變"
+                ],
+                [
+                  "Tenofovir alafenamide（TAF）",
+                  "進入目標細胞後才轉變成 TFV",
+                  "減少 TFV 之全身性副作用"
+                ]
+              ]
+            }
+          },
+          {
+            "title": "※ C 型肝炎藥物治療",
+            "source": "統整（二）p.88",
+            "points": [
+              "1. 傳統療法：{{Interferon|藥名}} + {{Ribavirin|藥名}}（治療效果不佳且副作用多）",
+              "2. HCV Direct-acting antivirals agents（{{HCV DAAs|名詞}}）：不同結構性蛋白的蛋白酶抑制劑（Protease inhibitors）"
+            ],
+            "table": {
+              "head": [
+                "機轉",
+                "字尾",
+                "藥物"
+              ],
+              "rowNames": [
+                "NS3/4A Protease inhibitors",
+                "NS5A replication complex inhibitors",
+                "NS5B inhibitors"
+              ],
+              "rows": [
+                [
+                  "NS3/4A Protease inhibitors",
+                  "-previr",
+                  "Asunaprevir、Glecaprevir、Voxilaprevir"
+                ],
+                [
+                  "NS5A replication complex inhibitors",
+                  "-asvir",
+                  "Ledipasvir、Daclatasvir、Velpatasvir"
+                ],
+                [
+                  "NS5B inhibitors",
+                  "-buvir",
+                  "Sofosbuvir、Dasabuvir"
+                ]
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "id": "flu",
+        "title": "一、抑制病毒附著、穿透細胞及早期複製藥物：治療流感病毒",
+        "items": [
+          {
+            "title": "M₂ 抑制劑：阻斷病毒脫殼釋放 RNA",
+            "group": "M₂ 抑制劑（M₂ inhibitors）：阻斷病毒脫殼釋放 RNA",
+            "source": "統整（二）p.81",
+            "images": [
+              "assets/medchem/av-adamantane.png"
+            ],
+            "points": [
+              "M₂ 抑制劑（M₂ inhibitors）：阻斷病毒{{脫殼|機轉}}釋放 RNA（抑制 RNA 病毒早期複製）",
+              "基本結構：{{Adamantane|結構}}"
+            ]
+          },
+          {
+            "title": "神經胺酶抑制劑：可用於治療 A 型及 B 型流感",
+            "group": "神經胺酶抑制劑（Neuraminidase inhibitors）",
+            "source": "統整（二）p.82",
+            "images": [
+              "assets/medchem/av-sialic.png"
+            ],
+            "points": [
+              "神經胺酶抑制劑（Neuraminidase inhibitors）：可用於治療 A 型及 B 型流感",
+              "- 以 {{Sialic acid|結構}}★作為骨架結構",
+              "- C₄ 的取代基可提高與 Neuraminidase 的親和性"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "hiv-fusion",
+        "title": "二、融合抑制劑（Fusion Inhibitors）：治療 HIV 病毒",
+        "items": []
+      },
+      {
+        "id": "nuc",
+        "title": "三、干擾病毒核酸複製的藥物（HIV 病毒藥物放在第四大點介紹）",
+        "items": [
+          {
+            "title": "非環狀核苷類似物：競爭性抑制 DNA polymerase",
+            "group": "非環狀核苷類似物（Acyclic Nucleoside Analogs）",
+            "source": "統整（二）p.84",
+            "points": [
+              "非環狀核苷類似物（Acyclic Nucleoside Analogs）：競爭性抑制 {{DNA polymerase|酵素}}★",
+              "結構缺乏醣基的 {{3-OH|位置}}（{{無醣基結構|結構}}★），與 DNA polymerase 結合時可使複製終止"
+            ]
+          },
+          {
+            "title": "※ HSV、VZV、EBV 與併用副作用",
+            "group": "非環狀核苷類似物（Acyclic Nucleoside Analogs）",
+            "source": "統整（二）p.84",
+            "points": [
+              "※ {{HSV|名詞}}（單純皰疹病毒 Herpes Simplex Virus）、{{VZV|名詞}}（水痘帶狀皰疹病毒 Varicella-Zoster Virus）、{{EBV|名詞}}（非洲淋巴細胞瘤病毒 Epstein-Barr Virus）",
+              "※ {{Ganciclovir|藥名}} 和 {{Zidovudine|藥名}}、Azathioprine 或 Mycophenolate mofetil 併用時，白血球低下的副作用會加重"
+            ]
+          },
+          {
+            "title": "※ 用於 C 型肝炎治療之干擾素",
+            "group": "非環狀核苷類似物（Acyclic Nucleoside Analogs）",
+            "source": "統整（二）p.85",
+            "points": [
+              "※ 用於 C 型肝炎治療之{{干擾素|藥物類別}}",
+              "- Interferon alfa-2a 為速效、短效型（含 165 個胺基酸）；{{Pegylated|名詞}} interferon alfa-2a 為緩效、長效型★",
+              "- PEG 與 Interferon alfa-2a 結合之部位為 Lysine²³ 與 Histidine³⁴，結合後成為長效型干擾素",
+              "- 多數干擾素會抑制 {{CYP450|酵素}}，造成藥物交互作用"
+            ]
+          },
+          {
+            "title": "（以下三個非環狀核苷類藥物用於治療 B 或 C 肝病毒）",
+            "group": "非環狀核苷類似物（Acyclic Nucleoside Analogs）",
+            "source": "統整（二）p.85",
+            "points": [
+              "（以下三個非環狀核苷類藥物用於治療 {{B 或 C 肝病毒|疾病}}）：Adefovir dipivoxil、Entecavir、Famciclovir"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "hiv",
+        "title": "四、抗反轉錄病毒藥物：治療 HIV 病毒",
+        "items": [
+          {
+            "title": "核苷類反轉錄酶抑制劑：C₃ 去除 OH 基",
+            "group": "核苷類反轉錄酶抑制劑（NRTIs）",
+            "source": "統整（二）p.89",
+            "points": [
+              "核苷類反轉錄酶抑制劑（Nucleoside Reverse-Transcriptase Inhibitors, NRTIs）",
+              "C₃ 去除 {{OH 基|取代基}}（核醣上皆無 OH 取代），使 DNA 鏈延長中止"
+            ]
+          },
+          {
+            "title": "HIV 蛋白酶抑制劑：字尾 -navir",
+            "group": "HIV 蛋白酶抑制劑（HIV Protease Inhibitors）",
+            "source": "統整（二）p.92",
+            "points": [
+              "HIV 蛋白酶抑制劑（HIV Protease Inhibitors）：抑制蛋白質切割，使其無法組裝成病毒。字尾{{-navir|名詞}}"
+            ]
+          }
+        ]
       }
     ]
   },
