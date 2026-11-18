@@ -137,7 +137,12 @@ PI.GROUP_PARENTS = {
   "6 號位具有 α-fluoro 取代基：名字皆為 Flu…one": "16 號 CH₃ 為「α」構型（含 9α-fluoro 取代基）",
   "Steroid 結構之不可逆抑制劑": "Aromatase Inhibitors（芳香酶抑制劑）",
   "Steroid 結構之可逆抑制劑": "Aromatase Inhibitors（芳香酶抑制劑）",
-  "雜環結構之抑制劑": "Aromatase Inhibitors（芳香酶抑制劑）"
+  "雜環結構之抑制劑": "Aromatase Inhibitors（芳香酶抑制劑）",
+  "C₁₇α-alkyl testosterone：C₁₇ 加一個甲基，可以口服": "人工合成雄性激素",
+  "C₁₉-norandrogens（C₁₀ 上沒有接甲基）": "人工合成雄性激素",
+  "其他人工合成雄性激素": "人工合成雄性激素",
+  "類固醇類似物（Steroidal antiandrogens）": "Antiandrogens：與 5α-dihydrotestosterone（5α-DHT）競爭結合雄激素受體",
+  "非類固醇類似物：由 3-trifluoromethyl-4-nitroaniline 衍生而來": "Antiandrogens：與 5α-dihydrotestosterone（5α-DHT）競爭結合雄激素受體"
 };
 
 /* 地圖名牌：和生藥頁一樣用短的英文（名牌字型只有英文字母，中文字寬、長的名牌會擠成一團）。
@@ -509,7 +514,27 @@ PI.GROUP_LABELS = {
   "雜環結構之抑制劑": "Heterocyclic",
   "Pregnanes 類": "Pregnanes",
   "Androgen 類（黃體激素作用劑）": "Androgen-type Progestins",
-  "黃體激素拮抗劑（Progesterone Antagonists）": "Progesterone Antagonists"
+  "黃體激素拮抗劑（Progesterone Antagonists）": "Progesterone Antagonists",
+  "天然雄性激素：Testosterone 及其衍生物": "Natural Androgens",
+  "人工合成雄性激素": "Synthetic Androgens",
+  "C₁₇α-alkyl testosterone：C₁₇ 加一個甲基，可以口服": "17α-Alkyl",
+  "C₁₉-norandrogens（C₁₀ 上沒有接甲基）": "19-Nor",
+  "其他人工合成雄性激素": "Other Androgens",
+  "促性腺激素抑制劑（Gonadotropin inhibitors）": "Gonadotropin Inhibitors",
+  "Antiandrogens：與 5α-dihydrotestosterone（5α-DHT）競爭結合雄激素受體": "Antiandrogens",
+  "類固醇類似物（Steroidal antiandrogens）": "Steroidal",
+  "非類固醇類似物：由 3-trifluoromethyl-4-nitroaniline 衍生而來": "Non-steroidal",
+  "5α-reductase inhibitors": "5α-Reductase Inhibitors",
+  "CYP17A1 inhibitors（抑制 17α-hydroxylase 和 17,20-lyase）": "CYP17A1 Inhibitors",
+  "ADH 作用劑（字尾 -pressin）": "-pressin Agonists",
+  "ADH 拮抗劑（字尾 -vaptan）": "-vaptan Antagonists",
+  "Somatostatin（體抑素）": "Somatostatin",
+  "GnRH super agonist（GnRH 的合成類似物）": "GnRH Agonists",
+  "GnRH receptor antagonist": "GnRH Antagonists",
+  "Growing hormone（GH／生長激素）": "Growth Hormone",
+  "Prolactin（泌乳激素）：高泌乳素血症治療藥物": "Prolactin",
+  "Oxytocin（催產素）": "Oxytocin",
+  "Human chorionic gonadotropin（HCG／人類絨毛生殖腺激素）": "HCG"
 };
 
 /* 藥化的欄位：照講義表格的欄位（藥物｜結構｜特性｜藥理及臨床應用） */
@@ -561,6 +586,8 @@ PI.CHAPTERS = [
   { id: 37, name: "胰島素與口服降血糖藥物", short: "降血糖藥物", no: 13, cat: "cv", estimate: 45, unitType: "drug", note: "統整（三）壹拾參 p.76–86：胰島素、Sulfonylurea、Biguanides、TZD、DPP-4、SGLT-2 等降血糖藥" },
   { id: 38, name: "腎上腺皮質激素", no: 14, cat: "cv", estimate: 24, unitType: "drug", note: "統整（三）壹拾肆 p.87–92：Hydrocortisone／Prednisone／9α-fluoro／Ketal 類皮質類固醇" },
   { id: 39, name: "性荷爾蒙－雌激素相關藥物", short: "雌激素", no: 15, cat: "cv", estimate: 38, unitType: "drug", note: "統整（三）壹拾伍 p.93–99：雌激素作用劑與拮抗劑、芳香酶抑制劑、黃體激素作用劑與拮抗劑" },
+  { id: 40, name: "性荷爾蒙－雄激素相關藥物", short: "雄激素", no: 16, cat: "cv", estimate: 25, unitType: "drug", note: "統整（三）壹拾陸 p.100–103：天然與人工合成雄激素、促性腺激素抑制劑、抗雄激素、雄激素合成抑制劑" },
+  { id: 41, name: "腦下垂體激素", no: 17, cat: "cv", estimate: 22, unitType: "drug", note: "統整（三）壹拾柒 p.104–106：ADH、Somatostatin、GnRH、GH、Prolactin、Oxytocin、HCG" },
   { id: 16, name: "利尿劑", no: 7, cat: "cv", estimate: 20, unitType: "drug", note: "統整（三）柒，p.39–46。" },
   { id: 17, name: "心絞痛藥物", no: 8, cat: "cv", estimate: 8, unitType: "drug", note: "統整（三）捌，p.47–48。" },
   { id: 18, name: "心衰竭藥物", no: 9, cat: "cv", estimate: 10, unitType: "drug", note: "統整（三）玖，p.49–53。" },
@@ -652,6 +679,10 @@ PI.LANDMASSES = [
     palette: { ground: "#E3B8A0", light: "#EFCFBB", cliff: "#BC9079" } },
   { id: "cv39", name: "雌激素島", chapters: [39], cluster: "cv", angle: 0,
     palette: { ground: "#EBB3C8", light: "#F4CBDA", cliff: "#C48DA2" } },
+  { id: "cv40", name: "雄激素島", chapters: [40], cluster: "cv", angle: 0,
+    palette: { ground: "#A9C4DA", light: "#C3D6E6", cliff: "#8199B0" } },
+  { id: "cv41", name: "腦垂島", chapters: [41], cluster: "cv", angle: 0,
+    palette: { ground: "#C6B8E0", light: "#D9CEEE", cliff: "#9F93B8" } },
   { id: "cv16",  name: "利尿島",     chapters: [16], cluster: "cv", angle: 75,
     palette: { ground: "#E8B4B0", light: "#F0C9C6", cliff: "#C48A86" } },
   { id: "cv17",  name: "心絞痛島",   chapters: [17], cluster: "cv", angle: 270,
@@ -5700,6 +5731,140 @@ PI.UNITS = [
   feat: ["由 Mifepristone 修飾而來",
     "17 位接{{正丙醇|結構}}"],
   pharm: ["修飾後{{降低|性質|增加}}抗糖皮質激素活性"] },
+
+/* ===== 第 40 章（統整（三）壹拾陸 性荷爾蒙－雄激素相關藥物 p.100–103；畫面章號 16）===== */
+/* 一、雄性激素：灰底天然雄性激素（Testosterone 及其衍生物，右側六點放說明、5α-DHT 結構當附圖）；人工合成雄性激素（深灰）底下 C₁₇α-alkyl testosterone／C₁₉-norandrogens／其他（淺灰）為第三層小標（其他加前綴避免重名）；
+   二、促性腺激素抑制劑沒有灰底，章節標題就是分類；三、Antiandrogens（深灰）底下類固醇類似物／非類固醇類似物（淺灰）；四、雄性激素合成抑制劑的灰底 5α-reductase inhibitors、CYP17A1 inhibitors 各自為分類。
+   p.100–101 表格沒有欄位名稱（藥名在上、結構、文字在下），文字放說明；p.102 Antiandrogens 的特性欄沒有欄位名稱，文字放說明；p.101、p.103 欄位是特性／藥理及臨床應用。 */
+
+{ id: "an-testosterone", chapter: 40, name: "Testosterone", type: "drug", group: "天然雄性激素：Testosterone 及其衍生物", source: "統整（三）p.100", img: "assets/medchem/an-testosterone.png", imgMore: ["assets/medchem/an-dht.png"],
+  desc: ["{{5α-H|結構}}（5α-androstane）有更佳雄激素活性，如 Stanozolol、{{5α-DHT|藥名}}（結構如圖）",
+    "17β-OH 的氧原子對受體結合位很重要，酯化後可延長作用時間；17α-alkyl groups 可防止 17β-OH 被代謝，{{口服|給藥途徑}}有效",
+    "C₁₉-norandrogens（C₁₀ 上沒有甲基）：雄性素活性{{下降|性質|上升}}，但保留{{同化代謝|藥效}}的特性",
+    "環的擴大或縮小會降低雄性激素的活性，如 Testolactone 屬於 {{18-oxasteroid|結構}} 類",
+    "鹵素取代基：只有在 {{C₄ 或 C₉|結構}} 時活性維持或增加",
+    "雜環結構：C₂ 以氧原子取代（Oxandrolone），為臨床上唯一有效的雜環類固醇"] },
+{ id: "an-methyltestosterone", chapter: 40, name: "17α-Methyltestosterone", type: "drug", group: "C₁₇α-alkyl testosterone：C₁₇ 加一個甲基，可以口服", source: "統整（三）p.100", img: "assets/medchem/an-methyltestosterone.png"  },
+{ id: "an-oxymesterone", chapter: 40, name: "Oxymesterone", type: "drug", group: "C₁₇α-alkyl testosterone：C₁₇ 加一個甲基，可以口服", source: "統整（三）p.100", img: "assets/medchem/an-oxymesterone.png"  },
+{ id: "an-methandrostenolone", chapter: 40, name: "Methandrostenolone", type: "drug", group: "C₁₇α-alkyl testosterone：C₁₇ 加一個甲基，可以口服", source: "統整（三）p.100", img: "assets/medchem/an-methandrostenolone.png"  },
+{ id: "an-fluoxymesterone", chapter: 40, name: "Fluoxymesterone", type: "drug", group: "C₁₇α-alkyl testosterone：C₁₇ 加一個甲基，可以口服", source: "統整（三）p.100", img: "assets/medchem/an-fluoxymesterone.png"  },
+{ id: "an-norethandrolone", chapter: 40, name: "Norethandrolone", type: "drug", group: "C₁₉-norandrogens（C₁₀ 上沒有接甲基）", source: "統整（三）p.100", img: "assets/medchem/an-norethandrolone.png"  },
+{ id: "an-nandrolone", chapter: 40, name: "Nandrolone decanoate", type: "drug", group: "C₁₉-norandrogens（C₁₀ 上沒有接甲基）", source: "統整（三）p.100", img: "assets/medchem/an-nandrolone.png"  },
+{ id: "an-oxandrolone", chapter: 40, name: "Oxandrolone", type: "drug", group: "其他人工合成雄性激素", source: "統整（三）p.101", img: "assets/medchem/an-oxandrolone.png",
+  desc: ["唯一有效之{{雜環|結構}}類固醇"] },
+{ id: "an-stanozolol", chapter: 40, name: "Stanozolol", type: "drug", group: "其他人工合成雄性激素", source: "統整（三）p.101", img: "assets/medchem/an-stanozolol.png",
+  desc: ["具有 {{pyrazole|結構}} 雜環"] },
+{ id: "an-testolactone", chapter: 40, name: "Testolactone", type: "drug", group: "其他人工合成雄性激素", source: "統整（三）p.101", img: "assets/medchem/an-testolactone.png",
+  desc: ["D 環置換成{{六元環內酯|結構}}（lactone）"] },
+{ id: "an-oxymetholone", chapter: 40, name: "Oxymetholone", type: "drug", group: "其他人工合成雄性激素", source: "統整（三）p.101", img: "assets/medchem/an-oxymetholone.png"  },
+{ id: "an-ethylestrenol", chapter: 40, name: "Ethylestrenol", type: "drug", group: "其他人工合成雄性激素", source: "統整（三）p.101", img: "assets/medchem/an-ethylestrenol.png"  },
+{ id: "an-methenolone", chapter: 40, name: "Methenolone acetate", type: "drug", group: "其他人工合成雄性激素", source: "統整（三）p.101", img: "assets/medchem/an-methenolone.png"  },
+{ id: "an-chlortestosterone", chapter: 40, name: "Chlortestosterone acetate", type: "drug", group: "其他人工合成雄性激素", source: "統整（三）p.101", img: "assets/medchem/an-chlortestosterone.png"  },
+{ id: "an-danazol", chapter: 40, name: "Danazol", type: "drug", group: "促性腺激素抑制劑（Gonadotropin inhibitors）", source: "統整（三）p.101", img: "assets/medchem/an-danazol.png",
+  feat: ["屬於 {{Ethisterone|藥名}} 的 {{isoxazole|結構}}★衍生物",
+    "C₁₇ 有{{乙炔基|結構}}（ethinyl group）",
+    "{{CYP3A4|酵素}} 代謝後 isoxazole 開環，形成無活性的 2-hydroxymethylethisterone"],
+  pharm: ["抑制腦下垂體和下視丘釋放 {{FSH|物質}} 和 {{LH|物質}}",
+    "可治療{{子宮內膜組織異位|疾病}}"] },
+{ id: "an-cyproterone", chapter: 40, name: "Cyproterone acetate", type: "drug", group: "類固醇類似物（Steroidal antiandrogens）", source: "統整（三）p.102", img: "assets/medchem/an-cyproterone.png"  },
+{ id: "an-oxendolone", chapter: 40, name: "Oxendolone", type: "drug", group: "類固醇類似物（Steroidal antiandrogens）", source: "統整（三）p.102", img: "assets/medchem/an-oxendolone.png"  },
+{ id: "an-flutamide", chapter: 40, name: "Flutamide", type: "drug", group: "非類固醇類似物：由 3-trifluoromethyl-4-nitroaniline 衍生而來", source: "統整（三）p.102", img: "assets/medchem/an-flutamide.png",
+  desc: ["{{Toluidides|結構}} 取代衍生物",
+    "由 {{CYP1A2|酵素}} 進行 hydroxylation，得到活性代謝物 {{2-hydroxyflutamide|代謝物}}（抗雄性素活性更強）"] },
+{ id: "an-nilutamide", chapter: 40, name: "Nilutamide", type: "drug", group: "非類固醇類似物：由 3-trifluoromethyl-4-nitroaniline 衍生而來", source: "統整（三）p.102", img: "assets/medchem/an-nilutamide.png",
+  desc: ["Toluidides 取代衍生物",
+    "屬於 {{nitroaromatic|結構}} antiandrogen"] },
+{ id: "an-bicalutamide", chapter: 40, name: "Bicalutamide", type: "drug", group: "非類固醇類似物：由 3-trifluoromethyl-4-nitroaniline 衍生而來", source: "統整（三）p.102", img: "assets/medchem/an-bicalutamide.png",
+  desc: ["Toluidides 取代衍生物",
+    "具有 {{Fluorosulfonyl benzene|結構}}",
+    "僅 {{R-form|結構|S-form}} 具有抗雄性激素活性"] },
+{ id: "an-enzalutamide", chapter: 40, name: "Enzalutamide", type: "drug", group: "非類固醇類似物：由 3-trifluoromethyl-4-nitroaniline 衍生而來", source: "統整（三）p.102", img: "assets/medchem/an-enzalutamide.png",
+  desc: ["類似將 Bicalutamide 中間結構環化，形成 {{Thiohydantion|結構}}",
+    "可治療{{去勢無效之前列腺癌|疾病}}"] },
+{ id: "an-finasteride", chapter: 40, name: "Finasteride", type: "drug", group: "5α-reductase inhibitors", source: "統整（三）p.103", img: "assets/medchem/an-finasteride.png",
+  feat: ["C₄ 以 N 原子取代（{{azasteroid|結構}} progestin）",
+    "C₁₇ 的 N 上接有 {{1,1-dimethylethyl|結構}} group"],
+  pharm: ["抑制 Type {{2、3|數值|1、2}} 的 5α-reductase",
+    "性功能障礙副作用較 Dutasteride {{低|性質|高}}"] },
+{ id: "an-dutasteride", chapter: 40, name: "Dutasteride", type: "drug", group: "5α-reductase inhibitors", source: "統整（三）p.103", img: "assets/medchem/an-dutasteride.png",
+  feat: ["C₄ 以 N 原子取代（azasteroid progestin）",
+    "C₁₇ 的 N 上接有 1,4-bis(trifluoromethyl)-phenyl"],
+  pharm: ["專一性較差，同時抑制 Type {{1-3|數值}} 的 5α-reductase",
+    "藥效較 Finasteride {{強|性質|弱}}"] },
+{ id: "an-abiraterone", chapter: 40, name: "Abiraterone", type: "drug", group: "CYP17A1 inhibitors（抑制 17α-hydroxylase 和 17,20-lyase）", source: "統整（三）p.103", img: "assets/medchem/an-abiraterone.png",
+  feat: ["C₅、C₆ 與 C₁₆、C₁₇ 之間有雙鍵",
+    "C₁₇ 接有 {{pyridine|結構}}"],
+  pharm: ["治療{{去勢無效之前列腺癌|疾病}}"] },
+{ id: "an-ketoconazole", chapter: 40, name: "Ketoconazole", type: "drug", group: "CYP17A1 inhibitors（抑制 17α-hydroxylase 和 17,20-lyase）", source: "統整（三）p.103", img: "assets/medchem/an-ketoconazole.png",
+  feat: ["具有 {{imidazole|結構}}、{{piperazine|結構}} 結構"],
+  pharm: ["{{抗黴菌|藥效}}藥物",
+    "高濃度下可抑制 17α-hydroxylase"] },
+
+/* ===== 第 41 章（統整（三）壹拾柒 腦下垂體激素 p.104–106；畫面章號 17）===== */
+/* 本單元沒有結構圖，全是文字說明；八個小節沒有黑底灰底，章節標題就是分類（一、ADH 另分作用劑／拮抗劑；三、GnRH 另分 super agonist／receptor antagonist）。
+   講義提到的藥名各做一格，沒有結構圖，講義文字放說明；各節的總說明（ADH 簡介、尿崩症表、SIADH、GnRH 簡介、Prolactin 說明）放知識卡。
+   Somatostatin、Growth hormone（rhGH）、Oxytocin、HCG 本身也是藥物，各做一格。 */
+
+{ id: "pt-terlipressin", chapter: 41, name: "Terlipressin", type: "drug", group: "ADH 作用劑（字尾 -pressin）", source: "統整（三）p.104",
+  desc: ["作用受體：{{V₁|受體|V₂}} receptor，產生{{血管收縮|藥效}}作用",
+    "臨床用途：{{食道靜脈曲張出血|疾病}}、第一型肝腎症候群"] },
+{ id: "pt-desmopressin", chapter: 41, name: "Desmopressin", type: "drug", group: "ADH 作用劑（字尾 -pressin）", source: "統整（三）p.104",
+  desc: ["作用受體：{{V₂|受體|V₁}} receptor，產生{{抗利尿|藥效}}的作用",
+    "臨床用途：{{中樞性尿崩症|疾病}}（CDI）",
+    "也可促進{{凝血因子 VIII|物質}}的釋放，治療 {{von Willebrand's Disease|疾病}}"] },
+{ id: "pt-vasopressin", chapter: 41, name: "Vasopressin", type: "drug", group: "ADH 作用劑（字尾 -pressin）", source: "統整（三）p.104",
+  desc: ["作用受體：同時作用在 V₁ 和 V₂ receptor",
+    "臨床用途：{{敗血性休克|疾病}}、食道靜脈曲張出血、下腸胃道出血",
+    "結構與 {{Oxytocin|藥名}} 相似，兩者皆為 Cyclic nanopeptides"] },
+{ id: "pt-conivaptan", chapter: 41, name: "Conivaptan", type: "drug", group: "ADH 拮抗劑（字尾 -vaptan）", source: "統整（三）p.104",
+  desc: ["為 {{V₂ receptor antagonist|機轉}}，可干擾 aquaporin channel、抑制水分再吸收（利尿）",
+    "治療 {{SIADH|疾病}} 與高容積低血鈉症"] },
+{ id: "pt-tanivaptan", chapter: 41, name: "Tanivaptan", type: "drug", group: "ADH 拮抗劑（字尾 -vaptan）", source: "統整（三）p.104",
+  desc: ["為 {{V₂ receptor antagonist|機轉}}，可干擾 aquaporin channel、抑制水分再吸收（利尿）",
+    "治療 SIADH 與高容積低血鈉症"] },
+{ id: "pt-somatostatin", chapter: 41, name: "Somatostatin（體抑素）", short: "Somatostatin", type: "drug", group: "Somatostatin（體抑素）", source: "統整（三）p.105",
+  desc: ["由 {{14|數值}} 個胺基酸組成，主要分布在下視丘、胰臟、胃腸道",
+    "可抑制{{生長激素|物質}}、{{升糖素|物質}}、{{胰島素|物質}}、胃泌素等激素的釋放",
+    "臨床上可用於治療肢端肥大症、食道靜脈曲張及出血、內分泌腫瘤及{{胃泌素瘤|疾病}}（Zollinger-Ellison's syndrome / Gastrinoma）"] },
+{ id: "pt-octreotide", chapter: 41, name: "Octreotide®（Sandostatin）", short: "Octreotide", type: "drug", group: "Somatostatin（體抑素）", source: "統整（三）p.105",
+  desc: ["為 Somatostatin analog，活性必要胺基酸片段為 {{Phe-Trp-Lys-Thr|結構}}★",
+    "可用於治療{{食道靜脈曲張之出血|疾病}}、肢端肥大症、Diabetic diarrhea",
+    "副作用為{{膽囊結石|副作用}}與軟便"] },
+{ id: "pt-leuprolide", chapter: 41, name: "Leuprolide", type: "drug", group: "GnRH super agonist（GnRH 的合成類似物）", source: "統整（三）p.105",
+  desc: ["與 Histrelin★ 皆以 {{NH-Ethyl|結構}} group 置換 C-terminal Glycine¹⁰-NH₂"] },
+{ id: "pt-nafarelin", chapter: 41, name: "Nafarelin", type: "drug", group: "GnRH super agonist（GnRH 的合成類似物）", source: "統整（三）p.105",
+  desc: ["藥物多在第 {{6|數值}} 位和第 10 位（C 端）進行結構修飾"] },
+{ id: "pt-goserelin", chapter: 41, name: "Goserelin", type: "drug", group: "GnRH super agonist（GnRH 的合成類似物）", source: "統整（三）p.105",
+  desc: ["藥物多在第 6 位和第 10 位（{{C 端|部位}}）進行結構修飾"] },
+{ id: "pt-histrelin", chapter: 41, name: "Histrelin", type: "drug", group: "GnRH super agonist（GnRH 的合成類似物）", source: "統整（三）p.105",
+  desc: ["與 Leuprolide 皆以 {{NH-Ethyl|結構}} group 置換 C-terminal Glycine¹⁰-NH₂"] },
+{ id: "pt-abarelix", chapter: 41, name: "Abarelix", type: "drug", group: "GnRH receptor antagonist", source: "統整（三）p.105",
+  desc: ["GnRH {{receptor antagonist|機轉|super agonist}}"] },
+{ id: "pt-cetrorelix", chapter: 41, name: "Cetrorelix", type: "drug", group: "GnRH receptor antagonist", source: "統整（三）p.105",
+  desc: ["GnRH {{receptor antagonist|機轉|super agonist}}"] },
+{ id: "pt-rhgh", chapter: 41, name: "rhGH（人類重組生長激素）", short: "rhGH", type: "drug", group: "Growing hormone（GH／生長激素）", source: "統整（三）p.105",
+  desc: ["含有 {{191|數值}} 個胺基酸，結構與 {{Prolactin|藥名}} 相似",
+    "臨床上使用人類重組 rhGH，作用在 {{Cytokine receptor|標的}} 促進骨骼生長",
+    "可刺激 {{Insulin-like growth factor-1|物質}}（IGF-1、Somatomedin C），進而促進骨骼增生"] },
+{ id: "pt-pegvisomant", chapter: 41, name: "Pegvisomant", type: "drug", group: "Growing hormone（GH／生長激素）", source: "統整（三）p.105",
+  desc: ["為 {{GH antagonist|機轉}}，用來治療{{肢端肥大症|疾病}}"] },
+{ id: "pt-bromocriptine", chapter: 41, name: "Bromocriptine", type: "drug", group: "Prolactin（泌乳激素）：高泌乳素血症治療藥物", source: "統整（三）p.106",
+  desc: ["治療{{高泌乳素血症|疾病}}的藥物（抑制{{乳汁|物質}}分泌）"] },
+{ id: "pt-pergoline", chapter: 41, name: "Pergoline", type: "drug", group: "Prolactin（泌乳激素）：高泌乳素血症治療藥物", source: "統整（三）p.106",
+  desc: ["治療{{高泌乳素血症|疾病}}的藥物（抑制{{乳汁|物質}}分泌）"] },
+{ id: "pt-cabergoline", chapter: 41, name: "Cabergoline", type: "drug", group: "Prolactin（泌乳激素）：高泌乳素血症治療藥物", source: "統整（三）p.106",
+  desc: ["治療{{高泌乳素血症|疾病}}的藥物（抑制{{乳汁|物質}}分泌）"] },
+{ id: "pt-quinagoline", chapter: 41, name: "Quinagoline", type: "drug", group: "Prolactin（泌乳激素）：高泌乳素血症治療藥物", source: "統整（三）p.106",
+  desc: ["治療{{高泌乳素血症|疾病}}的藥物（抑制{{乳汁|物質}}分泌）"] },
+{ id: "pt-oxytocin", chapter: 41, name: "Oxytocin（催產素）", short: "Oxytocin", type: "drug", group: "Oxytocin（催產素）", source: "統整（三）p.106",
+  desc: ["由腦下垂體{{後葉|器官|前葉}}分泌，為一種環狀的 Nanopeptide（{{9|數值}} 個胺基酸組成），結構與 Vasopressin 相似，不具有 SH 基團但具有一條雙硫鍵",
+    "{{IV|給藥途徑}} 使用為{{誘導分娩|用途}}的最佳藥物，也可控制產後子宮出血（具有子宮收縮作用）",
+    "於授乳前 2~3 分鐘經{{鼻孔|給藥途徑}}給藥，可誘導乳汁分泌"] },
+{ id: "pt-atosiban", chapter: 41, name: "Atosiban", type: "drug", group: "Oxytocin（催產素）", source: "統整（三）p.106",
+  desc: ["Oxytocin antagonist：可減少子宮收縮，IV 給予用於{{安胎|用途}}、預防早產"] },
+{ id: "pt-hcg", chapter: 41, name: "HCG（人類絨毛生殖腺激素）", short: "HCG", type: "drug", group: "Human chorionic gonadotropin（HCG／人類絨毛生殖腺激素）", source: "統整（三）p.106",
+  desc: ["由人類{{胎盤|器官}}產生，並排泄於尿液當中，可由懷孕婦女之尿中萃取並純化之。會刺激{{黃體|器官}}分泌 Progesterone 以維持子宮內膜",
+    "利用單株抗體的專一性反應，可用來{{驗孕|用途}}"] },
 
 /* ===== 第 16 章 利尿劑（統整（三）柒，p.39–46）===== */
 { id: "diu-location", chapter: 16, name: "利尿劑作用位置總論", short: "作用位置", type: "topic", group: "總論", source: "統整（三）p.39",
@@ -11869,6 +12034,201 @@ PI.KNOWLEDGE = {
         "id": "pant",
         "title": "五、黃體激素拮抗劑（Progesterone Antagonists）",
         "items": []
+      }
+    ]
+  },
+  ch40: {
+    "chapter": 40,
+    "title": "性荷爾蒙－雄激素相關藥物",
+    "sections": [
+      {
+        "id": "andro",
+        "title": "一、雄性激素",
+        "items": [
+          {
+            "title": "人工合成雄性激素：C₁₇α-alkyl testosterone",
+            "group": "C₁₇α-alkyl testosterone：C₁₇ 加一個甲基，可以口服",
+            "source": "統整（三）p.100",
+            "points": [
+              "C₁₇α-alkyl testosterone：C₁₇ 加一個{{甲基|取代基}}，可以{{口服|給藥途徑|注射}}"
+            ]
+          },
+          {
+            "title": "人工合成雄性激素：C₁₉-norandrogens",
+            "group": "C₁₉-norandrogens（C₁₀ 上沒有接甲基）",
+            "source": "統整（三）p.100",
+            "points": [
+              "C₁₉-norandrogens（C₁₀ 上沒有接{{甲基|取代基}}）"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "gi",
+        "title": "二、促性腺激素抑制劑（Gonadotropin inhibitors）",
+        "items": []
+      },
+      {
+        "id": "anti",
+        "title": "三、雄性激素受體拮抗劑（Antiandrogens）",
+        "items": [
+          {
+            "title": "非類固醇類 antiandrogens：3-trifluoromethyl-4-nitroaniline",
+            "group": "非類固醇類似物：由 3-trifluoromethyl-4-nitroaniline 衍生而來",
+            "source": "統整（三）p.102",
+            "images": [
+              "assets/medchem/an-fig-aniline.png"
+            ],
+            "points": [
+              "※ 3-trifluoromethyl-4-nitroaniline：具有抗雄性激素活性"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "syn",
+        "title": "四、雄性激素合成抑制劑",
+        "items": []
+      }
+    ]
+  },
+  ch41: {
+    "chapter": 41,
+    "title": "腦下垂體激素",
+    "sections": [
+      {
+        "id": "adh",
+        "title": "一、ADH（抗利尿激素）",
+        "items": [
+          {
+            "title": "ADH 簡介與相關藥物",
+            "source": "統整（三）p.104",
+            "points": [
+              "1. 由腦垂腺{{後葉|器官|前葉}}分泌，具有血管收縮以及抗利尿的作用",
+              "2. ADH 相關藥物",
+              "(1) 作用劑（字尾 -pressin）：Terlipressin（V₁）、Desmopressin（V₂）、Vasopressin（V₁ 和 V₂）",
+              "(2) 拮抗劑（字尾 -vaptan）：Conivaptan、Tanivaptan 為 V₂ receptor antagonist，可干擾 aquaporin channel、抑制水分再吸收（利尿）；治療 SIADH 與高容積低血鈉症"
+            ]
+          },
+          {
+            "title": "尿崩症（Diabetes Insipidus）之藥物治療整理",
+            "source": "統整（三）p.104",
+            "table": {
+              "head": [
+                "尿崩症分類",
+                "病因",
+                "藥物治療"
+              ],
+              "rows": [
+                [
+                  {
+                    "t": "中樞性尿崩症",
+                    "b": true
+                  },
+                  "ADH 分泌不足",
+                  "{{Desmopressin|藥名}}"
+                ],
+                [
+                  {
+                    "t": "腎因性尿崩症",
+                    "b": true
+                  },
+                  "腎臟對 ADH 之感受不佳",
+                  "{{Thiazide Diuretics|藥物類別}}"
+                ],
+                [
+                  {
+                    "t": "鋰鹽導致的尿崩症",
+                    "b": true
+                  },
+                  "造成腎小管之損傷",
+                  "{{Amiloride|藥名}}（保鉀型利尿劑）"
+                ]
+              ]
+            },
+            "points": [
+              "3. 相關疾病治療：(1) 尿崩症（Diabetes Insipidus）之藥物治療整理",
+              "※ 兒童之腎因性尿崩症多因 {{AVPR-2|標的}} 基因缺陷導致 V₂ receptor 異常所引起",
+              "※ 腎臟中的 {{Aquaporin-2|標的}}（水孔蛋白）負責針對 ADH 之水分再吸收"
+            ]
+          },
+          {
+            "title": "SIADH（抗利尿激素不適當分泌症候群）",
+            "source": "統整（三）p.104",
+            "points": [
+              "(2) SIADH（抗利尿激素不適當分泌症候群）",
+              "A. 成因：惡性疾病或中樞系統疾病等，使 ADH 不適當分泌而造成水分滯留或{{低血鈉症|疾病}}",
+              "B. 選擇性藥物治療：V₂ receptor antagonist（Conivaptan、Tanivaptan）",
+              "C. 非選擇性藥物治療：ADH antagonist（{{Demeclocycline|藥名}}）、{{Lithium|藥名}}"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "somato",
+        "title": "二、Somatostatin（體抑素）",
+        "items": []
+      },
+      {
+        "id": "gnrh",
+        "title": "三、Gonadotropin-releasing hormone（GnRH／促性腺激素釋放素）",
+        "items": [
+          {
+            "title": "GnRH 簡介與衍生藥物",
+            "group": "GnRH super agonist（GnRH 的合成類似物）",
+            "source": "統整（三）p.105",
+            "points": [
+              "1. 由 {{10|數值}} 個胺基酸片段組成，可刺激 {{LH|物質}}、FSH 分泌",
+              "2. 大量給予 GnRH analog 最終會造成{{負回饋|機轉}}之結果，可治療攝護腺癌、子宮內膜異位、多發性卵巢癌、乳癌等",
+              "3. 衍生藥物：(1) GnRH super agonist：Leuprolide、Nafarelin、Goserelin、Histrelin（GnRH 的合成類似物）；(2) GnRH receptor antagonist：Abarelix、Cetrorelix",
+              "4. 藥物多在第 6 位和第 10 位（C 端）進行結構修飾：Leuprolide 與 Histrelin★皆以 NH-Ethyl group 置換 C-terminal Glycine¹⁰-NH₂"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "gh",
+        "title": "四、Growing hormone（GH／生長激素）",
+        "items": []
+      },
+      {
+        "id": "prl",
+        "title": "五、Prolactin（泌乳激素）",
+        "items": [
+          {
+            "title": "Prolactin：分泌與高泌乳素血症",
+            "group": "Prolactin（泌乳激素）：高泌乳素血症治療藥物",
+            "source": "統整（三）p.106",
+            "points": [
+              "1. 由腦下垂體{{前葉|器官|後葉}}分泌，可被 {{Dopamine|物質}} 抑制、被 TRH（促甲狀腺釋放素）促進",
+              "2. 造成高泌乳素的藥物：抗憂鬱藥、{{Estrogen|藥名}}、Dopamine antagonist、{{Methyldopa|藥名}}",
+              "3. 治療高泌乳素血症的藥物（抑制乳汁分泌）：Bromocriptine、Pergoline、Cabergoline、Quinagoline"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "oxy",
+        "title": "六、Oxytocin（催產素）",
+        "items": []
+      },
+      {
+        "id": "hcg",
+        "title": "七、Human chorionic gonadotropin（HCG／人類絨毛生殖腺激素）",
+        "items": []
+      },
+      {
+        "id": "trh",
+        "title": "八、TRH（促甲狀腺素釋放素）",
+        "items": [
+          {
+            "title": "TRH",
+            "source": "統整（三）p.106",
+            "points": [
+              "TRH（促甲狀腺素釋放素）：詳見下一章"
+            ]
+          }
+        ]
       }
     ]
   },
