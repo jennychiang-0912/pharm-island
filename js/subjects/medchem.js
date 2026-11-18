@@ -132,7 +132,12 @@ PI.GROUP_PARENTS = {
   "前驅藥 ARB": "血管收縮素Ⅱ受體阻斷劑（ARB）",
   "第一代 Sulfonylurea": "Sulfonylurea 類藥物",
   "第二代 Sulfonylurea": "Sulfonylurea 類藥物",
-  "第三代 Sulfonylurea": "Sulfonylurea 類藥物"
+  "第三代 Sulfonylurea": "Sulfonylurea 類藥物",
+  "6 號位無取代基：Dexamethasone 類衍生物": "16 號 CH₃ 為「α」構型（含 9α-fluoro 取代基）",
+  "6 號位具有 α-fluoro 取代基：名字皆為 Flu…one": "16 號 CH₃ 為「α」構型（含 9α-fluoro 取代基）",
+  "Steroid 結構之不可逆抑制劑": "Aromatase Inhibitors（芳香酶抑制劑）",
+  "Steroid 結構之可逆抑制劑": "Aromatase Inhibitors（芳香酶抑制劑）",
+  "雜環結構之抑制劑": "Aromatase Inhibitors（芳香酶抑制劑）"
 };
 
 /* 地圖名牌：和生藥頁一樣用短的英文（名牌字型只有英文字母，中文字寬、長的名牌會擠成一團）。
@@ -484,7 +489,27 @@ PI.GROUP_LABELS = {
   "Dipeptidyl peptidase-4 抑制劑（DPP-4 Inhibitors）": "DPP-4 Inhibitors",
   "SGLT-2 inhibitors": "SGLT-2 Inhibitors",
   "GLP-1 受體致效劑（GLP-1 receptor agonists）": "GLP-1 Agonists",
-  "其他類降血糖藥物": "Other Agents"
+  "其他類降血糖藥物": "Other Agents",
+  "Hydrocortisone 類衍生物": "Hydrocortisone-type",
+  "Prednisone 類衍生物": "Prednisone-type",
+  "16 號 CH₃ 為「α」構型（含 9α-fluoro 取代基）": "16α-CH3 Series",
+  "6 號位無取代基：Dexamethasone 類衍生物": "Dexamethasone-type",
+  "6 號位具有 α-fluoro 取代基：名字皆為 Flu…one": "Flu…one Series",
+  "16 號 CH₃ 為「β」構型：Betamethasone 類衍生物": "Betamethasone-type",
+  "Ketal：6、9 號位皆沒有取代基": "Ketal (no 6/9)",
+  "Ketal：6 號位具有 α-fluoro 取代基": "Ketal (6α-F)",
+  "Ketal：9 號位具有 α-fluoro 取代基": "Ketal (9α-F)",
+  "Human Estrogens（人體雌激素及其衍生物）": "Human Estrogens",
+  "Synthetic Estrogens（合成雌激素）": "Synthetic Estrogens",
+  "Xenoestrogens（環境雌激素）": "Xenoestrogens",
+  "Triphenylethylene 類：Selective Estrogen Receptor Modulators（SERMs）": "SERMs",
+  "Aromatase Inhibitors（芳香酶抑制劑）": "Aromatase Inhibitors",
+  "Steroid 結構之不可逆抑制劑": "Irreversible Steroidal",
+  "Steroid 結構之可逆抑制劑": "Reversible Steroidal",
+  "雜環結構之抑制劑": "Heterocyclic",
+  "Pregnanes 類": "Pregnanes",
+  "Androgen 類（黃體激素作用劑）": "Androgen-type Progestins",
+  "黃體激素拮抗劑（Progesterone Antagonists）": "Progesterone Antagonists"
 };
 
 /* 藥化的欄位：照講義表格的欄位（藥物｜結構｜特性｜藥理及臨床應用） */
@@ -534,6 +559,8 @@ PI.CHAPTERS = [
   { id: 35, name: "抗心律不整藥物", no: 10, cat: "cv", estimate: 25, unitType: "drug", note: "統整（三）壹拾 p.54–57：Class IA～IV 與其他抗心律不整藥" },
   { id: 36, name: "降血脂藥物", no: 12, cat: "cv", estimate: 17, unitType: "drug", note: "統整（三）壹拾貳 p.70–75：膽酸吸附劑、Statins、Fibrates、膽固醇吸收抑制劑、Niacin" },
   { id: 37, name: "胰島素與口服降血糖藥物", short: "降血糖藥物", no: 13, cat: "cv", estimate: 45, unitType: "drug", note: "統整（三）壹拾參 p.76–86：胰島素、Sulfonylurea、Biguanides、TZD、DPP-4、SGLT-2 等降血糖藥" },
+  { id: 38, name: "腎上腺皮質激素", no: 14, cat: "cv", estimate: 24, unitType: "drug", note: "統整（三）壹拾肆 p.87–92：Hydrocortisone／Prednisone／9α-fluoro／Ketal 類皮質類固醇" },
+  { id: 39, name: "性荷爾蒙－雌激素相關藥物", short: "雌激素", no: 15, cat: "cv", estimate: 38, unitType: "drug", note: "統整（三）壹拾伍 p.93–99：雌激素作用劑與拮抗劑、芳香酶抑制劑、黃體激素作用劑與拮抗劑" },
   { id: 16, name: "利尿劑", no: 7, cat: "cv", estimate: 20, unitType: "drug", note: "統整（三）柒，p.39–46。" },
   { id: 17, name: "心絞痛藥物", no: 8, cat: "cv", estimate: 8, unitType: "drug", note: "統整（三）捌，p.47–48。" },
   { id: 18, name: "心衰竭藥物", no: 9, cat: "cv", estimate: 10, unitType: "drug", note: "統整（三）玖，p.49–53。" },
@@ -621,6 +648,10 @@ PI.LANDMASSES = [
     palette: { ground: "#B6D2D8", light: "#CCE2E7", cliff: "#8FAAB0" } },
   { id: "cv37", name: "血糖島", chapters: [37], cluster: "cv", angle: 0,
     palette: { ground: "#D8C4A0", light: "#E7D8BC", cliff: "#B39F7B" } },
+  { id: "cv38", name: "皮質島", chapters: [38], cluster: "cv", angle: 0,
+    palette: { ground: "#E3B8A0", light: "#EFCFBB", cliff: "#BC9079" } },
+  { id: "cv39", name: "雌激素島", chapters: [39], cluster: "cv", angle: 0,
+    palette: { ground: "#EBB3C8", light: "#F4CBDA", cliff: "#C48DA2" } },
   { id: "cv16",  name: "利尿島",     chapters: [16], cluster: "cv", angle: 75,
     palette: { ground: "#E8B4B0", light: "#F0C9C6", cliff: "#C48A86" } },
   { id: "cv17",  name: "心絞痛島",   chapters: [17], cluster: "cv", angle: 270,
@@ -5508,6 +5539,167 @@ PI.UNITS = [
 { id: "dm-ptp1b", chapter: 37, name: "PTP1B 抑制劑", type: "drug", group: "其他類降血糖藥物", source: "統整（三）p.86",
   feat: ["{{Protein Tyrosine Phosphatase 1B|酵素}} Inhibitor",
     "PTP1B 屬於一種基因，扮演胰島素負回饋的角色，可治療產生胰島素抗性的第二型糖尿病患者"] },
+
+/* ===== 第 38 章（統整（三）壹拾肆 腎上腺皮質激素 p.87–92；畫面章號 14）===== */
+/* 一、Hydrocortisone 類衍生物（黑底）、二、Prednisone 類衍生物（黑底）；三、含 9α-fluoro 取代基類衍生物：16 號 CH₃ 為「α」構型（深灰）底下 6 號位無取代基／具有 α-fluoro（淺灰）為第三層小標，16 號 CH₃ 為「β」構型（深灰）；
+   四、含 Ketal 結構之藥物沒有黑底，三個灰底（6、9 號位皆沒有取代基／6 號位具有 α-fluoro／9 號位具有 α-fluoro）各自為分類。
+   講義每格是藥名在上、文字、結構，文字放說明，並依 p.87 藥名旁符號加一行「使用途徑」；p.87 取代基總表、p.88 分類與特殊取代基表與二分法、p.89 SAR 與藥理作用、各類共同結構特色放知識卡。
+   Alclometasone、Prednicarbate 講義只有取代基表一列、沒有結構圖，放告示牌的總表。 */
+
+{ id: "co-hydrocortisone", chapter: 38, name: "Hydrocortisone（Cortisol）", short: "Hydrocortisone", type: "drug", group: "Hydrocortisone 類衍生物", source: "統整（三）p.90", img: "assets/medchem/co-hydrocortisone.png",
+  desc: ["（基本結構）第 {{11β、17α、21|結構}} 號上有 OH",
+    "使用途徑：{{全身性|給藥途徑|局部性/吸入}}用藥"] },
+{ id: "co-cortisone", chapter: 38, name: "Cortisone", type: "drug", group: "Hydrocortisone 類衍生物", source: "統整（三）p.90", img: "assets/medchem/co-cortisone.png",
+  desc: ["11 號位從醇基{{脫水成羰基|結構}}",
+    "使用途徑：{{全身性|給藥途徑|局部性/吸入}}用藥"] },
+{ id: "co-fludrocortisone", chapter: 38, name: "Fludrocortisone", type: "drug", group: "Hydrocortisone 類衍生物", source: "統整（三）p.90", img: "assets/medchem/co-fludrocortisone.png",
+  desc: ["9 號位接有 {{α-fluoro|取代基}} 取代基，為{{礦物性|性質|糖質性}}皮質激素★",
+    "使用途徑：{{全身性|給藥途徑|局部性/吸入}}用藥"] },
+{ id: "co-prednisolone", chapter: 38, name: "Prednisolone", type: "drug", group: "Prednisone 類衍生物", source: "統整（三）p.90", img: "assets/medchem/co-prednisolone.png",
+  desc: ["（基本結構）",
+    "使用途徑：{{全身性|給藥途徑|局部性/吸入}}用藥"] },
+{ id: "co-prednisone", chapter: 38, name: "Prednisone", type: "drug", group: "Prednisone 類衍生物", source: "統整（三）p.90", img: "assets/medchem/co-prednisone.png",
+  desc: ["11 號位從醇基脫水成羰基",
+    "使用途徑：{{全身性|給藥途徑|局部性/吸入}}用藥"] },
+{ id: "co-methylprednisolone", chapter: 38, name: "Methylprednisolone", type: "drug", group: "Prednisone 類衍生物", source: "統整（三）p.90", img: "assets/medchem/co-methylprednisolone.png",
+  desc: ["6 號位接有 {{α-methyl|取代基}} 取代基",
+    "使用途徑：{{全身性|給藥途徑|局部性/吸入}}用藥"] },
+{ id: "co-dexamethasone", chapter: 38, name: "Dexamethasone", type: "drug", group: "6 號位無取代基：Dexamethasone 類衍生物", source: "統整（三）p.91", img: "assets/medchem/co-dexamethasone.png",
+  desc: ["（基本結構）抗炎活性強",
+    "使用途徑：{{全身性|給藥途徑|局部性/吸入}}用藥"] },
+{ id: "co-mometasone", chapter: 38, name: "Mometasone", type: "drug", group: "6 號位無取代基：Dexamethasone 類衍生物", source: "統整（三）p.91", img: "assets/medchem/co-mometasone.png",
+  desc: ["9α 取代基從 F 改成 {{Cl|取代基}}、21 號位改成 Cl",
+    "使用途徑：{{吸入／鼻內|給藥途徑|全身性/局部性}}用藥"] },
+{ id: "co-desoximetasone", chapter: 38, name: "Desoximetasone", type: "drug", group: "6 號位無取代基：Dexamethasone 類衍生物", source: "統整（三）p.91", img: "assets/medchem/co-desoximetasone.png",
+  desc: ["17 號位的 OH 改成 {{H|取代基}}（desoxi-）",
+    "使用途徑：{{局部性|給藥途徑|全身性/吸入}}用藥"] },
+{ id: "co-triamcinolone", chapter: 38, name: "Triamcinolone", type: "drug", group: "6 號位無取代基：Dexamethasone 類衍生物", source: "統整（三）p.91", img: "assets/medchem/co-triamcinolone.png",
+  desc: ["16α 位從 CH₃ 改成 {{OH|取代基}}",
+    "使用途徑：{{全身性、吸入／鼻內|給藥途徑}}用藥"] },
+{ id: "co-flumethasone", chapter: 38, name: "Flumethasone", type: "drug", group: "6 號位具有 α-fluoro 取代基：名字皆為 Flu…one", source: "統整（三）p.91", img: "assets/medchem/co-flumethasone.png",
+  desc: ["與 Dexamethasone 只相差 {{6α-fluoro|取代基}}",
+    "使用途徑：{{局部性|給藥途徑|全身性/吸入}}用藥"] },
+{ id: "co-difluocortolone", chapter: 38, name: "Diflucortolone", type: "drug", group: "6 號位具有 α-fluoro 取代基：名字皆為 Flu…one", source: "統整（三）p.91", img: "assets/medchem/co-difluocortolone.png",
+  desc: ["17 號位的 OH 改成 H",
+    "使用途徑：{{局部性|給藥途徑|全身性/吸入}}用藥"] },
+{ id: "co-fluticasone", chapter: 38, name: "Fluticasone", type: "drug", group: "6 號位具有 α-fluoro 取代基：名字皆為 Flu…one", source: "統整（三）p.91", img: "assets/medchem/co-fluticasone.png",
+  desc: ["21 號位的 OH 改成 {{SCH₂F|取代基}}",
+    "使用途徑：{{吸入／鼻內|給藥途徑|全身性/局部性}}用藥"] },
+{ id: "co-flucinolone", chapter: 38, name: "Flucinolone", type: "drug", group: "6 號位具有 α-fluoro 取代基：名字皆為 Flu…one", source: "統整（三）p.91", img: "assets/medchem/co-flucinolone.png",
+  desc: ["16α 位從 CH₃ 改成 OH",
+    "使用途徑：{{局部性|給藥途徑|全身性/吸入}}用藥"] },
+{ id: "co-betamethasone", chapter: 38, name: "Betamethasone", type: "drug", group: "16 號 CH₃ 為「β」構型：Betamethasone 類衍生物", source: "統整（三）p.91", img: "assets/medchem/co-betamethasone.png",
+  desc: ["（基本結構）",
+    "使用途徑：{{全身性|給藥途徑|局部性/吸入}}用藥"] },
+{ id: "co-beclomethasone", chapter: 38, name: "Beclomethasone", type: "drug", group: "16 號 CH₃ 為「β」構型：Betamethasone 類衍生物", source: "統整（三）p.91", img: "assets/medchem/co-beclomethasone.png",
+  desc: ["9α 取代基從 F 改成 {{Cl|取代基}}",
+    "使用途徑：{{局部性|給藥途徑|全身性/吸入}}用藥"] },
+{ id: "co-clobetasol", chapter: 38, name: "Clobetasol", type: "drug", group: "16 號 CH₃ 為「β」構型：Betamethasone 類衍生物", source: "統整（三）p.91", img: "assets/medchem/co-clobetasol.png",
+  desc: ["21 號位從 OH 改成 {{Cl|取代基}}",
+    "使用途徑：{{局部性|給藥途徑|全身性/吸入}}用藥"] },
+{ id: "co-halobetasol", chapter: 38, name: "Halobetasol", type: "drug", group: "16 號 CH₃ 為「β」構型：Betamethasone 類衍生物", source: "統整（三）p.91", img: "assets/medchem/co-halobetasol.png",
+  desc: ["跟 Clobetasol 比多了 {{6α-fluoro|取代基}}",
+    "使用途徑：{{局部性|給藥途徑|全身性/吸入}}用藥"] },
+{ id: "co-desonide", chapter: 38, name: "Desonide", type: "drug", group: "Ketal：6、9 號位皆沒有取代基", source: "統整（三）p.92", img: "assets/medchem/co-desonide.png",
+  desc: ["（基本結構）",
+    "使用途徑：{{局部性|給藥途徑|全身性/吸入}}用藥"] },
+{ id: "co-budesonide", chapter: 38, name: "Budesonide", type: "drug", group: "Ketal：6、9 號位皆沒有取代基", source: "統整（三）p.92", img: "assets/medchem/co-budesonide.png",
+  desc: ["ketal 結構從 3C 改成 {{4C|數值|3C/5C}}",
+    "使用途徑：{{吸入／鼻內|給藥途徑|全身性/局部性}}用藥"] },
+{ id: "co-flunisolide", chapter: 38, name: "Flunisolide", type: "drug", group: "Ketal：6 號位具有 α-fluoro 取代基", source: "統整（三）p.92", img: "assets/medchem/co-flunisolide.png",
+  desc: ["與 Desonide 相比多了 {{6α-fluoro|取代基}}",
+    "使用途徑：{{吸入／鼻內|給藥途徑|全身性/局部性}}用藥"] },
+{ id: "co-flurandrenolide", chapter: 38, name: "Flurandrenolide", type: "drug", group: "Ketal：6 號位具有 α-fluoro 取代基", source: "統整（三）p.92", img: "assets/medchem/co-flurandrenolide.png",
+  desc: ["1、2 號位間{{沒有|性質|具有}}雙鍵",
+    "使用途徑：{{局部性|給藥途徑|全身性/吸入}}用藥"] },
+{ id: "co-amcinonide", chapter: 38, name: "Amcinonide", type: "drug", group: "Ketal：9 號位具有 α-fluoro 取代基", source: "統整（三）p.92", img: "assets/medchem/co-amcinonide.png",
+  desc: ["ketal 結構從 3C 改成 {{5C|數值|4C}}、21 號位為{{乙酯基|取代基}}",
+    "使用途徑：{{局部性|給藥途徑|全身性/吸入}}用藥"] },
+{ id: "co-halcinonide", chapter: 38, name: "Halcinonide", type: "drug", group: "Ketal：9 號位具有 α-fluoro 取代基", source: "統整（三）p.92", img: "assets/medchem/co-halcinonide.png",
+  desc: ["1、2 號位間沒有雙鍵、21 號位為 {{Cl|取代基}}",
+    "使用途徑：{{局部性|給藥途徑|全身性/吸入}}用藥"] },
+
+/* ===== 第 39 章（統整（三）壹拾伍 性荷爾蒙－雌激素相關藥物 p.93–99；畫面章號 15）===== */
+/* 一、性荷爾蒙介紹：碳數口訣表與生合成途徑圖放告示牌；二、雌性激素作用劑：灰底 Human Estrogens／Synthetic Estrogens／Xenoestrogens 各為分類；
+   三、雌性激素拮抗劑：灰底 SERMs，與 Aromatase Inhibitors（深灰）底下三個淺灰（Steroid 結構之不可逆／可逆抑制劑、雜環結構之抑制劑）為第三層小標；
+   四、黃體激素作用劑：灰底 Pregnanes 類、Androgen 類（加後綴避免與之後章節重名）；五、黃體激素拮抗劑沒有灰底，章節標題就是分類。
+   p.94–95、p.97–98 的表格沒有欄位名稱（藥名在上、結構、文字在下），文字放說明；p.96、p.99 欄位是特性／藥理及臨床應用。
+   p.94 Human Estrogens 右側共通說明放該分類知識卡；p.97 的代謝路徑說明放雜環結構之抑制劑知識卡；Carbinol 為無活性代謝物，做成一格。 */
+
+{ id: "es-ethinylestradiol", chapter: 39, name: "Ethinyl Estradiol", type: "drug", group: "Human Estrogens（人體雌激素及其衍生物）", source: "統整（三）p.94", img: "assets/medchem/es-ethinylestradiol.png",
+  desc: ["17 號位具有{{三鍵|結構}}，口服可耐酸且不易被代謝"] },
+{ id: "es-estriol", chapter: 39, name: "Estriol", type: "drug", group: "Human Estrogens（人體雌激素及其衍生物）", source: "統整（三）p.94", img: "assets/medchem/es-estriol.png",
+  desc: ["3、16、17 皆有 {{OH|取代基}} 取代，口服使用"] },
+{ id: "es-estradiol", chapter: 39, name: "Estradiol", type: "drug", group: "Human Estrogens（人體雌激素及其衍生物）", source: "統整（三）p.94", img: "assets/medchem/es-estradiol.png",
+  desc: ["較 Estriol 少了 {{16-OH|取代基}}，IM 注射使用"] },
+{ id: "es-estrone", chapter: 39, name: "Estrone", type: "drug", group: "Human Estrogens（人體雌激素及其衍生物）", source: "統整（三）p.94", img: "assets/medchem/es-estrone.png",
+  desc: ["17 號的 OH 變成{{酮基|結構}}，IM、陰道或局部使用"] },
+{ id: "es-des", chapter: 39, name: "Diethylstilbestrol（DES）", short: "DES", type: "drug", group: "Synthetic Estrogens（合成雌激素）", source: "統整（三）p.94", img: "assets/medchem/es-des.png",
+  desc: ["{{trans|結構|cis}}-form 活性較大，活性為 Estradiol 的 {{10 倍|數值}}",
+    "會增加{{子宮頸癌|疾病}}的風險，現用來治療{{前列腺癌|疾病}}"] },
+{ id: "es-hexestrol", chapter: 39, name: "Hexestrol", type: "drug", group: "Synthetic Estrogens（合成雌激素）", source: "統整（三）p.94", img: "assets/medchem/es-hexestrol.png",
+  desc: ["藥效較 DES {{差|性質|好}}"] },
+{ id: "es-dienestrol", chapter: 39, name: "Dienestrol", type: "drug", group: "Synthetic Estrogens（合成雌激素）", source: "統整（三）p.94", img: "assets/medchem/es-dienestrol.png",
+  desc: ["中間為{{亞乙基|結構}}取代（CH₃CH=）"] },
+{ id: "es-genistein", chapter: 39, name: "Genistein", type: "drug", group: "Xenoestrogens（環境雌激素）", source: "統整（三）p.95", img: "assets/medchem/es-genistein.png",
+  desc: ["存在於{{黃豆|名詞}}類製品：含有 {{Isoflavanoid|結構}}、Genistein"] },
+{ id: "es-zeranol", chapter: 39, name: "Zeranol", type: "drug", group: "Xenoestrogens（環境雌激素）", source: "統整（三）p.95", img: "assets/medchem/es-zeranol.png",
+  desc: ["{{黴菌毒素|名詞}}"] },
+{ id: "es-coumestrol", chapter: 39, name: "Coumestrol", type: "drug", group: "Xenoestrogens（環境雌激素）", source: "統整（三）p.95", img: "assets/medchem/es-coumestrol.png"  },
+{ id: "es-methoxychlor", chapter: 39, name: "Methoxychlor", type: "drug", group: "Xenoestrogens（環境雌激素）", source: "統整（三）p.95", img: "assets/medchem/es-methoxychlor.png",
+  desc: ["用作{{殺蟲劑|用途}}"] },
+{ id: "es-bisphenola", chapter: 39, name: "Bisphenol A", type: "drug", group: "Xenoestrogens（環境雌激素）", source: "統整（三）p.95", img: "assets/medchem/es-bisphenola.png",
+  desc: ["{{工業|用途}}用"] },
+{ id: "es-clomiphene", chapter: 39, name: "Clomiphene", type: "drug", group: "Triphenylethylene 類：Selective Estrogen Receptor Modulators（SERMs）", source: "統整（三）p.96", img: "assets/medchem/es-clomiphene.png",
+  feat: ["E form：{{Enclomiphene|藥名}}，具有 {{antiestrogenic|性質|estrogenic}} 性質",
+    "Z form：{{Zuclomiphene|藥名}}，具有 estrogenic 活性，可促進排卵治療不孕"],
+  pharm: ["口服使用（消旋化合物）"] },
+{ id: "es-tamoxifen", chapter: 39, name: "Tamoxifen", type: "drug", group: "Triphenylethylene 類：Selective Estrogen Receptor Modulators（SERMs）", source: "統整（三）p.96", img: "assets/medchem/es-tamoxifen.png",
+  feat: ["活性結構：{{Aminoethyl ether|結構}} side chain",
+    "主要由 {{CYP3A4|酵素}} 進行 N-去甲基化，無活性",
+    "也可由 {{CYP2D6|酵素}} 行 4-Hydroxylation，有活性"],
+  pharm: ["口服使用，治療 Estrogen-effect {{乳癌|疾病}}",
+    "選擇性不佳，於子宮和骨骼皆促效，有{{子宮內膜增生|副作用}}的風險"] },
+{ id: "es-raloxifene", chapter: 39, name: "Raloxifene", type: "drug", group: "Triphenylethylene 類：Selective Estrogen Receptor Modulators（SERMs）", source: "統整（三）p.96", img: "assets/medchem/es-raloxifene.png",
+  feat: ["具有 {{Benzothiophene|結構}} 結構",
+    "兩個 OH 基具有 Estrogen 的效果",
+    "將 Tamoxifen 的活性結構換成 {{Piperidine|結構}}，防止進行 N-demethylation"],
+  pharm: ["具有組織選擇性：拮抗作用在{{乳房|器官}}組織，促效作用僅在{{骨頭|器官}}，對{{子宮|器官}}無作用",
+    "OH 多，首度代謝高，生體可用率 <5%"] },
+{ id: "es-formestane", chapter: 39, name: "4-Hydroxy-androstenedione", short: "4-OH-androstenedione", type: "drug", group: "Steroid 結構之不可逆抑制劑", source: "統整（三）p.97", img: "assets/medchem/es-formestane.png"  },
+{ id: "es-propynylandrostenedione", chapter: 39, name: "10β-Propynyl-androstenedione", type: "drug", group: "Steroid 結構之不可逆抑制劑", source: "統整（三）p.97", img: "assets/medchem/es-propynylandrostenedione.png"  },
+{ id: "es-methyleneandrostenedione", chapter: 39, name: "6-Methylene-androstenedione", type: "drug", group: "Steroid 結構之不可逆抑制劑", source: "統整（三）p.97", img: "assets/medchem/es-methyleneandrostenedione.png"  },
+{ id: "es-methylandrostadienedione", chapter: 39, name: "1-Methyl-androstandienedione", type: "drug", group: "Steroid 結構之可逆抑制劑", source: "統整（三）p.97", img: "assets/medchem/es-methylandrostadienedione.png"  },
+{ id: "es-aminophenylthio", chapter: 39, name: "7α-Aminophenyl-thioandrostenedione", short: "7α-Aminophenyl-thio...", type: "drug", group: "Steroid 結構之可逆抑制劑", source: "統整（三）p.97", img: "assets/medchem/es-aminophenylthio.png"  },
+{ id: "es-aminophenylandro", chapter: 39, name: "7α-Aminophenyl-androstandienedione", short: "7α-Aminophenyl-andro...", type: "drug", group: "Steroid 結構之可逆抑制劑", source: "統整（三）p.97", img: "assets/medchem/es-aminophenylandro.png"  },
+{ id: "es-anastrozole", chapter: 39, name: "Anastrozole", type: "drug", group: "雜環結構之抑制劑", source: "統整（三）p.97", img: "assets/medchem/es-anastrozole.png"  },
+{ id: "es-letrozole", chapter: 39, name: "Letrozole", type: "drug", group: "雜環結構之抑制劑", source: "統整（三）p.97", img: "assets/medchem/es-letrozole.png"  },
+{ id: "es-vorozole", chapter: 39, name: "Vorozole", type: "drug", group: "雜環結構之抑制劑", source: "統整（三）p.97", img: "assets/medchem/es-vorozole.png"  },
+{ id: "es-carbinol", chapter: 39, name: "Carbinol（無活性代謝物）", short: "Carbinol", type: "drug", group: "雜環結構之抑制劑", source: "統整（三）p.97", img: "assets/medchem/es-carbinol.png"  },
+{ id: "es-acetoxyprogesterone", chapter: 39, name: "17α-Acetoxyprogesterone", type: "drug", group: "Pregnanes 類", source: "統整（三）p.98", img: "assets/medchem/es-acetoxyprogesterone.png"  },
+{ id: "es-dydrogesterone", chapter: 39, name: "Dydrogesterone", type: "drug", group: "Pregnanes 類", source: "統整（三）p.98", img: "assets/medchem/es-dydrogesterone.png"  },
+{ id: "es-megestrol", chapter: 39, name: "Megestrol acetate", type: "drug", group: "Pregnanes 類", source: "統整（三）p.98", img: "assets/medchem/es-megestrol.png"  },
+{ id: "es-chlormadinone", chapter: 39, name: "Chlormadinone acetate", type: "drug", group: "Pregnanes 類", source: "統整（三）p.98", img: "assets/medchem/es-chlormadinone.png"  },
+{ id: "es-medroxyprogesterone", chapter: 39, name: "Medroxyprogesterone acetate", type: "drug", group: "Pregnanes 類", source: "統整（三）p.98", img: "assets/medchem/es-medroxyprogesterone.png"  },
+{ id: "es-ethisterone", chapter: 39, name: "Ethisterone", type: "drug", group: "Androgen 類（黃體激素作用劑）", source: "統整（三）p.98", img: "assets/medchem/es-ethisterone.png"  },
+{ id: "es-norethisterone", chapter: 39, name: "Norethisterone", type: "drug", group: "Androgen 類（黃體激素作用劑）", source: "統整（三）p.98", img: "assets/medchem/es-norethisterone.png"  },
+{ id: "es-etonogestrel", chapter: 39, name: "Etonogestrel", type: "drug", group: "Androgen 類（黃體激素作用劑）", source: "統整（三）p.98", img: "assets/medchem/es-etonogestrel.png"  },
+{ id: "es-norgestrel", chapter: 39, name: "Norgestrel", type: "drug", group: "Androgen 類（黃體激素作用劑）", source: "統整（三）p.98", img: "assets/medchem/es-norgestrel.png"  },
+{ id: "es-desogestrel", chapter: 39, name: "Desogestrel", type: "drug", group: "Androgen 類（黃體激素作用劑）", source: "統整（三）p.98", img: "assets/medchem/es-desogestrel.png"  },
+{ id: "es-ethynodiol", chapter: 39, name: "Ethynodiol diacetate", type: "drug", group: "Androgen 類（黃體激素作用劑）", source: "統整（三）p.98", img: "assets/medchem/es-ethynodiol.png"  },
+{ id: "es-mifepristone", chapter: 39, name: "Mifepristone", type: "drug", group: "黃體激素拮抗劑（Progesterone Antagonists）", source: "統整（三）p.99", img: "assets/medchem/es-mifepristone.png",
+  feat: ["由 Norethindrone 修飾而來",
+    "B 環上多一個雙鍵",
+    "11 位接 {{N,N-dimethylphenyl|結構}}★",
+    "17 位接 α-{{propyne|結構}}"],
+  pharm: ["別名：RU486、Mifeprex",
+    "可口服，具有{{抗糖皮質激素|機轉}}活性",
+    "{{不會|性質|會}}通過胎盤",
+    "與 {{Misoprostol|藥名}} 併用{{墮胎|用途}}"] },
+{ id: "es-onapristone", chapter: 39, name: "Onapristone", type: "drug", group: "黃體激素拮抗劑（Progesterone Antagonists）", source: "統整（三）p.99", img: "assets/medchem/es-onapristone.png",
+  feat: ["由 Mifepristone 修飾而來",
+    "17 位接{{正丙醇|結構}}"],
+  pharm: ["修飾後{{降低|性質|增加}}抗糖皮質激素活性"] },
 
 /* ===== 第 16 章 利尿劑（統整（三）柒，p.39–46）===== */
 { id: "diu-location", chapter: 16, name: "利尿劑作用位置總論", short: "作用位置", type: "topic", group: "總論", source: "統整（三）p.39",
@@ -10954,6 +11146,728 @@ PI.KNOWLEDGE = {
       {
         "id": "other",
         "title": "十、其他類降血糖藥物",
+        "items": []
+      }
+    ]
+  },
+  ch38: {
+    "chapter": 38,
+    "title": "腎上腺皮質激素",
+    "sections": [
+      {
+        "id": "over",
+        "title": "總論：取代基總表與分類",
+        "items": [
+          {
+            "title": "取代基總表（藥名旁符號：使用途徑）",
+            "source": "統整（三）p.87",
+            "images": [
+              "assets/medchem/co-fig-sterane.png"
+            ],
+            "table": {
+              "head": [
+                "藥物",
+                "使用途徑",
+                "1,2-雙鍵",
+                "6",
+                "9",
+                "11",
+                "16",
+                "17",
+                "21"
+              ],
+              "rows": [
+                [
+                  "Hydrocortisone",
+                  "全身",
+                  "✘",
+                  "H",
+                  "H",
+                  "β-OH",
+                  "H",
+                  "α-OH",
+                  "OH"
+                ],
+                [
+                  "Cortisone",
+                  "全身",
+                  "✘",
+                  "H",
+                  "H",
+                  "{{=O|取代基}}",
+                  "H",
+                  "α-OH",
+                  "OH"
+                ],
+                [
+                  "Fludrocortisone",
+                  "全身",
+                  "✘",
+                  "H",
+                  "{{α-fluoro|取代基}}",
+                  "β-OH",
+                  "H",
+                  "α-OH",
+                  "OH"
+                ],
+                [
+                  "Prednisolone",
+                  "全身",
+                  "✔",
+                  "H",
+                  "H",
+                  "β-OH",
+                  "H",
+                  "α-OH",
+                  "OH"
+                ],
+                [
+                  "Prednisone",
+                  "全身",
+                  "✔",
+                  "H",
+                  "H",
+                  "=O",
+                  "H",
+                  "α-OH",
+                  "OH"
+                ],
+                [
+                  "Methylprednisolone",
+                  "全身",
+                  "✔",
+                  "{{α-CH₃|取代基}}",
+                  "H",
+                  "β-OH",
+                  "H",
+                  "α-OH",
+                  "OH"
+                ],
+                [
+                  "Betamethasone",
+                  "全身",
+                  "✔",
+                  "H",
+                  "α-fluoro",
+                  "β-OH",
+                  "β-CH₃",
+                  "α-OH",
+                  "OH"
+                ],
+                [
+                  "Beclomethasone",
+                  "局部",
+                  "✔",
+                  "H",
+                  "{{α-chloro|取代基}}",
+                  "β-OH",
+                  "β-CH₃",
+                  "α-OH",
+                  "OH"
+                ],
+                [
+                  "Clobetasol",
+                  "局部",
+                  "✔",
+                  "H",
+                  "α-fluoro",
+                  "β-OH",
+                  "β-CH₃",
+                  "α-OH",
+                  "{{Cl|取代基}}"
+                ],
+                [
+                  "Halobetasol",
+                  "局部",
+                  "✔",
+                  "{{α-fluoro|取代基}}",
+                  "α-fluoro",
+                  "β-OH",
+                  "β-CH₃",
+                  "α-OH",
+                  "Cl"
+                ],
+                [
+                  "Dexamethasone",
+                  "全身",
+                  "✔",
+                  "H",
+                  "α-fluoro",
+                  "β-OH",
+                  "α-CH₃",
+                  "α-OH",
+                  "OH"
+                ],
+                [
+                  "Mometasone",
+                  "吸入／鼻內",
+                  "✔",
+                  "H",
+                  "α-chloro",
+                  "β-OH",
+                  "α-CH₃",
+                  "α-OH",
+                  "Cl"
+                ],
+                [
+                  "Desoximetasone",
+                  "局部",
+                  "✔",
+                  "H",
+                  "α-fluoro",
+                  "β-OH",
+                  "α-CH₃",
+                  "{{H|取代基}}",
+                  "OH"
+                ],
+                [
+                  "Triamcinolone",
+                  "全身、吸入／鼻內",
+                  "✔",
+                  "H",
+                  "α-fluoro",
+                  "β-OH",
+                  "{{α-OH|取代基}}",
+                  "α-OH",
+                  "OH"
+                ],
+                [
+                  "Flumethasone",
+                  "局部",
+                  "✔",
+                  "α-fluoro",
+                  "α-fluoro",
+                  "β-OH",
+                  "α-CH₃",
+                  "α-OH",
+                  "OH"
+                ],
+                [
+                  "Diflucortolone",
+                  "局部",
+                  "✔",
+                  "α-fluoro",
+                  "α-fluoro",
+                  "β-OH",
+                  "α-CH₃",
+                  "H",
+                  "OH"
+                ],
+                [
+                  "Fluticasone",
+                  "吸入／鼻內",
+                  "✔",
+                  "α-fluoro",
+                  "α-fluoro",
+                  "β-OH",
+                  "α-CH₃",
+                  "α-OH",
+                  "{{SCH₂F|取代基}}"
+                ],
+                [
+                  "Flucinolone",
+                  "局部",
+                  "✔",
+                  "α-fluoro",
+                  "α-fluoro",
+                  "β-OH",
+                  "α-OH",
+                  "α-OH",
+                  "OH"
+                ],
+                [
+                  "Desonide",
+                  "局部",
+                  "✔",
+                  "H",
+                  "H",
+                  "β-OH",
+                  {
+                    "t": "ketal（3C）",
+                    "cs": 2
+                  },
+                  null,
+                  "OH"
+                ],
+                [
+                  "Budesonide",
+                  "吸入／鼻內",
+                  "✔",
+                  "H",
+                  "H",
+                  "β-OH",
+                  {
+                    "t": "ketal（4C）",
+                    "cs": 2
+                  },
+                  null,
+                  "OH"
+                ],
+                [
+                  "Amcinonide",
+                  "局部",
+                  "✔",
+                  "H",
+                  "α-fluoro",
+                  "β-OH",
+                  {
+                    "t": "ketal（5C）",
+                    "cs": 2
+                  },
+                  null,
+                  "乙酯基"
+                ],
+                [
+                  "Halcinonide",
+                  "局部",
+                  "✘",
+                  "H",
+                  "α-fluoro",
+                  "β-OH",
+                  {
+                    "t": "ketal（3C）",
+                    "cs": 2
+                  },
+                  null,
+                  "Cl"
+                ],
+                [
+                  "Flunisolide",
+                  "吸入／鼻內",
+                  "✔",
+                  "α-fluoro",
+                  "H",
+                  "β-OH",
+                  {
+                    "t": "ketal（3C）",
+                    "cs": 2
+                  },
+                  null,
+                  "OH"
+                ],
+                [
+                  "Flurandrenolide",
+                  "局部",
+                  "✘",
+                  "α-fluoro",
+                  "H",
+                  "β-OH",
+                  {
+                    "t": "ketal（3C）",
+                    "cs": 2
+                  },
+                  null,
+                  "OH"
+                ],
+                [
+                  "Alclometasone（補充）",
+                  "局部",
+                  "✔",
+                  "7α-chloro",
+                  "H",
+                  "β-OH",
+                  "α-CH₃",
+                  "α-OH",
+                  "OH"
+                ],
+                [
+                  "Prednicarbate（補充）",
+                  "局部",
+                  "✔",
+                  "H",
+                  "H",
+                  "β-OH",
+                  "H",
+                  "OCOOC₂H₅",
+                  "COOC₂H₅"
+                ]
+              ]
+            },
+            "points": [
+              "藥名旁的符號表示使用途徑：◎ 全身性用藥、◇ 局部性用藥、■ 吸入／鼻內用藥"
+            ]
+          },
+          {
+            "title": "取代基總表分成四大類",
+            "source": "統整（三）p.88",
+            "points": [
+              "※ 由上面的取代基總表，可大致將腎上腺皮質藥物分為四大類",
+              "1. {{Hydrocortisone|藥名}} 類衍生物：Hydrocortisone、Cortisone、Fludrocortisone",
+              "2. {{Prednisolone|藥名}} 類衍生物：Prednisolone、Prednisone、Methylprednisolone",
+              "3. 含 9α-fluoro 取代基類衍生物：可再依 16 號位取代基的{{立體構型|名詞}}分為兩類",
+              "(1) β 構型：Betamethasone、Beclomethasone、Clobetasol、Halobetasol",
+              "(2) α 構型：可再依 6 號位有無取代基分為兩小類",
+              "A. 6 號位沒有取代基：Dexamethasone、Mometasone、Desoximetasone、Triamcinolone",
+              "B. 6 號位具有 α-fluoro：Flumethasone、Diflucortolone、Fluticasone、Flucinolone",
+              "※ 例外：{{Fludrocortisone|藥名}} 含有 9α-fluoro 但 1,2 號位之間沒有雙鍵",
+              "4. 含 {{ketal|結構}} 結構的 Desonide 衍生物：可再依 6 或 9 號位有無取代基分為三小類",
+              "(1) 6、9 號位沒有取代基：Desonide、Budesonide",
+              "(2) 6 號位具有 α-fluoro：Flunisolide、Flurandrenolide",
+              "(3) 9 號位具有 α-fluoro：Amcinonide、Halcinonide",
+              "5. 其他類（補充）：Alclometasone、Prednicarbate"
+            ]
+          },
+          {
+            "title": "特殊取代基之藥物",
+            "source": "統整（三）p.88",
+            "table": {
+              "head": [
+                "特殊取代基",
+                "藥物"
+              ],
+              "rows": [
+                [
+                  "6 號位上有 α-CH₃",
+                  "{{Methylprednisolone|藥名}}"
+                ],
+                [
+                  "6 號位上有 α-fluoro",
+                  "Halobetasol、Flumethasone、Diflucortolone、Fluticasone、Flucinolone"
+                ],
+                [
+                  "9 號位上有 α-chloro",
+                  "{{Beclomethasone|藥名}}、{{Mometasone|藥名}}"
+                ],
+                [
+                  "11 號位為 =O",
+                  "{{Cortisone|藥名}}、{{Prednisone|藥名}}（其餘 11 號位皆為 OH）"
+                ],
+                [
+                  "16 號位為 α-OH",
+                  "{{Triamcinolone|藥名}}、{{Flucinolone|藥名}}"
+                ],
+                [
+                  "17 號位為 H",
+                  "{{Desoximetasone|藥名}}、Diflucortolone（其餘 17 號位接 ketal 或 α-OH）"
+                ],
+                [
+                  {
+                    "t": "21 號位為 Cl★",
+                    "b": true
+                  },
+                  "Clobetasol、Halobetasol、Mometasone、Halcinonide"
+                ],
+                [
+                  "21 號位為 SCH₂F",
+                  "{{Fluticasone|藥名}}"
+                ],
+                [
+                  "21 號位為乙酯基",
+                  "{{Amcinonide|藥名}}"
+                ],
+                [
+                  {
+                    "t": "結構中無鹵素原子★",
+                    "b": true
+                  },
+                  "Hydrocortisone、Cortisone、Prednisolone、Prednisone、Methylprednisolone、Desonide、Budesonide"
+                ],
+                [
+                  "結構中總共含 4 個 OH",
+                  "Triamcinolone、Flucinolone"
+                ]
+              ]
+            },
+            "points": [
+              "※ 特殊取代基之藥物"
+            ]
+          },
+          {
+            "title": "二分法結構判讀",
+            "source": "統整（三）p.88",
+            "points": [
+              "【二分法結構判讀】",
+              "1. 一看到類固醇結構，先看「1、2 號位間有沒有雙鍵？」",
+              "→ 是：{{Hydrocortisone|藥名}} 類藥物；否：請繼續看第二點",
+              "2. 「第 16、17 號位是否具有 Ketal 結構？」",
+              "→ 是：{{Desonide|藥名}} 類藥物；否：請繼續看第三點",
+              "3. 「第 9 號位是否具有取代基？」",
+              "→ 否：{{Prednisolone|藥名}} 類藥物；是：Betamethasone/Dexamethasone 類藥物，細項分類請繼續看第四點",
+              "4. 「第 16 號 CH₃ 之立體構型為何？」",
+              "→ 16β-CH₃：{{Betamethasone|藥名}} 類衍生物；16α-CH₃：{{Dexamethasone|藥名}} 類衍生物，細項分類請繼續看第五點",
+              "5. 「第 6 號位是否具有 6α-fluoro 取代基？」",
+              "→ 是：Flu…one 類藥物；否：Dexamethasone、Mometasone、Desoximetasone、Triamcinolone"
+            ]
+          },
+          {
+            "title": "Glucorticoid 藥物之 SAR",
+            "source": "統整（三）p.89",
+            "images": [
+              "assets/medchem/co-fig-sar.png"
+            ],
+            "table": {
+              "head": [
+                "增加抗發炎與 Mineralcorticoid 活性",
+                "增加抗發炎活性",
+                "減少 Mineralcorticoid 活性"
+              ],
+              "rows": [
+                [
+                  "17α-OH",
+                  "1-dehydro",
+                  "6α-CH₃"
+                ],
+                [
+                  "9α-F",
+                  "6α-F",
+                  "16α/β-CH₃"
+                ],
+                [
+                  "9α-Cl",
+                  "11β-OH",
+                  "16α/17α-acetonide"
+                ],
+                [
+                  "21-OH",
+                  "",
+                  "16α-OH"
+                ]
+              ]
+            },
+            "points": [
+              "※ Glucorticoid 藥物之 SAR（參考自阿摩）",
+              "9α-F 會增加 11β-OH 的{{酸性|性質|鹼性}}並減少其氧化作用"
+            ]
+          },
+          {
+            "title": "腎上腺皮質素之藥理作用",
+            "source": "統整（三）p.89",
+            "table": {
+              "head": [
+                {
+                  "t": "藥理作用比較",
+                  "cs": 2
+                },
+                {
+                  "t": "鹽類比較",
+                  "cs": 2
+                }
+              ],
+              "rows": [
+                [
+                  "留鈉效力最強",
+                  "{{Fludrocortisone|藥名}}",
+                  "Cypionate",
+                  "脂溶性高，用於 IM"
+                ],
+                [
+                  "唯一對胎兒無副作用",
+                  "{{Prednisone|藥名}}",
+                  "Sodium succinate",
+                  "水溶性高，用於注射劑"
+                ],
+                [
+                  "適合長期抗發炎",
+                  "{{Prednisolone|藥名}}",
+                  "Sodium phosphate",
+                  "用於注射用水及緩衝液之滅菌溶液"
+                ],
+                [
+                  "抗發炎活性最強",
+                  "{{Dexamethasone|藥名}}",
+                  "Valerate",
+                  "外用製劑"
+                ]
+              ]
+            },
+            "points": [
+              "※ 腎上腺皮質素之藥理作用",
+              "1. 全身投與之副作用：增加{{糖質新生|副作用}}（高血糖）、骨質疏鬆、Na⁺/水滯留引起的水腫和高血壓、胃潰瘍、青光眼、低血鉀、精神疾病",
+              "2. 使用類固醇藥物不可突然停藥，會有嚴重的戒斷症狀，造成急性{{腎上腺功能不足|疾病}}症候群",
+              "3. 胎兒的 Cortisol 可促進{{肺部|器官}}結構成熟，增加表面張力素的生成和分泌，用於預防早產兒呼吸窘迫症候群。通常使用較能穿透胎盤的 {{Betamethasone|藥名}}、Beclomethasone 或 Dexamethasone",
+              "4. 唯一對懷孕中的胎兒沒有影響的藥物是 {{Prednisone|藥名}}，因其為前驅藥，不會在胎兒肝臟轉為具活性的 Prednisolone",
+              "5. 藥物比較",
+              "※ 相關疾病",
+              "1. {{Cushing syndrome|疾病}}：糖皮質類固醇含量過多",
+              "2. {{Addison disease|疾病}}：缺乏糖皮質類固醇"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "hc",
+        "title": "一、Hydrocortisone 類衍生物",
+        "items": [
+          {
+            "title": "Hydrocortisone 類：共同結構特色",
+            "group": "Hydrocortisone 類衍生物",
+            "source": "統整（三）p.90",
+            "points": [
+              "重要共同結構特色：1、2 號位間{{不存在|性質|存在}}雙鍵",
+              "11 號位具有 hydroxy group（OH）：Hydrocortisone、Fludrocortisone",
+              "11 號位具有 ketone group（=O）：Cortisone",
+              "從名字可以判別 Fludrocortisone 具有 9α-fluoro group（dro 唸起來很像 9）"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "pn",
+        "title": "二、Prednisone 類衍生物",
+        "items": [
+          {
+            "title": "Prednisone 類：共同結構特色",
+            "group": "Prednisone 類衍生物",
+            "source": "統整（三）p.90",
+            "points": [
+              "重要共同結構特色：1、2 號位間{{有|性質|沒有}}雙鍵、9 號位{{無取代|性質|有取代}}、結構中沒有鹵素原子",
+              "11 號位具有 hydroxy group（OH）：Prednisolone、Methylprednisolone",
+              "11 號位具有 ketone group（=O）：Prednisone",
+              "從名字可以判別 Methylprednisolone 具有 6α-methyl group（p 上下顛倒就是 6，如果怕記反要記得本類藥物的 9 號位不會有取代基）",
+              "※ Hydrocortisone↔Prednisolone、Cortisone↔Prednisone 之間只差一個雙鍵，結構非常類似。記憶：CP 是一對的，但是 P 有凸一根出來，所以多一個雙鍵"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "f9",
+        "title": "三、含 9α-fluoro 取代基類衍生物",
+        "items": [
+          {
+            "title": "16 號 CH₃ 為 α 構型",
+            "group": "16 號 CH₃ 為「α」構型（含 9α-fluoro 取代基）",
+            "source": "統整（三）p.91",
+            "points": [
+              "16 號 CH₃ 為「α」構型：可再依 6 號位是否有取代基分成兩小類",
+              "6 號位無取代基：Dexamethasone 類衍生物",
+              "6 號位具有 α-fluoro 取代基：名字皆為 Flu…one（例外：{{Fludrocortisone|藥名}}）"
+            ]
+          },
+          {
+            "title": "Betamethasone 類：共同結構特色",
+            "group": "16 號 CH₃ 為「β」構型：Betamethasone 類衍生物",
+            "source": "統整（三）p.91",
+            "points": [
+              "16 號 CH₃ 為「β」構型：Betamethasone 類衍生物，名字中皆含有 beta",
+              "重要共同結構特色：16-CH₃ 為{{β 構型|結構|α 構型}}、具有 9α-fluoro 取代基",
+              "21 號位為 OH：Betamethasone、Beclomethasone",
+              "21 號位為 Cl：Clobetasol、Halobetasol",
+              "Beclomethasone 為 9 號 Cl 取代、Clobetasol 為 21 號 Cl 取代，不要搞混了～（沒什麼好方法記，就請大家動一下腦袋瓜囉）"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "ketal",
+        "title": "四、含 Ketal 結構之藥物",
+        "items": [
+          {
+            "title": "Ketal 類：依 6、9 號位分三類",
+            "group": "Ketal：6、9 號位皆沒有取代基",
+            "source": "統整（三）p.92",
+            "points": [
+              "含 {{Ketal|結構}} 結構之藥物：可再依 6、9 號位是否有取代基分成三類",
+              "6、9 號位皆沒有取代基：Desonide、Budesonide",
+              "6 號位具有 α-fluoro 取代基：Flunisolide、Flurandrenolide",
+              "9 號位具有 α-fluoro 取代基：Amcinonide、Halcinonide"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  ch39: {
+    "chapter": 39,
+    "title": "性荷爾蒙－雌激素相關藥物",
+    "sections": [
+      {
+        "id": "intro",
+        "title": "一、性荷爾蒙介紹",
+        "items": [
+          {
+            "title": "相關結構碳數整理",
+            "source": "統整（三）p.93",
+            "table": {
+              "head": [
+                "結構",
+                "碳數",
+                "口訣"
+              ],
+              "rows": [
+                [
+                  "雌激素",
+                  "18",
+                  "十八姑娘一朵花"
+                ],
+                [
+                  "雄激素",
+                  "19",
+                  "十九少年雄性發"
+                ],
+                [
+                  "黃體素",
+                  "21",
+                  "黃色書刊一把抓"
+                ],
+                [
+                  "膽固醇",
+                  "27",
+                  "固定伴侶氣到炸"
+                ]
+              ]
+            },
+            "points": [
+              "※ 相關結構碳數整理",
+              "雌激素 {{18|數值}}、雄激素 {{19|數值}}、黃體素 {{21|數值}}、膽固醇 {{27|數值}} 個碳"
+            ]
+          },
+          {
+            "title": "性荷爾蒙生合成途徑",
+            "source": "統整（三）p.93",
+            "images": [
+              "assets/medchem/es-fig-bio.png"
+            ],
+            "points": [
+              "Cholesterol 經 P450scc（Sidechain cleavage）形成 {{Pregnenolone|物質}}",
+              "Pregnenolone → 3β-HSD → {{Progesterone|物質}}（progestin）；Progesterone → 21-hydroxylase、Aldosterone synthase → Aldosterone（mineralocorticoid）",
+              "Pregnenolone → 17α-hydroxylase → 17α-Hydroxypregnenolone → 3β-HSD、21-hydroxylase、11β-hydroxylase → Hydrocortisone（cortisol，glucocorticoid）",
+              "17α-Hydroxypregnenolone → 17,20-lyase → {{DHEA|物質}}（Dehydroepiandrosterone）→ 3β-HSD → Androstenedione",
+              "Androstenedione → Aromatase → {{Estrone|物質}}（estrogen）；Androstenedione → 17β-HSD → {{Testosterone|物質}}（androgen）",
+              "Testosterone → Aromatase → {{Estradiol|物質}}（estrogen）；Testosterone → 5α-reductase → 5α-Dihydrotestosterone（androgen）",
+              "※ 3β-HSD：3β-hydroxysteroid dehydrogenase = Δ⁵⁻⁴-isomerase"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "agonist",
+        "title": "二、雌性激素作用劑（Estrogen Agonists）",
+        "items": [
+          {
+            "title": "Human Estrogens：口服與活性順序",
+            "group": "Human Estrogens（人體雌激素及其衍生物）",
+            "source": "統整（三）p.94",
+            "points": [
+              "可以口服之化合物？選擇 {{17α|結構}} 和 16 號位上有取代者",
+              "皮下注射之活性順序：{{Estradiol|藥名}} > Estrone > Estriol",
+              "口服使用之活性順序：{{Ethinyl Estradiol|藥名}} > Estriol > Estradiol > Estrone",
+              "若形成酯類衍生物，可延長作用時間（Estradiol 可在 3 或 17β 位上酯化，增加脂溶性）"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "antagonist",
+        "title": "三、雌性激素拮抗劑（Estrogen Antagonists）",
+        "items": [
+          {
+            "title": "Aromatase Inhibitors：雜環結構之抑制劑代謝",
+            "group": "雜環結構之抑制劑",
+            "source": "統整（三）p.97",
+            "points": [
+              "代謝路徑：經由 {{CYP3A4|酵素}} 和 {{CYP2A6|酵素}} 緩慢代謝成{{無活性|性質|有活性}}代謝物 {{Carbinol|代謝物}}"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "prog",
+        "title": "四、黃體激素作用劑（Progesterone Agonists）",
+        "items": []
+      },
+      {
+        "id": "pant",
+        "title": "五、黃體激素拮抗劑（Progesterone Antagonists）",
         "items": []
       }
     ]
