@@ -146,7 +146,12 @@ PI.GROUP_PARENTS = {
   "Thioamide 衍生物": "治療甲狀腺功能亢進",
   "Bisphosphonates 雙磷酸類": "抗蝕骨作用：降低骨質流失，但無法顯著增加骨骼質量",
   "Vitamin D 類藥物": "抗蝕骨作用：降低骨質流失，但無法顯著增加骨骼質量",
-  "其他（抗蝕骨作用）": "抗蝕骨作用：降低骨質流失，但無法顯著增加骨骼質量"
+  "其他（抗蝕骨作用）": "抗蝕骨作用：降低骨質流失，但無法顯著增加骨骼質量",
+  "緩瀉劑：刺激劑（小腸）": "緩瀉劑",
+  "緩瀉劑：刺激劑（大腸）": "緩瀉劑",
+  "緩瀉劑：Bulk agents": "緩瀉劑",
+  "緩瀉劑：Osmotic": "緩瀉劑",
+  "緩瀉劑：軟便劑": "緩瀉劑"
 };
 
 /* 地圖名牌：和生藥頁一樣用短的英文（名牌字型只有英文字母，中文字寬、長的名牌會擠成一團）。
@@ -548,7 +553,24 @@ PI.GROUP_LABELS = {
   "其他（抗蝕骨作用）": "Other Antiresorptive",
   "促骨形成劑": "Bone-forming",
   "單株抗體": "Monoclonal Ab",
-  "擬鈣劑（Calcimimetics）": "Calcimimetics"
+  "擬鈣劑（Calcimimetics）": "Calcimimetics",
+  "Proton-pump Inhibitors": "Proton-pump Inhibitors",
+  "H₂-receptor blockers（抗潰瘍藥物）": "H2 Blockers",
+  "5-HT₃ antagonists（止吐）": "5-HT3 Antagonists",
+  "Neurokinin-1 receptor antagonist（止吐）": "NK-1 Antagonist",
+  "GABA_A agonist（止吐）": "GABA-A Agonist",
+  "D₂ antagonists（止吐）": "D2 Antagonists",
+  "M receptor antagonist（止吐）": "M Antagonists",
+  "GI tract effect（止吐）": "GI Tract Effect",
+  "Unknown mechanism（止吐）": "Unknown Mechanism",
+  "促進腸胃蠕動相關藥物": "Prokinetics",
+  "緩瀉劑": "Laxatives",
+  "緩瀉劑：刺激劑（小腸）": "Stimulant (Small)",
+  "緩瀉劑：刺激劑（大腸）": "Stimulant (Large)",
+  "緩瀉劑：Bulk agents": "Bulk Agents",
+  "緩瀉劑：Osmotic": "Osmotic",
+  "緩瀉劑：軟便劑": "Stool Softeners",
+  "止瀉劑": "Antidiarrheals"
 };
 
 /* 藥化的欄位：照講義表格的欄位（藥物｜結構｜特性｜藥理及臨床應用） */
@@ -603,6 +625,7 @@ PI.CHAPTERS = [
   { id: 40, name: "性荷爾蒙－雄激素相關藥物", short: "雄激素", no: 16, cat: "cv", estimate: 25, unitType: "drug", note: "統整（三）壹拾陸 p.100–103：天然與人工合成雄激素、促性腺激素抑制劑、抗雄激素、雄激素合成抑制劑" },
   { id: 41, name: "腦下垂體激素", no: 17, cat: "cv", estimate: 22, unitType: "drug", note: "統整（三）壹拾柒 p.104–106：ADH、Somatostatin、GnRH、GH、Prolactin、Oxytocin、HCG" },
   { id: 42, name: "甲狀腺與鈣調節相關藥物", short: "甲狀腺與鈣調節", no: 18, cat: "cv", estimate: 26, unitType: "drug", note: "統整（三）壹拾捌 p.107–112：甲狀腺素、抗甲狀腺藥、副甲狀腺素與骨質疏鬆治療藥物" },
+  { id: 43, name: "腸胃道系統相關藥物", short: "腸胃道系統", no: 19, cat: "cv", estimate: 50, unitType: "drug", note: "統整（三）壹拾玖 p.113–116：PPI、H₂ 阻斷劑、止吐藥、促腸胃蠕動藥、緩瀉劑與止瀉劑" },
   { id: 16, name: "利尿劑", no: 7, cat: "cv", estimate: 20, unitType: "drug", note: "統整（三）柒，p.39–46。" },
   { id: 17, name: "心絞痛藥物", no: 8, cat: "cv", estimate: 8, unitType: "drug", note: "統整（三）捌，p.47–48。" },
   { id: 18, name: "心衰竭藥物", no: 9, cat: "cv", estimate: 10, unitType: "drug", note: "統整（三）玖，p.49–53。" },
@@ -700,6 +723,8 @@ PI.LANDMASSES = [
     palette: { ground: "#C6B8E0", light: "#D9CEEE", cliff: "#9F93B8" } },
   { id: "cv42", name: "甲狀腺島", chapters: [42], cluster: "cv", angle: 0,
     palette: { ground: "#B8D8C8", light: "#CDE7DA", cliff: "#92B0A0" } },
+  { id: "cv43", name: "腸胃島", chapters: [43], cluster: "cv", angle: 0,
+    palette: { ground: "#D8CCA8", light: "#E8DFC3", cliff: "#B3A883" } },
   { id: "cv16",  name: "利尿島",     chapters: [16], cluster: "cv", angle: 75,
     palette: { ground: "#E8B4B0", light: "#F0C9C6", cliff: "#C48A86" } },
   { id: "cv17",  name: "心絞痛島",   chapters: [17], cluster: "cv", angle: 270,
@@ -5969,6 +5994,143 @@ PI.UNITS = [
     "副作用：肌肉痠痛、{{低血鈣|副作用}}、顎骨壞死等"] },
 { id: "th-cinacalcet", chapter: 42, name: "Cinacalcet", type: "drug", group: "擬鈣劑（Calcimimetics）", source: "統整（三）p.111",
   desc: ["可活化 {{Ca²⁺-sensing receptor|標的}}，抑制副甲狀腺分泌，治療因 PTH 亢進引起之{{高血鈣|疾病}}"] },
+
+/* ===== 第 43 章（統整（三）壹拾玖 腸胃道系統相關藥物 p.113–116；畫面章號 19）===== */
+/* 一、抗潰瘍藥物：PPI 與 二、H₂-receptor blockers（與 Vol.1 P106 重複，照講義再做一格，群組加後綴）；三、治療嘔吐相關藥物依表格分類（5-HT₃ antagonists、NK-1、GABA_A、D₂、M、GI tract、Unknown mechanism，群組加「（止吐）」）；
+   四、促進腸胃蠕動相關藥物以一個群組放，分類寫在特性；五、緩瀉劑（刺激劑小腸／大腸、Bulk agents、Osmotic、軟便劑為第三層小標）與止瀉劑。
+   Omeprazole／Esomeprazole 講義共用一格，兩格都放並共用結構圖；p.113 取代基表放 PPI 知識卡，各藥 R 取代基也寫進特性；p.115 止吐分類表放告示牌；p.116 無結構的藥各做一格。
+   H₂-blockers 只有 Cimetidine、Ranitidine、Nizatidine、Famotidine 四格；Metoclopramide、Octreotide 再出現，用不同群組各放一格。 */
+
+{ id: "gi-omeprazole", chapter: 43, name: "Omeprazole", short: "Omeprazole", type: "drug", group: "Proton-pump Inhibitors", source: "統整（三）p.113", img: "assets/medchem/gi-omeprazole.png",
+  feat: ["所有藥物均為{{前驅藥|性質|活性藥}}（Prodrug），於{{酸性|性質|鹼性}}中活化並在{{小腸|器官|胃}}進行吸收，且不需依腎功能調整劑量",
+    "屬於 {{Sulfinylbenzimidazole|結構}} 類結構，有 Benzimidazole、Sulfoxide、{{Pyridine|結構}} 結構，立體中心位於 Sulfoxide 的 S 原子旁邊",
+    "基本結構：{{2-pyridylmethyl sulfinylbenzimidazole|結構}}",
+    "機轉：{{不可逆|性質|可逆}}反應：於酸性條件下環化 → S=O 先轉成 S-OH，脫去 H₂O 後環化 → 受體的 {{Cysteine|物質}} 攻擊 S 使 S-N 打開形成{{雙硫鍵|結構}}，與 H⁺/K⁺-ATP 幫浦形成共價鍵結",
+    "代謝：主要由 {{CYP2C19|酵素}} 進行（會與 {{Clopidogrel|藥名}} 產生交互作用），因立體障礙大，不進行 N-oxidation",
+    "R₁：OCH₃；R₂：CH₃；R₃：CH₃；R₄：CH₃"] },
+{ id: "gi-esomeprazole", chapter: 43, name: "Esomeprazole", short: "Esomeprazole", type: "drug", group: "Proton-pump Inhibitors", source: "統整（三）p.113", img: "assets/medchem/gi-omeprazole.png",
+  feat: ["所有藥物均為{{前驅藥|性質|活性藥}}（Prodrug），於{{酸性|性質|鹼性}}中活化並在{{小腸|器官|胃}}進行吸收，且不需依腎功能調整劑量",
+    "屬於 {{Sulfinylbenzimidazole|結構}} 類結構，有 Benzimidazole、Sulfoxide、{{Pyridine|結構}} 結構，立體中心位於 Sulfoxide 的 S 原子旁邊",
+    "基本結構：{{2-pyridylmethyl sulfinylbenzimidazole|結構}}",
+    "機轉：{{不可逆|性質|可逆}}反應：於酸性條件下環化 → S=O 先轉成 S-OH，脫去 H₂O 後環化 → 受體的 {{Cysteine|物質}} 攻擊 S 使 S-N 打開形成{{雙硫鍵|結構}}，與 H⁺/K⁺-ATP 幫浦形成共價鍵結",
+    "代謝：主要由 CYP2C19 進行（會與 Clopidogrel 產生交互作用），因立體障礙大，不進行 N-oxidation",
+    "Omeprazole 的 {{S-異構物|結構|R-異構物}}"] },
+{ id: "gi-lansoprazole", chapter: 43, name: "Lansoprazole", type: "drug", group: "Proton-pump Inhibitors", source: "統整（三）p.113", img: "assets/medchem/gi-lansoprazole.png",
+  feat: ["R₁：H；R₂：CH₃；R₃：{{CH₂CF₃|取代基}}；R₄：H"] },
+{ id: "gi-pantoprazole", chapter: 43, name: "Pantoprazole", type: "drug", group: "Proton-pump Inhibitors", source: "統整（三）p.113", img: "assets/medchem/gi-pantoprazole.png",
+  feat: ["R₁：{{OCHF₂|取代基}}★；R₂：CH₃；R₃：(CH₂)₃OCH₃；R₄：H",
+    "{{DDI|名詞}} 最少，具有 {{difluoromethoxy|結構}}★ 結構"] },
+{ id: "gi-rabeprazole", chapter: 43, name: "Rabeprazole", type: "drug", group: "Proton-pump Inhibitors", source: "統整（三）p.113", img: "assets/medchem/gi-rabeprazole.png",
+  feat: ["R₁：H；R₂：OCH₃；R₃：CH₃；R₄：H"] },
+{ id: "gi-cimetidine", chapter: 43, name: "Cimetidine", type: "drug", group: "H₂-receptor blockers（抗潰瘍藥物）", source: "統整（三）p.114", img: "assets/medchem/gi-cimetidine.png",
+  feat: ["雜環結構：{{imidazole|結構}}★",
+    "含有 {{N-cyanoimino|結構}}★、Guanidine、S★ 結構"],
+  pharm: ["含 imidazole，會抑制 {{CYP450|酵素}}★",
+    "副作用：男性{{女乳症|副作用}}、陽痿"] },
+{ id: "gi-ranitidine", chapter: 43, name: "Ranitidine", type: "drug", group: "H₂-receptor blockers（抗潰瘍藥物）", source: "統整（三）p.114", img: "assets/medchem/gi-ranitidine.png",
+  feat: ["雜環結構：{{furan|結構}}★",
+    "含有 {{nitromethylene|結構}}★ 結構"] },
+{ id: "gi-nizatidine", chapter: 43, name: "Nizatidine", type: "drug", group: "H₂-receptor blockers（抗潰瘍藥物）", source: "統整（三）p.114", img: "assets/medchem/gi-nizatidine.png",
+  feat: ["雜環結構：{{thiazole|結構}}★"],
+  pharm: ["{{口服生體可用率最高|藥動}}★",
+    "半衰期短，代謝物仍有活性"] },
+{ id: "gi-famotidine", chapter: 43, name: "Famotidine", type: "drug", group: "H₂-receptor blockers（抗潰瘍藥物）", source: "統整（三）p.114", img: "assets/medchem/gi-famotidine.png",
+  feat: ["雜環結構：thiazole",
+    "含有 {{aminosulfonyl|結構}}、guanidine 結構"],
+  pharm: ["藥效{{最強|性質|最弱}}"] },
+{ id: "gi-ramosetron", chapter: 43, name: "Ramosetron（第一代）", short: "Ramosetron", type: "drug", group: "5-HT₃ antagonists（止吐）", source: "統整（三）p.115",
+  desc: ["第一代",
+    "可有效預防化療造成的{{急性嘔吐|疾病|延遲性嘔吐}}",
+    "具潛在致命性{{心律不整|副作用}}的可能",
+    "副作用：{{頭痛|副作用}}"] },
+{ id: "gi-ondansetron", chapter: 43, name: "Ondansetron（第一代）", short: "Ondansetron", type: "drug", group: "5-HT₃ antagonists（止吐）", source: "統整（三）p.115", img: "assets/medchem/gi-ondansetron.png",
+  desc: ["第一代",
+    "可有效預防化療造成的急性嘔吐",
+    "具潛在致命性心律不整的可能",
+    "副作用：頭痛"] },
+{ id: "gi-palonosetron", chapter: 43, name: "Palonosetron（第二代）", short: "Palonosetron", type: "drug", group: "5-HT₃ antagonists（止吐）", source: "統整（三）p.115", img: "assets/medchem/gi-palonosetron.png",
+  desc: ["第二代",
+    "效力為第一代的 {{100|數值}} 倍",
+    "併用 {{Dexamethasone|藥名}} 治療延遲性嘔吐"] },
+{ id: "gi-aprepitant", chapter: 43, name: "Aprepitant", type: "drug", group: "Neurokinin-1 receptor antagonist（止吐）", source: "統整（三）p.115", img: "assets/medchem/gi-aprepitant.png",
+  desc: ["與 {{NK-1|受體}} 受體結合後，阻斷 {{Substance P|物質}} 的作用",
+    "與 5-HT₃ 致效劑或 Steroid 併用有加成效果"] },
+{ id: "gi-lorazepam", chapter: 43, name: "Lorazepam", type: "drug", group: "GABA_A agonist（止吐）", source: "統整（三）p.115",
+  desc: ["止吐效果{{弱|性質|強}}，但有{{鎮靜安眠|藥效}}的作用"] },
+{ id: "gi-haloperidol", chapter: 43, name: "Haloperidol", type: "drug", group: "D₂ antagonists（止吐）", source: "統整（三）p.115",
+  desc: ["{{D₂|受體}} antagonists"] },
+{ id: "gi-prochlorperazine", chapter: 43, name: "Prochlorperazine", type: "drug", group: "D₂ antagonists（止吐）", source: "統整（三）p.115",
+  desc: ["{{D₂|受體}} antagonists"] },
+{ id: "gi-scopolamine", chapter: 43, name: "Scopolamine", type: "drug", group: "M receptor antagonist（止吐）", source: "統整（三）p.115",
+  desc: ["{{M receptor|受體}} antagonist"] },
+{ id: "gi-promethazine", chapter: 43, name: "Promethazine", type: "drug", group: "M receptor antagonist（止吐）", source: "統整（三）p.115",
+  desc: ["{{M receptor|受體}} antagonist"] },
+{ id: "gi-metoclopramide-e", chapter: 43, name: "Metoclopramide（止吐）", short: "Metoclopramide", type: "drug", group: "GI tract effect（止吐）", source: "統整（三）p.115",
+  desc: ["GI tract effect",
+    "產生鎮靜、腹瀉、{{EPS|副作用}} 等副作用"] },
+{ id: "gi-dexamethasone", chapter: 43, name: "Dexamethasone（Steroid）", short: "Dexamethasone", type: "drug", group: "Unknown mechanism（止吐）", source: "統整（三）p.115",
+  desc: ["單獨使用可對輕中度的{{化療性嘔吐|疾病}}有效"] },
+{ id: "gi-dronabinol", chapter: 43, name: "Dronabinol（Cannabinoid）", short: "Dronabinol", type: "drug", group: "Unknown mechanism（止吐）", source: "統整（三）p.115", img: "assets/medchem/gi-dronabinol.png",
+  desc: ["Cannabinoid：Dronabinol（Δ⁹-THC）"] },
+{ id: "gi-olanzapine", chapter: 43, name: "Olanzapine", type: "drug", group: "Unknown mechanism（止吐）", source: "統整（三）p.115",
+  desc: ["作用機轉{{不明|性質}}（Unknown mechanism）"] },
+{ id: "gi-cisapride", chapter: 43, name: "Cisapride", type: "drug", group: "促進腸胃蠕動相關藥物", source: "統整（三）p.116", img: "assets/medchem/gi-cisapride.png",
+  desc: ["治療{{胃輕癱|疾病}}（Gastroparesis）、GERD"],
+  feat: ["分類：{{5-HT₄ agonist|機轉}}"] },
+{ id: "gi-metoclopramide", chapter: 43, name: "Metoclopramide（促進蠕動）", short: "Metoclopramide", type: "drug", group: "促進腸胃蠕動相關藥物", source: "統整（三）p.116", img: "assets/medchem/gi-metoclopramide.png",
+  desc: ["治療胃輕癱、{{功能性消化不良|疾病}}（Functional dyspepsia）、止吐"],
+  feat: ["分類：5-HT₄ agonist + D₂ antagonist"] },
+{ id: "gi-domperidone", chapter: 43, name: "Domperidone", type: "drug", group: "促進腸胃蠕動相關藥物", source: "統整（三）p.116",
+  desc: ["治療胃輕癱、功能性消化不良、{{Levodopa|藥名}} 引起之噁心嘔吐"],
+  feat: ["分類：周邊 D₂ antagonist"] },
+{ id: "gi-erythromycin", chapter: 43, name: "Erythromycin", type: "drug", group: "促進腸胃蠕動相關藥物", source: "統整（三）p.116",
+  desc: ["臨床上{{不用|性質|常用}}來促進腸胃蠕動"],
+  feat: ["分類：{{Motilin agonist|機轉}}"] },
+{ id: "gi-octreotide", chapter: 43, name: "Octreotide（促進蠕動）", short: "Octreotide", type: "drug", group: "促進腸胃蠕動相關藥物", source: "統整（三）p.116",
+  desc: ["治療 {{Intestinal pseudo-obstruction|疾病}}",
+    "Octreotide 的必要胺基酸片段為：{{Phe-Trp-Lys-Thr|結構}}"],
+  feat: ["分類：Somatostatin analogue"] },
+{ id: "gi-bethanechol", chapter: 43, name: "Bethanechol", type: "drug", group: "促進腸胃蠕動相關藥物", source: "統整（三）p.116",
+  desc: ["促進{{膽鹼性|性質}}受體作用"],
+  feat: ["分類：M receptor agonist"] },
+{ id: "gi-simethicone", chapter: 43, name: "Simethicone", type: "drug", group: "促進腸胃蠕動相關藥物", source: "統整（三）p.116", img: "assets/medchem/gi-simethicone.png",
+  desc: ["消除{{胃脹氣|疾病}}"],
+  feat: ["分類：Other"] },
+{ id: "gi-castoroil", chapter: 43, name: "Castor oil（蓖麻油）", short: "Castor oil", type: "drug", group: "緩瀉劑：刺激劑（小腸）", source: "統整（三）p.116",
+  desc: ["蓖麻油，造成{{快速|性質|緩慢}}排空"] },
+{ id: "gi-lubiprostone", chapter: 43, name: "Lubiprostone", type: "drug", group: "緩瀉劑：刺激劑（小腸）", source: "統整（三）p.116",
+  desc: ["局部{{氯離子通道|標的}}活化劑，增加腸液分泌和蠕動"] },
+{ id: "gi-bisacodyl", chapter: 43, name: "Bisacodyl", type: "drug", group: "緩瀉劑：刺激劑（大腸）", source: "統整（三）p.116",
+  desc: ["{{合成|性質|天然}}化合物"] },
+{ id: "gi-anthraquinone", chapter: 43, name: "Anthraquinone", type: "drug", group: "緩瀉劑：刺激劑（大腸）", source: "統整（三）p.116",
+  desc: ["{{Cascara|藥名}}、{{Senna|藥名}}、{{Aloes|藥名}} 等{{天然植物|名詞|合成化合物}}"] },
+{ id: "gi-methylcellulose", chapter: 43, name: "Methyl cellulose", type: "drug", group: "緩瀉劑：Bulk agents", source: "統整（三）p.116",
+  desc: ["Bulk agents：{{最安全|性質|最危險}}"] },
+{ id: "gi-agar", chapter: 43, name: "Agar", type: "drug", group: "緩瀉劑：Bulk agents", source: "統整（三）p.116",
+  desc: ["{{Bulk agents|藥物類別}}：最安全"] },
+{ id: "gi-psyllium", chapter: 43, name: "車前子（Psyllium）", short: "車前子", type: "drug", group: "緩瀉劑：Bulk agents", source: "統整（三）p.116",
+  desc: ["{{Bulk agents|藥物類別}}：最安全"] },
+{ id: "gi-lactulose", chapter: 43, name: "Lactulose", type: "drug", group: "緩瀉劑：Osmotic", source: "統整（三）p.116",
+  desc: ["在大腸形成高滲透壓，使水滯留↑",
+    "可降低{{血氨|物質}}濃度，用於治療{{肝性腦病變|疾病}}★（Hepatic encephalopathy）"] },
+{ id: "gi-sorbitol", chapter: 43, name: "Sorbitol", type: "drug", group: "緩瀉劑：Osmotic", source: "統整（三）p.116",
+  desc: ["在大腸形成{{高滲透壓|機轉}}，使水滯留↑"] },
+{ id: "gi-magnesium", chapter: 43, name: "鎂鹽（Magnesium salts）", short: "鎂鹽", type: "drug", group: "緩瀉劑：Osmotic", source: "統整（三）p.116",
+  desc: ["在大腸形成{{高滲透壓|機轉}}，使水滯留↑"] },
+{ id: "gi-mineraloil", chapter: 43, name: "礦物油（Mineral oil）", short: "礦物油", type: "drug", group: "緩瀉劑：軟便劑", source: "統整（三）p.116",
+  desc: ["長期服用會影響{{脂溶性維生素|物質}}及藥物吸收"] },
+{ id: "gi-paraffin", chapter: 43, name: "Paraffin", type: "drug", group: "緩瀉劑：軟便劑", source: "統整（三）p.116",
+  desc: ["長期服用會影響{{脂溶性維生素|物質}}及藥物吸收"] },
+{ id: "gi-glycerol", chapter: 43, name: "Glycerol", type: "drug", group: "緩瀉劑：軟便劑", source: "統整（三）p.116",
+  desc: ["長期服用會影響{{脂溶性維生素|物質}}及藥物吸收"] },
+{ id: "gi-loperamide", chapter: 43, name: "Loperamide", type: "drug", group: "止瀉劑", source: "統整（三）p.116",
+  desc: ["抗腸胃蠕動：活化腸肌叢（Myenteric plexus）的{{μ 受體|標的}}，過極化使 {{ACh|物質}} 釋放減少，且不通過 {{BBB|部位}} 不具成癮性"] },
+{ id: "gi-kaolin", chapter: 43, name: "Kaolin", type: "drug", group: "止瀉劑", source: "統整（三）p.116",
+  desc: ["{{吸附劑|藥物類別}}"] },
+{ id: "gi-pectin", chapter: 43, name: "Pectin", type: "drug", group: "止瀉劑", source: "統整（三）p.116",
+  desc: ["{{吸附劑|藥物類別}}"] },
+{ id: "gi-charcoal", chapter: 43, name: "Charcoal（活性碳）", short: "Charcoal", type: "drug", group: "止瀉劑", source: "統整（三）p.116",
+  desc: ["{{吸附劑|藥物類別}}"] },
 
 /* ===== 第 16 章 利尿劑（統整（三）柒，p.39–46）===== */
 { id: "diu-location", chapter: 16, name: "利尿劑作用位置總論", short: "作用位置", type: "topic", group: "總論", source: "統整（三）p.39",
@@ -12654,6 +12816,195 @@ PI.KNOWLEDGE = {
             "source": "統整（三）p.112",
             "points": [
               "※ {{Paget's disease|疾病}}：病理器官為{{骨骼|器官}}，病因為骨骼的鈣質再吸收異常增加，可使用 {{Calcitonin|藥名}}、Plicamycin 治療（降血鈣濃度）"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  ch43: {
+    "chapter": 43,
+    "title": "腸胃道系統相關藥物",
+    "sections": [
+      {
+        "id": "ppi",
+        "title": "一、抗潰瘍藥物：Proton-pump Inhibitors",
+        "items": [
+          {
+            "title": "PPI：結構通式與取代基",
+            "group": "Proton-pump Inhibitors",
+            "source": "統整（三）p.113",
+            "images": [
+              "assets/medchem/gi-fig-ppi.png",
+              "assets/medchem/gi-fig-cyp.png"
+            ],
+            "table": {
+              "head": [
+                "藥物",
+                "R₁",
+                "R₂",
+                "R₃",
+                "R₄"
+              ],
+              "rows": [
+                [
+                  "Omeprazole",
+                  "OCH₃",
+                  "CH₃",
+                  "CH₃",
+                  "CH₃"
+                ],
+                [
+                  "Lansoprazole",
+                  "H",
+                  "CH₃",
+                  "{{CH₂CF₃|取代基}}",
+                  "H"
+                ],
+                [
+                  "Pantoprazole",
+                  "{{OCHF₂|取代基}}★",
+                  "CH₃",
+                  "(CH₂)₃OCH₃",
+                  "H"
+                ],
+                [
+                  "Rabeprazole",
+                  "H",
+                  "OCH₃",
+                  "CH₃",
+                  "H"
+                ]
+              ]
+            },
+            "points": [
+              "※ 藥理補充：GERD 之{{三合一|名詞}}療法為 PPI + {{Clarithromycin|藥名}} + Amoxicillin/Metronidazole"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "h2",
+        "title": "二、抗潰瘍藥物：H₂-receptor blockers（與 Vol.1 P106 重複）",
+        "items": []
+      },
+      {
+        "id": "emesis",
+        "title": "三、治療嘔吐相關藥物",
+        "items": [
+          {
+            "title": "止吐藥物分類整理",
+            "source": "統整（三）p.115",
+            "table": {
+              "head": [
+                "分類",
+                "藥物",
+                "說明"
+              ],
+              "rows": [
+                [
+                  {
+                    "t": "5-HT₃ antagonists",
+                    "b": true,
+                    "rs": 2
+                  },
+                  "第一代：Ramosetron、Ondansetron",
+                  "可有效預防化療造成的急性嘔吐；具潛在致命性心律不整的可能；副作用：頭痛"
+                ],
+                [
+                  null,
+                  "第二代：Palonosetron",
+                  "效力為第一代的 100 倍；併用 Dexamethasone 治療延遲性嘔吐"
+                ],
+                [
+                  {
+                    "t": "Neurokinin-1 receptor antagonist",
+                    "b": true
+                  },
+                  "Aprepitant",
+                  "與 NK-1 受體結合後，阻斷 Substance P 的作用；與 5-HT₃ 致效劑或 Steroid 併用有加成效果"
+                ],
+                [
+                  {
+                    "t": "GABA_A agonist",
+                    "b": true
+                  },
+                  "Lorazepam",
+                  "止吐效果弱，但有鎮靜安眠的作用"
+                ],
+                [
+                  {
+                    "t": "D₂ antagonists",
+                    "b": true
+                  },
+                  "Haloperidol、Prochlorperazine",
+                  ""
+                ],
+                [
+                  {
+                    "t": "M receptor antagonist",
+                    "b": true
+                  },
+                  "Scopolamine、Promethazine",
+                  ""
+                ],
+                [
+                  {
+                    "t": "GI tract effect",
+                    "b": true,
+                    "rs": 2
+                  },
+                  "Metoclopramide",
+                  "產生鎮靜、腹瀉、EPS 等副作用"
+                ],
+                [
+                  null,
+                  "H₂-blockers、PPI",
+                  ""
+                ],
+                [
+                  {
+                    "t": "Unknown mechanism",
+                    "b": true,
+                    "rs": 3
+                  },
+                  "Steroid：Dexamethasone",
+                  "單獨使用可對輕中度的化療性嘔吐"
+                ],
+                [
+                  null,
+                  "Cannabinoid：Dronabinol（Δ⁹-THC）",
+                  ""
+                ],
+                [
+                  null,
+                  "Olanzapine",
+                  ""
+                ]
+              ]
+            },
+            "points": [
+              "※ 結構補充：Ondansetron、Palonosetron、Aprepitant、Dronabinol"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "motility",
+        "title": "四、促進腸胃蠕動相關藥物",
+        "items": []
+      },
+      {
+        "id": "laxative",
+        "title": "五、緩瀉劑、止瀉劑",
+        "items": [
+          {
+            "title": "緩瀉劑與止瀉劑補充",
+            "source": "統整（三）p.116",
+            "points": [
+              "※ 緩瀉劑：刺激劑（小腸：Castor oil、Lubiprostone；大腸：Bisacodyl、Anthraquinone）、Bulk agents、Osmotic、軟便劑",
+              "※ {{Lactulose|藥名}} 可降低血氨濃度，用於治療{{肝性腦病變|疾病}}★（Hepatic encephalopathy）",
+              "止瀉劑：1. 抗腸胃蠕動：Loperamide　2. 吸附劑：Kaolin、Pectin、Charcoal（活性碳）　3. 其他：Fiber、抗膽鹼藥物"
             ]
           }
         ]
