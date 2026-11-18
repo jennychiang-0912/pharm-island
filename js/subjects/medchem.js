@@ -293,7 +293,18 @@ PI.GROUP_LABELS = {
   "第一代 Carbapenems：C₄無甲基保護，易被腎臟 Dehydropeptidase-1★（DHP-1）水解": "Carbapenem 1st",
   "第二代 Carbapenems：C₄具有甲基取代，防止被腎臟 DHP-1 水解（不需併用 Cilastatin）": "Carbapenem 2nd",
   "單內醯胺類（Monobactams）": "Monobactams",
-  "其他細胞壁合成抑制劑": "Other CW Inhibitors"
+  "其他細胞壁合成抑制劑": "Other CW Inhibitors",
+  "五碳糖（胺醣類）": "Pentose",
+  "六碳糖（胺醣類）": "Hexose",
+  "Tetracyclines：短效型": "Short-acting",
+  "Tetracyclines：中效型": "Intermediate",
+  "Tetracyclines：長效型": "Long-acting",
+  "Tetracyclines：廣效型": "Broad Tetracycline",
+  "Macrolides（大環內酯類）": "Macrolides",
+  "Ketolides": "Ketolides",
+  "Lincosamide 類": "Lincosamides",
+  "其他蛋白質抑制劑": "Other Protein Inhib.",
+  "Streptogramin 類": "Streptogramins"
 };
 
 /* 藥化的欄位：照講義表格的欄位（藥物｜結構｜特性｜藥理及臨床應用） */
@@ -328,6 +339,7 @@ PI.CHAPTERS = [
   { id: 20, name: "磺胺類藥物", no: 1, cat: "chemo", estimate: 19, unitType: "drug", note: "統整（二）壹，p.3–7。" },
   { id: 21, name: "喹諾酮類與尿道抗菌劑", no: 2, cat: "chemo", estimate: 15, unitType: "drug", note: "統整（二）貳，p.8–12。" },
   { id: 22, name: "抗生素：細胞壁合成抑制劑", no: 3, cat: "chemo", estimate: 53, unitType: "drug", note: "統整（二）參，p.13–28。" },
+  { id: 23, name: "抗生素：蛋白質合成抑制劑", no: 4, cat: "chemo", estimate: 29, unitType: "drug", note: "統整（二）肆，p.29–40。" },
   { id: 16, name: "利尿劑", no: 1, cat: "cv", estimate: 20, unitType: "drug", note: "統整（三）柒，p.39–46。" },
   { id: 17, name: "心絞痛藥物", no: 2, cat: "cv", estimate: 8, unitType: "drug", note: "統整（三）捌，p.47–48。" },
   { id: 18, name: "心衰竭藥物", no: 3, cat: "cv", estimate: 10, unitType: "drug", note: "統整（三）玖，p.49–53。" },
@@ -384,6 +396,8 @@ PI.LANDMASSES = [
     palette: { ground: "#B2D6B8", light: "#CBE5CF", cliff: "#86AE8D" } },
   { id: "chemo22", name: "細胞壁島",   chapters: [22], cluster: "chemo", angle: 200,
     palette: { ground: "#A4CFD2", light: "#BEE0E2", cliff: "#7AA9AC" } },
+  { id: "chemo23", name: "蛋白質島",   chapters: [23], cluster: "chemo", angle: 110,
+    palette: { ground: "#9FCBC6", light: "#BADBD7", cliff: "#76A5A0" } },
   { id: "cv16",  name: "利尿島",     chapters: [16], cluster: "cv", angle: 75,
     palette: { ground: "#E8B4B0", light: "#F0C9C6", cliff: "#C48A86" } },
   { id: "cv17",  name: "心絞痛島",   chapters: [17], cluster: "cv", angle: 270,
@@ -3109,6 +3123,193 @@ PI.UNITS = [
     "胺醣：2 個 glycosamine"],
   pharm: ["脂溶性較{{高|性質|低}}，較不會有副作用"] },
 
+/* ===== 第 23 章（統整（二）肆 抗生素－蛋白質合成抑制劑 p.29–40）===== */
+/* p.29 的作用位置總覽圖與表、p.30 胺醣類藥理、p.31 胺醣類基本結構、p.33 四環素藥理與化學性質、p.34 四環素基本結構與 SAR、p.35 Macrolides 藥理、p.40 抗生素分類與抗藥性機轉整理，都是沒有黑底灰底的總說明，放告示牌；
+   一、胺醣類：灰底「五碳糖」「六碳糖」是分類（加後綴避免重名）；二、四環類：表格的「分類」欄（短效／中效／長效／廣效）當分類，每個藥的 R₁～R₄ 取代基放「說明」；
+   三、Macrolides：灰底 Macrolides、Ketolides；四、Lincosamide 類的基本結構框放該類知識卡；五、其他蛋白質抑制劑：另有灰底 Streptogramin 類。
+   講義一列兩個藥共用的說明（Troleandomycin／Oleandomycin、Dalfopristin／Quinupristin 的藥理）兩格都放；只講到其中一個藥的句子只放那一格。 */
+
+{ id: "pr-streptomycin", chapter: 23, name: "Streptomycin", type: "drug", group: "五碳糖（胺醣類）", source: "統整（二）p.31", img: "assets/medchem/pr-streptomycin.png",
+  feat: ["主要結構：{{Streptamine|結構}}",
+    "（不具有 {{2-deoxystreptamine|結構}}★）",
+    "五碳糖：{{Streptose|結構}}",
+    "含有 2 個 {{Guanidine|結構}} 基團（C₁、C₃★），為強鹼藥；",
+    "強酸下水解得到 {{Streptidine|代謝物}}★、Streptobiosamine"],
+  pharm: ["{{第一個|數值}}具有生物活性的胺醣類藥物",
+    "高親水性，不易與脂蛋白結合",
+    "醛基還原成醇基，造成{{耳聾|副作用}}副作用",
+    "{{肺結核|疾病}}第二線用藥"] },
+{ id: "pr-neomycin", chapter: 23, name: "Neomycin", type: "drug", group: "五碳糖（胺醣類）", source: "統整（二）p.31", img: "assets/medchem/pr-neomycin.png",
+  feat: ["主要結構：{{2-Deoxystreptamine|結構}}",
+    "五碳糖：{{D-ribose|結構}}"],
+  pharm: ["因{{腎毒性|副作用}}大，需{{口服|給藥途徑}}使用",
+    "作為腹腔手術之{{腸道清潔劑|用途}}",
+    "與 {{Lactulose|藥名}} 併用治療{{肝性腦病變|疾病}}"] },
+{ id: "pr-paromomycin", chapter: 23, name: "Paromomycin", type: "drug", group: "五碳糖（胺醣類）", source: "統整（二）p.31", img: "assets/medchem/pr-paromomycin.png",
+  feat: ["主要結構：2-Deoxystreptamine",
+    "五碳糖：D-ribose"],
+  pharm: ["腎毒性大，{{不可注射|給藥途徑}}使用",
+    "可治療{{腸道阿米巴原蟲感染|疾病}}★"] },
+{ id: "pr-kanamycin", chapter: 23, name: "Kanamycin", type: "drug", group: "六碳糖（胺醣類）", source: "統整（二）p.32", img: "assets/medchem/pr-kanamycin.png",
+  feat: ["主要結構：2-Deoxystreptamine",
+    "Kanamycin A 與 {{L-HABA|結構}} {{乙醯化|代謝}}後得到 {{Amikacin|藥名}}",
+    "Kanamycin B 去除 {{3'-OH|取代基}} 後得到 {{Tobramycin|藥名}}"],
+  pharm: ["抗藥性之產生",
+    "Kanamycin A：C3'-OH 被{{磷酸化|代謝}}",
+    "Kanamycin B：C6'-NH₂ 被{{乙醯化|代謝}}★"] },
+{ id: "pr-amikacin", chapter: 23, name: "Amikacin", type: "drug", group: "六碳糖（胺醣類）", source: "統整（二）p.32", img: "assets/medchem/pr-amikacin.png", imgMore: ["assets/medchem/pr-haba.png"],
+  feat: ["主要結構：2-Deoxystreptamine",
+    "Kanamycin A 與 L-HABA（結構如下）經乙醯化合成得到",
+    "（L-HABA 接在 {{deoxystreptamine|結構}}★上）"],
+  pharm: ["由 Kanamycin {{半合成|名詞}}而來",
+    "最不容易被酵素分解"] },
+{ id: "pr-gentamicin", chapter: 23, name: "Gentamicin", type: "drug", group: "六碳糖（胺醣類）", source: "統整（二）p.32", img: "assets/medchem/pr-gentamicin.png",
+  feat: ["主要結構：2-Deoxystreptamine",
+    "主結構之 1 號位具有 {{NH₂|取代基}}",
+    "缺乏 {{3'-OH|取代基}}★，不會被 phosphotransferase 分解",
+    "Gentamicin C₁ₐ 衍生物★：{{Netilmicin|藥名}}、{{Sisomicin|藥名}}",
+    "（Sisomicin 的 C3-NH₂ {{乙基化|代謝}}★可得 Netilmicin）"],
+  pharm: ["不可和 {{Carbenicillin|藥名}}/{{Ampicillin|藥名}} 併用",
+    "因 1-NH₂ 會使 β-lactam 進行 N-乙醯化而失去活性"] },
+{ id: "pr-spectinomycin", chapter: 23, name: "Spectinomycin", type: "drug", group: "六碳糖（胺醣類）", source: "統整（二）p.32", img: "assets/medchem/pr-spectinomycin.png",
+  feat: ["屬於 {{Aminocyclitol|藥物類別}} 類",
+    "不具有 {{2-deoxystreptamine|結構}}★",
+    "三個環狀結構直接相接"],
+  pharm: ["{{抑菌|性質|殺菌}}：胺醣類唯一不造成 mRNA 誤讀",
+    "唯一治療具抗藥性或對 penicillin 過敏的{{淋病|疾病}}患者"] },
+{ id: "pr-tetracycline", chapter: 23, name: "Tetracycline", type: "drug", group: "Tetracyclines：短效型", source: "統整（二）p.34",
+  desc: ["R₁（C₇）：H　R₂（C₆）：CH₃　R₃（C₆）：OH　R₄（C₅）：H"],
+  feat: ["{{HCl 鹽類|物質}}可治療{{痤瘡|疾病}}"] },
+{ id: "pr-chlortetracycline", chapter: 23, name: "Chlortetracycline", type: "drug", group: "Tetracyclines：短效型", source: "統整（二）p.34",
+  desc: ["R₁（C₇）：{{Cl|取代基}}　R₂（C₆）：CH₃　R₃（C₆）：OH　R₄（C₅）：H"],
+  feat: ["C₇ 接有 Cl 原子，增加{{脂溶性|性質|水溶性}}"] },
+{ id: "pr-oxytetracycline", chapter: 23, name: "Oxytetracycline", type: "drug", group: "Tetracyclines：短效型", source: "統整（二）p.34",
+  desc: ["R₁（C₇）：H　R₂（C₆）：CH₃　R₃（C₆）：OH　R₄（C₅）：{{OH|取代基}}"],
+  feat: ["C₅ 接有 α-OH →最{{親水|性質|親脂}}"] },
+{ id: "pr-demeclocycline", chapter: 23, name: "Demeclocycline", type: "drug", group: "Tetracyclines：中效型", source: "統整（二）p.34",
+  desc: ["R₁（C₇）：Cl　R₂（C₆）：{{H|取代基}}　R₃（C₆）：OH　R₄（C₅）：H"],
+  feat: ["{{光毒性|副作用}}，最不容易使{{牙齒變色|副作用}}。具抗利尿激素 ADH 作用，可治療 {{SIADH|疾病}}"] },
+{ id: "pr-methacycline", chapter: 23, name: "Methacycline", type: "drug", group: "Tetracyclines：中效型", source: "統整（二）p.34",
+  desc: ["R₁（C₇）：H　R₂、R₃（C₆）：{{C=C|結構}}　R₄（C₅）：OH"],
+  feat: ["C₆ 無 OH 基，增加對{{鹼|性質|酸}}的安定性★"] },
+{ id: "pr-rolitetracycline", chapter: 23, name: "Rolitetracycline", type: "drug", group: "Tetracyclines：中效型", source: "統整（二）p.34",
+  desc: ["Tetracycline + {{Formaldehyde|物質}}★ + {{Pyrrolidine|結構}}★"],
+  feat: ["C₂ 進行 {{Mannich 縮合反應|名詞}}，{{水溶性|性質|脂溶性}}增加★，適合做成{{注射劑|名詞}}"] },
+{ id: "pr-doxycycline", chapter: 23, name: "Doxycycline", type: "drug", group: "Tetracyclines：長效型", source: "統整（二）p.34",
+  desc: ["R₁（C₇）：H　R₂（C₆）：CH₃　R₃（C₆）：{{H|取代基}}　R₄（C₅）：OH"],
+  feat: ["C₆ 無取代可入 {{BBB|器官}}，口服吸收佳。治療{{披衣菌|名詞}}感染，由{{膽汁|器官}}排除"] },
+{ id: "pr-minocycline", chapter: 23, name: "Minocycline", type: "drug", group: "Tetracyclines：長效型", source: "統整（二）p.34",
+  desc: ["R₁（C₇）：{{N(CH₃)₂|取代基}}　R₂（C₆）：H　R₃（C₆）：H　R₄（C₅）：H"],
+  feat: ["廣效型，口服吸收佳，可入 BBB 治{{腦膜炎|疾病}}。具有{{兩個|數值|一個}} dimethylamino group"] },
+{ id: "pr-tigecycline", chapter: 23, name: "Tigecycline", type: "drug", group: "Tetracyclines：廣效型", source: "統整（二）p.34", img: "assets/medchem/pr-tigecycline.png",
+  feat: ["C₉ 具有 [i]t[/i]-{{butylglycylamido|取代基}} 基團★、具有兩個 dimethylamino group",
+    "可抑制細菌之{{外排幫浦|機轉}}，治療{{超級細菌|名詞}}感染"] },
+{ id: "pr-erythromycin", chapter: 23, name: "Erythromycin", type: "drug", group: "Macrolides（大環內酯類）", source: "統整（二）p.36", img: "assets/medchem/pr-erythromycin.png",
+  feat: ["非醣基：{{Erythronolide A|結構}}（{{14|數值}} 元環內酯）",
+    "C₃ 上醣基：{{Cladinose|結構}}",
+    "C₅ 上胺醣：{{Desosamine|結構}}，微鹼性之來源"],
+  pharm: ["治療孕婦泌尿道感染{{披衣菌|名詞}}、對 Penicillin 過敏之{{梅毒|疾病}}患者",
+    "{{Estolate|名詞}} 製劑可治療{{膽汁鬱積性肝炎|疾病}}",
+    "CYP450 抑制劑"] },
+{ id: "pr-clarithromycin", chapter: 23, name: "Clarithromycin", type: "drug", group: "Macrolides（大環內酯類）", source: "統整（二）p.36", img: "assets/medchem/pr-clarithromycin.png",
+  feat: ["Erythromycin C₆-OH 修飾為 {{-OCH₃|取代基}}★",
+    "→對酸穩定，口服生體可用率高，同時可減少腸胃道副作用"],
+  pharm: ["{{幽門螺旋桿菌|名詞}}感染首選藥",
+    "可治療 [i]H. influenzae[/i]、胃潰瘍三合一療法（PPI+Amoxicillin/Metronidazole）",
+    "CYP450 抑制劑，經由{{腎臟|器官}}★排除"] },
+{ id: "pr-dirithromycin", chapter: 23, name: "Dirithromycin", type: "drug", group: "Macrolides（大環內酯類）", source: "統整（二）p.36", img: "assets/medchem/pr-dirithromycin.png",
+  feat: ["結構多一個環：{{9N,11O-oxazine ring|結構}}",
+    "C₉ 接有長鏈結構，使脂溶性增加"],
+  pharm: ["代謝產生 9S-erythromycylamine"] },
+{ id: "pr-azithromycin", chapter: 23, name: "Azithromycin", type: "drug", group: "Macrolides（大環內酯類）", source: "統整（二）p.37", img: "assets/medchem/pr-azithromycin.png",
+  feat: ["唯一 {{15 元環|數值}}內酯結構",
+    "Erythromycin 的 C₉、C₁₀ 間導入 {{N-methyl|取代基}}★形成",
+    "（將 Erythromycin 與 {{NH₂OH|物質}}★反應）",
+    "對酸安定性增加，口服吸收上升"],
+  pharm: ["對 G(-)較有效，可治療{{退伍軍人症|疾病}}",
+    "{{半衰期最長|性質}}",
+    "{{不會|性質|會}}抑制 CYP450"] },
+{ id: "pr-troleandomycin", chapter: 23, name: "Troleandomycin", type: "drug", group: "Macrolides（大環內酯類）", source: "統整（二）p.37", img: "assets/medchem/pr-troleandomycin.png",
+  feat: ["非醣基：{{Oleanolide|結構}}",
+    "C₃★上醣基：{{L-Oleandrose|結構}}",
+    "C₅★上胺醣：{{Desosamine|結構}}"],
+  pharm: ["Oleandomycin 的三個 OH 基★改成 {{acetyl|取代基}} 後形成 Troleandomycin",
+    "Troleandomycin 之血中濃度較{{高|性質|低}}",
+    "最強 CYP450 抑制劑"] },
+{ id: "pr-oleandomycin", chapter: 23, name: "Oleandomycin", type: "drug", group: "Macrolides（大環內酯類）", source: "統整（二）p.37", img: "assets/medchem/pr-oleandomycin.png",
+  feat: ["非醣基：{{Oleanolide|結構}}",
+    "C₃★上醣基：{{L-Oleandrose|結構}}",
+    "C₅★上胺醣：{{Desosamine|結構}}"],
+  pharm: ["Oleandomycin 的三個 OH 基★改成 acetyl 後形成 {{Troleandomycin|藥名}}",
+    "最強 CYP450 抑制劑"] },
+{ id: "pr-telithromycin", chapter: 23, name: "Telithromycin", type: "drug", group: "Ketolides", source: "統整（二）p.37", img: "assets/medchem/pr-telithromycin.png",
+  feat: ["C₃ 為{{酮基|取代基}}、C₆ 為 OCH₃（與 {{Clarithromycin|藥名}} 相同）",
+    "C₅ 上胺醣：Desosamine",
+    "C₁₁、C₁₂ 接有{{雜環側鏈|結構}}"],
+  pharm: ["口服有效",
+    "對 Erythromycin 有抗藥性的{{社區型肺炎|疾病}}感染首選藥物",
+    "CYP450 抑制劑"] },
+{ id: "pr-lincomycin", chapter: 23, name: "Lincomycin", type: "drug", group: "Lincosamide 類", source: "統整（二）p.38", img: "assets/medchem/pr-lincomycin.png",
+  feat: ["C₇ 接上 {{OH|取代基}}，立體組態為 {{R form|結構|S form}}（相異處）",
+    "與 {{SOCl₂|物質}}★反應可得 Clindamycin"],
+  pharm: ["容易引發{{偽膜性腸炎|疾病}}"] },
+{ id: "pr-clindamycin", chapter: 23, name: "Clindamycin", type: "drug", group: "Lincosamide 類", source: "統整（二）p.38", img: "assets/medchem/pr-clindamycin.png",
+  feat: ["Lincomycin 之 7S-chloro-7-deoxy 衍生物",
+    "C₇ 接上 {{Cl|取代基}}★（相異處）"],
+  pharm: ["活性較 Lincomycin {{大|性質|小}}",
+    "會引起 [i]Clostridium difficile[/i] 的{{偽膜性腸炎|疾病}}",
+    "可使用 {{Vancomycin|藥名}}、{{Metronidazole|藥名}} 治療"] },
+{ id: "pr-chloramphenicol", chapter: 23, name: "Chloramphenicol", type: "drug", group: "其他蛋白質抑制劑", source: "統整（二）p.38", img: "assets/medchem/pr-chloramphenicol.png",
+  feat: ["唯一具有活性：{{D-threo form|結構}}（1R,2R）",
+    "水解產生 α,α-dichloroacetic acid",
+    "{{Palmitate|物質}} 鹽類無苦味，可做小兒科用藥",
+    "高脂溶性，可入 {{BBB|器官}}"],
+  pharm: ["機轉：結合 {{50S|標的}} 抑制 Transpeptidase",
+    "CYP450 抑制劑",
+    "副作用：{{灰嬰症|副作用}}★、新生兒溶血性貧血",
+    "代謝：主要在{{肝臟|器官}}進行 3-O-{{glucuronidation|代謝}}"] },
+{ id: "pr-linezolid", chapter: 23, name: "Linezolid", type: "drug", group: "其他蛋白質抑制劑", source: "統整（二）p.38", img: "assets/medchem/pr-linezolid.png",
+  feat: ["具有 {{Oxazolidinone|結構}} 基團",
+    "具有 {{Morpholine|結構}} 基團"],
+  pharm: ["機轉：結合 50S，抑制 {{70S|名詞}} 起始複合物形成",
+    "G(+)為主，包含 MRSA、VRE，但對 G(+)無效"] },
+{ id: "pr-novobiocin", chapter: 23, name: "Novobiocin", type: "drug", group: "其他蛋白質抑制劑", source: "統整（二）p.39", img: "assets/medchem/pr-novobiocin.png",
+  feat: ["含有 {{coumarin|結構}} 結構",
+    "醣基：{{Noviose|結構}}、非醣基：Novobiocic acid"],
+  pharm: ["機轉：抑制蛋白質及核酸合成，{{抑菌|性質|殺菌}}作用",
+    "（抑制 {{DNA gyrase|酵素}} 的β次單元）"] },
+{ id: "pr-mupirocin", chapter: 23, name: "Mupirocin", type: "drug", group: "其他蛋白質抑制劑", source: "統整（二）p.39", img: "assets/medchem/pr-mupirocin.png",
+  feat: ["含有 {{epoxide|結構}}"],
+  pharm: ["機轉：抑制 {{isoleucyl transfer RNA synthase|酵素}}，",
+    "干擾 RNA 之合成來抑制蛋白質生成，抑菌作用"] },
+{ id: "pr-retapamulin", chapter: 23, name: "Retapamulin", type: "drug", group: "其他蛋白質抑制劑", source: "統整（二）p.39", img: "assets/medchem/pr-retapamulin.png",
+  feat: ["半合成之二萜衍生物（{{Pleuromutillins|藥物類別}}）",
+    "C₁₄ {{sulfamylacetate|結構}} moiety 對 ribosomal peptidyl transferase 的結合最為重要"],
+  pharm: ["機轉：結合 50S 抑制 ribosomal peptidyl transferase，產生抑菌作用",
+    "治療 {{MRSA|名詞}}、[i]S. pyrogen[/i] 的原發性膿皰瘡",
+    "{{局部|給藥途徑}}使用沒有明顯的吸收"] },
+{ id: "pr-dalfopristin", chapter: 23, name: "Dalfopristin", type: "drug", group: "Streptogramin 類", source: "統整（二）p.39", img: "assets/medchem/pr-dalfopristin.png",
+  feat: ["Streptogramin {{A|性質|B}}",
+    "含有 {{Oxazole|結構}} 結構",
+    "兩者併用具{{協同|機轉}}作用"],
+  pharm: ["機轉：結合到 {{50S|標的}}★，抑制 {{Translocation|機轉}}",
+    "分開使用為{{抑菌|性質|殺菌}}，併用為{{殺菌|性質|抑菌}}作用",
+    "（Quinupristin：Dalfopristin=30：70）",
+    "{{IV|給藥途徑}} 使用，不進入 BBB，經由膽汁排除",
+    "治療 G(+)球菌，對 VRE、MRSA、MRSE 有效",
+    "{{CYP3A4|酵素}} 抑制劑",
+    "可抑制腸道內細菌叢，使 Digoxin 藥效↑"] },
+{ id: "pr-quinupristin", chapter: 23, name: "Quinupristin", type: "drug", group: "Streptogramin 類", source: "統整（二）p.39", img: "assets/medchem/pr-quinupristin.png",
+  feat: ["Streptogramin {{B|性質|A}}",
+    "兩者併用具{{協同|機轉}}作用"],
+  pharm: ["機轉：結合到 {{50S|標的}}★，抑制 {{Translocation|機轉}}",
+    "分開使用為{{抑菌|性質|殺菌}}，併用為{{殺菌|性質|抑菌}}作用",
+    "（Quinupristin：Dalfopristin=30：70）",
+    "{{IV|給藥途徑}} 使用，不進入 BBB，經由膽汁排除",
+    "治療 G(+)球菌，對 VRE、MRSA、MRSE 有效",
+    "{{CYP3A4|酵素}} 抑制劑",
+    "可抑制腸道內細菌叢，使 Digoxin 藥效↑"] },
+
 /* ===== 第 16 章 利尿劑（統整（三）柒，p.39–46）===== */
 { id: "diu-location", chapter: 16, name: "利尿劑作用位置總論", short: "作用位置", type: "topic", group: "總論", source: "統整（三）p.39",
   bold: [
@@ -5730,6 +5931,307 @@ PI.KNOWLEDGE = {
         "id": "other",
         "title": "六、其他細胞壁合成抑制劑",
         "items": []
+      }
+    ]
+  },
+  ch23: {
+    "chapter": 23,
+    "title": "抗生素：蛋白質合成抑制劑",
+    "sections": [
+      {
+        "id": "overview",
+        "title": "肆、抗生素－蛋白質合成抑制劑",
+        "items": [
+          {
+            "title": "蛋白質合成抑制劑：作用位置總覽",
+            "source": "統整（二）p.29",
+            "images": [
+              "assets/medchem/pr-fig-overview.png"
+            ],
+            "table": {
+              "head": [
+                "階段",
+                "合成步驟",
+                "抑制藥物",
+                "核糖體",
+                "機轉"
+              ],
+              "rowNames": [
+                "Aminoglycosides",
+                "Spectinomycin",
+                "Tetracycline",
+                "Linezolid",
+                "Chloramphenicol",
+                "Macrolide、Lincosamide、Fusidic acid"
+              ],
+              "rows": [
+                [
+                  {
+                    "t": "Initation",
+                    "rs": 4
+                  },
+                  {
+                    "t": "fMet-tRNA 與 30S 的 P 位結合開始轉譯\n由 tRNA 攜帶胺基酸進入 A 位",
+                    "rs": 4
+                  },
+                  "Aminoglycosides",
+                  {
+                    "t": "30S",
+                    "rs": 3
+                  },
+                  "抑制起始物形成、造成 mRNA 誤讀"
+                ],
+                [
+                  null,
+                  null,
+                  "Spectinomycin",
+                  null,
+                  "不造成 mRNA 誤讀：唯一{{抑菌|性質|殺菌}}的胺醣類"
+                ],
+                [
+                  null,
+                  null,
+                  "Tetracycline",
+                  null,
+                  "抑制 tRNA 結合到核糖體之 {{A 位|位置|P 位}}"
+                ],
+                [
+                  null,
+                  null,
+                  "Linezolid",
+                  "50S",
+                  "結合到 50S 使 30S、50S 無法形成 {{70S|名詞}} 複合體"
+                ],
+                [
+                  "Peptide 鍵形成",
+                  "Transpeptidase 將 P 位胺基酸帶至 A 位",
+                  "Chloramphenicol",
+                  "50S",
+                  "抑制 {{Transpeptidase|酵素}}"
+                ],
+                [
+                  "Translocation",
+                  "將 A 位胺基酸 Translocation 至 P 位",
+                  "Macrolide、Lincosamide、Fusidic acid",
+                  "50S",
+                  "抑制 {{Translocation|機轉}} 作用"
+                ]
+              ]
+            },
+            "points": [
+              "※ Spectinomycin 不會造成 mRNA 誤讀，僅有抑菌效果",
+              "※ Mupirocin：結合到 isoleucyl-tRNA-synthase，使細菌缺乏 {{isoleucine|物質}}"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "amino",
+        "title": "一、胺醣類抗生素（Aminoglycosides）",
+        "items": [
+          {
+            "title": "※ Aminoglycoside 之藥理作用",
+            "source": "統整（二）p.30",
+            "points": [
+              "1. 作用機轉",
+              "- (1) {{抑制起始複合物 fMet-tRNA|機轉}}：胺醣類可結合 {{30S|標的}}，阻止 tRNA 與核糖體結合",
+              "- (2) 造成 mRNA 誤讀（{{殺菌|性質|抑菌}}作用）→ {{Spectinomycin|藥名}} 是唯一{{抑菌|性質|殺菌}}的胺醣類，不造成 mRNA 誤讀",
+              "- (3) 與 β-lactam 併用對 G(+)有{{協同效果|機轉}}：β-lactam 影響細胞壁合成，增加胺醣類進入細菌的數量",
+              "2. 藥物動力學",
+              "- (1) 吸收：{{高親水性|性質|高脂溶性}}★，口服吸收差，多 IV 或局部用藥 → {{Neomycin|藥名}} 因腎毒性大，需{{口服|給藥途徑}}使用",
+              "- (2) 分布：不會進入 BBB，但會{{穿過胎盤|性質}}，孕婦禁用",
+              "- (3) 排除：以原型藥從{{腎臟|器官}}排出",
+              "- (4) 具有後抗生素效應（PAE）：為 {{Concentration-dependent|性質|Time-dependent}}，可以使用 once daily dose 投與",
+              "3. 抗菌範圍",
+              "- (1) G(-)：特別是{{綠膿桿菌|名詞}}（[i]Pseudomonas aeruginosa[/i]），可併用 Ticarcillin 治療",
+              "- (2) G(+)球菌：[i]Enterococcus[/i]、[i]Staphylococcus[/i]、[i]Streptococcus[/i]、[i]Listeria monocytogenes[/i]",
+              "- (3) 好氧菌：胺醣類對{{厭氧菌|名詞}}無效",
+              "- (4) {{Streptomycin|藥名}} 可作為肺結核第二線用藥；{{Paromomycin|藥名}} 可治療腸道阿米巴原蟲感染",
+              "- (5) {{Amikacin|藥名}} 可治療多重抗藥性之 [i]Mycobacterium tuberculosis[/i]（結核桿菌）感染",
+              "4. 副作用",
+              "- (1) {{耳毒性|副作用}}：損害第 8 對聽神經　※註：Furosemide、Ethacrynic acid、Butetanide、Cisplatin 也會造成耳毒性",
+              "- (2) {{腎毒性|副作用}}：胺醣類之 NH₂ 可和腎小管上皮細胞的 phospholipase 結合並抑制其增生，併用 Furosemide 會加重腎毒性",
+              "- (3) {{呼吸麻痺|副作用}}：抑制 Ca²⁺進入節前神經末梢，減少釋放 ACh。解毒劑為 {{Neostigmine|藥名}}",
+              "5. 抗藥性之產生：{{Acetylase|酵素}}、Adenylase、Phosphorylase 酵素進行反應 →{{Netilmicin|藥名}}、{{Amikacin|藥名}} 較不易被分解而失去活性"
+            ]
+          },
+          {
+            "title": "胺醣類基本結構",
+            "source": "統整（二）p.31",
+            "images": [
+              "assets/medchem/pr-deoxystreptamine.png"
+            ],
+            "points": [
+              "- 基本結構：{{Deoxystreptamine|結構}}（於 2 號碳上去除 OH 基）→ {{Streptomycin|藥名}}★、{{Spectinomycin|藥名}}★無此結構",
+              "- 由胺糖以{{糖苷鍵|結構}}（glycosidic bond）結合",
+              "- 至少需含有一個胺基六碳糖，其中 Streptomycin、Neomycin、Paromomycin 另含有去胺基五碳糖",
+              "※ 胺醣類中只有 {{Neomycin|藥名}}、{{Paramomycin|藥名}} 為四個醣基（多了 D-ribose），腎毒性大，不可注射給藥（No-parenteral）"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "tc",
+        "title": "二、四環類抗生素（Tetracyclines）",
+        "items": [
+          {
+            "title": "※ Tetracycline 之藥理作用",
+            "source": "統整（二）p.33",
+            "points": [
+              "1. 作用機轉：結合 {{30S|標的}}★，抑制 tRNA 結合到核糖體之 A 位，屬於{{抑菌|性質|殺菌}}作用",
+              "2. 藥物動力學",
+              "- (1) 吸收：可口服、IV、IM，但若與二價、三價金屬離子螯合便{{無法吸收|性質|吸收增加}}（可加入 {{EDTA|物質}} 防止與 Ca²⁺產生不溶性錯離子）",
+              "- (2) 分布：不進入 BBB（但 {{Minocycline|藥名}}、{{Doxycycline|藥名}} 脂溶性高，可進入 BBB。其中 Minocycline 可治療腦膜炎）",
+              "- (3) 排除：經由尿液排出。例外：{{Doxycycline|藥名}}★經由{{膽汁|器官}}排除",
+              "3. 抗菌範圍：幾乎所有 G(+)、{{立克次體|名詞}}",
+              "- (1) {{Doxycycline|藥名}}：可用於治療{{披衣菌|名詞}}（[i]Chlamydia trachomatis[/i]）、{{炭疽病|疾病}}",
+              "- (2) {{Tigecycline|藥名}}：對於有高度抗藥性之 G(+)、G(-)、厭氧菌有效，包括 MRSA、VRE",
+              "4. 副作用：{{牙齒變色|副作用}}、{{光毒性|副作用}}、{{肝腎損傷|副作用}}（孕婦與孩童應避免使用）",
+              "5. 抗藥性之產生：細菌產生{{外排幫浦|機轉}}，增加 Tetracycline 之排出"
+            ]
+          },
+          {
+            "title": "※ Tetracycline 之化學性質",
+            "source": "統整（二）p.33",
+            "images": [
+              "assets/medchem/pr-fig-tc-pka.png",
+              "assets/medchem/pr-fig-tc-acid.png",
+              "assets/medchem/pr-fig-tc-base.png"
+            ],
+            "points": [
+              "1. Tetracycline 為{{兩性|性質}}化合物，在中性溶液中為兩性離子",
+              "2. 具有 3 個 pKa 值（見右上圖），其中最低之 pKa 值來自 C₁ 到 C₃ 的 {{conjugated trione system|結構}}；最高之 pKa 值來自 C₄ 的 dimethylamino group",
+              "3. 於 pH=4~8 時，在 C₄ 產生{{差向異構|機轉}}（epimerization★），即之間只有一個 chiral center 之組態不同，形成 {{4-epitetracycline|代謝物}}（無活性）",
+              "4. Tetracycline 於強酸強鹼下之反應：皆在 {{C 環|位置}}產生反應★",
+              "- (1) 強酸環境下形成 {{5,6-Anhydrotetracycline|代謝物}}：C 環上之 6-OH 與 5α-H 進行脫水反應，使 C 環芳香化★，產生無活性的 5,6-anhydrotetracycline",
+              "- (2) 強鹼環境下形成 {{Isotetracycline|代謝物}}★：C 環上之 6-OH 與強鹼反應，形成 O⁻。11 和 11a 的碳原子斷裂與 O⁻形成 lactone ring，產生無活性的 isotetracycline"
+            ]
+          },
+          {
+            "title": "四環素基本結構與 SAR",
+            "source": "統整（二）p.34",
+            "images": [
+              "assets/medchem/pr-tc-basic.png"
+            ],
+            "points": [
+              "基本結構",
+              "- 2 號碳上具有 {{amide group|結構}}",
+              "- 4 號碳上具有 α 鍵結的 {{dimethylamino group|結構}}",
+              "- 4a 碳上的 H 和 12a 碳上的 OH 皆為 α form →屬於 {{cis form|結構|trans form}}",
+              "- 最多可有 {{6|數值}} 個 Chiral center：4、4a、5、5a、6、12a（依其上的取代基決定是否為立體中心）",
+              "SAR",
+              "- 移除 C₆ 之 OH 或 CH₃ 基團：脂溶性↑，提高生體可用率與安定性（C₆ 之基團與抗菌活性{{無關|性質|有關}}★）",
+              "- C₇ 接上 {{Cl|取代基}}：使脂溶性↑★，但會使光毒性副作用加重"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "mac",
+        "title": "三、巨環內酯類（Macrolides）",
+        "items": [
+          {
+            "title": "※ Macrolides 之藥理作用",
+            "source": "統整（二）p.35",
+            "points": [
+              "1. 作用機轉：結合 {{50S|標的}}，干擾肽鏈 P→A 位的轉位作用，屬於{{抑菌|性質|殺菌}}作用",
+              "2. 藥物動力學",
+              "- (1) 吸收：口服為主，但 {{Erythromycin|藥名}} 不耐酸，需製為腸溶錠或是酯化結構",
+              "- (2) 分布：藥物結構大，{{不進入 BBB|性質|可進入 BBB}}★（即使病理情況下也不會進入）",
+              "- (3) 代謝：多為 {{CYP450 抑制劑|機轉}}（Erythromycin、Clarithromycin、Oleandomycin、Telithromycin），皆有活性代謝物；例外：{{Azithromycin|藥名}} 不會抑制 CYP450",
+              "- (4) 排除：經由{{膽汁|器官}}★排出。例外：{{Clarithromycin|藥名}} 經由{{尿液|器官}}排除",
+              "3. 抗菌範圍",
+              "- (1) G(+)球菌：[i]Staphylococcus aureus[/i]、[i]Streptococcus pyogenes[/i]、[i]Streptococcus pneumonia[/i]，但對 {{MRSA|名詞}} 無效★",
+              "- (2) G(+)桿菌：白喉棒狀桿菌 [i]Corynebacterium diphtheria[/i]",
+              "- (3) G(-)桿菌：{{百日喉桿菌|名詞}} [i]Bordetella pertussis[/i]（第一線用藥）、退伍軍人桿菌 [i]Legionella pneumophila[/i]",
+              "- (4) 非典型肺炎感染（披衣菌 [i]Chlamydia[/i]、{{黴漿菌|名詞}} [i]Mycoplasma[/i]）：{{Erythromycin|藥名}} 為社區性肺炎感染首選用藥",
+              "- (5) {{退伍軍人症|疾病}}：可使用 Azithromycin 治療（補充：不可使用 β-lactam 類治療，因大部分分離菌都會產生 β-lactamase）",
+              "- (6) {{披衣菌|名詞}}：孕婦泌尿道感染可用 Erythromycin 治療",
+              "4. 副作用：{{肝毒性|副作用}}、肝臟酵素抑制",
+              "- (1) 膽汁鬱積性黃疸：Erythromycin {{estolate|名詞}}",
+              "- (2) {{QT-interval 延長|副作用}}：Erythromycin、Clarithromycin"
+            ]
+          },
+          {
+            "title": "※ 抑制 CYP450 之 Macrolides",
+            "group": "Macrolides（大環內酯類）",
+            "source": "統整（二）p.37",
+            "points": [
+              "※ 抑制 CYP450 之 Macrolides：{{Erythromycin|藥名}}、{{Clarithromycin|藥名}}、{{Oleandomycin|藥名}}、{{Telithromycin|藥名}}"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "linco",
+        "title": "四、Lincosamide 類",
+        "items": [
+          {
+            "title": "Lincosamide 類基本結構與機轉",
+            "group": "Lincosamide 類",
+            "source": "統整（二）p.38",
+            "points": [
+              "- 基本結構：{{Pyrrolidine|結構}}★的 4 號位接上 [i]n[/i]-propyl、2 號位接上 α-thiolincosamide，結構中含有 -SCH₃（{{含硫抗生素|藥物類別}}★）",
+              "- 機轉：結合在核糖體 {{50S|標的}}，抑制{{轉位|機轉}}作用（與 {{Macrolides|藥物類別}} 相同，因此容易產生{{交互抗藥性|機轉}}）"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "other",
+        "title": "五、其他蛋白質抑制劑",
+        "items": [
+          {
+            "title": "※ 抗生素主要依作用機轉分類",
+            "source": "統整（二）p.40",
+            "points": [
+              "※ 抗生素主要可依作用機轉分成以下三大類：① 影響{{細胞壁|標的}}之合成　② 影響{{蛋白質|標的}}之合成　③ 影響{{核酸|標的}}之合成",
+              "其中具有{{殺菌|性質|抑菌}}作用的是 ① + ③ + {{Aminoglycoside|藥物類別}}（②的例外）",
+              "具有{{抑菌|性質|殺菌}}作用的是 ② + {{Sulfonamide|藥物類別}}（③的例外）",
+              "若同類相配則具有{{協同|機轉}}作用（如殺菌+殺菌、抑菌+抑菌），但若異類相配則會產生{{拮抗|機轉}}★作用（殺菌+抑菌★）"
+            ],
+            "table": {
+              "head": [
+                "藥物",
+                "產生抗藥性之機轉"
+              ],
+              "rowNames": [
+                "Aminoglycosides",
+                "β-Lactams",
+                "Vancomycin",
+                "Tetracycline",
+                "Macrolides",
+                "Chloramphenicol"
+              ],
+              "rows": [
+                [
+                  "Aminoglycosides",
+                  "{{Acetylase|酵素}}（乙醯化）、磷酸化、腺核酸化"
+                ],
+                [
+                  "β-Lactams",
+                  "產生 {{β-lactamase|酵素}}"
+                ],
+                [
+                  "Vancomycin",
+                  "改變 {{D-Ala-D-Ala|結構}} 結構"
+                ],
+                [
+                  "Tetracycline",
+                  "{{Active transport|機轉}} 將藥物送出細胞外"
+                ],
+                [
+                  "Macrolides",
+                  "細菌對 {{Ribosome binding site|位置}} 進行修飾（非對藥物修飾）"
+                ],
+                [
+                  "Chloramphenicol",
+                  "{{Acetyltransferase|酵素}}"
+                ]
+              ]
+            }
+          }
+        ]
       }
     ]
   },
