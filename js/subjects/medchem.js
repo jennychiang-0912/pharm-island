@@ -117,7 +117,10 @@ PI.GROUP_PARENTS = {
   "B 細胞調節劑": "其他標靶藥物",
   "Catecholamine 類結構（α₁ 致效劑）": "選擇性 α₁ 致效劑",
   "Imidazoline 類結構：皆含有 phenylethylamine 的骨架": "選擇性 α₁ 致效劑",
-  "選擇性 α₁A 拮抗劑": "選擇性 α₁ 拮抗劑"
+  "選擇性 α₁A 拮抗劑": "選擇性 α₁ 拮抗劑",
+  "非去極化型尼古丁受體拮抗劑（競爭型，Non-depolarizing agents）：共同結構為 Tetrahydroisoquinoline": "抗 Nm 受體藥物（週邊性骨骼肌鬆弛劑）",
+  "類固醇尼古丁受體拮抗劑（屬於非去極化性阻斷劑）": "抗 Nm 受體藥物（週邊性骨骼肌鬆弛劑）",
+  "去極化性阻斷劑（非競爭型）": "抗 Nm 受體藥物（週邊性骨骼肌鬆弛劑）"
 };
 
 /* 地圖名牌：和生藥頁一樣用短的英文（名牌字型只有英文字母，中文字寬、長的名牌會擠成一團）。
@@ -411,7 +414,23 @@ PI.GROUP_LABELS = {
   "選擇性 α₂ 拮抗劑": "Selective α2",
   "非選擇性 β 拮抗劑": "Non-selective β",
   "選擇性 β₁ 拮抗劑": "Selective β1",
-  "混合作用型拮抗劑（作用在 α₁、β 受體）": "Mixed α/β"
+  "混合作用型拮抗劑（作用在 α₁、β 受體）": "Mixed α/β",
+  "天然化合物（膽鹼性致效劑）": "Natural Agonists",
+  "合成化合物（Acetylcholine 及其衍生物）": "Synthetic ACh Analogs",
+  "可逆型 AChE 抑制劑：四級銨化合物（水溶性高，無法進入 CNS）": "Quaternary AChEi",
+  "可逆型 AChE 抑制劑：三級胺化合物（可穿過 BBB，治療阿茲海默症）": "Tertiary AChEi",
+  "不可逆型 AChE 抑制劑": "Irreversible AChEi",
+  "有機磷農藥（Parathion / Malathion）": "Organophosphates",
+  "解毒劑：Pralidoxime（2-PAM）": "Antidote (2-PAM)",
+  "天然茄科生物鹼（Solanaceae Alkaloids）": "Solanaceae Alkaloids",
+  "胺醇類膽鹼拮抗劑": "Amino Alcohols",
+  "胺醚類（Aminoether）膽鹼拮抗劑": "Aminoethers",
+  "其他類膽鹼拮抗劑": "Other Antimuscarinics",
+  "抗 Nn 受體藥物（神經節阻斷劑）": "Ganglionic Blockers",
+  "非去極化型尼古丁受體拮抗劑（競爭型，Non-depolarizing agents）：共同結構為 Tetrahydroisoquinoline": "Non-depolarizing",
+  "類固醇尼古丁受體拮抗劑（屬於非去極化性阻斷劑）": "Steroidal",
+  "去極化性阻斷劑（非競爭型）": "Depolarizing",
+  "抗 Nm 受體藥物（週邊性骨骼肌鬆弛劑）": "Nm Blockers"
 };
 
 /* 藥化的欄位：照講義表格的欄位（藥物｜結構｜特性｜藥理及臨床應用） */
@@ -455,6 +474,8 @@ PI.CHAPTERS = [
   { id: 29, name: "自主神經系統簡介", no: 1, cat: "cv", estimate: 3, unitType: "drug", note: "統整（三）壹，p.3–7。" },
   { id: 30, name: "擬交感神經作用藥物", short: "擬交感神經藥物", no: 2, cat: "cv", estimate: 24, unitType: "drug", note: "統整（三）貳，p.8–11。" },
   { id: 31, name: "擬交感神經拮抗藥物", short: "擬交感神經拮抗藥物", no: 3, cat: "cv", estimate: 27, unitType: "drug", note: "統整（三）參，p.12–17。" },
+  { id: 32, name: "膽鹼性作用藥物", no: 4, cat: "cv", estimate: 23, unitType: "drug", note: "統整（三）肆，p.18–22。" },
+  { id: 33, name: "膽鹼性拮抗藥物", no: 5, cat: "cv", estimate: 28, unitType: "drug", note: "統整（三）伍，p.23–27。" },
   { id: 16, name: "利尿劑", no: 7, cat: "cv", estimate: 20, unitType: "drug", note: "統整（三）柒，p.39–46。" },
   { id: 17, name: "心絞痛藥物", no: 8, cat: "cv", estimate: 8, unitType: "drug", note: "統整（三）捌，p.47–48。" },
   { id: 18, name: "心衰竭藥物", no: 9, cat: "cv", estimate: 10, unitType: "drug", note: "統整（三）玖，p.49–53。" },
@@ -530,6 +551,10 @@ PI.LANDMASSES = [
     palette: { ground: "#E6B0B8", light: "#F0C7CD", cliff: "#C2878F" } },
   { id: "cv31", name: "拮抗島", chapters: [31], cluster: "cv", angle: 0,
     palette: { ground: "#DDB3C3", light: "#E8C9D6", cliff: "#B98AA0" } },
+  { id: "cv32", name: "膽鹼島", chapters: [32], cluster: "cv", angle: 0,
+    palette: { ground: "#E8BCB5", light: "#F1D0CB", cliff: "#C4948D" } },
+  { id: "cv33", name: "抗膽鹼島", chapters: [33], cluster: "cv", angle: 0,
+    palette: { ground: "#E0B2C0", light: "#ECC8D3", cliff: "#BA899A" } },
   { id: "cv16",  name: "利尿島",     chapters: [16], cluster: "cv", angle: 75,
     palette: { ground: "#E8B4B0", light: "#F0C9C6", cliff: "#C48A86" } },
   { id: "cv17",  name: "心絞痛島",   chapters: [17], cluster: "cv", angle: 270,
@@ -4749,6 +4774,189 @@ PI.UNITS = [
   feat: ["具有 {{Carbazole|結構}} 結構，具有{{抗氧化|機轉}}作用",
     "{{R form|結構|S form}} 僅具有拮抗 α₁ 的活性"],
   pharm: ["治療高血壓、{{鬱血性心衰竭|疾病}}（心衰竭病人適用）"] },
+
+/* ===== 第 32 章（統整（三）肆 膽鹼性作用藥物 p.18–22；畫面章號 4）===== */
+/* 一、直接作用劑：灰底天然化合物、合成化合物（Acetylcholine 及其衍生物）；二、間接作用劑：「可逆型 AChE 抑制劑」灰底底下的
+   「四級銨化合物」「三級胺化合物」各自為一類（兩個灰底都放類別名稱，講義沒有黑底，我把兩層灰底合併成一個分類名稱）、不可逆型 AChE 抑制劑、有機磷農藥、解毒劑 Pralidoxime。
+   p.20 的 AChE 作用機轉圖、p.22 不可逆抑制劑的老化作用圖放知識卡；Physostigmine 的氧化反應圖、Malathion 的代謝圖、Pralidoxime 的活化機轉圖當附圖。
+   Neostigmine／Pyridostigmine 講義共用一格特性與藥理，兩格都放；Ambenonium／Demecarium 整列只有文字，沒有結構。 */
+
+{ id: "ch-pilocarpine", chapter: 32, name: "Pilocarpine", type: "drug", group: "天然化合物（膽鹼性致效劑）", source: "統整（三）p.18", img: "assets/medchem/ch-pilocarpine.png",
+  feat: ["含有 {{lactone|結構}}、{{imidazole|結構}}★結構",
+    "水解 lactone 環產生無活性的 {{Pilocarpic acid|代謝物}}",
+    "經 {{Epimerization|代謝}} 產生無活性的 {{Isopilocarpine|代謝物}}"],
+  pharm: ["治療{{急性閉角性青光眼|疾病}}，也可治療{{口乾症|疾病}}（Xerostomia）"] },
+{ id: "ch-cevimeline", chapter: 32, name: "Cevimeline", type: "drug", group: "天然化合物（膽鹼性致效劑）", source: "統整（三）p.18", img: "assets/medchem/ch-cevimeline.png",
+  feat: ["含有 {{quinuclidine|結構}}★結構",
+    "經 {{CYP2D6/3A4|酵素}} 代謝，代謝物皆{{無活性|性質|有活性}}"],
+  pharm: ["CNS：作用在 {{M₁|受體}} 受體；淚腺、唾腺上皮組織：作用在 {{M₃|受體}} 受體",
+    "治療口乾症、{{Sjogren's syndrome|疾病}}"] },
+{ id: "ch-arecoline", chapter: 32, name: "Arecoline", type: "drug", group: "天然化合物（膽鹼性致效劑）", source: "統整（三）p.18", img: "assets/medchem/ch-arecoline.png",
+  feat: ["含有 {{tetrahydropyridine|結構}} 結構",
+    "來自{{檳榔|名詞}}的生物鹼成分"],
+  pharm: ["{{M₁、M₂、M₃|受體}} agonist",
+    "在中樞作用類似 {{Nicotine|藥名}}，可緩解阿茲海默症；也可用作驅蟲藥"] },
+{ id: "ch-xanomeline", chapter: 32, name: "Xanomeline", type: "drug", group: "天然化合物（膽鹼性致效劑）", source: "統整（三）p.18", img: "assets/medchem/ch-xanomeline.png",
+  feat: ["{{Arecoline|藥名}} 類似物",
+    "含有 tetrahydropyridine 和 {{1,2,5-thiadiazole|結構}}（與 COOH 具生物等價性）"],
+  pharm: ["{{M₁、M₄|受體}} agonist"] },
+{ id: "ch-oxotremorine", chapter: 32, name: "Oxotremorine", type: "drug", group: "天然化合物（膽鹼性致效劑）", source: "統整（三）p.18", img: "assets/medchem/ch-oxotremorine.png",
+  feat: ["含有 {{lactam|結構}}、{{pyrrolidine|結構}}、{{C≡C|結構}}"],
+  pharm: ["三級胺對於親核基（參鍵、氧）的距離與 muscarinic 相近，故有類似作用"] },
+{ id: "ch-acetylcholine", chapter: 32, name: "Acetylcholine", type: "drug", group: "合成化合物（Acetylcholine 及其衍生物）", source: "統整（三）p.19", img: "assets/medchem/ch-acetylcholine.png",
+  feat: ["容易被水解，半衰期{{短|性質|長}}"],
+  pharm: ["臨床上少用（半衰期太短）"] },
+{ id: "ch-carbachol", chapter: 32, name: "Carbachol", type: "drug", group: "合成化合物（Acetylcholine 及其衍生物）", source: "統整（三）p.19", img: "assets/medchem/ch-carbachol.png",
+  feat: ["由 {{Carbamate|結構}} 結構取代 Acetyl group",
+    "{{不容易|性質|容易}}被 AchE 水解"],
+  pharm: ["無受體選擇性，不適合全身性給藥（常用局部給藥）",
+    "可使睫狀肌收縮，促進前房水排出，治療{{青光眼|疾病}}"] },
+{ id: "ch-methacholine", chapter: 32, name: "Methacholine", type: "drug", group: "合成化合物（Acetylcholine 及其衍生物）", source: "統整（三）p.19", img: "assets/medchem/ch-methacholine.png",
+  feat: ["β 位較 Acetylcholine 多一個{{甲基|取代基}}取代，不容易被 AchE 水解",
+    "{{S-(+)|結構|R-(-)}} form 較有效"],
+  pharm: ["對{{毒蕈鹼受體|受體}}有選擇性",
+    "消旋化合物可用於診斷{{氣喘|疾病}}"] },
+{ id: "ch-bethanechol", chapter: 32, name: "Bethanechol", type: "drug", group: "合成化合物（Acetylcholine 及其衍生物）", source: "統整（三）p.19", img: "assets/medchem/ch-bethanechol.png",
+  feat: ["β 位較 {{Carbachol|藥名}} 多一個甲基取代",
+    "不容易被 AchE 水解"],
+  pharm: ["對毒蕈鹼受體有選擇性",
+    "促進{{腸胃道|器官}}收縮及{{排尿|用途}}，用於治療術後腸胃蠕動遲緩及排尿困難"] },
+{ id: "ch-neostigmine", chapter: 32, name: "Neostigmine", type: "drug", group: "可逆型 AChE 抑制劑：四級銨化合物（水溶性高，無法進入 CNS）", source: "統整（三）p.20", img: "assets/medchem/ch-neostigmine.png",
+  feat: ["四級銨鹽水溶性高，無法進入 CNS，只作用於週邊",
+    "Neostigmine、Pyridostigmine 含有 {{Carbamate|結構}} 結構"],
+  pharm: ["治療{{重症肌無力|疾病}}、術後腹部膨脹、尿液滯留（無法治療{{青光眼|疾病}}）",
+    "可拮抗{{非去極性|性質|去極性}} Nm 阻斷劑的作用",
+    "長效型，可預防神經毒氣之作用"] },
+{ id: "ch-pyridostigmine", chapter: 32, name: "Pyridostigmine", type: "drug", group: "可逆型 AChE 抑制劑：四級銨化合物（水溶性高，無法進入 CNS）", source: "統整（三）p.20", img: "assets/medchem/ch-pyridostigmine.png",
+  feat: ["四級銨鹽水溶性高，無法進入 CNS，只作用於週邊",
+    "Neostigmine、Pyridostigmine 含有 Carbamate 結構"],
+  pharm: ["治療重症肌無力、術後腹部膨脹、尿液滯留",
+    "可拮抗非去極性 Nm 阻斷劑的作用",
+    "長效型，可預防神經毒氣之作用"] },
+{ id: "ch-edrophonium", chapter: 32, name: "Edrophonium", type: "drug", group: "可逆型 AChE 抑制劑：四級銨化合物（水溶性高，無法進入 CNS）", source: "統整（三）p.20", img: "assets/medchem/ch-edrophonium.png",
+  feat: ["[i]meta[/i] 位置有 {{OH|取代基}} 取代"],
+  pharm: ["直接與 AChE 結合，抑制作用位",
+    "{{診斷|用途}}重症肌無力，可直接增加肌肉張力"] },
+{ id: "ch-ambenonium", chapter: 32, name: "Ambenonium", type: "drug", group: "可逆型 AChE 抑制劑：四級銨化合物（水溶性高，無法進入 CNS）", source: "統整（三）p.20",
+  desc: ["四級銨鹽，具有 {{Oxamide|結構}} 結構可抵抗 AchE。為長效型，可治療重症肌無力"] },
+{ id: "ch-demecarium", chapter: 32, name: "Demecarium", type: "drug", group: "可逆型 AChE 抑制劑：四級銨化合物（水溶性高，無法進入 CNS）", source: "統整（三）p.20",
+  desc: ["四級銨鹽，結構類似 {{bis-neostigmine|結構}}，中間接有 {{10 個碳|數值}}。為長效型縮瞳劑，可治療青光眼和內斜視"] },
+{ id: "ch-physostigmine", chapter: 32, name: "Physostigmine", type: "drug", group: "可逆型 AChE 抑制劑：三級胺化合物（可穿過 BBB，治療阿茲海默症）", source: "統整（三）p.21", img: "assets/medchem/ch-physostigmine.png", imgMore: ["assets/medchem/ch-fig-physo.png"],
+  feat: ["含有 {{pyrrolidine|結構}}、{{carbamate|結構}} 結構",
+    "鹼性下，脫去 carbamic acid 形成 {{Eseroline|代謝物}}，再自行氧化成紅色的 {{Rubreserine|代謝物}}"],
+  pharm: ["可穿過 BBB 抑制 {{Atropine|藥名}} 的中樞作用",
+    "治療青光眼、阿茲海默症"] },
+{ id: "ch-tacrine", chapter: 32, name: "Tacrine", type: "drug", group: "可逆型 AChE 抑制劑：三級胺化合物（可穿過 BBB，治療阿茲海默症）", source: "統整（三）p.21", img: "assets/medchem/ch-tacrine.png",
+  feat: ["平面結構，屬於 {{Tetrahydroacridine|結構}} 結構",
+    "{{1-hydroxytacrine|代謝物}} 為活性代謝物"],
+  pharm: ["{{非選擇性|性質|選擇性}} AChE 抑制劑",
+    "具有{{肝毒性|副作用}}★，目前已經下市"] },
+{ id: "ch-rivastigmine", chapter: 32, name: "Rivastigmine", type: "drug", group: "可逆型 AChE 抑制劑：三級胺化合物（可穿過 BBB，治療阿茲海默症）", source: "統整（三）p.21", img: "assets/medchem/ch-rivastigmine.png",
+  feat: ["含有 {{Carbamyl group|結構}}"],
+  pharm: ["長效型，{{無|性質|有}}肝毒性",
+    "可與 {{tartrate|物質}} 製成鹽類"] },
+{ id: "ch-donepezil", chapter: 32, name: "Donepezil", type: "drug", group: "可逆型 AChE 抑制劑：三級胺化合物（可穿過 BBB，治療阿茲海默症）", source: "統整（三）p.21", img: "assets/medchem/ch-donepezil.png",
+  feat: ["具有 {{Piperidine|結構}} 結構"],
+  pharm: ["{{選擇性|性質|非選擇性}} AChE 抑制劑",
+    "與 Edrophonium 相同直接作用於水解酶",
+    "無肝毒性"] },
+{ id: "ch-galantamine", chapter: 32, name: "Galantamine", type: "drug", group: "可逆型 AChE 抑制劑：三級胺化合物（可穿過 BBB，治療阿茲海默症）", source: "統整（三）p.21", img: "assets/medchem/ch-galantamine.png",
+  feat: ["天然生物鹼",
+    "結構類似 {{Codeine|藥名}}"],
+  pharm: ["可和{{尼古丁受體|受體}}異位結合，拮抗箭毒之作用"] },
+{ id: "ch-sarin", chapter: 32, name: "Sarin", type: "drug", group: "不可逆型 AChE 抑制劑", source: "統整（三）p.22", img: "assets/medchem/ch-sarin.png",
+  feat: ["具有 {{F|取代基}} 原子",
+    "強效磷酸化物質"],
+  pharm: ["{{無|性質|有}}解毒劑"] },
+{ id: "ch-echothiophate", chapter: 32, name: "Echothiophate", type: "drug", group: "不可逆型 AChE 抑制劑", source: "統整（三）p.22", img: "assets/medchem/ch-echothiophate.png",
+  pharm: ["治療{{青光眼|疾病}}和斜視中，唯一的{{磷酸酯類|結構}}（phosphoester）藥物"] },
+{ id: "ch-parathion", chapter: 32, name: "Parathion", type: "drug", group: "有機磷農藥（Parathion / Malathion）", source: "統整（三）p.22", img: "assets/medchem/ch-parathion.png",
+  feat: ["脂溶性高，芳香環具有{{拉電子|性質|推電子}}取代基",
+    "含有 {{phosphate|結構}} 結構",
+    "為 {{Paraoxon|代謝物}} 之前驅物，代謝後產生之 Paraoxon 毒性較大"] },
+{ id: "ch-malathion", chapter: 32, name: "Malathion", type: "drug", group: "有機磷農藥（Parathion / Malathion）", source: "統整（三）p.22", img: "assets/medchem/ch-malathion.png", imgMore: ["assets/medchem/ch-fig-malathion.png"],
+  feat: ["脂溶性高，芳香環具有拉電子取代基",
+    "Malathion 對{{昆蟲|名詞}}具選擇性生物轉化，對人體{{無|性質|有}}作用"] },
+{ id: "ch-pralidoxime", chapter: 32, name: "Pralidoxime（2-PAM）", short: "Pralidoxime", type: "drug", group: "解毒劑：Pralidoxime（2-PAM）", source: "統整（三）p.22", img: "assets/medchem/ch-pralidoxime.png", imgMore: ["assets/medchem/ch-fig-pam.png"],
+  feat: ["Irreviersible AchE inhibitor {{唯一|性質}}的解毒劑，需在{{老化作用|機轉}}前使用才有效",
+    "{{四級銨鹽|結構}}，只作用於週邊系統，可活化 phosphorylated acetylcholinesterase"] },
+
+/* ===== 第 33 章（統整（三）伍 膽鹼性拮抗藥物 p.23–27；畫面章號 5）===== */
+/* 一、抗毒蕈鹼受體藥物：灰底天然茄科生物鹼、胺醇類膽鹼拮抗劑、胺醚類（Aminoether）膽鹼拮抗劑、其他類膽鹼拮抗劑；
+   二、抗 Nn 受體藥物（神經節阻斷劑）沒有灰底，章節標題就是分類；三、抗 Nm 受體藥物（週邊性骨骼肌鬆弛劑）是黑底大分類，底下三個灰底：非去極化型（競爭型）、類固醇尼古丁受體拮抗劑、去極化性阻斷劑（非競爭型）用第三層小標。
+   p.23–24 的表格沒有欄位名稱（結構在上、文字在下），文字放說明；p.25–26 欄位是特性／藥理及臨床應用；p.27 文字與結構放在同一格，文字放說明。
+   Tiotropium／Ipratropium 講義共用一格說明，兩格都放；Orphenadrine 格子附比較用的 Diphenhydramine 結構圖。p.27 ※ 註放非去極化型的知識卡。 */
+
+{ id: "mu-atropine", chapter: 33, name: "Atropine", type: "drug", group: "天然茄科生物鹼（Solanaceae Alkaloids）", source: "統整（三）p.23", img: "assets/medchem/mu-atropine.png",
+  desc: ["(±)-{{Hyoscyamine|藥名}}★，為{{消旋|結構}}★化合物",
+    "Tropine 為{{鹼性|性質|酸性}}端，具有三級胺結構（藥物可分布到 CNS）",
+    "Tropic acid 為{{酸性|性質|鹼性}}端，具有一個立體中心（★處）",
+    "具有{{散瞳|用途}}、減少腺體分泌、治療{{心率過慢|疾病}}等作用，也可和 {{Pralidoxime|藥名}} 併用於有機磷農藥中毒"] },
+{ id: "mu-scopolamine", chapter: 33, name: "Scopolamine", type: "drug", group: "天然茄科生物鹼（Solanaceae Alkaloids）", source: "統整（三）p.23", img: "assets/medchem/mu-scopolamine.png",
+  desc: ["(-)-{{Hyoscine|藥名}}，其消旋化合物稱為 Atroscine，具有三級胺結構，可分布到 CNS",
+    "左旋結構，相較於 Atropine 多了 {{epoxide|結構}} 結構",
+    "屬於{{中樞神經抑制劑|藥物類別}}，可預防{{動暈症|疾病}}"] },
+{ id: "mu-homatropine", chapter: 33, name: "Homatropine", type: "drug", group: "天然茄科生物鹼（Solanaceae Alkaloids）", source: "統整（三）p.23", img: "assets/medchem/mu-homatropine.png",
+  desc: ["與 Atropine 相比{{少|性質|多}}一個{{甲基|取代基}}"] },
+{ id: "mu-tiotropium", chapter: 33, name: "Tiotropium", type: "drug", group: "天然茄科生物鹼（Solanaceae Alkaloids）", source: "統整（三）p.23", img: "assets/medchem/mu-tiotropium.png",
+  desc: ["四級胺結構，Tiotropium 含有 {{thiophene|結構}}",
+    "皆可治療{{慢性阻塞性肺病|疾病}}（COPD）"] },
+{ id: "mu-ipratropium", chapter: 33, name: "Ipratropium", type: "drug", group: "天然茄科生物鹼（Solanaceae Alkaloids）", source: "統整（三）p.23", img: "assets/medchem/mu-ipratropium.png",
+  desc: ["四級胺結構，Tiotropium 含有 {{thiophene|結構}}",
+    "皆可治療{{慢性阻塞性肺病|疾病}}（COPD）"] },
+{ id: "mu-oxybutynin", chapter: 33, name: "Oxybutynin", type: "drug", group: "天然茄科生物鹼（Solanaceae Alkaloids）", source: "統整（三）p.23", img: "assets/medchem/mu-oxybutynin.png",
+  desc: ["{{非|性質}} Atropine 衍生物，含有{{參鍵|結構}}結構",
+    "可治療{{膀胱過度收縮|疾病}}"] },
+{ id: "mu-procyclidine", chapter: 33, name: "Procyclidine", type: "drug", group: "胺醇類膽鹼拮抗劑", source: "統整（三）p.24", img: "assets/medchem/mu-procyclidine.png",
+  desc: ["具有 {{pyrrolidine|結構}} 結構（五元環）",
+    "三級胺可通過 BBB，治療{{帕金森氏症|疾病}}"] },
+{ id: "mu-trihexyphenidyl", chapter: 33, name: "Trihexyphenidyl", type: "drug", group: "胺醇類膽鹼拮抗劑", source: "統整（三）p.24", img: "assets/medchem/mu-trihexyphenidyl.png",
+  desc: ["具有 {{piperidine|結構}} 結構",
+    "三級胺可通過 BBB，治療帕金森氏症"] },
+{ id: "mu-tolterodine", chapter: 33, name: "Tolterodine", type: "drug", group: "胺醇類膽鹼拮抗劑", source: "統整（三）p.24", img: "assets/medchem/mu-tolterodine.png",
+  desc: ["屬於 {{aminoalkylphenol|結構}}，並非醇類",
+    "只能作用於{{周邊|性質|中樞}}組織，用於治療{{膀胱過動症|疾病}}"] },
+{ id: "mu-orphenadrine", chapter: 33, name: "Orphenadrine", type: "drug", group: "胺醚類（Aminoether）膽鹼拮抗劑", source: "統整（三）p.24", img: "assets/medchem/mu-orphenadrine.png", imgMore: ["assets/medchem/mu-diphenhydramine.png"],
+  desc: ["與第一代抗組織胺 {{Diphenhydramine|藥名}} 的結構只相差{{一個甲基|取代基}}",
+    "可治療帕金森氏症，或其他肌肉痙攣、過敏症狀"] },
+{ id: "mu-benztropine", chapter: 33, name: "Benztropine", type: "drug", group: "胺醚類（Aminoether）膽鹼拮抗劑", source: "統整（三）p.24", img: "assets/medchem/mu-benztropine.png",
+  desc: ["可用於治療帕金森氏症"] },
+{ id: "mu-solifenacin", chapter: 33, name: "Solifenacin", type: "drug", group: "其他類膽鹼拮抗劑", source: "統整（三）p.25", img: "assets/medchem/mu-solifenacin.png",
+  feat: ["{{Tetrahydroisoquinoline|結構}} 之衍生物"],
+  pharm: ["{{M₃|受體}} 選擇性拮抗劑",
+    "半衰期{{長|性質|短}}"] },
+{ id: "mu-propantheline", chapter: 33, name: "Propantheline", type: "drug", group: "其他類膽鹼拮抗劑", source: "統整（三）p.25", img: "assets/medchem/mu-propantheline.png",
+  feat: ["{{Xanthine|結構}} 之衍生物，含有{{四級胺|結構}}結構"],
+  pharm: ["可治療{{尿失禁|疾病}}、胃腸道痙攣"] },
+{ id: "mu-pirenzepine", chapter: 33, name: "Pirenzepine", type: "drug", group: "其他類膽鹼拮抗劑", source: "統整（三）p.25", img: "assets/medchem/mu-pirenzepine.png"  },
+{ id: "mu-tropicamide", chapter: 33, name: "Tropicamide", type: "drug", group: "其他類膽鹼拮抗劑", source: "統整（三）p.25", img: "assets/medchem/mu-tropicamide.png"  },
+{ id: "mu-flavoxate", chapter: 33, name: "Flavoxate", type: "drug", group: "其他類膽鹼拮抗劑", source: "統整（三）p.25", img: "assets/medchem/mu-flavoxate.png"  },
+{ id: "mu-nicotine", chapter: 33, name: "Nicotine", type: "drug", group: "抗 Nn 受體藥物（神經節阻斷劑）", source: "統整（三）p.26", img: "assets/medchem/mu-nicotine.png",
+  feat: ["低劑量：刺激中樞尼古丁受體，增加下游釋放 {{Dopamine|藥名}}；高劑量：作為{{去極化型|性質|非去極化型}}神經節阻斷劑",
+    "高脂溶性，可產生欣快感、改善注意力，用於解焦慮及{{戒菸|用途}}",
+    "副作用：具{{成癮性|副作用}}、食慾下降、誘導 {{CYP450|酵素}}"] },
+{ id: "mu-trimethaphan", chapter: 33, name: "Trimethaphan", type: "drug", group: "抗 Nn 受體藥物（神經節阻斷劑）", source: "統整（三）p.26", img: "assets/medchem/mu-trimethaphan.png",
+  feat: ["{{短效|性質|長效}}型神經節阻斷劑",
+    "{{IV|給藥途徑}} 注射可治療{{急性高血壓|疾病}}"] },
+{ id: "mu-mecamylamine", chapter: 33, name: "Mecamylamine", type: "drug", group: "抗 Nn 受體藥物（神經節阻斷劑）", source: "統整（三）p.26", img: "assets/medchem/mu-mecamylamine.png",
+  feat: ["含有{{二級胺|結構}}結構",
+    "{{口服|給藥途徑}}可治療急性高血壓"] },
+{ id: "mu-tubocurarine", chapter: 33, name: "d-Tubocurarine", short: "d-Tubocurarine", type: "drug", group: "非去極化型尼古丁受體拮抗劑（競爭型，Non-depolarizing agents）：共同結構為 Tetrahydroisoquinoline", source: "統整（三）p.27", img: "assets/medchem/mu-tubocurarine.png"  },
+{ id: "mu-atracurium", chapter: 33, name: "Atracurium", type: "drug", group: "非去極化型尼古丁受體拮抗劑（競爭型，Non-depolarizing agents）：共同結構為 Tetrahydroisoquinoline", source: "統整（三）p.27", img: "assets/medchem/mu-atracurium.png",
+  desc: ["經由 {{Hofmann degradation|代謝}}★代謝，形成 {{Laudanosine|代謝物}}★",
+    "也會經由 {{BuchE|酵素}} 代謝",
+    "適合用於{{肝腎疾病|疾病}}之患者★"] },
+{ id: "mu-mivacurium", chapter: 33, name: "Mivacurium", type: "drug", group: "非去極化型尼古丁受體拮抗劑（競爭型，Non-depolarizing agents）：共同結構為 Tetrahydroisoquinoline", source: "統整（三）p.27", img: "assets/medchem/mu-mivacurium.png",
+  desc: ["經由 BuchE 代謝",
+    "適合用於肝腎疾病之患者★"] },
+{ id: "mu-doxacurium", chapter: 33, name: "Doxacurium", type: "drug", group: "非去極化型尼古丁受體拮抗劑（競爭型，Non-depolarizing agents）：共同結構為 Tetrahydroisoquinoline", source: "統整（三）p.27", img: "assets/medchem/mu-doxacurium.png"  },
+{ id: "mu-pancuronium", chapter: 33, name: "Pancuronium", type: "drug", group: "類固醇尼古丁受體拮抗劑（屬於非去極化性阻斷劑）", source: "統整（三）p.27", img: "assets/medchem/mu-pancuronium.png",
+  desc: ["具有 {{5α-Androstane|結構}} steroid 骨架"] },
+{ id: "mu-vecuronium", chapter: 33, name: "Vecuronium", type: "drug", group: "類固醇尼古丁受體拮抗劑（屬於非去極化性阻斷劑）", source: "統整（三）p.27", img: "assets/medchem/mu-vecuronium.png",
+  desc: ["具有 5α-Androstane steroid 骨架"] },
+{ id: "mu-succinylcholine", chapter: 33, name: "Succinylcholine", type: "drug", group: "去極化性阻斷劑（非競爭型）", source: "統整（三）p.27", img: "assets/medchem/mu-succinylcholine.png",
+  desc: ["為 {{Acetylcholine|藥名}} 的{{雙體|結構}}結構（diquaternary ammonium ester）",
+    "半衰期{{極短|性質|極長}}"] },
 
 /* ===== 第 16 章 利尿劑（統整（三）柒，p.39–46）===== */
 { id: "diu-location", chapter: 16, name: "利尿劑作用位置總論", short: "作用位置", type: "topic", group: "總論", source: "統整（三）p.39",
@@ -9238,6 +9446,75 @@ PI.KNOWLEDGE = {
             "source": "統整（三）p.17",
             "points": [
               "※ {{懷孕婦女|名詞}}適用之高血壓藥物★：{{α-Methyldopa|藥名}}、β-blockers、{{Hydralazine|藥名}}、{{Labetalol|藥名}}、{{Trimethophan|藥名}}"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  ch32: {
+    "chapter": 32,
+    "title": "膽鹼性作用藥物",
+    "sections": [
+      {
+        "id": "direct",
+        "title": "一、直接作用劑",
+        "items": []
+      },
+      {
+        "id": "indirect",
+        "title": "二、間接作用劑（AChEi，Acetylcholinesterase inhibitors）",
+        "items": [
+          {
+            "title": "※ AChE 之作用機轉",
+            "source": "統整（三）p.20",
+            "images": [
+              "assets/medchem/ch-fig-ache.png"
+            ],
+            "points": [
+              "① AChE-Ser-OH + Acetylcholine ⇌ 中間物 → AChE-Ser-O-Acetyl（inactive）+ Choline，再經{{水解|機轉}}回復酵素",
+              "② 以 {{Carbamate|結構}} 取代：AChE-Ser-O-C(=O)NR₂ + H₂O → {{Carbamic acid|代謝物}} + AChE-Ser-OH → CO₂ + HNR₂"
+            ]
+          },
+          {
+            "title": "不可逆型 AChE 抑制劑：作用機轉",
+            "group": "不可逆型 AChE 抑制劑",
+            "source": "統整（三）p.22",
+            "images": [
+              "assets/medchem/ch-fig-aging.png"
+            ],
+            "points": [
+              "作用機轉：水解酶被{{磷酸化|機轉}}，由於經過{{老化作用|機轉}}生成的磷酸基團（解離態）無法被切除，因此水解酶會被永久抑制。"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  ch33: {
+    "chapter": 33,
+    "title": "膽鹼性拮抗藥物",
+    "sections": [
+      {
+        "id": "musc",
+        "title": "一、抗毒蕈鹼受體藥物（Anti-muscarinic）",
+        "items": []
+      },
+      {
+        "id": "nn",
+        "title": "二、抗 Nn 受體藥物（神經節阻斷劑）",
+        "items": []
+      },
+      {
+        "id": "nm",
+        "title": "三、抗 Nm 受體藥物（週邊性骨骼肌鬆弛劑）",
+        "items": [
+          {
+            "title": "※ 肝腎功能不佳之患者可使用",
+            "group": "非去極化型尼古丁受體拮抗劑（競爭型，Non-depolarizing agents）：共同結構為 Tetrahydroisoquinoline",
+            "source": "統整（三）p.27",
+            "points": [
+              "※ 肝腎功能不佳之患者可使用：{{Succinylcholine|藥名}}、{{Atracurium|藥名}}、{{Mivacurium|藥名}}"
             ]
           }
         ]
