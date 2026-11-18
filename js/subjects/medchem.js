@@ -120,7 +120,16 @@ PI.GROUP_PARENTS = {
   "選擇性 α₁A 拮抗劑": "選擇性 α₁ 拮抗劑",
   "非去極化型尼古丁受體拮抗劑（競爭型，Non-depolarizing agents）：共同結構為 Tetrahydroisoquinoline": "抗 Nm 受體藥物（週邊性骨骼肌鬆弛劑）",
   "類固醇尼古丁受體拮抗劑（屬於非去極化性阻斷劑）": "抗 Nm 受體藥物（週邊性骨骼肌鬆弛劑）",
-  "去極化性阻斷劑（非競爭型）": "抗 Nm 受體藥物（週邊性骨骼肌鬆弛劑）"
+  "去極化性阻斷劑（非競爭型）": "抗 Nm 受體藥物（週邊性骨骼肌鬆弛劑）",
+  "1,4-Dihydropyridines（1,4-DHP）": "Ca²⁺通道阻斷劑（Ca²⁺-Channel Blockers）",
+  "Phenylalkylamines（PAA）": "Ca²⁺通道阻斷劑（Ca²⁺-Channel Blockers）",
+  "Benzothiazepines（BTZ）": "Ca²⁺通道阻斷劑（Ca²⁺-Channel Blockers）",
+  "Alkylamines（烷基胺類）": "Ca²⁺通道阻斷劑（Ca²⁺-Channel Blockers）",
+  "含硫醇抑制劑（Sulfhydryl-containing Inhibitors）": "血管收縮素轉換酶抑制劑（ACEi）",
+  "含次磷酸根抑制劑（Phosphinate-containing Inhibitors）": "血管收縮素轉換酶抑制劑（ACEi）",
+  "含雙羧酸抑制劑（Dicarboxylate-containing Inhibitors）": "血管收縮素轉換酶抑制劑（ACEi）",
+  "非前驅藥 ARB": "血管收縮素Ⅱ受體阻斷劑（ARB）",
+  "前驅藥 ARB": "血管收縮素Ⅱ受體阻斷劑（ARB）"
 };
 
 /* 地圖名牌：和生藥頁一樣用短的英文（名牌字型只有英文字母，中文字寬、長的名牌會擠成一團）。
@@ -430,7 +439,24 @@ PI.GROUP_LABELS = {
   "非去極化型尼古丁受體拮抗劑（競爭型，Non-depolarizing agents）：共同結構為 Tetrahydroisoquinoline": "Non-depolarizing",
   "類固醇尼古丁受體拮抗劑（屬於非去極化性阻斷劑）": "Steroidal",
   "去極化性阻斷劑（非競爭型）": "Depolarizing",
-  "抗 Nm 受體藥物（週邊性骨骼肌鬆弛劑）": "Nm Blockers"
+  "抗 Nm 受體藥物（週邊性骨骼肌鬆弛劑）": "Nm Blockers",
+  "Ca²⁺通道阻斷劑（Ca²⁺-Channel Blockers）": "Ca Channel Blockers",
+  "1,4-Dihydropyridines（1,4-DHP）": "1,4-DHP",
+  "Phenylalkylamines（PAA）": "Phenylalkylamines",
+  "Benzothiazepines（BTZ）": "Benzothiazepines",
+  "Alkylamines（烷基胺類）": "Alkylamines",
+  "血管收縮素轉換酶抑制劑（ACEi）": "ACE Inhibitors",
+  "含硫醇抑制劑（Sulfhydryl-containing Inhibitors）": "Sulfhydryl-type",
+  "含次磷酸根抑制劑（Phosphinate-containing Inhibitors）": "Phosphinate-type",
+  "含雙羧酸抑制劑（Dicarboxylate-containing Inhibitors）": "Dicarboxylate-type",
+  "血管收縮素Ⅱ受體阻斷劑（ARB）": "ARBs",
+  "非前驅藥 ARB": "Active ARBs",
+  "前驅藥 ARB": "Prodrug ARBs",
+  "腎素抑制劑（Renin inhibitors）": "Renin Inhibitors",
+  "K⁺通道活化劑：造成血管擴張": "K+ Channel Openers",
+  "α-receptor Agents": "α Agents",
+  "α、β-receptor antagonists": "α/β Blockers",
+  "其他類（降血壓血管擴張劑）": "Other Vasodilators"
 };
 
 /* 藥化的欄位：照講義表格的欄位（藥物｜結構｜特性｜藥理及臨床應用） */
@@ -476,6 +502,7 @@ PI.CHAPTERS = [
   { id: 31, name: "擬交感神經拮抗藥物", short: "擬交感神經拮抗藥物", no: 3, cat: "cv", estimate: 27, unitType: "drug", note: "統整（三）參，p.12–17。" },
   { id: 32, name: "膽鹼性作用藥物", no: 4, cat: "cv", estimate: 23, unitType: "drug", note: "統整（三）肆，p.18–22。" },
   { id: 33, name: "膽鹼性拮抗藥物", no: 5, cat: "cv", estimate: 28, unitType: "drug", note: "統整（三）伍，p.23–27。" },
+  { id: 34, name: "高血壓藥物", no: 6, cat: "cv", estimate: 32, unitType: "drug", note: "統整（三）陸 p.28–38：Ca²⁺通道阻斷劑、ACEi、ARB、腎素抑制劑、血管擴張劑" },
   { id: 16, name: "利尿劑", no: 7, cat: "cv", estimate: 20, unitType: "drug", note: "統整（三）柒，p.39–46。" },
   { id: 17, name: "心絞痛藥物", no: 8, cat: "cv", estimate: 8, unitType: "drug", note: "統整（三）捌，p.47–48。" },
   { id: 18, name: "心衰竭藥物", no: 9, cat: "cv", estimate: 10, unitType: "drug", note: "統整（三）玖，p.49–53。" },
@@ -555,6 +582,8 @@ PI.LANDMASSES = [
     palette: { ground: "#E8BCB5", light: "#F1D0CB", cliff: "#C4948D" } },
   { id: "cv33", name: "抗膽鹼島", chapters: [33], cluster: "cv", angle: 0,
     palette: { ground: "#E0B2C0", light: "#ECC8D3", cliff: "#BA899A" } },
+  { id: "cv34", name: "降壓島", chapters: [34], cluster: "cv", angle: 0,
+    palette: { ground: "#C9B6D8", light: "#DACBE5", cliff: "#A593B8" } },
   { id: "cv16",  name: "利尿島",     chapters: [16], cluster: "cv", angle: 75,
     palette: { ground: "#E8B4B0", light: "#F0C9C6", cliff: "#C48A86" } },
   { id: "cv17",  name: "心絞痛島",   chapters: [17], cluster: "cv", angle: 270,
@@ -4957,6 +4986,171 @@ PI.UNITS = [
 { id: "mu-succinylcholine", chapter: 33, name: "Succinylcholine", type: "drug", group: "去極化性阻斷劑（非競爭型）", source: "統整（三）p.27", img: "assets/medchem/mu-succinylcholine.png",
   desc: ["為 {{Acetylcholine|藥名}} 的{{雙體|結構}}結構（diquaternary ammonium ester）",
     "半衰期{{極短|性質|極長}}"] },
+
+/* ===== 第 34 章（統整（三）陸 高血壓藥物 p.28–38；畫面章號 6）===== */
+/* 一、Ca²⁺通道阻斷劑：黑底大分類，底下灰底 1,4-DHP／PAA／BTZ／Alkylamines 為第三層小標；二、ACE 抑制劑：黑底，灰底含硫醇／含次磷酸根／含雙羧酸；
+   三、ARB：黑底，灰底非前驅藥／前驅藥；四、腎素抑制劑：黑底即分類；五、血管擴張劑沒有黑底，灰底 K⁺通道活化劑、α-receptor Agents、α、β-receptor antagonists、其他類各為分類（其他類加後綴避免重名）。
+   欄位：特性＝feat、藥理及臨床應用＝pharm；講義特性欄裡的「代謝」子項（Verapamil、Diltiazem、Captopril、Fosinopril）放 metab。
+   p.28 總論圖與 RAAS 圖、p.32–33 的 ACEi 骨架圖／環結構表與各 ※ 註放知識卡；α₁-blockers 一列沒有結構，放 α-receptor Agents 的知識卡。 */
+
+{ id: "hy-nicardipine", chapter: 34, name: "Nicardipine", type: "drug", group: "1,4-Dihydropyridines（1,4-DHP）", source: "統整（三）p.29", img: "assets/medchem/hy-nicardipine.png",
+  feat: ["-NO₂ 取代基在苯環 {{3|數值}} 號位（3C）"],
+  pharm: ["適用於口服不可行時的高血壓短期治療",
+    "{{IV|給藥途徑}} 給予可治療{{急性高血壓|疾病}}"] },
+{ id: "hy-nimodipine", chapter: 34, name: "Nimodipine", type: "drug", group: "1,4-Dihydropyridines（1,4-DHP）", source: "統整（三）p.29", img: "assets/medchem/hy-nimodipine.png",
+  feat: ["-NO₂ 取代基在苯環 3 號位（3M）",
+    "唯一 C₃ {{異丙酯基|結構}}取代（其餘皆為{{甲酯基|結構}}取代）"],
+  pharm: ["可治療{{蛛網膜下腔出血|疾病}}★"] },
+{ id: "hy-nifedipine", chapter: 34, name: "Nifedipine", type: "drug", group: "1,4-Dihydropyridines（1,4-DHP）", source: "統整（三）p.29", img: "assets/medchem/hy-nifedipine.png",
+  feat: ["唯一具有{{對稱|性質|不對稱}}酯基（甲酯基）",
+    "可由 {{ammonia|物質}}★、{{2-nitrobenzylaldehyde|物質}}★、methyl acetoacetate 共同反應得到"],
+  pharm: ["第一個上市的 DHP 藥物",
+    "副作用：{{齒齦增生|副作用}} Gingivitis"] },
+{ id: "hy-nisodipine", chapter: 34, name: "Nisodipine", type: "drug", group: "1,4-Dihydropyridines（1,4-DHP）", source: "統整（三）p.29", img: "assets/medchem/hy-nisodipine.png",
+  pharm: ["代謝物{{仍有活性|性質|無活性}}！"] },
+{ id: "hy-amlodipine", chapter: 34, name: "Amlodipine", type: "drug", group: "1,4-Dihydropyridines（1,4-DHP）", source: "統整（三）p.30", img: "assets/medchem/hy-amlodipine.png",
+  feat: ["唯一 C₂、C₆ {{不對稱|性質|對稱}}：改接醚類結構",
+    "Cl 單取代在苯環 {{ortho|結構|meta}} 位"] },
+{ id: "hy-felodipine", chapter: 34, name: "Felodipine", type: "drug", group: "1,4-Dihydropyridines（1,4-DHP）", source: "統整（三）p.30", img: "assets/medchem/hy-felodipine.png",
+  feat: ["Cl 雙取代在苯環 {{ortho、meta|結構}} 位"] },
+{ id: "hy-clevidipine", chapter: 34, name: "Clevidipine", type: "drug", group: "1,4-Dihydropyridines（1,4-DHP）", source: "統整（三）p.30", img: "assets/medchem/hy-clevidipine.png", imgMore: ["assets/medchem/hy-acetal.png"],
+  feat: ["具有{{縮醛|結構}}及{{雙酯鍵|結構}}結構，易斷（Cleavage）",
+    "Cl 雙取代在苯環 ortho、meta 位"],
+  pharm: ["{{短效|性質|長效}}藥物",
+    "唯一{{不經肝臟代謝|藥動}}★的鈣離子通道阻斷劑，適用於肝腎功能不佳的病患"] },
+{ id: "hy-isradipine", chapter: 34, name: "Isradipine", type: "drug", group: "1,4-Dihydropyridines（1,4-DHP）", source: "統整（三）p.30", img: "assets/medchem/hy-isradipine.png",
+  feat: ["具有{{雜環|結構}}結構",
+    "當 C₃ 的甲基酯-COOCH₃ 換成硝基-NO₂ 時，反而變成鈣離子通道{{活化劑|藥物類別}}★"] },
+{ id: "hy-verapamil", chapter: 34, name: "Verapamil", type: "drug", group: "Phenylalkylamines（PAA）", source: "統整（三）p.31", img: "assets/medchem/hy-verapamil.png",
+  feat: ["屬於 {{Phenylalkylamine|結構}}★類結構",
+    "與{{藜蘆醇|結構}}（Veratrole Alcohol）結構相似",
+    "活性：{{右旋|結構|左旋}} > 左旋"],
+  metab: ["CYP3A4：3 級 {{N-去甲基化|代謝}}，代謝後仍有活性",
+    "CYP2D6：{{O-去甲基化|代謝}}，代謝後無活性"],
+  pharm: ["為 {{P-gp|標的}} 抑制劑，會提高 {{digoxin|藥名}} 的血中濃度"] },
+{ id: "hy-diltiazem", chapter: 34, name: "Diltiazem", type: "drug", group: "Benzothiazepines（BTZ）", source: "統整（三）p.31", img: "assets/medchem/hy-diltiazem.png",
+  feat: ["{{Benzothiazepine|結構}}★結構，含 N、S 七元雜環",
+    "有 2 個不對稱中心，且{{右旋|結構|左旋}}★的阻斷作用較佳"],
+  metab: ["CYP3A4：N-demethylation（會抑制 CYP3A4）",
+    "酵素水解{{去乙醯化|代謝}}★，降低活性"],
+  pharm: ["對{{變異性心絞痛|疾病}}★特別有效",
+    "有較強的負向強心作用，不可用於 CHF 病人，會有{{心跳過慢|副作用}}之副作用",
+    "{{CYP3A 抑制劑|機轉}}★"] },
+{ id: "hy-bepridil", chapter: 34, name: "Bepridil", type: "drug", group: "Alkylamines（烷基胺類）", source: "統整（三）p.31", img: "assets/medchem/hy-bepridil.png",
+  feat: ["Diaminopropanol ether",
+    "容易被代謝，且至少有一代謝物 4-hydroxybepridil 具有活性"],
+  pharm: ["用於穩定性心絞痛",
+    "最容易抑制動作電位，引發 {{QT interval 延長|副作用}}"] },
+{ id: "hy-captopril", chapter: 34, name: "Captopril", type: "drug", group: "含硫醇抑制劑（Sulfhydryl-containing Inhibitors）", source: "統整（三）p.32", img: "assets/medchem/hy-captopril.png",
+  feat: ["透過 {{Sulfhydryl group|結構}}★（-SH）與 Zn²⁺ 螯合",
+    "含有 {{Proline|結構}} 類似結構"],
+  metab: ["氧化型成{{雙硫鍵|結構}}",
+    "1. 2 個 Captopril 以雙硫鍵鍵結成 Dimer",
+    "2. 與 Cysteine（含-SH）聚合，代謝物無活性"],
+  pharm: ["{{非前驅藥|性質|前驅藥}}★",
+    "唯一{{短效|性質|長效}}★ ACE 抑制劑（因含有-SH 基團★）",
+    "副作用：皮膚會起{{疹子|副作用}}"] },
+{ id: "hy-fosinopril", chapter: 34, name: "Fosinopril", type: "drug", group: "含次磷酸根抑制劑（Phosphinate-containing Inhibitors）", source: "統整（三）p.32", img: "assets/medchem/hy-fosinopril.png",
+  feat: ["透過-PO₂⁻與 Zn²⁺螯合★",
+    "含{{縮醛|結構}}結構，易被水解",
+    "需水解成 {{Fosinoprilat|代謝物}} 才具活性"],
+  metab: ["glucuronide conjugation"],
+  pharm: ["為{{前驅藥|性質|非前驅藥}}（prodrug）",
+    "主要由{{肝臟|器官|腎臟}}★代謝"] },
+{ id: "hy-enalapril", chapter: 34, name: "Enalapril", type: "drug", group: "含雙羧酸抑制劑（Dicarboxylate-containing Inhibitors）", source: "統整（三）p.33", img: "assets/medchem/hy-enalapril.png",
+  feat: ["需酯類水解成 {{Enalaprilat|代謝物}} 才具活性",
+    "通常做為 {{Maleate|物質}} 鹽類★",
+    "模仿胺基酸結構（{{Phe-Ala-Pro|結構}}）"],
+  pharm: ["為前驅藥（prodrug）",
+    "生體可用率極高",
+    "適合第四期{{心衰竭|疾病}}之病人"] },
+{ id: "hy-losartan", chapter: 34, name: "Losartan", type: "drug", group: "非前驅藥 ARB", source: "統整（三）p.34", img: "assets/medchem/hy-losartan.png",
+  feat: ["第一個上市的擬肽類 {{imidazole|結構}}★衍生 ARB",
+    "{{ortho|結構|meta}} 位置★含有 {{tetrazole|結構}} 結構"],
+  pharm: ["經 {{CYP2C9|酵素}}、CYP3A4 代謝。氧化代謝物 {{EXP-3174|代謝物}} 降壓能力更強，但本身也有活性，故{{非前驅藥|性質|前驅藥}}"] },
+{ id: "hy-valsartan", chapter: 34, name: "Valsartan", type: "drug", group: "非前驅藥 ARB", source: "統整（三）p.34", img: "assets/medchem/hy-valsartan.png",
+  feat: ["Losartan 的 imidazole {{開環|結構}}★修飾而成",
+    "Losartan 衍生的第一個 {{biphenyl|結構}}★藥物",
+    "具有 {{Valine|結構}} 結構（具異丙基的胺基酸）"],
+  pharm: ["第一個{{沒有|性質|具有}} imidazole 結構★的 ARB"] },
+{ id: "hy-irbesartan", chapter: 34, name: "Irbesartan", type: "drug", group: "非前驅藥 ARB", source: "統整（三）p.34", img: "assets/medchem/hy-irbesartan.png",
+  feat: ["具有{{螺環|結構}}結構（Spiro）",
+    "含有 imidazole 結構"] },
+{ id: "hy-telmisartan", chapter: 34, name: "Telmisartan", type: "drug", group: "非前驅藥 ARB", source: "統整（三）p.34", img: "assets/medchem/hy-telmisartan.png",
+  feat: ["有兩個 {{benzimidazole|結構}} 結構",
+    "{{沒有|性質|具有}} tetrazole 結構★",
+    "→ 以羧酸取代，兩者互為{{生物等效|名詞}}結構",
+    "{{正丙基|結構}}取代正丁基結構"],
+  pharm: ["因含 dibenzimidazole 結構，脂溶性高，藥效{{最長|性質|最短}}"] },
+{ id: "hy-eprosartan", chapter: 34, name: "Eprosartan", type: "drug", group: "非前驅藥 ARB", source: "統整（三）p.35", img: "assets/medchem/hy-eprosartan.png",
+  feat: ["Acid group 為-COOH（唯一{{無 biphenyl|結構}}結構）",
+    "含有 imidazole 結構",
+    "C 端接有 {{thiophene|結構}}"] },
+{ id: "hy-candesartan", chapter: 34, name: "Candesartan", type: "drug", group: "前驅藥 ARB", source: "統整（三）p.35", img: "assets/medchem/hy-candesartan.png",
+  feat: ["具有 benzimidazole 結構",
+    "以乙氧基（{{epoxy|結構}}）取代正丁基"],
+  pharm: ["{{酸性藥|性質|鹼性藥}}，對 ATⅡ 受體有高度親和力"] },
+{ id: "hy-olmesartan", chapter: 34, name: "Olmesartan", type: "drug", group: "前驅藥 ARB", source: "統整（三）p.35", img: "assets/medchem/hy-olmesartan.png",
+  feat: ["以正丙基取代正丁基",
+    "具{{三級醇|結構}}結構（Olmesartan）"] },
+{ id: "hy-azilsartan", chapter: 34, name: "Azilsartan", type: "drug", group: "前驅藥 ARB", source: "統整（三）p.35", img: "assets/medchem/hy-azilsartan.png",
+  feat: ["以 {{oxadiazolone|結構}} 取代 tetrazole",
+    "以乙氧基（epoxy）取代正丁基"] },
+{ id: "hy-zankiren", chapter: 34, name: "Zankiren", type: "drug", group: "腎素抑制劑（Renin inhibitors）", source: "統整（三）p.36", img: "assets/medchem/hy-zankiren.png",
+  feat: ["以 {{Compound A|名詞}} 為模板發展",
+    "Compound A 是模仿 ATⅡ受體的 {{Phe₈-His₉-Leu₁₀|結構}} 結構"] },
+{ id: "hy-aliskiren", chapter: 34, name: "Aliskiren", type: "drug", group: "腎素抑制劑（Renin inhibitors）", source: "統整（三）p.36", img: "assets/medchem/hy-aliskiren.png",
+  feat: ["由 Zankiren 發展而來的小分子藥物",
+    "{{口服|給藥途徑}}藥，可直接與腎素結合",
+    "與 ACEi、ARB 一樣不可用於孕婦",
+    "年長者與肝腎功能不全者使用不需調整劑量"] },
+{ id: "hy-minoxidil", chapter: 34, name: "Minoxidil", type: "drug", group: "K⁺通道活化劑：造成血管擴張", source: "統整（三）p.37", img: "assets/medchem/hy-minoxidil.png",
+  feat: ["含有 pyrimidine、piperidine",
+    "活性代謝物：{{Minoxidil N-O-sulfate|代謝物}}★",
+    "O-glucuronide 代謝物則失去降壓活性"],
+  pharm: ["只會擴張{{小動脈|器官|靜脈}}，不會擴張靜脈",
+    "有嚴重 Na⁺/水滯留，造成水腫和鬱血性心衰竭",
+    "另有刺激{{毛髮生長|用途}}的作用（落健成分）"] },
+{ id: "hy-diazoxide", chapter: 34, name: "Diazoxide", type: "drug", group: "K⁺通道活化劑：造成血管擴張", source: "統整（三）p.37", img: "assets/medchem/hy-diazoxide.png",
+  feat: ["具有 {{Sulfonamide|結構}} 結構",
+    "結構與 {{Thiazides|藥物類別}} 類似"],
+  pharm: ["抑制體內 {{Insulin|物質}} 的分泌，故{{糖尿病|疾病}}者禁用",
+    "可用於{{胰臟癌|疾病}}的高血壓患者"] },
+{ id: "hy-clonidine", chapter: 34, name: "Clonidine", type: "drug", group: "α-receptor Agents", source: "統整（三）p.37", img: "assets/medchem/hy-clonidine.png",
+  feat: ["屬於 Aryl-2-{{amidoimidazoline|結構}}",
+    "主要進行 {{Aromatic hydroxylation|代謝}}，代謝物不可穿透 BBB，不具降壓活性"],
+  pharm: ["{{α₂-agonist|機轉}}★，降低中樞交感神經作用",
+    "不會降低腎血流，可用於腎臟疾病合併症",
+    "可用於治療 {{Opioid 戒斷症狀|疾病}}、過動症",
+    "副作用：鎮靜、{{鼻黏膜乾燥|副作用}}"] },
+{ id: "hy-methyldopa", chapter: 34, name: "α-Methyldopa", short: "α-Methyldopa", type: "drug", group: "α-receptor Agents", source: "統整（三）p.37", img: "assets/medchem/hy-methyldopa.png",
+  feat: ["在中樞會轉換成 {{Methylnorepinephrine|代謝物}}",
+    "→ 其中 {{1R,2S|結構}}★-form 具有 α₂ agonist 活性"],
+  pharm: ["{{孕婦高血壓|疾病}}之首選用藥",
+    "以{{主動運輸|機轉}}方式進入腦部，藥效較慢且持久",
+    "副作用：鎮靜、嗜睡、{{溶血性貧血|副作用}}"] },
+{ id: "hy-labetalol", chapter: 34, name: "Labetalol", type: "drug", group: "α、β-receptor antagonists", source: "統整（三）p.38", img: "assets/medchem/hy-labetalol.png",
+  pharm: ["同時為 α、β-blocker，可 {{IV|給藥途徑}} 治療{{急性高血壓|疾病}}",
+    "可用於{{孕婦高血壓|疾病}}"] },
+{ id: "hy-hydralazine", chapter: 34, name: "Hydralazine", type: "drug", group: "其他類（降血壓血管擴張劑）", source: "統整（三）p.38", img: "assets/medchem/hy-hydralazine.png",
+  feat: ["含有 {{Phthalazine|結構}} 雜環",
+    "主要進行 N、O-glucuronidation 代謝",
+    "速率決定步驟：{{N-acetylation|代謝}}"],
+  pharm: ["直接血管擴張劑，主要作用於{{動脈|器官|靜脈}}",
+    "單一治療可控制懷孕引發的高血壓",
+    "副作用：{{Lupus-like syndrome|副作用}}"] },
+{ id: "hy-nitroprusside", chapter: 34, name: "Nitroprusside", type: "drug", group: "其他類（降血壓血管擴張劑）", source: "統整（三）p.38", img: "assets/medchem/hy-nitroprusside.png",
+  feat: ["含有 5 個 {{cyanide|結構}} 結構（C≡N）",
+    "中心為 {{Fe|物質}} 原子",
+    "需{{避光|性質}}存放"],
+  pharm: ["釋出 {{NO|物質}} 活化 cytosolic guanylate cyclase，增加血管平滑肌之 cGMP 使其擴張",
+    "{{高血壓急症|疾病}}之首選用藥（IV 投予）",
+    "過量會引起 {{Thiocyanate|物質}} 中毒"] },
+{ id: "hy-fenoldopam", chapter: 34, name: "Fenoldopam", type: "drug", group: "其他類（降血壓血管擴張劑）", source: "統整（三）p.38", img: "assets/medchem/hy-fenoldopam.png",
+  feat: ["{{Tetrahydrobenazapine|結構}} 結構"],
+  pharm: ["周邊的 {{D₁|受體}}-receptor agonist",
+    "可維持腎血流，適合{{腎功能不全|疾病}}患者使用",
+    "不可使用於{{青光眼|疾病}}患者"] },
 
 /* ===== 第 16 章 利尿劑（統整（三）柒，p.39–46）===== */
 { id: "diu-location", chapter: 16, name: "利尿劑作用位置總論", short: "作用位置", type: "topic", group: "總論", source: "統整（三）p.39",
@@ -9515,6 +9709,168 @@ PI.KNOWLEDGE = {
             "source": "統整（三）p.27",
             "points": [
               "※ 肝腎功能不佳之患者可使用：{{Succinylcholine|藥名}}、{{Atracurium|藥名}}、{{Mivacurium|藥名}}"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  ch34: {
+    "chapter": 34,
+    "title": "高血壓藥物",
+    "sections": [
+      {
+        "id": "over",
+        "title": "總論：高血壓的治療方向與 RAAS",
+        "items": [
+          {
+            "title": "高血壓治療原理",
+            "source": "統整（三）p.28",
+            "images": [
+              "assets/medchem/hy-fig-overview.png",
+              "assets/medchem/hy-fig-angina.png"
+            ],
+            "points": [
+              "降低{{心輸出量|名詞}}：β-blocker（降低心跳速率與收縮力）、Ca²⁺通道阻斷劑（降低收縮力）",
+              "降低{{周邊血管阻力|名詞}}：血管舒張劑（PDE 抑制劑、硝基化合物）、RAAS 抑制劑、利尿劑",
+              "※ 抗凝血藥物：預防血栓"
+            ]
+          },
+          {
+            "title": "RAAS 系統",
+            "source": "統整（三）p.28",
+            "images": [
+              "assets/medchem/hy-fig-raas.png"
+            ],
+            "points": [
+              "使用 ACEi 或 ARB 可降低 {{Aldosterone|物質}} 之分泌，造成 Na⁺/水滯留情形減少，但 {{K⁺|離子}} 濃度會上升"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "ccb",
+        "title": "一、Ca²⁺通道阻斷劑",
+        "items": [
+          {
+            "title": "1,4-DHP 與 Ni 系列",
+            "group": "1,4-Dihydropyridines（1,4-DHP）",
+            "source": "統整（三）p.29",
+            "points": [
+              "1,4-DHP 對{{周邊血管|器官}}之選擇性較佳，且不用於{{心絞痛|疾病}}之病人",
+              "※ 字首為 Ni 者，苯環上皆有 -NO₂ 取代基（苯環的 2、3 號位）",
+              "※ 造成{{齒齦增生|副作用}}之藥物：{{Phenytoin|藥名}}、{{Cyclosporine|藥名}}、{{Nifedipine|藥名}}"
+            ]
+          },
+          {
+            "title": "1,4-DHP 的結構與代謝",
+            "group": "1,4-Dihydropyridines（1,4-DHP）",
+            "source": "統整（三）p.30",
+            "points": [
+              "※ 除了 {{Isradipine|藥名}} 為雜環結構，其餘苯環上都有 Cl 取代基",
+              "※ 代謝：所有 1,4-DHP（除了 {{Clevidipine|藥名}}）皆由肝臟 {{CYP3A4|酵素}} 氧化代謝成無活性★代謝物（含雜環 {{pyridine|結構}}★）。例外：{{Nisodipine|藥名}} 的代謝物仍有活性★",
+              "→ 鈣離子通道阻斷劑中，{{1,4-Dihydropyridine|藥物類別}} 類★藥物較容易與{{葡萄柚汁|物質}}產生交互作用"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "ace",
+        "title": "二、RAAS 系統相關藥物：ACE 抑制劑",
+        "items": [
+          {
+            "title": "ACEi 總論",
+            "group": "血管收縮素轉換酶抑制劑（ACEi）",
+            "source": "統整（三）p.32",
+            "images": [
+              "assets/medchem/hy-fig-ace.png",
+              "assets/medchem/hy-fig-zn.png"
+            ],
+            "points": [
+              "重要副作用：{{乾咳|副作用}}、{{血管水腫|副作用}}",
+              "※ {{孕婦|族群}}禁用！且不可用於單/雙側{{腎動脈狹窄|疾病}}的病人，因為 ACEi 會使出球小動脈擴張，造成腎功能不足",
+              "ACEi 重要結構：{{Pyrrolidine|結構}}★（Piperidine）+ COOH（需為 S form）",
+              "※ 主要由{{肝臟|器官}}代謝：{{Trandolapril|藥名}}、{{Fosinopril|藥名}}、{{Moexipril|藥名}}（TFM - 聽 FM 電台）",
+              "※ 結構中沒有 Pyrrolidine：{{Benazepril|藥名}}、{{Moexipril|藥名}}、{{Quinapril|藥名}}（BMQ - B&Q 特力屋）"
+            ]
+          },
+          {
+            "title": "ACEi 的環結構與代謝",
+            "group": "血管收縮素轉換酶抑制劑（ACEi）",
+            "source": "統整（三）p.33",
+            "images": [
+              "assets/medchem/hy-fig-ring.png"
+            ],
+            "points": [
+              "※ Lisinopril 會形成 {{di-zwitterion|結構}}，親水性高且口服有效",
+              "※ 代謝：1. 葡萄糖醛酸共軛反應 → Fosinopril、Benazepril、Quinapril、Ramipril",
+              "2. 環化反應（形成 {{piperazinone|結構}}）→ Moexipril、Perindopril、{{Ramipril|藥名}}★",
+              "※ 活性比較：Enalaprilat > Fosinoprilat > Captopril",
+              "※ ACEIs 除了 {{Captopril|藥名}}★、{{Lisinopril|藥名}}★ 之外，皆為 {{prodrug|名詞}}"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "arb",
+        "title": "三、RAAS 系統相關藥物：ARB",
+        "items": [
+          {
+            "title": "ARB 總論",
+            "group": "血管收縮素Ⅱ受體阻斷劑（ARB）",
+            "source": "統整（三）p.34",
+            "points": [
+              "※ {{孕婦|族群}}禁用！且具有{{高血鉀|副作用}}之副作用"
+            ]
+          },
+          {
+            "title": "ARB 整理",
+            "group": "前驅藥 ARB",
+            "source": "統整（三）p.35",
+            "points": [
+              "※ ARB 中不含 {{tetrazole|結構}} 結構者：{{Telmisartan|藥名}}★、{{Azilsartan|藥名}}、{{Eprosartan|藥名}}",
+              "※ 代謝：除了 3 個為前驅藥的 ARBs 和 {{Losartan|藥名}}，其餘 ARBs 皆不產生活性代謝物",
+              "※ 抑制 AT₁-receptor 之活性大小：Candesartan > Telmisartan > Irbesartan > Valsartan > Losartan"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "renin",
+        "title": "四、RAAS 系統相關藥物：腎素抑制劑",
+        "items": [
+          {
+            "title": "腎素抑制劑與 PRA",
+            "group": "腎素抑制劑（Renin inhibitors）",
+            "source": "統整（三）p.36",
+            "points": [
+              "※ Aliskiren 為直接抑制 {{Renin|酵素}}，因此會使 Plasma renin activity（PRA）{{下降|性質|上升}}；而 ACEi、ARB 則會使 PRA {{上升|性質|下降}}"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "vaso",
+        "title": "五、血管擴張劑",
+        "items": [
+          {
+            "title": "α₁-blockers",
+            "group": "α-receptor Agents",
+            "source": "統整（三）p.37",
+            "points": [
+              "α₁-blockers：{{Prazosin|藥名}}、{{Doxazosin|藥名}}、{{Terazosin|藥名}} 等藥物可選擇性阻斷 α₁-receptor，造成血管擴張而使血壓降低",
+              "常見副作用為{{反射性心搏過速|副作用}}（初期須並用 β-blocker）及 {{First-dose effect|副作用}}（首次劑量暈厥）"
+            ]
+          },
+          {
+            "title": "高血壓特殊族群與解毒",
+            "group": "其他類（降血壓血管擴張劑）",
+            "source": "統整（三）p.38",
+            "points": [
+              "※ {{懷孕婦女|族群}}適用之高血壓藥物★：{{α-Methyldopa|藥名}}、β-blockers、{{Hydralazine|藥名}}、{{Labetalol|藥名}}、{{Trimethophan|藥名}}",
+              "※ 用於{{急性高血壓|疾病}}之藥物：{{Nitroprusside|藥名}}、{{Labetalol|藥名}}、{{Fenoldopam|藥名}}、{{Nicardipine|藥名}}",
+              "※ {{Cyanide|物質}} 中毒可使用 {{Sodium thiosulfate|藥名}}、{{Hydroxycobalamin|藥名}} 解毒",
+              "※ 造成 {{Lupus-like syndrome|副作用}} 之藥物★：{{Hydralazine|藥名}}、{{Procainamide|藥名}}、{{Propylthiouracil|藥名}}"
             ]
           }
         ]
