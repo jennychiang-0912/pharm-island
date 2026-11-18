@@ -463,7 +463,12 @@ PI.GROUP_LABELS = {
   "Class II（抗心律不整）": "Class II",
   "Class III（抗心律不整）": "Class III",
   "Class IV（抗心律不整）": "Class IV",
-  "Other Antiarrhythmic Agents": "Other Agents"
+  "Other Antiarrhythmic Agents": "Other Agents",
+  "膽酸吸附劑（Bile-acid Sequestrants）": "Bile-acid Sequestrants",
+  "HMG-CoA Reductase Inhibitors（Statins 類藥物）": "Statins",
+  "Fibrates 類藥物（降 TG 最佳藥物）": "Fibrates",
+  "Cholesterol Absorption Inhibitor": "Absorption Inhibitor",
+  "Niacins": "Niacins"
 };
 
 /* 藥化的欄位：照講義表格的欄位（藥物｜結構｜特性｜藥理及臨床應用） */
@@ -511,6 +516,7 @@ PI.CHAPTERS = [
   { id: 33, name: "膽鹼性拮抗藥物", no: 5, cat: "cv", estimate: 28, unitType: "drug", note: "統整（三）伍，p.23–27。" },
   { id: 34, name: "高血壓藥物", no: 6, cat: "cv", estimate: 32, unitType: "drug", note: "統整（三）陸 p.28–38：Ca²⁺通道阻斷劑、ACEi、ARB、腎素抑制劑、血管擴張劑" },
   { id: 35, name: "抗心律不整藥物", no: 10, cat: "cv", estimate: 25, unitType: "drug", note: "統整（三）壹拾 p.54–57：Class IA～IV 與其他抗心律不整藥" },
+  { id: 36, name: "降血脂藥物", no: 12, cat: "cv", estimate: 17, unitType: "drug", note: "統整（三）壹拾貳 p.70–75：膽酸吸附劑、Statins、Fibrates、膽固醇吸收抑制劑、Niacin" },
   { id: 16, name: "利尿劑", no: 7, cat: "cv", estimate: 20, unitType: "drug", note: "統整（三）柒，p.39–46。" },
   { id: 17, name: "心絞痛藥物", no: 8, cat: "cv", estimate: 8, unitType: "drug", note: "統整（三）捌，p.47–48。" },
   { id: 18, name: "心衰竭藥物", no: 9, cat: "cv", estimate: 10, unitType: "drug", note: "統整（三）玖，p.49–53。" },
@@ -594,6 +600,8 @@ PI.LANDMASSES = [
     palette: { ground: "#C9B6D8", light: "#DACBE5", cliff: "#A593B8" } },
   { id: "cv35", name: "心律島", chapters: [35], cluster: "cv", angle: 0,
     palette: { ground: "#BFB6DC", light: "#D3CCEA", cliff: "#9A92BE" } },
+  { id: "cv36", name: "血脂島", chapters: [36], cluster: "cv", angle: 0,
+    palette: { ground: "#B6D2D8", light: "#CCE2E7", cliff: "#8FAAB0" } },
   { id: "cv16",  name: "利尿島",     chapters: [16], cluster: "cv", angle: 75,
     palette: { ground: "#E8B4B0", light: "#F0C9C6", cliff: "#C48A86" } },
   { id: "cv17",  name: "心絞痛島",   chapters: [17], cluster: "cv", angle: 270,
@@ -5216,6 +5224,76 @@ PI.UNITS = [
   desc: ["{{心室上心搏過速|疾病}}之首選藥物，另可用於陣發性心室心搏過速（Verapamil 也可）",
     "抑制 Ca²⁺電流並增加內向整流之 K⁺電流",
     "最可能誘發 {{Atrial fibrillation|疾病}}"] },
+
+/* ===== 第 36 章（統整（三）壹拾貳 降血脂藥物 p.70–75；畫面章號 12）===== */
+/* 一、膽酸吸附劑是黑底，即分類；二～五各節沒有黑底／灰底，章節標題就是分類（Statins、Fibrates、Cholesterol Absorption Inhibitor、Niacins）；六、PCSK9 複合體沒有結構圖，放告示牌。
+   p.70 欄位是來源／特性／藥理及臨床應用，來源欄放聚合物合成結構圖（含前驅物），作用機制放知識卡；p.72 Mevastatin 的 SAR 文字放藥理及臨床應用，SAR 圖當附圖；
+   p.71 Statins 比較表與 p.73 整理表放 Statins 知識卡；商品名（Lescol 等）放備註；Ezetimibe、Niacin 結構前的星號未特別處理。 */
+
+{ id: "lp-cholestyramine", chapter: 36, name: "Cholestyramine", type: "drug", group: "膽酸吸附劑（Bile-acid Sequestrants）", source: "統整（三）p.70", img: "assets/medchem/lp-cholestyramine.png",
+  pharm: ["改善因{{膽道阻塞|疾病}}而使膽酸沉積於皮膚，所引發的{{搔癢|副作用}}",
+    "可治療{{毛地黃中毒|疾病}}：吸附 {{Digoxin|藥名}}",
+    "可緩解膽鹽引起的結腸分泌型腹瀉"] },
+{ id: "lp-colestipol", chapter: 36, name: "Colestipol", type: "drug", group: "膽酸吸附劑（Bile-acid Sequestrants）", source: "統整（三）p.70", img: "assets/medchem/lp-colestipol.png",
+  pharm: ["與 Cholestyramine 相同"] },
+{ id: "lp-mevastatin", chapter: 36, name: "Mevastatin", type: "drug", group: "HMG-CoA Reductase Inhibitors（Statins 類藥物）", source: "統整（三）p.72", img: "assets/medchem/lp-mevastatin.png", imgMore: ["assets/medchem/lp-fig-sar.png"],
+  feat: ["立體構型：{{3R、5R|結構}}★",
+    "含有 {{lactone ring|結構}} → {{前驅藥|性質|活性藥}}",
+    "C6、C7 以單鍵相接"],
+  pharm: ["SAR",
+    "1. 以雙環為主要結構，並用 Ethylene bridge 連接 β-hydroxy-δ-lactone",
+    "2. 含有 Lactone 的藥物為 {{Prodrug|名詞}}，水解開環形成 3R,5R-dihydroxyheptanoic acid",
+    "3. Lactone 與雙環間距離必為{{兩個碳|結構}}"] },
+{ id: "lp-lovastatin", chapter: 36, name: "Lovastatin", type: "drug", group: "HMG-CoA Reductase Inhibitors（Statins 類藥物）", source: "統整（三）p.72", img: "assets/medchem/lp-lovastatin.png",
+  feat: ["有 lactone ring → 前驅藥",
+    "與 Mevastatin 僅相差在 {{6′位|結構}}的{{甲基|取代基}}"] },
+{ id: "lp-simvastatin", chapter: 36, name: "Simvastatin", type: "drug", group: "HMG-CoA Reductase Inhibitors（Statins 類藥物）", source: "統整（三）p.72", img: "assets/medchem/lp-simvastatin.png",
+  feat: ["有 lactone ring → 前驅藥",
+    "與 Lovastatin 僅相差在{{酯基側鏈|結構}}的甲基"],
+  pharm: ["活性為 Lovastatin 的 {{2.5 倍|數值}}"] },
+{ id: "lp-pravastatin", chapter: 36, name: "Pravastatin", type: "drug", group: "HMG-CoA Reductase Inhibitors（Statins 類藥物）", source: "統整（三）p.72", img: "assets/medchem/lp-pravastatin.png",
+  feat: ["Lactone 結構開環形成 {{3,5-dihydroxyheptanoic acid|結構}}",
+    "雙環部分加上 {{OH 基|取代基}} → 減少{{肝毒性|副作用}}"],
+  pharm: ["不經由 {{CYP450|酵素}} 代謝"] },
+{ id: "lp-fluvastatin", chapter: 36, name: "Fluvastatin", type: "drug", group: "HMG-CoA Reductase Inhibitors（Statins 類藥物）", source: "統整（三）p.73", img: "assets/medchem/lp-fluvastatin.png",
+  feat: ["中心雜環為 {{indole|結構}}",
+    "Lactone 結構開環形成 3,5-dihydroxyheptanoic acid"],
+  rmk: ["商品名：Lescol®"] },
+{ id: "lp-atorvastatin", chapter: 36, name: "Atorvastatin", type: "drug", group: "HMG-CoA Reductase Inhibitors（Statins 類藥物）", source: "統整（三）p.73", img: "assets/medchem/lp-atorvastatin.png",
+  feat: ["中心雜環為 {{pyrrole|結構}}",
+    "唯一以{{碳碳單鍵|結構}}連接芳香雜環"],
+  rmk: ["商品名：Lipitor®"] },
+{ id: "lp-rosuvastatin", chapter: 36, name: "Rosuvastatin", type: "drug", group: "HMG-CoA Reductase Inhibitors（Statins 類藥物）", source: "統整（三）p.73", img: "assets/medchem/lp-rosuvastatin.png",
+  feat: ["中心雜環為 {{pyrimidine|結構}}"],
+  rmk: ["商品名：Crestor®"] },
+{ id: "lp-pitavastatin", chapter: 36, name: "Pitavastatin", type: "drug", group: "HMG-CoA Reductase Inhibitors（Statins 類藥物）", source: "統整（三）p.73", img: "assets/medchem/lp-pitavastatin.png",
+  feat: ["中心雜環為 {{quinoline|結構}}"],
+  rmk: ["商品名：Livalo®"] },
+{ id: "lp-clofibrate", chapter: 36, name: "Clofibrate", type: "drug", group: "Fibrates 類藥物（降 TG 最佳藥物）", source: "統整（三）p.74", img: "assets/medchem/lp-clofibrate.png",
+  feat: ["苯環上含有 Cl，可增加{{半衰期|藥動}}"],
+  pharm: ["{{Prodrug|名詞}}"] },
+{ id: "lp-fenofibrate", chapter: 36, name: "Fenofibrate", type: "drug", group: "Fibrates 類藥物（降 TG 最佳藥物）", source: "統整（三）p.74", img: "assets/medchem/lp-fenofibrate.png",
+  feat: ["苯環上含有 Cl",
+    "含有 {{Benzophenone|結構}}、{{Isopropylester|結構}}"],
+  pharm: ["Prodrug"] },
+{ id: "lp-gemfibrozil", chapter: 36, name: "Gemfibrozil", type: "drug", group: "Fibrates 類藥物（降 TG 最佳藥物）", source: "統整（三）p.74", img: "assets/medchem/lp-gemfibrozil.png",
+  feat: ["{{1,2,5-三取代|結構}}苯環衍生物",
+    "苯環上有兩個甲基，唯一{{沒有 Cl|結構|有 Cl}} 取代"] },
+{ id: "lp-ciprofibrate", chapter: 36, name: "Ciprofibrate", type: "drug", group: "Fibrates 類藥物（降 TG 最佳藥物）", source: "統整（三）p.74", img: "assets/medchem/lp-ciprofibrate.png",
+  feat: ["結構中含有 {{Cyclopropane|結構}}"] },
+{ id: "lp-bezafibrate", chapter: 36, name: "Bezafibrate", type: "drug", group: "Fibrates 類藥物（降 TG 最佳藥物）", source: "統整（三）p.74", img: "assets/medchem/lp-bezafibrate.png",
+  feat: ["結構中含有 {{Benzamide|結構}}"] },
+{ id: "lp-ezetimibe", chapter: 36, name: "Ezetimibe", type: "drug", group: "Cholesterol Absorption Inhibitor", source: "統整（三）p.75", img: "assets/medchem/lp-ezetimibe.png",
+  feat: ["含有 {{Lactam|結構}} 結構",
+    "含有 {{F|物質}} 原子"],
+  pharm: ["抑制{{小腸|器官}}吸收膽固醇"] },
+{ id: "lp-niacin", chapter: 36, name: "Niacin（Nicotinic acid, Vit B₃）", short: "Niacin", type: "drug", group: "Niacins", source: "統整（三）p.75", img: "assets/medchem/lp-niacin.png",
+  feat: ["{{增加 HDL|藥效}} 最佳藥物，也可抑制脂肪細胞的 TG 分解，並降低肝臟分泌 {{VLDL|物質}}",
+    "降 LDL 作用只有 10-15% → 可併用 {{Cholestyramine|藥名}} 加強",
+    "副作用",
+    "1. 葡萄糖耐受性降低：{{糖尿病|疾病}}病人不可使用★",
+    "2. 皮膚潮紅：可用 {{Ibuprofen|藥名}} 緩解",
+    "3. 與 Lovastatin 一樣有增加血清 aminotransferase 之副作用"] },
 
 /* ===== 第 16 章 利尿劑（統整（三）柒，p.39–46）===== */
 { id: "diu-location", chapter: 16, name: "利尿劑作用位置總論", short: "作用位置", type: "topic", group: "總論", source: "統整（三）p.39",
@@ -10044,6 +10122,353 @@ PI.KNOWLEDGE = {
               "1. 抑制 Ca²⁺：{{PR interval|名詞}} 延長",
               "2. 抑制 Na⁺：{{QRS interval|名詞}} 延長",
               "3. 抑制 K⁺：{{QT interval|名詞}} 延長"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  ch36: {
+    "chapter": 36,
+    "title": "降血脂藥物",
+    "sections": [
+      {
+        "id": "bas",
+        "title": "一、膽酸吸附劑（Bile-acid Sequestrants）",
+        "items": [
+          {
+            "title": "BAS 作用機制",
+            "group": "膽酸吸附劑（Bile-acid Sequestrants）",
+            "source": "統整（三）p.70",
+            "points": [
+              "此類藥物為{{聚合物|名詞}}，且大多帶有{{正電荷|性質|負電荷}} → 與膽酸的 COO⁻ 進行{{陰離子交換|機轉}}（Anion-exchange）",
+              "BAS 會吸附膽酸，抑制負回饋作用，使體內膽固醇合成膽酸的量變多，進而使膽固醇濃度↓",
+              "會增加 {{TG|物質}}，{{胰臟炎|疾病}}患者禁用"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "statin",
+        "title": "二、HMG-CoA Reductase Inhibitors（Statins 類藥物）",
+        "items": [
+          {
+            "title": "Statins 總論與整理",
+            "group": "HMG-CoA Reductase Inhibitors（Statins 類藥物）",
+            "source": "統整（三）p.71",
+            "table": {
+              "head": [
+                "比較",
+                "Simvastatin",
+                "Lovastatin",
+                "Atorvastatin",
+                "Fluvastatin",
+                "Pravastatin",
+                "Rosuvastatin",
+                "Pitavastatin"
+              ],
+              "rows": [
+                [
+                  {
+                    "t": "LDL 下降%",
+                    "b": true
+                  },
+                  "41",
+                  "34",
+                  "{{50|數值}}",
+                  "24",
+                  "34",
+                  "{{50|數值}}",
+                  "-"
+                ],
+                [
+                  {
+                    "t": "TG 下降%",
+                    "b": true
+                  },
+                  "18",
+                  "16",
+                  "29",
+                  "10",
+                  "24",
+                  "18",
+                  "-"
+                ],
+                [
+                  {
+                    "t": "HDL 上升%",
+                    "b": true
+                  },
+                  "12",
+                  "9",
+                  "6",
+                  "8",
+                  "12",
+                  "8",
+                  "-"
+                ],
+                [
+                  {
+                    "t": "半衰期（hr）",
+                    "b": true
+                  },
+                  "1~2",
+                  "2",
+                  "{{14|數值}}",
+                  "1~2",
+                  "1~2",
+                  "{{19|數值}}",
+                  "12"
+                ],
+                [
+                  {
+                    "t": "是否進入 CNS",
+                    "b": true
+                  },
+                  "✔",
+                  "✔",
+                  "✘",
+                  "✘",
+                  "✘",
+                  "✘",
+                  "-"
+                ],
+                [
+                  {
+                    "t": "腎臟排除率%",
+                    "b": true
+                  },
+                  "13",
+                  "10",
+                  "2",
+                  "<6",
+                  "20",
+                  "10",
+                  "-"
+                ],
+                [
+                  {
+                    "t": "腎功能不佳可用",
+                    "b": true
+                  },
+                  "✘",
+                  "✘",
+                  "✔",
+                  "✔",
+                  "✘",
+                  "✘",
+                  "-"
+                ],
+                [
+                  {
+                    "t": "每日劑量上限（mg）",
+                    "b": true
+                  },
+                  "80",
+                  "80",
+                  "80",
+                  "80",
+                  "80",
+                  "40",
+                  "-"
+                ],
+                [
+                  {
+                    "t": "是否為 Prodrug",
+                    "b": true
+                  },
+                  "✔",
+                  "✔",
+                  "✘",
+                  "✘",
+                  "✘",
+                  "✘",
+                  "✘"
+                ],
+                [
+                  {
+                    "t": "CYP3A4 代謝",
+                    "b": true
+                  },
+                  "✔",
+                  "✔",
+                  "✔",
+                  "",
+                  "",
+                  "",
+                  ""
+                ],
+                [
+                  {
+                    "t": "CYP2C9 代謝",
+                    "b": true
+                  },
+                  "",
+                  "",
+                  "",
+                  "✔",
+                  "",
+                  "✔",
+                  "✔"
+                ],
+                [
+                  {
+                    "t": "不經 CYP450 代謝",
+                    "b": true
+                  },
+                  "",
+                  "",
+                  "",
+                  "",
+                  "✔",
+                  "",
+                  ""
+                ],
+                [
+                  {
+                    "t": "食物影響吸收",
+                    "b": true
+                  },
+                  "✘",
+                  "↑",
+                  "✘",
+                  "↓",
+                  "↓",
+                  "✘",
+                  "-"
+                ]
+              ]
+            },
+            "points": [
+              "※ 降 {{LDL|物質}} 最佳藥物！另可增加 LDL 受體；可併用 {{Niacin|藥名}} 但不可並用 {{Fibrates|藥物類別}} 類藥物",
+              "※ Statins 類藥物整理（原型藥：{{Mevastatin|藥名}}）",
+              "1. Prodrug 前驅藥：Mevastatin、Simvastatin、Lovastatin",
+              "2. CYP3A4 代謝：{{Simvastatin|藥名}}、Lovastatin、Atorvastatin",
+              "3. CYP2C9 代謝：{{Rosuvastatin|藥名}}、Fluvastatin、Pitavastatin",
+              "4. 不經 CYP450 代謝：{{Pravastatin|藥名}}（交互作用少，用於器官移植後的高血脂）",
+              "5. 腎功能不佳可使用：{{Atorvastatin|藥名}}、{{Fluvastatin|藥名}}",
+              "6. 半衰期長，可 QD 給予：{{Atorvastatin|藥名}}、{{Rosuvastatin|藥名}}",
+              "※ 副作用：肝臟酵素上升、{{橫紋肌溶解|副作用}}（腎功能不足或併用 {{Cyclosporin|藥名}}、{{Gemfibrozil|藥名}} 更容易誘發橫紋肌溶解）",
+              "※ {{孕婦|族群}}、哺乳婦、兒童或青少年禁用；避免予 {{Warfarin|藥名}} 併用"
+            ]
+          },
+          {
+            "title": "Statins 結構整理",
+            "group": "HMG-CoA Reductase Inhibitors（Statins 類藥物）",
+            "source": "統整（三）p.73",
+            "table": {
+              "head": [
+                {
+                  "t": "分類",
+                  "cs": 2
+                },
+                "說明"
+              ],
+              "rows": [
+                [
+                  {
+                    "t": "含有 Lactone ring 結構",
+                    "rs": 3,
+                    "b": true
+                  },
+                  "Mevastatin",
+                  "原型藥；構型為 3R、5R"
+                ],
+                [
+                  null,
+                  "Lovastatin",
+                  "Meva 加一個 6′-CH₃"
+                ],
+                [
+                  null,
+                  "Simvastatin",
+                  "Lova 的酯基上加一個 CH₃"
+                ],
+                [
+                  {
+                    "t": "由 Lactone ring 開環形成",
+                    "b": true
+                  },
+                  "Pravastatin",
+                  "lactone 開環形成"
+                ],
+                [
+                  {
+                    "t": "含有中心雜環結構",
+                    "rs": 4,
+                    "b": true
+                  },
+                  "Fluvastatin",
+                  "{{indole|結構}}"
+                ],
+                [
+                  null,
+                  "Atorvastatin",
+                  "{{pyrrole|結構}}"
+                ],
+                [
+                  null,
+                  "Rosuvastatin",
+                  "{{pyrimidine|結構}}"
+                ],
+                [
+                  null,
+                  "Pitavastatin",
+                  "{{quinoline|結構}}"
+                ]
+              ]
+            },
+            "points": [
+              "※ 含有 Lactone ring 結構的為 Prodrug"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "fibrate",
+        "title": "三、Fibrates 類藥物",
+        "items": [
+          {
+            "title": "Fibrates：降 TG 最佳藥物",
+            "group": "Fibrates 類藥物（降 TG 最佳藥物）",
+            "source": "統整（三）p.74",
+            "points": [
+              "Fibrates 類藥物：降 {{TG|物質}} 最佳藥物！可活化 {{PPAR|標的}}★受體，基本結構為 {{phenoxyisobutyric acid|結構}} 衍生物"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "ezetimibe",
+        "title": "四、Cholesterol Absorption Inhibitor",
+        "items": []
+      },
+      {
+        "id": "niacin",
+        "title": "五、Niacins",
+        "items": [
+          {
+            "title": "※ 結構比較",
+            "group": "Niacins",
+            "source": "統整（三）p.75",
+            "images": [
+              "assets/medchem/lp-fig-nico.png"
+            ],
+            "points": [
+              "※ 結構比較：Nicotine、Niacin（Nicotinic acid）、Nicotinamide"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "pcsk9",
+        "title": "六、PCSK9 複合體",
+        "items": [
+          {
+            "title": "PCSK9 複合體",
+            "source": "統整（三）p.75",
+            "points": [
+              "PCSK9 複合體：藥物有 {{Evolocumab|藥名}}、{{Alirocumab|藥名}}，可抑制 {{LDL 受體|標的}}代謝。用於口服治療無效之家族性高膽固醇血症"
             ]
           }
         ]
