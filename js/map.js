@@ -197,8 +197,60 @@ PI.map = (function () {
       return isl.cells.map(c => [isl.offset.x - c0.cx + c.lx, isl.offset.y - c0.cy + c.ly]); });
     // 群島（LANDMASSES 的 cluster）：同一群的島圍著該群第一座島排；不同群之間隔 clusterGap 格海，看起來是分開的兩片群島
     const clusterAt = new Map(), cGap = (PI.MAP.clusterGap || 7) * SQ3 * R;
+    // 環狀群島（PI.CLUSTER_RING）：群島名稱在正中央，同一群的島依章節順序（順時針、從正上方開始）圍成一圈
+    const ringDone = new Set(); ringCenters.clear();
+    function placeRing(cl) {
+      const grp = lands.filter(l => l.def.cluster === cl && landCellsRel(l).length), n = grp.length;
+      if (!n) return;
+      const C = { x: 0, y: 0 }, rels = grp.map(landCellsRel), need = gap + SQ3 * R;
+      const sp = grp.map((l, i) => l.radius + grp[(i + 1) % n].radius + gap);
+      const Rr = sp.reduce((a, b) => a + b, 0) / (2 * Math.PI), XS = 1.25;   // 橫向拉寬一點，貼近螢幕比例
+      let th = -Math.PI / 2; const angs = grp.map((l, i) => { const a = th; th += sp[i] / Rr; return a; });
+      const tb = clusterTitleBox((PI.CLUSTERS || {})[cl] || "");
+      const posAt = (s, i) => ({ x: C.x + s * Rr * XS * Math.cos(angs[i]), y: C.y + s * Rr * Math.sin(angs[i]) });
+      const ok = s => {
+        const P = grp.map((l, i) => posAt(s, i));
+        for (let i = 0; i < n; i++) for (const [x, y] of rels[i]) {
+          const ax = P[i].x + x, ay = P[i].y + y;
+          if (Math.abs(ax - C.x) < tb.hw + R * 2.5 && Math.abs(ay - C.y) < tb.hh + R * 2.5) return false;   // 不壓到中間的標題
+        }
+        for (let i = 0; i < n; i++) for (let j = i + 1; j < n; j++)
+          for (const [x, y] of rels[i]) for (const [u, v] of rels[j])
+            if (Math.hypot(P[i].x + x - P[j].x - u, P[i].y + y - P[j].y - v) < need) return false;
+        return true;
+      };
+      let lo = 0.2, hi = 1.6;   // hi 一定可行（圓形估計很保守），往內縮到剛好不相撞
+      if (!ok(hi)) hi = 3;
+      for (let k = 0; k < 20; k++) { const m = (lo + hi) / 2; if (ok(m)) hi = m; else lo = m; }
+      // 各島再沿半徑方向各自往內縮（大小不同的島，間距比較均勻、圈子更緊）
+      const P = grp.map((l, i) => posAt(hi * 1.02, i)), base = P.map(p => ({ ...p }));
+      const okOne = i => {
+        for (const [x, y] of rels[i]) { const ax = P[i].x + x, ay = P[i].y + y;
+          if (Math.abs(ax - C.x) < tb.hw + R * 2.5 && Math.abs(ay - C.y) < tb.hh + R * 2.5) return false; }
+        for (let j = 0; j < n; j++) { if (j === i) continue;
+          for (const [x, y] of rels[i]) for (const [u, v] of rels[j])
+            if (Math.hypot(P[i].x + x - P[j].x - u, P[i].y + y - P[j].y - v) < need) return false; }
+        return true;
+      };
+      for (let pass = 0; pass < 2; pass++) for (let i = 0; i < n; i++) {
+        let a = 0.82, b = 1;
+        for (let k = 0; k < 14; k++) { const m = (a + b) / 2;
+          P[i] = { x: C.x + (base[i].x - C.x) * m, y: C.y + (base[i].y - C.y) * m };
+          if (okOne(i)) b = m; else a = m; }
+        P[i] = { x: C.x + (base[i].x - C.x) * b, y: C.y + (base[i].y - C.y) * b };
+        base[i] = { ...P[i] };
+      }
+      grp.forEach((l, i) => {
+        l.center = P[i];
+        rels[i].forEach(([x, y]) => placedCells.push([l.center.x + x, l.center.y + y]));
+        placedLands.push({ ...l.center, rad: l.radius });
+      });
+      ringCenters.set(cl, C);
+    }
     lands.forEach(land => {
       const ang = (land.def.angle ?? 0) * Math.PI / 180, cl = land.def.cluster;
+      if (cl && (PI.CLUSTER_RING || {})[cl] && !placedLands.length && !ringDone.has(cl)) { ringDone.add(cl); placeRing(cl); }
+      if (cl && ringDone.has(cl)) { if (!clusterAt.has(cl)) clusterAt.set(cl, { x: 0, y: 0 }); return; }
       const firstOfCluster = cl && !clusterAt.has(cl) && placedLands.length > 0;
       const origin = (cl && clusterAt.get(cl)) || { x: 0, y: 0 }, myGap = firstOfCluster ? cGap : gap;
       land.center = findSpot(placedLands, land.radius, myGap + noise(land.regions[0].chapter, 3, 9) * R * 0.5, ang, Math.PI * 0.9, origin);
@@ -562,6 +614,10 @@ PI.map = (function () {
 
   /* ---------- 群島名稱：同一個 cluster 的島上方放一個總名稱（PI.CLUSTERS），字體和小分類名牌一樣、但是黑字、比較大 ---------- */
   let clusterLayer = null;
+  const ringCenters = new Map();   // 環狀群島 id → 中心點
+  const CL_FS = 72, clAdv = ch => ch === " " ? CL_FS * 0.32 : (ch.charCodeAt(0) > 0x2E00 ? CL_FS * 1.02 : CL_FS * 0.56);
+  const clLines = name => name.split("\n").map(t => ({ t, w: t.split("").reduce((s, ch) => s + clAdv(ch), 0) }));
+  function clusterTitleBox(name) { const ls = clLines(name); return { hw: Math.max(0, ...ls.map(l => l.w)) / 2, hh: ls.length * CL_FS * 1.2 / 2 }; }
   function drawClusterLabels() {
     const names = PI.CLUSTERS || {}, boxes = [];
     if (!clusterLayer) { clusterLayer = el("g", { class: "layer-clusters" }); labelLayer.appendChild(clusterLayer); }
@@ -571,15 +627,18 @@ PI.map = (function () {
       if (!isls.length) return;
       const minX = Math.min(...isls.map(i => i.bounds.minX)), maxX = Math.max(...isls.map(i => i.bounds.maxX));
       const minY = Math.min(...isls.map(i => i.bounds.minY));
-      const fs = 72, letters = name.split(""), adv = ch => ch === " " ? fs * 0.32 : (ch.charCodeAt(0) > 0x2E00 ? fs * 1.02 : fs * 0.56);
-      const total = letters.reduce((s, ch) => s + adv(ch), 0), cx = (minX + maxX) / 2, y = minY - R * 1.2;
-      const g = el("g", { class: "cluster-sign", transform: `translate(${cx.toFixed(1)},${y.toFixed(1)})`, "aria-hidden": "true" });
-      let acc = -total / 2;
-      letters.forEach(ch => { const a = adv(ch), x = (acc + a / 2).toFixed(1); acc += a; if (ch === " ") return;
-        const sh = el("text", { class: "cluster-letter-shadow", x: (+x + 2.5).toFixed(1), y: 3.5, "font-size": fs }), tx = el("text", { class: "cluster-letter", x, y: 0, "font-size": fs });
-        sh.textContent = tx.textContent = ch; g.append(sh, tx); });
+      const fs = CL_FS, ls = clLines(name), ring = ringCenters.get(id), LH = fs * 1.2;
+      const total = Math.max(...ls.map(l => l.w)), cx = ring ? ring.x : (minX + maxX) / 2;
+      const y0 = ring ? ring.y - (ls.length - 1) * LH / 2 + fs * 0.35 : minY - R * 1.2;
+      const g = el("g", { class: "cluster-sign", transform: `translate(${cx.toFixed(1)},${y0.toFixed(1)})`, "aria-hidden": "true" });
+      ls.forEach((line, li) => {
+        let acc = -line.w / 2;
+        line.t.split("").forEach(ch => { const a = clAdv(ch), x = (acc + a / 2).toFixed(1), yy = li * LH; acc += a; if (ch === " ") return;
+          const sh = el("text", { class: "cluster-letter-shadow", x: (+x + 2.5).toFixed(1), y: yy + 3.5, "font-size": fs }), tx = el("text", { class: "cluster-letter", x, y: yy, "font-size": fs });
+          sh.textContent = tx.textContent = ch; g.append(sh, tx); });
+      });
       clusterLayer.appendChild(g);
-      boxes.push({ minX: cx - total / 2 - R, maxX: cx + total / 2 + R, minY: y - fs * 1.2, maxY: y + R });
+      boxes.push({ minX: cx - total / 2 - R, maxX: cx + total / 2 + R, minY: y0 - fs * 1.2, maxY: y0 + (ls.length - 1) * LH + R });
     });
     return boxes;
   }
