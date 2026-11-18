@@ -101,7 +101,11 @@ PI.GROUP_PARENTS = {
   "其他（第一代 H₁-blockers）": "第一代 H₁-blockers（抗組織胺藥物）",
   "Amino penicillins：α碳接有苯環與胺基-NH₂ →可口服但容易被水解（耐酸不耐酶★）": "廣效型 Penicillins：α碳上的官能基可幫助穿透 G(-)的細胞壁",
   "Carboxy-penicillins：α碳接有苯環與羧基-COOH，可抗綠膿桿菌": "廣效型 Penicillins：α碳上的官能基可幫助穿透 G(-)的細胞壁",
-  "Acylureido-penicillins：Ampicillin 的α-NH₂接有 Urea 類似物，可抗綠膿桿菌": "廣效型 Penicillins：α碳上的官能基可幫助穿透 G(-)的細胞壁"
+  "Acylureido-penicillins：Ampicillin 的α-NH₂接有 Urea 類似物，可抗綠膿桿菌": "廣效型 Penicillins：α碳上的官能基可幫助穿透 G(-)的細胞壁",
+  "Imidazole 類藥物": "Azoles 類（抗黴菌）",
+  "Triazole 類藥物": "Azoles 類（抗黴菌）",
+  "Allylamine 類藥物": "Allylamine 類及 Tolnaftate",
+  "non-Allylamine 類藥物": "Allylamine 類及 Tolnaftate"
 };
 
 /* 地圖名牌：和生藥頁一樣用短的英文（名牌字型只有英文字母，中文字寬、長的名牌會擠成一團）。
@@ -304,7 +308,18 @@ PI.GROUP_LABELS = {
   "Ketolides": "Ketolides",
   "Lincosamide 類": "Lincosamides",
   "其他蛋白質抑制劑": "Other Protein Inhib.",
-  "Streptogramin 類": "Streptogramins"
+  "Streptogramin 類": "Streptogramins",
+  "Polyenes 類（抗黴菌）": "Polyenes",
+  "Azoles 類（抗黴菌）": "Azoles",
+  "Imidazole 類藥物": "Imidazoles",
+  "Triazole 類藥物": "Triazoles",
+  "Allylamine 類及 Tolnaftate": "Allylamines & Tolnaftate",
+  "Allylamine 類藥物": "Allylamines",
+  "non-Allylamine 類藥物": "non-Allylamine",
+  "Morpholine 類（非 Squalene epoxidase 抑制劑）": "Morpholine",
+  "Echinocandins 類": "Echinocandins",
+  "影響真菌代謝之藥物": "Fungal Metabolism",
+  "影響真菌 DNA 或 RNA 之合成藥物": "Fungal DNA/RNA"
 };
 
 /* 藥化的欄位：照講義表格的欄位（藥物｜結構｜特性｜藥理及臨床應用） */
@@ -340,6 +355,7 @@ PI.CHAPTERS = [
   { id: 21, name: "喹諾酮類與尿道抗菌劑", no: 2, cat: "chemo", estimate: 15, unitType: "drug", note: "統整（二）貳，p.8–12。" },
   { id: 22, name: "抗生素：細胞壁合成抑制劑", no: 3, cat: "chemo", estimate: 53, unitType: "drug", note: "統整（二）參，p.13–28。" },
   { id: 23, name: "抗生素：蛋白質合成抑制劑", no: 4, cat: "chemo", estimate: 29, unitType: "drug", note: "統整（二）肆，p.29–40。" },
+  { id: 24, name: "抗黴菌藥物", no: 5, cat: "chemo", estimate: 31, unitType: "drug", note: "統整（二）伍，p.41–46。" },
   { id: 16, name: "利尿劑", no: 1, cat: "cv", estimate: 20, unitType: "drug", note: "統整（三）柒，p.39–46。" },
   { id: 17, name: "心絞痛藥物", no: 2, cat: "cv", estimate: 8, unitType: "drug", note: "統整（三）捌，p.47–48。" },
   { id: 18, name: "心衰竭藥物", no: 3, cat: "cv", estimate: 10, unitType: "drug", note: "統整（三）玖，p.49–53。" },
@@ -398,6 +414,8 @@ PI.LANDMASSES = [
     palette: { ground: "#A4CFD2", light: "#BEE0E2", cliff: "#7AA9AC" } },
   { id: "chemo23", name: "蛋白質島",   chapters: [23], cluster: "chemo", angle: 110,
     palette: { ground: "#9FCBC6", light: "#BADBD7", cliff: "#76A5A0" } },
+  { id: "chemo24", name: "黴菌島",     chapters: [24], cluster: "chemo", angle: 160,
+    palette: { ground: "#B5D4B0", light: "#CDE3C9", cliff: "#8BAE86" } },
   { id: "cv16",  name: "利尿島",     chapters: [16], cluster: "cv", angle: 75,
     palette: { ground: "#E8B4B0", light: "#F0C9C6", cliff: "#C48A86" } },
   { id: "cv17",  name: "心絞痛島",   chapters: [17], cluster: "cv", angle: 270,
@@ -3309,6 +3327,118 @@ PI.UNITS = [
     "治療 G(+)球菌，對 VRE、MRSA、MRSE 有效",
     "{{CYP3A4|酵素}} 抑制劑",
     "可抑制腸道內細菌叢，使 Digoxin 藥效↑"] },
+
+/* ===== 第 24 章（統整（二）伍 抗黴菌藥物 p.41–46）===== */
+/* p.41 的作用位置總覽圖放告示牌；一、影響真菌細胞膜：Polyenes 類、Azoles 類（底下 Imidazole 類藥物／Triazole 類藥物是第三層小標）、
+   Allylamine 類及 Tolnaftate（底下 Allylamine 類藥物／non-Allylamine 類藥物）、Morpholine 類；二、細胞壁：Echinocandins 類；
+   三、影響真菌代謝、四、影響真菌 DNA 或 RNA 合成 沒有灰底，章節標題就是分類（四的藥物名稱在表頭，每個藥一格）。
+   Azoles 底下沒有自己的格子（只有結構樹狀圖和 ※ 註），Allylamine 類及 Tolnaftate 也是（基本結構與 bullet 在知識卡）。
+   Imidazole／Triazole 的說明欄沒有欄位名稱，放「說明」（desc）；Ketoconazole 的副作用只放 Ketoconazole；
+   Echinocandins 一列三個藥共用的說明三格都放，只講 Caspofungin 的那句只放 Caspofungin；Metronidazole 在第 21 章也有，各自一格。 */
+
+{ id: "fu-nystatin", chapter: 24, name: "Nystatin", type: "drug", group: "Polyenes 類（抗黴菌）", source: "統整（二）p.42", img: "assets/medchem/fu-nystatin.png",
+  feat: ["{{4|數值}} 個連續共軛雙鍵",
+    "含有 {{Lactone|結構}} 結構"],
+  pharm: ["{{第一個|數值}}臨床 Polyene 藥物",
+    "毒性大，局部或口服治療{{念珠菌|名詞}}",
+    "以乳膏或軟膏劑給藥"] },
+{ id: "fu-natamycin", chapter: 24, name: "Natamycin", type: "drug", group: "Polyenes 類（抗黴菌）", source: "統整（二）p.42", img: "assets/medchem/fu-natamycin.png",
+  feat: ["4 個連續共軛雙鍵",
+    "含有 Lactone、{{Epoxide|結構}} 結構"],
+  pharm: ["以 5%{{眼用懸浮液|名詞}}給藥"] },
+{ id: "fu-amphotericin", chapter: 24, name: "Amphotericin B", type: "drug", group: "Polyenes 類（抗黴菌）", source: "統整（二）p.42", img: "assets/medchem/fu-amphotericin.png",
+  feat: ["{{7|數值}} 個★連續共軛雙鍵（conjugated heptaene）",
+    "含有 Lactone、{{mycosamine|結構}} 醣基結構",
+    "屬於{{兩性|性質}}物質（amphoteric）"],
+  pharm: ["{{IV|給藥途徑}} 注射，用於全身性感染",
+    "臨床上使用 {{Glucose|物質}} 進行稀釋",
+    "副作用：發燒、低血壓、{{肝毒性|副作用}}"] },
+{ id: "fu-econazole", chapter: 24, name: "Econazole", type: "drug", group: "Imidazole 類藥物", source: "統整（二）p.43", img: "assets/medchem/fu-econazole.png",
+  desc: ["{{3|數值}} 個 Cl 接在兩個苯環"] },
+{ id: "fu-clotrimazole", chapter: 24, name: "Clotrimazole", type: "drug", group: "Imidazole 類藥物", source: "統整（二）p.43", img: "assets/medchem/fu-clotrimazole.png",
+  desc: ["具有{{四個|數值}}環狀結構。",
+    "廣效型，{{不可|性質|可}}用於全身感染"] },
+{ id: "fu-ketoconazole", chapter: 24, name: "Ketoconazole", type: "drug", group: "Imidazole 類藥物", source: "統整（二）p.43", img: "assets/medchem/fu-ketoconazole.png",
+  desc: ["具有 {{Dioxolan|結構}}、{{Piperazine|結構}} 結構",
+    "廣效型，{{CYP3A4|酵素}} 抑制劑",
+    "Ketoconazole 會抑制人體{{類固醇|物質}}之生合成",
+    "副作用：{{多毛症|副作用}}、{{男性女乳症|副作用}}"] },
+{ id: "fu-tioconazole", chapter: 24, name: "Tioconazole", type: "drug", group: "Imidazole 類藥物", source: "統整（二）p.43", img: "assets/medchem/fu-tioconazole.png",
+  desc: ["Econazole 其中一個苯環換成 Thiazole 雜環"] },
+{ id: "fu-miconazole", chapter: 24, name: "Miconazole", type: "drug", group: "Imidazole 類藥物", source: "統整（二）p.44", img: "assets/medchem/fu-miconazole.png",
+  desc: ["比 Econazole 多接一個 Cl，共 {{4|數值}} 個 Cl"] },
+{ id: "fu-oxiconazole", chapter: 24, name: "Oxiconazole", type: "drug", group: "Imidazole 類藥物", source: "統整（二）p.44", img: "assets/medchem/fu-oxiconazole.png",
+  desc: ["Miconazole 衍生，",
+    "具有 4 個 Cl 及 {{Imine|結構}} 結構"] },
+{ id: "fu-butoconazole", chapter: 24, name: "Butoconazole", type: "drug", group: "Imidazole 類藥物", source: "統整（二）p.44", img: "assets/medchem/fu-butoconazole.png",
+  desc: ["將 Econazole 的 {{O|取代基}} 改為 {{S|取代基}}，",
+    "且 S 直接與苯環相接"] },
+{ id: "fu-sulconazole", chapter: 24, name: "Sulconazole", type: "drug", group: "Imidazole 類藥物", source: "統整（二）p.44", img: "assets/medchem/fu-sulconazole.png",
+  desc: ["將 Econazole 的 O 改為 S，",
+    "且 S 與苯環隔{{一個 C|數值|兩個 C}}"] },
+{ id: "fu-terconazole", chapter: 24, name: "Terconazole", type: "drug", group: "Triazole 類藥物", source: "統整（二）p.44", img: "assets/medchem/fu-terconazole.png",
+  desc: ["{{Ketoconazole|藥名}} 的 Imidazole 改為 Triazole",
+    "一個 Triazole、一個 Dioxolan、一個 Piperazine"] },
+{ id: "fu-itraconazole", chapter: 24, name: "Itraconazole", type: "drug", group: "Triazole 類藥物", source: "統整（二）p.44", img: "assets/medchem/fu-itraconazole.png",
+  desc: ["{{兩個|數值|一個}} Triazole★、一個 Dioxolan、一個 Piperazine",
+    "{{不易|性質|容易}}進入 BBB，CYP 抑制劑，{{沒有肝毒性|性質|有肝毒性}}"] },
+{ id: "fu-posaconazole", chapter: 24, name: "Posaconazole", type: "drug", group: "Triazole 類藥物", source: "統整（二）p.44", img: "assets/medchem/fu-posaconazole.png",
+  desc: ["含有 {{Tetrahydrofuran|結構}}，為前兩者的綜合體",
+    "可通過 BBB"] },
+{ id: "fu-fluconazole", chapter: 24, name: "Fluconazole", type: "drug", group: "Triazole 類藥物", source: "統整（二）p.44", img: "assets/medchem/fu-fluconazole.png",
+  desc: ["具有{{兩個|數值}} Triazole 和兩個 F",
+    "CYP 抑制劑，長效型可通過 BBB，{{沒有肝毒性|性質|有肝毒性}}★"] },
+{ id: "fu-voriconazole", chapter: 24, name: "Voriconazole", type: "drug", group: "Triazole 類藥物", source: "統整（二）p.44", img: "assets/medchem/fu-voriconazole.png",
+  desc: ["Fluconazole 一個 Triazole 改為接 F 的 {{Pyrimidine|結構}}",
+    "可通過 BBB，副作用為{{視覺障礙|副作用}}"] },
+{ id: "fu-naftifine", chapter: 24, name: "Naftifine", type: "drug", group: "Allylamine 類藥物", source: "統整（二）p.45", img: "assets/medchem/fu-naftifine.png",
+  desc: ["{{第一個|數值}}上市之 Allylamine 藥物"] },
+{ id: "fu-terbinafine", chapter: 24, name: "Terbinafine", type: "drug", group: "Allylamine 類藥物", source: "統整（二）p.45", img: "assets/medchem/fu-terbinafine.png",
+  desc: ["局部外用或口服，治療{{灰指甲|疾病}}"] },
+{ id: "fu-butenafine", chapter: 24, name: "Butenafine", type: "drug", group: "Allylamine 類藥物", source: "統整（二）p.45", img: "assets/medchem/fu-butenafine.png",
+  desc: ["不具完整 Allylamine 結構（接{{苯環|結構}}）",
+    "OTC 藥物，較 {{Terbinafine|藥名}} 廣效"] },
+{ id: "fu-tolnaftate", chapter: 24, name: "Tolnaftate", type: "drug", group: "non-Allylamine 類藥物", source: "統整（二）p.45", img: "assets/medchem/fu-tolnaftate.png",
+  desc: ["除抑制 {{epoxidase|酵素}} 之外，",
+    "也可影響細胞膜之結構"] },
+{ id: "fu-amorolfine", chapter: 24, name: "Amorolfine", type: "drug", group: "Morpholine 類（非 Squalene epoxidase 抑制劑）", source: "統整（二）p.45", img: "assets/medchem/fu-amorolfine.png",
+  feat: ["具有 {{Morpholine|結構}} 環",
+    "選擇性抑制 {{Ergosterol|物質}} 生合成路徑之酵素：δ-14-reductase 與 δ-7-δ-8-isomerase"],
+  pharm: ["可用來治療{{皮癬|疾病}}"] },
+{ id: "fu-caspofungin", chapter: 24, name: "Caspofungin", type: "drug", group: "Echinocandins 類", source: "統整（二）p.45",
+  feat: ["{{環狀多肽|結構}}★結構，具有長碳鏈"],
+  pharm: ["Caspofungin 由 {{IV|給藥途徑}} 給予，對 {{Candida|名詞}} 和 Aspergillus 較有效，",
+    "不可治療 [i]Cryptococcus neoformans[/i]",
+    "抑制真菌{{細胞壁|標的}}合成之酵素：{{β-1,3-D-glucan synthase|酵素}}"] },
+{ id: "fu-anidulafungin", chapter: 24, name: "Anidulafungin", type: "drug", group: "Echinocandins 類", source: "統整（二）p.45",
+  feat: ["{{環狀多肽|結構}}★結構，具有長碳鏈"],
+  pharm: ["抑制真菌{{細胞壁|標的}}合成之酵素：{{β-1,3-D-glucan synthase|酵素}}"] },
+{ id: "fu-micafungin", chapter: 24, name: "Micafungin", type: "drug", group: "Echinocandins 類", source: "統整（二）p.45",
+  feat: ["{{環狀多肽|結構}}★結構，具有長碳鏈"],
+  pharm: ["抑制真菌{{細胞壁|標的}}合成之酵素：{{β-1,3-D-glucan synthase|酵素}}"] },
+{ id: "fu-aureobasidin", chapter: 24, name: "Aureobasidins A", type: "drug", group: "影響真菌代謝之藥物", source: "統整（二）p.46", img: "assets/medchem/fu-aureobasidin.png",
+  desc: ["非競爭抑制細菌代謝酵素：{{Inositol Phosphorylceramide Synthase|酵素}}（IPC 合成酶）",
+    "由 [i]Aureobasidium pullulan[/i] 發酵產生"] },
+{ id: "fu-pradimycin", chapter: 24, name: "Pradimycins、Benanomycins", short: "Pradimycins", type: "drug", group: "影響真菌代謝之藥物", source: "統整（二）p.46", img: "assets/medchem/fu-pradimycin.png",
+  desc: ["屬於 {{Naphthalene quinones|結構}} 結構",
+    "{{Ca²⁺|離子}}存在時，會破壞真菌的細胞膜"] },
+{ id: "fu-haloprogin", chapter: 24, name: "Haloprogin", type: "drug", group: "影響真菌代謝之藥物", source: "統整（二）p.46", img: "assets/medchem/fu-haloprogin.png",
+  desc: ["非專一性擾亂代謝：干擾細胞呼吸作用之{{電子傳遞鏈|名詞}}系統；另外可干擾 DNA 之生合成",
+    "具有{{光敏感性|副作用}}，局部使用，也作為外用抗菌劑"] },
+{ id: "fu-ciclopirox", chapter: 24, name: "Ciclopirox", type: "drug", group: "影響真菌 DNA 或 RNA 之合成藥物", source: "統整（二）p.46", img: "assets/medchem/fu-ciclopirox.png",
+  desc: ["{{Pyridinone|結構}} 類結構",
+    "抑制 DNA 與 RNA 之合成",
+    "螯合{{多價金屬離子|物質}}，使蛋白酶無法作用",
+    "低濃度：抑制{{胺基酸吸收|機轉}}",
+    "高濃度：改變細胞膜之結構"] },
+{ id: "fu-flucytosine", chapter: 24, name: "Flucytosine", type: "drug", group: "影響真菌 DNA 或 RNA 之合成藥物", source: "統整（二）p.46", img: "assets/medchem/fu-flucytosine.png",
+  desc: ["經 {{Cytosine deaminase|酵素}}★代謝為 {{5-FU|代謝物}}，抑制 {{thymidylate synthase|酵素}}★"] },
+{ id: "fu-griseofulvin", chapter: 24, name: "Griseofulvin", type: "drug", group: "影響真菌 DNA 或 RNA 之合成藥物", source: "統整（二）p.46", img: "assets/medchem/fu-griseofulvin.png",
+  desc: ["具有{{甲氧基|結構}}",
+    "與 {{RNA|標的}} 及{{微管|標的}}結合"] },
+{ id: "fu-metronidazole", chapter: 24, name: "Metronidazole", type: "drug", group: "影響真菌 DNA 或 RNA 之合成藥物", source: "統整（二）p.46", img: "assets/medchem/fu-metronidazole.png",
+  desc: ["含有 {{imidazole|結構}} 結構",
+    "和 DNA 結合，破壞 DNA 結構"] },
 
 /* ===== 第 16 章 利尿劑（統整（三）柒，p.39–46）===== */
 { id: "diu-location", chapter: 16, name: "利尿劑作用位置總論", short: "作用位置", type: "topic", group: "總論", source: "統整（三）p.39",
@@ -6232,6 +6362,103 @@ PI.KNOWLEDGE = {
             }
           }
         ]
+      }
+    ]
+  },
+  ch24: {
+    "chapter": 24,
+    "title": "抗黴菌藥物",
+    "sections": [
+      {
+        "id": "overview",
+        "title": "伍、抗黴菌藥物",
+        "items": [
+          {
+            "title": "抗黴菌藥物：作用位置總覽",
+            "source": "統整（二）p.41",
+            "images": [
+              "assets/medchem/fu-fig-overview.png"
+            ],
+            "points": [
+              "{{Tolnaftate|藥名}}：抑制 {{Squalene epoxidase|酵素}}，且影響細胞膜之結構",
+              "{{Allylamines|藥物類別}}（Terbinafine、Naftifine、Butenafine）：抑制 Squalene epoxidase",
+              "{{Azoles|藥物類別}}（-conazoles）：抑制 {{14α-demethylase|酵素}}",
+              "{{Echinocandins|藥物類別}}（Capofungin、Anidulafungin）：抑制細胞壁合成之酵素：β-1,3-D-glucan synthase",
+              "{{Polyenes|藥物類別}}（Nystatin、Natamycin、Amphotericin B）：與細胞膜上的 {{Ergosterol|物質}} 結合，促進 K⁺離子流失",
+              "{{Ciclopirox|藥名}}：螯合多價金屬離子，抑制蛋白酶；(低)影響胺基酸吸收、(高)改變細胞膜結構",
+              "{{Metronidazole|藥名}}：與 DNA 結合，破壞 DNA",
+              "{{Flucytosine|藥名}}：抑制 DNA 和 RNA 之合成",
+              "{{Griseofulvin|藥名}}：與 RNA 及微管結合"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "membrane",
+        "title": "一、影響真菌細胞膜之藥物",
+        "items": [
+          {
+            "title": "Polyenes 類：與細胞膜上之 Ergosterol 結合，促進 K⁺離子流失",
+            "group": "Polyenes 類（抗黴菌）",
+            "source": "統整（二）p.42",
+            "points": [
+              "Polyenes 類：與細胞膜上之 {{Ergosterol|物質}} 結合，促進 {{K⁺|離子}} 離子流失"
+            ]
+          },
+          {
+            "title": "Azoles 類：抑制細胞膜合成酵素 14α-demethylase",
+            "group": "Azoles 類（抗黴菌）",
+            "source": "統整（二）p.43",
+            "images": [
+              "assets/medchem/fu-fig-azole-tree.png"
+            ],
+            "points": [
+              "Azoles 類：抑制細胞膜合成酵素 {{14α-demethylase|酵素}}★，阻止 {{Lanosterol|物質}} 之去甲基作用",
+              "※ {{酸性|性質}}胃液可加速 Ketoconazole、Itraconazole 等的溶離與吸收 → {{Cimetidine|藥名}} 會降低吸收（抑制胃酸分泌），而攝取{{食物|物質}}會刺激胃酸分泌、增加吸收"
+            ]
+          },
+          {
+            "title": "※ 1,3-dioxolan 之結構",
+            "group": "Imidazole 類藥物",
+            "source": "統整（二）p.43",
+            "structs": [
+              "assets/medchem/fu-dioxolan.png"
+            ],
+            "points": [
+              "※ 1,3-dioxolan 之結構"
+            ]
+          },
+          {
+            "title": "Allylamine 類及 Tolnaftate：抑制細胞膜合成酵素 Squalene epoxidase",
+            "group": "Allylamine 類及 Tolnaftate",
+            "source": "統整（二）p.45",
+            "images": [
+              "assets/medchem/fu-allylamine.png"
+            ],
+            "points": [
+              "Allylamine 類及 Tolnaftate：抑制細胞膜合成酵素 {{Squalene epoxidase|酵素}}★",
+              "皆具有 {{Naphthalene|結構}}★結構",
+              "- 具完整 Allylamine 結構：{{Naftifine|藥名}}、{{Terbinafine|藥名}}",
+              "- 不完整 Allylamine 結構：{{Butenafine|藥名}}",
+              "- 非 Allylamine 結構：{{Tolnaftate|藥名}}★（具有 Thiocarbanilate/Thioester 結構）"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "wall",
+        "title": "二、影響真菌細胞壁之藥物",
+        "items": []
+      },
+      {
+        "id": "metab",
+        "title": "三、影響真菌代謝之藥物",
+        "items": []
+      },
+      {
+        "id": "dnarna",
+        "title": "四、影響真菌 DNA 或 RNA 之合成藥物",
+        "items": []
       }
     ]
   },
