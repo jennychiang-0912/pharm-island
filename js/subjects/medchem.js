@@ -2447,7 +2447,7 @@ PI.UNITS = [
   feat: ["結構與 {{Loratadine|藥名}} 相似",
     "含有 {{pyridine|結構}} 雜環"] },
 { id: "ah-acrivastine", chapter: 14, name: "Acrivastine", type: "drug", group: "第二代 H₁-blockers", source: "統整（一）p.111", img: "assets/medchem/ah-acrivastine.png",
-  feat: ["含有 pyridine、{{pyrrole|結構}} 雜環"] },
+  feat: ["含有 pyridine、{{pyrrolidine|結構}} 雜環★"] },
 { id: "ah-mizolastine", chapter: 14, name: "Mizolastine", type: "drug", group: "第二代 H₁-blockers", source: "統整（一）p.111", img: "assets/medchem/ah-mizolastine.png",
   feat: ["含有 {{Benzimidazole|結構}} 結構"] },
 { id: "ah-astemizole", chapter: 14, name: "Astemizole", type: "drug", group: "第二代 H₁-blockers", source: "統整（一）p.111", img: "assets/medchem/ah-astemizole.png",
@@ -2506,7 +2506,7 @@ PI.UNITS = [
   desc: ["具有 {{Sulfonamide|結構}}、Indole 結構"],
   act: ["5-HT₁B & 5-HT₁D {{agonist|機轉|antagonist}}",
     "使{{腦部血管收縮|機轉}}"],
-  ind: ["預防{{偏頭痛|疾病}}"],
+  ind: ["{{急性|性質|預防}}治療偏頭痛"],
   rmk: ["禁用 {{Ergot|藥物類別}}、MAOI",
     "會造成{{血清素症候群|副作用}}",
     "冠狀動脈患者禁用"] },
@@ -2514,7 +2514,7 @@ PI.UNITS = [
   desc: ["具有 {{Sulfonamide|結構}}、Indole 結構"],
   act: ["5-HT₁B & 5-HT₁D {{agonist|機轉|antagonist}}",
     "使{{腦部血管收縮|機轉}}"],
-  ind: ["預防{{偏頭痛|疾病}}"],
+  ind: ["{{急性|性質|預防}}治療偏頭痛"],
   rmk: ["禁用 {{Ergot|藥物類別}}、MAOI",
     "會造成{{血清素症候群|副作用}}",
     "冠狀動脈患者禁用"] },
@@ -2526,6 +2526,7 @@ PI.UNITS = [
   rmk: ["造成{{腹部纖維化|副作用}}"] },
 { id: "se-ergotamine", chapter: 15, name: "Ergotamine", type: "drug", group: "5-HT₂ antagonist", source: "統整（一）p.114–115", img: "assets/medchem/se-ergotamine.png",
   act: ["5-HT₂ antagonist",
+    "5-HT₁B/₁D {{agonist|機轉|antagonist}}",
     "使血管收縮、刺激子宮"],
   ind: ["預防偏頭痛",
     "{{Ergonovine|藥名}} 治產後大出血"],
@@ -3024,7 +3025,7 @@ PI.KNOWLEDGE = {
             [{ t: "Serotonin Agonist", b: true }, "血清素受體活化劑", "{{Buspirone|藥名|Zolpidem/Fluoxetine/Ramelteon}}"],
             [{ t: "抗焦慮藥物", b: true }, "選擇性抑制血清素再回收 SSRI", "Fluoxetine、Paroxetine、Citalopram、Sertraline、Fluvoxamine"],
             [{ t: "Melatonin Agonist", b: true }, "直接刺激{{上視交叉神經|部位|下視丘/松果體/腦幹}}的 MT 受體", "Melatonin、Ramelteon"],
-            [{ t: "1st H₁-blockers", b: true }, "因第一代藥物{{脂溶性高|性質|水溶性高/分子量小/蛋白結合率低}}，可通過 BBB 影響中樞", "Diphenhydramine、Doxylamine、Doxepine"],
+            [{ t: "1st H₁-blockers", b: true }, "因第一代藥物{{脂溶性高|性質|水溶性高/分子量小/蛋白結合率低}}，可通過 BBB 影響中樞", "Diphenhydramine、Doxylamine、Doxepin"],
             [{ t: "Orexin Antagonist", b: true }, "抑制{{食慾素|名詞|血清素/褪黑激素/組織胺}}與受體結合", "{{Suvorexant|藥名|Zaleplon/Buspirone/Ramelteon}}"]
           ] } }
       ] },
@@ -3118,10 +3119,10 @@ PI.KNOWLEDGE = {
       { id: "melatonin", title: "六、褪黑激素受體促效劑（Melatonin Receptor Agonists）", items: [{ unit: "melatonin-intro" }] },
       { id: "h1", title: "七、第一代 H₁-blockers（Anti-histamine Agents）鎮靜安眠", items: [{ unit: "h1-intro" },
         { group: "第一代 H₁ 受體拮抗劑（Histamine H₁ Receptor Antagonists）", source: "統整（一）p.18",
-          table: { head: [[{ t: "Ethanolamine ether 類衍生物", cs: 2 }, "Tricyclic 類衍生物"], ["Diphenhydramine", "Doxylamine", "Doxepine"]],
-            cols: ["Diphenhydramine", "Doxylamine", "Doxepine"], rowNames: false, rows: [
+          table: { head: [[{ t: "Ethanolamine ether 類衍生物", cs: 2 }, "Tricyclic 類衍生物"], ["Diphenhydramine", "Doxylamine", "Doxepin"]],
+            cols: ["Diphenhydramine", "Doxylamine", "Doxepin"], rowNames: false, rows: [
               ["● {{Antimuscarinic|機轉}} 最強，可穿過 BBB\n● 具有高結合力", "● 和 Diphenhydramine 差一個甲基\n● 具有高結合力", "具有含 O 七元雜環（{{Oxepin|結構}}）\n● {{E form|結構|Z form}} 具有 CNS 抑制活性"],
-              [{ img: "assets/medchem/diphenhydramine.png", t: "Diphenhydramine" }, { img: "assets/medchem/doxylamine.png", t: "Doxylamine" }, { img: "assets/medchem/doxepin.png", t: "Doxepine" }]] } }] },
+              [{ img: "assets/medchem/diphenhydramine.png", t: "Diphenhydramine" }, { img: "assets/medchem/doxylamine.png", t: "Doxylamine" }, { img: "assets/medchem/doxepin.png", t: "Doxepin" }]] } }] },
       { id: "orexin", title: "八、Orexin Antagonist", items: [] }
     ] },
   ch2: { chapter: 2, title: "抗癲癇藥物",
@@ -4278,7 +4279,7 @@ PI.KNOWLEDGE = {
                 [
                   null,
                   "TCA 類",
-                  "Promethazine、Cyproheptadine、Doxepine"
+                  "Promethazine、Cyproheptadine、Doxepin"
                 ]
               ]
             }
