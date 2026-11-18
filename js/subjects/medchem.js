@@ -98,7 +98,10 @@ PI.GROUP_PARENTS = {
   "丙胺類（Propylamines）": "第一代 H₁-blockers（抗組織胺藥物）",
   "Piperazine 類（字尾-zine）": "第一代 H₁-blockers（抗組織胺藥物）",
   "TCA 三環結構": "第一代 H₁-blockers（抗組織胺藥物）",
-  "其他（第一代 H₁-blockers）": "第一代 H₁-blockers（抗組織胺藥物）"
+  "其他（第一代 H₁-blockers）": "第一代 H₁-blockers（抗組織胺藥物）",
+  "Amino penicillins：α碳接有苯環與胺基-NH₂ →可口服但容易被水解（耐酸不耐酶★）": "廣效型 Penicillins：α碳上的官能基可幫助穿透 G(-)的細胞壁",
+  "Carboxy-penicillins：α碳接有苯環與羧基-COOH，可抗綠膿桿菌": "廣效型 Penicillins：α碳上的官能基可幫助穿透 G(-)的細胞壁",
+  "Acylureido-penicillins：Ampicillin 的α-NH₂接有 Urea 類似物，可抗綠膿桿菌": "廣效型 Penicillins：α碳上的官能基可幫助穿透 G(-)的細胞壁"
 };
 
 /* 地圖名牌：和生藥頁一樣用短的英文（名牌字型只有英文字母，中文字寬、長的名牌會擠成一團）。
@@ -274,11 +277,27 @@ PI.GROUP_LABELS = {
   "第三代 Fluoroquinolones": "Gen 3",
   "第四代 Fluoroquinolones": "Gen 4",
   "Nitrofuran 類藥物": "Nitrofuran",
-  "其他類藥物（尿道抗菌劑）": "Urinary Others"
+  "其他類藥物（尿道抗菌劑）": "Urinary Others",
+  "Natural Penicillins": "Natural",
+  "★抗酵素 Penicillins": "Penicillinase-resistant",
+  "廣效型 Penicillins：α碳上的官能基可幫助穿透 G(-)的細胞壁": "Broad-spectrum",
+  "Amino penicillins：α碳接有苯環與胺基-NH₂ →可口服但容易被水解（耐酸不耐酶★）": "Amino-Pen",
+  "Carboxy-penicillins：α碳接有苯環與羧基-COOH，可抗綠膿桿菌": "Carboxy-Pen",
+  "Acylureido-penicillins：Ampicillin 的α-NH₂接有 Urea 類似物，可抗綠膿桿菌": "Acylureido-Pen",
+  "β-lactamase Inhibitors": "BLIs",
+  "第一代 Cephalosporins": "Ceph 1st",
+  "第二代 Cephalosporins": "Ceph 2nd",
+  "第三代 Cephalosporins": "Ceph 3rd",
+  "第四代 Cephalosporins": "Ceph 4th",
+  "第五代 Cephalosporins": "Ceph 5th",
+  "第一代 Carbapenems：C₄無甲基保護，易被腎臟 Dehydropeptidase-1★（DHP-1）水解": "Carbapenem 1st",
+  "第二代 Carbapenems：C₄具有甲基取代，防止被腎臟 DHP-1 水解（不需併用 Cilastatin）": "Carbapenem 2nd",
+  "單內醯胺類（Monobactams）": "Monobactams",
+  "其他細胞壁合成抑制劑": "Other CW Inhibitors"
 };
 
 /* 藥化的欄位：照講義表格的欄位（藥物｜結構｜特性｜藥理及臨床應用） */
-PI.UNIT_FIELDS = [["use", "分類／用途"], ["desc", "說明"], ["feat", "特性"], ["pharm", "藥理及臨床應用"], ["metab", "藥物代謝"], ["clin", "藥理及臨床用途"], ["bold", "粗體重點"], ["act", "作用"], ["ind", "適應症"], ["rmk", "備註"]];   // 第 1、2 章照講義欄位（說明／特性／藥理及臨床應用），第 3 章是特性／藥物代謝，第 4 章是特性／藥理及臨床用途，第 5、6 章是特性／藥理及臨床應用，其他章還是粗體重點
+PI.UNIT_FIELDS = [["use", "分類／用途"], ["desc", "說明"], ["route", "途徑"], ["res", "耐酸／耐酶"], ["feat", "特性"], ["pharm", "藥理及臨床應用"], ["metab", "藥物代謝"], ["clin", "藥理及臨床用途"], ["bold", "粗體重點"], ["act", "作用"], ["ind", "適應症"], ["rmk", "備註"]];   // 第 1、2 章照講義欄位（說明／特性／藥理及臨床應用），第 3 章是特性／藥物代謝，第 4 章是特性／藥理及臨床用途，第 5、6 章是特性／藥理及臨床應用，其他章還是粗體重點
 PI.UNIT_TITLE_FIELD = null;
 PI.UNIT_BOXES = [];
 PI.UNIT_TYPES = { drug: "藥物", preparation: "製劑", category: "分類", topic: "主題" };
@@ -308,7 +327,7 @@ PI.CHAPTERS = [
   { id: 15, name: "血清素及相關藥物", cat: "cns", estimate: 17, unitType: "drug", note: "統整（一）拾伍，p.114–116。" },
   { id: 20, name: "磺胺類藥物", no: 1, cat: "chemo", estimate: 19, unitType: "drug", note: "統整（二）壹，p.3–7。" },
   { id: 21, name: "喹諾酮類與尿道抗菌劑", no: 2, cat: "chemo", estimate: 15, unitType: "drug", note: "統整（二）貳，p.8–12。" },
-  { id: 22, name: "抗生素：細胞壁合成抑制劑", no: 3, cat: "chemo", estimate: 40, unitType: "drug", note: "統整（二）參，p.13–28。" },
+  { id: 22, name: "抗生素：細胞壁合成抑制劑", no: 3, cat: "chemo", estimate: 53, unitType: "drug", note: "統整（二）參，p.13–28。" },
   { id: 16, name: "利尿劑", no: 1, cat: "cv", estimate: 20, unitType: "drug", note: "統整（三）柒，p.39–46。" },
   { id: 17, name: "心絞痛藥物", no: 2, cat: "cv", estimate: 8, unitType: "drug", note: "統整（三）捌，p.47–48。" },
   { id: 18, name: "心衰竭藥物", no: 3, cat: "cv", estimate: 10, unitType: "drug", note: "統整（三）玖，p.49–53。" },
@@ -2769,6 +2788,327 @@ PI.UNITS = [
     "體外有抗菌活性，但體內無抗菌活性；在尿道黏膜具止痛效果",
     "與 Sulfisoxazole 併用：Azo-Gantrisin"] },
 
+/* ===== 第 22 章（統整（二）參 抗生素－細胞壁合成抑制劑 p.13–28）===== */
+/* p.13 的 Penicillin 總說明（結構與 SAR、半合成、降解反應、藥理機轉）和 p.14 的分類比較表放告示牌；
+   一、盤尼西林類：灰底「Natural Penicillins」、「★抗酵素 Penicillins」是分類；「廣效型 Penicillins」（深灰）底下的 Amino／Carboxy／Acylureido（淺灰）用第三層小標；
+   二、β-lactamase Inhibitors、六、其他細胞壁合成抑制劑 沒有灰底，章節標題就是分類（「其他」加「細胞壁」避免和別章重名）；
+   三、頭孢菌素類：第一～五代各自為分類；四、碳青黴烯類：第一代、第二代；五、單內醯胺類：灰底就是章節名。
+   p.15–18 的表格多一欄「耐酸/耐酶」（res）、p.20–24 多一欄「途徑」（route），新增在 PI.UNIT_FIELDS。
+   Fosfomycin 在第 21 章（尿道抗菌劑）和這章都有，各自一格（id 前綴不同）。
+   Vancomycin 與 Teicoplanin 在講義共用同一格藥理說明，Vancomycin 放整格，Teicoplanin 只放專屬它的那一句；焦棓酚（Pyrogallol）結構兩者都附。 */
+
+{ id: "cw-penicillin-g", chapter: 22, name: "Penicillin G", type: "drug", group: "Natural Penicillins", source: "統整（二）p.15", img: "assets/medchem/cw-penicillin-g.png",
+  res: ["耐酸：{{X|性質|O}}",
+    "耐酶：{{X|性質|O}}"],
+  feat: ["{{Benzylpenicillin|藥名}}（R=phenyl）",
+    "不耐酸：不可口服"],
+  pharm: ["第一個用於治療的 penicillin",
+    "腦膜炎時可穿過 BBB",
+    "製成 {{Benzathine|藥名}} 鹽類可口服、IM",
+    "製成 {{Procaine|藥名}} 鹽類可延長藥效"] },
+{ id: "cw-penicillin-v", chapter: 22, name: "Penicillin V", type: "drug", group: "Natural Penicillins", source: "統整（二）p.15", img: "assets/medchem/cw-penicillin-v.png",
+  res: ["耐酸：{{O|性質|X}}★",
+    "耐酶：{{X|性質|O}}"],
+  feat: ["{{Phenoxymethylpenicillin|藥名}}",
+    "改為甲氧基（拉電子）可提升{{抗酸性|性質}}能力"],
+  pharm: ["第一個{{可口服|給藥途徑}}★的 penicillin"] },
+{ id: "cw-methicillin", chapter: 22, name: "Methicillin", type: "drug", group: "★抗酵素 Penicillins", source: "統整（二）p.16", img: "assets/medchem/cw-methicillin.png",
+  res: ["耐酸：{{X|性質|O}}",
+    "耐酶：{{O|性質|X}}"],
+  feat: ["苯環 ortho 位皆具有{{甲氧基|取代基}}"],
+  pharm: ["{{不可口服|給藥途徑}}★",
+    "為 {{penicillinase inducer|名詞}}"] },
+{ id: "cw-nafcillin", chapter: 22, name: "Nafcillin", type: "drug", group: "★抗酵素 Penicillins", source: "統整（二）p.16", img: "assets/medchem/cw-nafcillin.png",
+  res: ["耐酸：{{O|性質|X}}",
+    "耐酶：{{O|性質|X}}"],
+  feat: ["6-Acyl 接上 {{Naphthalene|結構}}",
+    "萘環在鄰位具有{{乙氧基|取代基}}"],
+  pharm: ["血漿蛋白結合率{{高|性質|低}}"] },
+{ id: "cw-oxacillin", chapter: 22, name: "Oxacillin", type: "drug", group: "★抗酵素 Penicillins", source: "統整（二）p.16", img: "assets/medchem/cw-oxacillin.png",
+  res: ["耐酸：{{O|性質|X}}",
+    "耐酶：{{O|性質|X}}"],
+  feat: ["具有 {{Isoxazole|結構}} 雜環★",
+    "Isoxazole 的 3 號位接苯環、5 號位接甲基"] },
+{ id: "cw-cloxacillin", chapter: 22, name: "Cloxacillin", type: "drug", group: "★抗酵素 Penicillins", source: "統整（二）p.16", img: "assets/medchem/cw-cloxacillin.png",
+  res: ["耐酸：{{O|性質|X}}",
+    "耐酶：{{O|性質|X}}"],
+  feat: ["具有 {{Isoxazole|結構}} 雜環★",
+    "Isoxazole 的 3 號位接苯環、5 號位接甲基",
+    "苯環在鄰位有{{一個|數值|兩個}} Cl 取代"],
+  pharm: ["Cl 取代可增加口服吸收率"] },
+{ id: "cw-dicloxacillin", chapter: 22, name: "Dicloxacillin", type: "drug", group: "★抗酵素 Penicillins", source: "統整（二）p.16", img: "assets/medchem/cw-dicloxacillin.png",
+  res: ["耐酸：{{O|性質|X}}",
+    "耐酶：{{O|性質|X}}"],
+  feat: ["具有 {{Isoxazole|結構}} 雜環★",
+    "Isoxazole 的 3 號位接苯環、5 號位接甲基",
+    "苯環在鄰位有{{兩個|數值|一個}} Cl 取代"],
+  pharm: ["兩個 Cl 取代使安定性與血漿蛋白結合率皆提升"] },
+{ id: "cw-ampicillin", chapter: 22, name: "Ampicillin", type: "drug", group: "Amino penicillins：α碳接有苯環與胺基-NH₂ →可口服但容易被水解（耐酸不耐酶★）", source: "統整（二）p.17", img: "assets/medchem/cw-ampicillin.png",
+  res: ["耐酸：{{O|性質|X}}",
+    "耐酶：{{X|性質|O}}"],
+  feat: ["α碳接有苯環與 NH₂",
+    "D(-)的作用比 L(+)強"],
+  pharm: ["可和 {{Sulbactam|藥名}} 併用（Unasyn®）"] },
+{ id: "cw-bacampicillin", chapter: 22, name: "Bacampicillin", type: "drug", group: "Amino penicillins：α碳接有苯環與胺基-NH₂ →可口服但容易被水解（耐酸不耐酶★）", source: "統整（二）p.17", img: "assets/medchem/cw-bacampicillin.png",
+  res: ["耐酸：{{O|性質|X}}",
+    "耐酶：{{X|性質|O}}"],
+  feat: ["R₂ 多了{{酯鍵|結構}}"],
+  pharm: ["Ampicillin 之{{前驅藥|名詞}}",
+    "口服吸收率較佳"] },
+{ id: "cw-hetacillin", chapter: 22, name: "Hetacillin", type: "drug", group: "Amino penicillins：α碳接有苯環與胺基-NH₂ →可口服但容易被水解（耐酸不耐酶★）", source: "統整（二）p.17", img: "assets/medchem/cw-hetacillin.png",
+  res: ["耐酸：{{O|性質|X}}",
+    "耐酶：{{X|性質|O}}"],
+  feat: ["兩個 N 形成{{五元環|結構}}結構，且有二甲基取代"],
+  pharm: ["{{Ampicillin|藥名}}★之前驅藥，\n水解開環形成 Ampicillin+acetone"] },
+{ id: "cw-amoxicillin", chapter: 22, name: "Amoxicillin", type: "drug", group: "Amino penicillins：α碳接有苯環與胺基-NH₂ →可口服但容易被水解（耐酸不耐酶★）", source: "統整（二）p.17", img: "assets/medchem/cw-amoxicillin.png",
+  res: ["耐酸：{{O|性質|X}}",
+    "耐酶：{{X|性質|O}}"],
+  feat: ["苯環對位多了一個 {{OH|取代基}} 取代",
+    "合成：[i]p[/i]-hydroxyphenylglycine+6-APA"],
+  pharm: ["口服生體可用率高且食物不影響吸收",
+    "可和 {{Clavulanic acid|藥名}} 併用（Augmentin®）"] },
+{ id: "cw-carbenicillin", chapter: 22, name: "Carbenicillin", type: "drug", group: "Carboxy-penicillins：α碳接有苯環與羧基-COOH，可抗綠膿桿菌", source: "統整（二）p.18", img: "assets/medchem/cw-carbenicillin.png",
+  res: ["耐酸：{{X|性質|O}}",
+    "耐酶：{{X|性質|O}}"],
+  feat: ["α碳接有苯環與 COOH",
+    "脫羧後形成 {{Penicillin G|藥名}}★"],
+  pharm: ["可用於對 Ampicillin 具抗藥性的尿道感染"] },
+{ id: "cw-ticarcillin", chapter: 22, name: "Ticarcillin", type: "drug", group: "Carboxy-penicillins：α碳接有苯環與羧基-COOH，可抗綠膿桿菌", source: "統整（二）p.18", img: "assets/medchem/cw-ticarcillin.png",
+  res: ["耐酸：{{X|性質|O}}",
+    "耐酶：{{X|性質|O}}"],
+  feat: ["{{Carbenicillin|藥名}} 之等效異構物",
+    "將 Carbenicillin 苯環上的 CH₂ 改成 {{S|取代基}}",
+    "（Phenyl → {{Thienyl|取代基}}）"],
+  pharm: ["和 Clavulanic acid 併用（Timentin®）",
+    "血清濃度高，Duration 長"] },
+{ id: "cw-mezlocillin", chapter: 22, name: "Mezlocillin", type: "drug", group: "Acylureido-penicillins：Ampicillin 的α-NH₂接有 Urea 類似物，可抗綠膿桿菌", source: "統整（二）p.18", img: "assets/medchem/cw-mezlocillin.png",
+  res: ["耐酸：{{X|性質|O}}",
+    "耐酶：{{X|性質|O}}"],
+  feat: ["具有 {{acylureido|結構}}★結構",
+    "Ampicillin 的胺基接上 acylurea 和 SO₂CH₃"],
+  pharm: ["{{不耐酶|性質}}，對會產生β-lactamase 的細菌無效"] },
+{ id: "cw-piperacillin", chapter: 22, name: "Piperacillin", type: "drug", group: "Acylureido-penicillins：Ampicillin 的α-NH₂接有 Urea 類似物，可抗綠膿桿菌", source: "統整（二）p.18", img: "assets/medchem/cw-piperacillin.png",
+  res: ["耐酸：{{X|性質|O}}",
+    "耐酶：{{X|性質|O}}"],
+  feat: ["Ampicillin 的胺基接上 acylurea 和 C=O，",
+    "形成六元環結構（{{piperazine|結構}}）"],
+  pharm: ["可和 {{Tazobactam|藥名}}★併用（Zosyn®）"] },
+{ id: "cw-clavulanic", chapter: 22, name: "Clavulanic acid", short: "Clavulanate", type: "drug", group: "β-lactamase Inhibitors", source: "統整（二）p.19", img: "assets/medchem/cw-clavulanic.png",
+  feat: ["五元雜環含 N、{{O|取代基}} 原子",
+    "含有 {{hydroxyethylidene|結構}} 結構"],
+  pharm: ["Augmentin® = {{Amoxicillin|藥名}} + Clavulanate",
+    "Timentin® = {{Ticarcillin|藥名}} + Clavulanate"] },
+{ id: "cw-sulbactam", chapter: 22, name: "Sulbactam", type: "drug", group: "β-lactamase Inhibitors", source: "統整（二）p.19", img: "assets/medchem/cw-sulbactam.png",
+  feat: ["五元雜環含 N、{{S|取代基}} 原子",
+    "具有 {{Sulfone|結構}} 結構"],
+  pharm: ["Unasyn® = {{Ampicillin|藥名}} + Sulbactam"] },
+{ id: "cw-tazobactam", chapter: 22, name: "Tazobactam", type: "drug", group: "β-lactamase Inhibitors", source: "統整（二）p.19", img: "assets/medchem/cw-tazobactam.png",
+  feat: ["五元雜環含 N、S 原子",
+    "具有 {{Sulfone|結構}}★結構",
+    "較 Sulbactam 多了 {{Triazole|結構}} 結構"],
+  pharm: ["Zosyn® = {{Piperacillin|藥名}} + Tazobactam"] },
+{ id: "cw-cephalexin", chapter: 22, name: "Cephalexin", type: "drug", group: "第一代 Cephalosporins", source: "統整（二）p.20", img: "assets/medchem/cw-cephalexin.png",
+  route: ["{{口服|給藥途徑|IV}}"],
+  feat: ["7 號位 side chain 與 {{Ampicillin|藥名}} 相同"],
+  pharm: ["治療尿道與上呼吸道感染"] },
+{ id: "cw-cefadroxil", chapter: 22, name: "Cefadroxil", type: "drug", group: "第一代 Cephalosporins", source: "統整（二）p.20", img: "assets/medchem/cw-cefadroxil.png",
+  route: ["{{口服|給藥途徑|IV}}"],
+  feat: ["7 號位 side chain 與 {{Amoxicillin|藥名}} 相同",
+    "側鏈結構 D form 活性較佳"] },
+{ id: "cw-cefazolin", chapter: 22, name: "Cefazolin", type: "drug", group: "第一代 Cephalosporins", source: "統整（二）p.20", img: "assets/medchem/cw-cefazolin.png",
+  route: ["{{IV|給藥途徑|口服}}"],
+  feat: ["C₃ 接有 {{thiadiazole|結構}} 雜環結構",
+    "C₇ 接有 {{tetrazole|結構}} 雜環結構"],
+  pharm: ["{{術前預防抗生素之首選藥|用途}}",
+    "不耐酶"] },
+{ id: "cw-cefaclor", chapter: 22, name: "Cefaclor", type: "drug", group: "第二代 Cephalosporins", source: "統整（二）p.21", img: "assets/medchem/cw-cefaclor.png",
+  route: ["{{口服|給藥途徑|IV}}"],
+  feat: ["7 號位 side chain 與 {{Cephalexin|藥名}} 相同",
+    "（{{α-aminobenzyl|結構}}★）",
+    "C₃ 的甲基改為 Cl 取代"],
+  pharm: ["抗菌活性與 Cephalexin 相似"] },
+{ id: "cw-cefprozil", chapter: 22, name: "Cefprozil", type: "drug", group: "第二代 Cephalosporins", source: "統整（二）p.21", img: "assets/medchem/cw-cefprozil.png",
+  route: ["{{口服|給藥途徑|IV}}"],
+  feat: ["7 號位 side chain 與 {{Cefadroxil|藥名}} 相同",
+    "C₃ 的甲基改為{{丙烯基|取代基}}"],
+  pharm: ["抗菌活性與 Cefadroxil 相似",
+    "口服吸收極佳，不被制酸劑影響"] },
+{ id: "cw-cefuroxime", chapter: 22, name: "Cefuroxime", type: "drug", group: "第二代 Cephalosporins", source: "統整（二）p.21", img: "assets/medchem/cw-cefuroxime.png",
+  route: ["{{口服|給藥途徑}}",
+    "{{IV|給藥途徑}}"],
+  feat: ["C₃ 側鏈有 NH₂ 結構（{{Urethane|結構}}）：耐酸",
+    "C₇ 接有 {{Oxime|結構}} 結構：增加立體障礙，耐酶"],
+  pharm: ["第二代中唯一可進入 {{BBB|器官}}★",
+    "製成 {{axetil|名詞}} 鹽類可口服",
+    "與食物併服吸收↑，不可和制酸劑併用",
+    "製成 sodium 鹽類以 IV 使用"] },
+{ id: "cw-cefoxitin", chapter: 22, name: "Cefoxitin", type: "drug", group: "第二代 Cephalosporins", source: "統整（二）p.21", img: "assets/medchem/cw-cefoxitin.png",
+  route: ["{{IV|給藥途徑|口服}}"],
+  feat: ["C₃ 側鏈有 NH₂ 結構（Urethane）：耐酸",
+    "C₇ 接有 {{7α-methoxy|取代基}}"],
+  pharm: ["β-lactamase 的{{競爭型|機轉}}抑制劑"] },
+{ id: "cw-cefotetan", chapter: 22, name: "Cefotetan", type: "drug", group: "第二代 Cephalosporins", source: "統整（二）p.21", img: "assets/medchem/cw-cefotetan.png",
+  route: ["{{IV|給藥途徑|口服}}"],
+  feat: ["C₃ 接有 {{MTT|結構}} 結構※ →引發{{出血|副作用}}風險",
+    "C₇ 接有 7α-methoxy"],
+  pharm: ["MTT 副作用：{{凝血困難|副作用}}、{{酒精不耐症|副作用}}",
+    "β-lactamase 的競爭型抑制劑"] },
+{ id: "cw-cefixime", chapter: 22, name: "Cefixime", type: "drug", group: "第三代 Cephalosporins", source: "統整（二）p.22", img: "assets/medchem/cw-cefixime.png",
+  route: ["{{口服|給藥途徑|IV}}"],
+  feat: ["C₃ 接有乙烯基",
+    "C₇ 接有 3-substituted-5-aminothiazole，可增加對 G(-)的穿透力；另含有 oxime 結構",
+    "（{{Methoxyimino|結構}}★，例外：{{Ceftibuten|藥名}}）"],
+  pharm: ["第三代中{{第一個口服|性質}}用藥",
+    "廣效型，可抗 G(-)與β-lactamase"] },
+{ id: "cw-cefpodoxime", chapter: 22, name: "Cefpodoxime", type: "drug", group: "第三代 Cephalosporins", source: "統整（二）p.22", img: "assets/medchem/cw-cefpodoxime.png",
+  route: ["{{口服|給藥途徑|IV}}"],
+  feat: ["C₃ 接有甲氧基",
+    "C₇ 接有 5-aminothiazole 與 oxime 結構"],
+  pharm: ["製成 {{proxetil|名詞}} 鹽類前驅藥可口服",
+    "廣效型，可抗 G(+)、G(-)與β-lactamase"] },
+{ id: "cw-ceftibuten", chapter: 22, name: "Ceftibuten", type: "drug", group: "第三代 Cephalosporins", source: "統整（二）p.22", img: "assets/medchem/cw-ceftibuten.png",
+  route: ["{{口服|給藥途徑|IV}}"],
+  feat: ["C₃ {{無取代基|取代基}}★",
+    "C₇ 接有 3-substituted-5-aminothiazole，可增加對 G(-)的穿透力；另含有 C=C 結構",
+    "（[i]Z[/i]-{{Ethylidinecarboxyl|結構}}★ group）",
+    "→ 第三代中唯二 C₇ 無 oxime 結構"],
+  pharm: ["第三代中{{生體可用率最高|性質}}★",
+    "對 SA 與綠膿桿菌無效"] },
+{ id: "cw-cefdinir", chapter: 22, name: "Cefdinir", type: "drug", group: "第三代 Cephalosporins", source: "統整（二）p.22", img: "assets/medchem/cw-cefdinir.png",
+  route: ["{{口服|給藥途徑|IV}}"],
+  feat: ["C₃ 接有乙烯基 →增加口服活性",
+    "C₇ 接有 5-aminothiazole 與 oxime 結構；",
+    "且含有 OH 可增加抗 G(-)活性"] },
+{ id: "cw-cefitoren", chapter: 22, name: "Cefitoren pivoxil", type: "drug", group: "第三代 Cephalosporins", source: "統整（二）p.22", img: "assets/medchem/cw-cefitoren.png",
+  route: ["{{口服|給藥途徑|IV}}"],
+  feat: ["C₃ 接有 {{Thiazole|結構}} 雜環",
+    "C₇ 接有 5-aminothiazole 與 oxime 結構"],
+  pharm: ["與制酸劑併服會使吸收{{下降|性質|上升}}；",
+    "與食物併服會使吸收{{上升|性質|下降}}"] },
+{ id: "cw-cefotaxime", chapter: 22, name: "Cefotaxime", type: "drug", group: "第三代 Cephalosporins", source: "統整（二）p.23", img: "assets/medchem/cw-cefotaxime.png",
+  route: ["{{IV|給藥途徑|口服}}"],
+  feat: ["C₃ 接有{{酯基|取代基}}",
+    "C₇ 接有 5-aminothiazole 與 oxime 結構"],
+  pharm: ["第三代中第一個{{非口服|性質}}用藥",
+    "可抗 G(+)、G(-)，對 MRSA 無效",
+    "Syn-isomers 對 PBP※結合力較高，且抗酶能力較佳"] },
+{ id: "cw-ceftizoxime", chapter: 22, name: "Ceftizoxime", type: "drug", group: "第三代 Cephalosporins", source: "統整（二）p.23", img: "assets/medchem/cw-ceftizoxime.png",
+  route: ["{{IV|給藥途徑|口服}}"],
+  feat: ["C₃ 無取代基",
+    "C₇ 接有 5-aminothiazole 與 oxime 結構"],
+  pharm: ["在體內不會被代謝",
+    "可抗 G(-)，對{{腸桿菌|名詞}}效果極佳",
+    "對 MRSA 無效"] },
+{ id: "cw-ceftriaxone", chapter: 22, name: "Ceftriaxone", type: "drug", group: "第三代 Cephalosporins", source: "統整（二）p.23", img: "assets/medchem/cw-ceftriaxone.png",
+  route: ["{{IV|給藥途徑|口服}}"],
+  feat: ["C₃ 接有雜環結構",
+    "C₇ 接有 5-aminothiazole 與 oxime 結構"],
+  pharm: ["血漿蛋白結合率高，半衰期長",
+    "治療{{淋病球菌|名詞}}感染之首選藥物",
+    "可抗 G(+)、(-)，對 MRSA、綠膿無效",
+    "副作用：{{膽囊炎|副作用}}（由{{膽汁|器官}}排除）"] },
+{ id: "cw-ceftazidime", chapter: 22, name: "Ceftazidime", type: "drug", group: "第三代 Cephalosporins", source: "統整（二）p.23", img: "assets/medchem/cw-ceftazidime.png",
+  route: ["{{IV|給藥途徑|口服}}"],
+  feat: ["C₃ 接有 {{Pyridinium|結構}}（四級銨，兩性性質）",
+    "C₇ 接有 5-aminothiazole 與 oxime 結構，",
+    "具有雙甲基與 isobutyric acid group"],
+  pharm: ["可抗 {{Pseudomonas|名詞}}，對 MRSA 無效",
+    "可耐β-lactamase"] },
+{ id: "cw-cefoperazone", chapter: 22, name: "Cefoperazone", type: "drug", group: "第三代 Cephalosporins", source: "統整（二）p.23", img: "assets/medchem/cw-cefoperazone.png",
+  route: ["{{IV|給藥途徑|口服}}"],
+  feat: ["C₃ 接 MTT 結構",
+    "C₇ 側鏈與 {{Piperacillin|藥名}} 相同，可被水解",
+    "→ 第三代中唯二 C₇ 無 oxime 結構",
+    "→ 第三代中唯一 C₇ 不接 {{thiazole|結構}} 雜環"],
+  pharm: ["第三代中唯一不進入 {{BBB|器官}}★",
+    "可抗 Pseudomonas，對 MRSA 無效",
+    "可耐β-lactamase",
+    "經由{{膽汁|器官}}排除"] },
+{ id: "cw-cefpirome", chapter: 22, name: "Cefpirome", type: "drug", group: "第四代 Cephalosporins", source: "統整（二）p.24", img: "assets/medchem/cw-cefpirome.png",
+  route: ["{{IV|給藥途徑|口服}}"],
+  feat: ["C₃ 接有{{四級銨|結構}}結構",
+    "（Pyridine 衍生，具兩性性質）",
+    "C₇ 接有 5-aminothiazole 與 oxime 結構"],
+  pharm: ["第四代中第一個 {{IV 注射|給藥途徑}}藥物"] },
+{ id: "cw-cefepime", chapter: 22, name: "Cefepime", type: "drug", group: "第四代 Cephalosporins", source: "統整（二）p.24", img: "assets/medchem/cw-cefepime.png",
+  route: ["{{IV|給藥途徑|口服}}"],
+  feat: ["C₃ 接有四級銨結構",
+    "（{{Pyrrolidine|結構}} 衍生，具兩性性質）",
+    "C₇ 接有 5-aminothiazole 與 oxime 結構",
+    "（{{methoxyimino|結構}}★ group）"],
+  pharm: ["化學性質與 Cefpirome 相似"] },
+{ id: "cw-ceftaroline", chapter: 22, name: "Ceftaroline", type: "drug", group: "第五代 Cephalosporins", source: "統整（二）p.24", img: "assets/medchem/cw-ceftaroline.png",
+  route: ["{{IV|給藥途徑|口服}}"],
+  feat: ["C₃ 接有四級銨結構",
+    "（Thiazole+Pyridinium，具兩性性質）",
+    "C₇ 接有 thiadiazole、oxime、{{磷酸鹽|結構}}結構"],
+  pharm: ["對正常與突變的 PBP 皆有親和力"] },
+{ id: "cw-thienamycin", chapter: 22, name: "Thienamycin", type: "drug", group: "第一代 Carbapenems：C₄無甲基保護，易被腎臟 Dehydropeptidase-1★（DHP-1）水解", source: "統整（二）p.25", img: "assets/medchem/cw-thienamycin.png",
+  feat: ["具有{{三個|數值}} chiral center：5S、6S、8S",
+    "C₂、C₃ 間有雙鍵",
+    "分子間不穩定，易形成複合體"] },
+{ id: "cw-imipenem", chapter: 22, name: "Imipenem", type: "drug", group: "第一代 Carbapenems：C₄無甲基保護，易被腎臟 Dehydropeptidase-1★（DHP-1）水解", source: "統整（二）p.25", img: "assets/medchem/cw-imipenem.png",
+  feat: ["C₂、C₃ 間有雙鍵",
+    "C₃ 側鏈具有 {{Imine|結構}} 結構（R-C=N）"],
+  pharm: ["廣效型，與 {{Cilastatin|藥名}}★併用！",
+    "（Cilastatin 為 DHP-1 抑制劑）"] },
+{ id: "cw-meropenem", chapter: 22, name: "Meropenem", type: "drug", group: "第二代 Carbapenems：C₄具有甲基取代，防止被腎臟 DHP-1 水解（不需併用 Cilastatin）", source: "統整（二）p.26", img: "assets/medchem/cw-meropenem.png",
+  feat: ["C₃ 側鏈具有 {{Amide|結構}} 結構"],
+  pharm: ["治療腦膜炎、敗血症、肺炎等",
+    "對 MRSA 無效且不可口服",
+    "對 G(-)和厭氧菌效果較佳"] },
+{ id: "cw-doripenem", chapter: 22, name: "Doripenem", type: "drug", group: "第二代 Carbapenems：C₄具有甲基取代，防止被腎臟 DHP-1 水解（不需併用 Cilastatin）", source: "統整（二）p.26", img: "assets/medchem/cw-doripenem.png",
+  feat: ["C₃ 側鏈具有 {{Sulfone|結構}} 結構"],
+  pharm: ["對 {{Pseudomonas|名詞}} 作用強"] },
+{ id: "cw-ertapenem", chapter: 22, name: "Ertapenem", type: "drug", group: "第二代 Carbapenems：C₄具有甲基取代，防止被腎臟 DHP-1 水解（不需併用 Cilastatin）", source: "統整（二）p.26", img: "assets/medchem/cw-ertapenem.png",
+  feat: ["C₃ 側鏈具有 [i]meta[/i]-{{benzoic acid|結構}} 結構"],
+  pharm: ["血漿蛋白結合力強",
+    "對 [i]Pseudomonas[/i] 和 [i]Acinetobacteria[/i]（鮑氏不動桿菌/AB 菌）{{無效|性質|有效}}"] },
+{ id: "cw-tebipenem", chapter: 22, name: "Tebipenem", type: "drug", group: "第二代 Carbapenems：C₄具有甲基取代，防止被腎臟 DHP-1 水解（不需併用 Cilastatin）", source: "統整（二）p.26", img: "assets/medchem/cw-tebipenem.png",
+  feat: ["C₃ 側鏈具有 {{Thiazole|結構}} 雜環"],
+  pharm: ["製成 {{pivoxil|名詞}} 前驅藥可口服"] },
+{ id: "cw-biapenem", chapter: 22, name: "Biapenem", type: "drug", group: "第二代 Carbapenems：C₄具有甲基取代，防止被腎臟 DHP-1 水解（不需併用 Cilastatin）", source: "統整（二）p.26", img: "assets/medchem/cw-biapenem.png",
+  feat: ["C₃ 側鏈具有雙環、{{triazole|結構}} 結構"],
+  pharm: ["廣效抗菌劑，不可口服"] },
+{ id: "cw-aztreonam", chapter: 22, name: "Aztreonam", type: "drug", group: "單內醯胺類（Monobactams）", source: "統整（二）p.27", img: "assets/medchem/cw-aztreonam.png",
+  feat: ["4 號位具有{{1 個|數值|2 個}}甲基",
+    "與 {{Ceftazidime|藥名}} 一樣具有 isobutyric acid",
+    "oximinoacyl 結構"],
+  pharm: ["對 G(+)、{{厭氧菌|名詞}}無效"] },
+{ id: "cw-tigemonam", chapter: 22, name: "Tigemonam", type: "drug", group: "單內醯胺類（Monobactams）", source: "統整（二）p.27", img: "assets/medchem/cw-tigemonam.png",
+  feat: ["4 號位具有{{2 個|數值|1 個}}甲基"],
+  pharm: ["{{口服|給藥途徑}}使用，可抵抗β-lactamase",
+    "對 {{Enterobacteriaceae|名詞}} 腸道菌科非常有效"] },
+{ id: "cw-fosfomycin", chapter: 22, name: "Fosfomycin", type: "drug", group: "其他細胞壁合成抑制劑", source: "統整（二）p.28", img: "assets/medchem/cw-fosfomycin.png",
+  feat: ["含有 {{epoxide|結構}}、P 原子"],
+  pharm: ["機轉：抑制 {{Mur-A|酵素}}★（enolpyruvate transferase）",
+    "{{殺菌|性質|抑菌}}作用"] },
+{ id: "cw-cycloserine", chapter: 22, name: "Cycloserine", type: "drug", group: "其他細胞壁合成抑制劑", source: "統整（二）p.28", img: "assets/medchem/cw-cycloserine.png",
+  feat: ["立體組態：{{R(+) form|結構}}",
+    "{{水溶性|性質}}，在酸中不穩定",
+    "（比較：Cyclosporin 為脂溶性）"],
+  pharm: ["機轉：競爭 {{D-Ala-D-Ala synthetase|酵素}}",
+    "為 CYP inhibitor"] },
+{ id: "cw-bacitracin", chapter: 22, name: "Bacitracin", type: "drug", group: "其他細胞壁合成抑制劑", source: "統整（二）p.28", img: "assets/medchem/cw-bacitracin.png",
+  feat: ["環狀多肽結構"],
+  pharm: ["機轉：抑制 BP 磷酸化，使 Murein 無法運送",
+    "{{局部使用|給藥途徑}}★，口服不吸收"] },
+{ id: "cw-vancomycin", chapter: 22, name: "Vancomycin", type: "drug", group: "其他細胞壁合成抑制劑", source: "統整（二）p.28", img: "assets/medchem/cw-vancomycin.png", imgMore: ["assets/medchem/cw-pyrogallol.png"],
+  feat: ["具有 5 個苯環",
+    "含有 {{pyrogallol|結構}}（連苯三酚）結構",
+    "醣基：glucose、胺醣：vancosamine",
+    "可治療 {{MRSA|名詞}}★、{{偽膜性腸炎|疾病}}★"],
+  pharm: ["機轉：和 {{D-Ala-D-Ala|標的}} 片段結合，抑制細胞壁",
+    "抗藥性：末端變成 D-Ala-D-Lactate",
+    "由{{腎臟|器官}}進行排除",
+    "副作用：{{Red man Syndrome|副作用}}"] },
+{ id: "cw-teicoplanin", chapter: 22, name: "Teicoplanin", type: "drug", group: "其他細胞壁合成抑制劑", source: "統整（二）p.28", img: "assets/medchem/cw-teicoplanin.png", imgMore: ["assets/medchem/cw-pyrogallol.png"],
+  feat: ["具有 7 個苯環",
+    "含有 pyrogallol（連苯三酚）結構",
+    "醣基：D-mannose",
+    "胺醣：2 個 glycosamine"],
+  pharm: ["脂溶性較{{高|性質|低}}，較不會有副作用"] },
+
 /* ===== 第 16 章 利尿劑（統整（三）柒，p.39–46）===== */
 { id: "diu-location", chapter: 16, name: "利尿劑作用位置總論", short: "作用位置", type: "topic", group: "總論", source: "統整（三）p.39",
   bold: [
@@ -4742,6 +5082,654 @@ PI.KNOWLEDGE = {
             ]
           }
         ]
+      }
+    ]
+  },
+  ch22: {
+    "chapter": 22,
+    "title": "抗生素：細胞壁合成抑制劑",
+    "sections": [
+      {
+        "id": "overview",
+        "title": "參、抗生素－細胞壁合成抑制劑：一、盤尼西林類（Penicillins）",
+        "items": [
+          {
+            "title": "※ 基本結構與 SAR",
+            "source": "統整（二）p.13",
+            "images": [
+              "assets/medchem/cw-fig-penicillin.png"
+            ],
+            "points": [
+              "1. 環狀結構：A 環為 {{Thiazolidine ring|結構}}、B 環為β-lactam ring（易受酸或酵素水解而開環失去活性）",
+              "2. 6-Acylamino（N-acyl）group：參與半合成的重要位置",
+              "3. 6 號位之 R group：決定藥物的安定性，如耐酸性、耐酶性",
+              "4. 立體組態：{{三個|數值}}不對稱碳，3S、5R、6R（此為 CA 制命名，右方圖片為 USP 制命名）"
+            ]
+          },
+          {
+            "title": "※ Penicillin 之半合成",
+            "source": "統整（二）p.13",
+            "images": [
+              "assets/medchem/cw-6apa.png"
+            ],
+            "points": [
+              "1. 基本單位：{{6-APA|藥名}}（6-Aminopenicillanic acid，結構如右）",
+              "2. 胺基酸 L-cysteine、L-valine 經微生物代謝參與半合成反應"
+            ]
+          },
+          {
+            "title": "※ Penicillin 之降解反應",
+            "source": "統整（二）p.13",
+            "images": [
+              "assets/medchem/cw-fig-degrade.png"
+            ],
+            "points": [
+              "藥物安定之 pH 值範圍：{{6~6.8|數值}}★"
+            ],
+            "table": {
+              "head": [
+                "降解環境或因子",
+                "降解反應過程"
+              ],
+              "rowNames": [
+                "酸性 H⁺",
+                "鹼性 OH⁻",
+                "Penicillin amidase"
+              ],
+              "rows": [
+                [
+                  "酸性 H⁺",
+                  "{{Penicillenic acid|代謝物}}★ → Penicillamine → Penicilloaldehyde"
+                ],
+                [
+                  "鹼性 OH⁻",
+                  "{{Penicilloic acid|代謝物}}★"
+                ],
+                [
+                  "Penicillin amidase",
+                  "{{6-Aminopenicillanic acid|代謝物}}（6-APA）"
+                ]
+              ]
+            }
+          },
+          {
+            "title": "※ Penicillin 之藥理機轉",
+            "source": "統整（二）p.13",
+            "points": [
+              "1. 結構類似 Acyl-D-Ala-D-Ala，可以和 PBP（Penicillin-binding proteins）結合，進而{{抑制 transpeptidase|機轉}}，阻斷合成細胞壁成分 Peptidoglycan",
+              "2. 可和{{胺醣類|藥物類別}}抗生素（Aminoglycosides）併用，具有協同作用",
+              "→ 但不可和 {{Neomycin|藥名}}、{{Gentamicin|藥名}} 併用，會產生化學性配伍禁忌"
+            ]
+          },
+          {
+            "title": "Penicillin 基本結構（R 為各種基團）",
+            "source": "統整（二）p.15",
+            "images": [
+              "assets/medchem/cw-fig-penicillin-sar.png"
+            ],
+            "points": [
+              "R is a range of groups；* = chiral centres"
+            ]
+          },
+          {
+            "title": "Penicillin 分類與抗菌範圍比較（下表參考 102 級藥物治療學共筆）",
+            "source": "統整（二）p.14",
+            "table": {
+              "head": [
+                "分類",
+                "次分類",
+                "藥物",
+                "說明",
+                "副作用",
+                "口服",
+                "耐酶",
+                "G(+)",
+                "G(-)",
+                "金黃",
+                "綠膿"
+              ],
+              "rowNames": [
+                "Penicillin V",
+                "Penicillin G 鈉/鉀鹽",
+                "Penicillin G Benzathine",
+                "Penicillin G Procaine",
+                "Methicillin",
+                "Nafcillin",
+                "Oxacillin",
+                "Cloxacillin",
+                "Dicloxacillin",
+                "Flucloxacillin",
+                "Ampicillin",
+                "Amoxicillin",
+                "Bacampicillin",
+                "Mezlocillin",
+                "Piperacillin",
+                "Carbenicillin",
+                "Ticarcillin",
+                "Amoxicillin+Clavulanic acid",
+                "Ampicillin+Sulbactam",
+                "Piperacillin+Tazobactam",
+                "Ticarcillin+Clavulanic acid"
+              ],
+              "rows": [
+                [
+                  {
+                    "t": "Natural Penicillin",
+                    "cs": 2,
+                    "rs": 4
+                  },
+                  null,
+                  "Penicillin V 鉀鹽",
+                  "第一個{{口服|給藥途徑}} Penicillin",
+                  {
+                    "t": "-",
+                    "rs": 4
+                  },
+                  "O",
+                  {
+                    "t": "X",
+                    "rs": 4
+                  },
+                  {
+                    "t": "Strep.",
+                    "rs": 4
+                  },
+                  {
+                    "t": "-",
+                    "rs": 4
+                  },
+                  {
+                    "t": "X",
+                    "rs": 4
+                  },
+                  {
+                    "t": "X",
+                    "rs": 4
+                  }
+                ],
+                [
+                  null,
+                  null,
+                  "Penicillin G 鈉/鉀鹽",
+                  "IV 使用",
+                  null,
+                  "X",
+                  null,
+                  null,
+                  null,
+                  null,
+                  null
+                ],
+                [
+                  null,
+                  null,
+                  "Penicillin G Benzathine",
+                  "IM 使用，較長效",
+                  null,
+                  "X",
+                  null,
+                  null,
+                  null,
+                  null,
+                  null
+                ],
+                [
+                  null,
+                  null,
+                  "Penicillin G Procaine",
+                  "IM 使用，長效型",
+                  null,
+                  "X",
+                  null,
+                  null,
+                  null,
+                  null,
+                  null
+                ],
+                [
+                  {
+                    "t": "Penicillinase-resistant penicillin\n（Anti-staphylococcal）",
+                    "cs": 2,
+                    "rs": 6
+                  },
+                  null,
+                  "Methicillin",
+                  {
+                    "t": "可抗 {{Penicillinase|酵素}}\n可治療無抗藥性之\n葡萄球菌",
+                    "rs": 6
+                  },
+                  {
+                    "t": "Methicillin\n{{間質性腎炎|副作用}}",
+                    "rs": 6
+                  },
+                  "X",
+                  {
+                    "t": "O",
+                    "rs": 6
+                  },
+                  {
+                    "t": "Strep.\n&\nStaph.",
+                    "rs": 6
+                  },
+                  {
+                    "t": "-",
+                    "rs": 6
+                  },
+                  {
+                    "t": "O",
+                    "rs": 6
+                  },
+                  {
+                    "t": "X",
+                    "rs": 6
+                  }
+                ],
+                [
+                  null,
+                  null,
+                  "Nafcillin",
+                  null,
+                  null,
+                  "O",
+                  null,
+                  null,
+                  null,
+                  null,
+                  null
+                ],
+                [
+                  null,
+                  null,
+                  "Oxacillin",
+                  null,
+                  null,
+                  "O",
+                  null,
+                  null,
+                  null,
+                  null,
+                  null
+                ],
+                [
+                  null,
+                  null,
+                  "Cloxacillin",
+                  null,
+                  null,
+                  "O",
+                  null,
+                  null,
+                  null,
+                  null,
+                  null
+                ],
+                [
+                  null,
+                  null,
+                  "Dicloxacillin",
+                  null,
+                  null,
+                  "O",
+                  null,
+                  null,
+                  null,
+                  null,
+                  null
+                ],
+                [
+                  null,
+                  null,
+                  "Flucloxacillin",
+                  null,
+                  null,
+                  "O",
+                  null,
+                  null,
+                  null,
+                  null,
+                  null
+                ],
+                [
+                  {
+                    "t": "Amino-penicillins\n（Extend-spectrum penicillins）",
+                    "cs": 2,
+                    "rs": 3
+                  },
+                  null,
+                  "Ampicillin",
+                  {
+                    "t": "較廣效，可治療某些 G(-)\n{{哺乳婦女可用|性質}}",
+                    "rs": 3
+                  },
+                  {
+                    "t": "{{腹瀉|副作用}}",
+                    "rs": 3
+                  },
+                  {
+                    "t": "O",
+                    "rs": 3
+                  },
+                  {
+                    "t": "X",
+                    "rs": 3
+                  },
+                  {
+                    "t": "Strep.",
+                    "rs": 3
+                  },
+                  {
+                    "t": "↑",
+                    "rs": 3
+                  },
+                  {
+                    "t": "X",
+                    "rs": 3
+                  },
+                  {
+                    "t": "X",
+                    "rs": 3
+                  }
+                ],
+                [
+                  null,
+                  null,
+                  "Amoxicillin",
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null
+                ],
+                [
+                  null,
+                  null,
+                  "Bacampicillin",
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null
+                ],
+                [
+                  {
+                    "t": "Anti-pseudomonal\npenicillins",
+                    "rs": 4
+                  },
+                  {
+                    "t": "Acyl-ureido",
+                    "rs": 2
+                  },
+                  "Mezlocillin",
+                  {
+                    "t": "較 Aminopenicillin 廣效，\n抗 G(-)↑ 抗厭氧↓\n可治療{{綠膿桿菌|名詞}}",
+                    "rs": 4
+                  },
+                  {
+                    "t": "陽離子毒性\n{{酸中毒|副作用}}",
+                    "rs": 4
+                  },
+                  {
+                    "t": "X",
+                    "rs": 4
+                  },
+                  {
+                    "t": "X",
+                    "rs": 4
+                  },
+                  {
+                    "t": "Strep.",
+                    "rs": 4
+                  },
+                  {
+                    "t": "↑↑",
+                    "rs": 4
+                  },
+                  {
+                    "t": "X",
+                    "rs": 4
+                  },
+                  {
+                    "t": "O",
+                    "rs": 4
+                  }
+                ],
+                [
+                  null,
+                  null,
+                  "Piperacillin",
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null
+                ],
+                [
+                  null,
+                  {
+                    "t": "Carboxyl",
+                    "rs": 2
+                  },
+                  "Carbenicillin",
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null
+                ],
+                [
+                  null,
+                  null,
+                  "Ticarcillin",
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null
+                ],
+                [
+                  {
+                    "t": "合併療法\n併用β-lactamase inhibitors",
+                    "cs": 2,
+                    "rs": 4
+                  },
+                  null,
+                  "Amoxicillin+Clavulanic acid",
+                  "Augmentin®、Curam®",
+                  {
+                    "t": "減少藥物被酵素水解，\n可治療{{金黃色葡萄球菌|名詞}}",
+                    "cs": 7,
+                    "rs": 4
+                  },
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null
+                ],
+                [
+                  null,
+                  null,
+                  "Ampicillin+Sulbactam",
+                  "Unasyn®",
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null
+                ],
+                [
+                  null,
+                  null,
+                  "Piperacillin+Tazobactam",
+                  "Zosyn®",
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null
+                ],
+                [
+                  null,
+                  null,
+                  "Ticarcillin+Clavulanic acid",
+                  "Timentin®",
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null
+                ]
+              ]
+            },
+            "points": [
+              "※ Penicillin 類經由{{腎臟|器官}}★排除（例外：{{Nafcillin|藥名}}、{{Oxacillin|藥名}} 經由{{膽汁|器官}}排出）"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "bli",
+        "title": "二、β-lactamase Inhibitors",
+        "items": [
+          {
+            "title": "※ β-lactamase Inhibitors 共通特性",
+            "group": "β-lactamase Inhibitors",
+            "source": "統整（二）p.19",
+            "points": [
+              "- 皆含有{{β-lactam|結構}}★結構，且 6 號位無 {{acylamino 取代基|取代基}}，在酸性環境下穩定",
+              "- {{單獨使用沒有抗菌作用|性質}}★，須併用β-lactam 類抗生素",
+              "- 僅能抑制 {{plasmid|名詞}} 媒介產生的β-lactamase，對{{染色體|名詞}}媒介產生者{{無效|性質|有效}}"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "ceph",
+        "title": "三、頭孢菌素類（Cephalosporins）",
+        "items": [
+          {
+            "title": "頭孢菌素類共通結構",
+            "source": "統整（二）p.20",
+            "images": [
+              "assets/medchem/cw-fig-cephalosporin.png"
+            ],
+            "points": [
+              "- 具有 {{Dihydrothiazine|結構}}★ ring",
+              "- 2、3 號位間有雙鍵"
+            ]
+          },
+          {
+            "title": "【Cephalosporin 之命名】",
+            "source": "統整（二）p.20",
+            "points": [
+              "第一代：{{Cefa-|名詞}}、{{Cepha-|名詞}}（例外 Cefaclor）",
+              "第二代：其他 + {{Cefaclor|藥名}} + {{Cefuroxime|藥名}}",
+              "第三代：{{-ime、-one、-en、-ir|名詞}}（例外 Cefuroxime）",
+              "第四代：{{-pi(ro)me|名詞}}"
+            ]
+          },
+          {
+            "title": "※ MTT 結構與 7α-methoxy",
+            "group": "第二代 Cephalosporins",
+            "source": "統整（二）p.21",
+            "structs": [
+              "assets/medchem/cw-mtt.png"
+            ],
+            "points": [
+              "※ MTT 結構：N-methyl-5-thiotetrazole。藥物：{{Cefamandole|藥名}}、{{Cefmetazole|藥名}}、{{Cefotetan|藥名}}、{{Cefoperazone|藥名}}",
+              "※ 具有 7α-methoxy 結構：{{Cefoxitin|藥名}}★、Cefotetan、Cefmetazole"
+            ]
+          },
+          {
+            "title": "※ PBP",
+            "group": "第三代 Cephalosporins",
+            "source": "統整（二）p.23",
+            "points": [
+              "※ PBP：Penicillin-Binding Proteins"
+            ]
+          },
+          {
+            "title": "※ Cephalosporins 整理",
+            "source": "統整（二）p.24",
+            "points": [
+              "※ 第三代第一個口服藥物：{{Cefixime|藥名}}",
+              "※ 第三代第一個非口服藥物：{{Cefotaxime|藥名}}",
+              "※ 第三代中生體可用率最高：{{Ceftibuten|藥名}}★",
+              "※ 第四代第一個注射藥物：{{Cefpirome|藥名}}",
+              "※ Cephalosporins 大部分經由{{腎臟|器官}}排除。例外：{{Cefamandole|藥名}}、{{Ceftriaxone|藥名}}、{{Cefoperazone|藥名}} 經由{{膽汁|器官}}排出"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "carba",
+        "title": "四、碳青黴烯類（Carbapenems）",
+        "items": [
+          {
+            "title": "碳青黴烯類基本結構",
+            "source": "統整（二）p.25",
+            "images": [
+              "assets/medchem/cw-fig-carbapenem.png"
+            ],
+            "points": [
+              "四、碳青黴烯類（Carbapenems）基本結構"
+            ]
+          },
+          {
+            "title": "※ Cilastatin 之結構",
+            "group": "第一代 Carbapenems：C₄無甲基保護，易被腎臟 Dehydropeptidase-1★（DHP-1）水解",
+            "source": "統整（二）p.25",
+            "structs": [
+              "assets/medchem/cw-cilastatin.png"
+            ],
+            "points": [
+              "※ Cilastatin 之結構"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "mono",
+        "title": "五、單內醯胺類（Monobactams）",
+        "items": [
+          {
+            "title": "單內醯胺類基本結構",
+            "source": "統整（二）p.27",
+            "images": [
+              "assets/medchem/cw-fig-monobactam.png"
+            ],
+            "points": [
+              "五、單內醯胺類（Monobactams）基本結構"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "other",
+        "title": "六、其他細胞壁合成抑制劑",
+        "items": []
       }
     ]
   },
