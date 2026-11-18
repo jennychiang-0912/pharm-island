@@ -15,7 +15,7 @@ PI.STORAGE_KEY = "pharma-island-medchem-v1";   // 進度和其他科目分開存
 PI.CATEGORIES = [
   { id: "cns", name: "統整（一）中樞神經", color: "#8E7CB8", tint: "#E6E0F2" },
   { id: "chemo", name: "統整（二）化學治療藥物", color: "#4F9490", tint: "#D9ECEA" },
-  { id: "cv", name: "統整（三）心臟血管", color: "#C77C7C", tint: "#F4DEDE" }
+  { id: "cv", name: "統整（三）自主神經、心血管、內分泌", color: "#C77C7C", tint: "#F4DEDE" }
 ];
 
 /* 地圖：小分類（Barbiturates、Benzodiazepines…）畫交界線和名牌 */
@@ -431,10 +431,10 @@ PI.CHAPTERS = [
   { id: 26, name: "抗癌藥物", no: 7, cat: "chemo", estimate: 107, unitType: "drug", note: "統整（二）柒，p.55–79。" },
   { id: 27, name: "抗病毒藥物", no: 8, cat: "chemo", estimate: 51, unitType: "drug", note: "統整（二）捌，p.80–93。" },
   { id: 28, name: "外用抗感染劑與防腐劑", no: 9, cat: "chemo", estimate: 18, unitType: "drug", note: "統整（二）玖，p.94–96。" },
-  { id: 16, name: "利尿劑", no: 1, cat: "cv", estimate: 20, unitType: "drug", note: "統整（三）柒，p.39–46。" },
-  { id: 17, name: "心絞痛藥物", no: 2, cat: "cv", estimate: 8, unitType: "drug", note: "統整（三）捌，p.47–48。" },
-  { id: 18, name: "心衰竭藥物", no: 3, cat: "cv", estimate: 10, unitType: "drug", note: "統整（三）玖，p.49–53。" },
-  { id: 19, name: "抗凝血與血液相關藥物", no: 4, cat: "cv", estimate: 25, unitType: "drug", note: "統整（三）壹拾壹，p.58–69。" }
+  { id: 16, name: "利尿劑", no: 7, cat: "cv", estimate: 20, unitType: "drug", note: "統整（三）柒，p.39–46。" },
+  { id: 17, name: "心絞痛藥物", no: 8, cat: "cv", estimate: 8, unitType: "drug", note: "統整（三）捌，p.47–48。" },
+  { id: 18, name: "心衰竭藥物", no: 9, cat: "cv", estimate: 10, unitType: "drug", note: "統整（三）玖，p.49–53。" },
+  { id: 19, name: "抗凝血與血液相關藥物", no: 11, cat: "cv", estimate: 25, unitType: "drug", note: "統整（三）壹拾壹，p.58–69。" }
 ];
 
 /* 章節的 id 全部不重複（資料用），但統整（一）和統整（三）是兩本，顯示的章號用 no 另外從 1 重新編（沒有 no 的章節就用 id） */
@@ -443,10 +443,10 @@ PI.CHAPTERS = [
 PI.GROUP_GATE = true;
 
 /* 群島的總名稱（地圖上黑色大字，標在每片群島上方）：key 對應 LANDMASSES 的 cluster */
-PI.CLUSTERS = { cns: "中樞神經系統、\n止痛劑與自泌素", chemo: "化學治療藥物", cv: "心血管群島" };
+PI.CLUSTERS = { cns: "中樞神經系統、\n止痛劑與自泌素", chemo: "化學治療藥物", cv: "自主神經系統、心臟血管系統、\n內分泌系統與其他" };
 /* 環狀群島：名稱放正中央，島依章節順序（順時針、從正上方開始）圍成一圈 */
-PI.CLUSTER_RING = { cns: true, chemo: true };
-PI.CLUSTER_DIR = { chemo: -50 };   // 第二片環狀群島放在第一片的哪個方向（度，0 是右邊、-90 是上面）
+PI.CLUSTER_RING = { cns: true, chemo: true, cv: true };
+PI.CLUSTER_DIR = { chemo: -50, cv: 135 };   // 第二片環狀群島放在第一片的哪個方向（度，0 是右邊、-90 是上面）
 PI.MAP.clusterGap = 22;   // 兩片群島之間隔幾格海（拉遠一點）
 PI.MAP.ringGap = 0.5;     // 環狀群島裡，島與島之間隔幾格海（小一點比較緊密）
 
