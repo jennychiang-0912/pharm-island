@@ -268,7 +268,13 @@ PI.GROUP_LABELS = {
   "5-HT₄ agonist": "5-HT4 Agonist",
   "Selective Serotonin Reuptake Inhibitors（SSRIs）": "SSRIs",
   "磺胺類藥物": "Sulfonamides",
-  "非磺胺類輔佐藥物": "Adjuncts"
+  "非磺胺類輔佐藥物": "Adjuncts",
+  "第一代 Fluoroquinolones：沒有 F 原子": "Gen 1",
+  "第二代 Fluoroquinolones": "Gen 2",
+  "第三代 Fluoroquinolones": "Gen 3",
+  "第四代 Fluoroquinolones": "Gen 4",
+  "Nitrofuran 類藥物": "Nitrofuran",
+  "其他類藥物（尿道抗菌劑）": "Urinary Others"
 };
 
 /* 藥化的欄位：照講義表格的欄位（藥物｜結構｜特性｜藥理及臨床應用） */
@@ -2673,6 +2679,96 @@ PI.UNITS = [
   feat: ["又名 {{Diethanolamine|藥名}}"],
   pharm: ["與 Sulfisoxazole 併用"] },
 
+/* ===== 第 21 章（統整（二）貳 喹諾酮類與尿道抗菌劑 p.8–12；講義標題寫「奎寧類」，章名照單元檔名用「喹諾酮類」）===== */
+/* p.8 的 Fluoroquinolones 總說明（作用機轉、藥物動力學、副作用、SAR 表與結構）放告示牌；
+   沒有黑底，表格裡灰底的「第一～四代 Fluoroquinolones」、「Nitrofuran 類藥物」、「其他類藥物」各自就是分類；
+   p.11 的 Nitrofuran 抗菌活性結構圖放 Nitrofuran 類藥物的知識卡；「其他類藥物」加後綴避免和之後的章節重名。
+   表格欄位是特性／藥理及臨床應用。 */
+
+{ id: "qu-nalidixic", chapter: 21, name: "Nalidixic acid", type: "drug", group: "第一代 Fluoroquinolones：沒有 F 原子", source: "統整（二）p.9", img: "assets/medchem/qu-nalidixic.png",
+  feat: ["R₁ 接{{乙基|取代基}}、R₇ 接{{甲基|取代基}}",
+    "R₈ 被 {{N 原子|取代基}}取代",
+    "代謝：形成 CH₂OH，再 {{glucuronidation|代謝}}"],
+  pharm: ["{{第一個|數值}}上市的藥物，目前已停產"] },
+{ id: "qu-cinoxacin", chapter: 21, name: "Cinoxacin", type: "drug", group: "第一代 Fluoroquinolones：沒有 F 原子", source: "統整（二）p.9", img: "assets/medchem/qu-cinoxacin.png",
+  feat: ["R₂ 被 {{N 原子|取代基}}取代（N-N）"],
+  pharm: ["吸收較 Nalidixic acid 佳"] },
+{ id: "qu-norfloxacin", chapter: 21, name: "Norfloxacin", type: "drug", group: "第二代 Fluoroquinolones", source: "統整（二）p.9", img: "assets/medchem/qu-norfloxacin.png",
+  feat: ["R₁ 接乙基",
+    "R₆ 接 F：增加穿透細胞壁能力",
+    "R₇ 接 {{Piperazinyl|取代基}}：可抗{{綠膿桿菌|名詞}}"],
+  pharm: ["第一個 {{Fluoroquinolones|藥物類別}}",
+    "第一個二代 FQs"] },
+{ id: "qu-ciprofloxacin", chapter: 21, name: "Ciprofloxacin", type: "drug", group: "第二代 Fluoroquinolones", source: "統整（二）p.9", img: "assets/medchem/qu-ciprofloxacin.png",
+  feat: ["R₁ 接{{環丙基|取代基}}",
+    "R₆ 接 F：增加穿透細胞壁能力",
+    "R₇ 接 Piperazinyl：可抗綠膿桿菌"],
+  pharm: ["抑制 {{CYP1A2|酵素}}"] },
+{ id: "qu-ofloxacin", chapter: 21, name: "Ofloxacin", type: "drug", group: "第二代 Fluoroquinolones", source: "統整（二）p.9", img: "assets/medchem/qu-ofloxacin.png",
+  feat: ["R₁、R₈ 連成環狀結構（類似 {{Morpholine|結構}}）",
+    "R₆ 接 F：增加穿透細胞壁能力",
+    "R₇ 接 Piperazinyl 且 N 上有甲基：與 {{GABA|受體}} 結合↓"],
+  pharm: ["{{Levofloxacin|藥名}} 之消旋化合物",
+    "抑制 CYP1A2"] },
+{ id: "qu-levofloxacin", chapter: 21, name: "Levofloxacin", type: "drug", group: "第三代 Fluoroquinolones", source: "統整（二）p.10", img: "assets/medchem/qu-levofloxacin.png",
+  feat: ["{{Ofloxacin|藥名}} 之光學異構物"],
+  pharm: ["結合力較強，且抗菌與水溶性也較佳"] },
+{ id: "qu-gatifloxacin", chapter: 21, name: "Gatifloxacin", type: "drug", group: "第三代 Fluoroquinolones", source: "統整（二）p.10", img: "assets/medchem/qu-gatifloxacin.png",
+  feat: ["R₁ 接環丙基",
+    "R₆ 接 F：增加穿透細胞壁能力",
+    "R₈ 接{{甲氧基|取代基}}：減少{{光敏感性|副作用}}"],
+  pharm: ["副作用：{{QT interval|副作用}}"] },
+{ id: "qu-gemifloxacin", chapter: 21, name: "Gemifloxacin", type: "drug", group: "第三代 Fluoroquinolones", source: "統整（二）p.10", img: "assets/medchem/qu-gemifloxacin.png",
+  feat: ["R₁ 接環丙基",
+    "R₆ 接 F：增加穿透細胞壁能力",
+    "R₇ 具有 {{Imine|結構}} 結構"],
+  pharm: ["副作用：QT interval"] },
+{ id: "qu-moxifloxacin", chapter: 21, name: "Moxifloxacin", type: "drug", group: "第四代 Fluoroquinolones", source: "統整（二）p.10", img: "assets/medchem/qu-moxifloxacin.png",
+  feat: ["R₁ 接環丙基",
+    "R₆ 接 F：增加穿透細胞壁能力",
+    "R₈ 接{{甲氧基|取代基}}：減少{{光敏感性|副作用}}"],
+  pharm: ["經由{{膽汁|器官}}★排除",
+    "副作用：QT interval"] },
+{ id: "qu-besifloxacin", chapter: 21, name: "Besifloxacin", type: "drug", group: "第四代 Fluoroquinolones", source: "統整（二）p.10", img: "assets/medchem/qu-besifloxacin.png",
+  feat: ["R₁ 接環丙基",
+    "R₆ 接 F：增加穿透細胞壁能力",
+    "R₈ 接 {{Cl|取代基}}"],
+  pharm: ["可治療{{眼睛感染|疾病}}"] },
+{ id: "qu-nitrofurantoin", chapter: 21, name: "Nitrofurantoin", type: "drug", group: "Nitrofuran 類藥物", source: "統整（二）p.11", img: "assets/medchem/qu-nitrofurantoin.png",
+  feat: ["R 為 {{Imidazolidine-2,4-dione|結構}}（toin 結構）"],
+  pharm: ["治療{{尿道感染|疾病}}"] },
+{ id: "qu-nitrofurazone", chapter: 21, name: "Nitrofurazone", type: "drug", group: "Nitrofuran 類藥物", source: "統整（二）p.11", img: "assets/medchem/qu-nitrofurazone.png",
+  feat: ["R 為 {{Urea|結構}}"],
+  pharm: ["治療{{燒傷|疾病}}",
+    "對{{真菌|名詞}}無效"] },
+{ id: "qu-furazolidone", chapter: 21, name: "Furazolidone", type: "drug", group: "Nitrofuran 類藥物", source: "統整（二）p.11", img: "assets/medchem/qu-furazolidone.png",
+  feat: ["R 為 {{Oxazolidin-2-one|結構}}"],
+  pharm: ["抑制 {{Aldehyde dehydrogenase|酵素}}",
+    "→ 不可和{{酒精|物質}}併用"] },
+{ id: "qu-metronidazole", chapter: 21, name: "Metronidazole", type: "drug", group: "Nitrofuran 類藥物", source: "統整（二）p.11", img: "assets/medchem/qu-metronidazole.png",
+  feat: ["非 Furan 五環結構（以 {{Imidazole|結構}} 取代）",
+    "不具活性結構 C=N"],
+  pharm: ["治療{{陰道感染|疾病}}",
+    "治療{{幽門桿菌|名詞}}引起胃潰瘍"] },
+{ id: "qu-methenamine", chapter: 21, name: "Methenamine", type: "drug", group: "其他類藥物（尿道抗菌劑）", source: "統整（二）p.12", img: "assets/medchem/qu-methenamine.png",
+  feat: ["具雙環結構，含 4 個 N、6 個 CH₂",
+    "由甲醛和氨合成，酸性下釋放具抗菌活性的{{甲醛|代謝物}}",
+    "每分子藥物釋放 {{6 分子|數值}}的甲醛★",
+    "※ 抗癌藥 {{Altretamine|藥名}} 也可釋放甲醛"],
+  pharm: ["可製成鹽類",
+    "{{Mandelate|藥名}}：提供酸性環境",
+    "{{Hippurate|藥名}}：於膀胱濃縮，使抗菌效果增加並提供酸性尿液環境"] },
+{ id: "qu-fosfomycin", chapter: 21, name: "Fosfomycin", type: "drug", group: "其他類藥物（尿道抗菌劑）", source: "統整（二）p.12", img: "assets/medchem/qu-fosfomycin.png",
+  feat: ["具有磷的{{三元環|結構}}結構",
+    "含有 {{Epoxide|結構}} 結構"],
+  pharm: ["抑制 {{Enolpyruvial transferase|酵素}}，減少 peptidoglycan 合成，細胞壁合成↓"] },
+{ id: "qu-phenazopyridine", chapter: 21, name: "Phenazopyridine", type: "drug", group: "其他類藥物（尿道抗菌劑）", source: "統整（二）p.12", img: "assets/medchem/qu-phenazopyridine.png",
+  feat: ["具有 {{Pyridine|結構}} 結構",
+    "具有 {{Diazo（N=N）|結構}} 結構"],
+  pharm: ["尿道{{止痛劑|藥物類別}}",
+    "體外有抗菌活性，但體內無抗菌活性；在尿道黏膜具止痛效果",
+    "與 Sulfisoxazole 併用：Azo-Gantrisin"] },
+
 /* ===== 第 16 章 利尿劑（統整（三）柒，p.39–46）===== */
 { id: "diu-location", chapter: 16, name: "利尿劑作用位置總論", short: "作用位置", type: "topic", group: "總論", source: "統整（三）p.39",
   bold: [
@@ -4552,6 +4648,100 @@ PI.KNOWLEDGE = {
         "id": "adjunct",
         "title": "二、非磺胺類輔佐藥物",
         "items": []
+      }
+    ]
+  },
+  ch21: {
+    "chapter": 21,
+    "title": "喹諾酮類與尿道抗菌劑",
+    "sections": [
+      {
+        "id": "overview",
+        "title": "貳、喹諾酮類藥物與尿道抗菌劑",
+        "items": [
+          {
+            "title": "Fluoroquinolones：作用機轉、藥物動力學與副作用",
+            "source": "統整（二）p.8",
+            "points": [
+              "1. 作用機轉：{{殺菌|性質|抑菌}}作用，與細菌的 {{DNA gyrase|酵素}}★（Topoisomerase II）及 Topoisomerase IV 結合，抑制 DNA 的複製與轉錄",
+              "2. 藥物動力學：屬於 Concentration-dependent，並有後抗生素效應",
+              "- (1) 吸收：大部分口服使用，但需避免與{{含金屬離子|物質}}之食物或藥物併服",
+              "- (2) 分布：對 CNS 與脂肪分布能力不佳（但 {{Ofloxacin|藥名}} 可穿透 BBB）",
+              "- (3) 代謝：屬於 CYP1A2 抑制劑，可使 Theophylline 血中濃度上升",
+              "- (4) 排除：大部分經由{{腎臟|器官}}排除，例外：{{Moxifloxacin|藥名}}★經由{{膽汁|器官}}排除",
+              "3. 副作用",
+              "- (1) 破壞軟骨生長，18 歲以下及孕婦禁止使用",
+              "- (2) 腎毒性：R₇ 取代基有 1-piperidinyl 或 3-amino-1-pyrrolidinyl 造成",
+              "- (3) 光毒性：R₈ {{具有 F 取代基|取代基}}。若再 R₅ 或 R₈ 位置改接胺基或甲氧基，可使光毒性下降",
+              "- (4) QT interval：Gatifloxacin、Gemifloxacin、Moxifloxacin",
+              "- (5) 錯合作用：R₃ 具有 COOH、R₄ 具有 C=O"
+            ]
+          },
+          {
+            "title": "Fluoroquinolones SAR",
+            "source": "統整（二）p.8",
+            "images": [
+              "assets/medchem/qu-sar.png"
+            ],
+            "table": {
+              "head": [
+                "結構特徵",
+                "構效關係（SAR）"
+              ],
+              "rowNames": [
+                "N₁",
+                "C₃、C₄",
+                "C₆",
+                "C₇",
+                "C₈（甲氧基）",
+                "C₈（F）"
+              ],
+              "rows": [
+                [
+                  "N₁ 具有環丙烷取代",
+                  "藥效{{↑|性質|↓}}、QT 副作用{{↑|性質|↓}}"
+                ],
+                [
+                  "C₃-COOH、C₄-ketone",
+                  "DNA gyrase 之結合位（{{錯合作用|機轉}}）"
+                ],
+                [
+                  "C₆ 具有 F 原子",
+                  "形成 {{Fluoroquinolones|藥物類別}}，細胞壁穿透力 ↑"
+                ],
+                [
+                  "C₇ 具有 piperazine 取代★",
+                  "{{必要基團|名詞}}★，對抗 [i]Pseudomonas[/i] 活性 ↑"
+                ],
+                [
+                  "C₈ 具有甲氧基取代",
+                  "光毒性{{↓|性質|↑}}"
+                ],
+                [
+                  "C₈ 具有 F 原子★",
+                  "光毒性{{↑|性質|↓}}"
+                ]
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "id": "urinary",
+        "title": "二、尿道抗菌劑",
+        "items": [
+          {
+            "title": "※ Nitrofuran 結構（antimicrobial activity）",
+            "group": "Nitrofuran 類藥物",
+            "source": "統整（二）p.11",
+            "images": [
+              "assets/medchem/qu-nitrofuran-sar.png"
+            ],
+            "points": [
+              "※ Nitrofuran 結構：antimicrobial activity"
+            ]
+          }
+        ]
       }
     ]
   },
