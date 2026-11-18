@@ -3,6 +3,7 @@
    格式和生藥頁一樣（見 js/data.js、js/units.js、js/knowledge.js 的說明）。
    章節照「藥物化學國考統整」的目錄：
      統整（一）中樞神經系統：壹～陸 → 第 1～6 章、柒～捌 → 第 7～8 章、玖～拾 → 第 9～10 章、拾壹～拾參 → 第 11～13 章、拾肆～拾伍 → 第 14～15 章（中樞神經島）
+     統整（二）化學治療藥物：壹～參 → 第 1～3 章（id 20～22，畫面上的章號用 no 重編；之後的單元陸續加入）（化學治療群島）
      統整（三）心臟血管系統：柒、捌、玖、壹拾壹 → 第 16～19 章（畫面上的章號用 no 重編成 1～4）（心血管島）
    內容來自教授給的期中考複習講義（藥物化學國考統整），只擷取：分類、結構圖、粗體字。
    目前已加入第 1 章到講義 p.14；之後的章節還是預留格。
@@ -13,6 +14,7 @@ PI.STORAGE_KEY = "pharma-island-medchem-v1";   // 進度和其他科目分開存
 
 PI.CATEGORIES = [
   { id: "cns", name: "統整（一）中樞神經", color: "#8E7CB8", tint: "#E6E0F2" },
+  { id: "chemo", name: "統整（二）化學治療藥物", color: "#4F9490", tint: "#D9ECEA" },
   { id: "cv", name: "統整（三）心臟血管", color: "#C77C7C", tint: "#F4DEDE" }
 ];
 
@@ -264,7 +266,9 @@ PI.GROUP_LABELS = {
   "5-HT₂ antagonist": "5-HT2 Antagonist",
   "5-HT₃ antagonist": "5-HT3 Antagonist",
   "5-HT₄ agonist": "5-HT4 Agonist",
-  "Selective Serotonin Reuptake Inhibitors（SSRIs）": "SSRIs"
+  "Selective Serotonin Reuptake Inhibitors（SSRIs）": "SSRIs",
+  "磺胺類藥物": "Sulfonamides",
+  "非磺胺類輔佐藥物": "Adjuncts"
 };
 
 /* 藥化的欄位：照講義表格的欄位（藥物｜結構｜特性｜藥理及臨床應用） */
@@ -296,6 +300,9 @@ PI.CHAPTERS = [
   { id: 13, name: "痛風藥物與疾病修飾抗風濕藥物", cat: "cns", estimate: 25, unitType: "drug", note: "統整（一）拾參，p.104–106。" },
   { id: 14, name: "抗組織胺藥物", cat: "cns", estimate: 41, unitType: "drug", note: "統整（一）拾肆，p.107–113。" },
   { id: 15, name: "血清素及相關藥物", cat: "cns", estimate: 17, unitType: "drug", note: "統整（一）拾伍，p.114–116。" },
+  { id: 20, name: "磺胺類藥物", no: 1, cat: "chemo", estimate: 19, unitType: "drug", note: "統整（二）壹，p.3–7。" },
+  { id: 21, name: "喹諾酮類與尿道抗菌劑", no: 2, cat: "chemo", estimate: 15, unitType: "drug", note: "統整（二）貳，p.8–12。" },
+  { id: 22, name: "抗生素：細胞壁合成抑制劑", no: 3, cat: "chemo", estimate: 40, unitType: "drug", note: "統整（二）參，p.13–28。" },
   { id: 16, name: "利尿劑", no: 1, cat: "cv", estimate: 20, unitType: "drug", note: "統整（三）柒，p.39–46。" },
   { id: 17, name: "心絞痛藥物", no: 2, cat: "cv", estimate: 8, unitType: "drug", note: "統整（三）捌，p.47–48。" },
   { id: 18, name: "心衰竭藥物", no: 3, cat: "cv", estimate: 10, unitType: "drug", note: "統整（三）玖，p.49–53。" },
@@ -308,7 +315,7 @@ PI.CHAPTERS = [
 PI.GROUP_GATE = true;
 
 /* 群島的總名稱（地圖上黑色大字，標在每片群島上方）：key 對應 LANDMASSES 的 cluster */
-PI.CLUSTERS = { cns: "中樞神經系統、\n止痛劑與自泌素", cv: "心血管群島" };
+PI.CLUSTERS = { cns: "中樞神經系統、\n止痛劑與自泌素", chemo: "化學治療藥物", cv: "心血管群島" };
 /* 環狀群島：名稱放正中央，島依章節順序（順時針、從正上方開始）圍成一圈 */
 PI.CLUSTER_RING = { cns: true };
 PI.MAP.clusterGap = 22;   // 兩片群島之間隔幾格海（拉遠一點）
@@ -346,7 +353,13 @@ PI.LANDMASSES = [
     palette: { ground: "#BDB0DC", light: "#D0C6EA", cliff: "#9588BC" } },
   { id: "cns15", name: "血清素島",   chapters: [15], cluster: "cns", angle: 190,
     palette: { ground: "#C6ADDA", light: "#D8C6E7", cliff: "#9F85B8" } },
-  { id: "cv16",  name: "利尿島",     chapters: [16], cluster: "cv", angle: 0,
+  { id: "chemo20", name: "磺胺島",     chapters: [20], cluster: "chemo", angle: -25,
+    palette: { ground: "#A9D0C4", light: "#C3E0D6", cliff: "#7FAA9D" } },
+  { id: "chemo21", name: "喹諾酮島",   chapters: [21], cluster: "chemo", angle: 20,
+    palette: { ground: "#B2D6B8", light: "#CBE5CF", cliff: "#86AE8D" } },
+  { id: "chemo22", name: "細胞壁島",   chapters: [22], cluster: "chemo", angle: 200,
+    palette: { ground: "#A4CFD2", light: "#BEE0E2", cliff: "#7AA9AC" } },
+  { id: "cv16",  name: "利尿島",     chapters: [16], cluster: "cv", angle: 75,
     palette: { ground: "#E8B4B0", light: "#F0C9C6", cliff: "#C48A86" } },
   { id: "cv17",  name: "心絞痛島",   chapters: [17], cluster: "cv", angle: 270,
     palette: { ground: "#EBBFA9", light: "#F2D1C1", cliff: "#C79580" } },
@@ -2576,6 +2589,90 @@ PI.UNITS = [
   ind: ["胃食道逆流、胃痙攣"],
   rmk: ["心律不整、{{QT 延長|副作用}}"] },
 
+/* ===== 第 20 章（統整（二）壹 磺胺類藥物 p.3–7）===== */
+/* 化學治療藥物是統整（二），畫面上的章號重編為 1～；p.3 的總說明（作用機轉、藥物動力學、副作用、基本結構、溶血性貧血藥物整理）放告示牌，
+   一、磺胺類藥物（p.4–6）與二、非磺胺類輔佐藥物（p.7）沒有黑底灰底，章節標題就是分類。表格欄位是特性／藥理及臨床應用。
+   行首「- 」＝子項目、「> 」＝接續行 */
+
+{ id: "sa-sulfamethizole", chapter: 20, name: "Sulfamethizole", type: "drug", group: "磺胺類藥物", source: "統整（二）p.4", img: "assets/medchem/sa-sulfamethizole.png",
+  feat: ["（取代基為圈起來的部分）",
+    "取代基為 {{Thiazole|結構}} 雜環",
+    "Thiazole 之 {{5 號位|位置}}有甲基取代"],
+  pharm: ["{{Urobiotic|藥名}}：與 Oxytetracycline 和 Phenazopyridine 併用"] },
+{ id: "sa-sulfathiazole", chapter: 20, name: "Sulfathiazole", type: "drug", group: "磺胺類藥物", source: "統整（二）p.4", img: "assets/medchem/sa-sulfathiazole.png",
+  feat: ["結構類似 Sulfamethizole，但雜環上少一個 {{N|取代基}}，且無甲基取代"],
+  pharm: ["組成 {{Triple Sulfa|藥物類別}}，治療陰道嗜血桿菌",
+    "可由 {{Succinylsulfathiazole|藥名}} 分解得到"] },
+{ id: "sa-sulfisoxazole", chapter: 20, name: "Sulfisoxazole", type: "drug", group: "磺胺類藥物", source: "統整（二）p.4", img: "assets/medchem/sa-sulfisoxazole.png",
+  feat: ["取代基為 {{Isoxazole|結構}}",
+    "Isoxazole 有{{兩個|數值|一個}}甲基取代"],
+  pharm: ["與 {{Diolamine|藥名}} 併用，作為局部抗菌劑",
+    "與 Phenazopyridine 併用，可作為 Azo-Gantrisin"] },
+{ id: "sa-sulfamethoxazole", chapter: 20, name: "Sulfamethoxazole", type: "drug", group: "磺胺類藥物", source: "統整（二）p.4", img: "assets/medchem/sa-sulfamethoxazole.png",
+  feat: ["結構比 Sulfisoxazole 少了一個甲基",
+    "取代基為 Isoxazole",
+    "Isoxazole 有{{一個|數值|兩個}}甲基取代"],
+  pharm: ["與 {{Trimethoprim|藥名}}★併用（Baktar®），可治療{{尿道感染|疾病}}"] },
+{ id: "sa-sulfapyridine", chapter: 20, name: "Sulfapyridine", type: "drug", group: "磺胺類藥物", source: "統整（二）p.4", img: "assets/medchem/sa-sulfapyridine.png",
+  feat: ["取代基為 {{Pyridine|結構}}"],
+  pharm: ["可由 {{Sulfasalazine|藥名}} 分解得到"] },
+{ id: "sa-sulfadiazine", chapter: 20, name: "Sulfadiazine", type: "drug", group: "磺胺類藥物", source: "統整（二）p.5", img: "assets/medchem/sa-sulfadiazine.png",
+  feat: ["取代基為 {{Pyrimidine|結構}}★",
+    "Pyrimidine 無甲基取代"],
+  pharm: ["{{Trisulfapyrimidines|藥物類別}} 組成藥物",
+    "與銀離子形成鹽類可治療{{燒燙傷|疾病}}及預防{{綠膿桿菌|名詞}}（Silver sulfadiazine）"] },
+{ id: "sa-sulfamerazine", chapter: 20, name: "Sulfamerazine", type: "drug", group: "磺胺類藥物", source: "統整（二）p.5", img: "assets/medchem/sa-sulfamerazine.png",
+  feat: ["取代基為 Pyrimidine",
+    "Pyrimidine 有{{一個|數值|兩個}}甲基取代"],
+  pharm: ["Trisulfapyrimidines 組成藥物"] },
+{ id: "sa-sulfamethazine", chapter: 20, name: "Sulfamethazine", type: "drug", group: "磺胺類藥物", source: "統整（二）p.5", img: "assets/medchem/sa-sulfamethazine.png",
+  feat: ["取代基為 Pyrimidine",
+    "Pyrimidine 有{{兩個|數值|一個}}甲基取代"],
+  pharm: ["Trisulfapyrimidines 組成藥物"] },
+{ id: "sa-sulfachloropyridazine", chapter: 20, name: "Sulfachloropyridazine", type: "drug", group: "磺胺類藥物", source: "統整（二）p.5", img: "assets/medchem/sa-sulfachloropyridazine.png",
+  feat: ["取代基為 {{Pyridazine|結構}}",
+    "Pyridazine 有 {{Cl|取代基}} 取代"] },
+{ id: "sa-sulfadoxine", chapter: 20, name: "Sulfadoxine", type: "drug", group: "磺胺類藥物", source: "統整（二）p.5", img: "assets/medchem/sa-sulfadoxine.png",
+  feat: ["取代基為 Pyrimidine",
+    "Pyrimidine 接有{{兩個|數值|一個}}{{甲氧基|取代基}}"],
+  pharm: ["與 {{Pyrimethamine|藥名}} 併用（Fansidar）治療對 Chloroquine 產生抗藥性的{{惡性瘧疾|疾病}}"] },
+{ id: "sa-sulfacetamide", chapter: 20, name: "Sulfacetamide", type: "drug", group: "磺胺類藥物", source: "統整（二）p.6", img: "assets/medchem/sa-sulfacetamide.png",
+  feat: ["取代基為 {{Acetamide|結構}}"],
+  pharm: ["製成鈉鹽可治療{{眼睛感染|疾病}}",
+    "組成 Triple Sulfa，治療陰道嗜血桿菌"] },
+{ id: "sa-sulfabenzamide", chapter: 20, name: "Sulfabenzamide", type: "drug", group: "磺胺類藥物", source: "統整（二）p.6", img: "assets/medchem/sa-sulfabenzamide.png",
+  feat: ["取代基為 {{Benzamide|結構}}"],
+  pharm: ["組成 Triple Sulfa，治療陰道嗜血桿菌"] },
+{ id: "sa-sulfasalazine", chapter: 20, name: "Sulfasalazine", type: "drug", group: "磺胺類藥物", source: "統整（二）p.6", img: "assets/medchem/sa-sulfasalazine.png",
+  feat: ["具有 {{Diazo（N=N）|結構}} 氮氮雙鍵",
+    "在{{大腸|器官}}被細菌{{還原|代謝}}★成活性代謝物"],
+  pharm: ["{{Prodrug|名詞}}，分解產生 {{Sulfapyridine|代謝物}}★ 和 5 / [i]meta[/i]-{{Aminosalicylic acid|代謝物}}★",
+    "治療{{潰瘍性結腸炎|疾病}}，有抑菌效果"] },
+{ id: "sa-succinylsulfathiazole", chapter: 20, name: "Succinylsulfathiazole", type: "drug", group: "磺胺類藥物", source: "統整（二）p.6", img: "assets/medchem/sa-succinylsulfathiazole.png", imgMore: ["assets/medchem/sa-succinic.png"],
+  feat: ["取代基有 {{Succinic acid|結構}} 類似結構"],
+  pharm: ["{{Prodrug|名詞}}，分解產生 {{Sulfathiazole|代謝物}}",
+    "治療{{腸道感染|疾病}}"] },
+{ id: "sa-mafenide", chapter: 20, name: "Mafenide", type: "drug", group: "磺胺類藥物", source: "統整（二）p.6", img: "assets/medchem/sa-mafenide.png",
+  feat: ["非 {{Aniline 取代基|取代基}}★之磺胺類藥物",
+    "苯環與 NH₂ 相隔{{一個碳|數值|兩個碳}}"],
+  pharm: ["治療{{燒燙傷|疾病}}"] },
+{ id: "sa-mesalamine", chapter: 20, name: "Mesalamine", type: "drug", group: "非磺胺類輔佐藥物", source: "統整（二）p.7", img: "assets/medchem/sa-mesalamine.png",
+  feat: ["即 5-Aminosalicylic acid（[i]meta[/i]-position）",
+    "可製成{{雙體|結構}}（dimer）：避免被代謝而失效★"],
+  pharm: ["Sulfasalazine 分解產生 Sulfapyridine 與 5-Aminosalicylic acid",
+    "具{{止痛|用途}}作用"] },
+{ id: "sa-pyrimethamine", chapter: 20, name: "Pyrimethamine", type: "drug", group: "非磺胺類輔佐藥物", source: "統整（二）p.7", img: "assets/medchem/sa-pyrimethamine.png",
+  feat: ["抑制 {{Dihydrofolate reductase|酵素}}（DHFR）"],
+  pharm: ["與 {{Sulfadoxine|藥名}}★併用，可治療對 Chloroquine 具抗藥性之瘧疾",
+    "（可參考抗瘧疾藥物章節）"] },
+{ id: "sa-trimethoprim", chapter: 20, name: "Trimethoprim", type: "drug", group: "非磺胺類輔佐藥物", source: "統整（二）p.7", img: "assets/medchem/sa-trimethoprim.png",
+  feat: ["具有 {{pyrimidine|結構}} 結構★",
+    "抑制 Dihydrofolate reductase（DHFR）"],
+  pharm: ["與 {{Sulfamethoxazole|藥名}}★併用（Baktar®）治療尿道感染"] },
+{ id: "sa-diolamine", chapter: 20, name: "Diolamine", type: "drug", group: "非磺胺類輔佐藥物", source: "統整（二）p.7", img: "assets/medchem/sa-diolamine.png",
+  feat: ["又名 {{Diethanolamine|藥名}}"],
+  pharm: ["與 Sulfisoxazole 併用"] },
+
 /* ===== 第 16 章 利尿劑（統整（三）柒，p.39–46）===== */
 { id: "diu-location", chapter: 16, name: "利尿劑作用位置總論", short: "作用位置", type: "topic", group: "總論", source: "統整（三）p.39",
   bold: [
@@ -4401,6 +4498,60 @@ PI.KNOWLEDGE = {
             ]
           }
         ]
+      }
+    ]
+  },
+  ch20: {
+    "chapter": 20,
+    "title": "磺胺類藥物",
+    "sections": [
+      {
+        "id": "overview",
+        "title": "壹、磺胺類藥物",
+        "items": [
+          {
+            "title": "磺胺類藥物：作用機轉、藥物動力學與副作用",
+            "source": "統整（二）p.3",
+            "points": [
+              "1. 作用機轉：結構類似 PABA，可抑制 {{Dihydropteroate synthetase|酵素}}★（DHPR），屬於抑菌作用",
+              "2. 藥物動力學",
+              "- (1) 吸收：口服吸收佳。例外：{{Sulfasalazine|藥名}} 為 Prodrug，{{口服無法吸收|性質|口服吸收佳}}，故用於腸道感染。",
+              "- (2) 分布：可穿過 BBB，具有高血漿置換率",
+              "- (3) 代謝",
+              "- A. N₄ 位置在肝臟被{{乙醯化|代謝}}★（Acetylation）代謝而失去活性",
+              "- B. 在{{酸性|性質|鹼性}}或中性尿液中，藥物溶解度會大幅降低，造成{{結晶尿|副作用}}或尿道結石的副作用（磺胺藥本身為{{酸性|性質|鹼性}}）",
+              "- C. Sulfasalazine 在體內可代謝還原成 {{Sulfapyridine|代謝物}}（抗菌）和 {{Mesalamine|代謝物}} / [i]meta[/i]-aminosalicylic acid（抗發炎）",
+              "3. 副作用",
+              "- (1) {{結晶尿|副作用}}（Crystalluria）：酸性或中性尿液中，藥物溶解度會降低，且 N₄-Acetylation 代謝物的溶解度也較低",
+              "- (2) 第三型過敏反應：{{Stevens-Johnson syndrome|疾病}}",
+              "- (3) {{溶血性貧血|副作用}}：藥物具有高氧化力，可破壞紅血球細胞膜而導致破謝，{{G6PD 缺乏|疾病}}患者禁用",
+              "- (4) {{核黃疸|副作用}}（Kernicterus）：與血漿白蛋白有高結合率，使膽紅素進入 BBB 的數量增加，故{{兒童|名詞}}禁用"
+            ]
+          },
+          {
+            "title": "磺胺類藥物基本結構",
+            "source": "統整（二）p.3",
+            "images": [
+              "assets/medchem/sa-basic.png"
+            ],
+            "points": [
+              "4. 基本結構"
+            ]
+          },
+          {
+            "title": "※ 整理：造成溶血性貧血之藥物",
+            "source": "統整（二）p.3",
+            "points": [
+              "※ 整理：造成{{溶血性貧血|副作用}}之藥物",
+              "{{Sulfonamides|藥物類別}}、{{Nitrofuran|藥物類別}}、{{Chloramphenicol|藥名}}、Quinolones、Dapsone、[i]p[/i]-Aminosalicylic acid、Sulfones、Primaquine"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "adjunct",
+        "title": "二、非磺胺類輔佐藥物",
+        "items": []
       }
     ]
   },
