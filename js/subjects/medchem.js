@@ -330,7 +330,12 @@ PI.GROUP_LABELS = {
   "混合療法（Fixed Combination）": "Fixed Combination",
   "新型藥物（抗瘧疾）": "New Antimalarials",
   "抗原蟲藥物": "Antiprotozoal",
-  "驅蠕蟲藥物": "Anthelmintics"
+  "驅蠕蟲藥物": "Anthelmintics",
+  "酚性化合物（Phenolic compounds）": "Phenolic",
+  "鹵素化合物（Halogen compounds）": "Halogen",
+  "氧化性化合物（Oxidative compounds）": "Oxidative",
+  "界面活性劑": "Surfactants",
+  "製劑用防腐劑": "Preservatives"
 };
 
 /* 藥化的欄位：照講義表格的欄位（藥物｜結構｜特性｜藥理及臨床應用） */
@@ -368,6 +373,7 @@ PI.CHAPTERS = [
   { id: 23, name: "抗生素：蛋白質合成抑制劑", no: 4, cat: "chemo", estimate: 29, unitType: "drug", note: "統整（二）肆，p.29–40。" },
   { id: 24, name: "抗黴菌藥物", no: 5, cat: "chemo", estimate: 31, unitType: "drug", note: "統整（二）伍，p.41–46。" },
   { id: 25, name: "抗結核、抗麻風、抗瘧疾與驅蟲藥物", short: "結核、瘧疾與驅蟲", no: 6, cat: "chemo", estimate: 46, unitType: "drug", note: "統整（二）陸，p.47–54。" },
+  { id: 28, name: "外用抗感染劑與防腐劑", no: 9, cat: "chemo", estimate: 18, unitType: "drug", note: "統整（二）玖，p.94–96。" },
   { id: 16, name: "利尿劑", no: 1, cat: "cv", estimate: 20, unitType: "drug", note: "統整（三）柒，p.39–46。" },
   { id: 17, name: "心絞痛藥物", no: 2, cat: "cv", estimate: 8, unitType: "drug", note: "統整（三）捌，p.47–48。" },
   { id: 18, name: "心衰竭藥物", no: 3, cat: "cv", estimate: 10, unitType: "drug", note: "統整（三）玖，p.49–53。" },
@@ -430,6 +436,8 @@ PI.LANDMASSES = [
     palette: { ground: "#B5D4B0", light: "#CDE3C9", cliff: "#8BAE86" } },
   { id: "chemo25", name: "抗瘧島",     chapters: [25], cluster: "chemo", angle: 250,
     palette: { ground: "#A8D2BB", light: "#C2E1D0", cliff: "#7EAC96" } },
+  { id: "chemo28", name: "外用島",     chapters: [28], cluster: "chemo", angle: 300,
+    palette: { ground: "#B0D3C0", light: "#C9E2D6", cliff: "#85AC98" } },
   { id: "cv16",  name: "利尿島",     chapters: [16], cluster: "cv", angle: 75,
     palette: { ground: "#E8B4B0", light: "#F0C9C6", cliff: "#C48A86" } },
   { id: "cv17",  name: "心絞痛島",   chapters: [17], cluster: "cv", angle: 270,
@@ -3648,6 +3656,50 @@ PI.UNITS = [
   desc: ["機轉為{{去極化型神經肌肉阻斷劑|機轉}}★",
     "治療{{蛔蟲病|疾病}}"] },
 
+/* ===== 第 28 章（統整（二）玖 外用抗感染劑與防腐劑 p.94–96；p.96 是講義版權頁）===== */
+/* 沒有黑底，表格的灰底（酚性化合物、鹵素化合物、氧化性化合物、界面活性劑、製劑用防腐劑）各自就是分類；表格沒有欄位名稱，結構下方的文字放「說明」（desc）。
+   Methylparaben／Propylparaben 講義共用一格說明，兩格都放。Haloprogin 在第 24 章（抗黴菌）也有，這裡另有一格。
+   這章沒有總說明或 ※ 註，所以沒有知識告示牌內容。 */
+
+{ id: "tp-hexachlorophene", chapter: 28, name: "Hexachlorophene", type: "drug", group: "酚性化合物（Phenolic compounds）", source: "統整（二）p.94", img: "assets/medchem/tp-hexachlorophene.png",
+  desc: ["2,2'-Methylenebis-(3,4,6-trichlorophenol)★"] },
+{ id: "tp-hexylresorcinol", chapter: 28, name: "Hexylresorcinol", type: "drug", group: "酚性化合物（Phenolic compounds）", source: "統整（二）p.94", img: "assets/medchem/tp-hexylresorcinol.png",
+  desc: ["{{Resorcinol|藥名}} 衍生物"] },
+{ id: "tp-cresol", chapter: 28, name: "[i]p[/i]-Cresol", type: "drug", group: "酚性化合物（Phenolic compounds）", source: "統整（二）p.94", img: "assets/medchem/tp-cresol.png",
+  desc: ["{{酚類|藥物類別}}化合物"] },
+{ id: "tp-eugenol", chapter: 28, name: "Eugenol", type: "drug", group: "酚性化合物（Phenolic compounds）", source: "統整（二）p.94", img: "assets/medchem/tp-eugenol.png",
+  desc: ["4-allyl-2-methoxyphenol",
+    "{{丁香油酚|藥名}}，有局部{{麻醉|用途}}和防腐作用"] },
+{ id: "tp-halazone", chapter: 28, name: "Halazone", type: "drug", group: "鹵素化合物（Halogen compounds）", source: "統整（二）p.94", img: "assets/medchem/tp-halazone.png",
+  desc: ["於水中釋出{{次氯酸|代謝物}} HOCl 而有殺菌作用"] },
+{ id: "tp-haloprogin", chapter: 28, name: "Haloprogin", type: "drug", group: "鹵素化合物（Halogen compounds）", source: "統整（二）p.94", img: "assets/medchem/tp-haloprogin.png",
+  desc: ["含 {{Cl|取代基}}、{{I|取代基}} 原子，對{{光|性質}}敏感，局部使用可抗黴菌"] },
+{ id: "tp-povidone", chapter: 28, name: "Povidone-Iodine", type: "drug", group: "鹵素化合物（Halogen compounds）", source: "統整（二）p.94", img: "assets/medchem/tp-povidone.png",
+  desc: ["由{{碘|物質}}和 PVP 形成之{{水溶性|性質|脂溶性}}★聚合物"] },
+{ id: "tp-benzoyl", chapter: 28, name: "Benzoyl peroxide", type: "drug", group: "氧化性化合物（Oxidative compounds）", source: "統整（二）p.94", img: "assets/medchem/tp-benzoyl.png",
+  desc: ["用於{{面皰|疾病}}之{{角質溶解劑|用途}}"] },
+{ id: "tp-ethyleneoxide", chapter: 28, name: "Ethylene oxide", type: "drug", group: "氧化性化合物（Oxidative compounds）", source: "統整（二）p.94", img: "assets/medchem/tp-ethyleneoxide.png",
+  desc: ["{{氣體|性質}}消毒劑，常和 {{CO₂|物質}} 混用避免爆炸"] },
+{ id: "tp-carbamide", chapter: 28, name: "Carbamide solution", type: "drug", group: "氧化性化合物（Oxidative compounds）", source: "統整（二）p.94", img: "assets/medchem/tp-carbamide.png",
+  desc: ["主要成分為 {{Hydrogen peroxide|物質}} + {{Urea|物質}}★"] },
+{ id: "tp-nonoxynol", chapter: 28, name: "Nonoxynol-9", type: "drug", group: "界面活性劑", source: "統整（二）p.95", img: "assets/medchem/tp-nonoxynol.png",
+  desc: ["{{非離子型|性質|陽離子型}}界面活性劑，可作為{{殺精子|用途}}之避孕劑"] },
+{ id: "tp-cetylpyridinium", chapter: 28, name: "Cetylpyridinium chloride", type: "drug", group: "界面活性劑", source: "統整（二）p.95", img: "assets/medchem/tp-cetylpyridinium.png",
+  desc: ["{{陽離子型|性質|非離子型}}界面活性劑"] },
+{ id: "tp-chlorohexidine", chapter: 28, name: "Chlorohexidine", type: "drug", group: "界面活性劑", source: "統整（二）p.95", img: "assets/medchem/tp-chlorohexidine.png",
+  desc: ["{{Biguanides|結構}}★官能基有抗菌作用，似陽離子型界面活性劑"] },
+{ id: "tp-benzalkonium", chapter: 28, name: "Benzalkonium chloride", type: "drug", group: "界面活性劑", source: "統整（二）p.95", img: "assets/medchem/tp-benzalkonium.png",
+  desc: ["n = 8, 10, 12, 14, 16, 18",
+    "{{陽離子型|性質|非離子型}}界面活性劑"] },
+{ id: "tp-benzethonium", chapter: 28, name: "Benzethonium chloride", type: "drug", group: "界面活性劑", source: "統整（二）p.95", img: "assets/medchem/tp-benzethonium.png",
+  desc: ["{{陽離子型|性質|非離子型}}界面活性劑"] },
+{ id: "tp-chlorobutanol", chapter: 28, name: "Chlorobutanol", type: "drug", group: "製劑用防腐劑", source: "統整（二）p.95", img: "assets/medchem/tp-chlorobutanol.png",
+  desc: ["{{pH<5|性質|pH>8}} 安定，常在{{注射劑|名詞}}、眼鼻用製劑作為防腐劑"] },
+{ id: "tp-methylparaben", chapter: 28, name: "Methylparaben", type: "drug", group: "製劑用防腐劑", source: "統整（二）p.95", img: "assets/medchem/tp-methylparaben.png",
+  desc: ["結構屬於 Esters of [i]para[/i]-hydroxylbenzoic acid★，差別在於{{酯類的碳數|結構}}"] },
+{ id: "tp-propylparaben", chapter: 28, name: "Propylparaben", type: "drug", group: "製劑用防腐劑", source: "統整（二）p.95", img: "assets/medchem/tp-propylparaben.png",
+  desc: ["結構屬於 Esters of [i]para[/i]-hydroxylbenzoic acid★，差別在於{{酯類的碳數|結構}}"] },
+
 /* ===== 第 16 章 利尿劑（統整（三）柒，p.39–46）===== */
 { id: "diu-location", chapter: 16, name: "利尿劑作用位置總論", short: "作用位置", type: "topic", group: "總論", source: "統整（三）p.39",
   bold: [
@@ -6714,6 +6766,22 @@ PI.KNOWLEDGE = {
             ]
           }
         ]
+      }
+    ]
+  },
+  ch28: {
+    "chapter": 28,
+    "title": "外用抗感染劑與防腐劑",
+    "sections": [
+      {
+        "id": "topical",
+        "title": "一、外用抗感染劑",
+        "items": []
+      },
+      {
+        "id": "preserv",
+        "title": "二、防腐劑",
+        "items": []
       }
     ]
   },
