@@ -456,7 +456,14 @@ PI.GROUP_LABELS = {
   "K⁺通道活化劑：造成血管擴張": "K+ Channel Openers",
   "α-receptor Agents": "α Agents",
   "α、β-receptor antagonists": "α/β Blockers",
-  "其他類（降血壓血管擴張劑）": "Other Vasodilators"
+  "其他類（降血壓血管擴張劑）": "Other Vasodilators",
+  "Class IA（抗心律不整）": "Class IA",
+  "Class IB（抗心律不整）": "Class IB",
+  "Class IC（抗心律不整）": "Class IC",
+  "Class II（抗心律不整）": "Class II",
+  "Class III（抗心律不整）": "Class III",
+  "Class IV（抗心律不整）": "Class IV",
+  "Other Antiarrhythmic Agents": "Other Agents"
 };
 
 /* 藥化的欄位：照講義表格的欄位（藥物｜結構｜特性｜藥理及臨床應用） */
@@ -503,6 +510,7 @@ PI.CHAPTERS = [
   { id: 32, name: "膽鹼性作用藥物", no: 4, cat: "cv", estimate: 23, unitType: "drug", note: "統整（三）肆，p.18–22。" },
   { id: 33, name: "膽鹼性拮抗藥物", no: 5, cat: "cv", estimate: 28, unitType: "drug", note: "統整（三）伍，p.23–27。" },
   { id: 34, name: "高血壓藥物", no: 6, cat: "cv", estimate: 32, unitType: "drug", note: "統整（三）陸 p.28–38：Ca²⁺通道阻斷劑、ACEi、ARB、腎素抑制劑、血管擴張劑" },
+  { id: 35, name: "抗心律不整藥物", no: 10, cat: "cv", estimate: 25, unitType: "drug", note: "統整（三）壹拾 p.54–57：Class IA～IV 與其他抗心律不整藥" },
   { id: 16, name: "利尿劑", no: 7, cat: "cv", estimate: 20, unitType: "drug", note: "統整（三）柒，p.39–46。" },
   { id: 17, name: "心絞痛藥物", no: 8, cat: "cv", estimate: 8, unitType: "drug", note: "統整（三）捌，p.47–48。" },
   { id: 18, name: "心衰竭藥物", no: 9, cat: "cv", estimate: 10, unitType: "drug", note: "統整（三）玖，p.49–53。" },
@@ -584,6 +592,8 @@ PI.LANDMASSES = [
     palette: { ground: "#E0B2C0", light: "#ECC8D3", cliff: "#BA899A" } },
   { id: "cv34", name: "降壓島", chapters: [34], cluster: "cv", angle: 0,
     palette: { ground: "#C9B6D8", light: "#DACBE5", cliff: "#A593B8" } },
+  { id: "cv35", name: "心律島", chapters: [35], cluster: "cv", angle: 0,
+    palette: { ground: "#BFB6DC", light: "#D3CCEA", cliff: "#9A92BE" } },
   { id: "cv16",  name: "利尿島",     chapters: [16], cluster: "cv", angle: 75,
     palette: { ground: "#E8B4B0", light: "#F0C9C6", cliff: "#C48A86" } },
   { id: "cv17",  name: "心絞痛島",   chapters: [17], cluster: "cv", angle: 270,
@@ -5151,6 +5161,61 @@ PI.UNITS = [
   pharm: ["周邊的 {{D₁|受體}}-receptor agonist",
     "可維持腎血流，適合{{腎功能不全|疾病}}患者使用",
     "不可使用於{{青光眼|疾病}}患者"] },
+
+/* ===== 第 35 章（統整（三）壹拾 抗心律不整藥物 p.54–57；畫面章號 10）===== */
+/* 沒有黑底，灰底 Class IA／IB／IC／II／III／IV／Other Antiarrhythmic Agents 就是分類（加「（抗心律不整）」後綴避免重名）；
+   講義每格是藥名在上、結構、文字在下，文字放說明；各 Class 的機轉說明放知識卡；p.57 ※ 阻斷離子通道與心電圖之關係放告示牌。
+   Verapamil／Diltiazem／Nifedipine 在上一章已出現，這章照講義再放一格；Dilitiazem 是講義錯字，改成 Diltiazem。 */
+
+{ id: "ar-quinidine", chapter: 35, name: "Quinidine", type: "drug", group: "Class IA（抗心律不整）", source: "統整（三）p.54", img: "assets/medchem/ar-quinidine.png",
+  desc: ["具有 {{Quinuclidine|結構}}、{{Quinoline|結構}} 環，立體組態為 3R、4S、8R、9S",
+    "中毒症狀：{{QT interval 延長|副作用}}、血小板減少、{{Lupus-like syndrome|副作用}}"],
+  rmk: ["可參考 Vol.2 P51"] },
+{ id: "ar-procainamide", chapter: 35, name: "Procainamide", type: "drug", group: "Class IA（抗心律不整）", source: "統整（三）p.54", img: "assets/medchem/ar-procainamide.png",
+  desc: ["副作用：{{Lupus-like syndrome|副作用}}"] },
+{ id: "ar-disopyramide", chapter: 35, name: "Disopyramide", type: "drug", group: "Class IA（抗心律不整）", source: "統整（三）p.54", img: "assets/medchem/ar-disopyramide.png",
+  desc: ["競爭性阻斷 {{Muscarinic receptor|受體}} 而加速房室節傳導，減低去極化最大速率",
+    "負向強心作用強，不可用於{{心衰竭|疾病}}病人",
+    "{{Atropine|藥名}}-like 作用最強"] },
+{ id: "ar-pirmenol", chapter: 35, name: "Pirmenol", type: "drug", group: "Class IA（抗心律不整）", source: "統整（三）p.54", img: "assets/medchem/ar-pirmenol.png"  },
+{ id: "ar-lidocaine", chapter: 35, name: "Lidocaine", type: "drug", group: "Class IB（抗心律不整）", source: "統整（三）p.55", img: "assets/medchem/ar-lidocaine.png",
+  desc: ["治療{{毛地黃中毒|疾病}}之首選用藥",
+    "降低動作電位 Duration 與去極化最大速率"] },
+{ id: "ar-tocainide", chapter: 35, name: "Tocainide", type: "drug", group: "Class IB（抗心律不整）", source: "統整（三）p.55", img: "assets/medchem/ar-tocainide.png",
+  desc: ["副作用：{{肺纖維化|副作用}}"] },
+{ id: "ar-mexiletine", chapter: 35, name: "Mexiletine", type: "drug", group: "Class IB（抗心律不整）", source: "統整（三）p.55", img: "assets/medchem/ar-mexiletine.png",
+  desc: ["可緩解{{糖尿病神經病變|疾病}}之疼痛"] },
+{ id: "ar-phenytoin", chapter: 35, name: "Phenytoin", type: "drug", group: "Class IB（抗心律不整）", source: "統整（三）p.55", img: "assets/medchem/ar-phenytoin.png",
+  desc: ["可治療{{毛地黃中毒|疾病}}"] },
+{ id: "ar-flecainide", chapter: 35, name: "Flecainide", type: "drug", group: "Class IC（抗心律不整）", source: "統整（三）p.55", img: "assets/medchem/ar-flecainide.png"  },
+{ id: "ar-encainide", chapter: 35, name: "Encainide", type: "drug", group: "Class IC（抗心律不整）", source: "統整（三）p.55", img: "assets/medchem/ar-encainide.png"  },
+{ id: "ar-propafenone", chapter: 35, name: "Propafenone", type: "drug", group: "Class IC（抗心律不整）", source: "統整（三）p.55", img: "assets/medchem/ar-propafenone.png",
+  desc: ["副作用：{{顆粒性白血球減少|副作用}}"] },
+{ id: "ar-moricizine", chapter: 35, name: "Moricizine", type: "drug", group: "Class IC（抗心律不整）", source: "統整（三）p.55", img: "assets/medchem/ar-moricizine.png"  },
+{ id: "ar-propranolol", chapter: 35, name: "Propranolol", type: "drug", group: "Class II（抗心律不整）", source: "統整（三）p.56", img: "assets/medchem/ar-propranolol.png"  },
+{ id: "ar-esmolol", chapter: 35, name: "Esmolol", type: "drug", group: "Class II（抗心律不整）", source: "統整（三）p.56", img: "assets/medchem/ar-esmolol.png",
+  desc: ["半衰期短（約 {{10 分鐘|數值}}）",
+    "{{IV|給藥途徑}} 治療{{急性|性質|慢性}}心律不整"] },
+{ id: "ar-metoprolol", chapter: 35, name: "Metoprolol", type: "drug", group: "Class II（抗心律不整）", source: "統整（三）p.56", img: "assets/medchem/ar-metoprolol.png"  },
+{ id: "ar-sotalol", chapter: 35, name: "Sotalol", type: "drug", group: "Class III（抗心律不整）", source: "統整（三）p.56", img: "assets/medchem/ar-sotalol.png"  },
+{ id: "ar-bretylium", chapter: 35, name: "Bretylium tosylate", short: "Bretylium", type: "drug", group: "Class III（抗心律不整）", source: "統整（三）p.56", img: "assets/medchem/ar-bretylium.png",
+  desc: ["用於{{心室顫動|疾病}}之緊急治療"] },
+{ id: "ar-ibutilide", chapter: 35, name: "Ibutilide", type: "drug", group: "Class III（抗心律不整）", source: "統整（三）p.56", img: "assets/medchem/ar-ibutilide.png"  },
+{ id: "ar-dofetilide", chapter: 35, name: "Dofetilide", type: "drug", group: "Class III（抗心律不整）", source: "統整（三）p.56", img: "assets/medchem/ar-dofetilide.png"  },
+{ id: "ar-amiodarone", chapter: 35, name: "Amiodarone", type: "drug", group: "Class III（抗心律不整）", source: "統整（三）p.56", img: "assets/medchem/ar-amiodarone.png",
+  desc: ["長效，半衰期非常長（{{80~100 天|數值}}）",
+    "{{CYP3A4|酵素}} 抑制劑",
+    "副作用：{{肺間質纖維化|副作用}}、{{甲狀腺機能異常|副作用}}"] },
+{ id: "ar-verapamil", chapter: 35, name: "Verapamil", type: "drug", group: "Class IV（抗心律不整）", source: "統整（三）p.57", img: "assets/medchem/ar-verapamil.png",
+  desc: ["首度代謝強：{{肝功能|器官}}不佳要調整劑量"] },
+{ id: "ar-diltiazem", chapter: 35, name: "Diltiazem", type: "drug", group: "Class IV（抗心律不整）", source: "統整（三）p.57", img: "assets/medchem/ar-diltiazem.png"  },
+{ id: "ar-nifedipine", chapter: 35, name: "Nifedipine", type: "drug", group: "Class IV（抗心律不整）", source: "統整（三）p.57", img: "assets/medchem/ar-nifedipine.png"  },
+{ id: "ar-digoxin", chapter: 35, name: "Digoxin", type: "drug", group: "Other Antiarrhythmic Agents", source: "統整（三）p.57", img: "assets/medchem/ar-digoxin.png",
+  desc: ["（詳見上一章）"] },
+{ id: "ar-adenosine", chapter: 35, name: "Adenosine", type: "drug", group: "Other Antiarrhythmic Agents", source: "統整（三）p.57", img: "assets/medchem/ar-adenosine.png",
+  desc: ["{{心室上心搏過速|疾病}}之首選藥物，另可用於陣發性心室心搏過速（Verapamil 也可）",
+    "抑制 Ca²⁺電流並增加內向整流之 K⁺電流",
+    "最可能誘發 {{Atrial fibrillation|疾病}}"] },
 
 /* ===== 第 16 章 利尿劑（統整（三）柒，p.39–46）===== */
 { id: "diu-location", chapter: 16, name: "利尿劑作用位置總論", short: "作用位置", type: "topic", group: "總論", source: "統整（三）p.39",
@@ -9871,6 +9936,114 @@ PI.KNOWLEDGE = {
               "※ 用於{{急性高血壓|疾病}}之藥物：{{Nitroprusside|藥名}}、{{Labetalol|藥名}}、{{Fenoldopam|藥名}}、{{Nicardipine|藥名}}",
               "※ {{Cyanide|物質}} 中毒可使用 {{Sodium thiosulfate|藥名}}、{{Hydroxycobalamin|藥名}} 解毒",
               "※ 造成 {{Lupus-like syndrome|副作用}} 之藥物★：{{Hydralazine|藥名}}、{{Procainamide|藥名}}、{{Propylthiouracil|藥名}}"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  ch35: {
+    "chapter": 35,
+    "title": "抗心律不整藥物",
+    "sections": [
+      {
+        "id": "ia",
+        "title": "Class IA",
+        "items": [
+          {
+            "title": "Class IA：抑制 Na⁺ 通道",
+            "group": "Class IA（抗心律不整）",
+            "source": "統整（三）p.54",
+            "points": [
+              "抑制 {{Na⁺|離子}} 通道，減緩動作電位上升速度，可治療房性或室性心律不整",
+              "※ 具有類紅斑性狼瘡之副作用的藥物：{{Procainamide|藥名}}、{{Hydralazine|藥名}}、{{Propylthiouracil|藥名}}"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "ib",
+        "title": "Class IB",
+        "items": [
+          {
+            "title": "Class IB：快速與 Na⁺ 通道結合或解離",
+            "group": "Class IB（抗心律不整）",
+            "source": "統整（三）p.55",
+            "points": [
+              "快速與 {{Na⁺|離子}} 通道結合或解離，相較於 IA、IC 副作用與心房作用減少，對於{{心室性|性質|心房性}}心律不整特別有效"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "ic",
+        "title": "Class IC",
+        "items": [
+          {
+            "title": "Class IC：緩慢由靜態 Na⁺ 通道解離",
+            "group": "Class IC（抗心律不整）",
+            "source": "統整（三）p.55",
+            "points": [
+              "緩慢由靜態 {{Na⁺|離子}} 通道解離，可有效抑制房性或室性心律不整，但{{致心律不整|副作用}}副作用較大"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "ii",
+        "title": "Class II",
+        "items": [
+          {
+            "title": "Class II：β-blockers",
+            "group": "Class II（抗心律不整）",
+            "source": "統整（三）p.56",
+            "points": [
+              "β-blockers，可降低 {{AV node|部位}} 之間的傳導"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "iii",
+        "title": "Class III",
+        "items": [
+          {
+            "title": "Class III：抑制 K⁺ 通道",
+            "group": "Class III（抗心律不整）",
+            "source": "統整（三）p.56",
+            "points": [
+              "抑制 {{K⁺|離子}} 通道，延長再極化，但容易引起 {{QT prolong|副作用}} 的 Torsade de pointes",
+              "※ Class IA、III 的藥物（除 {{Amiodarone|藥名}} 之外）皆會抑制 K⁺ 通道，造成低血鉀而引發心律不整"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "iv",
+        "title": "Class IV",
+        "items": [
+          {
+            "title": "Class IV：抑制 Ca²⁺ 通道",
+            "group": "Class IV（抗心律不整）",
+            "source": "統整（三）p.57",
+            "points": [
+              "抑制 {{Ca²⁺|離子}} 通道，不可用於{{心衰竭|疾病}}病人"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "other",
+        "title": "其他",
+        "items": [
+          {
+            "title": "※ 阻斷離子通道與心電圖之關係",
+            "source": "統整（三）p.57",
+            "points": [
+              "※ 阻斷離子通道與心電圖之關係",
+              "1. 抑制 Ca²⁺：{{PR interval|名詞}} 延長",
+              "2. 抑制 Na⁺：{{QRS interval|名詞}} 延長",
+              "3. 抑制 K⁺：{{QT interval|名詞}} 延長"
             ]
           }
         ]
