@@ -114,7 +114,10 @@ PI.GROUP_PARENTS = {
   "Proteasome Inhibitor": "其他標靶藥物",
   "mTOR Inhibitor": "其他標靶藥物",
   "免疫調節劑（Immunomodulators）": "其他標靶藥物",
-  "B 細胞調節劑": "其他標靶藥物"
+  "B 細胞調節劑": "其他標靶藥物",
+  "Catecholamine 類結構（α₁ 致效劑）": "選擇性 α₁ 致效劑",
+  "Imidazoline 類結構：皆含有 phenylethylamine 的骨架": "選擇性 α₁ 致效劑",
+  "選擇性 α₁A 拮抗劑": "選擇性 α₁ 拮抗劑"
 };
 
 /* 地圖名牌：和生藥頁一樣用短的英文（名牌字型只有英文字母，中文字寬、長的名牌會擠成一團）。
@@ -390,7 +393,25 @@ PI.GROUP_LABELS = {
   "Proteasome Inhibitor": "Proteasome",
   "mTOR Inhibitor": "mTOR",
   "免疫調節劑（Immunomodulators）": "Immunomodulators",
-  "B 細胞調節劑": "B-cell Modulator"
+  "B 細胞調節劑": "B-cell Modulator",
+  "影響傳訊機制的藥物（自主神經）": "Transmission Drugs",
+  "非選擇性致效劑：內生性兒茶酚胺（Endogenous catecholamines）": "Endogenous Catechols",
+  "選擇性 α₁ 致效劑": "Selective α1",
+  "Catecholamine 類結構（α₁ 致效劑）": "Catecholamine-type",
+  "Imidazoline 類結構：皆含有 phenylethylamine 的骨架": "Imidazolines",
+  "選擇性 α₂ 致效劑": "Selective α2",
+  "非選擇性 β 致效劑": "Non-selective β",
+  "混和型致效劑": "Mixed",
+  "選擇性 β₂ 致效劑（短效）": "Short β2",
+  "選擇性 β₂ 致效劑（長效）": "Long β2",
+  "間接作用劑（擬交感神經）": "Indirect Agents",
+  "非選擇性 α 拮抗劑": "Non-selective α",
+  "選擇性 α₁ 拮抗劑": "Selective α1",
+  "選擇性 α₁A 拮抗劑": "Selective α1A",
+  "選擇性 α₂ 拮抗劑": "Selective α2",
+  "非選擇性 β 拮抗劑": "Non-selective β",
+  "選擇性 β₁ 拮抗劑": "Selective β1",
+  "混合作用型拮抗劑（作用在 α₁、β 受體）": "Mixed α/β"
 };
 
 /* 藥化的欄位：照講義表格的欄位（藥物｜結構｜特性｜藥理及臨床應用） */
@@ -431,6 +452,9 @@ PI.CHAPTERS = [
   { id: 26, name: "抗癌藥物", no: 7, cat: "chemo", estimate: 107, unitType: "drug", note: "統整（二）柒，p.55–79。" },
   { id: 27, name: "抗病毒藥物", no: 8, cat: "chemo", estimate: 51, unitType: "drug", note: "統整（二）捌，p.80–93。" },
   { id: 28, name: "外用抗感染劑與防腐劑", no: 9, cat: "chemo", estimate: 18, unitType: "drug", note: "統整（二）玖，p.94–96。" },
+  { id: 29, name: "自主神經系統簡介", no: 1, cat: "cv", estimate: 3, unitType: "drug", note: "統整（三）壹，p.3–7。" },
+  { id: 30, name: "擬交感神經作用藥物", short: "擬交感神經藥物", no: 2, cat: "cv", estimate: 24, unitType: "drug", note: "統整（三）貳，p.8–11。" },
+  { id: 31, name: "擬交感神經拮抗藥物", short: "擬交感神經拮抗藥物", no: 3, cat: "cv", estimate: 27, unitType: "drug", note: "統整（三）參，p.12–17。" },
   { id: 16, name: "利尿劑", no: 7, cat: "cv", estimate: 20, unitType: "drug", note: "統整（三）柒，p.39–46。" },
   { id: 17, name: "心絞痛藥物", no: 8, cat: "cv", estimate: 8, unitType: "drug", note: "統整（三）捌，p.47–48。" },
   { id: 18, name: "心衰竭藥物", no: 9, cat: "cv", estimate: 10, unitType: "drug", note: "統整（三）玖，p.49–53。" },
@@ -500,6 +524,12 @@ PI.LANDMASSES = [
     palette: { ground: "#A2CDC9", light: "#BDDDD9", cliff: "#78A6A2" } },
   { id: "chemo28", name: "外用島",     chapters: [28], cluster: "chemo", angle: 300,
     palette: { ground: "#B0D3C0", light: "#C9E2D6", cliff: "#85AC98" } },
+  { id: "cv29", name: "自主神經島", chapters: [29], cluster: "cv", angle: 0,
+    palette: { ground: "#E3B5C8", light: "#EDCADA", cliff: "#BE8CA3" } },
+  { id: "cv30", name: "擬交感島", chapters: [30], cluster: "cv", angle: 0,
+    palette: { ground: "#E6B0B8", light: "#F0C7CD", cliff: "#C2878F" } },
+  { id: "cv31", name: "拮抗島", chapters: [31], cluster: "cv", angle: 0,
+    palette: { ground: "#DDB3C3", light: "#E8C9D6", cliff: "#B98AA0" } },
   { id: "cv16",  name: "利尿島",     chapters: [16], cluster: "cv", angle: 75,
     palette: { ground: "#E8B4B0", light: "#F0C9C6", cliff: "#C48A86" } },
   { id: "cv17",  name: "心絞痛島",   chapters: [17], cluster: "cv", angle: 270,
@@ -4566,6 +4596,160 @@ PI.UNITS = [
   act: ["抑制 {{B 細胞|名詞}}活化★"],
   ind: ["全身性紅斑性狼瘡 {{SLE|疾病}}"] },
 
+/* ===== 第 29 章（統整（三）壹 自主神經系統簡介 p.3–7；畫面章號 1）===== */
+/* 統整（三）每一單元都編在 PI.CHAPTERS 的 id 29 以後（畫面章號用 no 照講義單元編號）；講義頁碼是統整（三）的頁碼。
+   這章是總論：p.3 受體分布、p.4 受體作用總表、p.5 二級傳訊系統三張表、p.7 的 ACh 與 Epinephrine 生合成都放告示牌；
+   p.6 的「影響傳訊機制的藥物」表放該分類的知識卡，表下的 Metyrosine／Reserpine／Guanethidine 三個結構各一格，文字放說明（desc）。 */
+
+{ id: "an-metyrosine", chapter: 29, name: "Metyrosine", type: "drug", group: "影響傳訊機制的藥物（自主神經）", source: "統整（三）p.6", img: "assets/medchem/an-metyrosine.png",
+  desc: ["α碳上有{{甲基|取代基}}取代，只有 {{S form|結構|R form}} 具活性",
+    "{{Tyrosine hydroxylase|酵素}} 競爭抑制劑★"] },
+{ id: "an-reserpine", chapter: 29, name: "Reserpine", type: "drug", group: "影響傳訊機制的藥物（自主神經）", source: "統整（三）p.6", img: "assets/medchem/an-reserpine.png",
+  desc: ["具有{{五個|數值}}環狀結構（{{Yohimban|結構}}）",
+    "含有 {{Indole|結構}} 雜環",
+    "副作用：{{憂鬱症|副作用}}"] },
+{ id: "an-guanethidine", chapter: 29, name: "Guanethidine", type: "drug", group: "影響傳訊機制的藥物（自主神經）", source: "統整（三）p.6", img: "assets/medchem/an-guanethidine.png",
+  desc: ["具有親水 {{guanidine|結構}} 基團，{{無|性質|有}}憂鬱副作用",
+    "在肝臟被 {{FMN|物質}} 進行 {{N-oxide|代謝}} 代謝"] },
+
+/* ===== 第 30 章（統整（三）貳 擬交感神經作用藥物 p.8–11；畫面章號 2）===== */
+/* 一、直接作用劑：灰底非選擇性致效劑（內生性兒茶酚胺）、選擇性 α₁ 致效劑（底下 Catecholamine 類結構／Imidazoline 類結構是第三層小標）、選擇性 α₂ 致效劑、非選擇性 β 致效劑、混和型致效劑、選擇性 β₂ 致效劑（短效／長效）；
+   二、間接作用劑沒有灰底，章節標題就是分類（加後綴避免重名）；p.9 的受體親和力大小放告示牌；三、個論的麻黃素立體關係圖與四點說明放告示牌。
+   p.8–9 的表格沒有欄位名稱（藥名在上、結構與文字在下），文字放「說明」；p.10 欄位是特性／藥理及臨床應用。 */
+
+{ id: "sy-norepinephrine", chapter: 30, name: "Norepinephrine", type: "drug", group: "非選擇性致效劑：內生性兒茶酚胺（Endogenous catecholamines）", source: "統整（三）p.8", img: "assets/medchem/sy-norepinephrine.png",
+  desc: ["3-OH 受 {{COMT|酵素}} 作用進行{{甲基化|代謝}}反應"] },
+{ id: "sy-epinephrine", chapter: 30, name: "Epinephrine", type: "drug", group: "非選擇性致效劑：內生性兒茶酚胺（Endogenous catecholamines）", source: "統整（三）p.8", img: "assets/medchem/sy-epinephrine.png"  },
+{ id: "sy-dipivefrin", chapter: 30, name: "Dipivefrin", type: "drug", group: "非選擇性致效劑：內生性兒茶酚胺（Endogenous catecholamines）", source: "統整（三）p.8", img: "assets/medchem/sy-dipivefrin.png"  },
+{ id: "sy-phenylephrine", chapter: 30, name: "Phenylephrine", type: "drug", group: "Catecholamine 類結構（α₁ 致效劑）", source: "統整（三）p.8", img: "assets/medchem/sy-phenylephrine.png"  },
+{ id: "sy-methoxamine", chapter: 30, name: "Methoxamine", type: "drug", group: "Catecholamine 類結構（α₁ 致效劑）", source: "統整（三）p.8", img: "assets/medchem/sy-methoxamine.png",
+  desc: ["代謝物具有{{活性|性質|無活性}}"] },
+{ id: "sy-midodrine", chapter: 30, name: "Midodrine", type: "drug", group: "Catecholamine 類結構（α₁ 致效劑）", source: "統整（三）p.8", img: "assets/medchem/sy-midodrine.png",
+  desc: ["代謝物具有{{活性|性質|無活性}}"] },
+{ id: "sy-naphazoline", chapter: 30, name: "Naphazoline", type: "drug", group: "Imidazoline 類結構：皆含有 phenylethylamine 的骨架", source: "統整（三）p.8", img: "assets/medchem/sy-naphazoline.png",
+  desc: ["{{眼藥水|名詞}}常見成分，可使眼睛血管收縮"] },
+{ id: "sy-oxymetazoline", chapter: 30, name: "Oxymetazoline", type: "drug", group: "Imidazoline 類結構：皆含有 phenylethylamine 的骨架", source: "統整（三）p.8", img: "assets/medchem/sy-oxymetazoline.png",
+  desc: ["市售{{解鼻塞|用途}}噴劑常見成分"] },
+{ id: "sy-xylometazoline", chapter: 30, name: "Xylometazoline", type: "drug", group: "Imidazoline 類結構：皆含有 phenylethylamine 的骨架", source: "統整（三）p.8", img: "assets/medchem/sy-xylometazoline.png"  },
+{ id: "sy-clonidine", chapter: 30, name: "Clonidine", type: "drug", group: "選擇性 α₂ 致效劑", source: "統整（三）p.8", img: "assets/medchem/sy-clonidine.png",
+  desc: ["4-NH₂ 代謝物對 α₂ 選擇性降低，可治療{{青光眼|疾病}}",
+    "4-OH 代謝物極性{{高|性質|低}}，無法進入 {{CNS|器官}}"] },
+{ id: "sy-methyldopa", chapter: 30, name: "Methyldopa", type: "drug", group: "選擇性 α₂ 致效劑", source: "統整（三）p.8", img: "assets/medchem/sy-methyldopa.png",
+  desc: ["{{1R、2S|結構}} 構型可增加 α₂ 活性，但 α₁ 活性會降低",
+    "{{非|性質}} imidazoline 結構"] },
+{ id: "sy-brimonidine", chapter: 30, name: "Brimonidine", type: "drug", group: "選擇性 α₂ 致效劑", source: "統整（三）p.8", img: "assets/medchem/sy-brimonidine.png",
+  desc: ["{{青光眼|疾病}}首選藥"] },
+{ id: "sy-isoproterenol", chapter: 30, name: "Isoproterenol", type: "drug", group: "非選擇性 β 致效劑", source: "統整（三）p.9", img: "assets/medchem/sy-isoproterenol.png"  },
+{ id: "sy-dopamine", chapter: 30, name: "Dopamine", type: "drug", group: "混和型致效劑", source: "統整（三）p.9", img: "assets/medchem/sy-dopamine.png"  },
+{ id: "sy-dobutamine", chapter: 30, name: "Dobutamine", type: "drug", group: "混和型致效劑", source: "統整（三）p.9", img: "assets/medchem/sy-dobutamine.png"  },
+{ id: "sy-albuterol", chapter: 30, name: "Albuterol（Salbutamol）", short: "Albuterol", type: "drug", group: "選擇性 β₂ 致效劑（短效）", source: "統整（三）p.9", img: "assets/medchem/sy-albuterol.png"  },
+{ id: "sy-terbutaline", chapter: 30, name: "Terbutaline", type: "drug", group: "選擇性 β₂ 致效劑（短效）", source: "統整（三）p.9", img: "assets/medchem/sy-terbutaline.png"  },
+{ id: "sy-formoterol", chapter: 30, name: "Formoterol", type: "drug", group: "選擇性 β₂ 致效劑（長效）", source: "統整（三）p.9", img: "assets/medchem/sy-formoterol.png"  },
+{ id: "sy-salmeterol", chapter: 30, name: "Salmeterol", type: "drug", group: "選擇性 β₂ 致效劑（長效）", source: "統整（三）p.9", img: "assets/medchem/sy-salmeterol.png"  },
+{ id: "sy-indacaterol", chapter: 30, name: "Indacaterol", type: "drug", group: "選擇性 β₂ 致效劑（長效）", source: "統整（三）p.9", img: "assets/medchem/sy-indacaterol.png"  },
+{ id: "sy-amphetamine", chapter: 30, name: "Amphetamine（安非他命）", short: "Amphetamine", type: "drug", group: "間接作用劑（擬交感神經）", source: "統整（三）p.10", img: "assets/medchem/sy-amphetamine.png",
+  desc: ["屬於{{鹼性|性質|酸性}}藥物",
+    "基本結構：{{Phenylisopropylamine|結構}}"],
+  feat: ["{{脂溶性高|性質|脂溶性低}}，{{間接|機轉|直接}}作用在神經系統，可釋放細胞內儲存的兒茶酚胺類，也會抑制 {{MAO|酵素}}",
+    "具有 {{1|數值}} 個 chiral center，作用大小為：{{S(+)|結構}} > (±) > R(-)★",
+    "SAR：① 芳香環最好{{不要|性質|一定要}}有取代基　② 胺基：{{甲基|取代基}}取代最好，且 1° > 2° > 3°",
+    "③ α碳取代：{{α-CH₃|取代基}}最好，且 S > R　④ β碳取代：{{酮基|取代基}}可保留，其他取代不佳",
+    "代謝（{{不受|性質|受}} COMT 代謝）",
+    "1. 經由 α-hydroxylation 和 oxidative deamination 產生 {{phenylacetone|代謝物}}（尿液檢測）",
+    "2. phenylacetone 再被氧化代謝成 {{Benzoic acid|代謝物}}",
+    "3. 苯甲酸可和 {{Glycine|物質}} 共軛生成最終代謝物 {{Hippuric acid|代謝物}}"] },
+{ id: "sy-hydroxyamphetamine", chapter: 30, name: "Hydroxyamphetamine", type: "drug", group: "間接作用劑（擬交感神經）", source: "統整（三）p.10", img: "assets/medchem/sy-hydroxyamphetamine.png",
+  feat: ["苯環上具 {{OH|取代基}} 基，極性高，{{無法|性質|可以}}進入 CNS"],
+  pharm: ["可和 {{Atropine|藥名}} 併用使{{瞳孔擴張|用途}}，用於視力檢查"] },
+{ id: "sy-propylhexedrine", chapter: 30, name: "Propylhexedrine", type: "drug", group: "間接作用劑（擬交感神經）", source: "統整（三）p.10", img: "assets/medchem/sy-propylhexedrine.png",
+  feat: ["結構變為{{環己烷|結構}}，失去苯環的平面結構，因此{{難以|性質|容易}}進入 CNS"],
+  pharm: ["可使{{鼻腔|器官}}血管收縮，治療{{鼻塞|疾病}}"] },
+
+/* ===== 第 31 章（統整（三）參 擬交感神經拮抗藥物 p.12–17；畫面章號 3）===== */
+/* 一～六各小標的灰底（非選擇性 α 拮抗劑、選擇性 α₁ 拮抗劑（底下 α₁A 為第三層小標）、選擇性 α₂ 拮抗劑）和沒有灰底的四、五、六（章節標題就是分類）；
+   p.13 的 α₁ 拮抗劑 SAR 結構與說明、四～六各節的共通說明與 ※ 註放該分類的知識卡；Prazosin／Terazosin／Doxazosin 只有結構；
+   p.15–16 的表格沒有欄位名稱（藥名在上、特性在結構下方），文字放「說明」。講義一格兩藥共用的說明（Tolazoline／Phentolamine 的副作用、Tamsulosin／Alfuzosin 的藥理）兩格都放。 */
+
+{ id: "ad-tolazoline", chapter: 31, name: "Tolazoline", type: "drug", group: "非選擇性 α 拮抗劑", source: "統整（三）p.12", img: "assets/medchem/ad-tolazoline.png",
+  feat: ["具有 {{imidazoline|結構}} 結構"],
+  pharm: ["副作用：{{反射性心跳加快|副作用}}、姿勢性低血壓、性功能障礙",
+    "治療{{嗜鉻細胞瘤|疾病}}、周邊血管痙攣"] },
+{ id: "ad-phentolamine", chapter: 31, name: "Phentolamine", type: "drug", group: "非選擇性 α 拮抗劑", source: "統整（三）p.12", img: "assets/medchem/ad-phentolamine.png",
+  feat: ["具有 imidazoline 結構"],
+  pharm: ["副作用：{{反射性心跳加快|副作用}}、姿勢性低血壓、性功能障礙",
+    "治療{{嗜鉻細胞瘤|疾病}}、周邊血管痙攣"] },
+{ id: "ad-phenoxybenzamine", chapter: 31, name: "Phenoxybenzamine", type: "drug", group: "非選擇性 α 拮抗劑", source: "統整（三）p.12", img: "assets/medchem/ad-phenoxybenzamine.png",
+  feat: ["具有 {{β-haloalkylamine|結構}}",
+    "類似 {{Nitrogen mustard|藥物類別}} 會形成 {{aziridinium|代謝物}}，與受體形成{{不可逆|性質|可逆}}共價鍵★"],
+  pharm: ["治療{{嗜鉻細胞瘤|疾病}}"] },
+{ id: "ad-prazosin", chapter: 31, name: "Prazosin", type: "drug", group: "選擇性 α₁ 拮抗劑", source: "統整（三）p.13", img: "assets/medchem/ad-prazosin.png"  },
+{ id: "ad-terazosin", chapter: 31, name: "Terazosin", type: "drug", group: "選擇性 α₁ 拮抗劑", source: "統整（三）p.13", img: "assets/medchem/ad-terazosin.png"  },
+{ id: "ad-doxazosin", chapter: 31, name: "Doxazosin", type: "drug", group: "選擇性 α₁ 拮抗劑", source: "統整（三）p.13", img: "assets/medchem/ad-doxazosin.png"  },
+{ id: "ad-tamsulosin", chapter: 31, name: "Tamsulosin", type: "drug", group: "選擇性 α₁A 拮抗劑", source: "統整（三）p.13", img: "assets/medchem/ad-tamsulosin.png",
+  feat: ["α₁ 拮抗劑中{{唯一|性質}}不具 {{quinazoline|結構}} 結構",
+    "不具有 piperazine 結構",
+    "不具有 {{amide linkage|結構}}"],
+  pharm: ["專一作用在 {{α₁A|受體}} 受體",
+    "治療{{良性前列腺肥大|疾病}}"] },
+{ id: "ad-alfuzosin", chapter: 31, name: "Alfuzosin", type: "drug", group: "選擇性 α₁A 拮抗劑", source: "統整（三）p.13", img: "assets/medchem/ad-alfuzosin.png",
+  feat: ["{{Prazosin|藥名}} 的 {{propylenediamine|結構}} 衍生物",
+    "不具有 piperazine 結構"],
+  pharm: ["專一作用在 {{α₁A|受體}} 受體",
+    "治療{{良性前列腺肥大|疾病}}"] },
+{ id: "ad-yohimbine", chapter: 31, name: "Yohimbine", type: "drug", group: "選擇性 α₂ 拮抗劑", source: "統整（三）p.14", img: "assets/medchem/ad-yohimbine.png",
+  feat: ["具有 {{indole|結構}} 結構，且 C₁₆ 接 {{α|結構|β}}-酯鍵"],
+  pharm: ["可使血壓上升，改善{{姿勢性低血壓|疾病}}",
+    "抑制血管收縮，改善男性{{勃起障礙|疾病}}"] },
+{ id: "ad-corynanthine", chapter: 31, name: "Corynanthine", type: "drug", group: "選擇性 α₂ 拮抗劑", source: "統整（三）p.14", img: "assets/medchem/ad-corynanthine.png",
+  feat: ["具有 indole 結構，且 C₁₆ 接 {{β|結構|α}}-酯鍵",
+    "為 {{Yohimbine|藥名}} 的 {{epimer|名詞}}"],
+  pharm: ["治療高血壓、良性前列腺肥大"] },
+{ id: "ad-mirtazapine", chapter: 31, name: "Mirtazapine", type: "drug", group: "選擇性 α₂ 拮抗劑", source: "統整（三）p.14", img: "assets/medchem/ad-mirtazapine.png",
+  feat: ["具有 {{piperazine|結構}}、{{pyridine|結構}}、{{benzene|結構}} 結構"],
+  pharm: ["可用於治療{{憂鬱症|疾病}}（因 {{5-HT|物質}} 濃度↑）"] },
+{ id: "ad-propranolol", chapter: 31, name: "Propranolol", type: "drug", group: "非選擇性 β 拮抗劑", source: "統整（三）p.15", img: "assets/medchem/ad-propranolol.png",
+  desc: ["為非選擇性 β 拮抗劑{{原型|名詞}}，後續藥物多修飾{{苯環|結構}}上的取代基",
+    "具有 {{Naphthalene|結構}} 結構，{{脂溶性高|性質|脂溶性低}}可作用於 CNS，治療中樞神經失調",
+    "代謝物：{{4-hydroxypropranolol|代謝物}}（有活性）、{{naphthoxyacetic acid|代謝物}}（無活性）"] },
+{ id: "ad-carteolol", chapter: 31, name: "Carteolol", type: "drug", group: "非選擇性 β 拮抗劑", source: "統整（三）p.15", img: "assets/medchem/ad-carteolol.png",
+  desc: ["具有{{內生交感活性|機轉}}"] },
+{ id: "ad-penbutolol", chapter: 31, name: "Penbutolol", type: "drug", group: "非選擇性 β 拮抗劑", source: "統整（三）p.15", img: "assets/medchem/ad-penbutolol.png",
+  desc: ["具有{{內生交感活性|機轉}}"] },
+{ id: "ad-pindolol", chapter: 31, name: "Pindolol", type: "drug", group: "非選擇性 β 拮抗劑", source: "統整（三）p.15", img: "assets/medchem/ad-pindolol.png",
+  desc: ["具有{{內生交感活性|機轉}}"] },
+{ id: "ad-nadolol", chapter: 31, name: "Nadolol", type: "drug", group: "非選擇性 β 拮抗劑", source: "統整（三）p.15", img: "assets/medchem/ad-nadolol.png",
+  desc: ["具有{{最長|性質|最短}}半衰期"] },
+{ id: "ad-timolol", chapter: 31, name: "Timolol", type: "drug", group: "非選擇性 β 拮抗劑", source: "統整（三）p.15", img: "assets/medchem/ad-timolol.png",
+  desc: ["含有 {{morpholine|結構}}、{{thiadiazole|結構}} 結構"] },
+{ id: "ad-sotalol", chapter: 31, name: "Sotalol", type: "drug", group: "非選擇性 β 拮抗劑", source: "統整（三）p.15", img: "assets/medchem/ad-sotalol.png",
+  desc: ["具有{{單環|結構|雙環}}結構，C₄ 接有 {{sulfone|結構}}",
+    "{{唯一|性質}}不具有 aryloxypropanolamine 結構"] },
+{ id: "ad-atenolol", chapter: 31, name: "Atenolol", type: "drug", group: "選擇性 β₁ 拮抗劑", source: "統整（三）p.16", img: "assets/medchem/ad-atenolol.png",
+  desc: ["苯環 C₄ 取代含有 {{amide|結構}}，極性增加 → {{無法|性質|可以}}穿過 BBB"] },
+{ id: "ad-acebutolol", chapter: 31, name: "Acebutolol", type: "drug", group: "選擇性 β₁ 拮抗劑", source: "統整（三）p.16", img: "assets/medchem/ad-acebutolol.png",
+  desc: ["{{唯一|性質}}苯環 C₂、C₄ 具有取代基",
+    "唯一苯環上為 {{amine-substituted|結構}}",
+    "具有{{內生性交感活性|機轉}}"] },
+{ id: "ad-esmolol", chapter: 31, name: "Esmolol", type: "drug", group: "選擇性 β₁ 拮抗劑", source: "統整（三）p.16", img: "assets/medchem/ad-esmolol.png",
+  desc: ["苯環 C₄ 取代含有{{酯鍵|結構}}，易被水解",
+    "半衰期{{極短|性質|極長}}"] },
+{ id: "ad-metoprolol", chapter: 31, name: "Metoprolol", type: "drug", group: "選擇性 β₁ 拮抗劑", source: "統整（三）p.16", img: "assets/medchem/ad-metoprolol.png",
+  desc: ["治療高血壓、心絞痛，可用於{{心衰竭|疾病}}之病人"] },
+{ id: "ad-bisoprolol", chapter: 31, name: "Bisoprolol", type: "drug", group: "選擇性 β₁ 拮抗劑", source: "統整（三）p.16", img: "assets/medchem/ad-bisoprolol.png",
+  desc: ["可降低心跳速率及抑制 {{Renin|物質}} 釋放",
+    "可用於心衰竭之病人"] },
+{ id: "ad-nebivolol", chapter: 31, name: "Nebivolol", type: "drug", group: "選擇性 β₁ 拮抗劑", source: "統整（三）p.16", img: "assets/medchem/ad-nebivolol.png",
+  desc: ["{{唯一|性質}}具有{{雙環|結構|單環}}結構",
+    "副作用較小"] },
+{ id: "ad-labetalol", chapter: 31, name: "Labetalol", type: "drug", group: "混合作用型拮抗劑（作用在 α₁、β 受體）", source: "統整（三）p.17", img: "assets/medchem/ad-labetalol.png",
+  feat: ["結構左邊類似選擇性 β 拮抗劑，但 N 上具有{{芳香烷基|結構}}取代，因此也具有拮抗 α₁ 活性"],
+  pharm: ["{{IV|給藥途徑}} 治療急性高血壓",
+    "可用於{{孕婦高血壓|疾病}}"] },
+{ id: "ad-carvedilol", chapter: 31, name: "Carvedilol", type: "drug", group: "混合作用型拮抗劑（作用在 α₁、β 受體）", source: "統整（三）p.17", img: "assets/medchem/ad-carvedilol.png",
+  feat: ["具有 {{Carbazole|結構}} 結構，具有{{抗氧化|機轉}}作用",
+    "{{R form|結構|S form}} 僅具有拮抗 α₁ 的活性"],
+  pharm: ["治療高血壓、{{鬱血性心衰竭|疾病}}（心衰竭病人適用）"] },
+
 /* ===== 第 16 章 利尿劑（統整（三）柒，p.39–46）===== */
 { id: "diu-location", chapter: 16, name: "利尿劑作用位置總論", short: "作用位置", type: "topic", group: "總論", source: "統整（三）p.39",
   bold: [
@@ -8353,6 +8537,707 @@ PI.KNOWLEDGE = {
               "- {{Topotecan|藥名}} 及 {{Irinotecan|藥名}} 為 Camptothecin 之半合成衍生物",
               "- 可穩定 DNA-Topoisomerase I★ complex 使 DNA strand 斷裂",
               "※ 拓樸異構酶抑制劑皆具有 {{lactone|結構}} 結構"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  ch29: {
+    "chapter": 29,
+    "title": "自主神經系統簡介",
+    "sections": [
+      {
+        "id": "overview",
+        "title": "壹、自主神經系統簡介",
+        "items": [
+          {
+            "title": "一、受體之分布",
+            "source": "統整（三）p.3",
+            "table": {
+              "head": [
+                "",
+                "節前傳導物質",
+                "節前受體",
+                "節後傳導物質",
+                "節後受體",
+                "作用器官"
+              ],
+              "rowNames": [
+                "副交感",
+                "交感（骨骼肌血管、汗腺）",
+                "交感（心肌、平滑肌、腺體）",
+                "交感（腎血管）",
+                "交感（腎上腺髓質）",
+                "體神經"
+              ],
+              "rows": [
+                [
+                  "副交感",
+                  {
+                    "t": "{{ACh|物質}}",
+                    "rs": 5
+                  },
+                  {
+                    "t": "N₁／N_N",
+                    "rs": 5
+                  },
+                  "{{ACh|物質}}",
+                  "{{M|受體|N}}",
+                  "心肌、平滑肌、腺體"
+                ],
+                [
+                  {
+                    "t": "交感",
+                    "rs": 4
+                  },
+                  null,
+                  null,
+                  "{{ACh|物質}}",
+                  "{{M|受體|N}}",
+                  "{{骨骼肌血管、汗腺|器官}}"
+                ],
+                [
+                  null,
+                  null,
+                  null,
+                  "{{NE|物質}}",
+                  {
+                    "t": "腎上腺素受體",
+                    "rs": 3
+                  },
+                  "心肌、平滑肌、腺體"
+                ],
+                [
+                  null,
+                  null,
+                  null,
+                  "{{Dopamine|物質}}",
+                  null,
+                  "腎血管壁的平滑肌"
+                ],
+                [
+                  null,
+                  null,
+                  null,
+                  "{{NE & Epi|物質}}",
+                  null,
+                  "{{腎上腺髓質|器官}}"
+                ],
+                [
+                  "體神經",
+                  {
+                    "t": "無神經節",
+                    "cs": 2
+                  },
+                  null,
+                  "{{ACh|物質}}",
+                  "{{N₂／N_M|受體|M}}",
+                  "骨骼肌"
+                ]
+              ]
+            },
+            "points": [
+              "《附註》腎上腺髓質受{{交感神經|名詞}}支配，於節前接受 ACh 後，釋放{{腎上腺素 Epi|藥名}}（80%）與{{正腎上腺素|藥名}}（20%）",
+              "節前傳導物質皆為 ACh，僅節後傳導物質需特別記憶，尤其是交感的例外－{{骨骼肌血管|器官}}與{{汗腺|器官}}。"
+            ]
+          },
+          {
+            "title": "二、受體作用總表（參考自 105 藥理學共筆）",
+            "source": "統整（三）p.4",
+            "table": {
+              "head": [
+                "器官",
+                "部位",
+                "交感神經：作用",
+                "交感神經：受體",
+                "副交感神經：作用",
+                "副交感神經：受體"
+              ],
+              "rowNames": [
+                "心臟・SA node",
+                "心臟・pacemaker",
+                "心臟・收縮",
+                "血管・皮膚內臟血管",
+                "血管・骨骼肌血管（主要）",
+                "血管・骨骼肌血管（次要）",
+                "血管・血管內皮",
+                "支氣管平滑肌",
+                "消化道・管壁",
+                "消化道・括約肌",
+                "消化道・分泌",
+                "眼睛・輻射狀肌",
+                "眼睛・環狀肌",
+                "眼睛・睫狀肌",
+                "泌尿生殖・膀胱壁",
+                "泌尿生殖・括約肌",
+                "泌尿生殖・子宮（舒張）",
+                "泌尿生殖・子宮（收縮）",
+                "泌尿生殖・陰莖",
+                "代謝・肝臟（糖質新生）",
+                "代謝・肝臟（糖解）",
+                "代謝・脂肪細胞",
+                "代謝・腎臟",
+                "皮膚・立毛平滑肌",
+                "汗腺・小汗腺",
+                "汗腺・大汗腺"
+              ],
+              "rows": [
+                [
+                  {
+                    "t": "心臟",
+                    "rs": 3
+                  },
+                  "SA node",
+                  "加速",
+                  "β₁（主）、β₂",
+                  "減速",
+                  "{{M₂|受體}}"
+                ],
+                [
+                  null,
+                  "pacemaker",
+                  "加速",
+                  "β₁（主）、β₂",
+                  "-",
+                  "-"
+                ],
+                [
+                  null,
+                  "收縮",
+                  "增加",
+                  "β₁（主）、β₂",
+                  "減少",
+                  "M₂"
+                ],
+                [
+                  {
+                    "t": "血管",
+                    "rs": 4
+                  },
+                  "皮膚、內臟血管",
+                  "收縮",
+                  "{{α|受體}}",
+                  "-",
+                  "-"
+                ],
+                [
+                  null,
+                  {
+                    "t": "骨骼肌血管",
+                    "rs": 2
+                  },
+                  "舒張（主要）",
+                  "{{β₂|受體}}",
+                  {
+                    "t": "-",
+                    "rs": 2
+                  },
+                  {
+                    "t": "-",
+                    "rs": 2
+                  }
+                ],
+                [
+                  null,
+                  null,
+                  "收縮（次要）",
+                  "α",
+                  null,
+                  null
+                ],
+                [
+                  null,
+                  "血管內皮",
+                  "-",
+                  "-",
+                  "合成與釋放 {{EDRF|物質}}（主成份為 {{NO|物質}} 使血管舒張）",
+                  "M₃、M₅"
+                ],
+                [
+                  {
+                    "t": "支氣管平滑肌",
+                    "cs": 2
+                  },
+                  null,
+                  "舒張",
+                  "β₂",
+                  "收縮",
+                  "{{M₃|受體}}"
+                ],
+                [
+                  {
+                    "t": "消化道",
+                    "rs": 3
+                  },
+                  "管壁",
+                  "舒張",
+                  "α₂、β₂",
+                  "收縮",
+                  "M₃"
+                ],
+                [
+                  null,
+                  "括約肌",
+                  "收縮",
+                  "α₁",
+                  "舒張",
+                  "M₃"
+                ],
+                [
+                  null,
+                  "分泌",
+                  "-",
+                  "-",
+                  "增加",
+                  "M₃"
+                ],
+                [
+                  {
+                    "t": "眼睛",
+                    "rs": 3
+                  },
+                  "輻射狀肌 Radial muscle",
+                  "收縮（造成{{散瞳|性質|縮瞳}}）",
+                  "α₁",
+                  "-",
+                  "-"
+                ],
+                [
+                  null,
+                  "環狀肌 Circular muscle",
+                  "-",
+                  "-",
+                  "收縮（造成{{縮瞳|性質|散瞳}}）",
+                  "M₃"
+                ],
+                [
+                  null,
+                  "睫狀肌 Ciliary muscle",
+                  "舒張（次要）",
+                  "β",
+                  "收縮（主要）（影響水晶體厚薄）",
+                  "M₃"
+                ],
+                [
+                  {
+                    "t": "泌尿生殖系統平滑肌",
+                    "rs": 5
+                  },
+                  "膀胱壁",
+                  "舒張",
+                  "β₂",
+                  "收縮",
+                  "M₃"
+                ],
+                [
+                  null,
+                  "括約肌",
+                  "收縮",
+                  "α₁",
+                  "舒張",
+                  "M₃"
+                ],
+                [
+                  null,
+                  {
+                    "t": "子宮",
+                    "rs": 2
+                  },
+                  "舒張",
+                  "β₂",
+                  "-",
+                  "-"
+                ],
+                [
+                  null,
+                  null,
+                  "收縮",
+                  "α",
+                  "收縮",
+                  "M₃"
+                ],
+                [
+                  null,
+                  "陰莖",
+                  "{{射精|性質|勃起}}",
+                  "α",
+                  "{{勃起|性質|射精}}",
+                  "M"
+                ],
+                [
+                  {
+                    "t": "代謝功能",
+                    "rs": 4
+                  },
+                  {
+                    "t": "肝臟",
+                    "rs": 2
+                  },
+                  "糖質新生",
+                  "β₂、α",
+                  "-",
+                  "-"
+                ],
+                [
+                  null,
+                  null,
+                  "糖解",
+                  "β₂、α",
+                  "-",
+                  "-"
+                ],
+                [
+                  null,
+                  "脂肪細胞",
+                  "脂肪分解",
+                  "{{β₃|受體}}",
+                  "-",
+                  "-"
+                ],
+                [
+                  null,
+                  "腎臟",
+                  "分泌腎素",
+                  "{{β₁|受體}}",
+                  "-",
+                  "-"
+                ],
+                [
+                  "皮膚",
+                  "立毛平滑肌",
+                  "收縮",
+                  "α₁",
+                  "-",
+                  "-"
+                ],
+                [
+                  {
+                    "t": "汗腺",
+                    "rs": 2
+                  },
+                  "★小汗腺 Eccrine（散熱）",
+                  "增加分泌",
+                  "{{M|受體|α}}★",
+                  "-",
+                  "-"
+                ],
+                [
+                  null,
+                  "大汗腺 Apocrine（腋下、私密處）",
+                  "增加分泌",
+                  "{{α|受體|M}}",
+                  "-",
+                  "-"
+                ]
+              ]
+            }
+          },
+          {
+            "title": "三、二級傳訊系統",
+            "source": "統整（三）p.5",
+            "table": {
+              "head": [
+                "",
+                "GABA_A receptor",
+                "Nicotinic receptor",
+                "β₁、β₂、β₃（所有β受體）",
+                "α₂、M₂、M₄（偶數）",
+                "α₁、M₁、M₃、M₅（奇數）"
+              ],
+              "rowNames": [
+                "分類",
+                "種類",
+                "反應機制",
+                "作用"
+              ],
+              "rows": [
+                [
+                  "分類",
+                  {
+                    "t": "離子通道受體",
+                    "cs": 2
+                  },
+                  null,
+                  {
+                    "t": "G 蛋白偶合受體（{{GPCR|名詞}}）",
+                    "cs": 3
+                  },
+                  null,
+                  null
+                ],
+                [
+                  "種類",
+                  "{{Cl⁻|離子}}通道",
+                  "{{Na⁺, K⁺|離子}}通道（Na⁺為主）",
+                  "和 {{Gs|受體}} 蛋白偶合，使 cAMP {{↑|性質|↓}}",
+                  "和 {{Gi|受體}} 蛋白偶合，使 cAMP {{↓|性質|↑}}",
+                  "和 {{Gq|受體}} 蛋白偶合，產生 {{IP₃/DAG|物質}}"
+                ],
+                [
+                  "反應機制",
+                  "GABA 結合至受體\n↓\nCl⁻通道開啟\n↓\nCl⁻流入細胞\n↓\n膜電位下降",
+                  "ACh 結合至受體\n↓\nNa⁺通道開啟\n↓\nNa⁺流入細胞\n↓\n膜電位上升",
+                  "Epi 或 NE 結合至受體（NE 幾乎不作用在β₂）\n↓\nGs 蛋白活化\n↓\n活化 AC\n↓\nATP ⇨ cAMP\n↓\n活化 PKA\n↓\n磷酸化下游蛋白質，產生反應",
+                  "Epi、NE 或 ACh 結合至受體\n↓\nGi 蛋白活化\n↓\n抑制 AC\n↓\ncAMP 減少\n↓\n細胞反應減少",
+                  "Epi、NE 或 ACh 結合至受體\n↓\nGq 蛋白活化\n↓\n活化 PLC\n↓\nPIP₂ ⇨ IP₃ + DAG\n↓\n內質網釋出 Ca²⁺\n↓\n活化 PKC\n↓\n磷酸化下游蛋白質，產生反應"
+                ],
+                [
+                  "作用",
+                  "細胞{{過極化|性質|去極化}}，產生 IPSP，有{{中樞神經抑制|機轉}}的效果",
+                  "細胞{{去極化|性質|過極化}}形成 EPSP，加成超過閾值後形成{{動作電位|名詞}}",
+                  "平滑肌鬆弛；心跳加快、收縮力增強；脂肪、肝糖分解；促賀爾蒙和神經傳遞物質釋放；抑血小板凝集等等",
+                  "和左欄反應相反",
+                  "平滑肌收縮；輻射狀肌（radial muscle）收縮；增加腺體分泌"
+                ]
+              ]
+            },
+            "points": [
+              "※ 奇數：α₁、M₁、M₃、M₅（Gq）；偶數：α₂、M₂、M₄（Gi）；所有 β 受體為 Gs"
+            ]
+          },
+          {
+            "title": "二、Acetylcholine 之生合成",
+            "source": "統整（三）p.7",
+            "images": [
+              "assets/medchem/an-fig-ach.png"
+            ],
+            "points": [
+              "Choline 部分由 {{Serine|物質}}★生合成而來",
+              "四種構型中，以 {{Synclinal|結構}}★最為安定",
+              "Acetyl-CoA + Choline —（{{Choline acetyltransferase|酵素}}）→ Acetylcholine"
+            ]
+          },
+          {
+            "title": "三、Epinephrine 之生合成",
+            "source": "統整（三）p.7",
+            "images": [
+              "assets/medchem/an-fig-epi.png"
+            ],
+            "points": [
+              "Phenylalanine —（{{Phenylalanine hydroxylase|酵素}}）→ Tyrosine",
+              "Tyrosine —（{{Tyrosine Oxidase|酵素}}）→ L-Dopa",
+              "L-Dopa —（{{Aromatic L-amino acid decarboxylase|酵素}}）→ Dopamine",
+              "Dopamine —（{{Dopamine-β-hydroxylase|酵素}}）→ Norepinephrine",
+              "Norepinephrine —（{{Norepinephrine N-methyltransferase|酵素}}）→ Epinephrine"
+            ]
+          },
+          {
+            "title": "四、影響傳訊機制的藥物",
+            "group": "影響傳訊機制的藥物（自主神經）",
+            "source": "統整（三）p.6",
+            "table": {
+              "head": [
+                "作用機制",
+                "ACh：藥物名稱",
+                "ACh：[ACh]",
+                "多巴胺／NE：藥物名稱",
+                "多巴胺／NE：[NE]"
+              ],
+              "rowNames": [
+                "合成",
+                "儲存",
+                "釋放（ACh／NE↓）",
+                "釋放（NE↑）",
+                "作用",
+                "回收"
+              ],
+              "rows": [
+                [
+                  "合成",
+                  "{{hemicholiniums|藥名}}",
+                  "{{↓|性質|↑}}",
+                  "{{metyrosine|藥名}}",
+                  "↓"
+                ],
+                [
+                  "儲存",
+                  "{{vesamicol|藥名}}",
+                  "↓",
+                  "{{reserpine|藥名}}",
+                  "↓"
+                ],
+                [
+                  {
+                    "t": "釋放",
+                    "rs": 2
+                  },
+                  {
+                    "t": "{{botulinum toxin|藥名}}",
+                    "rs": 2
+                  },
+                  {
+                    "t": "↓",
+                    "rs": 2
+                  },
+                  "{{bretylium|藥名}}、{{guanethidine|藥名}}",
+                  "↓"
+                ],
+                [
+                  null,
+                  null,
+                  null,
+                  "{{amphetamine|藥名}}",
+                  "{{↑|性質|↓}}"
+                ],
+                [
+                  "作用",
+                  "-",
+                  "-",
+                  "α₂ agonist、β₂ antagonist",
+                  "↓"
+                ],
+                [
+                  "回收",
+                  "{{AChE inhibitors|藥物類別}}",
+                  "{{↑|性質|↓}}",
+                  "{{cocaine|藥名}}、TCAD、amphetamine",
+                  "↑"
+                ]
+              ]
+            },
+            "points": [
+              "乙醯膽鹼 ACh：交感、副交感之節前神經；副交感之節後神經；交感（骨骼肌血管、汗腺）之節後神經；體神經之節後神經",
+              "多巴胺／NE：交感之節後神經"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  ch30: {
+    "chapter": 30,
+    "title": "擬交感神經作用藥物",
+    "sections": [
+      {
+        "id": "direct",
+        "title": "一、直接作用劑",
+        "items": [
+          {
+            "title": "※ 受體親和力大小",
+            "source": "統整（三）p.9",
+            "points": [
+              "※ 受體親和力大小",
+              "α：{{Epinephrine|藥名}} ≥ Norepinephrine ≫ {{Isoproterenol|藥名}}",
+              "β：{{Isoproterenol|藥名}} > Epinephrine > {{Norepinephrine|藥名}}"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "indirect",
+        "title": "二、間接作用劑",
+        "items": []
+      },
+      {
+        "id": "ephedrine",
+        "title": "三、個論：麻黃素及其衍生物（立體組態與衍生物之間的立體關係為重點）",
+        "items": [
+          {
+            "title": "麻黃素及其衍生物",
+            "source": "統整（三）p.11",
+            "images": [
+              "assets/medchem/sy-fig-ephedrine.png"
+            ],
+            "points": [
+              "1. (-)-Ephedrine 的立體組態為 {{1R、2S|結構}}★",
+              "2. Ephedrine 與 Pseudoephedrine 之間為 {{diastereomers|名詞}}★關係",
+              "3. 受體結合強度比較",
+              "D-(-)-Ephedrine > (±)-Ephedrine > L-(+)-Ephedrine > L-(+)-Pseudoephedrine > (±)-Pseudoephedrine > D-(-)-Pseudoephedrine",
+              "4. Ephedrine 可當{{支氣管擴張劑|用途}}，使血壓上升、心搏輸出增加，也可改善鼻部發炎"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  ch31: {
+    "chapter": 31,
+    "title": "擬交感神經拮抗藥物",
+    "sections": [
+      {
+        "id": "a",
+        "title": "一、非選擇性 α 拮抗劑",
+        "items": []
+      },
+      {
+        "id": "a1",
+        "title": "二、選擇性 α₁ 拮抗劑",
+        "items": [
+          {
+            "title": "選擇性 α₁ 拮抗劑：SAR 與藥理",
+            "group": "選擇性 α₁ 拮抗劑",
+            "source": "統整（三）p.13",
+            "images": [
+              "assets/medchem/ad-fig-sar.png"
+            ],
+            "points": [
+              "1. SAR",
+              "- {{Quinazoline|結構}} 上的 4-amino group 可提供 α₁ 受體之親和性",
+              "- {{Piperazine|結構}} 為非必要結構，可用其他結構替代",
+              "- {{Acyl moiety|結構}} 與 pKa 有關，影響生體可用率與半衰期",
+              "2. 藥理作用：使血管舒張，具有降壓作用（因不作用在 α₂，不影響心跳與心輸出量）",
+              "3. 臨床用途：{{高血壓|疾病}}、{{良性前列腺肥大|疾病}}",
+              "4. 副作用：{{首次劑量效應|副作用}}（First-dose phenomena），可能導致嚴重低血壓"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "a2",
+        "title": "三、選擇性 α₂ 拮抗劑",
+        "items": [
+          {
+            "title": "選擇性 α₂ 拮抗劑：機轉",
+            "group": "選擇性 α₂ 拮抗劑",
+            "source": "統整（三）p.14",
+            "points": [
+              "抑制中樞及周邊的 {{α₂|受體}} 受體，造成 {{NE|物質}}、{{Serotonin|物質}} 釋放增加"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "b",
+        "title": "四、非選擇性 β 拮抗劑",
+        "items": [
+          {
+            "title": "非選擇性 β 拮抗劑：共通結構",
+            "group": "非選擇性 β 拮抗劑",
+            "source": "統整（三）p.15",
+            "points": [
+              "具有 {{Aryloxypropanolamine|結構}}（例外：{{Sotalol|藥名}}）",
+              "具有{{雙環|結構|單環}}結構（例外：Sotalol 為{{單環|結構|雙環}}結構）"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "b1",
+        "title": "五、選擇性 β₁ 拮抗劑",
+        "items": [
+          {
+            "title": "※ 特殊 β-blocker 整理",
+            "group": "選擇性 β₁ 拮抗劑",
+            "source": "統整（三）p.16",
+            "points": [
+              "※ 特殊 β-blocker 整理",
+              "1. 具有{{內生交感活性|機轉}} ISA：{{Acebutolol|藥名}}、{{Carteolol|藥名}}、{{Pindolol|藥名}}、{{Penbutolol|藥名}}、（Celiprolol），適合用於{{心率過慢|疾病}}之高血壓病人或老年人",
+              "2. 可用於{{心衰竭|疾病}}之病人：{{Metoprolol|藥名}}、{{Carvedilol|藥名}}、{{Bisoprolol|藥名}}，可反轉 Catecholamines 對心臟的損害，提升心衰竭病人之存活率"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "mix",
+        "title": "六、混合作用型拮抗劑：作用在 α₁、β 受體",
+        "items": [
+          {
+            "title": "※ 懷孕婦女適用之高血壓藥物",
+            "group": "混合作用型拮抗劑（作用在 α₁、β 受體）",
+            "source": "統整（三）p.17",
+            "points": [
+              "※ {{懷孕婦女|名詞}}適用之高血壓藥物★：{{α-Methyldopa|藥名}}、β-blockers、{{Hydralazine|藥名}}、{{Labetalol|藥名}}、{{Trimethophan|藥名}}"
             ]
           }
         ]
