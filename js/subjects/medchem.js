@@ -268,9 +268,9 @@ PI.CHAPTERS = [
   { id: 8, name: "全身麻醉劑", cat: "cns", estimate: 17, unitType: "drug", note: "統整（一）捌，p.71–76。" },
   { id: 9, name: "阿片類止痛劑", cat: "cns", estimate: 45, unitType: "drug", note: "統整（一）玖，p.77–90。" },
   { id: 10, name: "中樞神經興奮劑、迷幻劑與濫用藥物", short: "興奮劑與迷幻劑", cat: "cns", estimate: 13, unitType: "drug", note: "統整（一）拾，p.91–93。" },
-  { id: 11, name: "前列腺素及 Leukotriene 相關藥物", short: "前列腺素與 Leukotriene", cat: "cns", estimate: 8, unitType: "drug", note: "統整（一）拾壹，p.94–97。" },
+  { id: 11, name: "前列腺及 Leukotriene 相關藥物", short: "前列腺與 Leukotriene", cat: "cns", estimate: 8, unitType: "drug", note: "統整（一）拾壹，p.94–97。" },
   { id: 12, name: "非類固醇消炎止痛藥（NSAIDs）", short: "NSAIDs", cat: "cns", estimate: 25, unitType: "drug", note: "統整（一）拾貳，p.98–103。" },
-  { id: 13, name: "痛風與疾病修飾抗風濕藥", cat: "cns", estimate: 25, unitType: "drug", note: "統整（一）拾參，p.104–106。" },
+  { id: 13, name: "痛風藥物與疾病修飾抗風濕藥物", cat: "cns", estimate: 25, unitType: "drug", note: "統整（一）拾參，p.104–106。" },
   { id: 14, name: "利尿劑", no: 1, cat: "cv", estimate: 20, unitType: "drug", note: "統整（三）柒，p.39–46。" },
   { id: 15, name: "心絞痛藥物", no: 2, cat: "cv", estimate: 8, unitType: "drug", note: "統整（三）捌，p.47–48。" },
   { id: 16, name: "心衰竭藥物", no: 3, cat: "cv", estimate: 10, unitType: "drug", note: "統整（三）玖，p.49–53。" },
@@ -2097,7 +2097,7 @@ PI.UNITS = [
     "抑制 {{NMDA|受體}} 受體，阻斷 Ca²⁺通道：與 {{Ketamine|藥名}}★之結構、作用相同，造成{{解離性|性質}}麻醉",
     "副作用：皮膚過熱、出汗、散瞳、心跳血壓↑"] },
 
-/* ===== 第 11～13 章（統整（一）拾壹 前列腺素及 Leukotriene 相關藥物 p.94–97、拾貳 NSAIDs p.98–103、拾參 痛風與疾病修飾抗風濕藥 p.104–106）===== */
+/* ===== 第 11～13 章（統整（一）拾壹 前列腺及 Leukotriene 相關藥物 p.94–97、拾貳 NSAIDs p.98–103、拾參 痛風藥物與疾病修飾抗風濕藥物 p.104–106）===== */
 /* 欄位照講義表格（特性／藥理及臨床應用；p.106 生物製劑表只有一欄說明用 desc）。
    第 11 章：一、Prostaglandin 衍生物沒有黑底灰底，章標題就是分類；二、Leukotriene modifiers 的兩個灰底各自為分類。
    第 12 章：黑底為分類，芳香基乙酸類底下兩個灰底（Indomethacin 衍生物／非 Indomethacin 衍生物）用第三層小標。
@@ -3441,7 +3441,7 @@ PI.KNOWLEDGE = {
     ] },
   ch11: {
     "chapter": 11,
-    "title": "前列腺素及 Leukotriene 相關藥物",
+    "title": "前列腺及 Leukotriene 相關藥物",
     "sections": [
       {
         "id": "overview",
@@ -3901,7 +3901,7 @@ PI.KNOWLEDGE = {
   },
   ch13: {
     "chapter": 13,
-    "title": "痛風與疾病修飾抗風濕藥",
+    "title": "痛風藥物與疾病修飾抗風濕藥物",
     "sections": [
       {
         "id": "gout",
