@@ -434,7 +434,7 @@ PI.map = (function () {
     inner.appendChild(el("rect", { class: "label-shadow", x: -w / 2, y: -19, width: w, height: 42, rx: 21 }));   // 簡單的底影，不用濾鏡
     inner.appendChild(el("rect", { class: "label-bg", x: -w / 2, y: -21, width: w, height: 42, rx: 21 }));
     inner.appendChild(el("circle", { cx: -w / 2 + 21, cy: 0, r: 14, fill: cat.tint, stroke: cat.color, "stroke-width": 2.5 }));
-    const num = el("text", { class: "label-num", x: -w / 2 + 21, y: 1 }); num.textContent = ch.id;
+    const num = el("text", { class: "label-num", x: -w / 2 + 21, y: 1 }); num.textContent = ch.no ?? ch.id;
     const name = el("text", { class: "label-name", x: -w / 2 + 43, y: 1 }); name.textContent = ch.name;
     inner.append(num, name);
     lab.appendChild(inner);
@@ -710,7 +710,7 @@ PI.map = (function () {
       if (st === "available") g.insertBefore(el("path", { class: "cell-ring", d: RING_PATH }), hex.nextSibling);
       if (st === "occupied") g.insertBefore(el("path", { class: "cell-flag", d: "M-8,14 L-8,-16 M-8,-16 L14,-9 L-8,-2", fill: "none", "stroke-width": 4, "stroke-linecap": "round", "stroke-linejoin": "round",
       }), hex.nextSibling);
-      g.setAttribute("aria-label", `第 ${c.chapter} 章 ${chapterOf(c.chapter).name}，${c.unit ? c.unit.name : "預留格"}，${STATUS_TEXT[st]}`);
+      g.setAttribute("aria-label", `第 ${chapterOf(c.chapter).no ?? c.chapter} 章 ${chapterOf(c.chapter).name}，${c.unit ? c.unit.name : "預留格"}，${STATUS_TEXT[st]}`);
     });
     tintQueue.forEach(tintLand); tintQueue.clear();
     islands.forEach(isl => { const dim = focusCh !== null && isl.chapter !== focusCh; if (isl.dim !== dim) { isl.dim = dim; Object.values(isl.g).forEach(g => g.classList.toggle("is-dim", dim)); } });

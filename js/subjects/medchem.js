@@ -231,12 +231,13 @@ PI.CHAPTERS = [
   { id: 8, name: "全身麻醉劑", cat: "cns", estimate: 17, unitType: "drug", note: "統整（一）捌，p.71–76。" },
   { id: 9, name: "阿片類止痛劑", cat: "cns", estimate: 45, unitType: "drug", note: "統整（一）玖，p.77–90。" },
   { id: 10, name: "中樞神經興奮劑、迷幻劑與濫用藥物", short: "興奮劑與迷幻劑", cat: "cns", estimate: 13, unitType: "drug", note: "統整（一）拾，p.91–93。" },
-  { id: 11, name: "利尿劑", cat: "cv", estimate: 20, unitType: "drug", note: "統整（三）柒，p.39–46。" },
-  { id: 12, name: "心絞痛藥物", cat: "cv", estimate: 8, unitType: "drug", note: "統整（三）捌，p.47–48。" },
-  { id: 13, name: "心衰竭藥物", cat: "cv", estimate: 10, unitType: "drug", note: "統整（三）玖，p.49–53。" },
-  { id: 14, name: "抗凝血與血液相關藥物", cat: "cv", estimate: 25, unitType: "drug", note: "統整（三）壹拾壹，p.58–69。" }
+  { id: 11, name: "利尿劑", no: 1, cat: "cv", estimate: 20, unitType: "drug", note: "統整（三）柒，p.39–46。" },
+  { id: 12, name: "心絞痛藥物", no: 2, cat: "cv", estimate: 8, unitType: "drug", note: "統整（三）捌，p.47–48。" },
+  { id: 13, name: "心衰竭藥物", no: 3, cat: "cv", estimate: 10, unitType: "drug", note: "統整（三）玖，p.49–53。" },
+  { id: 14, name: "抗凝血與血液相關藥物", no: 4, cat: "cv", estimate: 25, unitType: "drug", note: "統整（三）壹拾壹，p.58–69。" }
 ];
 
+/* 章節的 id 全部不重複（資料用），但統整（一）和統整（三）是兩本，顯示的章號用 no 另外從 1 重新編（沒有 no 的章節就用 id） */
 /* 兩座島：統整（一）的六章拼成一座、統整（三）的四章拼成一座 */
 /* 小白標先修：同一類的格子要先答完小白標（地圖上的小分類名牌）的題目才能挑戰（js/app.js 的 groupGate） */
 PI.GROUP_GATE = true;

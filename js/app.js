@@ -121,7 +121,7 @@
   function lockNote(chId) {
     const p = prevIsland(chId), ch = p && chOf(p); if (!ch) return "";
     const pr = PI.state.chapterProgress(cells, p), sp = signProgress(p);
-    return `🔒 先完成第 ${ch.id} 章「${ch.short || ch.name}」才能進入這座島：佔領全部格子（${pr.done}/${pr.total}），並答對告示牌的全部題目（${sp.done}/${sp.total}）。`;
+    return `🔒 先完成第 ${ch.no ?? ch.id} 章「${ch.short || ch.name}」才能進入這座島：佔領全部格子（${pr.done}/${pr.total}），並答對告示牌的全部題目（${sp.done}/${sp.total}）。`;
   }
 
   /* ---------- 導覽列與玩家面板 ---------- */
@@ -146,7 +146,7 @@
         ${chs.map(ch => {
           const pr = PI.state.chapterProgress(cells, ch.id);
           return `<button type="button" class="ch-btn" data-ch="${ch.id}" aria-pressed="${focus === ch.id}">
-            <span class="ch-no" style="background:${cat.tint};border-color:${cat.color}">${ch.id}</span>
+            <span class="ch-no" style="background:${cat.tint};border-color:${cat.color}">${ch.no ?? ch.id}</span>
             <span class="ch-name">${esc(ch.name)}</span>
             <span class="ch-prog">${pr.done}/${pr.total}</span></button>`;
         }).join("")}</div>`;
@@ -167,7 +167,7 @@
   $("allBtn").onclick = () => setFocus(null);
 
   /* ---------- 格子資訊卡 ---------- */
-  function badge(ch, cat) { return `<span class="ch-no" style="background:${cat.tint};border-color:${cat.color}">${ch.id}</span>`; }
+  function badge(ch, cat) { return `<span class="ch-no" style="background:${cat.tint};border-color:${cat.color}">${ch.no ?? ch.id}</span>`; }
   function showInfo(cell) {
     current = cell;
     const box = $("info");
@@ -183,7 +183,7 @@
     if (why) note = why.text;
     box.innerHTML = `<div class="info-top">${badge(ch, cat)}
         <div class="info-title"><h3>${u ? esc(u.name) : "預留格"}${u && titleBits(u).zh ? ` <span class="u-zh">${esc(titleBits(u).zh)}</span>` : ""}${u && u.group ? ` <span class="tag tag-inline">${esc(u.group)}</span>` : ""}</h3>
-          ${u && titleBits(u).alias ? `<span class="u-alias">${esc(titleBits(u).alias)}</span>` : ""}<span class="muted">第 ${ch.id} 章・${esc(ch.name)}</span></div>
+          ${u && titleBits(u).alias ? `<span class="u-alias">${esc(titleBits(u).alias)}</span>` : ""}<span class="muted">第 ${ch.no ?? ch.id} 章・${esc(ch.name)}</span></div>
         <button type="button" class="close" id="infoClose" aria-label="關閉">×</button></div>
       ${u ? unitBody(u) : ""}
       ${u ? `<div class="u-note"><label for="uNote">我的筆記<span class="muted" id="uNoteSaved"></span></label>
@@ -222,7 +222,7 @@
       : [...rnd(all.filter(q => !PI.state.isTreeDone(q.qid))), ...rnd(all.filter(q => PI.state.isTreeDone(q.qid)))].slice(0, 5);   // 還沒答對的先出，不夠 5 題再用答對過的複習
     const ch = chOf(cell.chapter);
     let won = false;
-    PI.quiz.start({ qs, need: 0, skipOk: () => won, kicker: `第 ${ch.id} 章・${ch.name}`, title: `${practice ? "練習" : "挑戰"}：${cell.unit.name}`, blindTitle: `${practice ? "練習" : "挑戰"}：這格的藥是？`,
+    PI.quiz.start({ qs, need: 0, skipOk: () => won, kicker: `第 ${ch.no ?? ch.id} 章・${ch.name}`, title: `${practice ? "練習" : "挑戰"}：${cell.unit.name}`, blindTitle: `${practice ? "練習" : "挑戰"}：這格的藥是？`,
       onRight: q => { PI.state.markTree(q.qid); },
       okText: () => practice ? "複習完成！" : `還差 ${cellProgress(cell).total - cellProgress(cell).done} 個知識點就能佔領這格，再挑戰一次吧！`,
       resultHtml: () => practice ? "" : `<div class="q-prog">${bar("攻略進度", cellProgress(cell).done, cellProgress(cell).total, "知識點")}</div>`,
@@ -326,7 +326,7 @@
     if ($("kpanel").hidden) { kView = PI.map.getView(); kFrom = document.activeElement; }   // 換別棵樹時不覆蓋最早的位置
     $("info").hidden = true;
     const ch = chOf(K.chapter), cat = catOf(ch.cat);
-    const chips = `<span class="k-chip">${badge(ch, cat)}第 ${ch.id} 章</span>`;
+    const chips = `<span class="k-chip">${badge(ch, cat)}第 ${ch.no ?? ch.id} 章</span>`;
     const unitOf = id => PI.UNITS.find(u => u.id === id);
     const refItem = u => `<article class="k-item is-ref">
         <h4>${esc(u.name)}</h4>
@@ -467,7 +467,7 @@
         badText: "", onClose: () => {
           openKnowledge(key, group, all);
           const i = islandOrder.indexOf(ch.id), nx = islandOrder[i + 1];
-          if (nx != null && !wasOpen && islandOpen(nx)) toast(`🎉 第 ${ch.id} 章完成！解鎖下一座島：第 ${nx} 章「${chOf(nx).short || chOf(nx).name}」`);
+          if (nx != null && !wasOpen && islandOpen(nx)) toast(`🎉 第 ${ch.no ?? ch.id} 章完成！解鎖下一座島：第 ${chOf(nx).no ?? nx} 章「${chOf(nx).short || chOf(nx).name}」`);
         } });
     };
     $("kClose").focus();
