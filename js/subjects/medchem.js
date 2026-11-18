@@ -151,7 +151,9 @@ PI.GROUP_PARENTS = {
   "緩瀉劑：刺激劑（大腸）": "緩瀉劑",
   "緩瀉劑：Bulk agents": "緩瀉劑",
   "緩瀉劑：Osmotic": "緩瀉劑",
-  "緩瀉劑：軟便劑": "緩瀉劑"
+  "緩瀉劑：軟便劑": "緩瀉劑",
+  "解毒劑：藥物中毒": "解毒劑",
+  "解毒劑：金屬中毒": "解毒劑"
 };
 
 /* 地圖名牌：和生藥頁一樣用短的英文（名牌字型只有英文字母，中文字寬、長的名牌會擠成一團）。
@@ -570,7 +572,12 @@ PI.GROUP_LABELS = {
   "緩瀉劑：Bulk agents": "Bulk Agents",
   "緩瀉劑：Osmotic": "Osmotic",
   "緩瀉劑：軟便劑": "Stool Softeners",
-  "止瀉劑": "Antidiarrheals"
+  "止瀉劑": "Antidiarrheals",
+  "基因療法載體": "Gene Therapy Vectors",
+  "減肥用藥（目前僅剩 Orlistat 尚在使用，其餘皆已下市）": "Anti-obesity",
+  "解毒劑：藥物中毒": "Drug Poisoning",
+  "解毒劑：金屬中毒": "Metal Poisoning",
+  "維生素": "Vitamins"
 };
 
 /* 藥化的欄位：照講義表格的欄位（藥物｜結構｜特性｜藥理及臨床應用） */
@@ -626,6 +633,7 @@ PI.CHAPTERS = [
   { id: 41, name: "腦下垂體激素", no: 17, cat: "cv", estimate: 22, unitType: "drug", note: "統整（三）壹拾柒 p.104–106：ADH、Somatostatin、GnRH、GH、Prolactin、Oxytocin、HCG" },
   { id: 42, name: "甲狀腺與鈣調節相關藥物", short: "甲狀腺與鈣調節", no: 18, cat: "cv", estimate: 26, unitType: "drug", note: "統整（三）壹拾捌 p.107–112：甲狀腺素、抗甲狀腺藥、副甲狀腺素與骨質疏鬆治療藥物" },
   { id: 43, name: "腸胃道系統相關藥物", short: "腸胃道系統", no: 19, cat: "cv", estimate: 50, unitType: "drug", note: "統整（三）壹拾玖 p.113–116：PPI、H₂ 阻斷劑、止吐藥、促腸胃蠕動藥、緩瀉劑與止瀉劑" },
+  { id: 44, name: "其他類藥物", no: 20, cat: "cv", estimate: 56, unitType: "drug", note: "統整（三）貳拾 p.117–119：基因療法載體、減肥用藥、解毒劑、維生素、胺基酸特性" },
   { id: 16, name: "利尿劑", no: 7, cat: "cv", estimate: 20, unitType: "drug", note: "統整（三）柒，p.39–46。" },
   { id: 17, name: "心絞痛藥物", no: 8, cat: "cv", estimate: 8, unitType: "drug", note: "統整（三）捌，p.47–48。" },
   { id: 18, name: "心衰竭藥物", no: 9, cat: "cv", estimate: 10, unitType: "drug", note: "統整（三）玖，p.49–53。" },
@@ -725,6 +733,8 @@ PI.LANDMASSES = [
     palette: { ground: "#B8D8C8", light: "#CDE7DA", cliff: "#92B0A0" } },
   { id: "cv43", name: "腸胃島", chapters: [43], cluster: "cv", angle: 0,
     palette: { ground: "#D8CCA8", light: "#E8DFC3", cliff: "#B3A883" } },
+  { id: "cv44", name: "雜項島", chapters: [44], cluster: "cv", angle: 0,
+    palette: { ground: "#D4C0D8", light: "#E4D6E8", cliff: "#AE98B2" } },
   { id: "cv16",  name: "利尿島",     chapters: [16], cluster: "cv", angle: 75,
     palette: { ground: "#E8B4B0", light: "#F0C9C6", cliff: "#C48A86" } },
   { id: "cv17",  name: "心絞痛島",   chapters: [17], cluster: "cv", angle: 270,
@@ -6131,6 +6141,145 @@ PI.UNITS = [
   desc: ["{{吸附劑|藥物類別}}"] },
 { id: "gi-charcoal", chapter: 43, name: "Charcoal（活性碳）", short: "Charcoal", type: "drug", group: "止瀉劑", source: "統整（三）p.116",
   desc: ["{{吸附劑|藥物類別}}"] },
+
+/* ===== 第 44 章（統整（三）貳拾 其他類藥物 p.117–119；畫面章號 20）===== */
+/* 一、基因療法載體統整、二、減肥用藥、三、解毒劑（藥物中毒／金屬中毒為灰底，加前綴「解毒劑：」）、四、維生素各自一個分類；五、胺基酸之特性統整沒有藥物，放告示牌。
+   p.120 只有講義封底（編輯者、出版日期），不收。
+   基因療法載體表欄位是載體／用途／特性，用途與特性依序放；減肥用藥只有結構圖與兩點文字，文字放說明；解毒劑表是致毒物→解毒劑，以解毒劑為格、致毒物放說明，
+   「Atropine + Pralidoxime」拆成兩格；維生素表欄位是維生素／學名／特性／缺乏時的症狀，學名與特性放特性、缺乏症狀放說明。 */
+
+{ id: "ot-adenovirus", chapter: 44, name: "Adenovirus", type: "drug", group: "基因療法載體", source: "統整（三）p.117",
+  use: ["用途：骨髓、上皮組織"],
+  feat: ["{{雙股線性 DNA|結構}}★；可用不同途徑給予，對不同組織均可有效將基因送入細胞",
+    "可攜帶之基因序列較{{短|性質|長}}★、作用較{{短暫|性質|長久}}★，容易產生免疫反應",
+    "優點為高效率之 DNA transfer，且可轉殖到{{不分裂|性質|分裂}}之細胞"] },
+{ id: "ot-retrovirus", chapter: 44, name: "Retrovirus", type: "drug", group: "基因療法載體", source: "統整（三）p.117",
+  use: ["用途：淋巴與造血組織"],
+  feat: ["{{Small RNA virus|結構}}；可使用 {{ex vivo|名詞}} 將基因送入人類細胞，再將其送入人體",
+    "送入基因之複製次數隨細胞分裂而增加，表現時間較長且穩定★"] },
+{ id: "ot-aav", chapter: 44, name: "Adeno-associated virus", short: "Adeno-associated virus", type: "drug", group: "基因療法載體", source: "統整（三）p.117",
+  use: ["用途：{{CNS|器官}}★、肌肉組織、心、肝、肺"],
+  feat: ["{{單股 DNA|結構|雙股 DNA}}★，且不具有 envelope；可攜帶之基因序列較短"] },
+{ id: "ot-herpesvirus", chapter: 44, name: "Herpes-virus", type: "drug", group: "基因療法載體", source: "統整（三）p.117",
+  use: ["用途：肌肉組織"],
+  feat: ["可攜帶較{{大容量|性質|小容量}}★之基因"] },
+{ id: "ot-hsv", chapter: 44, name: "Herpes simplex virus", type: "drug", group: "基因療法載體", source: "統整（三）p.117",
+  use: ["用途：遺傳性神經系統疾病（如{{帕金森氏症|疾病}}）"],
+  feat: ["用途：遺傳性神經系統疾病"] },
+{ id: "ot-fenfluramine", chapter: 44, name: "Fenfluramine", type: "drug", group: "減肥用藥（目前僅剩 Orlistat 尚在使用，其餘皆已下市）", source: "統整（三）p.117", img: "assets/medchem/ot-fenfluramine.png",
+  desc: ["可刺激 {{5-HT₂B|受體}} 受體，抑制食慾",
+    "副作用：{{心臟瓣膜|器官}}受損"] },
+{ id: "ot-rimonabant", chapter: 44, name: "Rimonabant", type: "drug", group: "減肥用藥（目前僅剩 Orlistat 尚在使用，其餘皆已下市）", source: "統整（三）p.117", img: "assets/medchem/ot-rimonabant.png",
+  desc: ["選擇性 {{CB1|受體}} 受體拮抗劑",
+    "副作用：嚴重精神副作用（{{憂鬱|副作用}}、自殺）"] },
+{ id: "ot-orlistat", chapter: 44, name: "Orlistat", type: "drug", group: "減肥用藥（目前僅剩 Orlistat 尚在使用，其餘皆已下市）", source: "統整（三）p.117", img: "assets/medchem/ot-orlistat.png",
+  desc: ["{{脂肪酶|酵素}}抑制劑（lipase inhibitor）",
+    "目前唯一合法減肥藥，副作用：{{油便|副作用}}、脹氣"] },
+{ id: "ot-sibutramine", chapter: 44, name: "Sibutramine", type: "drug", group: "減肥用藥（目前僅剩 Orlistat 尚在使用，其餘皆已下市）", source: "統整（三）p.117", img: "assets/medchem/ot-sibutramine.png",
+  desc: ["抑制中樞 {{NE|物質}} 和 {{Dopamine|物質}} 的再吸收",
+    "副作用：增加{{心血管疾病|疾病}}與中風風險"] },
+{ id: "ot-phentermine", chapter: 44, name: "Phentermine", type: "drug", group: "減肥用藥（目前僅剩 Orlistat 尚在使用，其餘皆已下市）", source: "統整（三）p.117", img: "assets/medchem/ot-phentermine.png",
+  desc: ["中樞神經興奮劑，可刺激 {{NE|物質}} 分泌",
+    "副作用：便祕、失眠、精神副作用"] },
+{ id: "ot-locaserin", chapter: 44, name: "Locaserin（Lorcaserin）", short: "Locaserin", type: "drug", group: "減肥用藥（目前僅剩 Orlistat 尚在使用，其餘皆已下市）", source: "統整（三）p.117", img: "assets/medchem/ot-locaserin.png",
+  desc: ["選擇性作用於 {{5-HT₂C|受體}} 受體，降低食慾",
+    "副作用：具{{致癌|副作用}}風險，已全面下市"] },
+{ id: "ot-charcoal", chapter: 44, name: "活性碳（Active charcoal）", short: "Active charcoal", type: "drug", group: "解毒劑：藥物中毒", source: "統整（三）p.118",
+  desc: ["致毒物：{{一般中毒治療（General）|名詞}}"] },
+{ id: "ot-nac", chapter: 44, name: "N-acetylcysteine", short: "N-acetylcysteine", type: "drug", group: "解毒劑：藥物中毒", source: "統整（三）p.118",
+  desc: ["致毒物：{{Acetaminophen|藥名}}"] },
+{ id: "ot-flumazenil", chapter: 44, name: "Flumazenil", type: "drug", group: "解毒劑：藥物中毒", source: "統整（三）p.118",
+  desc: ["致毒物：{{Benzodiazepines|藥物類別}}"] },
+{ id: "ot-naloxone", chapter: 44, name: "Naloxone", type: "drug", group: "解毒劑：藥物中毒", source: "統整（三）p.118",
+  desc: ["致毒物：{{Opium|藥名}}（鴉片類）"] },
+{ id: "ot-digab", chapter: 44, name: "Digoxin-specific antibody", short: "Digoxin Ab", type: "drug", group: "解毒劑：藥物中毒", source: "統整（三）p.118",
+  desc: ["致毒物：{{強心配醣體（Cardiac glycosides）|名詞}}"] },
+{ id: "ot-pyridoxine", chapter: 44, name: "Pyridoxine（Vit B₆）", short: "Pyridoxine", type: "drug", group: "解毒劑：藥物中毒", source: "統整（三）p.118",
+  desc: ["致毒物：{{Isoniazid|藥名}}"] },
+{ id: "ot-diphenhydramine", chapter: 44, name: "Diphenhydramine", type: "drug", group: "解毒劑：藥物中毒", source: "統整（三）p.118",
+  desc: ["致毒物：{{藥物引發之錐體外症狀（Chlorpromazine、Haloperidol 等）|名詞}}"] },
+{ id: "ot-biperiden", chapter: 44, name: "Biperiden", type: "drug", group: "解毒劑：藥物中毒", source: "統整（三）p.118",
+  desc: ["致毒物：{{藥物引發之錐體外症狀（Chlorpromazine、Haloperidol 等）|名詞}}"] },
+{ id: "ot-methyleneblue", chapter: 44, name: "Methylene blue", type: "drug", group: "解毒劑：藥物中毒", source: "統整（三）p.118",
+  desc: ["致毒物：{{變性血紅素血症（Methemoglobinemia）（Nitrites、Phenazopyridine 等）|名詞}}"] },
+{ id: "ot-physostigmine", chapter: 44, name: "Physostigmine", type: "drug", group: "解毒劑：藥物中毒", source: "統整（三）p.118",
+  desc: ["致毒物：{{抗膽鹼作用劑（Anticholinergics）|名詞}}"] },
+{ id: "ot-atropine", chapter: 44, name: "Atropine", type: "drug", group: "解毒劑：藥物中毒", source: "統整（三）p.118",
+  desc: ["致毒物：{{有機磷化合物|藥物類別}}"] },
+{ id: "ot-pralidoxime", chapter: 44, name: "Pralidoxime", type: "drug", group: "解毒劑：藥物中毒", source: "統整（三）p.118",
+  desc: ["致毒物：{{有機磷化合物|名詞}}"] },
+{ id: "ot-phytonadione", chapter: 44, name: "Phytonadione（Vit K₁）", short: "Phytonadione", type: "drug", group: "解毒劑：藥物中毒", source: "統整（三）p.118",
+  desc: ["致毒物：{{抗凝血劑（Anticoagulants）|名詞}}"] },
+{ id: "ot-idarucizumab", chapter: 44, name: "Idarucizumab", type: "drug", group: "解毒劑：藥物中毒", source: "統整（三）p.118",
+  desc: ["致毒物：{{新型抗凝血劑（NOACs）|名詞}}"] },
+{ id: "ot-protamine", chapter: 44, name: "Protamine", type: "drug", group: "解毒劑：藥物中毒", source: "統整（三）p.118",
+  desc: ["致毒物：{{Heparin|藥名}}"] },
+{ id: "ot-diazepam", chapter: 44, name: "Diazepam", type: "drug", group: "解毒劑：藥物中毒", source: "統整（三）p.118",
+  desc: ["致毒物：{{酒精：戒斷症狀|名詞}}"] },
+{ id: "ot-disulfiram", chapter: 44, name: "Disulfiram", type: "drug", group: "解毒劑：藥物中毒", source: "統整（三）p.118",
+  desc: ["致毒物：{{酒精：慢性治療|名詞}}"] },
+{ id: "ot-hydroxocobalamin", chapter: 44, name: "Hydroxocobalamin★", short: "Hydroxocobalamin", type: "drug", group: "解毒劑：藥物中毒", source: "統整（三）p.118",
+  desc: ["致毒物：{{氰化物（Cyanide）|名詞}}"] },
+{ id: "ot-nitrite", chapter: 44, name: "Nitrite", type: "drug", group: "解毒劑：藥物中毒", source: "統整（三）p.118",
+  desc: ["致毒物：{{氰化物（Cyanide）|名詞}}"] },
+{ id: "ot-thiosulfate", chapter: 44, name: "Sodium thiosulfate", type: "drug", group: "解毒劑：藥物中毒", source: "統整（三）p.118",
+  desc: ["致毒物：{{氰化物（Cyanide）|名詞}}"] },
+{ id: "ot-epinephrine", chapter: 44, name: "Epinephrine", type: "drug", group: "解毒劑：藥物中毒", source: "統整（三）p.118",
+  desc: ["致毒物：{{Penicillin 引起之過敏性休克|名詞}}"] },
+{ id: "ot-dimercaprol", chapter: 44, name: "Dimercaprol", type: "drug", group: "解毒劑：金屬中毒", source: "統整（三）p.118",
+  desc: ["致毒物：{{汞、鉛、砷|名詞}}"] },
+{ id: "ot-succimer", chapter: 44, name: "Succimer", type: "drug", group: "解毒劑：金屬中毒", source: "統整（三）p.118",
+  desc: ["致毒物：{{汞、鉛、砷|名詞}}"] },
+{ id: "ot-deferoxamine", chapter: 44, name: "Deferoxamine", type: "drug", group: "解毒劑：金屬中毒", source: "統整（三）p.118",
+  desc: ["致毒物：{{鐵|物質}}、鋁"] },
+{ id: "ot-edta", chapter: 44, name: "EDTA", type: "drug", group: "解毒劑：金屬中毒", source: "統整（三）p.118",
+  desc: ["致毒物：{{鉛、砷|名詞}}"] },
+{ id: "ot-penicillamine", chapter: 44, name: "Penicillamine", type: "drug", group: "解毒劑：金屬中毒", source: "統整（三）p.118",
+  desc: ["致毒物：{{銅|物質}}"] },
+{ id: "ot-cadtpa", chapter: 44, name: "Calcium disodium diethylenetriaminepentaacetic acid", short: "Ca-DTPA", type: "drug", group: "解毒劑：金屬中毒", source: "統整（三）p.118",
+  desc: ["致毒物：{{鈾|名詞}}"] },
+{ id: "ot-vita", chapter: 44, name: "Vitamin A", type: "drug", group: "維生素", source: "統整（三）p.119",
+  desc: ["缺乏時的症狀：{{夜盲症|疾病}}、乾眼症"],
+  feat: ["學名：Retinol",
+    "主要來源為 {{β-Carotene|物質}}，代謝後產生兩分子的 Retinol",
+    "可和 {{SbCl₃|物質}} 之氯仿溶液形成藍色複合物，用於定量試驗"] },
+{ id: "ot-vitb1", chapter: 44, name: "Vitamin B₁", type: "drug", group: "維生素", source: "統整（三）p.119",
+  desc: ["缺乏時的症狀：{{腳氣病|疾病}}、神經炎"],
+  feat: ["學名：Thiamine",
+    "具有 {{pyrimidine-thiazole|結構}} 結構",
+    "使用螢光分析法定量時，主要測定氧化物產物 {{Thiochrome|物質}}"] },
+{ id: "ot-vitb3", chapter: 44, name: "Vitamin B₃", type: "drug", group: "維生素", source: "統整（三）p.119",
+  desc: ["缺乏時的症狀：失眠、口腔潰瘍、{{癩皮病|疾病}}"],
+  feat: ["學名：Nicotinic acid",
+    "與 Nicotine、Nicotinamide 一樣皆具有 {{pyridine|結構}} 結構"] },
+{ id: "ot-vitb6", chapter: 44, name: "Vitamin B₆", type: "drug", group: "維生素", source: "統整（三）p.119",
+  desc: ["缺乏時的症狀：{{貧血|疾病}}"],
+  feat: ["學名：Pyridoxine",
+    "具有 pyridine 結構"] },
+{ id: "ot-vitb9", chapter: 44, name: "Vitamin B₉", type: "drug", group: "維生素", source: "統整（三）p.119",
+  desc: ["缺乏時的症狀：妊娠期缺乏造成嬰兒{{神經管缺陷|疾病}}、惡性貧血"],
+  feat: ["學名：Folic acid",
+    "具有 {{Pteridine|結構}} 結構"] },
+{ id: "ot-vitb12", chapter: 44, name: "Vitamin B₁₂", type: "drug", group: "維生素", source: "統整（三）p.119",
+  desc: ["缺乏時的症狀：{{巨母細胞性貧血|疾病}}、惡性貧血"],
+  feat: ["學名：Cyanocobalamin",
+    "Vitamin B₁₂ 之吸收與胃黏膜之{{內在因子|物質}}有關"] },
+{ id: "ot-vitc", chapter: 44, name: "Vitamin C", type: "drug", group: "維生素", source: "統整（三）p.119",
+  desc: ["缺乏時的症狀：{{壞血病|疾病}}"],
+  feat: ["學名：Ascorbic acid",
+    "因具有{{烯醇|結構}}（enol）結構，容易被{{氧化|反應}}"] },
+{ id: "ot-vitd", chapter: 44, name: "Vitamin D", type: "drug", group: "維生素", source: "統整（三）p.119",
+  desc: ["缺乏時的症狀：{{佝僂病|疾病}}、骨質軟化症"],
+  feat: ["學名：D₂-Ergocalciferol、D₃-Cholecalciferol",
+    "（詳見第 18 章）"] },
+{ id: "ot-vite", chapter: 44, name: "Vitamin E", type: "drug", group: "維生素", source: "統整（三）p.119",
+  desc: ["缺乏時的症狀：新生兒缺乏導致{{溶血性貧血|疾病}}"],
+  feat: ["學名：Tocopherol",
+    "預防脂質{{抗氧化|機轉}}效果最佳，也可調節蛋白質的合成"] },
+{ id: "ot-vitk", chapter: 44, name: "Vitamin K", type: "drug", group: "維生素", source: "統整（三）p.119",
+  desc: ["缺乏時的症狀：出血傾向、凝血酶缺乏"],
+  feat: ["學名：K₁-Phytonadione",
+    "{{1,4-Naphthoquinone|結構}} 為必須結構，臨床上作為{{凝血劑|用途}}"] },
 
 /* ===== 第 16 章 利尿劑（統整（三）柒，p.39–46）===== */
 { id: "diu-location", chapter: 16, name: "利尿劑作用位置總論", short: "作用位置", type: "topic", group: "總論", source: "統整（三）p.39",
@@ -13005,6 +13154,62 @@ PI.KNOWLEDGE = {
               "※ 緩瀉劑：刺激劑（小腸：Castor oil、Lubiprostone；大腸：Bisacodyl、Anthraquinone）、Bulk agents、Osmotic、軟便劑",
               "※ {{Lactulose|藥名}} 可降低血氨濃度，用於治療{{肝性腦病變|疾病}}★（Hepatic encephalopathy）",
               "止瀉劑：1. 抗腸胃蠕動：Loperamide　2. 吸附劑：Kaolin、Pectin、Charcoal（活性碳）　3. 其他：Fiber、抗膽鹼藥物"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  ch44: {
+    "chapter": 44,
+    "title": "其他類藥物",
+    "sections": [
+      {
+        "id": "gene",
+        "title": "一、基因療法載體統整",
+        "items": []
+      },
+      {
+        "id": "wl",
+        "title": "二、減肥用藥（目前僅剩 Orlistat 尚在使用，其餘皆已下市）",
+        "items": []
+      },
+      {
+        "id": "antidote",
+        "title": "三、解毒劑",
+        "items": [
+          {
+            "title": "解毒劑整理",
+            "source": "統整（三）p.118",
+            "points": [
+              "藥物中毒：一般中毒治療 → {{活性碳|藥名}}；Acetaminophen → {{N-acetylcysteine|藥名}}；Benzodiazepines → {{Flumazenil|藥名}}；Opium → {{Naloxone|藥名}}",
+              "強心配醣體 → Digoxin-specific antibody；Isoniazid → {{Pyridoxine|藥名}}（Vit B₆）；錐體外症狀 → Diphenhydramine、Biperiden；變性血紅素血症 → {{Methylene blue|藥名}}",
+              "抗膽鹼作用劑 → {{Physostigmine|藥名}}；有機磷化合物 → Atropine + Pralidoxime；抗凝血劑 → {{Phytonadione|藥名}}（Vit K₁）；NOACs → Idarucizumab；Heparin → {{Protamine|藥名}}",
+              "酒精：戒斷症狀 → Diazepam；慢性治療 → {{Disulfiram|藥名}}；氰化物 → {{Hydroxocobalamin|藥名}}★、Nitrite、Sodium thiosulfate；Penicillin 引起之過敏性休克 → {{Epinephrine|藥名}}",
+              "金屬中毒：汞、鉛、砷 → {{Dimercaprol|藥名}}、Succimer；鉛、砷 → {{EDTA|藥名}}；鐵、鋁 → {{Deferoxamine|藥名}}；銅 → {{Penicillamine|藥名}}；鈾 → Calcium disodium diethylenetriaminepentaacetic acid"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "vit",
+        "title": "四、維生素",
+        "items": []
+      },
+      {
+        "id": "aa",
+        "title": "五、胺基酸之特性統整",
+        "items": [
+          {
+            "title": "胺基酸之特性統整",
+            "source": "統整（三）p.119",
+            "points": [
+              "1. 容易光解：{{Tryptophan|藥名}}、Phenylalanine、Tyrosine、Glycine",
+              "2. 容易消旋：{{Aspartate|藥名}}（ASP residue 可使 racemization 速率增快）",
+              "3. 容易水解：Aspartate、Asparagine、{{Glutamate|藥名}}",
+              "4. 容易氧化：(1) 含 S 的 {{Cysteine|藥名}}、{{Methionine|藥名}}　(2) 具有芳香環的 Histidine、Tyrosine、Tryptophan",
+              "5. 容易發生 β-elimination：{{Threonine|藥名}}、Phenylalanine、Cysteine、Serine、Lysine",
+              "6. 可作為 peroxide scavenger（過氧化物清除者）：{{Methionine|藥名}}（可降低 Protein aggregation）"
             ]
           }
         ]
