@@ -2,8 +2,8 @@
    這個檔案只在 medchem.html 載入，會把藥理的章節、單元、知識樹換成藥物化學的。
    格式和生藥頁一樣（見 js/data.js、js/units.js、js/knowledge.js 的說明）。
    章節照「藥物化學國考統整」的目錄：
-     統整（一）中樞神經系統：壹～陸 → 第 1～6 章、柒～捌 → 第 7～8 章、玖～拾 → 第 9～10 章（中樞神經島）
-     統整（三）心臟血管系統：柒、捌、玖、壹拾壹 → 第 11～14 章（心血管島）
+     統整（一）中樞神經系統：壹～陸 → 第 1～6 章、柒～捌 → 第 7～8 章、玖～拾 → 第 9～10 章、拾壹～拾參 → 第 11～13 章（中樞神經島）
+     統整（三）心臟血管系統：柒、捌、玖、壹拾壹 → 第 14～17 章（畫面上的章號用 no 重編成 1～4）（心血管島）
    內容來自教授給的期中考複習講義（藥物化學國考統整），只擷取：分類、結構圖、粗體字。
    目前已加入第 1 章到講義 p.14；之後的章節還是預留格。
    結構圖是從講義裁下來的原圖，放在 assets/medchem/（id 和單元 id 一樣）。 */
@@ -77,7 +77,19 @@ PI.GROUP_PARENTS = {
   // 第 9、10 章
   "Opioid 受體拮抗劑（Pure antagonist）": "修飾 Nitrogen atom",
   "混合型致效劑：μ-antagonist & κ-agonist": "修飾 Nitrogen atom",
-  "部分致效劑（Partial agonist）": "修飾 Nitrogen atom"
+  "部分致效劑（Partial agonist）": "修飾 Nitrogen atom",
+  // 第 11～13 章
+  "Indomethacin 衍生物": "芳香基乙酸類（Arylacetic acid derivatives）",
+  "非 Indomethacin 衍生物": "芳香基乙酸類（Arylacetic acid derivatives）",
+  "抑制尿酸生成": "痛風藥物",
+  "促進尿酸排除": "痛風藥物",
+  "TNF-α Inhibitor": "用於類風濕性關節炎之生物製劑",
+  "共刺激調節劑（Costimulate Modulator）": "用於類風濕性關節炎之生物製劑",
+  "消耗 B cell（Deplete Peripheral B cell）": "用於類風濕性關節炎之生物製劑",
+  "標靶合成型 DMARDs": "用於類風濕性關節炎之生物製劑",
+  "IL-1 受體拮抗劑（Interleukin-1 Receptor Antagonist）": "用於類風濕性關節炎之生物製劑",
+  "Calcineurin Inhibitor": "用於類風濕性關節炎之生物製劑",
+  "mTOR Inhibitor": "用於類風濕性關節炎之生物製劑"
 };
 
 /* 地圖名牌：和生藥頁一樣用短的英文（名牌字型只有英文字母，中文字寬、長的名牌會擠成一團）。
@@ -204,7 +216,32 @@ PI.GROUP_LABELS = {
   "阿片結構衍生之止瀉藥物": "Antidiarrheal",
   "中樞神經興奮劑": "Stimulants",
   "Methylxanthine 類": "Methylxanthine",
-  "迷幻劑（Hallucinogen）": "Hallucinogen"
+  "迷幻劑（Hallucinogen）": "Hallucinogen",
+  // 第 11～13 章
+  "Prostaglandin 衍生物": "Prostaglandins",
+  "5-lipoxygenase inhibitor": "5-LO Inhibitor",
+  "Leukotriene receptor antagonist": "LT Antagonist",
+  "水楊酸衍生物（Salicylic acid derivatives）": "Salicylates",
+  "芳香基乙酸類（Arylacetic acid derivatives）": "Arylacetic",
+  "Indomethacin 衍生物": "Indomethacin",
+  "非 Indomethacin 衍生物": "Non-Indomethacin",
+  "鄰胺基苯甲酸類（N-arylanthranilic acid）：屬於 Fenamates 類": "Fenamates",
+  "芳香基丙酸類（Arylpropionic acid derivatives）": "Arylpropionic",
+  "Oxicams 類": "Oxicams",
+  "解熱鎮痛藥": "Antipyretic",
+  "選擇性 COX-2 抑制劑（字尾-coxib）": "COX-2 Inhibitors",
+  "痛風藥物": "Gout",
+  "抑制尿酸生成": "Reduce Uric Acid",
+  "促進尿酸排除": "Excrete Uric Acid",
+  "疾病修飾抗風濕藥（Disease-modifying Antirheumatic Drugs, DMARDs）": "DMARDs",
+  "用於類風濕性關節炎之生物製劑": "Biologics",
+  "TNF-α Inhibitor": "TNF-α",
+  "共刺激調節劑（Costimulate Modulator）": "Costimulation",
+  "消耗 B cell（Deplete Peripheral B cell）": "Anti-B cell",
+  "標靶合成型 DMARDs": "Targeted",
+  "IL-1 受體拮抗劑（Interleukin-1 Receptor Antagonist）": "IL-1 RA",
+  "Calcineurin Inhibitor": "Calcineurin",
+  "mTOR Inhibitor": "mTOR"
 };
 
 /* 藥化的欄位：照講義表格的欄位（藥物｜結構｜特性｜藥理及臨床應用） */
@@ -231,10 +268,13 @@ PI.CHAPTERS = [
   { id: 8, name: "全身麻醉劑", cat: "cns", estimate: 17, unitType: "drug", note: "統整（一）捌，p.71–76。" },
   { id: 9, name: "阿片類止痛劑", cat: "cns", estimate: 45, unitType: "drug", note: "統整（一）玖，p.77–90。" },
   { id: 10, name: "中樞神經興奮劑、迷幻劑與濫用藥物", short: "興奮劑與迷幻劑", cat: "cns", estimate: 13, unitType: "drug", note: "統整（一）拾，p.91–93。" },
-  { id: 11, name: "利尿劑", no: 1, cat: "cv", estimate: 20, unitType: "drug", note: "統整（三）柒，p.39–46。" },
-  { id: 12, name: "心絞痛藥物", no: 2, cat: "cv", estimate: 8, unitType: "drug", note: "統整（三）捌，p.47–48。" },
-  { id: 13, name: "心衰竭藥物", no: 3, cat: "cv", estimate: 10, unitType: "drug", note: "統整（三）玖，p.49–53。" },
-  { id: 14, name: "抗凝血與血液相關藥物", no: 4, cat: "cv", estimate: 25, unitType: "drug", note: "統整（三）壹拾壹，p.58–69。" }
+  { id: 11, name: "前列腺素及 Leukotriene 相關藥物", short: "前列腺素與 Leukotriene", cat: "cns", estimate: 8, unitType: "drug", note: "統整（一）拾壹，p.94–97。" },
+  { id: 12, name: "非類固醇消炎止痛藥（NSAIDs）", short: "NSAIDs", cat: "cns", estimate: 25, unitType: "drug", note: "統整（一）拾貳，p.98–103。" },
+  { id: 13, name: "痛風與疾病修飾抗風濕藥", cat: "cns", estimate: 25, unitType: "drug", note: "統整（一）拾參，p.104–106。" },
+  { id: 14, name: "利尿劑", no: 1, cat: "cv", estimate: 20, unitType: "drug", note: "統整（三）柒，p.39–46。" },
+  { id: 15, name: "心絞痛藥物", no: 2, cat: "cv", estimate: 8, unitType: "drug", note: "統整（三）捌，p.47–48。" },
+  { id: 16, name: "心衰竭藥物", no: 3, cat: "cv", estimate: 10, unitType: "drug", note: "統整（三）玖，p.49–53。" },
+  { id: 17, name: "抗凝血與血液相關藥物", no: 4, cat: "cv", estimate: 25, unitType: "drug", note: "統整（三）壹拾壹，p.58–69。" }
 ];
 
 /* 章節的 id 全部不重複（資料用），但統整（一）和統整（三）是兩本，顯示的章號用 no 另外從 1 重新編（沒有 no 的章節就用 id） */
@@ -267,13 +307,19 @@ PI.LANDMASSES = [
     palette: { ground: "#C4A9D8", light: "#D7C4E6", cliff: "#9C80B4" } },
   { id: "cns10", name: "興奮劑島",  chapters: [10], cluster: "cns", angle: 345,
     palette: { ground: "#B0B6DE", light: "#C8CCEA", cliff: "#8890BC" } },
-  { id: "cv11",  name: "利尿島",     chapters: [11], cluster: "cv", angle: 0,
+  { id: "cns11", name: "前列腺素島", chapters: [11], cluster: "cns", angle: 30,
+    palette: { ground: "#CBB0DA", light: "#DCC9E7", cliff: "#A388B6" } },
+  { id: "cns12", name: "消炎止痛島", chapters: [12], cluster: "cns", angle: 240,
+    palette: { ground: "#B8B2DE", light: "#CDC8EB", cliff: "#9088BE" } },
+  { id: "cns13", name: "痛風島",     chapters: [13], cluster: "cns", angle: 140,
+    palette: { ground: "#C1AADB", light: "#D4C3E8", cliff: "#997FB7" } },
+  { id: "cv14",  name: "利尿島",     chapters: [14], cluster: "cv", angle: 0,
     palette: { ground: "#E8B4B0", light: "#F0C9C6", cliff: "#C48A86" } },
-  { id: "cv12",  name: "心絞痛島",   chapters: [12], cluster: "cv", angle: 270,
+  { id: "cv15",  name: "心絞痛島",   chapters: [15], cluster: "cv", angle: 270,
     palette: { ground: "#EBBFA9", light: "#F2D1C1", cliff: "#C79580" } },
-  { id: "cv13",  name: "心衰竭島",   chapters: [13], cluster: "cv", angle: 0,
+  { id: "cv16",  name: "心衰竭島",   chapters: [16], cluster: "cv", angle: 0,
     palette: { ground: "#E6AFBE", light: "#EFC6D1", cliff: "#C28697" } },
-  { id: "cv14", name: "抗凝血島",   chapters: [14], cluster: "cv", angle: 45,
+  { id: "cv17", name: "抗凝血島",   chapters: [17], cluster: "cv", angle: 45,
     palette: { ground: "#E4B7A6", light: "#EDCBBE", cliff: "#C08D7B" } }
 ];
 
@@ -2051,8 +2097,240 @@ PI.UNITS = [
     "抑制 {{NMDA|受體}} 受體，阻斷 Ca²⁺通道：與 {{Ketamine|藥名}}★之結構、作用相同，造成{{解離性|性質}}麻醉",
     "副作用：皮膚過熱、出汗、散瞳、心跳血壓↑"] },
 
-/* ===== 第 11 章 利尿劑（統整（三）柒，p.39–46）===== */
-{ id: "diu-location", chapter: 11, name: "利尿劑作用位置總論", short: "作用位置", type: "topic", group: "總論", source: "統整（三）p.39",
+/* ===== 第 11～13 章（統整（一）拾壹 前列腺素及 Leukotriene 相關藥物 p.94–97、拾貳 NSAIDs p.98–103、拾參 痛風與疾病修飾抗風濕藥 p.104–106）===== */
+/* 欄位照講義表格（特性／藥理及臨床應用；p.106 生物製劑表只有一欄說明用 desc）。
+   第 11 章：一、Prostaglandin 衍生物沒有黑底灰底，章標題就是分類；二、Leukotriene modifiers 的兩個灰底各自為分類。
+   第 12 章：黑底為分類，芳香基乙酸類底下兩個灰底（Indomethacin 衍生物／非 Indomethacin 衍生物）用第三層小標。
+   第 13 章：痛風藥物底下講義左邊直排的「抑制尿酸生成／促進尿酸排除」用第三層小標，Colchicine 直接屬於痛風藥物；
+   DMARDs 自成一類；生物製劑表的「分類」欄各自為分類（掛在生物製劑底下），Mycophenolate mofetil 沒有分類欄，直接屬於生物製劑。
+   Leflunomide／Teriflunomide 共用的說明兩個格子都放；Chloroquine／Hydroxychloroquine 各自只放講到自己的句子。
+   …＝講義上的粗體字；行首「- 」＝子項目、「> 」＝接續行 */
+
+{ id: "pg-misoprostol", chapter: 11, name: "Misoprostol", type: "drug", group: "Prostaglandin 衍生物", source: "統整（一）p.96", img: "assets/medchem/pg-misoprostol.png",
+  feat: ["{{PGE₁|名詞|PGE₂}} 衍生物，只含一個雙鍵",
+    "C₁₆ 有{{三級醇|結構}}、{{甲基|取代基}}結構★"],
+  pharm: ["{{口服|給藥途徑}}★使用，可抑制胃酸分泌，保護黏膜",
+    "→ 與 {{Mifepristone|藥名}} 併用墮胎"] },
+{ id: "pg-alprostadil", chapter: 11, name: "Alprostadil", type: "drug", group: "Prostaglandin 衍生物", source: "統整（一）p.96", img: "assets/medchem/pg-alprostadil.png",
+  feat: ["{{PGE₁|名詞|PGE₂}} 衍生物，只含一個雙鍵"],
+  pharm: ["IV 使用，可使{{血管擴張|用途}}，治療{{陽痿|疾病}}",
+    "可讓新生兒{{動脈導管|器官}}開啟",
+    "治療陽痿的藥物：Alprostadil、{{Sildenafil|藥名}}、Phentolamine"] },
+{ id: "pg-dinoprostone", chapter: 11, name: "Dinoprostone", type: "drug", group: "Prostaglandin 衍生物", source: "統整（一）p.96", img: "assets/medchem/pg-dinoprostone.png",
+  feat: ["{{PGE₂|名詞|PGE₁}} 衍生物",
+    "與 PGE₁ 相比 5、6 位多了一個{{雙鍵|結構}}"],
+  pharm: ["IV 使用，可用來{{人工流產|用途}}"] },
+{ id: "pg-treprostinil", chapter: 11, name: "Treprostinil", type: "drug", group: "Prostaglandin 衍生物", source: "統整（一）p.96", img: "assets/medchem/pg-treprostinil.png",
+  feat: ["{{PGI₂|名詞|PGE₂}} 衍生物",
+    "Epoprostenol 也是 PGI₂ 衍生物，可用來治療肺動脈高血壓"],
+  pharm: ["治療{{肺動脈高血壓|疾病}}",
+    "Indomethacin、Ibuprofen 會抑制 PGI₂",
+    "→ 使新生兒動脈導管{{關閉|性質|開啟}}"] },
+{ id: "pg-carboprost", chapter: 11, name: "Carboprost", type: "drug", group: "Prostaglandin 衍生物", source: "統整（一）p.96", img: "assets/medchem/pg-carboprost.png",
+  feat: ["{{PGF₂α|名詞|PGE₂}} 衍生物",
+    "C₁₅ 有{{三級醇|結構}}、甲基結構★ →增加{{安定性|性質}}"],
+  pharm: ["用於{{催生|用途}}、減少產後出血",
+    "相似藥物：Latanoprost、Unoprostone"] },
+{ id: "lt-zileuton", chapter: 11, name: "Zileuton", type: "drug", group: "5-lipoxygenase inhibitor", source: "統整（一）p.97", img: "assets/medchem/lt-zileuton.png"  },
+{ id: "lt-zafirlukast", chapter: 11, name: "Zafirlukast", type: "drug", group: "Leukotriene receptor antagonist", source: "統整（一）p.97", img: "assets/medchem/lt-zafirlukast.png"  },
+{ id: "lt-montelukast", chapter: 11, name: "Montelukast", type: "drug", group: "Leukotriene receptor antagonist", source: "統整（一）p.97", img: "assets/medchem/lt-montelukast.png"  },
+{ id: "lt-pranlukast", chapter: 11, name: "Pranlukast", type: "drug", group: "Leukotriene receptor antagonist", source: "統整（一）p.97", img: "assets/medchem/lt-pranlukast.png"  },
+{ id: "ns-aspirin", chapter: 12, name: "Aspirin", type: "drug", group: "水楊酸衍生物（Salicylic acid derivatives）", source: "統整（一）p.98", img: "assets/medchem/ns-aspirin.png",
+  use: ["Acetylsalicylic acid"],
+  feat: ["{{脂溶性|性質|水溶性}}，在胃中為非解離型而被吸收",
+    "代謝：經 {{esterase|酵素}} 去乙醯化後，形成水楊酸+[u]乙酸[/u]"],
+  pharm: ["{{不可逆|性質|可逆}}★抑制 COX",
+    "可預防{{心肌梗塞|疾病}}，手術前 7 天禁用",
+    "{{痛風|疾病}}及氣喘患者禁用",
+    "造成 {{Reye's syndrome|副作用}}"] },
+{ id: "ns-diflunisal", chapter: 12, name: "Diflunisal", type: "drug", group: "水楊酸衍生物（Salicylic acid derivatives）", source: "統整（一）p.98", img: "assets/medchem/ns-diflunisal.png",
+  feat: ["水楊酸之 C5 以 2,4-difluorophenyl（{{間位|位置|對位/鄰位}}★）取代",
+    "→ OH 基[u]{{對位|位置|間位/鄰位}}[/u]苯環取代，增加抗發炎活性"],
+  pharm: ["{{可逆|性質|不可逆}}抑制 COX",
+    "半衰期{{長|性質|短}}，較不會造成腸胃道出血",
+    "不會進入 CNS，故無法{{退燒|用途}}"] },
+{ id: "ns-triflusal", chapter: 12, name: "Triflusal", type: "drug", group: "水楊酸衍生物（Salicylic acid derivatives）", source: "統整（一）p.98", img: "assets/medchem/ns-triflusal.png",
+  feat: ["COOH 和 CF₃ 為{{對位|位置|間位/鄰位}}關係"] },
+{ id: "ns-indomethacin", chapter: 12, name: "Indomethacin", type: "drug", group: "Indomethacin 衍生物", source: "統整（一）p.99", img: "assets/medchem/ns-indomethacin.png",
+  feat: ["含有 {{Indole|結構}} 結構",
+    "代謝：[u]{{O-demethylation|代謝}}[/u]、Glucuronidation、",
+    "> N-dealkylation（非肝代謝）"],
+  pharm: ["可治療{{急性痛風|疾病}}、新生兒開放性動脈導管"] },
+{ id: "ns-sulindac", chapter: 12, name: "Sulindac", type: "drug", group: "Indomethacin 衍生物", source: "統整（一）p.99", img: "assets/medchem/ns-sulindac.png", imgMore: ["assets/medchem/ns-sulindac-metab.png"],
+  feat: ["{{Prodrug|名詞}}，須經肝臟{{還原|代謝}}★成 {{Sulfide|代謝物}}★才有活性",
+    "氧化代謝成 Sulfone 失去活性"],
+  pharm: ["Indomethacin {{生物等價|名詞}}設計而來",
+    "半衰期{{較長|性質|較短}}"] },
+{ id: "ns-tolmetin", chapter: 12, name: "Tolmetin", type: "drug", group: "Indomethacin 衍生物", source: "統整（一）p.99", img: "assets/medchem/ns-tolmetin.png", imgMore: ["assets/medchem/ns-tolmetin-metab.png"],
+  feat: ["含有 {{pyrrole|結構}}、{{toluene|結構}} 結構",
+    "代謝：[i]p[/i]-methyl {{氧化|代謝}}反應形成{{羧酸|代謝物}}代謝物★"] },
+{ id: "ns-diclofenac", chapter: 12, name: "Diclofenac", type: "drug", group: "非 Indomethacin 衍生物", source: "統整（一）p.100", img: "assets/medchem/ns-diclofenac.png",
+  feat: ["代謝：肝臟 CYP 進行 {{Hydroxylation|代謝}}",
+    "→ 3'、4'、5 位加上 OH 基★"] },
+{ id: "ns-nabumetone", chapter: 12, name: "Nabumetone", type: "drug", group: "非 Indomethacin 衍生物", source: "統整（一）p.100", img: "assets/medchem/ns-nabumetone.png", imgMore: ["assets/medchem/ns-6mna.png"],
+  feat: ["不帶酸根，非酸性的 {{Prodrug|名詞}}",
+    "含有 {{naphthalene|結構}} 結構",
+    "代謝：主要在 C=O 上反應",
+    "- C=O {{氧化|代謝}}成 COOH（6-MNA），具有活性",
+    "- C=O {{還原|代謝}}成 OH，失去活性"],
+  pharm: ["活性代謝物：{{6-MNA|代謝物}}",
+    "經過代謝後才具有乙酸結構"] },
+{ id: "ns-mefenamic", chapter: 12, name: "Mefenamic acid", type: "drug", group: "鄰胺基苯甲酸類（N-arylanthranilic acid）：屬於 Fenamates 類", source: "統整（一）p.100", img: "assets/medchem/ns-mefenamic.png",
+  feat: ["為 [u]N[/u]-arylanthranilic acid★衍生物",
+    "代謝：[i]m[/i]-methyl★接上 {{OH|取代基}}、COOH 接上 {{glucuronide|物質}}"],
+  pharm: ["同分類藥物：{{Meclofenamate|藥名}}"] },
+{ id: "ns-ibuprofen", chapter: 12, name: "Ibuprofen", type: "drug", group: "芳香基丙酸類（Arylpropionic acid derivatives）", source: "統整（一）p.101", img: "assets/medchem/ns-ibuprofen.png",
+  feat: ["屬於 {{Arylpropionic acid|結構}} 衍生物★",
+    "代謝：進行ω、{{ω-1|位置|ω/ω-2}}（主要★）、ω-2 氧化反應"] },
+{ id: "ns-naproxen", chapter: 12, name: "Naproxen", type: "drug", group: "芳香基丙酸類（Arylpropionic acid derivatives）", source: "統整（一）p.101", img: "assets/medchem/ns-naproxen.png",
+  feat: ["含有 {{naphthalene|結構}} 結構",
+    "SAR★",
+    "- C₆ 的取代基若移位，則抗炎活性降低",
+    "- C₆ 甲氧基可換成其他親脂基 Cl、CH₃S、CH₂FO",
+    "> （以越大基團取代甲氧基，其活性越低）",
+    "- COOH 可換成 CO₂CH₃、CHO、CH₂OH 等基團",
+    "> （在體內皆會被氧化代謝回 COOH）"],
+  pharm: ["唯一以 {{S(+)|結構|R(-)}} 光學異構物上市★"] },
+{ id: "ns-flurbiprofen", chapter: 12, name: "Flurbiprofen", type: "drug", group: "芳香基丙酸類（Arylpropionic acid derivatives）", source: "統整（一）p.101", img: "assets/medchem/ns-flurbiprofen.png",
+  feat: ["代謝★：進行{{氧化|代謝}}反應",
+    "4'-hydroxy、3',4'-dihydroxy、3'-hydroxy-4'-methoxy"] },
+{ id: "ns-oxaprozin", chapter: 12, name: "Oxaprozin", type: "drug", group: "芳香基丙酸類（Arylpropionic acid derivatives）", source: "統整（一）p.101", img: "assets/medchem/ns-oxaprozin.png",
+  feat: ["屬於 {{Heteroarylpropionic acid|結構}} 衍生物"],
+  pharm: ["Onset {{快|性質|慢}}、Duration {{長|性質|短}}"] },
+{ id: "ns-piroxicam", chapter: 12, name: "Piroxicam", type: "drug", group: "Oxicams 類", source: "統整（一）p.102", img: "assets/medchem/ns-piroxicam.png",
+  feat: ["含有 {{pyridine|結構}}★結構",
+    "代謝：主要在 pyridine 上 carboxamide 的{{對位|位置|間位/鄰位}}★進行",
+    "> hydroxylation★"],
+  pharm: ["長效型，半衰期 {{50 小時|數值}}",
+    "抑制多型核白血球進入發炎部位，並抑制 lysosomal enzyme 的釋放"] },
+{ id: "ns-meloxicam", chapter: 12, name: "Meloxicam", type: "drug", group: "Oxicams 類", source: "統整（一）p.102", img: "assets/medchem/ns-meloxicam.png",
+  feat: ["含有 {{methyl thiazole|結構}}★結構",
+    "代謝：thiazole 上的甲基進行 hydroxylation，再氧化成",
+    "> carboxylic acid"] },
+{ id: "ns-acetaminophen", chapter: 12, name: "Acetaminophen（Paracetamol）", short: "Acetaminophen", type: "drug", group: "解熱鎮痛藥", source: "統整（一）p.102", img: "assets/medchem/ns-acetaminophen.png",
+  use: ["[i]p[/i]-aminophenol 乙醯化產物"],
+  feat: ["主要由肝臟進行代謝（在 OH 基上進行代謝）",
+    "- 成人：形成 {{O-glucuronide|代謝物}}",
+    "- 兒童：形成 {{O-sulfate|代謝物}}",
+    "過量時，由其他途徑氧化代謝出毒性代謝物，產生{{肝毒性|副作用}}",
+    "> {{N-acetylimidoquinone|代謝物}}（NAPQI）"],
+  pharm: ["不具{{抗發炎|性質}}活性",
+    "若體內 {{Glutathione|物質}} 下降則毒性↑",
+    "解毒劑：{{N-acetylcysteine|藥名}}★"] },
+{ id: "ns-celecoxib", chapter: 12, name: "Celecoxib", type: "drug", group: "選擇性 COX-2 抑制劑（字尾-coxib）", source: "統整（一）p.103", img: "assets/medchem/ns-celecoxib.png",
+  feat: ["含有 {{phenylpyrazole|結構}}★、sulfonamide、CF₃ 結構",
+    "代謝：苯環上的甲基進行 Hydroxylation★形成一級醇，",
+    "> 而後再氧化形成羧酸，最後接上 glucuronide"],
+  pharm: ["{{磺胺類|藥物類別}}過敏患者不可使用"] },
+{ id: "ns-rofecoxib", chapter: 12, name: "Rofecoxib", type: "drug", group: "選擇性 COX-2 抑制劑（字尾-coxib）", source: "統整（一）p.103", img: "assets/medchem/ns-rofecoxib.png",
+  feat: ["含有 2-furanone（{{γ-lactone ring|結構}}★）、[i]cis[/i]-stilbenes、",
+    "> methanesulfonyl 結構",
+    "代謝：[i]cis[/i]-stilbenes 雙鍵被還原、",
+    "> lactone 環進行 hydroxylation→O-glucuronidation"],
+  pharm: ["對 COX-2 選擇性較 {{Celecoxib|藥名}} 強"] },
+{ id: "ns-lumiracoxib", chapter: 12, name: "Lumiracoxib", type: "drug", group: "選擇性 COX-2 抑制劑（字尾-coxib）", source: "統整（一）p.103", img: "assets/medchem/ns-lumiracoxib.png",
+  feat: ["代謝：主要由 {{CYP2C9|酵素}} 進行 {{4-hydroxylation|代謝}}★"] },
+{ id: "ns-valdecoxib", chapter: 12, name: "Valdecoxib", type: "drug", group: "選擇性 COX-2 抑制劑（字尾-coxib）", source: "統整（一）p.103", img: "assets/medchem/ns-valdecoxib.png",
+  feat: ["含有 {{isoxazole|結構}}★"] },
+{ id: "ns-parecoxib", chapter: 12, name: "Parecoxib", type: "drug", group: "選擇性 COX-2 抑制劑（字尾-coxib）", source: "統整（一）p.103", img: "assets/medchem/ns-parecoxib.png",
+  feat: ["含有 {{isoxazole|結構}}"] },
+{ id: "ns-etoricoxib", chapter: 12, name: "Etoricoxib", type: "drug", group: "選擇性 COX-2 抑制劑（字尾-coxib）", source: "統整（一）p.103", img: "assets/medchem/ns-etoricoxib.png",
+  feat: ["含有 {{2,3'-bipyridine|結構}}"] },
+{ id: "gd-colchicine", chapter: 13, name: "Colchicine", type: "drug", group: "痛風藥物", source: "統整（一）p.104", img: "assets/medchem/gd-colchicine.png",
+  feat: ["結構含有 {{2 個七元環|結構}}、{{4 個甲氧基|結構}}"],
+  pharm: ["抑制嗜中性白血球{{吞噬|機轉}}作用",
+    "與 Indomethacin 用於治療{{急性|性質|慢性}}痛風"] },
+{ id: "gd-allopurinol", chapter: 13, name: "Allopurinol", type: "drug", group: "抑制尿酸生成", source: "統整（一）p.104", img: "assets/medchem/gd-allopurinol.png", imgMore: ["assets/medchem/gd-hypoxanthine.png"],
+  feat: ["結構與 {{hypoxanthine|物質}}★相似",
+    "> （互為同分異構物 {{isostere|名詞}}★）",
+    "經 {{Xanthine oxidase|酵素}} 作用主要代謝物為 {{alloxanthine|代謝物}}"],
+  pharm: ["{{Xanthine oxidase|酵素}} 抑制劑",
+    "{{慢性|性質|急性}}痛風治療首選用藥",
+    "併用 {{6-MP|藥名}} 會抑制其代謝"] },
+{ id: "gd-febuxostat", chapter: 13, name: "Febuxostat", type: "drug", group: "抑制尿酸生成", source: "統整（一）p.104", img: "assets/medchem/gd-febuxostat.png", imgMore: ["assets/medchem/gd-uric-acid.png"],
+  feat: ["非 {{purine|結構}} 結構",
+    "尿酸結構（補充結構圖）"],
+  pharm: ["{{Xanthine oxidase|酵素}} 抑制劑"] },
+{ id: "gd-probenecid", chapter: 13, name: "Probenecid", type: "drug", group: "促進尿酸排除", source: "統整（一）p.104", img: "assets/medchem/gd-probenecid.png",
+  feat: ["含有 {{Sulfone|結構}}、Carboxylic acid 結構（對位關係）"],
+  pharm: ["抑制尿酸在腎小管的{{再吸收|機轉|分泌}}★"] },
+{ id: "gd-sulfinpyrazone", chapter: 13, name: "Sulfinpyrazone", type: "drug", group: "促進尿酸排除", source: "統整（一）p.104", img: "assets/medchem/gd-sulfinpyrazone.png",
+  feat: ["含有 3,5-{{pyrazolidine|結構}}dione 結構（含 2N 飽和五元環）",
+    "結構中含有 {{3 個|數值|2 個/4 個}}苯環",
+    "還原性 {{Sulfide|代謝物}}★產物為 COX 抑制劑，可抗血小板凝集"],
+  pharm: ["抑制尿酸在腎小管的{{再吸收|機轉|分泌}}"] },
+{ id: "gd-benzbromarone", chapter: 13, name: "Benzbromarone", type: "drug", group: "促進尿酸排除", source: "統整（一）p.104", img: "assets/medchem/gd-benzbromarone.png",
+  feat: ["含有 {{Benzofuran|結構}} 結構"],
+  pharm: ["可降低血中尿酸濃度並促進排除"] },
+{ id: "gd-methotrexate", chapter: 13, name: "Methotrexate", type: "drug", group: "疾病修飾抗風濕藥（Disease-modifying Antirheumatic Drugs, DMARDs）", source: "統整（一）p.105", img: "assets/medchem/gd-methotrexate.png",
+  feat: ["葉酸之 4-Amino-4-Deoxy-N¹⁰-methyl",
+    "> 衍生物",
+    "具有 {{Pteridine|結構}}、{{Glutamate tail|結構}} 結構"],
+  pharm: ["{{類風濕性關節炎|疾病}}之首選藥",
+    "{{孕婦及哺乳婦|疾病}}禁用",
+    "需併用{{葉酸|物質}}減少毒性"] },
+{ id: "gd-sulfasalazine", chapter: 13, name: "Sulfasalazine", type: "drug", group: "疾病修飾抗風濕藥（Disease-modifying Antirheumatic Drugs, DMARDs）", source: "統整（一）p.105", img: "assets/medchem/gd-sulfasalazine.png",
+  feat: ["具有 {{Diazo|結構}}（N=N）氮氮雙鍵",
+    "{{Prodrug|名詞}}，分解產生 Sulfapyridine 和",
+    "> {{5-Aminosalicylic acid|代謝物}}"],
+  pharm: ["在{{大腸|器官}}被細菌還原成活性代謝物",
+    "不可用{{抗生素|藥物類別}}、鐵劑併用",
+    "皮膚和尿液會呈{{橘黃色|性質}}"] },
+{ id: "gd-leflunomide", chapter: 13, name: "Leflunomide", type: "drug", group: "疾病修飾抗風濕藥（Disease-modifying Antirheumatic Drugs, DMARDs）", source: "統整（一）p.105", img: "assets/medchem/gd-leflunomide.png",
+  feat: ["Leflunomide 為 {{Prodrug|名詞}}，isoxazole {{開環|代謝}}★",
+    "> 代謝成 Teriflunomide 才有活性"],
+  pharm: ["抑制 {{B 細胞|器官}}，減少抗體產生",
+    "對嚴重風濕性關節炎有效"] },
+{ id: "gd-teriflunomide", chapter: 13, name: "Teriflunomide", type: "drug", group: "疾病修飾抗風濕藥（Disease-modifying Antirheumatic Drugs, DMARDs）", source: "統整（一）p.105", img: "assets/medchem/gd-teriflunomide.png",
+  feat: ["Leflunomide 為 {{Prodrug|名詞}}，isoxazole {{開環|代謝}}★",
+    "> 代謝成 Teriflunomide 才有活性"],
+  pharm: ["抑制 {{B 細胞|器官}}，減少抗體產生",
+    "對嚴重風濕性關節炎有效"] },
+{ id: "gd-chloroquine", chapter: 13, name: "Chloroquine", type: "drug", group: "疾病修飾抗風濕藥（Disease-modifying Antirheumatic Drugs, DMARDs）", source: "統整（一）p.105", img: "assets/medchem/gd-chloroquine.png",
+  pharm: ["Chloroquine 具有{{視網膜毒性|副作用}}"] },
+{ id: "gd-hydroxychloroquine", chapter: 13, name: "Hydroxychloroquine", type: "drug", group: "疾病修飾抗風濕藥（Disease-modifying Antirheumatic Drugs, DMARDs）", source: "統整（一）p.105", img: "assets/medchem/gd-hydroxychloroquine.png",
+  pharm: ["Hydroxychloroquine 副作用{{較少|性質|較多}}"] },
+{ id: "gd-azathioprine", chapter: 13, name: "Azathioprine", type: "drug", group: "疾病修飾抗風濕藥（Disease-modifying Antirheumatic Drugs, DMARDs）", source: "統整（一）p.105", img: "assets/medchem/gd-azathioprine.png",
+  feat: ["{{6-Mercaptopurine|藥名}} 之 {{Prodrug|名詞}}"],
+  pharm: ["由 {{Xanthine oxidase|酵素}} 代謝，故併用",
+    "> {{Allopurinol|藥名}} 會抑制其代謝"] },
+{ id: "gd-etanercept", chapter: 13, name: "Etanercept", type: "drug", group: "TNF-α Inhibitor", source: "統整（一）p.106",
+  desc: ["非抗體，無輸注反應，為人類 {{IgG|物質}} 抗體的受質。"] },
+{ id: "gd-adalimumab", chapter: 13, name: "Adalimumab", type: "drug", group: "TNF-α Inhibitor", source: "統整（一）p.106",
+  desc: ["{{全人源抗體|藥物類別}}，有輸注反應（1%）。"] },
+{ id: "gd-golimumab", chapter: 13, name: "Golimumab", type: "drug", group: "TNF-α Inhibitor", source: "統整（一）p.106",
+  desc: ["{{全人源抗體|藥物類別}}，輸注反應少見。"] },
+{ id: "gd-certolizumab", chapter: 13, name: "Certolizumab", type: "drug", group: "TNF-α Inhibitor", source: "統整（一）p.106",
+  desc: ["{{人源化抗體|藥物類別}}（Humanized antibody），Onset 較快。"] },
+{ id: "gd-infliximab", chapter: 13, name: "Infliximab", type: "drug", group: "TNF-α Inhibitor", source: "統整（一）p.106",
+  desc: ["{{人鼠嵌合抗體|藥物類別}}，有輸注反應（20%），須併用 Methotrexate 避免抗體產生、增加藥效。"] },
+{ id: "gd-abatacept", chapter: 13, name: "Abatacept", type: "drug", group: "共刺激調節劑（Costimulate Modulator）", source: "統整（一）p.106",
+  desc: ["結合到 APC 的 {{CD80/86|受體}} 受體，使其不與 T cell 的 {{CD28|受體}} 受體結合。"] },
+{ id: "gd-rituximab", chapter: 13, name: "Rituximab", type: "drug", group: "消耗 B cell（Deplete Peripheral B cell）", source: "統整（一）p.106",
+  desc: ["結合到 B cell 的 {{CD20|受體}} 受體。"] },
+{ id: "gd-tofacitinib", chapter: 13, name: "Tofacitinib", type: "drug", group: "標靶合成型 DMARDs", source: "統整（一）p.106",
+  desc: ["抑制細胞內激酶 Janus Kinase-3（{{JAK3|標的}}）而抑制發炎性細胞激素的生成與傳遞。",
+    "口服有效，但具有{{畸胎性|副作用}}，孕婦禁用。"] },
+{ id: "gd-anakinra", chapter: 13, name: "Anakinra", type: "drug", group: "IL-1 受體拮抗劑（Interleukin-1 Receptor Antagonist）", source: "統整（一）p.106",
+  desc: ["{{IL-1|受體}} 受體拮抗劑。用於 TNF-α Inhibitor 治療失敗的患者。"] },
+{ id: "gd-cyclosporine", chapter: 13, name: "Cyclosporine", type: "drug", group: "Calcineurin Inhibitor", source: "統整（一）p.106" ,
+  desc: ["結合 {{Cyclophilin|標的|FKBP}}、抑制 {{Calcineurin|標的}}",
+    "IL-2 抑制：{{間接|性質|直接}}",
+    "副作用：{{腎毒性|副作用|骨髓抑制}}"] },
+{ id: "gd-tacrolimus", chapter: 13, name: "Tacrolimus", type: "drug", group: "Calcineurin Inhibitor", source: "統整（一）p.106" ,
+  desc: ["抑制 {{Calcineurin|標的}}、結合 {{FKBP|標的|Cyclophilin}}",
+    "IL-2 抑制：{{間接|性質|直接}}",
+    "副作用：{{腎毒性|副作用|骨髓抑制}}"] },
+{ id: "gd-sirolimus", chapter: 13, name: "Sirolimus", type: "drug", group: "mTOR Inhibitor", source: "統整（一）p.106" ,
+  desc: ["結合 {{FKBP|標的|Cyclophilin}}、結合 {{mTOR|標的}}",
+    "IL-2 抑制：{{直接|性質|間接}}",
+    "副作用：{{骨髓抑制|副作用|腎毒性}}"] },
+{ id: "gd-mycophenolate", chapter: 13, name: "Mycophenolate mofetil", type: "drug", group: "用於類風濕性關節炎之生物製劑", source: "統整（一）p.106",
+  desc: ["抑制 {{purine|物質}} 的 de novo synthesis，進而抑制 T&B cells 的反應。",
+    "用於治療器官移植排斥、類風濕性關節炎等。"] },
+
+/* ===== 第 14 章 利尿劑（統整（三）柒，p.39–46）===== */
+{ id: "diu-location", chapter: 14, name: "利尿劑作用位置總論", short: "作用位置", type: "topic", group: "總論", source: "統整（三）p.39",
   bold: [
     "近曲小管：{{碳酸酐酶抑制劑|藥物類別}}（Acetazolamide、Dichlorphenamide）",
     "亨氏套上升支：{{環利尿劑|藥物類別}} Loop（Furosemide、Bumetanide、Torsemide、Ethacrynic acid）",
@@ -2060,50 +2338,50 @@ PI.UNITS = [
     "集尿管（阻斷 NaCl）：{{保鉀型利尿劑|藥物類別}}（Spironolactone、Eplerenone、Triamterene、Amiloride）",
     "集尿管（阻斷 H₂O）：抗利尿激素受體拮抗劑 ADH antagonist（{{Tolvaptan|藥名}}）"
   ] },
-{ id: "osmotic-intro", chapter: 11, name: "滲透壓型利尿劑總論", short: "滲透壓總論", type: "topic", group: "滲透壓型利尿劑", source: "統整（三）p.40",
+{ id: "osmotic-intro", chapter: 14, name: "滲透壓型利尿劑總論", short: "滲透壓總論", type: "topic", group: "滲透壓型利尿劑", source: "統整（三）p.40",
   bold: [
     "滲透壓型利尿劑作用在{{亨、近、集|位置}}，副作用為{{心衰竭|副作用}}",
     "可自由通過{{鮑氏囊|器官}}進入腎小管，不會被再吸收（含豐富 OH 基、水溶性極高）",
     "管腔內{{滲透壓增加|機轉}}，使水分從血管進入腎小管",
     "其他類：醣類 Glucose、Sucrose；尿素（{{Urea|物質}}）不具多羥基，但過去還是當作 Osmotic diuretics 使用"
   ] },
-{ id: "mannitol", chapter: 11, name: "Mannitol", type: "drug", group: "滲透壓型利尿劑", source: "統整（三）p.40", img: "assets/medchem/mannitol.png",
+{ id: "mannitol", chapter: 14, name: "Mannitol", type: "drug", group: "滲透壓型利尿劑", source: "統整（三）p.40", img: "assets/medchem/mannitol.png",
   use: ["{{滲透壓型利尿劑|用途}}：最被廣泛使用", "口服吸收不佳，容易被腎小球過濾，但{{不被腎小管再吸收|性質}}★"],
   bold: ["屬於 {{Polyol|結構}} 類（多羥基）化合物", "Mannitol 與 Sorbitol 兩者互為 {{R、S 異構物|性質}}（2-OH 方向不同）", "兩者作用機轉相同"] },
-{ id: "sorbitol", chapter: 11, name: "Sorbitol", type: "drug", group: "滲透壓型利尿劑", source: "統整（三）p.40", img: "assets/medchem/sorbitol.png",
+{ id: "sorbitol", chapter: 14, name: "Sorbitol", type: "drug", group: "滲透壓型利尿劑", source: "統整（三）p.40", img: "assets/medchem/sorbitol.png",
   use: ["{{滲透壓型利尿劑|用途}}"],
   bold: ["與 Mannitol 互為 {{R、S 異構物|性質}}（2-OH 方向不同）", "兩者作用機轉相同"] },
-{ id: "isosorbide", chapter: 11, name: "Isosorbide", type: "drug", group: "滲透壓型利尿劑", source: "統整（三）p.40", img: "assets/medchem/isosorbide.png",
+{ id: "isosorbide", chapter: 14, name: "Isosorbide", type: "drug", group: "滲透壓型利尿劑", source: "統整（三）p.40", img: "assets/medchem/isosorbide.png",
   use: ["可口服", "同時可{{降低眼壓|用途}}，治療青光眼 → 降眼壓效果較利尿效果強", "衍生物 Isosorbide Dinitrate 可治療心絞痛"],
   bold: ["為 Sorbitol 之{{雙五環|結構}}★型態（將 Sorbitol 環化）"] },
 
-{ id: "cai-intro", chapter: 11, name: "碳酸酐酶抑制劑總論", short: "CAI 總論", type: "topic", group: "碳酸酐酶抑制劑", source: "統整（三）p.41",
+{ id: "cai-intro", chapter: 14, name: "碳酸酐酶抑制劑總論", short: "CAI 總論", type: "topic", group: "碳酸酐酶抑制劑", source: "統整（三）p.41",
   bold: [
     "碳酸酐酶抑制劑作用在{{近曲小管|位置}}，字尾 -amide",
     "CA 催化 CO₂+H₂O → {{H₂CO₃|物質}}，碳酸解離為 H⁺+HCO₃⁻",
     "H⁺分泌到腎小管交換 Na⁺、HCO₃⁻再吸收（吸鈉留水）；CAI 抑制此反應使 {{Na⁺|離子}} 無法再吸收",
     "作用點太前面，一般用以治療{{青光眼|疾病}}；副作用：{{代謝性酸中毒|副作用}}"
   ] },
-{ id: "acetazolamide", chapter: 11, name: "Acetazolamide", type: "drug", group: "碳酸酐酶抑制劑", source: "統整（三）p.41", img: "assets/medchem/acetazolamide.png",
+{ id: "acetazolamide", chapter: 14, name: "Acetazolamide", type: "drug", group: "碳酸酐酶抑制劑", source: "統整（三）p.41", img: "assets/medchem/acetazolamide.png",
   use: ["{{碳酸酐酶抑制劑|用途}}：可用於急性高山症、青光眼、癲癇、代謝性鹼中毒、尿液鹼化劑", "會產生全身性{{酸中毒|副作用}}，使用上受限制"],
   bold: ["具有 {{thiadiazole|結構}}★結構", "本類藥物皆含有 {{Sulfonamide|結構}}★結構", "第一個{{口服有效|性質}}的 CA 抑制劑"] },
-{ id: "methazolamide", chapter: 11, name: "Methazolamide", type: "drug", group: "碳酸酐酶抑制劑", source: "統整（三）p.41", img: "assets/medchem/methazolamide.png",
+{ id: "methazolamide", chapter: 14, name: "Methazolamide", type: "drug", group: "碳酸酐酶抑制劑", source: "統整（三）p.41", img: "assets/medchem/methazolamide.png",
   use: ["碳酸酐酶抑制劑"],
   bold: ["與 Acetazolamide 差別僅在 thiadiazole 環 N 上有{{甲基|取代基}}取代 → 增加藥物{{脂溶性|性質}}，使其更容易進入眼內"] },
-{ id: "ethoxzolamide", chapter: 11, name: "Ethoxzolamide", type: "drug", group: "碳酸酐酶抑制劑", source: "統整（三）p.41", img: "assets/medchem/ethoxzolamide.png",
+{ id: "ethoxzolamide", chapter: 14, name: "Ethoxzolamide", type: "drug", group: "碳酸酐酶抑制劑", source: "統整（三）p.41", img: "assets/medchem/ethoxzolamide.png",
   use: ["碳酸酐酶抑制劑"],
   bold: ["具 {{1,3-benzothiazole|結構}} 結構", "Sulfonamide 接在雜環上", "具有{{乙氧基|取代基}}（ethoxy）"] },
-{ id: "dichlorphenamide", chapter: 11, name: "Dichlorphenamide", type: "drug", group: "碳酸酐酶抑制劑", source: "統整（三）p.41", img: "assets/medchem/dichlorphenamide.png",
+{ id: "dichlorphenamide", chapter: 14, name: "Dichlorphenamide", type: "drug", group: "碳酸酐酶抑制劑", source: "統整（三）p.41", img: "assets/medchem/dichlorphenamide.png",
   use: ["碳酸酐酶抑制劑"],
   bold: ["具有 {{disulfonamide|結構}}★結構", "{{沒有 thiazole ring|結構}}★：與 Acetazolamide 不同", "2、3 位上有 {{Cl|取代基}} 取代"] },
-{ id: "dorzolamide", chapter: 11, name: "Dorzolamide", type: "drug", group: "碳酸酐酶抑制劑", source: "統整（三）p.41", img: "assets/medchem/dorzolamide.png",
+{ id: "dorzolamide", chapter: 14, name: "Dorzolamide", type: "drug", group: "碳酸酐酶抑制劑", source: "統整（三）p.41", img: "assets/medchem/dorzolamide.png",
   use: ["僅適用於{{青光眼|疾病}}的眼部局部給藥"],
   bold: ["具有可解離的 {{2 級胺|結構}}結構", "仍具相當脂溶性，可穿透角膜"] },
-{ id: "brinzolamide", chapter: 11, name: "Brinzolamide", type: "drug", group: "碳酸酐酶抑制劑", source: "統整（三）p.41", img: "assets/medchem/brinzolamide.png",
+{ id: "brinzolamide", chapter: 14, name: "Brinzolamide", type: "drug", group: "碳酸酐酶抑制劑", source: "統整（三）p.41", img: "assets/medchem/brinzolamide.png",
   use: ["僅適用於{{青光眼|疾病}}的眼部局部給藥"],
   bold: ["與 Dorzolamide 類似，具可解離的 {{2 級胺|結構}}結構，可穿透角膜"] },
 
-{ id: "thiazide-sar", chapter: 11, name: "Thiazide 利尿劑 SAR", short: "Thiazide SAR", type: "topic", group: "Thiazide", source: "統整（三）p.42", img: "assets/medchem/benzothiadiazine.png",
+{ id: "thiazide-sar", chapter: 14, name: "Thiazide 利尿劑 SAR", short: "Thiazide SAR", type: "topic", group: "Thiazide", source: "統整（三）p.42", img: "assets/medchem/benzothiadiazine.png",
   bold: [
     "Thiazide（Benzothiadiazine）主要作用在{{遠曲小管|位置}}，競爭 Na⁺/Cl⁻通道的氯離子結合位 → 抑制 Na⁺、Cl⁻再吸收",
     "副作用：{{低血鉀|副作用}}（Na⁺-K⁺ pump 補償使 K⁺被分泌）",
@@ -2112,103 +2390,103 @@ PI.UNITS = [
     "{{3 號位|位置}}★上的親脂基團決定 Potency 及 Duration",
     "藥物合成：Chloraminophenamide 與 {{Acylating agents|物質}} 環化可得 Thiazide；與 Aldehydes 脫水環化可得 Hydrothiazide"
   ] },
-{ id: "chlorothiazide", chapter: 11, name: "Chlorothiazide", type: "drug", group: "Thiazide", source: "統整（三）p.42", img: "assets/medchem/chlorothiazide.png",
+{ id: "chlorothiazide", chapter: 14, name: "Chlorothiazide", type: "drug", group: "Thiazide", source: "統整（三）p.42", img: "assets/medchem/chlorothiazide.png",
   use: ["{{Thiazide 利尿劑|用途}}"],
   bold: ["3 號位親脂基團：{{H|取代基}}", "3、4 號間為{{不飽和雙鍵|結構|飽和單鍵}}（活性較 Hydrochlorothiazide 低）", "C₂的磺胺基酸度較大★，容易和 NaOH 形成水溶性鈉鹽"] },
-{ id: "hydrochlorothiazide", chapter: 11, name: "Hydrochlorothiazide", type: "drug", group: "Thiazide", source: "統整（三）p.42", img: "assets/medchem/hydrochlorothiazide.png",
+{ id: "hydrochlorothiazide", chapter: 14, name: "Hydrochlorothiazide", type: "drug", group: "Thiazide", source: "統整（三）p.42", img: "assets/medchem/hydrochlorothiazide.png",
   use: ["{{Thiazide 利尿劑|用途}}"],
   bold: ["與 Chlorothiazide 僅差在 3、4 號間{{不飽和雙鍵|結構}}飽和 → 利尿{{活性上升|性質}}★", "3 號位親脂基團：{{H|取代基}}"] },
-{ id: "benzthiazide", chapter: 11, name: "Benzthiazide", type: "drug", group: "Thiazide", source: "統整（三）p.42",
+{ id: "benzthiazide", chapter: 14, name: "Benzthiazide", type: "drug", group: "Thiazide", source: "統整（三）p.42",
   use: ["{{Thiazide 利尿劑|用途}}"],
   bold: ["3 號位親脂基團為 {{benzylthiomethyl|取代基}}（-CH₂-S-benzyl）", "3、4 號間為{{不飽和雙鍵|結構}}"] },
-{ id: "methyclothiazide", chapter: 11, name: "Methyclothiazide", type: "drug", group: "Thiazide", source: "統整（三）p.42",
+{ id: "methyclothiazide", chapter: 14, name: "Methyclothiazide", type: "drug", group: "Thiazide", source: "統整（三）p.42",
   use: ["{{Thiazide 利尿劑|用途}}"],
   bold: ["3 號位親脂基團為 {{ClCH₂|取代基}}", "2 號 N 上有{{甲基|取代基}}取代"] },
-{ id: "trichlormethiazide", chapter: 11, name: "Trichlormethiazide", type: "drug", group: "Thiazide", source: "統整（三）p.42",
+{ id: "trichlormethiazide", chapter: 14, name: "Trichlormethiazide", type: "drug", group: "Thiazide", source: "統整（三）p.42",
   use: ["{{Thiazide 利尿劑|用途}}"],
   bold: ["3 號位親脂基團為 {{CHCl₂|取代基}}（二氯甲基）", "3、4 號間為{{飽和單鍵|結構}}"] },
-{ id: "polythiazide", chapter: 11, name: "Polythiazide", type: "drug", group: "Thiazide", source: "統整（三）p.42",
+{ id: "polythiazide", chapter: 14, name: "Polythiazide", type: "drug", group: "Thiazide", source: "統整（三）p.42",
   use: ["{{Thiazide 利尿劑|用途}}"],
   bold: ["3 號位親脂基團為 {{-CH₂-S-CH₂CF₃|取代基}}", "2 號 N 上有{{甲基|取代基}}取代"] },
-{ id: "hydroflumethiazide", chapter: 11, name: "Hydroflumethiazide", type: "drug", group: "Thiazide", source: "統整（三）p.42",
+{ id: "hydroflumethiazide", chapter: 14, name: "Hydroflumethiazide", type: "drug", group: "Thiazide", source: "統整（三）p.42",
   use: ["{{Thiazide 利尿劑|用途}}"],
   bold: ["3 號位親脂基團：{{H|取代基}}", "6 號位為 {{CF₃|取代基}}（非 Cl）"] },
-{ id: "bendroflumethiazide", chapter: 11, name: "Bendroflumethiazide", type: "drug", group: "Thiazide", source: "統整（三）p.42",
+{ id: "bendroflumethiazide", chapter: 14, name: "Bendroflumethiazide", type: "drug", group: "Thiazide", source: "統整（三）p.42",
   use: ["{{Thiazide 利尿劑|用途}}"],
   bold: ["3 號位親脂基團為{{苯環|取代基}}（benzyl）", "6 號位為 {{CF₃|取代基}}"] },
-{ id: "metolazone", chapter: 11, name: "Metolazone", type: "drug", group: "Thiazide-like", source: "統整（三）p.43", img: "assets/medchem/metolazone.png",
+{ id: "metolazone", chapter: 14, name: "Metolazone", type: "drug", group: "Thiazide-like", source: "統整（三）p.43", img: "assets/medchem/metolazone.png",
   use: ["{{Thiazide-like 利尿劑|用途}}"],
   bold: ["不含 Benzothiadiazine 結構，但仍有 {{Sulfonamide|結構}} 結構★，與 Thiazide 有類似作用", "由 Thiazide 之 1(4) 號位的 {{Sulfone|取代基}} 基團置換成 {{C=O|取代基}}★所得", "2 號 N 上有 {{Toluidine|取代基}} 取代基", "3 號 C 上接{{甲基|取代基}}"] },
-{ id: "quinethazone", chapter: 11, name: "Quinethazone", type: "drug", group: "Thiazide-like", source: "統整（三）p.43", img: "assets/medchem/quinethazone.png",
+{ id: "quinethazone", chapter: 14, name: "Quinethazone", type: "drug", group: "Thiazide-like", source: "統整（三）p.43", img: "assets/medchem/quinethazone.png",
   use: ["{{Thiazide-like 利尿劑|用途}}"],
   bold: ["與 Metolazone 一樣含有 {{Quinazolinone|結構}} 雜環★", "2 號 N 上{{沒有取代基|結構}}", "3 號 C 上接{{乙基|取代基}}"] },
-{ id: "chlorthalidone", chapter: 11, name: "Chlorthalidone", type: "drug", group: "Thiazide-like", source: "統整（三）p.43", img: "assets/medchem/chlorthalidone.png",
+{ id: "chlorthalidone", chapter: 14, name: "Chlorthalidone", type: "drug", group: "Thiazide-like", source: "統整（三）p.43", img: "assets/medchem/chlorthalidone.png",
   use: ["{{Thiazide-like 利尿劑|用途}}"],
   bold: ["屬於 {{Phthalimidine|結構}}★類衍生物", "代謝：在體內會{{開環|代謝}}（含 Benzophenone 結構）"] },
-{ id: "indapamide", chapter: 11, name: "Indapamide", type: "drug", group: "Thiazide-like", source: "統整（三）p.43", img: "assets/medchem/indapamide.png",
+{ id: "indapamide", chapter: 14, name: "Indapamide", type: "drug", group: "Thiazide-like", source: "統整（三）p.43", img: "assets/medchem/indapamide.png",
   use: ["{{Thiazide-like 利尿劑|用途}}"],
   bold: ["屬於 {{Indoline|結構}} 類衍生物", "代謝：透過羥基化、水解、酯化、氧化{{四種|數值}}路徑代謝"] },
 
-{ id: "loop-intro", chapter: 11, name: "環利尿劑總論", short: "環利尿劑總論", type: "topic", group: "環利尿劑", source: "統整（三）p.44",
+{ id: "loop-intro", chapter: 14, name: "環利尿劑總論", short: "環利尿劑總論", type: "topic", group: "環利尿劑", source: "統整（三）p.44",
   bold: [
     "環利尿劑作用在{{亨氏套粗上升支|位置}}的 Na⁺/K⁺/2Cl⁻通道",
     "Onset 快、Duration 短，利尿效果較其他類佳，故稱 {{High-Ceiling|名詞}} Diuretics",
     "此類藥物較無類似結構，是因相似的藥理作用而歸類在一起"
   ] },
-{ id: "furosemide", chapter: 11, name: "Furosemide", type: "drug", group: "環利尿劑", source: "統整（三）p.44", img: "assets/medchem/furosemide.png",
+{ id: "furosemide", chapter: 14, name: "Furosemide", type: "drug", group: "環利尿劑", source: "統整（三）p.44", img: "assets/medchem/furosemide.png",
   use: ["{{環利尿劑|用途}}", "酸性強（因具有-COOH）", "2 號位取代基影響活性：{{furfuryl|取代基}}>benzyl>thienylmethyl★"],
   bold: ["{{ortho-aminobenzoic acid|結構}}★衍生物（5-sulfomyl-2-aminobenzoic acid）", "含有 {{anthranilic acid|結構}} 類似結構", "取代基：胺基+Furan、Cl、SO₂NH₂"] },
-{ id: "bumetanide", chapter: 11, name: "Bumetanide", type: "drug", group: "環利尿劑", source: "統整（三）p.44", img: "assets/medchem/bumetanide.png",
+{ id: "bumetanide", chapter: 14, name: "Bumetanide", type: "drug", group: "環利尿劑", source: "統整（三）p.44", img: "assets/medchem/bumetanide.png",
   use: ["{{環利尿劑|用途}}：效價最強（Furosemide 的 {{40|數值}} 倍）"],
   bold: ["{{meta-aminobenzoic acid|結構}}★衍生物（5-sulfomyl-3-aminobenzoic acid）", "3 號位含有{{正丁基|取代基}}結構（Butyl group）", "4 號位上有 {{Phenoxy|取代基}} 取代（O 改成 N 或 S 仍具活性）"] },
-{ id: "torsemide", chapter: 11, name: "Torsemide", type: "drug", group: "環利尿劑", source: "統整（三）p.44", img: "assets/medchem/torsemide.png",
+{ id: "torsemide", chapter: 14, name: "Torsemide", type: "drug", group: "環利尿劑", source: "統整（三）p.44", img: "assets/medchem/torsemide.png",
   use: ["{{環利尿劑|用途}}"],
   bold: ["以 {{Pyridine|結構}} 為骨架（不同於其他三者）", "SO₂NH₂ 修飾成 {{Sulfonylurea|結構}}★結構", "N 上有 {{Toluidine|取代基}} 結構", "半衰期{{最長|性質}}"] },
-{ id: "ethacrynic-acid", chapter: 11, name: "Ethacrynic acid", type: "drug", group: "環利尿劑", source: "統整（三）p.44", img: "assets/medchem/ethacrynic-acid.png",
+{ id: "ethacrynic-acid", chapter: 14, name: "Ethacrynic acid", type: "drug", group: "環利尿劑", source: "統整（三）p.44", img: "assets/medchem/ethacrynic-acid.png",
   use: ["{{環利尿劑|用途}}", "生體可用率最高（100%）", "可用在對磺胺類過敏的病患", "比其他環利尿劑有更嚴重的{{耳毒性|副作用}}★及腸胃副作用"],
   bold: ["唯一{{不含 Sulfonamide|結構}}★結構的環利尿劑", "含有 {{Acrylic acid|結構}} 結構，Cl 取代在 2、3 位", "Oxyacetic acid 與 αβ-unsaturated carbonyl 為 {{para-position|位置}}★時利尿效果最好", "與腎小管的-SH 形成{{共價鍵|機轉}}結合"] },
 
-{ id: "mra-intro", chapter: 11, name: "保鉀型（MRA）總論", short: "MRA 總論", type: "topic", group: "保鉀型（MRA）", source: "統整（三）p.45",
+{ id: "mra-intro", chapter: 14, name: "保鉀型（MRA）總論", short: "MRA 總論", type: "topic", group: "保鉀型（MRA）", source: "統整（三）p.45",
   bold: [
     "礦物性腎上腺皮質受體抑制劑（MRA）同時歸類為{{保鉀型利尿劑|藥物類別}}",
     "主要抑制{{醛固酮 Aldosterone|物質}}的作用 → 需要 Aldosterone 存在才可作用★",
     "受體（含 {{Methionine|物質}}）被抑制，使 Na⁺和水無法再吸收（K⁺留在體內）"
   ] },
-{ id: "spironolactone", chapter: 11, name: "Spironolactone", type: "drug", group: "保鉀型（MRA）", source: "統整（三）p.45", img: "assets/medchem/spironolactone.png",
+{ id: "spironolactone", chapter: 14, name: "Spironolactone", type: "drug", group: "保鉀型（MRA）", source: "統整（三）p.45", img: "assets/medchem/spironolactone.png",
   use: ["{{保鉀型利尿劑|用途}}", "副作用：{{男性女乳症|副作用}}（gynocomastia）、腸胃不適、昏睡"],
   bold: ["7α★：-SC(O)CH₃（{{Ethanethiolate|取代基}}）★", "17 號：{{γ-lactone ring|結構}}", "7 號取代基可拮抗 Aldosterone 與受體 {{Methionine|物質}}★活化", "代謝：經肝臟首渡代謝脫去-SC(O)CH₃★形成 {{Canrenone|代謝物}}★（有活性）"] },
-{ id: "eplerenone", chapter: 11, name: "Eplerenone", type: "drug", group: "保鉀型（MRA）", source: "統整（三）p.45", img: "assets/medchem/eplerenone.png",
+{ id: "eplerenone", chapter: 14, name: "Eplerenone", type: "drug", group: "保鉀型（MRA）", source: "統整（三）p.45", img: "assets/medchem/eplerenone.png",
   use: ["{{保鉀型利尿劑|用途}}"],
   bold: ["在 9α、11α 上有 {{epoxy group|取代基}} → 對 MR 親合度較 Spironolactone {{低|性質|高}}", "代謝：經 {{CYP3A4|酵素}} 產生 4 種代謝物"] },
 
-{ id: "ksparing-intro", chapter: 11, name: "保鉀型（Na⁺通道）總論", short: "保鉀型總論", type: "topic", group: "保鉀型（Na⁺通道）", source: "統整（三）p.46",
+{ id: "ksparing-intro", chapter: 14, name: "保鉀型（Na⁺通道）總論", short: "保鉀型總論", type: "topic", group: "保鉀型（Na⁺通道）", source: "統整（三）p.46",
   bold: [
     "保鉀型利尿劑作用在{{遠曲、集尿管|位置}}的 Na⁺通道，副作用：{{高血鉀|副作用}}",
     "與 Spironolactone、Eplerenone 不同，{{不需要|性質}} Aldosterone 存在即可作用★",
     "皆含有 N 原子，弱酸環境被質子化形成陽離子 BH⁺，與 Na⁺通道上的陰離子基團結合而抑制 Na⁺再吸收"
   ] },
-{ id: "triamterene", chapter: 11, name: "Triamterene", type: "drug", group: "保鉀型（Na⁺通道）", source: "統整（三）p.46", img: "assets/medchem/triamterene.png",
+{ id: "triamterene", chapter: 14, name: "Triamterene", type: "drug", group: "保鉀型（Na⁺通道）", source: "統整（三）p.46", img: "assets/medchem/triamterene.png",
   use: ["{{保鉀型利尿劑|用途}}"],
   bold: ["由 {{Pteridine|結構}}★（4N）發展而來：與葉酸、Methotrexate★結構類似", "結構中有 {{3 個|數值}}胺基-NH₂，故稱 Triamterene", "代謝：經 {{CYP1A2|酵素}} 代謝成 4'-hydroxytriamterene + Sulfate-conjugated，均有活性"] },
-{ id: "amiloride", chapter: 11, name: "Amiloride", type: "drug", group: "保鉀型（Na⁺通道）", source: "統整（三）p.46", img: "assets/medchem/amiloride.png",
+{ id: "amiloride", chapter: 14, name: "Amiloride", type: "drug", group: "保鉀型（Na⁺通道）", source: "統整（三）p.46", img: "assets/medchem/amiloride.png",
   use: ["{{保鉀型利尿劑|用途}}"],
   bold: ["由 Triamterene {{開環|結構}}而來，具有 {{pyrazine|結構}}★結構", "具有 Aminopyrazine、{{Guanidine|結構}}★的結構", "鹼性較強，較易質子化", "代謝：幾乎不會代謝，以{{原型|代謝}}排出體外"] },
 
-/* ===== 第 12 章 心絞痛藥物（統整（三）捌，p.47–48）===== */
-{ id: "dipyridamole", chapter: 12, name: "Dipyridamole", type: "drug", group: "PDE 抑制劑", source: "統整（三）p.47", img: "assets/medchem/dipyridamole.png",
+/* ===== 第 15 章 心絞痛藥物（統整（三）捌，p.47–48）===== */
+{ id: "dipyridamole", chapter: 15, name: "Dipyridamole", type: "drug", group: "PDE 抑制劑", source: "統整（三）p.47", img: "assets/medchem/dipyridamole.png",
   use: ["{{心絞痛|疾病}}（PDE 抑制劑，Persantine®）", "抑制 {{PDE-3|標的}}，使 cAMP↑", "同時抑制 {{adenosine|物質}} 再回收★，刺激 adenyl cyclase 使 cAMP↑"],
   bold: ["以 {{pyrimidopyrimidine|結構}} 為骨架", "具 {{piperidine|結構}} 結構"] },
-{ id: "cilostazol", chapter: 12, name: "Cilostazol", type: "drug", group: "PDE 抑制劑", source: "統整（三）p.47", img: "assets/medchem/cilostazol.png",
+{ id: "cilostazol", chapter: 15, name: "Cilostazol", type: "drug", group: "PDE 抑制劑", source: "統整（三）p.47", img: "assets/medchem/cilostazol.png",
   use: ["{{口服|給藥途徑}}藥，對 {{PDE-3A|標的}} 更具選擇性", "同時抑制 adenosine 再回收，使 cAMP↑", "可治療{{間歇性跛行|疾病}}"],
   bold: ["以 {{quinolinone|結構}} 為骨架", "具 {{tetrazole|結構}} 結構", "具環己烷結構"] },
-{ id: "papaverine", chapter: 12, name: "Papaverine", type: "drug", group: "PDE 抑制劑", source: "統整（三）p.47", img: "assets/medchem/papaverine.png",
+{ id: "papaverine", chapter: 15, name: "Papaverine", type: "drug", group: "PDE 抑制劑", source: "統整（三）p.47", img: "assets/medchem/papaverine.png",
   use: ["{{心絞痛|疾病}}（作用於血管平滑肌使血管舒張）"],
   bold: ["以 {{Benzoisoquinoline|結構}} 為骨架"] },
-{ id: "minoxidil", chapter: 12, name: "Minoxidil", type: "drug", group: "心絞痛（補充）", source: "統整（三）p.47", img: "assets/medchem/minoxidil.png",
+{ id: "minoxidil", chapter: 15, name: "Minoxidil", type: "drug", group: "心絞痛（補充）", source: "統整（三）p.47", img: "assets/medchem/minoxidil.png",
   use: ["具有降血壓、血管擴張作用，但{{不用在心衰竭治療|用途}}", "後被發現有促進{{毛髮再生|用途}}的能力"],
   bold: ["為 {{K⁺通道促效劑|機轉}}"] },
 
-{ id: "nitrate-intro", chapter: 12, name: "硝酸酯類總論", short: "硝酸酯總論", type: "topic", group: "硝酸酯類", source: "統整（三）p.48",
+{ id: "nitrate-intro", chapter: 15, name: "硝酸酯類總論", short: "硝酸酯總論", type: "topic", group: "硝酸酯類", source: "統整（三）p.48",
   bold: [
     "含硝基血管擴張劑與組織中游離的{{硫醇基|物質}}（R-SH）結合，產生雙硫鍵釋放 NO₂⁻，最後生成 {{NO|物質}}（內生性 NO 由 L-arginine★生合成）",
     "NO 生合成為 nitrosothiol（R-SNO），刺激 {{guanylate cyclase|酵素}}★生成 cGMP",
@@ -2217,24 +2495,24 @@ PI.UNITS = [
     "做成{{舌下錠|給藥途徑}}治療緊急心絞痛；可作{{氰化物|物質}}★中毒之解毒劑",
     "不可和 {{PDE-5 inhibitors|藥物類別}}（Sildenafil、Tadalafil）併用"
   ] },
-{ id: "glyceryl-trinitrate", chapter: 12, name: "Glyceryl Trinitrate", type: "drug", group: "硝酸酯類", source: "統整（三）p.48", img: "assets/medchem/glyceryl-trinitrate.png",
+{ id: "glyceryl-trinitrate", chapter: 15, name: "Glyceryl Trinitrate", type: "drug", group: "硝酸酯類", source: "統整（三）p.48", img: "assets/medchem/glyceryl-trinitrate.png",
   use: ["{{心絞痛|疾病}}（舌下錠）"],
   bold: ["又名 nitroglycerin，{{結構式和化學式|名詞}}★要記"] },
-{ id: "amyl-nitrite", chapter: 12, name: "Amyl Nitrite", type: "drug", group: "硝酸酯類", source: "統整（三）p.48", img: "assets/medchem/amyl-nitrite.png",
+{ id: "amyl-nitrite", chapter: 15, name: "Amyl Nitrite", type: "drug", group: "硝酸酯類", source: "統整（三）p.48", img: "assets/medchem/amyl-nitrite.png",
   use: ["{{心絞痛|疾病}}"],
   bold: ["屬於 {{Nitrite ester|結構}}★亞硝酸酯", "以{{氣體|給藥途徑}}給藥，油溶性高、{{Onset 最快|作用時間}}★"] },
-{ id: "isosorbide-dinitrate", chapter: 12, name: "Isosorbide Dinitrate", type: "drug", group: "硝酸酯類", source: "統整（三）p.48", img: "assets/medchem/isosorbide-dinitrate.png",
+{ id: "isosorbide-dinitrate", chapter: 15, name: "Isosorbide Dinitrate", type: "drug", group: "硝酸酯類", source: "統整（三）p.48", img: "assets/medchem/isosorbide-dinitrate.png",
   use: ["{{心絞痛|疾病}}"],
   bold: ["具有 {{4 個|數值}}★不對稱中心", "{{活性代謝物|性質}}作用時間更長★"] },
-{ id: "pentaerythritol-tetranitrate", chapter: 12, name: "Pentaerythritol Tetranitrate", type: "drug", group: "硝酸酯類", source: "統整（三）p.48", img: "assets/medchem/pentaerythritol-tetranitrate.png",
+{ id: "pentaerythritol-tetranitrate", chapter: 15, name: "Pentaerythritol Tetranitrate", type: "drug", group: "硝酸酯類", source: "統整（三）p.48", img: "assets/medchem/pentaerythritol-tetranitrate.png",
   use: ["{{心絞痛|疾病}}"],
   bold: ["{{作用時間最長|作用時間}}★"] },
-{ id: "molsidomine", chapter: 12, name: "Molsidomine", type: "drug", group: "NO Donor", source: "統整（三）p.48", img: "assets/medchem/molsidomine.png",
+{ id: "molsidomine", chapter: 15, name: "Molsidomine", type: "drug", group: "NO Donor", source: "統整（三）p.48", img: "assets/medchem/molsidomine.png",
   use: ["{{心絞痛|疾病}}（NO donor）", "具光敏性、藥效短，治療劑量時有{{抗血小板|用途}}作用"],
   bold: ["不需要雙硫鍵催化，可直接提供 {{NO|物質}}", "化學結構屬於 {{Mesionic compound|結構}}★", "經 liver esterases 水解成活性代謝物 {{Linsidomine|代謝物}}★（含 imine 結構），再開環成 SIN-1A"] },
 
-/* ===== 第 13 章 心衰竭藥物（統整（三）玖，p.49–53）===== */
-{ id: "cg-intro", chapter: 13, name: "強心配醣體：作用機轉與必要結構", short: "強心配醣體總論", type: "topic", group: "強心配醣體", source: "統整（三）p.49", img: "assets/medchem/cg-structure.png",
+/* ===== 第 16 章 心衰竭藥物（統整（三）玖，p.49–53）===== */
+{ id: "cg-intro", chapter: 16, name: "強心配醣體：作用機轉與必要結構", short: "強心配醣體總論", type: "topic", group: "強心配醣體", source: "統整（三）p.49", img: "assets/medchem/cg-structure.png",
   bold: [
     "作用機轉：抑制 {{Na⁺/K⁺-ATPase|標的}}，間接使細胞內 {{Ca²⁺|離子}} 濃度上升★，增加心肌收縮力",
     "{{5β,14β-Androstane-3β,14β-diol|結構}} 為抑制 Na⁺/K⁺-ATPase 必須的先導結構",
@@ -2242,7 +2520,7 @@ PI.UNITS = [
     "醣基以 {{β-1,4-glucosidic|結構}}★鍵結在 C3 位置；10、13 位有甲基，3、14 位有 β-OH（OH 越多 onset 越快）",
     "17β★位有不飽和 lactone ring：{{Cardenolide|藥物類別}} 為 γ-lactone（五元環★）、Bufadienolides 為 δ-lactone（六元環）"
   ] },
-{ id: "cg-compare", chapter: 13, name: "強心配醣體比較（genin／OH／藥動）", short: "強心配醣體比較", type: "topic", group: "強心配醣體", source: "統整（三）p.50",
+{ id: "cg-compare", chapter: 16, name: "強心配醣體比較（genin／OH／藥動）", short: "強心配醣體比較", type: "topic", group: "強心配醣體", source: "統整（三）p.50",
   bold: [
     "Cardiac genin：Digoxin→{{Digoxigenin|代謝物}}、Digitoxin→Digitoxigenin、Ouabain→Ouabagenin",
     "非醣基 OH 位置：Digoxin 在 3β、12β、14β★（Lanatoside C 同）；Digitoxin 在 3β、14β",
@@ -2251,7 +2529,7 @@ PI.UNITS = [
     "分布體積大小：{{Ouabain|藥名}}>Digoxin>Digitoxin",
     "強心配醣體用於{{左心室收縮異常|疾病}}之病人，不適用舒張型/右心衰竭；也適合原發性高血壓引起之心衰竭"
   ] },
-{ id: "digoxin-interactions", chapter: 13, name: "Digoxin 藥物交互作用", short: "Digoxin 交互作用", type: "topic", group: "強心配醣體", source: "統整（三）p.51",
+{ id: "digoxin-interactions", chapter: 16, name: "Digoxin 藥物交互作用", short: "Digoxin 交互作用", type: "topic", group: "強心配醣體", source: "統整（三）p.51",
   bold: [
     "使 Digoxin 濃度下降：促進 {{P-gp|標的}}（Rifampin、St. John wort）、破壞腸道絨毛（Neomycin）、與藥物結合（Cholestyramine）、制酸劑、Metoclopramide",
     "使 Digoxin 濃度上升：抑制 P-gp（{{Quinidine|藥名}}、Amiodarone、CCBs 等）、減少腸道菌叢代謝（Erythromycin）、Spironolactone",
@@ -2259,27 +2537,27 @@ PI.UNITS = [
     "Digoxin 中毒解毒劑：{{Lidocaine|藥名}}★（首選）、Phenytoin 或 Procainamide，禁用 Quinidine",
     "Digoxin 治療心房顫動：擬副交感神經作用使 PR interval 延長、抑制 {{AV node|標的}} 傳導"
   ] },
-{ id: "digoxin", chapter: 13, name: "Digoxin", type: "drug", group: "強心配醣體", source: "統整（三）p.50",
+{ id: "digoxin", chapter: 16, name: "Digoxin", type: "drug", group: "強心配醣體", source: "統整（三）p.50",
   use: ["{{強心配醣體|用途}}（心衰竭、心房顫動）"],
   bold: ["Cardiac genin 為 {{Digoxigenin|代謝物}}，非醣基 OH 在 {{3β、12β、14β|位置}}★，醣基為 3 digitoxose", "脂溶性中（3 個 OH）、Onset {{快|性質}}★、半衰期短、主要由{{腎臟|器官}}★排泄"] },
-{ id: "digitoxin", chapter: 13, name: "Digitoxin", type: "drug", group: "強心配醣體", source: "統整（三）p.50",
+{ id: "digitoxin", chapter: 16, name: "Digitoxin", type: "drug", group: "強心配醣體", source: "統整（三）p.50",
   use: ["{{強心配醣體|用途}}"],
   bold: ["Cardiac genin 為 Digitoxigenin，非醣基 OH 在 {{3β、14β|位置}}", "脂溶性{{高|性質}}★（2 個 OH）、口服吸收 100%、蛋白結合率 97%、經{{肝臟|器官}}代謝"] },
-{ id: "ouabain", chapter: 13, name: "Ouabain", type: "drug", group: "強心配醣體", source: "統整（三）p.50",
+{ id: "ouabain", chapter: 16, name: "Ouabain", type: "drug", group: "強心配醣體", source: "統整（三）p.50",
   use: ["{{強心配醣體|用途}}"],
   bold: ["Cardiac genin 為 Ouabagenin，有 {{6 個|數值}} OH，醣基為 1 {{Rhamnose|物質}}★", "脂溶性低、口服吸收 0%、{{分布體積最大|性質}}"] },
 
-{ id: "milrinone", chapter: 13, name: "Milrinone", type: "drug", group: "PDE-3 抑制劑", source: "統整（三）p.52", img: "assets/medchem/milrinone.png",
+{ id: "milrinone", chapter: 16, name: "Milrinone", type: "drug", group: "PDE-3 抑制劑", source: "統整（三）p.52", img: "assets/medchem/milrinone.png",
   use: ["{{心衰竭|疾病}}（抑制 PDE-3 使 cAMP↑★、收縮力↑）", "與 {{furosemide|藥名}} 併用會沉澱", "半衰期較短"],
   bold: ["以 {{pyridine-pyridone|結構}} 為骨架", "有甲基、{{CN|取代基}} 取代"] },
-{ id: "inamrinone", chapter: 13, name: "Inamrinone", type: "drug", group: "PDE-3 抑制劑", source: "統整（三）p.52", img: "assets/medchem/inamrinone.png",
+{ id: "inamrinone", chapter: 16, name: "Inamrinone", type: "drug", group: "PDE-3 抑制劑", source: "統整（三）p.52", img: "assets/medchem/inamrinone.png",
   use: ["{{心衰竭|疾病}}（PDE-3 抑制劑）", "副作用：{{血小板減少症|副作用}}（thrombocytopenia）", "造成肝功能損害，不適合長期使用"],
   bold: ["以 {{pyridine-pyridone|結構}} 為骨架", "有 {{-NO₂|取代基}} 取代"] },
-{ id: "dobutamine", chapter: 13, name: "Dobutamine", type: "drug", group: "β-agonist", source: "統整（三）p.52", img: "assets/medchem/dobutamine.png",
+{ id: "dobutamine", chapter: 16, name: "Dobutamine", type: "drug", group: "β-agonist", source: "統整（三）p.52", img: "assets/medchem/dobutamine.png",
   use: ["{{β₁-agonist|機轉}}★，使心肌細胞 cAMP、Ca²⁺濃度上升，促進心臟收縮", "{{IV|給藥途徑}} 給予治療急性心衰竭", "長期使用會導致 β 受體去敏感化"],
   bold: ["由 Dopamine 修飾而來，兩者都屬{{兒茶酚胺|藥物類別}}類（Catecholamine）"] },
 
-{ id: "hf-other", chapter: 13, name: "其他心衰竭治療藥物", short: "其他心衰竭藥物", type: "topic", group: "其他心衰竭藥物", source: "統整（三）p.53",
+{ id: "hf-other", chapter: 16, name: "其他心衰竭治療藥物", short: "其他心衰竭藥物", type: "topic", group: "其他心衰竭藥物", source: "統整（三）p.53",
   bold: [
     "{{Aldosterone antagonist|藥物類別}}（Spironolactone、Eplerenone）：預防鹽類滯留、心肌肥大與低血鉀",
     "{{Ivabradine|藥名}}：抑制 SA node 之 funny channel★降低心跳，CYP3A4 代謝，副作用為光幻視",
@@ -2287,24 +2565,24 @@ PI.UNITS = [
     "{{Levosimendan|藥名}}：增加 troponin 對 Ca²⁺敏感性、也抑制 PDE，血管舒張並促心臟收縮",
     "Bosentan：競爭型 {{endothelin|標的}} 抑制劑，核准治療肺動脈高血壓"
   ] },
-{ id: "pde5-intro", chapter: 13, name: "PDE-5 抑制劑總論", short: "PDE-5 總論", type: "topic", group: "PDE-5 抑制劑", source: "統整（三）p.53",
+{ id: "pde5-intro", chapter: 16, name: "PDE-5 抑制劑總論", short: "PDE-5 總論", type: "topic", group: "PDE-5 抑制劑", source: "統整（三）p.53",
   bold: [
     "PDE-5 抑制劑用於治療{{勃起障礙|疾病}}，也用於肺動脈高血壓或高山症",
     "不可和其他 PDE 抑制劑或(亞){{硝酸酯類|藥物類別}}血管擴張劑併用"
   ] },
-{ id: "sildenafil", chapter: 13, name: "Sildenafil", type: "drug", group: "PDE-5 抑制劑", source: "統整（三）p.53", img: "assets/medchem/sildenafil.png",
+{ id: "sildenafil", chapter: 16, name: "Sildenafil", type: "drug", group: "PDE-5 抑制劑", source: "統整（三）p.53", img: "assets/medchem/sildenafil.png",
   use: ["{{勃起障礙|疾病}}（Viagra®）", "也可用於治療肺動脈高壓（20 mg）"],
   bold: ["另外會抑制 {{PDE-6|標的}}，造成{{視覺障礙|副作用}}"] },
-{ id: "tadalafil", chapter: 13, name: "Tadalafil", type: "drug", group: "PDE-5 抑制劑", source: "統整（三）p.53", img: "assets/medchem/tadalafil.png",
+{ id: "tadalafil", chapter: 16, name: "Tadalafil", type: "drug", group: "PDE-5 抑制劑", source: "統整（三）p.53", img: "assets/medchem/tadalafil.png",
   use: ["{{勃起障礙|疾病}}（Cialis®）"],
   bold: ["抑制 {{PDE-11|標的}} 最強，會造成{{肌肉痠痛|副作用}}"] },
-{ id: "vardenafil", chapter: 13, name: "Vardenafil", type: "drug", group: "PDE-5 抑制劑", source: "統整（三）p.53", img: "assets/medchem/vardenafil.png",
+{ id: "vardenafil", chapter: 16, name: "Vardenafil", type: "drug", group: "PDE-5 抑制劑", source: "統整（三）p.53", img: "assets/medchem/vardenafil.png",
   use: ["{{勃起障礙|疾病}}（Levitra®）"],
   bold: ["與 Sildenafil 結構相似（{{imidazotriazinone|結構}} 核）"] },
 
-/* ===== 第 14 章 抗凝血及其血液相關藥物（統整（三）壹拾壹，p.58–69）===== */
+/* ===== 第 17 章 抗凝血及其血液相關藥物（統整（三）壹拾壹，p.58–69）===== */
 /* 一、抗凝血因子藥物 */
-{ id: "coag-overview", chapter: 14, name: "凝血級聯與抗凝血藥物總覽", short: "凝血級聯總覽", type: "topic", group: "總論", source: "統整（三）p.58", img: "assets/medchem/coag-cascade.png",
+{ id: "coag-overview", chapter: 17, name: "凝血級聯與抗凝血藥物總覽", short: "凝血級聯總覽", type: "topic", group: "總論", source: "統整（三）p.58", img: "assets/medchem/coag-cascade.png",
   bold: [
     "內在途徑（XII→XIIa…）與外在途徑（TF-VIIa）匯合於 {{Xa|名詞}}，再使 Prothrombin(II)→Thrombin(IIa)，最後 Fibrinogen(I)→Crosslink Fibrin",
     "Heparin／LMWH：形成 ATIII-Heparins Complex，間接抑制 Xa 與 {{Thrombin|標的}}",
@@ -2312,149 +2590,149 @@ PI.UNITS = [
     "DTIs 直接抑制 {{Thrombin|標的}}（IIa）；口服抗凝血劑經 Vit K cycle 抑制凝血因子 2、7、9、10 活化",
     "Thrombolytic drugs 使 {{Plasminogen|物質}}→Plasmin（纖維溶解酶）分解 fibrin"
   ] },
-{ id: "warfarin", chapter: 14, name: "Warfarin", type: "drug", group: "口服抗凝血劑", source: "統整（三）p.60", img: "assets/medchem/warfarin.png",
+{ id: "warfarin", chapter: 17, name: "Warfarin", type: "drug", group: "口服抗凝血劑", source: "統整（三）p.60", img: "assets/medchem/warfarin.png",
   use: ["{{口服抗凝血劑|用途}}", "會與血球蛋白高度結合，Vd 小、血漿半衰期長；僅在體內有效；50%肝臟代謝物由尿液排出"],
   bold: ["Coumarin 4-OH 可做成鈉鹽增加水溶性；4-OH 易與右邊 C=O 形成 {{hemiacetal|結構}} 結構→仍具活性", "{{S form|結構}} 活性較高", "代謝：S form 經 {{CYP2C9|酵素}}★在 6、7 位加-OH；R form 經 CYP1A2、CYP2C19 在 6、8 位加-OH"] },
-{ id: "acenocoumarol", chapter: 14, name: "Acenocoumarol", type: "drug", group: "口服抗凝血劑", source: "統整（三）p.60", img: "assets/medchem/acenocoumarol.png",
+{ id: "acenocoumarol", chapter: 17, name: "Acenocoumarol", type: "drug", group: "口服抗凝血劑", source: "統整（三）p.60", img: "assets/medchem/acenocoumarol.png",
   use: ["{{口服抗凝血劑|用途}}"],
   bold: ["與 Warfarin 只相差一個 {{-NO₂|取代基}} group", "也容易形成 hemiacetal 結構", "{{S form|結構}} 活性較高"] },
-{ id: "phenprocoumon", chapter: 14, name: "Phenprocoumon", type: "drug", group: "口服抗凝血劑", source: "統整（三）p.60", img: "assets/medchem/phenprocoumon.png",
+{ id: "phenprocoumon", chapter: 17, name: "Phenprocoumon", type: "drug", group: "口服抗凝血劑", source: "統整（三）p.60", img: "assets/medchem/phenprocoumon.png",
   use: ["{{口服抗凝血劑|用途}}（在歐洲使用）"],
   bold: ["與 Warfarin 相差在 C3 上的取代基：有 {{phenyl|取代基}} group", "C3 上具 {{propanyl|取代基}} 支鏈"] },
-{ id: "dicoumarol", chapter: 14, name: "Dicoumarol", type: "drug", group: "口服抗凝血劑", source: "統整（三）p.60", img: "assets/medchem/dicoumarol.png",
+{ id: "dicoumarol", chapter: 17, name: "Dicoumarol", type: "drug", group: "口服抗凝血劑", source: "統整（三）p.60", img: "assets/medchem/dicoumarol.png",
   use: ["{{口服抗凝血劑|用途}}（在歐洲使用）"],
   bold: ["具有 {{dimer|結構}} 形式（兩個 coumarin 以 CH₂ 相接）"] },
-{ id: "phenindione", chapter: 14, name: "Phenindione", type: "drug", group: "1,3-Indandione", source: "統整（三）p.61", img: "assets/medchem/phenindione.png",
+{ id: "phenindione", chapter: 17, name: "Phenindione", type: "drug", group: "1,3-Indandione", source: "統整（三）p.61", img: "assets/medchem/phenindione.png",
   use: ["{{口服抗凝血劑|用途}}（1,3-Indandione 類，支鏈接在 C2 上）"],
   bold: ["支鏈上接了 {{Phenyl|取代基}} group"] },
-{ id: "anisindione", chapter: 14, name: "Anisindione", type: "drug", group: "1,3-Indandione", source: "統整（三）p.61", img: "assets/medchem/anisindione.png",
+{ id: "anisindione", chapter: 17, name: "Anisindione", type: "drug", group: "1,3-Indandione", source: "統整（三）p.61", img: "assets/medchem/anisindione.png",
   use: ["{{口服抗凝血劑|用途}}"],
   bold: ["支鏈上接了 {{Anisole|取代基}}（對位 OCH₃ 苯環）"] },
-{ id: "chlorophacinone", chapter: 14, name: "Chlorophacinone", type: "drug", group: "1,3-Indandione", source: "統整（三）p.61", img: "assets/medchem/chlorophacinone.png",
+{ id: "chlorophacinone", chapter: 17, name: "Chlorophacinone", type: "drug", group: "1,3-Indandione", source: "統整（三）p.61", img: "assets/medchem/chlorophacinone.png",
   use: ["現今多用來當作{{殺蟲劑|用途}}"],
   bold: ["支鏈具有 {{Cl|取代基}} 原子", "支鏈具有{{兩個|數值}} Phenyl group", "支鏈以丙酮基與苯環相接"] },
-{ id: "heparin-intro", chapter: 14, name: "肝素（Heparin）", short: "Heparin", type: "topic", group: "肝素", source: "統整（三）p.62",
+{ id: "heparin-intro", chapter: 17, name: "肝素（Heparin）", short: "Heparin", type: "topic", group: "肝素", source: "統整（三）p.62",
   bold: [
     "結構：帶負電的黏多醣硫酸酯（{{Sulfated mucopolysaccharides|結構}}★）聚合物，單體為 N-acetyl-D-glucosamine（NAG）與 glucuronic acid 以 α-1,4 鍵結",
     "作用機轉：五個帶負電硫酸根與 {{Antithrombin III|標的}} 的五個正電基團結合，使其構型改變，加速抑制凝血因子 {{IIa 和 Xa|名詞}} → 類催化劑、間接抑制 Thrombin",
     "副作用：內出血、血小板低下、血脂過低、骨質疏鬆、肝功能異常",
     "引發血小板減少症（{{HIT|疾病}}）時應停用 Heparin，改用 Lepirudin 或 Fondaparinux"
   ] },
-{ id: "lmwh-intro", chapter: 14, name: "低分子量肝素（LMWH）", short: "LMWH", type: "topic", group: "肝素", source: "統整（三）p.62",
+{ id: "lmwh-intro", chapter: 17, name: "低分子量肝素（LMWH）", short: "LMWH", type: "topic", group: "肝素", source: "統整（三）p.62",
   bold: [
     "因 Heparin 分子量太大、易與血漿蛋白結合且口服吸收差，發展出小分子肝素，更具{{專一性|性質}}",
     "{{腎功能不足|疾病}}的病患不適合使用",
     "藥物：Ardeparin、Dalteparin、{{Enoxaparin|藥名}}、Tinzaparin；Enoxaparin 可治療 DVT、肺栓塞"
   ] },
-{ id: "fondaparinux-xa", chapter: 14, name: "Fondaparinux 與 Direct Xa 抑制劑", short: "Fondaparinux/Xa", type: "topic", group: "Xa 抑制劑", source: "統整（三）p.62",
+{ id: "fondaparinux-xa", chapter: 17, name: "Fondaparinux 與 Direct Xa 抑制劑", short: "Fondaparinux/Xa", type: "topic", group: "Xa 抑制劑", source: "統整（三）p.62",
   bold: [
     "Fondaparinux：人工合成、高度硫化的{{五醣|結構}}（Sulfonated Pentasaccharide★），選擇性抑制凝血因子 {{Xa|名詞}}",
     "Direct Xa Inhibitors（直接抑制 Xa）：{{Rivaroxaban|藥名}}、Apixaban、Edoxaban"
   ] },
-{ id: "hirudin", chapter: 14, name: "Hirudin", type: "drug", group: "DTI（直接凝血酶抑制劑）", source: "統整（三）p.63",
+{ id: "hirudin", chapter: 17, name: "Hirudin", type: "drug", group: "DTI（直接凝血酶抑制劑）", source: "統整（三）p.63",
   use: ["{{DTI|藥物類別}}：直接抑制凝血因子 II（{{bivalent|名詞}} DTI、不可逆）"],
   bold: ["自 {{medicinal leech|物質}} 的唾腺萃取而來", "屬蛋白質藥物，由 {{65 個|數值}} 胺基酸組成"] },
-{ id: "lepirudin", chapter: 14, name: "Lepirudin", type: "drug", group: "DTI（直接凝血酶抑制劑）", source: "統整（三）p.63",
+{ id: "lepirudin", chapter: 17, name: "Lepirudin", type: "drug", group: "DTI（直接凝血酶抑制劑）", source: "統整（三）p.63",
   use: ["{{DTI|藥物類別}}（bivalent DTI、不可逆）"],
   bold: ["N 端胺基酸為 {{leucine-1、threonin-2|名詞}}", "由 65 個胺基酸組成"] },
-{ id: "desirudin", chapter: 14, name: "Desirudin", type: "drug", group: "DTI（直接凝血酶抑制劑）", source: "統整（三）p.63",
+{ id: "desirudin", chapter: 17, name: "Desirudin", type: "drug", group: "DTI（直接凝血酶抑制劑）", source: "統整（三）p.63",
   use: ["{{DTI|藥物類別}}（bivalent DTI、不可逆）"],
   bold: ["N 端胺基酸為 {{valine-1、valine-2|名詞}}", "由 65 個胺基酸組成"] },
-{ id: "bivalirudin", chapter: 14, name: "Bivalirudin", type: "drug", group: "DTI（直接凝血酶抑制劑）", source: "統整（三）p.63",
+{ id: "bivalirudin", chapter: 17, name: "Bivalirudin", type: "drug", group: "DTI（直接凝血酶抑制劑）", source: "統整（三）p.63",
   use: ["{{DTI|藥物類別}}（短效 bivalent DTI、可逆）"],
   bold: ["由 {{20 個|數值}} 胺基酸組成", "Onset {{快速、短效|作用時間}}"] },
-{ id: "argatroban", chapter: 14, name: "Argatroban", type: "drug", group: "DTI（直接凝血酶抑制劑）", source: "統整（三）p.63", img: "assets/medchem/argatroban.png",
+{ id: "argatroban", chapter: 17, name: "Argatroban", type: "drug", group: "DTI（直接凝血酶抑制劑）", source: "統整（三）p.63", img: "assets/medchem/argatroban.png",
   use: ["{{DTI|藥物類別}}：{{Monovalent|名詞}} DTI，選擇性結合 Catalytic site（可逆）"],
   bold: ["具 arginine、{{tetrahydroquinoline|結構}}、piperidine、sulfonamide、-COOH", "代謝：經 {{CYP3A4/5|酵素}} 代謝"] },
-{ id: "dabigatran", chapter: 14, name: "Dabigatran Etexilate", short: "Dabigatran", type: "drug", group: "DTI（直接凝血酶抑制劑）", source: "統整（三）p.63", img: "assets/medchem/dabigatran.png",
+{ id: "dabigatran", chapter: 17, name: "Dabigatran Etexilate", short: "Dabigatran", type: "drug", group: "DTI（直接凝血酶抑制劑）", source: "統整（三）p.63", img: "assets/medchem/dabigatran.png",
   use: ["{{DTI|藥物類別}}：口服非擬肽藥物（non-peptidomimetic）", "用於關節置換手術引起的深層靜脈栓塞（VTE）"],
   bold: ["以 {{Benzamidine|結構}} 為基本結構", "為{{前驅藥|性質}}（prodrug）★"] },
 
 /* 二、抗血小板藥物 */
-{ id: "antiplatelet-overview", chapter: 14, name: "抗血小板藥物總覽", short: "抗血小板總覽", type: "topic", group: "總論", source: "統整（三）p.59", img: "assets/medchem/antiplatelet-diagram.png",
+{ id: "antiplatelet-overview", chapter: 17, name: "抗血小板藥物總覽", short: "抗血小板總覽", type: "topic", group: "總論", source: "統整（三）p.59", img: "assets/medchem/antiplatelet-diagram.png",
   bold: [
     "{{COX-1|標的}} 抑制劑（Aspirin、Triflusal、Indobufen）：阻斷 Arachidonic acid→TXA₂",
     "PDE 抑制劑（Dipyridamole、Cilostazol）：使 cAMP↑",
     "{{GP IIb/IIIa|標的}} 抑制劑（Abciximab、Tirofiban、Eptifibatide…）：阻斷血小板凝集最終共同路徑",
     "{{P2Y|受體}} 抑制劑（不可逆：Ticlopidine、Clopidogrel、Prasugrel；可逆：Ticagrelor、Cangrelor）：阻斷 ADP"
   ] },
-{ id: "aspirin", chapter: 14, name: "Aspirin", type: "drug", group: "COX-1 抑制劑", source: "統整（三）p.64", img: "assets/medchem/aspirin.png",
+{ id: "aspirin", chapter: 17, name: "Aspirin", type: "drug", group: "COX-1 抑制劑", source: "統整（三）p.64", img: "assets/medchem/aspirin.png",
   use: ["{{抗血小板|用途}}（正常劑量即可發揮）", "在胃中快速吸收（pH 低、酸性藥好吸收）"],
   bold: ["{{不可逆|性質}}乙醯化 Cyclooxygenase，抑制 {{TXA₂|物質}} 生成（影響 prostaglandin 代謝）", "不是每個 COX-1 抑制劑都可作為 antiplatelet drug"] },
-{ id: "triflusal", chapter: 14, name: "Triflusal", type: "drug", group: "COX-1 抑制劑", source: "統整（三）p.64", img: "assets/medchem/triflusal.png",
+{ id: "triflusal", chapter: 17, name: "Triflusal", type: "drug", group: "COX-1 抑制劑", source: "統整（三）p.64", img: "assets/medchem/triflusal.png",
   use: ["{{抗血小板|用途}}", "去乙醯化的代謝物仍具有活性"],
   bold: ["以 {{salicylic acid|結構}} 為骨架", "具 {{-CF₃|取代基}} 基團"] },
-{ id: "indobufen", chapter: 14, name: "Indobufen", type: "drug", group: "COX-1 抑制劑", source: "統整（三）p.64", img: "assets/medchem/indobufen.png",
+{ id: "indobufen", chapter: 17, name: "Indobufen", type: "drug", group: "COX-1 抑制劑", source: "統整（三）p.64", img: "assets/medchem/indobufen.png",
   use: ["{{抗血小板|用途}}：{{可逆型|性質}}抑制劑", "臨床上目前僅有歐洲使用"],
   bold: ["以 {{isoindolone|結構}} 為骨架", "具 butyric acid 結構"] },
-{ id: "dipyridamole-ap", chapter: 14, name: "Dipyridamole", type: "drug", group: "PDE 抑制劑", source: "統整（三）p.64", img: "assets/medchem/dipyridamole.png",
+{ id: "dipyridamole-ap", chapter: 17, name: "Dipyridamole", type: "drug", group: "PDE 抑制劑", source: "統整（三）p.64", img: "assets/medchem/dipyridamole.png",
   use: ["{{抗血小板|用途}}（PDEi，同時具血管擴張作用）", "抑制 PDE3 使 cAMP↑，同時抑制 adenosine 再回收"],
   bold: ["以 {{pyrimidopyrimidine|結構}}★為骨架", "具 piperidine 結構"] },
-{ id: "cilostazol-ap", chapter: 14, name: "Cilostazol", type: "drug", group: "PDE 抑制劑", source: "統整（三）p.64", img: "assets/medchem/cilostazol.png",
+{ id: "cilostazol-ap", chapter: 17, name: "Cilostazol", type: "drug", group: "PDE 抑制劑", source: "統整（三）p.64", img: "assets/medchem/cilostazol.png",
   use: ["{{抗血小板|用途}}：口服藥，對 PDE3A 更具選擇性", "可治療{{間歇性跛行|疾病}}"],
   bold: ["以 {{quinolinone|結構}} 為骨架", "具 {{tetrazole|結構}}★結構", "代謝後仍具活性"] },
-{ id: "ticlopidine", chapter: 14, name: "Ticlopidine", type: "drug", group: "P2Y 抑制劑", source: "統整（三）p.65", img: "assets/medchem/ticlopidine.png",
+{ id: "ticlopidine", chapter: 17, name: "Ticlopidine", type: "drug", group: "P2Y 抑制劑", source: "統整（三）p.65", img: "assets/medchem/ticlopidine.png",
   use: ["{{抗血小板|用途}}：P2Y 抑制劑（不可逆）", "為 prodrug，需經 CYP2C19 代謝產生-SH 才有活性，與受質形成雙硫共價鍵結", "副作用：嗜中性白血球低下（Neutropenia）、TTP"],
   bold: ["以 {{thienopyridine|結構}} 為骨架（含 N、S 雜環）"] },
-{ id: "clopidogrel", chapter: 14, name: "(S)-Clopidogrel", short: "Clopidogrel", type: "drug", group: "P2Y 抑制劑", source: "統整（三）p.65", img: "assets/medchem/clopidogrel.png",
+{ id: "clopidogrel", chapter: 17, name: "(S)-Clopidogrel", short: "Clopidogrel", type: "drug", group: "P2Y 抑制劑", source: "統整（三）p.65", img: "assets/medchem/clopidogrel.png",
   use: ["{{抗血小板|用途}}：P2Y 抑制劑（不可逆）", "為 prodrug，需經 CYP2C19 活化"],
   bold: ["含有 {{Cl|取代基}} 原子", "比 Ticlopidine 多了{{酯類|結構}}結構"] },
-{ id: "prasugrel", chapter: 14, name: "Prasugrel", type: "drug", group: "P2Y 抑制劑", source: "統整（三）p.65", img: "assets/medchem/prasugrel.png",
+{ id: "prasugrel", chapter: 17, name: "Prasugrel", type: "drug", group: "P2Y 抑制劑", source: "統整（三）p.65", img: "assets/medchem/prasugrel.png",
   use: ["{{抗血小板|用途}}：P2Y 抑制劑（不可逆）", "為 prodrug，透過{{水解|代謝}}即可形成活性代謝產物"],
   bold: ["以 {{thienopyridine|結構}} 為骨架", "具 {{Cyclopropane|結構}} 結構，含有 F 原子"] },
-{ id: "ticagrelor", chapter: 14, name: "Ticagrelor", type: "drug", group: "P2Y 抑制劑", source: "統整（三）p.65", img: "assets/medchem/ticagrelor.png",
+{ id: "ticagrelor", chapter: 17, name: "Ticagrelor", type: "drug", group: "P2Y 抑制劑", source: "統整（三）p.65", img: "assets/medchem/ticagrelor.png",
   use: ["第一個口服的{{可逆型|性質}} P2Y₁₂ 抑制劑", "FDA 核准用於急性冠心症（ACS）"],
   bold: ["含 {{triazolopyrimidine|結構}} 結構", "具 Cyclopropane 結構，含有 F 原子"] },
-{ id: "cangrelor", chapter: 14, name: "Cangrelor", type: "drug", group: "P2Y 抑制劑", source: "統整（三）p.65", img: "assets/medchem/cangrelor.png",
+{ id: "cangrelor", chapter: 17, name: "Cangrelor", type: "drug", group: "P2Y 抑制劑", source: "統整（三）p.65", img: "assets/medchem/cangrelor.png",
   use: ["{{抗血小板|用途}}：P2Y 抑制劑（可逆）", "{{IV|給藥途徑}} 給藥、Onset 快、短效"],
   bold: ["含 {{diazolopyrimidine|結構}} 結構"] },
-{ id: "abciximab", chapter: 14, name: "Abciximab", type: "drug", group: "GP IIb/IIIa 抑制劑", source: "統整（三）p.66",
+{ id: "abciximab", chapter: 17, name: "Abciximab", type: "drug", group: "GP IIb/IIIa 抑制劑", source: "統整（三）p.66",
   use: ["{{GP IIb/IIIa 抑制劑|用途}}"],
   bold: ["{{-ximab|名詞}} 表示結構源自動物的嵌合式單株抗體"] },
-{ id: "eptifibatide", chapter: 14, name: "Eptifibatide", type: "drug", group: "GP IIb/IIIa 抑制劑", source: "統整（三）p.66", img: "assets/medchem/eptifibatide.png",
+{ id: "eptifibatide", chapter: 17, name: "Eptifibatide", type: "drug", group: "GP IIb/IIIa 抑制劑", source: "統整（三）p.66", img: "assets/medchem/eptifibatide.png",
   use: ["{{GP IIb/IIIa 抑制劑|用途}}", "RGD 與受體鍵結力較弱，故為{{可逆型|性質}}抑制"],
   bold: ["含有 {{RGD|名詞}} group（Arg-Gly-Asp）", "為合成的{{環狀七肽鏈|結構}}★，Mercaptopropionyl residue 與 Cys 形成雙硫鍵"] },
-{ id: "tirofiban", chapter: 14, name: "Tirofiban", type: "drug", group: "GP IIb/IIIa 抑制劑", source: "統整（三）p.66", img: "assets/medchem/tirofiban.png",
+{ id: "tirofiban", chapter: 17, name: "Tirofiban", type: "drug", group: "GP IIb/IIIa 抑制劑", source: "統整（三）p.66", img: "assets/medchem/tirofiban.png",
   use: ["{{GP IIb/IIIa 抑制劑|用途}}"],
   bold: ["{{擬肽或非胜肽|性質}}類，與蛇毒蛋白（disintegrin）結構相似", "分子內 COO⁻和 NH₃⁺的距離與 {{RGD|名詞}} 相符，能和受體結合"] },
-{ id: "roxifiban", chapter: 14, name: "Roxifiban", type: "drug", group: "GP IIb/IIIa 抑制劑", source: "統整（三）p.66", img: "assets/medchem/roxifiban.png",
+{ id: "roxifiban", chapter: 17, name: "Roxifiban", type: "drug", group: "GP IIb/IIIa 抑制劑", source: "統整（三）p.66", img: "assets/medchem/roxifiban.png",
   use: ["{{GP IIb/IIIa 抑制劑|用途}}（補充）"], bold: [] },
-{ id: "lamifiban", chapter: 14, name: "Lamifiban", type: "drug", group: "GP IIb/IIIa 抑制劑", source: "統整（三）p.66", img: "assets/medchem/lamifiban.png",
+{ id: "lamifiban", chapter: 17, name: "Lamifiban", type: "drug", group: "GP IIb/IIIa 抑制劑", source: "統整（三）p.66", img: "assets/medchem/lamifiban.png",
   use: ["{{GP IIb/IIIa 抑制劑|用途}}（補充）"], bold: [] },
-{ id: "lefradafiban", chapter: 14, name: "Lefradafiban", type: "drug", group: "GP IIb/IIIa 抑制劑", source: "統整（三）p.66", img: "assets/medchem/lefradafiban.png",
+{ id: "lefradafiban", chapter: 17, name: "Lefradafiban", type: "drug", group: "GP IIb/IIIa 抑制劑", source: "統整（三）p.66", img: "assets/medchem/lefradafiban.png",
   use: ["{{GP IIb/IIIa 抑制劑|用途}}（補充）"], bold: [] },
 
 /* 三、溶血栓藥物 */
-{ id: "thrombolytic-intro", chapter: 14, name: "溶血栓藥物總論", short: "溶血栓總論", type: "topic", group: "溶血栓藥物", source: "統整（三）p.67",
+{ id: "thrombolytic-intro", chapter: 17, name: "溶血栓藥物總論", short: "溶血栓總論", type: "topic", group: "溶血栓藥物", source: "統整（三）p.67",
   bold: [
     "溶血栓藥物使 {{Plasminogen|物質}}→Plasmin，分解 fibrin",
     "{{fibrin-nonspecific|名詞}} drug：Streptokinase、Urokinase（也催化 Fibrinogen）",
     "{{fibrin-specific|名詞}} drug：Alteplase(tPA)，結合態(tPA-Fibrin)>>游離態"
   ] },
-{ id: "streptokinase", chapter: 14, name: "Streptokinase", type: "drug", group: "溶血栓藥物", source: "統整（三）p.67",
+{ id: "streptokinase", chapter: 17, name: "Streptokinase", type: "drug", group: "溶血栓藥物", source: "統整（三）p.67",
   use: ["{{溶血栓藥物|用途}}：唯一 FDA 認可用於周邊血管疾病的藥品"],
   bold: ["來源：{{β-溶血性鏈球菌|物質}}（β-hemolytic streptococci）", "與 Plasminogen 結合活化成 Plasmin，同時催化 Fibrinogen 降解 → {{fibrin-nonspecific|名詞}} drug"] },
-{ id: "urokinase", chapter: 14, name: "Urokinase", type: "drug", group: "溶血栓藥物", source: "統整（三）p.67",
+{ id: "urokinase", chapter: 17, name: "Urokinase", type: "drug", group: "溶血栓藥物", source: "統整（三）p.67",
   use: ["{{溶血栓藥物|用途}}", "人體無相對應 agonist，可直接服用"],
   bold: ["來源：人類胎兒腎臟細胞", "半衰期短（15 mins）、較不易引發過敏", "直接催化 plasminogen→plasmin，屬 fibrin-nonspecific drug"] },
-{ id: "alteplase", chapter: 14, name: "Alteplase (tPA)", short: "Alteplase", type: "drug", group: "溶血栓藥物", source: "統整（三）p.67",
+{ id: "alteplase", chapter: 17, name: "Alteplase (tPA)", short: "Alteplase", type: "drug", group: "溶血栓藥物", source: "統整（三）p.67",
   use: ["{{溶血栓藥物|用途}}", "低劑量時有較佳選擇性"],
   bold: ["來源：人類黑色素瘤細胞（melanoma），為人體未經修飾的 tPA", "與 Plasminogen 結合：結合態(tPA-Fibrin)>>游離態 → {{fibrin-specific|名詞}} drug"] },
-{ id: "prourokinase", chapter: 14, name: "Prourokinase", type: "drug", group: "溶血栓藥物", source: "統整（三）p.67",
+{ id: "prourokinase", chapter: 17, name: "Prourokinase", type: "drug", group: "溶血栓藥物", source: "統整（三）p.67",
   use: ["{{溶血栓藥物|用途}}：活化 plasminogen（似 Urokinase）"],
   bold: ["較無免疫抗原性（immunogenicity）→ 較第一代安全"] },
-{ id: "reteplase", chapter: 14, name: "Reteplase", type: "drug", group: "溶血栓藥物", source: "統整（三）p.67",
+{ id: "reteplase", chapter: 17, name: "Reteplase", type: "drug", group: "溶血栓藥物", source: "統整（三）p.67",
   use: ["{{溶血栓藥物|用途}}：可用於心肌梗塞（MI）"],
   bold: ["由 tPA 修飾而來，刪除 {{1-172|名詞}} 的胺基酸 → 降低肝臟排除率、延長半衰期（14-18 min）", "與 fibrin 結合力與選擇性降低"] },
-{ id: "tenecteplase", chapter: 14, name: "Tenecteplase (TNKase)", short: "Tenecteplase", type: "drug", group: "溶血栓藥物", source: "統整（三）p.67",
+{ id: "tenecteplase", chapter: 17, name: "Tenecteplase (TNKase)", short: "Tenecteplase", type: "drug", group: "溶血栓藥物", source: "統整（三）p.67",
   use: ["{{溶血栓藥物|用途}}"],
   bold: ["由 tPA 修飾而來，發生{{三處|數值}}點突變，使藥物半衰期上升（~17 min）"] },
 
 /* 四、凝血劑 */
-{ id: "vitamin-k", chapter: 14, name: "Vitamin K (Phytonadione)", short: "Vitamin K", type: "drug", group: "凝血劑", source: "統整（三）p.68", img: "assets/medchem/vitamin-k.png",
+{ id: "vitamin-k", chapter: 17, name: "Vitamin K (Phytonadione)", short: "Vitamin K", type: "drug", group: "凝血劑", source: "統整（三）p.68", img: "assets/medchem/vitamin-k.png",
   use: ["{{凝血劑|用途}}：與凝血因子 2、7、9、10 的活化有關（治療速度緩慢）", "口服使用需膽鹽存在才可被小腸吸收", "拮抗 Warfarin 出血症狀；頭孢菌素等抗生素會影響其吸收"],
   bold: ["結構為 {{naphthoquinone|結構}} 接 isoprenoid 側鏈"] },
-{ id: "coagulants-other", chapter: 14, name: "其他凝血劑", short: "其他凝血劑", type: "topic", group: "凝血劑", source: "統整（三）p.68",
+{ id: "coagulants-other", chapter: 17, name: "其他凝血劑", short: "其他凝血劑", type: "topic", group: "凝血劑", source: "統整（三）p.68",
   bold: [
     "{{Protamine|藥名}}：結構富含 Arginine、鹼性極高，與 Antithrombin III 競爭抑制酸性的 Heparin（拮抗肝素）",
     "Aminocaproic acid、Tranexamic acid：抑制 {{Plasminogen|物質}} 之活化",
@@ -2463,13 +2741,13 @@ PI.UNITS = [
   ] },
 
 /* 五、血球缺乏與貧血 */
-{ id: "hematopoietic", chapter: 14, name: "血球缺乏藥物治療", short: "血球缺乏治療", type: "topic", group: "血球缺乏", source: "統整（三）p.68",
+{ id: "hematopoietic", chapter: 17, name: "血球缺乏藥物治療", short: "血球缺乏治療", type: "topic", group: "血球缺乏", source: "統整（三）p.68",
   bold: [
     "白血球不足：人類重組 GM-CSF（{{Sargramostim|藥名}}）、G-CSF（Filgrastim）→ 骨髓生長因子",
     "紅血球不足：人類重組 Erythropoetin（{{Epoetin alfa|藥名}}、Darbopoetin alfa）→ 治療慢性腎衰竭貧血，副作用高血壓",
     "血小板不足：人類重組 IL-11（{{Oprelvekin|藥名}}）、血小板生成素受體致效劑（Eltrombopag）"
   ] },
-{ id: "anemia-intro", chapter: 14, name: "貧血治療藥物", short: "貧血治療", type: "topic", group: "血球缺乏", source: "統整（三）p.69",
+{ id: "anemia-intro", chapter: 17, name: "貧血治療藥物", short: "貧血治療", type: "topic", group: "血球缺乏", source: "統整（三）p.69",
   bold: [
     "缺鐵性貧血：血紅素低（Hypochromic）、紅血球小（Microcytic）→ 使用{{鐵劑|物質}}；巨母紅血球/惡性貧血：高（Hyperchromic）、大（Macrocytic）→ 葉酸、Vitamin B₁₂",
     "惡性貧血缺乏 {{Vit B₁₂|物質}}，需與胃壁細胞分泌的內在因子結合才能由小腸吸收",
@@ -3161,7 +3439,534 @@ PI.KNOWLEDGE = {
           "※ {{VTA|名詞}}（Ventral Tegmental Area）被認為和濫用藥物之成癮有關"] }
       ] }
     ] },
-  ch11: { chapter: 11, title: "利尿劑",
+  ch11: {
+    "chapter": 11,
+    "title": "前列腺素及 Leukotriene 相關藥物",
+    "sections": [
+      {
+        "id": "overview",
+        "title": "壹拾壹、前列腺及其相關藥物",
+        "items": [
+          {
+            "title": "Arachidonic acid 的代謝路徑（COX）",
+            "source": "統整（一）p.94",
+            "images": [
+              "assets/medchem/pg-fig-cox.png"
+            ],
+            "points": [
+              "Arachidonic acid（20C）經 {{COX|酵素}}（Prostaglandin Endoperoxide G/H Synthetase，PGHS）形成 PGG₂",
+              "PGG₂ 經 {{Peroxidase|酵素}}（還原反應）形成 PGH₂",
+              "PGH₂ 經 Prostacyclin Synthetase 形成 {{PGI₂|名詞|TXA₂}}",
+              "PGH₂ 經 Thromboxane Synthetase 形成 {{TxA₂|名詞|PGI₂}}",
+              "PGH₂ 經 PG endoperoxide E isomerase 形成 {{PGE₂|名詞|PGD₂}}",
+              "PGH₂ 經 Glutathione-S-transferase 形成 {{PGD₂|名詞|PGE₂}}",
+              "PGH₂ 經 PG endoperoxide reductase 形成 {{PGF₂α|名詞|PGE₂}}"
+            ]
+          },
+          {
+            "title": "Leukotriene 的合成（5-LO enzyme）",
+            "source": "統整（一）p.94",
+            "images": [
+              "assets/medchem/lt-fig-5lo.png"
+            ],
+            "points": [
+              "Arachidonic acid 經 {{5-Lipoxygenase|酵素}} 形成 5-HPETE，再經 LTA₄-Synthase 形成 LTA₄（5-LO enzyme）",
+              "5-HPETE 經 Peroxidase 形成 5-HETE",
+              "LTA₄ 含有 {{Hydroperoxide|結構}}★結構",
+              "LTA₄ 經 {{LTA₄-Hydroxylase|酵素}} 形成 LTB₄",
+              "LTA₄ 經 LTC₄-Synthase（Glutathione-S-transferase）形成 LTC₄，再經 γ-Glutamyl-transferase 形成 LTD₄，再經 Peptidase 形成 LTE₄"
+            ]
+          },
+          {
+            "title": "※ Prostaglandin 及其衍生物",
+            "source": "統整（一）p.95",
+            "table": {
+              "rowNames": [
+                "共同前驅物",
+                "合成酵素",
+                "衍生物",
+                "C9",
+                "C11",
+                "血管",
+                "氣管",
+                "血小板",
+                "子宮",
+                "臨床用途"
+              ],
+              "cols": [
+                "",
+                "",
+                "PGD₂",
+                "PGD₂",
+                "PGE₂",
+                "PGE₂",
+                "PGF₂α",
+                "PGF₂α",
+                "PGI₂",
+                "TXA₂"
+              ],
+              "rows": [
+                [
+                  {
+                    "t": "共同前驅物",
+                    "cs": 2,
+                    "b": true
+                  },
+                  null,
+                  {
+                    "t": "PGG₂ 經過 [i]Peroxidase[/i] 的{{還原|機轉|氧化}}★反應，形成 PGH₂",
+                    "cs": 8
+                  },
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null
+                ],
+                [
+                  {
+                    "t": "合成酵素",
+                    "cs": 2,
+                    "b": true
+                  },
+                  null,
+                  {
+                    "t": "[i]{{Glutathione-S-transferase|酵素}}[/i]\n⇩",
+                    "cs": 2
+                  },
+                  null,
+                  {
+                    "t": "[i]{{PG endoperoxide E-isomerase|酵素}}[/i]\n⇩",
+                    "cs": 2
+                  },
+                  null,
+                  {
+                    "t": "[i]{{PG endoperoxide reductase|酵素}}[/i]★\n⇩",
+                    "cs": 2,
+                    "s": true
+                  },
+                  null,
+                  "[i]{{Prostacyclin synthetase|酵素}}[/i]\n⇩",
+                  "[i]{{Thromboxane synthetase|酵素}}[/i]\n⇩"
+                ],
+                [
+                  {
+                    "t": "衍生物",
+                    "cs": 2,
+                    "b": true
+                  },
+                  null,
+                  {
+                    "t": "PGD₂",
+                    "cs": 2,
+                    "band": true
+                  },
+                  null,
+                  {
+                    "t": "PGE₂",
+                    "cs": 2,
+                    "band": true
+                  },
+                  null,
+                  {
+                    "t": "PGF₂α",
+                    "cs": 2,
+                    "band": true
+                  },
+                  null,
+                  {
+                    "t": "PGI₂",
+                    "band": true
+                  },
+                  {
+                    "t": "TXA₂★",
+                    "band": true
+                  }
+                ],
+                [
+                  {
+                    "t": "C9",
+                    "cs": 2,
+                    "b": true
+                  },
+                  null,
+                  "{{α-OH|取代基|C=O}}",
+                  {
+                    "img": "assets/medchem/pg-pgd2.png",
+                    "t": "PGD₂",
+                    "rs": 2
+                  },
+                  "{{C=O|取代基|α-OH}}",
+                  {
+                    "img": "assets/medchem/pg-pge2.png",
+                    "t": "PGE₂",
+                    "rs": 2
+                  },
+                  "{{α-OH|取代基|C=O}}",
+                  {
+                    "img": "assets/medchem/pg-pgf2a.png",
+                    "t": "PGF₂α",
+                    "rs": 2
+                  },
+                  {
+                    "img": "assets/medchem/pg-pgi2.png",
+                    "t": "PGI₂",
+                    "rs": 2
+                  },
+                  {
+                    "img": "assets/medchem/pg-txa2.png",
+                    "t": "TXA₂",
+                    "rs": 2
+                  }
+                ],
+                [
+                  {
+                    "t": "C11",
+                    "cs": 2,
+                    "b": true
+                  },
+                  null,
+                  "{{C=O|取代基|α-OH}}",
+                  null,
+                  "{{α-OH|取代基|C=O}}",
+                  null,
+                  "{{α-OH|取代基|C=O}}",
+                  null,
+                  null,
+                  null
+                ],
+                [
+                  {
+                    "t": "作用",
+                    "rs": 4,
+                    "b": true
+                  },
+                  {
+                    "t": "血管",
+                    "b": true
+                  },
+                  {
+                    "t": "",
+                    "cs": 2,
+                    "rs": 4
+                  },
+                  null,
+                  {
+                    "t": "{{血管擴張|性質|血管收縮}}",
+                    "cs": 2
+                  },
+                  null,
+                  {
+                    "t": "{{血管收縮|性質|血管擴張}}",
+                    "cs": 2
+                  },
+                  null,
+                  "{{血管擴張|性質|血管收縮}}",
+                  "{{血管收縮|性質|血管擴張}}"
+                ],
+                [
+                  null,
+                  {
+                    "t": "氣管",
+                    "b": true
+                  },
+                  null,
+                  null,
+                  {
+                    "t": "{{氣管擴張|性質|氣管收縮}}",
+                    "cs": 2
+                  },
+                  null,
+                  {
+                    "t": "{{氣管收縮|性質|氣管擴張}}",
+                    "cs": 2
+                  },
+                  null,
+                  "{{氣管擴張|性質|氣管收縮}}",
+                  "{{氣管收縮|性質|氣管擴張}}"
+                ],
+                [
+                  null,
+                  {
+                    "t": "血小板",
+                    "b": true
+                  },
+                  null,
+                  null,
+                  {
+                    "t": "",
+                    "cs": 2
+                  },
+                  null,
+                  {
+                    "t": "",
+                    "cs": 2
+                  },
+                  null,
+                  {
+                    "t": "{{抑制凝集|性質|促進凝集}}★",
+                    "s": true
+                  },
+                  "{{促進凝集|性質|抑制凝集}}"
+                ],
+                [
+                  null,
+                  {
+                    "t": "子宮",
+                    "b": true
+                  },
+                  null,
+                  null,
+                  {
+                    "t": "{{收縮|性質|舒張}}（懷孕）\n{{舒張|性質|收縮}}（未懷孕）",
+                    "cs": 2
+                  },
+                  null,
+                  {
+                    "t": "{{收縮|性質|舒張}}",
+                    "cs": 2
+                  },
+                  null,
+                  "",
+                  ""
+                ],
+                [
+                  {
+                    "t": "臨床用途",
+                    "cs": 2,
+                    "b": true
+                  },
+                  null,
+                  {
+                    "t": "",
+                    "cs": 2
+                  },
+                  null,
+                  {
+                    "t": "{{墮胎|用途}}、{{引產劑|用途}}",
+                    "cs": 2
+                  },
+                  null,
+                  {
+                    "t": "{{青光眼|疾病}}→增加{{前房水|物質}}外流",
+                    "cs": 2
+                  },
+                  null,
+                  "維持{{動脈導管|器官}}開放",
+                  ""
+                ]
+              ]
+            }
+          },
+          {
+            "title": "※ Leukotriene 之合成路徑",
+            "source": "統整（一）p.95",
+            "points": [
+              "※ Leukotriene 之合成路徑（注意 {{LTB₄|名詞|LTC₄}} 的合成路徑與其他三者不一樣！）",
+              "Arachidonic acid →（{{5-Lipoxygenase|酵素}}）→ LTA₄ →（{{Glutathione-S-transferase|酵素}}）→ LTC₄ →（γ-GT、γ-GL）→ LTD₄ →（{{Dipeptidase|酵素}}）→ LTE₄",
+              "LTA₄ →（{{LTA₄ hydroxylase|酵素}}）→ LTB₄"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "pg",
+        "title": "一、Prostaglandin 衍生物",
+        "items": []
+      },
+      {
+        "id": "lt",
+        "title": "二、Leukotriene modifiers：可用於治療慢性氣喘",
+        "items": [
+          {
+            "title": "Leukotriene 受體拮抗劑的作用位置",
+            "group": "Leukotriene receptor antagonist",
+            "source": "統整（一）p.97",
+            "images": [
+              "assets/medchem/lt-fig-pathway.png"
+            ],
+            "points": [
+              "Zileuton 抑制 {{5-Lipoxygenase|酵素}}（5-lipoxygenase inhibitor）",
+              "Montelukast、Zafirlukast、Pranlukast 拮抗 {{CysLT₁|受體}}、CysLT₂（半胱胺醯 Leukotriene 受體）",
+              "LTB₄ 作用於 BLT₁、BLT₂"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  ch12: {
+    "chapter": 12,
+    "title": "非類固醇消炎止痛藥（NSAIDs）",
+    "sections": [
+      {
+        "id": "sal",
+        "title": "水楊酸衍生物（Salicylic acid derivatives）",
+        "items": [
+          {
+            "title": "※ 水楊酸衍生物之代謝★",
+            "group": "水楊酸衍生物（Salicylic acid derivatives）",
+            "source": "統整（一）p.98",
+            "images": [
+              "assets/medchem/ns-fig-salicylate-metab.png"
+            ],
+            "points": [
+              "※ 水楊酸衍生物之代謝★",
+              "皆經由 {{esterase|酵素}} 水解後形成 Salicylic acid，再進行後續代謝",
+              "水楊酸主要代謝產物有以下三種（右圖框起來的部分）",
+              "- -COOH 接上 {{glycine|物質}}",
+              "- -COOH 接上 {{glucuronide|物質}}",
+              "- -OH 接上 {{glucuronide|物質}}"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "arylacetic",
+        "title": "芳香基乙酸類（Arylacetic acid derivatives）",
+        "items": []
+      },
+      {
+        "id": "fenamate",
+        "title": "鄰胺基苯甲酸類（N-arylanthranilic acid）：屬於 Fenamates 類",
+        "items": []
+      },
+      {
+        "id": "arylpropionic",
+        "title": "芳香基丙酸類（Arylpropionic acid derivatives）",
+        "items": [
+          {
+            "title": "※ Ketorolac",
+            "group": "芳香基丙酸類（Arylpropionic acid derivatives）",
+            "source": "統整（一）p.101",
+            "structs": [
+              "assets/medchem/ns-ketorolac.png"
+            ],
+            "points": [
+              "※ {{Ketorolac|藥名}}★也屬於 Arylpropionic acid 類 NSAID"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "oxicam",
+        "title": "Oxicams 類",
+        "items": [
+          {
+            "title": "Oxicams 類共同結構",
+            "group": "Oxicams 類",
+            "source": "統整（一）p.102",
+            "points": [
+              "Oxicams 類共同結構：{{4-hydroxy-1,2-benzothiazine carboxamides|結構}}★。結構中{{無羧基|性質|有羧基}}，進入胃中才會形成酸"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "antipyretic",
+        "title": "解熱鎮痛藥",
+        "items": [
+          {
+            "title": "※ p-aminosalicylic acid 之 Phase II 代謝",
+            "group": "解熱鎮痛藥",
+            "source": "統整（一）p.102",
+            "structs": [
+              "assets/medchem/ns-paminosalicylic.png"
+            ],
+            "points": [
+              "※ [i]p[/i]-aminosalicylic acid 之 Phase II 代謝",
+              "Sulfate conjugation：Ar-OH、R-OH",
+              "Glucuronide conjugation：Ar-OH、R-OH、{{R-COOH|結構}}、{{R-NH₂|結構}}"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "coxib",
+        "title": "選擇性 COX-2 抑制劑（字尾-coxib）",
+        "items": [
+          {
+            "title": "※ COX-2 之選擇性比較",
+            "group": "選擇性 COX-2 抑制劑（字尾-coxib）",
+            "source": "統整（一）p.103",
+            "points": [
+              "※ COX-2 之選擇性比較：{{Rofecoxib|藥名}} > Etoricoxib > Meloxicam > {{Celecoxib|藥名}}"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  ch13: {
+    "chapter": 13,
+    "title": "痛風與疾病修飾抗風濕藥",
+    "sections": [
+      {
+        "id": "gout",
+        "title": "一、痛風藥物",
+        "items": []
+      },
+      {
+        "id": "dmard",
+        "title": "二、疾病修飾抗風濕藥（Disease-modifying Antirheumatic Drugs, DMARDs）",
+        "items": []
+      },
+      {
+        "id": "bio",
+        "title": "三、用於類風濕性關節炎之生物製劑",
+        "items": [
+          {
+            "title": "藥物比較",
+            "group": "Calcineurin Inhibitor",
+            "source": "統整（一）p.106",
+            "table": {
+              "head": [
+                "藥物比較",
+                "結合 Cyclophilin",
+                "抑制 Calcineurin",
+                "結合 FKBP",
+                "結合 mTOR",
+                "IL-2 抑制",
+                "副作用"
+              ],
+              "rows": [
+                [
+                  "Cyclosporine",
+                  "✔",
+                  "✔",
+                  "",
+                  "",
+                  "{{間接|性質|直接}}",
+                  "{{腎毒性|副作用|骨髓抑制}}"
+                ],
+                [
+                  "Tacrolimus",
+                  "",
+                  "✔",
+                  "✔",
+                  "",
+                  "{{間接|性質|直接}}",
+                  "{{腎毒性|副作用|骨髓抑制}}"
+                ],
+                [
+                  "Sirolimus",
+                  "",
+                  "",
+                  "✔",
+                  "✔",
+                  "{{直接|性質|間接}}",
+                  "{{骨髓抑制|副作用|腎毒性}}"
+                ]
+              ]
+            }
+          }
+        ]
+      }
+    ]
+  },
+  ch14: { chapter: 14, title: "利尿劑",
     sections: [
       { id: "overview", title: "總論（作用位置）", items: [{ unit: "diu-location" }] },
       { id: "osmotic", title: "一、滲透壓型利尿劑", items: [{ unit: "osmotic-intro" }] },
@@ -3171,19 +3976,19 @@ PI.KNOWLEDGE = {
       { id: "mra", title: "五、保鉀型（MRA）", items: [{ unit: "mra-intro" }] },
       { id: "ksparing", title: "六、保鉀型（Na⁺通道）", items: [{ unit: "ksparing-intro" }] }
     ] },
-  ch12: { chapter: 12, title: "心絞痛藥物",
+  ch15: { chapter: 15, title: "心絞痛藥物",
     sections: [
       { id: "pde", title: "一、PDE 抑制劑", items: [] },
       { id: "nitrate", title: "二、硝酸酯類", items: [{ unit: "nitrate-intro" }] }
     ] },
-  ch13: { chapter: 13, title: "心衰竭藥物",
+  ch16: { chapter: 16, title: "心衰竭藥物",
     sections: [
       { id: "cg", title: "一、強心配醣體", items: [{ unit: "cg-intro" }, { unit: "cg-compare" }, { unit: "digoxin-interactions" }] },
       { id: "pde3", title: "二、PDE-3 抑制劑", items: [] },
       { id: "bagonist", title: "三、β 受體作用劑", items: [] },
       { id: "others", title: "四、其他／PDE-5 抑制劑", items: [{ unit: "hf-other" }, { unit: "pde5-intro" }] }
     ] },
-  ch14: { chapter: 14, title: "抗凝血及其血液相關藥物",
+  ch17: { chapter: 17, title: "抗凝血及其血液相關藥物",
     sections: [
       { id: "factor", title: "一、抗凝血因子藥物", items: [{ unit: "coag-overview" }, { unit: "heparin-intro" }, { unit: "lmwh-intro" }, { unit: "fondaparinux-xa" }] },
       { id: "antiplatelet", title: "二、抗血小板藥物", items: [{ unit: "antiplatelet-overview" }] },
