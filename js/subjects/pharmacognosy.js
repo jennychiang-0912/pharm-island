@@ -33,7 +33,7 @@ PI.UNIT_TYPES = { drug: "生藥", preparation: "製劑", category: "分類", top
 
 /* 章節：之後拿到課程章節再改名、往後加（加章節時記得在下面的 PI.LANDMASSES 把章節編號放進同一座島） */
 PI.CHAPTERS = [
-  { id: 1, name: "生物鹼", cat: "pharmacognosy", estimate: 56, unitType: "drug", note: "講義：生物鹼（p.1–5、續篇）。依講義的印刷字，手寫和螢光筆沒有放進來。" }
+  { id: 1, name: "生物鹼", cat: "pharmacognosy", estimate: 48, unitType: "drug", note: "講義：生物鹼（p.1–5、續篇）。依講義的印刷字，手寫和螢光筆沒有放進來。" }
 ];
 
 /* 一座島 */
@@ -170,7 +170,7 @@ PI.UNITS = [
       "Noscapine、{{Papaverine|成分}}（{{平滑肌放鬆|作用}}）、Thebaine"],
     uses: ["先興奮後抑制中樞神經", "★止痛、安眠、麻醉", "★{{止瀉劑|用途}}", "★{{縮瞳劑|用途}}", "{{Dover's powder|製劑}}"],
     notes: ["Meconic acid 僅存於天然的鴉片中，加入{{氯化鐵|物質}}（FeCl₃）後溶液成{{紅色|顏色}}，可用來鑑定鴉片的真偽",
-      "{{Paregoric|製劑}}（Camphorated opium tincture 複方鴉片樟腦酊）、{{Laudanum|製劑}}（Opium tincture 鴉片酊）可作為{{止瀉劑|用途}}"] },
+      "{{Paregoric|製劑}}（Camphorated opium tincture 複方鴉片樟腦酊）、{{Laudanum|製劑}}（Opium tincture 鴉片酊）可作為{{止瀉劑|用途}}（Antiperistaltic）"] },
 
   /* ===== 講義第二份（13.pdf）：只用印刷字；表格欄位照講義（生藥｜基源｜科別｜部位｜成分｜用途），表格下方合併的說明列放在「其他重點」 ===== */
   /* ===== Indole Alkaloid（p.7）===== */
@@ -2246,9 +2246,9 @@ PI.CHAPTERS.push(
 PI.LANDMASSES.find(l => l.id === "tcm").chapters.push(15, 16);
 
 PI.UNITS.push(
-  /* ===== 伍、類苯基丙烷（續）：p.68 最下面一列（蛇床子）掃描時被切掉，只收錄看得到的部分 ===== */
+  /* ===== 伍、類苯基丙烷（續）：p.68 最下面一列（蛇床子），照補掃的頁面 ===== */
   tcm(14, "類苯基丙烷", 68, "tcm-shechuangzi", "蛇床子", "乾燥成熟果實", "Cnidii Fructus", "Cnidium monnieri", "★繖形科（Umbelliferae/Apiaceae）",
-    ["★Coumarins：{{Osthol|成分}}", "多種揮發油"], ["★{{溫腎壯陽|用途}}"], "★幾乎年年都有在選項"),
+    ["★Coumarins：{{Osthol|成分}}", "多種揮發油"], ["★{{溫腎壯陽|用途}}", "★{{陽痿、宮冷|疾病}}"], "★幾乎年年都有在選項"),
 
   /* ===== 陸、★★★★★生物鹼（p.69）===== */
   tcm(15, "生物鹼", 69, "tcm-huanglian", "黃連", "乾燥根莖", "Coptidis Rhizoma", "Coptis chinensis", "★毛茛科（Ranunculaceae）",
