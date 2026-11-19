@@ -962,8 +962,8 @@ PI.KNOWLEDGE.ch2 = {
 
 /* ================= 第 3 章：類苯基丙烷（講義 p.30–36，只用印刷字） =================
    放在生藥島（和第 1 章同一座島）；小分類照講義的標題：簡單類苯基丙烷、木酚素、黃酮類、單寧。
-   講義 p.35 最下面「單寧酸（Tannic acid）」那一列掃描時被切掉，沒有收錄。 */
-PI.CHAPTERS.push({ id: 3, name: "類苯基丙烷", cat: "pharmacognosy", estimate: 13, unitType: "drug", note: "講義：類苯基丙烷（p.30–36）。依講義的印刷字。" });
+   講義 p.35 最下面「單寧酸（Tannic acid）」那一列照補掃的頁面收錄（科別、部位欄講義畫箭頭，表示同上一列）。 */
+PI.CHAPTERS.push({ id: 3, name: "類苯基丙烷", cat: "pharmacognosy", estimate: 14, unitType: "drug", note: "講義：類苯基丙烷（p.30–36）。依講義的印刷字。" });
 PI.LANDMASSES.find(l => l.id === "pharmacognosy").chapters.push(3);
 
 const SRC4 = "類苯基丙烷講義";
@@ -1051,7 +1051,12 @@ PI.UNITS.push(
     origin: ["被咬植物：{{Rhus chinensis|學名}} Mill.", "昆蟲：蚜蟲 Aphis"],
     family: ["被咬植物：{{漆樹科|科別}} Anacardiaceae"], part: ["{{蟲癭|部位}}"],
     constituents: ["50–70% 單寧酸（tannic acid）", "2–4% 沒食子酸（gallic acid）", "其他：多酚類（ellagic acid）、starch 和 resin"],
-    uses: ["工業上製造{{沒食子酸|用途}}（gallic acid）的來源"] }
+    uses: ["工業上製造{{沒食子酸|用途}}（gallic acid）的來源"] },
+  { id: "tannic-acid", chapter: 3, name: "Tannic acid", type: "drug", group: "Tannins", source: SRC4 + " p.35",
+    names: ["中文：{{單寧酸|生藥中文名}}", "別名：★{{gallotannic acid|生藥英文名}}、tannin"],
+    origin: ["{{Nutgall|生藥}} 分離而得"],
+    constituents: ["（主要）由沒食子酸（{{gallic acid|成分}}）和★{{葡萄糖|成分}}（glucose）形成的{{酯類混合物|結構}}"],
+    uses: ["局部治療於{{褥瘡|疾病}}（bed sores）、輕微潰瘍", "{{鹼中毒的解毒劑|用途}}（因單寧酸會與{{鹼性物質沉澱|性質}}）"] }
 );
 
 /* 知識樹：照講義的黑色標題分段 */
@@ -1309,8 +1314,7 @@ PI.KNOWLEDGE.ch4 = {
 };
 
 /* ================= 第 5 章：萜類（講義「萜類、揮發油、樹脂、類固醇、健康食品」p.44–49，只用印刷字） =================
-   放在生藥島；小分類照講義的表格標題：單萜類、倍半萜類、雙萜類、四萜類及類胡蘿蔔素（三萜類講義只有「其他」，放在知識樹）。
-   p.44 生合成框的最下面掃描時被切掉，只收錄看得到的步驟。 */
+   放在生藥島；小分類照講義的表格標題：單萜類、倍半萜類、雙萜類、四萜類及類胡蘿蔔素（三萜類講義只有「其他」，放在知識樹）。 */
 PI.CHAPTERS.push({ id: 5, name: "萜類", cat: "pharmacognosy", estimate: 18, unitType: "drug", note: "講義：萜類（p.44–49）。依講義的印刷字。" });
 PI.LANDMASSES.find(l => l.id === "pharmacognosy").chapters.push(5);
 
@@ -1518,9 +1522,8 @@ PI.KNOWLEDGE.ch5 = {
 
 /* ================= 第 6 章：揮發油與香料（講義 p.50–53，只用印刷字） =================
    放在生藥島；小分類照講義的表格標題：醇類、醛類、酮類、酚類、氧化型、酚醚類、酯類揮發油。
-   樟腦（酮類）和香豆素（氧化型）講義只寫「詳見單萜／詳見配醣體」，格子分別在第 5、3 章，這裡不重複。
-   p.50「特性」第 2 點以後掃描時被切掉，只收錄看得到的部分。 */
-PI.CHAPTERS.push({ id: 6, name: "揮發油與香料", cat: "pharmacognosy", estimate: 24, unitType: "drug", note: "講義：揮發油與香料（p.50–53）。依講義的印刷字。" });
+   樟腦（酮類）和香豆素（氧化型）講義只寫「詳見單萜／詳見配醣體」，格子分別在第 5、3 章，這裡不重複。 */
+PI.CHAPTERS.push({ id: 6, name: "揮發油與香料", cat: "pharmacognosy", estimate: 22, unitType: "drug", note: "講義：揮發油與香料（p.50–53）。依講義的印刷字。" });
 PI.LANDMASSES.find(l => l.id === "pharmacognosy").chapters.push(6);
 
 const SRC7 = "揮發油與香料講義";
@@ -1712,8 +1715,7 @@ PI.KNOWLEDGE.ch6 = {
 
 /* ================= 第 7 章：樹脂及樹脂類化合物（講義 p.54–56，只用印刷字） =================
    放在生藥島；小分類照講義的表格標題：樹脂、油樹脂、油膠樹脂、香膠。
-   辣椒（油樹脂）的格子已在第 3 章，這裡不重複，只在知識樹提到。
-   p.54 印度大麻那一列的最下面掃描時可能被切掉，只收錄看得到的部分。 */
+   辣椒（油樹脂）的格子已在第 3 章，這裡不重複，只在知識樹提到。 */
 PI.CHAPTERS.push({ id: 7, name: "樹脂", cat: "pharmacognosy", estimate: 16, unitType: "drug", note: "講義：樹脂及樹脂類化合物（p.54–56）。依講義的印刷字。" });
 PI.LANDMASSES.find(l => l.id === "pharmacognosy").chapters.push(7);
 
