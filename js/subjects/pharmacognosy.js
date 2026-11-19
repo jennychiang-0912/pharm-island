@@ -2034,3 +2034,457 @@ PI.KNOWLEDGE.ch9 = {
     ] }
   ]
 };
+
+/* ================= 中藥島：常見中藥總整理（講義 p.60–，只用印刷字） =================
+   地圖上是另一座島「中藥島」；一章一個講義大標（壹、醣類；貳、配醣體…），一味藥一格。
+   欄位：生藥名／部位 → 中文名與部位；基源、科別、成分、常見用途照講義；「國考備註」放在其他重點。
+   講義上的星號（★／★★）放在 generation 欄位；和前面西洋生藥同名的不重複建格。 */
+const SRC11 = "常見中藥總整理";
+/* 一格的寫法：tcm(章, 小分類, 頁, id, 中文名, 部位, 生藥拉丁名, 基源, 科別, 成分[], 用途[], 國考備註, 星號) */
+function tcm(chapter, group, page, id, zh, part, latin, origin, family, cons, uses, exam, star) {
+  const blank = (s, tag) => /\{\{/.test(s) ? s : `{{${s}|${tag}}}`;
+  return {
+    /* 名稱用生藥名（拉丁），地圖上的短名用中文 */
+    id, chapter, name: latin.replace(/^★/, ""), short: zh, type: "drug", group,
+    generation: star ? "講義標示 " + star : undefined, source: SRC11 + " p." + page,
+    names: [`中文：{{${zh}|生藥中文名}}`],
+    origin: [].concat(origin).map(s => blank(s, "學名")),
+    family: [].concat(family).map(s => blank(s, "科別")),
+    part: [blank(part, "部位")],
+    constituents: cons, uses,
+    notes: exam ? [].concat(exam) : undefined
+  };
+}
+
+PI.CHAPTERS.push(
+  { id: 10, name: "中藥：醣類", cat: "pharmacognosy", estimate: 9, unitType: "drug", note: "講義：常見中藥總整理 壹、★★醣類（p.61）。依講義的印刷字。" },
+  { id: 11, name: "中藥：配醣體", cat: "pharmacognosy", estimate: 31, unitType: "drug", note: "講義：常見中藥總整理 貳、★★★配醣體（p.62–）。依講義的印刷字。" }
+);
+PI.LANDMASSES.push({ id: "tcm", name: "中藥島", chapters: [10, 11], palette: { ground: "#D9B98F", light: "#E8D2B3", cliff: "#B08D62" } });
+
+PI.UNITS.push(
+  /* ===== 壹、★★醣類（p.61）===== */
+  tcm(10, "醣類", 61, "tcm-pangdahai", "胖大海", "乾燥種子", "Sterculiae Semen", "Sterculia lychnophora", "梧桐科（Sterculiaceae）",
+    ["★西黃耆膠黏素（{{Bassorin|成分}}）"], ["{{潤燥化痰|用途}}"], "★注意，沒考過"),
+  tcm(10, "醣類", 61, "tcm-gualougen", "栝蔞根", "乾燥塊根", "Trichosanthis Radix", "Trichosanthes kirilowii", "葫蘆科（Cucurbitaceae）",
+    ["天花粉蛋白（{{Trichosanthin|成分}}）"], ["{{抗消化性潰瘍|用途}}、抗菌、抗腫瘤"], "★近兩年有出現在選項（103-1, 104-1）"),
+  tcm(10, "醣類", 61, "tcm-baiji", "白芨", "★塊莖", "Bletillae Rhizoma", "Bletilla striata", "蘭科（Orchidaceae）",
+    ["黏液質：白芨葡萄甘露聚糖（{{Bletilla glucomannan|成分}}）"], ["{{收斂止血|用途}}"], "★不宜加熱處理，因含{{黏液質|性質}}（104-1）", "★★"),
+  tcm(10, "醣類", 61, "tcm-niuxi", "牛膝", "乾燥根", "Achyranthis Radix", "Achyranthes bidentata", "莧科（Amaranthaceae）",
+    ["黏液質、皂素水解後會產生齊墩果酸（{{Oleanolic acid|成分}}）"], ["生：{{活血散瘀|用途}}", "熟：{{補肝腎、強筋骨|用途}}"]),
+  tcm(10, "醣類", 61, "tcm-dazao", "大棗", "成熟果實", "★Zizyphus Fructus", "★Ziziphus jujube", "鼠李科（Rhamnaceae）",
+    ["{{D-Fructose|成分}}（主成分）"], ["健脾胃、{{營養安神|用途}}、緩和、補血"], "104-1, 104-2 國考", "★★"),
+  tcm(10, "醣類", 61, "tcm-gouqizi", "枸杞子", "乾燥成熟果實", "Lycii Fructus", "Lycium chinesis", "茄科（Solanaceae）",
+    ["生物鹼：甜菜鹼（{{Betaine|成分}}）"], ["補血潤肺、{{清肝滋腎|用途}}"]),
+  tcm(10, "醣類", 61, "tcm-digupi", "地骨皮", "乾燥根皮", "Lycii Radicis Cortex", "Lycium chinesis", "茄科（Solanaceae）",
+    ["生物鹼：甜菜鹼（{{Betaine|成分}}）"], ["{{清熱涼血|用途}}"]),
+  tcm(10, "醣類", 61, "tcm-huangjing", "黃精", "根莖", "Polygonati Rhizoma", "Polygonatum sibiricum", "★百合科（Liliaceae）",
+    ["多醣類：{{黃精多醣|成分}}"], ["{{補中益氣、潤肺生津|用途}}"], "★幾乎年年都有在選項", "★★"),
+  tcm(10, "醣類", 61, "tcm-dongchongxiacao", "冬蟲夏草", "全體", "Cordyceps", "★Cordyceps sinensis", "麥角菌科（Clavicipitaceae）",
+    ["多醣體：中性甘露糖基葡聚糖（{{Mannoglucan|成分}}）"], ["{{補肺益腎、止血化痰|用途}}"]),
+
+  /* ===== 貳、★★★配醣體（p.62–64）===== */
+  tcm(11, "配醣體", 62, "tcm-gegen", "葛根", "塊根", "Puerariae Radix", "Pueraria lobata", "豆科（Leguminosae）",
+    ["{{Isoflavonoid|分類}}：指標成分包括大豆苷元（Daidzein）、大豆苷（Daidzin）、葛根素（{{Puerarin|成分}}）"], ["★{{發汗解熱|用途}}"]),
+  tcm(11, "配醣體", 62, "tcm-chaihu", "柴胡", "乾燥根", "★Bupleuri radix", ["★北柴胡（柴胡）：{{Bupleurum chinense|學名}}", "南柴胡（狹葉柴胡）：B. scorzonerifolium"], "★繖形科（Umbelliferae/Apiaceae）",
+    ["★皂苷：柴胡皂苷（{{Saikosaponin A~G|成分}}）", "柴胡醇（Bupleurumol）", "豆固醇（Stigmasterol）"], ["★{{辛涼解表|用途}}", "★{{疏肝解鬱|用途}}"], "★幾乎年年都有考（103-1、103-2、104-1）", "★★"),
+  tcm(11, "配醣體", 62, "tcm-zhimu", "知母", "乾燥根莖", "Anemarrhena rhizoma", "Anemarrhena asphodeloides", "百合科（Liliacea）",
+    ["固醇類皂苷：知母皂苷（{{Timosaponin|成分}}）"], ["清熱瀉火", "{{滋腎潤燥|用途}}"]),
+  tcm(11, "配醣體", 62, "tcm-zhizi", "梔子", "果實", "★Gardeniae Fructus", "Gardenia jasminoides", "茜草科（Rubiaceae）",
+    ["★單萜類配醣體：{{Geniposide|成分}}", "★{{Crocin|成分}}（104-1）"], ["清熱瀉火", "{{涼血解毒|用途}}"], "104-1, 104-2 國考", "★★"),
+  tcm(11, "配醣體", 62, "tcm-xiakucao", "夏枯草", "乾燥花序或果穗", "Prunellae Spica", "Prunella vulgaris", "唇形科（Lamiaceae/Labiatae）",
+    ["★三萜類：{{Ursolic acid|成分}}"], ["清熱瀉火", "{{清肝明目|用途}}"]),
+  tcm(11, "配醣體", 62, "tcm-huangqin", "黃芩", "去周皮之根", "Scutellariae Radix", "★Scutellaria baicalensis", "唇形科（Lamiaceae/Labiatae）",
+    ["★類黃酮（flavonoid）：主要成分黃芩苷元（{{baicalein|成分}}）"], ["{{瀉實火、除濕熱|用途}}、止血"], "★去年有出現在選項", "★★"),
+  tcm(11, "配醣體", 62, "tcm-longdan", "龍膽", "乾根和根莖", "★Gentianae Radix", "Gentiana scabra", "龍膽科（Gentianaceae）",
+    ["★單萜類配醣體：Secoiridoid 2%，{{Gentiopicrin|成分}}"], ["清熱燥濕", "{{瀉肝定驚|用途}}"]),
+  tcm(11, "配醣體", 62, "tcm-dihuang", "地黃", "乾燥根和根莖", "★Rehmanniae Rhizoma", "Rehmannia glutinosa", "玄參科（Scrophulariaceae）",
+    ["★{{Iridoid glycosides|成分}}"], ["{{清熱涼血|用途}}"], "常一起出題（地黃、牡丹皮）"),
+  tcm(11, "配醣體", 62, "tcm-mudanpi", "牡丹皮", "乾燥根皮", "★Moutan Cortex", "Paeonia suffruticosa", "毛茛科（Ranunculaceae）",
+    ["★{{Paeonolide|成分}}", "★Glycoside 類：存在於新鮮根皮中，包括 {{Paeonol|成分}}"], ["{{清熱涼血|用途}}"], "常一起出題（地黃、牡丹皮）"),
+  tcm(11, "配醣體", 63, "tcm-baijiangcao", "敗醬草", "全草", "Patriniae Herba", "Patrinia scablosaefolia", "敗醬科（Valerianaceae）",
+    ["{{Flavanones|分類}} 類"], ["{{清熱解毒|用途}}"]),
+  tcm(11, "配醣體", 63, "tcm-banlangen", "板藍根", "乾燥根", "Isatidis Radix", "Isatis indigotica", "十字花科（Cruciferae）",
+    ["★靛苷（{{Indican|成分}}）", "★靛玉紅（{{Indirubin|成分}}）"], ["{{清熱解毒|用途}}"]),
+  tcm(11, "配醣體", 63, "tcm-mutong", "木通", "去外皮之乾燥莖", "Akebiae Caulis", ["木通：{{Akebia trifoliate|學名}}", "川木通：Clematis montana"], ["木通科（Lardizabalaceae）", "毛茛科（Ranunculaceae）"],
+    ["含有以 Hederagenin 及 {{Oleanolic acid|成分}} 為皂基的 Saponin：{{Akeboside|成分}} St b-f, h, k"], ["{{降心火、清肺熱|用途}}"], "103-2 國考"),
+  tcm(11, "配醣體", 63, "tcm-wujiapi", "五加皮", "★乾燥根皮", "Acanthopanacis Radicis Cortex", "Acanthopanax gracilistylus", "五加科（Araliaceae）",
+    ["配糖體類：丁香苷（{{Syringin|成分}}）、刺五加苷（{{Eleutheroside A|成分}}）"], ["{{祛風溼壯筋骨|用途}}、活血去瘀"]),
+  tcm(11, "配醣體", 63, "tcm-baizhi", "白芷", "★乾燥根", "Angelicae Dahuricae Radix", "Angelica dahurica", "★繖形科（Umbelliferae/Apiaceae）",
+    ["{{Coumarin|成分}}", "{{Furocoumarins|成分}}"], ["{{散風除濕|用途}}、通竅止痛、消腫排膿"], undefined, "★★"),
+  tcm(11, "配醣體", 63, "tcm-pipaye", "枇杷葉", "乾燥葉", "Eriobotryae Folium", "Eriobotrya japonica", "薔薇科（Rosaceae）",
+    ["枇杷苷 A（{{Eriojaposide A|成分}}）"], ["★{{止咳化痰|用途}}"]),
+  tcm(11, "配醣體", 63, "tcm-jiegeng", "桔梗", "去外皮之乾燥根", "Platycodi Radix", "Platycodon grandiflorum", "桔梗科（Campanulaceae）",
+    ["★皂苷：Platycodin A-H，以 {{Platycodin D|成分}} 最主要"], ["{{宣肺、利咽|用途}}、祛痰、排膿"], "104-2 國考"),
+  tcm(11, "配醣體", 63, "tcm-honghua", "紅花", "乾燥花瓣", "Carthami Flos", "Carthamus tinctorius", "菊科（Asteraceae/Compositae）",
+    ["Glycoside 類：{{Safflor yellow|成分}} A、B → {{黃色素|性質}}"], ["{{活血散瘀|用途}}"]),
+  tcm(11, "配醣體", 63, "tcm-dangshen", "黨參", "乾燥根", "Codonopsis Pilosulae Radix", "Codonopsis pilosula", "桔梗科（Campanulaceae）",
+    ["★苯丙烷苷類：黨蔘苷（{{Tangshenoside|成分}} I~IV）、Syringin"], ["{{健脾補肺|用途}}", "益氣生津"]),
+  tcm(11, "配醣體", 63, "tcm-heshouwu", "何首烏", "塊根、莖葉", "Polygoni Multiflori Radix", "Polygonum multiflorum", "★蓼科（Polygonaceae）",
+    ["★{{Anthraquinone|分類}} 類，包含 Chrysophanol、Emodin"], ["補肝腎、{{烏鬚髮|用途}}、益精血"], "100-102 國考", "★★"),
+  tcm(11, "配醣體", 64, "tcm-xuduan", "續斷", "根", "Dipsaci Asperoidis Radix", "Dipsacus asperoides", "川續斷科（Dipsacaceae）",
+    ["單萜類苷類（Iridoid glycosides）：{{Cantleyoside|成分}}", "生物鹼：{{Cantleyine|成分}}"], ["補肝腎、強筋骨、調血脈、{{止崩漏|用途}}"], "★注意，沒考過"),
+  tcm(11, "配醣體", 64, "tcm-roucongrong", "肉蓯蓉", "乾燥肉質莖", "Cistanchis Herba", "Cistanche deserticola", "列當科（Orobanchaceae）",
+    ["{{Phenylethanoid glycosides|分類}}", "Iridoids lignan、★{{Acteoside|成分}}"], ["補腎陽、益精血、潤腸通便、★{{治療陽痿|用途}}"], "★近兩年有出現在選項（103-2, 104-2）", "★★"),
+  tcm(11, "配醣體", 64, "tcm-suoyang", "鎖陽", "肉質莖", "Cynomorii Herba", "★Cynomorium songaricum", "鎖陽科（Cynomoriaceae）",
+    ["三萜類：熊果酸（{{Ursolic acid|成分}}）", "植物固醇：{{β-Sitosterol|成分}}、Daucosterol"], ["補腎壯陽、益精血、潤腸通便", "★{{治療腎虛陽痿|用途}}"], "★近兩年有出現在選項（103-1, 104-2）", "★★"),
+  tcm(11, "配醣體", 64, "tcm-maimendong", "麥門冬", "乾燥小塊根", "Ophiopogonis Radix", "Ophiopogon japonicus", "百合科（Liliaceae）",
+    ["皂苷：{{Ophiopogonin A~D|成分}}", "Flavonoids 類：Ophiopogonanone"], ["{{養陰生津|用途}}、潤肺清心除煩"], "★注意，沒考過"),
+  tcm(11, "配醣體", 64, "tcm-nuzhenzi", "女貞子", "成熟果實", "★Privet Fructus", "Ligustrum lucidum", "★木犀科（Oleaceae）",
+    ["★Iridoid glycosides：{{Ligustroside|成分}}"], ["滋補肝腎、{{明目烏髮|用途}}"], "★幾乎年年都有在選項", "★★"),
+  tcm(11, "配醣體", 64, "tcm-jili", "蒺藜", "果實", "Tribuli Fructus", "Tribulus terrestris", "蒺藜科（Zygophyllaceae）",
+    ["類黃酮苷：{{Tribuloside|成分}}", "★生物鹼：{{Harmine|成分}}（{{有毒|性質}}）"], ["{{平肝熄風|用途}}、行血散瘀"], "★注意，沒考過"),
+  tcm(11, "配醣體", 64, "tcm-shanzhuyu", "山茱萸", "乾燥果實、果肉", "Corni Fructus", "★Conus officinalis", "山茱萸科（Cornaceae）",
+    ["Iridoid glycosides", "★Tannins 類：{{Gallic acid|成分}}"], ["滋養強壯、★{{收斂|用途}}、補血、明目"], "★注意，沒考過"),
+  tcm(11, "配醣體", 64, "tcm-suanzaoren", "酸棗仁", "種子", "Zizyphus Spinosi Semen", "Ziziphus jujube", "鼠李科（Rhamnaceae）",
+    ["Triterpenoids：Betulin、{{Jujuboside|成分}} A、B"], ["養肝、{{安神|用途}}、斂汗"], "★注意，沒考過"),
+  tcm(11, "配醣體", 64, "tcm-yuanzhi", "遠志", "根", "Polygalae Radix", "Polygala tenuifolia", "遠志科（Polygalaceae）",
+    ["★皂苷類：{{Onjisaponin|成分}} A~G、Tenuifolin A、B"], ["★{{祛痰|用途}}、溶血、抗菌"], "★注意，沒考過"),
+  tcm(11, "配醣體", 64, "tcm-tianma", "天麻", "★乾燥塊莖", "Gastrodiae Rhizoma", "★Gastrodia elata", "蘭科（Orchidaceae）",
+    ["★酚類化合物及其苷類：{{Gastrodin|成分}}、Gastrodioside"], ["{{祛風通絡、鎮痙|用途}}"], "103-2, 104-1 國考", "★★")
+);
+
+PI.CHAPTERS.push(
+  { id: 12, name: "中藥：脂質", cat: "pharmacognosy", estimate: 1, unitType: "drug", note: "講義：常見中藥總整理 參、★★脂質（p.65）。依講義的印刷字。" },
+  { id: 13, name: "中藥：萜類", cat: "pharmacognosy", estimate: 22, unitType: "drug", note: "講義：常見中藥總整理 肆、★★萜類（p.65–）。依講義的印刷字。" }
+);
+PI.LANDMASSES.find(l => l.id === "tcm").chapters.push(12, 13);
+
+PI.UNITS.push(
+  /* ===== 貳、配醣體（續）（p.65）===== */
+  tcm(11, "配醣體", 65, "tcm-baishao", "白芍", "★去栓皮之乾燥根", "Paeoniae Alba Radix", "Paeonia lactiflora", "★毛茛科（Ranunculaceae）",
+    ["★單萜苷類：為白芍的有效成分，包含★{{Paeoniflorin|成分}}"], ["{{平肝止痛|用途}}、養血調經、斂陰止汗"]),
+  tcm(11, "配醣體", 65, "tcm-chishao", "赤芍", "乾燥根", "Paeoniae Rubra Radix", "Paeonia lactiflora", "毛茛科（Ranunculaceae）",
+    ["★單萜苷類：為赤芍的有效成分，包含★{{Lactiflorin|成分}}"], ["{{清熱涼血、散瘀止痛|用途}}"]),
+
+  /* ===== 參、★★脂質（p.65）===== */
+  tcm(12, "脂質", 65, "tcm-cangerzi", "蒼耳子", "★果實", "Xanthli Fructus", "★Xanthium sibiricum", "★菊科（Asteraceae/Compositae）",
+    ["固醇類：{{βSitosterol|成分}}、倍半萜類", "脂肪油：主要為 {{Linoleic acid|成分}}（64%）、Oleic acid（26%）"], ["{{散風、止痛|用途}}"], "99-101 國考"),
+
+  /* ===== 肆、★★萜類（p.65–66）===== */
+  tcm(13, "萜類", 65, "tcm-zisu", "紫蘇", "乾燥葉", "Perillae Folium", "Perilla frutescens", "唇形科（Lamiaceae/Labiatae）",
+    ["Monoterpenoids：紫蘇醛 {{Perillaldehyde|成分}}（主要）"], ["{{辛溫解表|用途}}", "★{{妊娠嘔吐|用途}}"]),
+  tcm(13, "萜類", 65, "tcm-fangfeng", "防風", "乾燥根", "Saposhinikoviae Radix", "Saposhnikovia divaricata", "★繖形科（Umbelliferae/Apiaceae）",
+    ["油脂及揮發油", "{{Coumarins|成分}}", "Chromones：{{Hamaudol|成分}}"], ["{{頭痛感冒|用途}}", "骨節疼痛、背痛項強"], undefined, "★★★"),
+  tcm(13, "萜類", 65, "tcm-jingjie", "荊芥", "乾燥全草或花穗", "Schizonepetae Herba", "Schizonepeta tenuifolia", "★唇形科（Lamiaceae/Labiatae）",
+    ["★單萜類：{{d-Menthone|成分}}（右旋薄荷酮）（主成分）"], ["★{{發表散風、透疹消瘡|用途}}"], "104-1 國考"),
+  tcm(13, "萜類", 65, "tcm-xinyi", "辛夷", "乾燥全草或花穗", "Magnoliae Flos", "Magnolia biondii", "★木蘭科（Magnoliaceae）",
+    ["揮發油：Cineole、α-Pinene", "★Lignans：{{Magnolin|成分}}"], ["散上焦風熱", "★{{治鼻炎、鼻竇蓄膿|用途}}"], "103-1 國考", "★★★"),
+  tcm(13, "萜類", 65, "tcm-jinyinhua", "金銀花", "乾燥花蕾", "Lonicerae Flos", "Lonicera japonica", "忍冬科（Loniceraceae）",
+    ["Monoterpenoids：Pinene、{{Linalool|成分}}"], ["{{清熱解毒|用途}}"], "★注意，沒考過"),
+  tcm(13, "萜類", 66, "tcm-pugongying", "蒲公英", "帶根全草", "Taraxaci Herba", "Taraxacum mongolicum", "菊科（Asteraceae/Compositae）",
+    ["三萜成分：蒲公英固醇（{{Taraxasterol|成分}}）"], ["清熱解毒、{{消腫散結|用途}}、利尿通淋"]),
+  tcm(13, "萜類", 66, "tcm-xixin", "細辛", "乾燥根或根莖", "Asari Herba", "Asarum heterotropoides", "★馬兜鈴科（Aristolochiaceae）",
+    ["木脂素（Lignan）：{{l-Asarinin|成分}}", "揮發油：Methyleugenol", "辛味成分：{{Pellitorine|成分}}"], ["{{祛風散寒|用途}}、通竅止痛、溫肺化飲"], "104-1 國考"),
+  tcm(13, "萜類", 66, "tcm-cangzhu", "蒼朮", "乾燥根莖", "Atractylodis Lanceae Rhizoma", "Atractylodes lancea", "★菊科（Asteraceae/Compositae）",
+    ["揮發油：{{Atractylol|成分}}、Hinesol、β-Eudesmol"], ["★{{健胃安脾|用途}}、除濕發汗"], "104-1, 104-2 都有在選項", "★★★"),
+  tcm(13, "萜類", 66, "tcm-fuling", "茯苓", "★菌核", "Poria", "Poria cocos", "多孔菌科（Polyporaceae）",
+    ["聚醣：{{β-Pachymaran|成分}}"], ["{{利水滲濕|用途}}、健脾安神"], "98-100 國考", "★★"),
+  tcm(13, "萜類", 66, "tcm-zexie", "澤瀉", "乾燥塊莖", "Alismatis Rhizoma", "Alisma orientale", "澤瀉科（Alismataceae）",
+    ["★{{Protostane type|結構}} 三萜類：Alisol A~C、O、P（{{澤瀉醇|成分}}）", "★Guaiane 型倍半萜類"], ["★{{利水滲濕、泄熱通淋|用途}}"], "104-2 國考"),
+  tcm(13, "萜類", 66, "tcm-banxia", "半夏", "去外皮之乾燥根莖", "Pinellia Tuber", "Pinellia ternate", "天南星科（Araceae）",
+    ["生物鹼：{{L-Ephedrine|成分}}", "蛋白質：半夏蛋白（{{Pinellin|成分}}）"], ["{{燥濕化痰|用途}}、和胃止嘔、消痞散結"], "★注意，沒考過"),
+  tcm(13, "萜類", 66, "tcm-sangbaipi", "桑白皮", "乾燥根內皮", "Mori Radicis Cortex", "Morus alba", "桑科（Moraceae）",
+    ["三萜類：{{α-Amyrin|成分}}（α-香樹脂醇）、Betulinic acid（白樺脂酸）"], ["{{止咳平喘|用途}}"], "★注意，沒考過"),
+  tcm(13, "萜類", 66, "tcm-chenxiang", "沉香", "樹脂的心材", "Aquilariae Lignum", "Aquilaria sinensis", "瑞香科（Thymelaeaceae）",
+    ["揮發油：{{Benzylacetone|成分}}、p-Methoxybenzylacetone"], ["★{{降氣納腎、狀元陽|用途}}"], "103-2 國考"),
+  tcm(13, "萜類", 66, "tcm-jianghuang", "薑黃", "乾燥塊莖", "Curcumae Longae Rhizoma", "Curcuma longa", "薑科（Zingiberaceae）",
+    ["揮發油：α-Turmerone、Zingiberene、Sabinene", "★{{Curcumin|成分}}（薑黃素）"], ["{{活血化瘀|用途}}"], "★注意，沒考過"),
+  tcm(13, "萜類", 66, "tcm-chenpi", "陳皮", "★乾燥成熟果皮", "Citri Reticulatae Pericarpium", "Citrus reticulata", "★芸香科（Rutaceae）",
+    ["★揮發油：{{d-Limonene|成分}}", "類黃酮：{{Hesperidin|成分}}、Neohesperidin、Naringin"], ["{{燥濕化痰|用途}}"])
+);
+
+PI.CHAPTERS.push(
+  { id: 14, name: "中藥：類苯基丙烷", cat: "pharmacognosy", estimate: 11, unitType: "drug", note: "講義：常見中藥總整理 伍、★★★★★類苯基丙烷（近年超常考！）（p.68–）。依講義的印刷字。" }
+);
+PI.LANDMASSES.find(l => l.id === "tcm").chapters.push(14);
+
+PI.UNITS.push(
+  /* ===== 肆、萜類（續）（p.67）===== */
+  tcm(13, "萜類", 67, "tcm-aiye", "艾葉", "乾燥葉部", "Artemisiae Argyi Folium", "Artemisia argyi", "菊科（Asteraceae/Compositae）",
+    ["揮發油：{{1,8-Cineole|成分}}（單萜類）、Elemol（倍半萜類）"], ["{{散寒止痛、溫經止血|用途}}"], "★注意，沒考過"),
+  tcm(13, "萜類", 67, "tcm-chuanxiong", "川芎", "乾燥根莖", "Ligusticum Rhizoma", "★Ligusticum chuanxiong", "★繖形科（Umbelliferae/Apiaceae）",
+    ["Phthalide（苯酞）：Cnidilide、Neocnidilide、{{Ligustilide|成分}}、Senkyonolide"], ["★{{活血補血|用途}}", "強壯、鎮靜、鎮痛"], "104-1 國考", "★★"),
+  tcm(13, "萜類", 67, "tcm-danshen", "丹蔘", "乾燥根", "Salviae Miltiorrhizae Radix", "Salvia miltiorrhiza", "★唇形科（Lamiaceae/Labiatae）",
+    ["雙萜類：{{Tanshinone|成分}}（丹參酮）、Cryptotanshinone", "苯丙烷類"], ["{{活血柚瘀|用途}}", "調經、消腫、鎮痛"]),
+  tcm(13, "萜類", 67, "tcm-huangqi", "黃耆", "乾燥根", "Astragali Radix", "★Astragalus membranaceus", "豆科（Leguminosae）",
+    ["多醣體：{{Astragalan|成分}} I~III", "★三萜類：{{Cycloartane|結構}}"], ["★{{補氣固表|用途}}、利尿脫毒"], "104-1, 104-2 國考", "★★"),
+  tcm(13, "萜類", 67, "tcm-baizhu", "白朮", "★乾燥根莖", "Atractylodis Ovatae Rhizoma", "Atractylodes macrocephala", "菊科（Asteraceae/Compositae）",
+    ["倍半萜類（Sesquiterpenes）：蒼朮酮（{{Atractylon|成分}}）最多"], ["★{{健脾益氣、安胎|用途}}", "燥濕利水、止汗"], "103-2 國考", "★"),
+  tcm(13, "萜類", 67, "tcm-fupenzi", "覆盆子", "果實", "Rubi Fructus", "Rubus chinggii", "薔薇科（Rosaceae）",
+    ["{{Labdane|結構}} 型二萜苷：{{Goshonoside|成分}} F1~F7"], ["補肝益腎、{{固精縮尿|用途}}、明目"], "★注意，沒考過"),
+  tcm(13, "萜類", 67, "tcm-shengma", "升麻", "乾燥根莖", "Cimicifugae Rhizoma", "Cimicifuga foetida", "毛茛科（Ranunculaceae）",
+    ["Phenylpropanoids：{{Isoferulic acid|成分}}、Ferulic acid、Caffeic acid", "三萜類：{{Cimigenol|成分}}"], ["{{升陽、透斑疹|用途}}", "★散風解毒"], "★注意，沒考過", "★★"),
+
+  /* ===== 伍、★★★★★類苯基丙烷（近年超常考！！！）（p.68）===== */
+  tcm(14, "類苯基丙烷", 68, "tcm-zicao", "紫草", "★乾燥根", "Lithospermi Radix", "Lithospermum erythrorhizon", "紫草科（Boraginaceae）",
+    ["★{{Naphthoquinone|分類}} 類", "{{Shikonin|成分}}（紫草素）"], ["{{涼血活血|用途}}、解毒、透疹"], "104-1 國考"),
+  tcm(14, "類苯基丙烷", 68, "tcm-lianqiao", "連翹", "★乾燥果實", "Forsythiae Fructus", "Forsythia suspensa", "★木犀科（Oleaceae）",
+    ["Lignans（主要）：{{Arctigenin|成分}}", "★Glycosides：{{Arctiin|成分}}"], ["清熱解毒、消腫散結", "★{{瘡家聖藥|用途}}"], "103-1, 104-2 國考"),
+  tcm(14, "類苯基丙烷", 68, "tcm-houpo", "厚朴", "★乾燥樹皮", "★Magnoliae Cortex", "Magnolia officinalis", "木蘭科（Magnoliaceae）",
+    ["生物鹼：{{Magnocurarine|成分}}", "★Lignans：{{Magnolol|成分}}"], ["★{{行氣、燥濕|用途}}、消瘀破積"], "103-2, 104-1 國考"),
+  tcm(14, "類苯基丙烷", 68, "tcm-sumu", "蘇木", "★乾燥心材", "Sappan Lignum", "★Caesalpinia sappan", "豆科（Leguminosae）",
+    ["{{Brasilin|成分}}：{{黃色|顏色}}，其氧化後變成{{紅褐色|顏色}}的 Brasilein"], ["{{活血祛瘀、消腫定痛|用途}}"], "99-100 國考"),
+  tcm(14, "類苯基丙烷", 68, "tcm-danggui", "當歸", "乾燥根", "Angelicae Sinensis Radix", "Angelica sinensis", "★繖形科（Umbelliferae/Apiaceae）",
+    ["揮發油類：以★{{Ligustilide|成分}} 及 Butylidene phthalide 為主"], ["★{{補血活血|用途}}"], "104-1 國考"),
+  tcm(14, "類苯基丙烷", 68, "tcm-duzhong", "杜仲", "樹皮", "Eucommiae Cortex", "Eucommia ulmoides", "杜仲科（Eucommiaceae）",
+    ["Ligninoglycosides：{{Pinoresinol diglucoside|成分}} → 為杜仲★{{降血壓|作用}}活性成分"], ["★{{補肝腎、強筋骨、安胎|用途}}"], "★幾乎年年都有在選項"),
+  tcm(14, "類苯基丙烷", 68, "tcm-buguzhi", "補骨脂", "★成熟種子", "Psoraleae Semen", "Psoralea corylifolia", "★豆科（Leguminosae）",
+    ["★Coumarins：{{Psorlen|成分}} 及 Angelicin"], ["{{補腎固陽、固精縮尿|用途}}"]),
+  tcm(14, "類苯基丙烷", 68, "tcm-yinyanghuo", "淫羊藿", "全草或葉", "Epimedii Herba", "Epimedium brevicornum", "小蘗科（Berberidaceae）",
+    ["類黃酮（Flavonoids）：★{{Icariin|成分}}（淫羊藿苷）"], ["{{補腎陽|用途}}、強筋骨、祛風濕"], ["103-1 國考", "別名：{{仙靈脾|生藥中文名}}"]),
+  tcm(14, "類苯基丙烷", 68, "tcm-wuweizi", "五味子", "成熟果實", "★Schisandrae Fructus", "Schisandra chinensis", "★五味子科（Schisandraceae）",
+    ["★Lignans：{{Schizandrin|成分}}、Gomisins"], ["{{斂肺滋陰、澀精固氣|用途}}"], "103-2 國考"),
+  tcm(14, "類苯基丙烷", 68, "tcm-hezi", "訶子", "成熟果實", "Chebulae Fructus", "Terminalia chebula", "使君子科（Combretaceae）",
+    ["主要含★{{Tannins|成分}}，賦予訶子{{收斂|作用}}的作用"], ["★{{收澀藥|用途}}", "★久瀉久痢"], "104-2 國考（兩題）")
+);
+
+PI.CHAPTERS.push(
+  { id: 15, name: "中藥：生物鹼", cat: "pharmacognosy", estimate: 10, unitType: "drug", note: "講義：常見中藥總整理 陸、★★★★★生物鹼（去年出現超多！）（p.69–70）。依講義的印刷字。" },
+  { id: 16, name: "中藥：其他", cat: "pharmacognosy", estimate: 1, unitType: "drug", note: "講義：常見中藥總整理 柒、★★★★其他（出現在課本的生藥，但是屬於★常用中藥★，非常愛考！）（p.70–71）。" }
+);
+PI.LANDMASSES.find(l => l.id === "tcm").chapters.push(15, 16);
+
+PI.UNITS.push(
+  /* ===== 伍、類苯基丙烷（續）：p.68 最下面一列（蛇床子）掃描時被切掉，只收錄看得到的部分 ===== */
+  tcm(14, "類苯基丙烷", 68, "tcm-shechuangzi", "蛇床子", "乾燥成熟果實", "Cnidii Fructus", "Cnidium monnieri", "★繖形科（Umbelliferae/Apiaceae）",
+    ["★Coumarins：{{Osthol|成分}}", "多種揮發油"], ["★{{溫腎壯陽|用途}}"], "★幾乎年年都有在選項"),
+
+  /* ===== 陸、★★★★★生物鹼（p.69）===== */
+  tcm(15, "生物鹼", 69, "tcm-huanglian", "黃連", "乾燥根莖", "Coptidis Rhizoma", "Coptis chinensis", "★毛茛科（Ranunculaceae）",
+    ["{{Isoquinoline|分類}} alkaloids：{{Berberine|成分}}"], ["★{{清熱燥濕、瀉火解毒|用途}}"], "101-102 國考"),
+  tcm(15, "生物鹼", 69, "tcm-huangbai", "黃柏", "★去栓皮之樹皮", "Phellodendri Cortex", "Phelloendron amurense", "★芸香科（Rutaceae）",
+    ["{{Isoquinoline|分類}} alkaloids：{{Berberine|成分}}"], ["{{清熱燥濕、瀉火解毒|用途}}"]),
+  tcm(15, "生物鹼", 69, "tcm-kushen", "苦參", "乾燥根", "Sophrae Radix", "Sophora flavescens", "★豆科（Leguminosae）",
+    ["生物鹼：{{Matrine|成分}}（苦參鹼）", "黃酮類"], ["★{{清熱瀉火|用途}}"]),
+  tcm(15, "生物鹼", 69, "tcm-shihu", "石斛", "新鮮或乾燥莖", "Dendrobii Herba", "Dendrobium loddigesii", "蘭科（Orchidaceae）",
+    ["★{{倍半萜類生物鹼|分類}}：{{Dendrobine|成分}}（石斛鹼），{{高溫下不穩定，宜生用|性質}}"], ["清熱涼血", "★{{目暗不明|用途}}"]),
+  tcm(15, "生物鹼", 69, "tcm-wuzhuyu", "吳茱萸", "乾燥果實", "Evodiae Fructus", "Evodia rutaecarpa", "芸香科（Rutaceae）",
+    ["★{{Indole|分類}} 類生物鹼：{{Evodiamine|成分}}、Rutaecarpine"], ["{{溫裏藥|用途}}", "祛寒溫中、★健胃"], "104-1, 104-2 國考"),
+  tcm(15, "生物鹼", 69, "tcm-yanhusuo", "延胡索", "乾燥塊莖", "Corydalis Tuber", "Corydalis yanhusuo", "★罌粟科（Papaveraceae）",
+    ["生物鹼：{{protopine|成分}}，其中具有 {{isoquinoline|結構}} 結構★ {{d-Tetrahydropalmatine|成分}}"], ["活血散瘀", "★{{行氣止痛|用途}}"]),
+  tcm(15, "生物鹼", 69, "tcm-yimucao", "益母草", "開花期的全草", "Leonuri Herba", "Leonurus japonicus", "★唇形科（Lamiaceae/Labiatae）",
+    ["生物鹼：{{Leonurine|成分}}"], ["{{活血調經、利水消腫|用途}}"], "★幾乎年年都有在選項"),
+  tcm(15, "生物鹼", 69, "tcm-gouteng", "鉤藤", "乾燥帶鉤莖枝", "Uncariae Ramulus et Uncus", ["{{Uncaria rhynchophylla|學名}}", "毛鉤藤 U. hirsuta Havil【主要台灣產】"], "★茜草科（Rubiaceae）",
+    ["★主要含 {{Indole|分類}} 類生物鹼，如 {{rhynchophylline|成分}}（鉤藤鹼）"], ["★{{鎮痙、降壓藥|用途}}"]),
+  /* p.70 開頭這兩列接在生物鹼表後面，講義沒有另外的標題；小分類「動物藥」是這裡加的 */
+  tcm(15, "動物藥", 70, "tcm-ejiao", "阿膠", "皮熬煮加工的塊膠", "Asini Gelatinum", "Equus asinus", "★馬科（Equidae）",
+    ["多由 {{Gelatin|成分}}（明膠）、Colleagen（膠原蛋白）及其部分水解產物所組成"], ["滋陰養血", "★{{止血安胎|用途}}"], "104-2 國考"),
+  tcm(15, "動物藥", 70, "tcm-guiban", "龜板", "★烏龜的甲殼", "Testudinis Carapax", "Chinemys reevesii", "龜科（Emydidae）",
+    ["蛋白質：{{Collagen|成分}}", "多種胺基酸"], ["{{補心安神、固精止血|用途}}"], "103-1, 104-1 國考"),
+
+  /* ===== 柒、★★★★其他（p.71）：其他列的生藥前面章節已有格子，放在知識樹 ===== */
+  tcm(16, "其他", 71, "tcm-huaihua", "槐花", "未開放花蕾", "Sophrae Flos", "Sophora japonica", "豆科（Leguminosae）",
+    ["★Flavonoid 配糖苷：芸香苷（{{Rutin|成分}}）"], ["治療{{毛細血管出血|疾病}}"])
+);
+
+PI.KNOWLEDGE.ch15 = {
+  chapter: 15, title: "中藥：生物鹼",
+  sections: [
+    { id: "tcm-alkaloid", title: "陸、★★★★★生物鹼（去年出現超多！）", items: [
+      { title: "和前面章節同一味藥（格子在生藥島第 1 章）", source: SRC11 + " p.69",
+        table: {
+          head: ["生藥名／部位", "基源", "科別", "成分", "常見用途", "國考備註"],
+          rows: [
+            ["附子（乾燥旁生塊根）\nAconiti Tuber", "Aconitum carmichaeli", "毛茛科（Ranunculaceae）", "★雙萜類生物鹼：Aconitine（烏頭鹼）", "★祛寒溫中", "104-1 國考"],
+            ["貝母（★鱗莖）\nFritillariae Bulbus", "Fritillaria thunbergii", "★百合科（Liliaceae）", "★Steroidal 類生物鹼，如 Verticine（Peimine）", "★清熱化痰、潤肺止咳", ""]
+          ] },
+        points: [
+          "附子：★{{雙萜類|分類|倍半萜類/Indole 類/Steroidal 類}}生物鹼：Aconitine（烏頭鹼）；用途：★{{祛寒溫中|用途|清熱化痰/活血散瘀/鎮痙降壓}}",
+          "貝母：★{{Steroidal|分類|Isoquinoline/Indole/雙萜類}} 類生物鹼，如 Verticine（Peimine）；部位：★{{鱗莖|部位|塊根/根莖/果實}}"
+        ] }
+    ] }
+  ]
+};
+
+PI.KNOWLEDGE.ch16 = {
+  chapter: 16, title: "中藥：其他",
+  sections: [
+    { id: "tcm-other", title: "柒、★★★★其他（出現在課本的生藥，但是屬於★常用中藥★，非常愛考！）", items: [
+      { title: "課本也有的常用中藥（格子在生藥島）", source: SRC11 + " p.70–71",
+        table: {
+          head: ["生藥名／部位", "基源", "科別", "成分", "常見用途", "國考備註"],
+          rows: [
+            ["車前子（成熟種子）\nPlantago Seed", "Plantago psyllium", "車前科（Plantaginaceae）", "親水性膠體（hydrocolloids）", "緩瀉劑", ""],
+            ["★★大黃（去周皮根莖）\nRhei Rhizoma", "（北）Rheum palmatum\n（南）Rheum officinale", "★蓼科（Polygonaceae）", "Rhein、Chrysophanol\nTannins", "小劑量：苦味健胃劑\n大劑量：瀉下、收斂", "104-1 國考"],
+            ["杏仁（成熟種子）\nArmeniacae Semen", "★Prunus armeniaca", "薔薇科（Rosaceae）", "雙醣苷：Amygdalin", "治咳嗽、喘息、呼吸困難等症狀", "104-2 國考；★別名：Apricot pits"],
+            ["人參（根）\nGinseng Radix", "Panax ginseng", "★五加科（Araliaceae）", "★Triterpenoid saponins：Ginsenosides、Panaxosides、Chikusetsusaponins", "強壯劑", "103-1, 103-2 國考；★Adaptogenic activity"],
+            ["★★甘草（根莖及根）\nGlycyrrhizae Radix", "Glycyrrhizae glabra", "★豆科（Leguminosae）", "★Glycyrrhizin\nGlycyrrhetic acid", "★治療安迪生氏病（Addison's disease）", "★幾乎年年都有在選項（103-2, 104-2 國考）；★別名：Licorice"],
+            ["薄荷（葉）\nMenthae Herba", "Mentha piperita", "★唇形科（Lamiaceae/Labiatae）", "★l-menthol（左旋性）", "★抗刺激劑", "103-2 國考"],
+            ["★★青蒿（葉及花端）\nArtemisiae Apiaceae Herba", "★Artemisia annua", "菊科（Asteraceae/Compositae）", "★倍半萜內脂環衍生物：Artemisinin；活性部分結構為★endoperoxide 環", "★治療瘧疾（malaria）", "103-2 國考"],
+            ["薑（根莖）\nZingiberis Rhizoma", "Zingiber officinale", "薑科（Zingiberaceae）", "★★三香二辣：倍半萜類：Zingiberol、Zingiberene、Bisabolene（三香）；芳香酮類：Zingerone、Shogaol（二辣）", "芳香健胃劑；用於止嘔吐、感冒", "覺得 105-1 會考"],
+            ["小茴香（成熟果實）\nFoeniculi Fructus", "★Foeniculum capillaceum", "★繖形科（Umbelliferae/Apiaceae）", "酚醚類揮發油：E-Anethole", "矯味劑、驅風劑", "104-2 國考；★別名：Fennel"],
+            ["丁香（未開放花蕾）\nCaryophylli Flos", "Eugenia caryophyllus", "丁香科（Myrtaceae）", "★酚類揮發油：Eugenol", "矯味劑、驅風劑", "103-2, 104-1 都有在選項"],
+            ["桂皮（樹皮）\nCinnamomi Cortex", "Cinnamomum loureirii", "樟科（Lauraceae）", "★醛類揮發油：Cinnamaldehyde", "芳香性健胃劑；矯味劑", "103-2 國考"],
+            ["★★麻黃（全草）\nEphedrae Herba", "Ephedra sinica", "麻黃科（Gnetacea）", "★Alkaloidal 生物鹼：(-)-erythro-ephedrine", "支氣管擴張劑", "★Atypical alkaloid"]
+          ] },
+        points: [
+          "大黃：{{小劑量|名詞|大劑量/中劑量/單次劑量}}為苦味健胃劑，大劑量為瀉下、收斂",
+          "甘草：★治療{{安迪生氏病|疾病|庫欣氏症/糖尿病/甲狀腺亢進}}（Addison's disease）；別名 Licorice",
+          "人參：★{{Adaptogenic|作用|Anticoagulant/Antimalarial/Antispasmodic}} activity；成分為 ★Triterpenoid saponins（Ginsenosides…）",
+          "青蒿：活性部分結構為★{{endoperoxide 環|結構|lactone 環/epoxide 環/furan 環}}，★治療瘧疾",
+          "薑：★★三香二辣：三香為倍半萜類 Zingiberol、Zingiberene、Bisabolene；二辣為芳香酮類 {{Zingerone、Shogaol|成分|Zingiberol、Bisabolene/Eugenol、Anethole/Cinnamaldehyde、Citral}}",
+          "麻黃：★{{Atypical alkaloid|名詞|Isoquinoline alkaloid/Indole alkaloid/Steroidal alkaloid}}，成分 (-)-erythro-ephedrine，為支氣管擴張劑"
+        ] }
+    ] }
+  ]
+};
+
+/* ===== 中藥補充表（第二份整理表：名稱／科別／成分／類別／使用部位）=====
+   這份表和「常見中藥總整理」大多是同一批藥，多了「類別」（中藥功效分類）和一些其他成分。
+   一味藥只放一格：類別放進用途，第一份沒有的成分放進其他重點；只出現在這份表的藥另建一格。 */
+const SRC12 = "中藥補充表";
+const TCM_SUP = {
+  "tcm-gegen": ["辛涼解表", "塊根或根", []],
+  "tcm-chaihu": ["辛涼解表", "根", []],
+  "tcm-zhimu": ["清熱瀉火", "根莖", ["黃酮配糖體：★芒果苷（{{Mangiferin|成分}}）"]],
+  "tcm-zhizi": ["清熱瀉火", "果實", ["Gardenoside", "Red pigment：★Crocin（gardenin 梔子素）"]],
+  "tcm-xiakucao": ["清熱瀉火", "花序和果穗", ["三萜類：齊墩果酸（Oleanolic acid）", "固醇類：β-Sitosterol", "揮發油：Cineole、β-Pinene"]],
+  "tcm-huangqin": ["清熱燥濕", "根", ["黃芩苷（{{baicalin|成分}}）"]],
+  "tcm-longdan": ["清熱燥濕", "根或根莖", ["單萜類配醣體：Gentiamarin", "色素：Xanthone 類，Gentisin、Gentiin", "生物鹼：龍膽鹼（{{Gentianine|成分}}）"]],
+  "tcm-dihuang": ["清熱涼血", "根或根莖", ["★Iridoid glycosides：{{Catalpol|成分}}、Rehmannioside D"]],
+  "tcm-mudanpi": ["清熱涼血", "根皮", ["Paeonolide：易被分解為 Peonoside", "★配糖體：Paeonol、Paeoniflorin"]],
+  "tcm-baijiangcao": ["清熱解毒", "全草", ["皂苷：敗醬皂苷（{{Scabioside|成分}} A~G）"]],
+  "tcm-banlangen": ["清熱解毒", "根", []],
+  "tcm-mutong": ["利水滲濕", "莖", []],
+  "tcm-wujiapi": ["祛風溼", "根皮", []],
+  "tcm-baizhi": ["祛風止痛", "根", ["Furocoumarins 類：{{Imperatorin|成分}}"]],
+  "tcm-pipaye": ["止咳平喘", "葉", ["三萜類：熊果酸（Ursolic acid）、齊墩果酸（Oleanolic acid）"]],
+  "tcm-jiegeng": ["止咳平喘", "根", []],
+  "tcm-honghua": ["活血散瘀", "花瓣", ["★{{Carthamin|成分}} → 水解後會產生 Cathamidin 及 Isocarthamidin"]],
+  "tcm-dangshen": ["補氣", "根", []],
+  "tcm-heshouwu": ["補血", "塊根", []],
+  "tcm-xuduan": ["補陽", "根", []],
+  "tcm-roucongrong": ["補陽", "帶鱗片的肉質莖", ["★{{Echinacoside|成分}}、★Cistanoside A~F"]],
+  "tcm-suoyang": ["補陽", "肉質莖", []],
+  "tcm-maimendong": ["滋陰", "塊根", ["類黃酮：Methylophiopogonone A-B★、Ophiopogonanone A★"]],
+  "tcm-nuzhenzi": ["補陰", "果實", ["Iridoid glycosides：{{Oleuropein|成分}}"]],
+  "tcm-jili": ["平肝熄風", "果實", ["類黃酮苷：Astragalin", "★生物鹼：Harmine（★{{小毒來源|性質}}）"]],
+  "tcm-shanzhuyu": ["收澀", "果實", ["★Iridoid glycosides：{{Loganin|成分}}、Sweroside、Morroniside"]],
+  "tcm-suanzaoren": ["安神", "種子", []],
+  "tcm-yuanzhi": ["安神", "根", []],
+  "tcm-tianma": ["平肝熄風", "塊莖", []],
+  "tcm-baishao": ["補血", "根", ["★單萜苷類：{{Benzoylpaeoniflorin|成分}}"]],
+  "tcm-chishao": ["清熱涼血", "根", ["單萜苷類：Paeoniflorin、Benzoylpaeoniflorin"]],
+  "tcm-zisu": ["辛溫解表", "葉（或帶嫩枝）", ["★單萜類：l-Perillaldehyde、{{d-Limonene|成分}}"]],
+  "tcm-fangfeng": ["辛溫解表", "根", ["油脂及揮發油：Linoleic acid ethyl ester、9,12-Octadecadienoic acid、Apiole、Falcarinol", "Coumarins：{{Psoralen|成分}}、Bergapten"]],
+  "tcm-jingjie": ["辛溫解表", "全草", ["★單萜類：l-Pulegone", "★倍半萜類生物鹼（Sesquiterpenoid alkaloid）：Caryophyllene、β-Elemene"]],
+  "tcm-xinyi": ["辛溫解表", "未開花蕾", []],
+  "tcm-shengma": ["辛涼解表", "根莖", ["三萜類：Cimigenol、Dahurinol、Cimigeol"]],
+  "tcm-jinyinhua": ["清熱解毒", "花蕾", ["★單萜類：Geraniol", "★{{Chlorogenic acid|成分}}", "Bisflavones：Ochnaflavone", "Iridoid glycosides：Loganin、Secoxyloganin"]],
+  "tcm-pugongying": ["清熱解毒", "帶根全草", ["倍半萜類：Mongolicumin B"]],
+  "tcm-xixin": ["溫裏藥", "根或根莖", ["揮發油：Asarylketone、{{Safrole|成分}}、Limonene、Pinene"]],
+  "tcm-cangzhu": ["芳香化濕", "根莖", []],
+  "tcm-fuling": ["利水滲濕", "菌核", ["Lanostane 三萜類：{{Pachymic acid|成分}}", "3,4-Secolanostanes：Poricoic acids A~F"]],
+  "tcm-zexie": ["利水滲濕", "塊莖", ["★倍半萜類：Oreintalol A~F、Alismol、Alismoxide"]],
+  "tcm-banxia": ["溫化寒痰", "根莖", ["刺激性物質：{{Homogentisic acid|成分}}", "半夏酸性多醣（Pinellian PA）"]],
+  "tcm-sangbaipi": ["止咳平喘", "根皮", ["香豆精（Coumarins）：{{Umbelliferone|成分}}、Mulberrofuran E"]],
+  "tcm-chenpi": ["止咳平喘", "果皮", ["Limonoids（tetranortriterpene）：{{Limonin|成分}}、Nomilin、Obacunone"]],
+  "tcm-chenxiang": ["行氣降氣", "心材", ["揮發油：Baimuxinol、Baimuxinic acid、Baimuxinal"]],
+  "tcm-jianghuang": ["活血化瘀", "根莖", ["揮發油：α-Turmerone★考★", "Diarylheptanoids：Curcumin★考★"]],
+  "tcm-aiye": ["理血止血", "葉", ["類黃酮：{{Eupatilin|成分}}"]],
+  "tcm-chuanxiong": ["活血散瘀", "根莖", ["★考★Cnidilide", "生物鹼：{{Ligustrazine|成分}}"]],
+  "tcm-danshen": ["活血化瘀", "根", ["雙萜類：Tanshinone I & IIA & IIB"]],
+  "tcm-huangqi": ["補氣", "根", ["三萜類：{{Astragalosides|成分}} I~IV", "類黃酮：Calycosin、Formononetin"]],
+  "tcm-baizhu": ["補氣", "根莖", ["倍半萜類：{{Atractylenolide|成分}} I-VII"]],
+  "tcm-fupenzi": ["收斂", "果實", ["三萜類：Fupenzic acid"]],
+  "tcm-zicao": ["清熱涼血", "根", ["Acetylshikonin、β,β'-Dimethylacrylshikonin"]],
+  "tcm-lianqiao": ["清熱解毒", "果實", ["★木脂素：Pinoresinol"]],
+  "tcm-houpo": ["行氣降氣", "樹皮", ["生物鹼：Magnocurarine（木蘭箭毒鹼）", "木脂素：{{Honokiol|成分}}", "揮發油：β-Eudesmol（桉葉醇）"]],
+  "tcm-sumu": ["活血散瘀", "心材", ["揮發油：(+)-Phellandrene、Oscimene"]],
+  "tcm-danggui": ["補血", "根", ["類苯丙烷類：{{Ferulic acid|成分}}"]],
+  "tcm-duzhong": ["補陽", "樹皮", ["Iridoid glycosides：{{Aucubin|成分}}、Ulmoside"]],
+  "tcm-buguzhi": ["補陽", "種子", ["Chalcones：★Isobavachalcone", "單萜類：{{Bakuchiol|成分}}"]],
+  "tcm-yinyanghuo": ["補陽", "地上部", []],
+  "tcm-wuweizi": ["收斂", "果實", []],
+  "tcm-hezi": ["收斂", "果實", []],
+  "tcm-shechuangzi": ["瘡瘍外用", "果實", ["Coumarins：Imperatorin、Cnidimol A~F 等"]],
+  "tcm-huanglian": ["清熱瀉火", "根莖", ["Isoquinoline alkaloids：Epiberberine、Berberastine"]],
+  "tcm-huangbai": ["清熱瀉火", "去栓皮樹皮", []],
+  "tcm-kushen": ["清熱瀉火", "根", ["生物鹼：{{Oxymatrine|成分}}", "類黃酮及異類黃酮：Kurarinol、Neokurarinol、Formonoetin"]],
+  "tcm-shihu": ["清熱涼血", "莖", ["Phenanthrenes：Denbinobin、Moscatin"]],
+  "tcm-wuzhuyu": ["祛寒溫中", "果實", ["三萜類：Rutaevin"]],
+  "tcm-yanhusuo": ["行氣降氣", "塊莖", []],
+  "tcm-yimucao": ["活血散瘀", "開花期全草", ["生物鹼：{{Stachydrine|成分}}"]],
+  "tcm-gouteng": ["平肝熄風", "帶鉤莖枝", ["Indole alkaloids：Isorhynchophylline（異鉤藤鹼）、Corynoxeine（去氫鉤藤鹼）、Hirsutine（毛鉤藤鹼）"]],
+  "tcm-ejiao": ["補血", "驢皮熬煮加工而成之塊膠", []],
+  "tcm-guiban": ["滋陰", "烏龜的甲殼", ["胺基酸、無機元素"]],
+  "tcm-pangdahai": ["潤燥化痰", "種子", []],
+  "tcm-gualougen": ["潤燥化痰", "塊根", ["★多醣體★：Trichosans A~D", "Sterol：Stigmasterol", "★{{Cucurbitane|結構}} 三萜類★：Cucurbitacins B&D、Isocucurbitacins B&D"]],
+  "tcm-baiji": ["理血止血", "肉質塊莖", ["揮發性成分：二氫菲（{{Dihydrophenanthrenes|成分}}）、Dihydrostilbenes"]],
+  "tcm-niuxi": ["活血散瘀", "根", ["★黏液質★皂素★", "蛻皮固酮（{{Ecdysterone|成分}}）、牛膝固酮（Inokosterone）"]],
+  "tcm-dazao": ["補氣", "果實", ["配糖體：{{Zizybeoside|成分}} I、II（Benzylalcohol glycoside）"]],
+  "tcm-gouqizi": ["補血", "果實", ["生物鹼：Atropin、Hyoscyamine"]],
+  "tcm-digupi": ["清熱涼血", "根皮", ["生物鹼：Kukoamine A、Lyciumamide（枸杞胺）"]],
+  "tcm-huangjing": ["補血", "根莖", ["Steroidal saponins：{{Sibiricosides|成分}} A&B"]],
+  "tcm-dongchongxiacao": ["補養滋陰", "菌核", []],
+  "tcm-cangerzi": ["辛溫解表", "果實", ["固醇類：Strumaroside", "倍半萜類：{{Xanthatin|成分}}", "生物鹼：Xanthiazone"]]
+};
+/* 只出現在補充表、或補充表多給的藥材：貝母（格子在生藥島第 1 章）的補充放在中藥：生物鹼的知識樹 */
+
+/* 把補充表併進格子：類別（中藥功效分類）放在用途最前面，補充表多給的成分放在其他重點 */
+Object.entries(TCM_SUP).forEach(([id, [cat, part, extra]]) => {
+  const u = PI.UNITS.find(x => x.id === id);
+  if (!u) return;
+  u.uses = [`類別：{{${cat}|中藥類別}}`].concat(u.uses || []);
+  const add = [`使用部位（補充表）：${part}`].concat(extra.map(s => "補充表成分：" + s));
+  u.notes = (u.notes || []).concat(add);
+  u.source += "；" + SRC12;
+});
+
+/* 知識樹：中藥島的告示牌放在「中藥：醣類」（第一章），收補充表的科別索引和成分分類索引 */
+PI.KNOWLEDGE.ch10 = {
+  chapter: 10, title: "中藥島",
+  sections: [
+    { id: "tcm-index", title: "常見中藥：索引", items: [
+      { title: "依科別整理", source: SRC12,
+        table: {
+          head: ["科別", "中藥"],
+          rows: [
+            [{ t: "Campanulaceae 桔梗科", b: true }, "桔梗、黨參"],
+            [{ t: "Compositae 菊科", b: true }, "紅花、蒲公英、蒼朮、艾葉、白朮、蒼耳子"],
+            [{ t: "Labiatae 唇形科", b: true }, "夏枯草、黃芩、紫蘇、荊芥、丹蔘、益母草"],
+            [{ t: "Leguminosae 豆科", b: true }, "葛根、黃耆、蘇木、補骨脂、苦參"],
+            [{ t: "Liliaceae 百合科", b: true }, "知母、麥門冬、貝母、黃精"],
+            [{ t: "Magnoliaceae 木蘭科", b: true }, "辛夷、厚朴"],
+            [{ t: "Oleaceae 木犀科", b: true }, "女貞子、連翹"],
+            [{ t: "Orchidaceae 蘭科", b: true }, "天麻、石斛、白芨"],
+            [{ t: "Ranunculaceae 毛茛科", b: true }, "牡丹皮、木通、白芍、赤芍、升麻、黃連、附子"],
+            [{ t: "Rhamnaceae 鼠李科", b: true }, "酸棗仁、大棗"],
+            [{ t: "Rosaceae 薔薇科", b: true }, "枇杷葉、覆盆子"],
+            [{ t: "Rubiaceae 茜草科", b: true }, "梔子、鉤藤"],
+            [{ t: "Rutaceae 芸香科", b: true }, "陳皮、黃柏、吳茱萸"],
+            [{ t: "Solanaceae 茄科", b: true }, "枸杞子、地骨皮"],
+            [{ t: "Umbelliferae 繖形科", b: true }, "柴胡、白芷、防風、川芎、當歸、蛇床子"]
+          ] },
+        points: [
+          "蘭科（Orchidaceae）：天麻、石斛、{{白芨|生藥中文名|白芷/白朮/白芍}}",
+          "毛茛科（Ranunculaceae）：牡丹皮、木通、白芍、赤芍、升麻、{{黃連|生藥中文名|黃柏/黃芩/黃耆}}、附子",
+          "芸香科（Rutaceae）：陳皮、{{黃柏|生藥中文名|黃連/黃芩/黃耆}}、吳茱萸",
+          "繖形科（Umbelliferae）：柴胡、白芷、防風、川芎、{{當歸|生藥中文名|丹蔘/黨參/紅花}}、蛇床子",
+          "百合科（Liliaceae）：知母、麥門冬、貝母、{{黃精|生藥中文名|黃耆/黃芩/黃柏}}",
+          "茄科（Solanaceae）：{{枸杞子、地骨皮|生藥中文名|酸棗仁、大棗/女貞子、連翹/辛夷、厚朴}}"
+        ] },
+      { title: "依成分分類整理", source: SRC12,
+        table: {
+          head: ["成分分類", "中藥：成分"],
+          rows: [
+            [{ t: "Iridoid glycosides", b: true }, "地黃：Catalpol、Rehmannioside D\n續斷：Cantleyoside\n女貞子：Ligustroside、Oleuropein\n山茱萸：Loganin、Sweroside、Morroniside\n金銀花：Loganin、Secoxyloganin\n杜仲：Aucubin、Ulmoside"],
+            [{ t: "單萜類配醣體／單萜苷類", b: true }, "梔子：Geniposide、Gardenoside\n龍膽：Gentiopicrin、Gentiamarin\n白芍：Paeoniflorin、Benzoylpaeoniflorin\n赤芍：Paeoniflorin、Lactiflorin、Benzoylpaeoniflorin"],
+            [{ t: "單萜類", b: true }, "紫蘇：l-Perillaldehyde、d-Limonene\n荊芥：d-Menthone、l-Pulegone\n金銀花：Pinene、Linalool、Geraniol\n補骨脂：Bakuchiol"],
+            [{ t: "倍半萜類", b: true }, "荊芥：Caryophyllene、β-Elemene（倍半萜類生物鹼）\n蒲公英：Mongolicumin B\n澤瀉：Oreintalol A~F、Alismol、Alismoxide\n白朮：蒼朮酮（Atractylon）、Atractylenolide I-VII\n石斛：★Dendrobine（石斛鹼，倍半萜類生物鹼）\n蒼耳子：Xanthatin"],
+            [{ t: "雙萜類", b: true }, "丹蔘：Tanshinone I & IIA & IIB、Cryptotanshinone\n覆盆子：Goshonoside F1~F7（雙萜苷類）\n附子：★Aconitine★（烏頭鹼）、Hypaconitine（次烏頭鹼）、Mesaconitine（新烏頭鹼）（雙萜類生物鹼）"],
+            [{ t: "三萜類", b: true }, "夏枯草、枇杷葉：熊果酸（Ursolic acid）、齊墩果酸（Oleanolic acid）\n鎖陽：熊果酸（Ursolic acid）\n酸棗仁：Jujuboside A、B\n升麻：Cimigenol、Dahurinol、Cimigeol\n蒲公英：蒲公英固醇（Taraxasterol）\n茯苓：Pachymic acid；3,4-Secolanostanes：Poricoic acids A~F\n澤瀉：Alisol A~C、O、P\n桑白皮：α-Amyrin、Betulinic acid\n黃耆：Astragalosides I~IV\n覆盆子：Fupenzic acid\n吳茱萸：Rutaevin\n栝蔞根：Cucurbitacins B&D、Isocucurbitacins B&D"],
+            [{ t: "Isoquinoline alkaloids", b: true }, "黃連：★Berberine★、Epiberberine、Berberastine\n黃柏：Berberine\n延胡索：protopine、★d-Tetrahydropalmatine"]
+          ] },
+        points: [
+          "Iridoid glycosides：杜仲含 {{Aucubin|成分|Catalpol/Loganin/Ligustroside}}、Ulmoside；地黃含 Catalpol、Rehmannioside D",
+          "單萜苷類：白芍、赤芍皆含 {{Paeoniflorin|成分|Geniposide/Gentiopicrin/Gastrodin}}；赤芍另含 Lactiflorin",
+          "倍半萜類生物鹼：石斛的★{{Dendrobine|成分|Aconitine/Berberine/Matrine}}（石斛鹼）",
+          "雙萜類生物鹼：附子的★{{Aconitine|成分|Dendrobine/Berberine/Leonurine}}（烏頭鹼）",
+          "Isoquinoline alkaloids：黃連、黃柏的 {{Berberine|成分|protopine/Evodiamine/Matrine}}；延胡索的 protopine、★d-Tetrahydropalmatine",
+          "三萜類 Cucurbitacins B&D：{{栝蔞根|生藥中文名|胖大海/白芨/牛膝}}"
+        ] }
+    ] }
+  ]
+};
