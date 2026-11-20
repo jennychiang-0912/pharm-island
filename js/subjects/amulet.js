@@ -2565,3 +2565,83 @@ dA(31, "Antiplatelet drugs", 202, "prasugrel", "Prasugrel", null, {
 dA(31, "Antiplatelet drugs", 202, "ticagrelor", "Ticagrelor", null, {
   cls: ["{{可逆的|性質}} P2Y12 receptor antagonist"],
   feat: ["非 {{Prodrug|名詞}}"] });
+
+/* 講義第 203～204 頁（31 章的 PDE3 抑制劑、GP IIb/IIIa 抑制劑、Heparin 與 Warfarin 比較）暫時沒有收錄。 */
+kA(31, "抗凝血解毒劑總整理", 205, "抗凝血解毒劑總整理", [
+  "Warfarin：{{Vitamin K1（Phytonadione）|藥名}}",
+  "Heparin：{{Protamine|藥名}}",
+  "Dabigatran：{{Idarucizumab|藥名}}",
+  "Rivaroxaban：{{Andexanet alfa|藥名}}"
+]);
+
+/* 講義第 206 頁（32. 貧血藥物）暫時沒有收錄。 */
+
+/* ===== 第 33 章 降血脂藥物 ===== */
+chA(33, "33", "降血脂藥物", "207～211");
+kA(33, "降血脂藥物作用圖", 207, "脂質代謝與藥物作用點", [
+  "HMG-CoA →（{{HMG-CoA reductase|酵素}}，被 Statins 類 Rosuvastatin、Atorvastatin、Simvastatin 抑制）→ Mevalonate → Cholesterol（27 個碳）→（7α-hydroxylase）→ Bile acids（{{24|數值}} 個碳）",
+  "脂肪細胞：TG →（Hormone Sensitive Lipase，被 {{Niacin|藥名}} 抑制）→ Free fatty acids",
+  "肝臟：抑制 ApoB100 合成 → {{Mipomersen|藥名}}；MTP inhibitor → {{Lomitapide|藥名}}",
+  "血管：VLDL →（Lipoprotein lipase，被 {{Fibrates 類|藥物類別}} Clofibrate、Fenofibrate 活化）→ IDL → LDL",
+  "CETP 抑制劑（-cetrapib）：Dalcetrapib、Torcetrapib、Anacetrapib；Niacin 增加 HDL",
+  "PCSK9 inhibitors：{{Alirocumab、Evolocumab|藥名}}，使 LDL receptor 增加",
+  "抑制膽固醇吸收：{{Ezetimibe|藥名}} 抑制 NPC1L1；Anionic exchange resins 與 Bile acids 結合，膽酸排泄增加",
+  "TG = Triglyceride；CE = Cholesterol；NPC1L1 = Niemann-Pick C1-Like 1；MTP = Microsomal triglyceride transfer protein；CETP = Cholesteryl ester transfer protein"
+]);
+kA(33, "降血脂藥物分類", 208, "五類降血脂藥比較", [
+  "HMG-CoA reductase inhibitor：主要降 {{Cholesterol|物質}}；抑制膽固醇的合成、抑制 Isoprenoids 合成，也能降低 Rho 及 Rab 蛋白；增加 {{LDL receptor|標的}} 數量，降低血液中的 LDL",
+  "Statin 副作用：造成{{橫紋肌溶解症|副作用}}，與 Fibrates、Niacin 併用造成橫紋肌溶解症機率最高；孕婦不可使用",
+  "Fibrates：主要降 {{TG|物質}}；活化 {{PPAR-α|標的}}、活化 Lipoprotein lipase；副作用：腹瀉、膽結石、心律不整、肝指數上升、橫紋肌溶解症；孕婦、嚴重肝病患者不可使用",
+  "Anionic exchange resins：主要降 Cholesterol；在小腸與膽酸結合可降 LDL，並增加 LDL receptor 的數目；副作用：便祕、干擾 {{Vit ADEK|物質}} 的吸收；孕婦{{可用|性質}}",
+  "Niacin：主要降 Cholesterol 和 TG，升 {{HDL|物質}} 最明顯；抑制脂肪組織內三酸甘油脂的分解、減少游離脂肪酸的釋放；副作用：{{皮膚潮紅|副作用}}、消化性潰瘍、血糖和尿酸升高、肝指數上升",
+  "Ezetimibe：主要降 Cholesterol；作用在 {{NPC1L1|標的}} 使小腸吸收膽固醇及植物固醇的能力下降"
+]);
+dA(33, "新藥", 208, "lomitapide", "Lomitapide", null, {
+  cls: ["Microsomal triglyceride transfer protein inhibitor（{{MTP|標的}}）"],
+  feat: ["MTP 幫助 TG 及 CE 轉化為 VLDL，因此使用 MTP inhibitor 可幫助降低 {{VLDL 及 LDL|物質}}"] });
+dA(33, "新藥", 208, "mipomersen", "Mipomersen", null, {
+  cls: ["抑制 {{Apo-B100|物質}} 的合成"],
+  feat: ["副作用：易有注射處紅腫及{{類流感|副作用}}情形"] });
+dA(33, "新藥", 208, "torcetrapib", "Torcetrapib", null, {
+  cls: ["{{CETP|標的}} 抑制劑"],
+  feat: ["CETP 將 HDL 的 CE 轉換到 VLDL 及 LDL，LDL 內含較多的 CE 會容易使動脈硬化，因此 CETP 抑制劑可增加 {{HDL-C|物質}}、減少 LDL-C"] });
+dA(33, "新藥", 208, "pcsk9-inhibitor", "Evolocumab、Alirocumab", "Evolocumab", {
+  cls: ["{{PCSK9|標的}}（Proprotein Convertase Subtilisin/Kexin type 9）抑制劑"],
+  feat: ["PCSK9 與 LDL 受體結合後會使 LDL 受體被分解，因此使用 PCSK9 抑制劑可以減少 LDL 受體被 PCSK9 分解，使 LDL 受體可以和血液中 LDL 結合，達到降低 LDL 的效果", "副作用：類流感症狀、{{鼻咽炎|副作用}}、眼疾"] });
+kA(33, "Statin 類", 209, "Statin 類藥理特色與 SAR", [
+  "強弱比較：{{Rosuvastatin > Atorvastatin > Simvastatin|藥名}} >>> others",
+  "CYP3A4 代謝：Lovastatin、Atorvastatin、Simvastatin；CYP2C9 代謝：{{Rosuvastatin、Fluvastatin|藥名}}",
+  "可與 statin 併用：Ezetimibe；{{Fenofibrate|藥名}}（Fibrates 類中，選此藥較發生肌病變的機率較低）",
+  "Prodrug：{{Mevastatin、Lovastatin、Simvastatin|藥名}}，水解後得 {{3,5-dihydroxy acid|結構}} 以抑制 HMG-CoA reductase",
+  "SAR：活性基團和 Mevaldyl-CoA intermediate 構造相似，可競爭 HMG-CoA reductase，增加 LDL 受體數目並降低 LDL 濃度",
+  "C5 與 Ring 間以{{兩個碳|結構}}的距離最佳；Chiral center：{{3R、5R|結構}}",
+  "雜環口訣：Fluvastatin — {{Indole|結構}}（福音）；Atorvastatin — {{Pyrrole|結構}}（or 對 ro）；Pitavastatin — {{Quinoline|結構}}（逼他哭）；Rosuvastatin — {{Pyrimidine|結構}}（囉嗦，蝦米）；Cerivastatin — {{Pyridine|結構}}（ri 對 ri）"
+]);
+dA(33, "Statin 類", 209, "statins", "Statins（Mevastatin、Lovastatin、Simvastatin、Pravastatin…）", "Statins", {
+  cls: ["{{HMG-CoA reductase inhibitor|藥物類別}}"],
+  struct: ["Mevastatin、Lovastatin、Simvastatin 為 {{Prodrug|名詞}}", "Fluvastatin 含 Indole；Atorvastatin 含 Pyrrole；Pitavastatin 含 Quinoline；Rosuvastatin 含 Pyrimidine；Cerivastatin 含 Pyridine"] });
+dA(33, "Fibrates", 210, "clofibrate", "Clofibrate", null, {
+  cls: ["{{Fibrates|藥物類別}}"],
+  feat: ["Clofibrate 屬於 Prodrug，{{Clofibric acid|物質}} 為活性代謝物", "不用於治療 Secondary hypercholesterolemia", "副作用：腹瀉、膽結石、心律不整、橫紋肌溶解"] });
+dA(33, "Fibrates", 210, "fenofibrate", "Fenofibrate", null, {
+  cls: ["Fibrates"],
+  struct: ["為 Prodrug，結構屬於 {{Isopropyl ester|結構}}"],
+  feat: ["Fenofibrate 為與 {{Statin|藥物類別}} 併用之首選藥"] });
+dA(33, "Fibrates", 210, "gemfibrozil", "Gemfibrozil", null, {
+  cls: ["Fibrates"],
+  feat: ["為酸性藥物，具有高脂溶性，口服後可降 VLDL 濃度，在體內受 {{3A4|酵素}} 代謝進行 C-5 氧化形成 CH2OH", "Fibrates 類蛋白結合率高，具有很好的生體可用率，主要由{{腎|器官}}排泄，腎功能不良的病患服用此藥須減量"] });
+dA(33, "膽固醇吸收抑制劑", 210, "ezetimibe", "Ezetimibe", null, {
+  cls: ["膽固醇吸收抑制劑"],
+  feat: ["常與 Statin 類藥物併用降膽固醇", "抑制小腸吸收膽固醇及植物固醇", "屬於 Prodrug，接上{{葡萄醣醛酸|物質}}後產生活性", "與制酸劑或膽酸結合樹脂併用 → Ezetimibe 濃度↓；與 {{Cyclosporine 或 Fibrates|藥名}} 併用 → Ezetimibe 濃度↑"] });
+dA(33, "Bile acid-binding resins", 211, "bile-acid-resins", "Cholestyramine、Colestipol、Colesevelam", "Cholestyramine", {
+  cls: ["{{Bile acid-binding resins|藥物類別}}"],
+  feat: ["唯一{{不影響肝功能|性質}}的降血脂藥物", "孕婦可使用，因為{{不會被吸收|性質}}", "人體膽酸太多會造成皮膚搔癢的症狀，可利用此藥達到{{止癢|名詞}}的功效", "與其他藥品併服會降低其生體可用率，但 {{Colesevelam|藥名}} 較不會影響藥物的吸收"] });
+dA(33, "未分類降血脂藥物", 211, "niacin", "Niacin（Vit B3、Nicotinic acid）", "Niacin", {
+  cls: ["未分類降血脂藥物"],
+  feat: ["副作用：增加{{前列腺素|物質}}的釋放引起皮膚潮紅、造成消化性潰瘍、使血糖和尿酸升高、肝指數上升", "引起的皮膚潮紅可用 {{NSAID|藥物類別}} 治療"] });
+dA(33, "未分類降血脂藥物", 211, "dextrothyroxine", "Dextrothyroxine", null, {
+  cls: ["未分類降血脂藥物"],
+  feat: ["{{右旋|結構}}可以降血脂，左旋用來補充甲狀腺素"] });
+dA(33, "其他", 211, "probucol", "Probucol", null, {
+  cls: ["其他"],
+  feat: ["本身是{{抗氧化劑|名詞}}，可降低 LDL 被氧化", "副作用：{{HDL 減少|副作用}}，QT 延長，胃腸道不適"] });
