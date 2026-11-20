@@ -1803,3 +1803,159 @@ kA(15, "偏頭痛用藥", 101, "Triptan 類藥物總整理", [
   "鼻噴劑劑型：{{Sumatriptan、Zolmitriptan|藥名}}",
   "LogP 最高：Eletriptan（3.1）；Sumatriptan 生體可用率最低（14-15）"
 ]);
+
+/* 講義第 102～103 頁（16. 興奮劑、迷幻藥）暫時沒有收錄。 */
+
+/* ===== 第 17 章 憂鬱症藥物 ===== */
+chA(17, "17", "憂鬱症藥物", "104～115");
+kA(17, "憂鬱症藥物總覽", 104, "作用點（Medical Pharmacology at a Glance 圖）", [
+  "5-HT2-antagonist：{{Trazodone|藥名}} ⊖ 5-HT2",
+  "{{TCA|藥物類別}}（Amitriptyline、Imipramine）、{{SNRIs|藥物類別}}（Venlafaxine、Levomilnacipran）⊖ Serotonin 與 NE 的再回收",
+  "{{SSRIs|藥物類別}}（Fluoxetine、Citalopram、Sertraline）⊖ Serotonin 的再回收",
+  "MAOI：不可逆非選擇性 MAO inhibitors：{{Phenelzine、Isocarboxazid|藥名}}；可逆 MAO-A inhibitors：{{Moclobemide|藥名}}",
+  "α2-antagonist：{{Mirtazapine|藥名}}",
+  "TCA = Tricyclic antidepressant；MAOIs = Monoamine oxidase inhibitors；SNRIs = Serotonin-Norepinephrine Reuptake inhibitors；SSRIs = Seletive Serotonin Reuptake inhibitors"
+]);
+kA(17, "憂鬱症藥物總覽", 105, "17 憂鬱症藥物架構", [
+  "三環抗憂鬱藥：三級胺：Amitriptyline、Imipramine、Doxepin、Clomipramine；二級胺：{{Nortriptyline、Desipramine|藥名}}、Protriptyline、Amoxapine、Maprotiline（{{四環|結構}}）",
+  "非三環抗憂鬱藥（二級胺）：Nisoxetine、Reboxetine、{{Atomoxetine|藥名}}",
+  "SSRIs：Phenylalkylamines — {{Sertraline|藥名}}；Aralkylketone — {{Fluvoxamine|藥名}}；Phenoxy-phenylalkylamine — Fluoxetine、Paroxetine、Citalopram",
+  "SNRIs：{{Duloxetine|藥名}}、Venlafaxine、Levomilnacipran",
+  "NDRIs（Norepinephrine dopamine reuptake inhibitors）：{{Bupropion|藥名}}",
+  "NaSSA（Noradrenergic and specific serotonergic antidepressant）：{{Mirtazapine|藥名}}",
+  "SMS（Serotonin receptor modulators and stimulator）：Trazodone、{{Vilazodone|藥名}}、Vortioxetine",
+  "MAOIs：Phenelzine、Isocarboxazid、Tranylcypromine、{{Selegilline|藥名}}、Moclobemide"
+]);
+kA(17, "憂鬱症治療原則", 106, "病因、治療原則、停藥", [
+  "病因：單胺假說認為憂鬱症與大腦內 Serotonin、Norepinephrine、Dopamine 的{{缺乏|名詞}}有關",
+  "以 {{SSRIs|藥物類別}} 為首選藥物，特別適用於有心臟血管疾病或需要避免鎮靜作用或無法忍受抗膽鹼性作用之患者",
+  "宜固定時間服用，需經過 {{4~6 週|數值}}用藥後才能評估療效，且抗憂鬱藥物不屬於成癮性藥品",
+  "抗憂鬱藥物的副作用有時會比療效更快出現",
+  "突然停藥會產生戒斷症狀（2-3 天開始暈眩、頭痛，持續約 3-7 天），應以每週{{漸次減量|名詞}}的方式停藥",
+  "服用 {{Fluoxetine、Bupropion|藥名}} 一段時間後可停藥時，不須數週漸次減量"
+]);
+kA(17, "憂鬱症治療原則", 106, "各類抗憂鬱藥特色", [
+  "TCAs：常具有鎮靜和自主神經系統副作用；超過劑量最危險的副作用是{{心臟毒性|副作用}}及痙攣，有心臟疾病患者禁用；結構與 {{Phenothiazines|結構}} 相似，皆可阻斷組織胺、腎上腺素、M 接收器",
+  "SSRIs：最常見的副作用是{{失眠|副作用}}、胃腸道不適、性功能障礙；優於 TCAs 的方面包括抗 M 作用少、心臟血管毒性小、鎮靜作用弱",
+  "SNRIs：同時抑制血清素與正腎上腺素，效果與 TCA 相似；與 TCA 不同之處，對於腎上腺、毒蕈鹼、抗組織胺接受器{{沒有|性質}}抑制作用",
+  "DNRIs：Bupropion 較不會引起體重增加、性功能障礙；適應症：{{戒菸|疾病}}；副作用：失眠、誘發{{癲癇|副作用}}",
+  "MAOIs：與含 {{Tyramine|物質}} 的食物（起司、燒烤和啤酒）會產生高血壓危象；MAO-A 抑制劑抑制 NE、5-HT 之代謝，可用於憂鬱症",
+  "併用易引起 {{Serotonin syndrome|副作用}}：SSRI、SNRI、MAOIs、Meperidine、Tramadol、Pentazocine、Fentanyl、Dextromethorphan、Linezolid；發生時可以使用 {{Cyproheptadine|藥名}}",
+  "Atypical antidepressant：{{Mirtazapine|藥名}} 具有 α2 阻斷的效果，可增加突觸間隙的 NE 量；{{Trazodone|藥名}} 具有 5-HT2 阻斷的作用"
+]);
+kA(17, "抗憂鬱藥物常見副作用", 107, "抗憂鬱藥物常見副作用比較", [
+  "TCAs（Amitriptyline、Imipramine、Nortriptyline、Desipramine、Doxepin）：鎮靜、抗膽鹼、{{姿勢性低血壓|副作用}}都高；Amitriptyline、Doxepin 皆為 ++++",
+  "SSRIs：失眠、噁心腹瀉、性功能障礙較高；{{Fluoxetine|藥名}} 失眠 ++++",
+  "Bupropion（DNRIs）：鎮靜 {{0|數值}}、體重 0、失眠 +++",
+  "Mirtazapine：鎮靜 ++++、體重 {{+++|數值}}",
+  "較易引起體重增加：Amitriptyline、Mirtazapine、{{Paroxetine|藥名}}（SSRI 中最易誘發體重增加）",
+  "最不適用於老年人：{{Doxepin|藥名}}"
+]);
+kA(17, "憂鬱症治療原則", 108, "神經病變疼痛治療用藥", [
+  "第一線：抗癲癇 {{Pregabalin、Gabapentin|藥名}}；SNRIs {{Duloxetine|藥名}}；TCAs Amitriptyline、Nortriptyline、Desipramine",
+  "第二線：{{Lidocaine、Capsaicin（辣椒素）|藥名}}"
+]);
+dA(17, "三環抗憂鬱藥：三級胺", 109, "amitriptyline", "Amitriptyline", null, {
+  cls: ["三環抗憂鬱藥（三級胺）：抑制 {{NE 及 5-HT|物質}} 的再回收"],
+  feat: ["{{抗膽鹼及鎮靜|副作用}}作用最強", "{{老年人|族群}}不宜使用", "與 Benztropine 併用，會有較強的口乾、視力模糊、尿滯留、便祕等反應", "活性代謝物：{{Nortriptyline|藥名}}、10-Hydroxy-nortriptyline"] });
+mA("imipramine", 109, {
+  struct: ["Amitriptyline 與 Imipramine 為 {{Bioisostere|名詞}}"],
+  feat: ["三級胺：抑制 NE 及 5-HT 再回收", "活性代謝物：{{Desipramine|藥名}}、2-Hydroxydesipramine"] });
+dA(17, "三環抗憂鬱藥：三級胺", 109, "doxepin", "Doxepin", null, {
+  cls: ["三環抗憂鬱藥（三級胺）"],
+  struct: ["具有 {{Dibenzoxepine|結構}} 骨架", "具有幾何異構物，其中 {{E-form|結構}} 對 NET 抑制較強，Z-form 對 SERT 抑制較強"],
+  feat: ["代謝：{{N-脫烷基|名詞}}"] });
+dA(17, "三環抗憂鬱藥：三級胺", 109, "clomipramine", "Clomipramine", null, {
+  cls: ["三環抗憂鬱藥（三級胺）：抑制正腎上腺素及血清素的再吸收"],
+  feat: ["經 {{2D6|酵素}} 行 N-脫甲基後生成之活性代謝物，抑制 NE 再回收之效力較原藥強"] });
+dA(17, "三環抗憂鬱藥：二級胺", 110, "nortriptyline", "Nortriptyline", null, {
+  cls: ["三環抗憂鬱藥（二級胺）：抑制 {{NE|物質}} Reuptake"],
+  feat: ["較少的抗膽鹼、鎮靜作用，而有較多的{{興奮|名詞}}作用"] });
+dA(17, "三環抗憂鬱藥：二級胺", 110, "desipramine", "Desipramine", null, {
+  cls: ["三環抗憂鬱藥（二級胺）：抑制 NE Reuptake"],
+  feat: ["較少的抗膽鹼及鎮靜作用，有較多的興奮作用", "三環抗憂鬱藥中，造成{{姿勢性低血壓|副作用}}的作用{{最小|性質}}"] });
+dA(17, "三環抗憂鬱藥：二級胺", 110, "protriptyline", "Protriptyline", null, {
+  cls: ["三環抗憂鬱藥（二級胺）"],
+  struct: ["結構骨架：{{Dibenzocycloheptene|結構}}"] });
+dA(17, "三環抗憂鬱藥：二級胺", 110, "amoxapine", "Amoxapine", null, {
+  cls: ["三環抗憂鬱藥（二級胺）"],
+  struct: ["結構骨架：{{Dibenzoxazepine|結構}}"],
+  feat: ["{{Loxapine|藥名}} 經 N 脫甲基後可得 Amoxapine"] });
+dA(17, "四環抗憂鬱藥", 110, "maprotiline", "Maprotiline", null, {
+  cls: ["{{四環|結構}}抗憂鬱藥（二級胺）：抑制 NE Reuptake"],
+  struct: ["結構骨架：{{Dibenzobicyclooctadiene|結構}}"],
+  feat: ["體內受 {{2C19 及 2D6|酵素}} 形成活性代謝物 N-desmethylmaprotiline"] });
+dA(17, "非三環抗憂鬱藥", 111, "nisoxetine", "(±)-Nisoxetine", "Nisoxetine", {
+  cls: ["非三環抗憂鬱藥（二級胺）：抑制 NE Reuptake"],
+  struct: ["具 {{Phenoxyphenylamine|結構}} 骨架"],
+  feat: ["{{R form|結構}} 對 NET 之抑制力大於 S form"] });
+dA(17, "非三環抗憂鬱藥", 111, "reboxetine", "S,S-Reboxetine", "Reboxetine", {
+  cls: ["非三環抗憂鬱藥（二級胺）"],
+  struct: ["結構具 {{Morpholine|結構}}", "有{{兩|數值}}個 Chiral center"],
+  feat: ["可用於治療重度憂鬱症"] });
+dA(17, "非三環抗憂鬱藥", 111, "atomoxetine", "R-(−)-Atomoxetine", "Atomoxetine", {
+  cls: ["非三環抗憂鬱藥（二級胺）"],
+  feat: ["用於治療兒童及成年人之{{注意力不集中症（ADHD）|疾病}}、成人憂鬱症", "R form 對 NET 之抑制力大於 S form"] });
+dA(17, "SSRIs", 112, "fluoxetine", "(S)-Fluoxetine", "Fluoxetine", {
+  cls: ["{{SSRIs|藥物類別}}：Phenoxy-phenylalkylamine"],
+  feat: ["停藥後不易產生戒斷徵候症狀（Fluoxetine、Bupropion）", "可治療{{暴食症|疾病}}（使 5-HT 上升）", "屬於 {{2D6 inhibitors|名詞}}", "經 2D6 行 N-脫烷基形成活性代謝物 {{Norfluoxetine|物質}}", "副作用：{{失眠|副作用}}、躁動"] });
+dA(17, "SSRIs", 112, "paroxetine", "Paroxetine", null, {
+  cls: ["SSRIs：Phenoxy-phenylalkylamine"],
+  struct: ["結構具兩個 chiral center，以 {{(3S,4R)-(−)|結構}} 上市"],
+  feat: ["屬於 {{2D6 抑制劑|名詞}}"] });
+dA(17, "SSRIs", 112, "citalopram", "Citalopram（Ci-CN）", "Citalopram", {
+  cls: ["SSRIs：5-HT 再回收抑制劑"],
+  feat: ["會使患者出現自殺傾向而作廢此藥", "{{S-form|結構}} 對 Serotonin transporter 選擇性及親和力較佳", "S-form 之代謝速率較 R-form {{快|性質}}"] });
+dA(17, "SSRIs", 112, "sertraline", "Sertraline", null, {
+  cls: ["SSRIs：Phenylalkylamines"],
+  struct: ["具 {{Tetraline|結構}}", "有兩個 chiral center，以 {{S,S-(+)|結構}} 上市"],
+  feat: ["經 {{2B6|酵素}} 行 N-脫烷基形成活性代謝物 N-desmethylsertraline"] });
+dA(17, "SSRIs", 112, "fluvoxamine", "Fluvoxamine", null, {
+  cls: ["SSRIs：Aralkylketone"],
+  struct: ["含有 {{Oxime|結構}} 基團，需避光儲存", "具 CN 雙鍵"],
+  feat: ["經 2D6 行 O-脫烷基，再繼續氧化成酸"] });
+dA(17, "SNRIs", 113, "duloxetine", "Duloxetine", null, {
+  cls: ["NE/5-HT 再回收抑制劑（{{SNRI|藥物類別}}）"],
+  feat: ["Du 想成 {{dual|名詞}} 即抑制兩種神經傳遞物質", "經 2D6 行 N-脫烷基生成活性代謝物"] });
+dA(17, "SNRIs", 113, "venlafaxine", "Venlafaxine", null, {
+  cls: ["SNRI"],
+  feat: ["由 CYP2D6（{{O-demethylation|名詞}}）形成活性代謝物 {{Desvenlafaxine|物質}}", "次要代謝：N-脫烷基"] });
+dA(17, "SNRIs", 113, "milnacipran", "Milnacipran", null, {
+  cls: ["SNRI"],
+  feat: ["可治療{{纖維化肌痛|疾病}}", "以丙基胺取代甲基胺可生成具 {{NMDA 受體拮抗劑|藥物類別}}之抗憂鬱藥", "在美國 (1S,2R)-Levomilnacipran 上市", "Levomilnacipran 經由 {{3A4|酵素}} 行 N-脫乙基生成 Norlevomilnacipran"] });
+dA(17, "NDRIs", 113, "bupropion", "Bupropion", null, {
+  cls: ["Norepinephrine-Dopamine reuptake inhibitor（{{NDRIs|藥物類別}}）"],
+  struct: ["記法：4(Bu)3(pro)酮(on)"],
+  feat: ["可能使{{癲癇|疾病}}患者惡化（使 CNS 興奮）", "不容易引起體重增加、性功能障礙，停藥後不易產生戒斷症候群", "可用於{{戒菸|疾病}}患者", "經 {{2B6|酵素}} 行氧化生成活性代謝物 Hydroxybupropion"] });
+dA(17, "NaSSA", 114, "mirtazapine", "Mirtazapine", null, {
+  cls: ["Noradrenergic and specific serotonergic antidepressant（{{NaSSA|藥物類別}}）"],
+  feat: ["阻斷 {{α2 receptor|標的}} 及 5-HT2，增加腦中 NE 及 5-HT 的活性", "主要副作用為{{鎮靜、體重上升|副作用}}"] });
+mA("trazodone", 114, {
+  cls: ["Serotonin receptor modulators and stimulator（{{SMS|藥物類別}}），本類藥物均具有 {{Phenylpiperazine|結構}}"],
+  struct: ["具有 {{Triazolopyridine|結構}} 之結構"],
+  feat: ["主要副作用為{{鎮靜|副作用}}", "經 {{3A4|酵素}} 行 N-脫烷基生成活性代謝物 {{m-chlorophenylpiperazine|物質}}", "少部分會代謝形成有毒物 Iminoquinone", "{{Nefazodone|藥名}} 為同機轉藥物"] });
+dA(17, "SMS", 114, "vilazodone", "Vilazodone", null, {
+  cls: ["SMS（具有 Phenylpiperazine）"], struct: ["結構含有 {{Indole、CN 三鍵|結構}}"] });
+dA(17, "SMS", 114, "vortioxetine", "Vortioxetine", null, {
+  cls: ["{{SMS|藥物類別}}（具有 Phenylpiperazine）"] });
+kA(17, "MAOI", 115, "MAOI 共同注意事項", [
+  "MAOI {{不能|性質}}併用含 {{Tyramine|物質}} 的食物，會引起血壓上升的危險"
+]);
+dA(17, "MAOI", 115, "phenelzine", "Phenelzine", null, {
+  cls: ["MAOI"],
+  feat: ["治療憂鬱症的機轉為抑制 {{MAO-A|酵素}}", "以 {{Phenethyl free radicals|物質}} 與 MAO 產生共價鍵", "為{{不可逆|性質}}之抑制作用"] });
+dA(17, "MAOI", 115, "isocarboxazid", "Isocarboxazid", null, {
+  cls: ["MAOI"],
+  struct: ["拆字：Iso- {{isoxazole|結構}} car-carbamide"],
+  feat: ["以 {{Benzyl radical|物質}} 抑制 MAO-A"] });
+dA(17, "MAOI", 115, "tranylcypromine", "Tranylcypromine", null, {
+  cls: ["MAOI"],
+  struct: ["Tranyl-Phenyl cypro-{{環丙烷|結構}}"],
+  feat: ["呈現類似 {{Amphetamine|藥名}} 之中樞興奮作用"] });
+dA(17, "MAOI", 115, "selegiline", "Selegiline", null, {
+  cls: ["MAOI：{{不可逆的 MAO-B|酵素}} 抑制劑"],
+  struct: ["含 {{Propargylamine|結構}}"],
+  feat: ["可用治療{{巴金森氏症|疾病}}"] });
+dA(17, "MAOI", 115, "moclobemide", "Moclobemide", null, {
+  cls: ["MAOI：{{可逆的 MAO-A|酵素}} 抑制劑"],
+  struct: ["Mo-{{Morpholine|結構}}、E-ethyl、mide-醯胺、cl"] });
