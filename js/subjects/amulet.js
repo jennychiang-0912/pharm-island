@@ -2139,3 +2139,147 @@ mA("triamterene-amiloride", 171, {
 dA(26, "滲透壓利尿劑", 171, "mannitol", "D-Mannitol", "Mannitol", {
   cls: ["滲透壓利尿劑（{{Osmotic Diuretics|藥物類別}}）：增加腎小管內過濾液的滲透壓，減少水份的再吸收，增加尿液排出量"],
   feat: ["可降低顱內壓、眼內壓、治療{{大腦水腫|疾病}}", "副作用：不可使用在{{心衰竭|疾病}}病人"] });
+
+/* ===== 第 27 章 高血壓藥物 ===== */
+chA(27, "27", "高血壓藥物", "172～179");
+kA(27, "高血壓藥物總覽", 172, "種類、藥名與機轉", [
+  "利尿劑：Furosemide 阻斷 Na+/K+/2Cl- cotransporter；Chlorothiazide 抑制 Na+/Cl- cotransporter；Spironolactone 阻斷 {{Aldosterone|物質}} 的作用",
+  "中樞作用劑：{{Methyldopa|藥名}} 抑制 NE 的生合成；Clonidine、Guanfacine/Guanabenz 為 {{α2-agonist|藥物類別}}",
+  "神經元阻斷劑：{{Reserpine|藥名}} 抑制 Norepinephrine、dopamine 儲存；Guanethidine、Bretylium 抑制 Norepinephrine、dopamine 釋放",
+  "神經節阻斷劑：{{Trimethaphan|藥名}} 阻斷神經節",
+  "交感神經阻斷劑：Prazosin（α1-blocker）、Propranolol（β-blocker）、Acebutolol（β1-blocker）、{{Labetalol、Carvedilol|藥名}}（α+β-blocker）",
+  "血管擴張劑：Hydralazine、Nitroprusside 直接血管擴張劑；Fenoldopam {{D1-agonist|藥物類別}}；Minoxidil、Diazoxide {{K+ Channel agonist|藥物類別}}；Verapamil、Diltiazem、Nifedipine Calcium channel blocker",
+  "RAAS：{{Captopril|藥名}} Angiotensin-Converting Enzyme Inhibitors；{{Losartan|藥名}} Angiotensin Receptor Blockers；{{Aliskiren|藥名}} Renin inhibitor",
+  "其他類：{{Bosentan|藥名}} Endothelin receptor antagonist"
+]);
+kA(27, "RAAS", 173, "Renin-angiotensin-aldosterone system（Katzung 圖）", [
+  "Angiotensinogen —（Renin，受 {{β1|標的}} 刺激，被 Direct Renin inhibitors {{Aliskiren|藥名}} 抑制）→ Angiotensin I",
+  "Angiotensin I —（ACE，被 ACEI 抑制）→ Angiotensin II → AT1 receptor（{{血管收縮|名詞}}）、Aldosterone（增加鈉水滯留）→ 增加血壓",
+  "ARB 阻斷 Angiotensin II 的作用；Aldosterone antagonist 阻斷 Aldosterone",
+  "Bradykinin 經 ACE 代謝為 Inactive peptide；Bradykinin 會引發{{咳嗽|副作用}}、支氣管收縮、血管滲透性增加",
+  "Angiotensin I 共含有 {{10|數值}} 個胺基酸；Angiotensin II 共含有 {{8|數值}} 個胺基酸：Asp-Arg-Val-Tyr-Ile-His-Pro-Phe",
+  "Angiotensin II 之作用：由 Angiotensin I 轉換而來，引起腎臟血管收縮及刺激{{醛固酮|物質}}分泌的作用",
+  "ACEI：常見的副作用包括{{乾咳|副作用}}、皮疹和高血鉀，孕婦不可使用；會使出球小動脈擴張，長期使用 ACEI 會讓腎臟的壓力下降，造成保護腎臟的效果",
+  "本類藥物皆會造成{{致畸胎|副作用}}，孕婦禁用，均可能引起{{高血鉀|副作用}}",
+  "Renin 為腎臟製造的{{酵素|名詞}}，不屬於腎自泌素"
+]);
+dA(27, "血管擴張劑（可用於急性高血壓）", 174, "hydralazine", "Hydralazine", null, {
+  cls: ["血管擴張劑：直接擴張{{動脈|器官}}"],
+  struct: ["具有 {{Hydrazine + Phthalazine|結構}}"],
+  feat: ["副作用：會導致{{反射性心跳加速|副作用}}", "代謝：N 上乙醯化，{{慢速乙醯化者|族群}}會引起紅斑性狼瘡的症狀"] });
+dA(27, "血管擴張劑（可用於急性高血壓）", 174, "nitroprusside", "Sodium nitroprusside（SNP）", "Nitroprusside", {
+  cls: ["血管擴張劑：產生 {{NO|物質}}，增加血管 cGMP，擴張血管"],
+  struct: ["結構中有 {{5|數值}} 個 CN，1 個 Fe2+"],
+  feat: ["副作用：姿勢低血壓、反射性心跳加速", "溶液本身為{{紅棕色|性質}}", "過量會造成 {{Cyanide|物質}} 中毒，{{Nitrite 及 Sodium thiosulfate|藥名}} 為解毒劑"] });
+dA(27, "血管擴張劑（可用於急性高血壓）", 174, "fenoldopam", "Fenoldopam", null, {
+  cls: ["血管擴張劑：{{D1-agonist|藥物類別}}，可使腎血管擴張"],
+  feat: ["副作用：反射性心跳過快、{{青光眼|疾病}}患者禁止使用"] });
+dA(27, "K+ Channel agonist", 174, "minoxidil", "Minoxidil", null, {
+  cls: ["{{K+ Channel agonist|藥物類別}}"],
+  feat: ["適應症：高血壓、{{男性禿頭|疾病}}", "副作用：周邊血管水腫", "代謝物：{{Minoxidil N-O-sulfate|物質}}"] });
+dA(27, "K+ Channel agonist", 174, "diazoxide", "Diazoxide", null, {
+  cls: ["K+ Channel agonist"],
+  struct: ["結構和{{利尿劑|藥物類別}}相似"],
+  feat: ["無利尿作用而有{{升血糖|副作用}}效果的降壓藥", "活化 K+ Channel 抑制{{胰島素|物質}}的釋放進而升血糖", "代謝物：3-羧酸代謝物"] });
+kA(27, "Calcium channel blocker", 175, "DHP 之 SAR", [
+  "DHP 上的取代基：R2、R3 以{{雙酯基|結構}}取代 → 活性最佳；若以不同酯基取代 → 增加{{血管選擇性|性質}}；以其他拉電子基取代 → 增加鈣離子通道活化作用",
+  "C4 取代基：以{{苯環|結構}}取代 → 活性增加；其他取代 → 活性降低",
+  "苯環上的取代基：{{2' 及 3'|結構}} 以拉電子基取代 → 活性增加；4' 取代 → 活性降低",
+  "1,4-Dihydropyridine（DHP）為活性必須，氧化形成 {{Pyridine|結構}} 後活性降低",
+  "苯環上的鄰位及間位取代基可使 1,4DHP 之構型固定{{垂直|結構}}"
+]);
+dA(27, "Calcium channel blocker", 176, "nifedipine", "Nifedipine", null, {
+  cls: ["Calcium channel blocker：Dihydropyridine"],
+  feat: ["對{{血管平滑肌|器官}}最具有選擇性", "代謝：氧化脫 H 生成 {{Pyridine|結構}} 失效", "副作用：反射性心跳過快、便秘、{{牙齦增生|副作用}}", "會造成牙齦增生：{{Phenytoin、Cyclosporine|藥名}}"] });
+dA(27, "Calcium channel blocker", 176, "nimodipine", "Nimodipine", null, {
+  cls: ["Calcium channel blocker：Dihydropyridine"],
+  feat: ["因{{脂溶性高|性質}}，最常用於治療出血性中風", "可治療{{蜘蛛膜下腔出血|疾病}}"] });
+dA(27, "Calcium channel blocker", 176, "amlodipine", "Amlodipine", null, {
+  cls: ["Calcium channel blocker：Dihydropyridine"],
+  feat: ["半衰期較{{長|性質}}，最不會引起反射性心跳加速"] });
+dA(27, "Calcium channel blocker", 176, "verapamil", "Verapamil", null, {
+  cls: ["Calcium channel blocker：{{Phenylalkylamine|結構}}"],
+  feat: ["同時可抑制心臟（{{AV node|器官}}）及血管 → 不會產生反射性心跳加快", "代謝：N-去 CH3，形成活性代謝物 {{Norverapamil|物質}}"] });
+dA(27, "Calcium channel blocker", 176, "diltiazem", "Diltiazem", null, {
+  cls: ["Calcium channel blocker：{{Benzothiazepine|結構}}"],
+  feat: ["同時可抑制心臟（AV node）及血管 → 不會產生反射性心跳加快", "活性代謝物：水解酯基形成 {{deacetyldiltiazem|物質}}"] });
+dA(27, "Calcium channel blocker", 176, "bepridil", "Bepridil", null, {
+  cls: ["Calcium channel blocker"],
+  struct: ["結構骨架：{{Diaminopropanol ether|結構}}"],
+  feat: ["最會延長動作電位，使 QTc interval 延長，引起如 {{Torsade de pointes|副作用}} 的症狀"] });
+kA(27, "ACEI", 177, "ACEI 總論", [
+  "機轉：抑制 {{Angiotensin II|物質}} 的形成",
+  "可改善腎臟病患者之{{蛋白尿|疾病}}",
+  "副作用：乾咳、血管水腫、高血鉀",
+  "不用於單側或雙側{{腎動脈狹窄|疾病}}之高血壓患者、孕婦",
+  "ACE 含有 {{Zn2+|物質}}，因此要注意 ACEI 與 ACE 的結合部位，如：Captopril（{{-SH|結構}}）、Enalapril（-COO-）、Fosinopril（-P=O-OH）",
+  "ACEI 中不含有 Pyrrolidine：{{Benazepril、Moexipril、Quinapril|藥名}}（BMQ 特力屋）"
+]);
+dA(27, "ACEI", 177, "captopril", "Captopril", null, {
+  cls: ["ACEI"],
+  struct: ["含有 {{Pyrrolidine 及 -SH|結構}}"],
+  feat: ["Captopril、Lisinopril {{非前驅藥|性質}}（記憶：咖哩非前驅藥）", "副作用：{{味覺失調|副作用}}"] });
+dA(27, "ACEI", 177, "lisinopril", "Lisinopril", null, {
+  cls: ["ACEI"],
+  struct: ["為 {{Lysine|物質}} 衍生物、具有 Pyrrolidine"],
+  feat: ["在小腸中會生成 {{di-zwitterion|名詞}}", "水溶性大", "不屬於 Prodrug，原型藥排除體外"] });
+dA(27, "ACEI", 177, "enalapril", "Enalapril", null, {
+  cls: ["ACEI"],
+  struct: ["含有 {{Alanine 及 Proline|物質}}"],
+  feat: ["屬於 Prodrug，體內經肝臟 esterase 水解形成活性代謝物 {{Enalaprilat|物質}}"] });
+dA(27, "ACEI", 177, "fosinopril", "Fosinopril", null, {
+  cls: ["ACEI"],
+  struct: ["結構具有{{次磷酸基|結構}}"],
+  feat: ["此藥{{肝臟、腎臟|器官}}皆可排除", "Moexipril 也是肝腎皆可以排除"] });
+dA(27, "ACEI", 177, "benazepril-moexipril-quinapril", "Benazepril、Moexipril、Quinapril", "Quinapril", {
+  cls: ["ACEI"], struct: ["ACEI 中{{不含有 Pyrrolidine|結構}}（BMQ 特力屋）"] });
+dA(27, "Renin inhibitor", 177, "aliskiren", "Aliskiren", null, {
+  cls: ["{{Renin inhibitor|藥物類別}}"],
+  feat: ["90% 由{{糞便|名詞}}以原型藥排除", "與高脂食物併用會{{降低|性質}}吸收", "屬於 {{Nonpeptide|名詞}} 藥物"] });
+kA(27, "ARB", 178, "ARB 總論與雜環小整理", [
+  "機轉：阻斷 {{AT1-receptor|標的}}",
+  "{{不會|性質}}引起乾咳；應注意血鉀、孕婦不得使用",
+  "{{Valsartan|藥名}} 由 losartan 衍生之第一個 biphenyl 藥物",
+  "LOCI（Losartan、Olmesartan、Candesartan、Irbesartan）：{{Imidazole + Tetrazole|結構}}",
+  "TEA（Telmisartan、Eprosartan、Azilsartan）：{{Imidazole|結構}}（米茶）；V（Valsartan）：{{Tetrazole|結構}}（拿出來）",
+  "含 Benzimidazole：PPI、{{Candesartan、Azilsartan、Telmisartan|藥名}}（CAT）"
+]);
+dA(27, "ARB", 178, "losartan", "Losartan", null, {
+  cls: ["ARB"],
+  struct: ["不含 COOH，以 {{Tetrazole|結構}} 模擬 AT II 上的 COOH"],
+  feat: ["代謝後{{更具活性|性質}}", "為 {{Peptidomimetics|名詞}} 藥物"] });
+dA(27, "ARB", 178, "olmesartan", "Olmesartan medoxomil", "Olmesartan", {
+  cls: ["ARB"], feat: ["為 {{Prodrug|名詞}}", "活性代謝物為 Olmesartan"] });
+dA(27, "ARB", 178, "candesartan", "Candesartan cilexetil", "Candesartan", {
+  cls: ["ARB"], feat: ["對 AT1 receptor 有{{最強|性質}}之抑制效果"] });
+dA(27, "ARB", 178, "irbesartan", "Irbesartan", null, {
+  cls: ["ARB"], struct: ["具 {{Imidazole 及 Tetrazole|結構}}"] });
+dA(27, "ARB", 178, "valsartan", "Valsartan", null, {
+  cls: ["ARB"], struct: ["含有 {{Valine|物質}}"] });
+dA(27, "ARB", 178, "telmisartan", "Telmisartan", null, {
+  cls: ["ARB"], feat: ["本類藥物{{最長效|性質}}"] });
+dA(27, "ARB", 178, "eprosartan", "Eprosartan", null, {
+  cls: ["ARB"], struct: ["不含 {{Biphenyl|結構}}", "含 {{Thiophene|結構}}"] });
+dA(27, "ARB", 178, "azilsartan", "Azilsartan medoxomil", "Azilsartan", {
+  cls: ["ARB"], feat: ["為 {{Prodrug|名詞}}"] });
+dA(27, "Endothelin receptor antagonist", 178, "bosentan", "Bosentan", null, {
+  cls: ["{{Endothelin receptor antagonist|藥物類別}}"],
+  feat: ["口服給藥", "非選擇型阻斷血管內皮細胞上的 {{ETA 和 ETB|標的}} 受體", "選擇性阻斷 ETA：{{Ambrisentan、Sitaxsentan|藥名}}", "治療{{肺動脈高壓|疾病}}（Iloprost、Treprostinil、Epoprostenol）", "副作用：肝毒性、致畸胎，孕婦禁用"] });
+kA(27, "高血壓治療目標", 179, "JNC8 高血壓治療目標", [
+  "≧60 歲：{{150/90|數值}} mmHg；<60 歲：{{140/90|數值}} mmHg",
+  "不論年齡，有糖尿病但無慢性腎臟疾病：140/90 mmHg；不論年齡，只要有慢性腎臟疾病：140/90 mmHg",
+  "起始治療建議使用 {{TD、ACEI、ARB、CCB|藥物類別}}",
+  "黑人起始治療建議使用 {{TD、CCB|藥物類別}}",
+  "慢性腎臟疾病合併高血壓起始治療建議使用 {{ACEI、ARB|藥物類別}}",
+  "MAP（平均動脈壓）= {{1/3 收縮壓 + 2/3 舒張壓|名詞}}"
+]);
+
+/* ===== 第 28 章 心絞痛藥物 ===== */
+chA(28, "28", "心絞痛藥物", "180～184", "第 180 頁拍攝時上下顛倒。");
+kA(28, "心絞痛類型與首選治療", 180, "疾病類型、特色與首選藥物", [
+  "穩定型心絞痛（Stable angina）：動脈粥狀硬化引起心臟灌流不足，經由休息或舌下含一顆 NTG 即可緩解；首選：{{Nitrates ± β-blocker|藥物類別}}",
+  "不穩定型心絞痛（Unstable angina）：冠狀動脈有血液凝塊的阻塞，導致發作的時間更長；首選：Nitrates ± β-blocker ± ACEI ± {{Aspirin（Clopidogrel）|藥名}}",
+  "變異型心絞痛（Variant angina）：冠狀動脈{{痙攣|名詞}}所引起；首選：{{Nitrates ± CCB|藥物類別}}",
+  "使用 {{Nifedipine|藥名}} 會惡化穩定型及不穩定型心絞痛",
+  "嚴禁合併使用 {{Verapamil 及 Metoprolol|藥名}}"
+]);
