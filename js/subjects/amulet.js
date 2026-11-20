@@ -2485,3 +2485,83 @@ kA(30, "強心配糖體", 196, "心衰竭用藥重點", [
   "心衰竭患者除了 {{Amlodipine、Felodipine|藥名}} 可以使用外，禁用其他 CCB",
   "β-blocker 中僅 {{Bisoprolol、Metoprolol、Carvedilol|藥名}} 可降低心衰竭患者死亡率"
 ]);
+
+/* ===== 第 31 章 凝血藥物 ===== */
+chA(31, "31", "凝血藥物", "197～202");
+kA(31, "Warfarin 抗凝血機轉", 197, "Warfarin 抗凝血機轉圖（Katzung 圖）", [
+  "Vitamin KH2（{{活性型|名詞}}）經 Vitamin K Carboxylase 把 Descarboxy prothrombin 羧基化成 Prothrombin（II），自己變成 Vitamin K epoxide（無活性）",
+  "Vitamin K epoxide 經 {{Vitamin K reductase|酵素}}（NADH → NAD+）還原回 Vitamin KH2；Warfarin 阻斷這一步",
+  "Warfarin 作用在{{肝臟|器官}}，並且阻斷 Vitamin K reductase，使氧化型（無活性型）Vitamin K 無法轉變為還原型（活性型）Vitamin K",
+  "其中凝血因子 {{II、VII、IX、X|名詞}} 必須依靠活性型 Vitamin K 才能夠活化，因此 Warfarin 阻斷凝血因子 II、VII、IX、X 的形成",
+  "Warfarin 會減少 vitamin K dependent 的凝血因子、減少 protein C 及 protein S、會與許多藥物產生交互作用；{{不是|性質}}以 bleeding time 來監測其治療效果"
+]);
+kA(31, "凝血路徑", 198, "凝血路徑圖與抗凝血藥物", [
+  "VII + TF → VIIa-TF → IX → IXa → X → Xa → Prothrombin（II）→ Thrombin（IIa）→ Fibrinogen（I）→ Fibrin（Ia）",
+  "Direct factor Xa inhibitors：{{Rivaroxaban、Apixaban|藥名}} 抑制 Xa",
+  "AT III + Pentasaccharide（{{Fondaparinux|藥名}}）抑制 Xa；AT III + {{Heparin、Dalteparin|藥名}} 抑制 Xa、IIa",
+  "Direct thrombin inhibitors：{{Hirudin、Dabigatran、Argatroban|藥名}} 抑制 IIa",
+  "Protein C + Thrombomodulin → Activated protein C，加上 Protein S 使 Va、VIIIa 失活",
+  "Warfarin 抑制 II、VII、IX、X、{{Protein C & Protein S|物質}}；Unfractionated heparin 抑制 IIa、Xa；LMWH（Enoxaparin、Dalteparin）抑制 {{Xa > IIa|名詞}}；Fondaparinux 抑制 Xa",
+  "使用 Warfarin 後，{{VII|名詞}} 之血中濃度降低最快",
+  "Warfarin 抑制 Protein C & Protein S 會造成{{皮膚壞死|副作用}}",
+  "Heparin、Dalteparin、Fondaparinux 屬於間接作用劑，必須與 {{Antithrombin III|物質}} 結合後才可以抑制凝血因子；Argatroban、Rivaroxaban 屬於直接作用劑"
+]);
+kA(31, "抗血小板藥物", 199, "抗血小板藥物（治動脈血栓）（Katzung 圖）", [
+  "{{Aspirin|藥名}}：不可逆抑制 {{Cyclooxygenase|酵素}}（Arachidonic acid → Thromboxane A2），且低劑量 Aspirin 可治療動脈血栓",
+  "{{Ticlopidine、Clopidogrel、Prasugrel|藥名}}（ADP Receptors inhibitors）：當 ADP 作用在 {{P2Y12 receptor|標的}} 上，可促進血小板的凝集，本類藥物藉由不可逆阻斷 P2Y12 receptor 來減少凝集作用",
+  "{{Dipyridamole、Cilostazol|藥名}}：阻斷 {{PDE3|酵素}} 可以增加 cAMP，cAMP↑ 會抑制血小板凝集",
+  "{{Tirofiban、Eptifibatide、Abciximab|藥名}}：阻斷 {{Glycoprotein IIb/IIIa receptor|標的}} 來抑制血小板凝集"
+]);
+kA(31, "纖維蛋白溶解系統", 200, "纖維蛋白溶解系統（Fibrinolytic system）（Katzung 圖）", [
+  "Plasminogen → Plasmin → 使 Fibrin 變成 Degradation production（降解產物）",
+  "Plasmin 可以幫助 Fibrin（血栓單體）降解，因此促進 {{Plasmin|物質}} 的形成可幫助血栓溶解",
+  "{{Alteplase（t-PA）、Urokinase|藥名}} 幫助 Plasminogen 轉變為 Plasmin，可以促進血栓的溶解",
+  "{{Streptokinase|藥名}} 的作用可分為兩步驟，先與 Activator 結合後，再使 Plasminogen 轉變為 Plasmin（血栓溶解劑）",
+  "{{Aminocaproic acid|藥名}}（與 Tranexamic acid）抑制 Plasminogen 轉變為 Plasmin，因此抑制血栓的溶解，可作為{{止血劑|藥物類別}}"
+]);
+dA(31, "Anticoagulants", 201, "heparin", "Heparin（Unfractionated heparin）", "Heparin", {
+  cls: ["Anticoagulants：與 {{Antithrombin III|物質}} 結合並抑制 IIa、Xa"],
+  struct: ["帶負電（{{SO3-、COO-|結構}}）", "可透過{{五個|數值}}糖分子上的陰離子，與 antithrombin III 結合"],
+  feat: ["以 IV 給藥", "用於{{深層靜脈血栓、肺栓塞|疾病}}之患者", "副作用：出血、{{血小板缺乏症（HIT）|副作用}}、骨質疏鬆", "{{Protamine|藥名}} 以化學性拮抗作為 Heparin 中毒解毒劑", "不會穿過胎盤、乳汁，為{{孕婦|族群}}首選抗凝血藥", "監測 {{aPTT|名詞}} 可得知 Heparin 的療效和安全性"] });
+dA(31, "Anticoagulants", 201, "lmwh", "Enoxaparin、Dalteparin（LMWH）", "LMWH", {
+  cls: ["Low molecular weight heparin（{{LMWH|藥物類別}}）"],
+  feat: ["和 Unfractionated heparin 相比 LMWH 生體可用率較佳、抗凝血效果較好、半衰期較長、副作用較小、{{不須監測 aPTT|性質}} 的變化"] });
+dA(31, "Anticoagulants", 201, "fondaparinux", "Fondaparinux", null, {
+  cls: ["{{Pentasaccharide|藥物類別}}"],
+  struct: ["含有{{五碳多醣|結構}}"],
+  feat: ["僅可抑制 {{Xa|名詞}}"] });
+dA(31, "Direct thrombin inhibitors", 201, "argatroban", "Argatroban", null, {
+  cls: ["{{Direct thrombin inhibitors|藥物類別}}"],
+  feat: ["治療 Heparin-induced thrombocytopenia（{{HIT|疾病}}）", "治療 HIT：停止使用 Heparin；使用 Direct thrombin inhibitor（Argatroban）或 Factor Xa inhibitor（Fondaparinux）", "以 IV 給藥"] });
+dA(31, "Direct thrombin inhibitors", 201, "dabigatran", "Dabigatran etexilate mesylate", "Dabigatran", {
+  cls: ["Direct thrombin inhibitors"],
+  feat: ["本身是 {{Prodrug|名詞}}", "活性代謝物 Dabigatran 屬於 direct thrombin inhibitors", "解毒劑：{{Idarucizumab|藥名}}", "以{{口服|給藥途徑}}給藥"] });
+dA(31, "Direct thrombin inhibitors", 201, "hirudin", "Hirudin", null, {
+  cls: ["Direct thrombin inhibitors"], feat: ["可用於治療 {{Heparin induced thrombocytopenia|疾病}}"] });
+dA(31, "Direct Xa inhibitors", 201, "rivaroxaban", "Rivaroxaban", null, {
+  cls: ["{{Direct Xa inhibitors|藥物類別}}"],
+  feat: ["Direct Xa inhibitors 的解毒劑為 {{Andexanet alfa|藥名}}"] });
+dA(31, "Oral anticoagulants", 202, "warfarin", "Warfarin", null, {
+  cls: ["Oral anticoagulants"],
+  struct: ["結構中的 {{-OH|結構}} 基團有助於製成鹽類製劑"],
+  feat: ["{{(S)|結構}}-效力較 (R)-強，且 S form 主要受 {{CYP2C9|酵素}} 代謝", "經由 Reductase 得到 2'-OHwarfarin 為活性代謝物", "副作用：出血（監測 {{INR|名詞}}）、致畸胎（不會分泌到乳汁）、皮膚壞死（抑制 Protein C）", "解毒劑：{{Vitamin K1（Phytonadione）|藥名}}"] });
+dA(31, "Oral anticoagulants", 202, "phenindione-anisindione", "Phenindione、Anisindione", "Phenindione", {
+  cls: ["Oral anticoagulants"],
+  struct: ["均為 {{Indanedione|結構}} 衍生物"],
+  feat: ["為口服抗凝血劑"] });
+dA(31, "Antiplatelet drugs", 202, "aspirin-antiplatelet", "Aspirin（抗血小板）", "Aspirin", {
+  cls: ["Antiplatelet drugs：COX inhibitor"],
+  feat: ["{{低劑量|名詞}}可預防心血管疾病", "兒童流感不可使用 Aspirin，以免造成 {{Reye's syndrome|疾病}}"] });
+dA(31, "Antiplatelet drugs", 202, "ticlopidine", "Ticlopidine", null, {
+  cls: ["不可逆的 P2Y12 receptor antagonist（結構骨架為 {{Thienopyridine|結構}}）"],
+  feat: ["機轉：不可逆的抑制血小板上的 ADP 接受器", "副作用：{{顆粒性白血球缺乏症、再生不能性貧血|副作用}}"] });
+dA(31, "Antiplatelet drugs", 202, "clopidogrel", "Clopidogrel", null, {
+  cls: ["不可逆的 P2Y12 receptor antagonist（Thienopyridine）"],
+  feat: ["和 Ticlopidine 相比，副作用較少", "與 {{Omeprazole|藥名}} 會產生交互作用，Clopidogrel 屬於 2C19 受質以及 CYP 2C19 酵素抑制劑", "為 Prodrug，受 CYP3A4 及 2C19 生成 {{-SH|結構}}，再與 P2Y12 共價產生不可逆抑制效果"] });
+dA(31, "Antiplatelet drugs", 202, "prasugrel", "Prasugrel", null, {
+  cls: ["不可逆的 P2Y12 receptor antagonist"],
+  struct: ["結構似 Ticlopidine 含 {{Thienopyridine|結構}}"],
+  feat: ["本類藥物{{半衰期最長|性質}}"] });
+dA(31, "Antiplatelet drugs", 202, "ticagrelor", "Ticagrelor", null, {
+  cls: ["{{可逆的|性質}} P2Y12 receptor antagonist"],
+  feat: ["非 {{Prodrug|名詞}}"] });
