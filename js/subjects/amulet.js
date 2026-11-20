@@ -1741,3 +1741,65 @@ dA(15, "Melatonin 相關", 97, "melatonin", "Melatonin（褪黑激素）", "Mela
 dA(15, "Melatonin 相關", 97, "ramelteon", "Ramelteon", null, {
   cls: ["{{Melatonin receptor 1 and 2 agonist|藥物類別}}"],
   feat: ["可用於治療{{失眠|疾病}}", "副作用：疲勞、頭暈和影響內分泌", "主要和 {{CYP1A2|酵素}} 代謝，和 {{Fluvoxamine|藥名}}（CYP1A2 inhibitor）併用時會增加 Ramelteon 的血中濃度，應避免一起使用"] });
+
+/* ===== 第 15 章（續）：第 98～99 頁 ===== */
+kA(15, "5-HT 受體藥物總覽", 98, "15 血清素藥物架構", [
+  "5-HT1 agonist：5HT1A — {{Buspirone|藥名}} — 抗焦慮；5-HT1B/1D — {{Sumatriptan|藥名}} — 治療偏頭痛",
+  "5-HT2 antagonist：Methylsergide — 預防偏頭痛；{{Clozapine|藥名}} — 抗精神藥物；{{Trazodone|藥名}} — 抗憂鬱藥物",
+  "5-HT3 antagonist：{{Ondansetron|藥名}} — 化放療止吐；{{Alosetron|藥名}} — 治療腹瀉型腸道症",
+  "5-HT4 agonist：Metoclopramide — 促進腸胃蠕動；{{Tegaserod|藥名}} — 治療便秘型腸道症"
+]);
+dA(15, "5HT1A", 99, "buspirone", "Buspirone", null, {
+  cls: ["{{5HT1A agonist|藥物類別}}"],
+  struct: ["結構具有 {{Azaspirodecanedione|結構}}"],
+  feat: ["為抗焦慮藥物，Onset {{慢|性質}}須長期使用，成癮性較低，不具有鎮靜及肌肉放鬆之作用"] });
+dA(15, "5HT1A", 99, "sarizotan", "Sarizotan", null, {
+  cls: ["5HT1A agonist"], feat: ["可用於治療{{巴金森氏症|疾病}}"] });
+dA(15, "5HT1A", 99, "spiperone", "Spiperone", null, {
+  cls: ["屬於 {{5-HT1A antagonist|藥物類別}}"] });
+dA(15, "5HT1B+1D", 99, "sumatriptan", "Sumatriptan", null, {
+  cls: ["{{5HT1B+1D agonist|藥物類別}}"],
+  struct: ["字尾有 Triptan，均含有 {{Indole|結構}}"],
+  feat: ["治療{{偏頭痛|疾病}}"] });
+dA(15, "5HT1B+1D", 99, "rizatriptan", "Rizatriptan", null, {
+  cls: ["5HT1B+1D agonist"],
+  struct: ["由 Sumatriptan 的 Sulfonamide 基團修飾成 {{Triazole|結構}} 而得"],
+  feat: ["用於治療偏頭痛", "不能與 {{propranolol|藥名}} 併用"] });
+dA(15, "5HT2 antagonist", 99, "ketanserin", "Ketanserin", null, {
+  cls: ["屬於 Serotonin 的{{拮抗劑|藥物類別}}（5HT2）"] });
+dA(15, "5HT2 antagonist", 99, "trazodone", "Trazodone", null, {
+  cls: ["5HT2 antagonist"], feat: ["用於治療{{憂鬱症|疾病}}"] });
+dA(15, "5HT2 antagonist", 99, "cyproheptadine", "Cyproheptadine", null, {
+  cls: ["藥理機轉為：{{5-HT2-antagonist + H1 antagonist|藥物類別}}"] });
+mA("methysergide", 99, { feat: ["5HT2 antagonist：{{預防|名詞}}偏頭痛（第 99 頁）"] });
+mA("ergotamine", 99, { feat: ["5HT2 antagonist：治療偏頭痛（第 99 頁）"] });
+dA(15, "5HT3 antagonist（-setron）", 100, "ondansetron", "Ondansetron", null, {
+  cls: ["{{5HT3 antagonist|藥物類別}}"],
+  struct: ["具有 {{Carbazolone|結構}} 之結構"],
+  feat: ["治療{{化療、放療|名詞}}引致之嘔吐", "具 Imidazole 雜環的 5-HT3 抑制劑：Fabesetron、Ondansetron、Alosetron、Ramosetron", "本類藥物半衰期最長為：{{Palonosetron|藥名}}"] });
+dA(15, "5HT3 antagonist（-setron）", 100, "alosetron", "Alosetron", null, {
+  cls: ["5HT3 antagonist"], feat: ["治療{{腹瀉型|名詞}}刺激性腸道症候群"] });
+dA(15, "5HT4 agonist", 100, "tegaserod", "Tegaserod", null, {
+  cls: ["{{5HT4 agonist|藥物類別}}"], feat: ["治療{{便秘型|名詞}}刺激性腸道症候群"] });
+dA(15, "5HT4 agonist", 100, "cisapride", "Cisapride", null, {
+  cls: ["5HT4 agonist"], feat: ["易引起{{心律不整|副作用}}的副作用，現已下架"] });
+dA(15, "5HT4 agonist", 100, "metoclopramide", "Metoclopramide", null, {
+  cls: ["{{5HT4 agonist + D2 antagonist|藥物類別}}"],
+  feat: ["屬於止嘔劑，作用在中樞神經之 chemoreceptor trigger zone（{{CTZ|名詞}}）", "副作用：易引起 {{EPS|副作用}} 副作用"] });
+kA(15, "偏頭痛用藥", 100, "預防偏頭痛用藥（口訣 ABCDE）", [
+  "{{Anti-convulsants|藥物類別}}：Topiramate、Valproic acid",
+  "β-blocker：{{Propranolol|藥名}}、Atenolol",
+  "CCB：{{Verapamil|藥名}}",
+  "anti-Depression：{{Amitriptyline|藥名}}",
+  "Ergot alkaloids：{{Methysergide|藥名}}",
+  "可同時用於治療及預防偏頭痛：{{Naproxen|藥名}}"
+]);
+kA(15, "偏頭痛用藥", 101, "Triptan 類藥物總整理", [
+  "半衰期最長：{{Frovatriptan|藥名}}（25 小時）",
+  "生體可用率最高：{{Almotriptan|藥名}}（70-80）",
+  "經由 MAO 代謝的藥物：{{Almotriptan、Rizatriptan、Sumatriptan、Zolmitriptan|藥名}}",
+  "經由 3A4 代謝的藥物：{{Eletriptan、Naratriptan|藥名}}",
+  "經由 1A2 代謝的藥物：{{Frovatriptan、Zolmitriptan|藥名}}",
+  "鼻噴劑劑型：{{Sumatriptan、Zolmitriptan|藥名}}",
+  "LogP 最高：Eletriptan（3.1）；Sumatriptan 生體可用率最低（14-15）"
+]);
