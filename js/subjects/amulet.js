@@ -2338,3 +2338,150 @@ mA("verapamil", 184, { feat: ["同時可抑制心臟及血管，心跳{{不會�
 mA("diltiazem", 184, { feat: ["以及 {{CYP3A4|酵素}} 行 N 脫甲基生成 N-monodesmethyldiltiazem"] });
 dA(28, "其他類", 184, "ranolazine", "Ranolazine", null, {
   cls: ["其他類：抑制 {{late sodium current|標的}}"] });
+
+/* ===== 第 29 章 心律不整藥物 ===== */
+chA(29, "29", "心律不整藥物", "185～191");
+kA(29, "心律不整機轉圖", 185, "動作電位與各類藥物（Medical Pharmacology at a Glance 圖）", [
+  "Phase 0：Na+ 流入細胞；Phase 1：K+ 流出細胞；Phase 2：{{Ca2+|物質}} 流入細胞；Phase 3：K+ 持續流出細胞；Phase 4：K+ 通道關閉",
+  "Class 1（Na+ channel blocker）：1A：Quinidine、Procainamide、{{Disopyramide|藥名}}、Pirmenol、Ajmaline；1B：Lidocaine、Phenytoin、{{Mexiletine|藥名}}、Tocainide、Aprindine；1C：Flecainide、{{Propafenone|藥名}}",
+  "Class 3（K+ channel blocker）：{{Amiodarone|藥名}}、Dronedarone、Bretylium、Sotalol、Ibutilide"
+]);
+kA(29, "心律不整機轉圖", 185, "心房顫動（Atrial fibrillation）藥物治療", [
+  "Rhythm control（心律控制）：控制不規則的節律，以恢復正常的心律 → {{Class Ia、Class Ic、Class III|藥物類別}}",
+  "Rate control（心速控制）：主要減緩心跳速率（影響 AV node）→ {{Class II、Class IV|藥物類別}}"
+]);
+kA(29, "抗心律不整藥物分類", 186, "各類代表藥物與機轉", [
+  "Class I 阻斷 Na+：去極化時間↑ → {{QRS↑|名詞}}",
+  "Ia（中等阻斷）：Quinidine、Procainamide、Disopyramide；阻斷 K+ 通道，延長再極化時間 → QT↑ → Torsade de pointes；副作用：阻斷 α、{{M receptor|標的}}",
+  "Ib（微弱阻斷）：Lidocaine、Mexiletine、Phenytoin；{{縮短|性質}}再極化時間 → QT↓；僅用於治療{{心室性|名詞}}心律不整及毛地黃中毒",
+  "Ic（強力阻斷）：Flecainide、Propafenone；再極化時間{{不變|性質}}",
+  "Class II β-blockers：抑制 AV-node → {{PR↑|名詞}}；Propranolol（氣喘患者不可用）、Esmolol（以 {{IV|給藥途徑}} 給藥，半衰期短）",
+  "Class III 阻斷 K+：再極化時間↑ → {{QT↑|名詞}} → Torsade de pointes（TdP）；Amiodarone、Dronedarone、Bretylium、Sotalol、Ibutilide、Dofetilide",
+  "{{Amiodarone|藥名}} 兼具 Class I～IV 的效果；{{Sotalol|藥名}} 兼具 β-blocker 作用",
+  "Class IV 阻斷 Ca2+：抑制 AV-node → PR↑；Verapamil、Diltiazem；抑制作用大小排序 Verapamil > Diltiazem > Nifedipine",
+  "其他類：{{Adenosine、Digoxin|藥名}} 抑制 AV-node → PR↑；Atropine 抑制 M receptor → HR↑；{{MgSO4|藥名}} 可治療 TdP、Digoxin 中毒、預防子癲前症之癲癇"
+]);
+kA(29, "抗心律不整藥物分類", 187, "心律不整病因與治療藥物", [
+  "心室性心律不整：{{Lidocaine|藥名}}",
+  "上心室性心律不整：{{β-blocker、CCB、Digoxin|藥名}}",
+  "陣發性上心室頻脈（Paroxysmal supraventricular tachycardia）：{{Adenosine、Verapamil|藥名}}",
+  "上心室性與心室性心律不整：Class IA、Class IC、Class III",
+  "心搏過緩（Bradycardia）：{{Atropine|藥名}}",
+  "造成 QT prolong 的藥品容易引起 {{Torsade de Pointes|副作用}}",
+  "易引發 TdP 因子：電解質（{{低血鉀、低血鎂|名詞}}）；心律不整藥物（Class IA、Class III）；抗生素類（Macrolide、Azole 類、Fluoroquinolones）；抗組織胺（{{Astemizole、Terfenadine|藥名}}）",
+  "TdP 治療：補血鉀、血鎂（MgSO4）、縮短 QT 間期（Lidocaine & Phenytoin）"
+]);
+dA(29, "Class IA", 188, "quinidine", "Quinidine", null, {
+  cls: ["Class IA"],
+  struct: ["含有 {{Quinoline 及 Quinuclidine|結構}}", "有 4 個不對稱碳：3R,4S,8R,9S", "與 Quinine 的關係為 {{Diastereoisomer|名詞}}"],
+  feat: ["屬於 {{P-gp inhibitor|名詞}}（Amiodarone、Verapamil）", "副作用：抗膽鹼、腹瀉、{{血小板缺乏紫斑症|副作用}}、過量會造成金雞納中毒（眼耳毒性）", "代謝方式：hydroxylation / O-demethylation，代謝後會降低活性", "{{Dihydroquinidine|物質}} 是 Quinidine 之不純物，具有顯著毒性"] });
+dA(29, "Class IA", 188, "procainamide", "Procainamide", null, {
+  cls: ["Class IA"],
+  feat: ["N 上加 {{acetyl|結構}} 為活性代謝物，代謝後屬於高度選擇性的 K+ 通道抑制劑，會使 QT 延長導致 TdP", "副作用：{{類紅斑性狼瘡|副作用}}", "Hydralazine、Propylthiouracil 也會導致類紅斑性狼瘡"] });
+dA(29, "Class IA", 188, "disopyramide", "Disopyramide", null, {
+  cls: ["Class IA"],
+  feat: ["此類藥品中{{抗膽鹼|副作用}}效果最強", "具有負向強心作用，{{HF|疾病}} 患者不可用"] });
+dA(29, "Class IB", 188, "lidocaine-arrhythmia", "Lidocaine（抗心律不整）", "Lidocaine", {
+  cls: ["Class IB"],
+  feat: ["只能 {{IV|給藥途徑}} 給予", "可治療{{毛地黃|藥名}}引起的心律不整", "代謝物 {{Monoethylglycinexylidide|物質}} 會造成中樞毒性"] });
+dA(29, "Class IB", 188, "mexiletine", "Mexiletine", null, {
+  cls: ["Class IB"],
+  feat: ["Lidocaine 的衍生物，可{{口服|給藥途徑}}給藥", "可緩解{{糖尿病神經病變|疾病}}之疼痛", "抑制 Inactivated sodium channel，治療 {{LQT3|疾病}} 型心律不整", "副作用：易引起 Brugada Syndrome"] });
+dA(29, "Class IB", 188, "phenytoin-arrhythmia", "Phenytoin（抗心律不整）", "Phenytoin", {
+  cls: ["Class IB"],
+  feat: ["具有抗癲癇和抗心律不整的藥物", "副作用：{{牙齦增生|副作用}}、軟骨症、多毛症", "導致牙齦增生：Cyclosporine、Nifedipine"] });
+dA(29, "Class IB", 188, "tocainide", "Tocainide", null, {
+  cls: ["Class IB"], feat: ["副作用：{{肺部纖維化|副作用}}"] });
+dA(29, "Class IC", 189, "flecainide", "Flecainide", null, {
+  cls: ["Class IC"],
+  feat: ["字尾有 {{cainide|名詞}} 皆屬於 Class 1C（例外：Tocainide）", "抑制 K+ 通道，但{{不會|性質}}造成 QT 延長（例外）", "副作用：{{負向強心|副作用}}作用，心衰竭患者不可使用"] });
+dA(29, "Class IC", 189, "propafenone", "Propafenone", null, {
+  cls: ["Class IC"],
+  struct: ["具有 Chiral center，{{S-form|結構}} 比 R-form 強"],
+  feat: ["S-form 有 {{β-blocker|藥物類別}} 的作用"] });
+mA("propranolol", 189, { feat: ["Class II：最適用於治療{{心房|器官}}心律不整及防止心肌梗塞復發"] });
+dA(29, "Class II", 189, "esmolol", "Esmolol", null, {
+  cls: ["Class II：屬於 {{β1-blocker|藥物類別}}"],
+  feat: ["同類藥品中，作用時間{{最短|性質}}", "可用於治療{{上心室性|名詞}}心律不整"] });
+dA(29, "Class III", 190, "amiodarone", "Amiodarone", null, {
+  cls: ["Class III"],
+  feat: ["半衰期長達 {{100|數值}} 天，是最長效的心律不整藥", "較不易引起 TdP", "副作用：{{甲狀腺功能異常、肺部纖維化|副作用}}（Tocainide 也會）、光敏感性、神經病變、肝功能異常、藍皮膚", "屬於 {{CYP3A4 inhibitor|名詞}}", "裝有心臟去顫器之患者併用本藥，可增加去顫器閾值，但需增加電壓，可減少電擊次數", "代謝方式：{{N-deethylation|名詞}}"] });
+dA(29, "Class III", 190, "dronedarone", "Dronedarone", null, {
+  cls: ["Class III"],
+  struct: ["具有 Benzofuran，{{不含碘|結構}}，以減少 Amiodarone 甲狀腺異常的現象", "含 Methyl sulfonamide"],
+  feat: ["脂溶性較 Amiodarone 小，分布體積較 Amiodarone 小"] });
+dA(29, "Class III", 190, "bretylium-arrhythmia", "Bretylium（抗心律不整）", "Bretylium", {
+  cls: ["Class III"],
+  struct: ["含有鹵素（{{Br|結構}}），且含 4 級氮不可口服"],
+  feat: ["可抑制 {{NE|物質}} 釋放"] });
+dA(29, "Class III", 190, "sotalol", "Sotalol", null, {
+  cls: ["Class III"],
+  struct: ["具有 {{Methane sulfonanilide|結構}}"],
+  feat: ["口服生體可用率佳，主要由{{腎臟|器官}}排出", "可減少去顫器所需通電量"] });
+dA(29, "Class III", 190, "ibutilide", "Ibutilide", null, {
+  cls: ["Class III：屬於 {{Pure class III|藥物類別}} 抗心律不整藥"],
+  struct: ["具有 Methane sulfonamide"],
+  feat: ["Class III 藥物中，最容易引起 {{TdP|副作用}}"] });
+dA(29, "Class III", 190, "dofetilide", "Dofetilide", null, {
+  cls: ["Class III"], struct: ["具有 {{Bis-methane sulfonamide|結構}}"] });
+mA("verapamil", 191, { feat: ["Class IV：可抑制 AV node，治療{{上心室|名詞}}心律不整；抑制 AV node 作用大小：Verapamil > Diltiazem > Nifedipine"] });
+mA("diltiazem", 191, { feat: ["Class IV：可抑制 AV node，治療上心室心律不整"] });
+dA(29, "Other antiarrhythmic drugs", 191, "digoxin-arrhythmia", "Digoxin（抗心律不整）", "Digoxin", {
+  cls: ["Other antiarrhythmic drugs"],
+  feat: ["{{心房性纖維顫動合併心衰竭|疾病}}患者之首選藥", "毒性增加會造成心室性纖維顫動，用 {{Lidocaine、Phenytoin|藥名}} 治療"] });
+dA(29, "Other antiarrhythmic drugs", 191, "adenosine", "Adenosine", null, {
+  cls: ["Other antiarrhythmic drugs：抑制{{鈣離子|物質}}電流和增加內向整流的鉀離子電流以抑制 AV node"],
+  feat: ["Paroxysmal supraventricular tachycardia（{{PSVT|疾病}}）首選用藥", "半衰期短，大約 {{10 秒|數值}}", "與{{咖啡因、茶鹼|藥名}}併用會降低其藥效"] });
+
+/* ===== 第 30 章 心臟衰竭 ===== */
+chA(30, "30", "心臟衰竭", "192～196");
+kA(30, "心臟衰竭病生理學及藥物機轉", 192, "心衰竭惡性循環與藥物作用點", [
+  "心臟衰竭 → 心輸出量↓ → 活化交感神經系統 → 交感活性↑（{{β-blockers|藥物類別}} 抑制）→ 血管收縮（長期 → 心肌肥大）→ {{後負荷|名詞}}↑",
+  "交感活性經 β1 促進 Renin 分泌；心輸出量↓ 也會活化 RAAS：Renin → Angiotensin I →（{{ACEI|藥物類別}} 抑制）→ Angiotensin II →（{{ARB|藥物類別}} 抑制）→ Aldosterone（{{Spironolactone|藥名}} 抑制）",
+  "Aldosterone → 鈉水滯留（{{Diuretics|藥物類別}} 抑制）→ 靜脈壓↑ → {{前負荷|名詞}}↑",
+  "{{血管擴張劑|藥物類別}} 降低前、後負荷；{{強心劑|藥物類別}} 增加心輸出量"
+]);
+kA(30, "心臟衰竭病生理學及藥物機轉", 193, "心衰竭治療藥物分類", [
+  "抑制交感神經系統：血管擴張劑（Nitrates 類、Hydralazine、Minoxidil）；β-blocker（{{Bisoprolol、Metoprolol、Carvedilol|藥名}}）",
+  "抑制 RAAS：ACE inhibitor（Captopril）；ARB（Valsartan）；Aldosterone antagonist（{{Spironolactone、Eplerenone|藥名}}）",
+  "減緩醛固酮引起的鈉水滯留：利尿劑（HF 合併水腫可使用 {{Loop 併用 Thiazide|藥物類別}}）：Furosemide、Thiazide",
+  "強心劑：強心配醣體（{{Digoxin|藥名}}）；β1 agonist（{{Dobutamine|藥名}}）；PDE3 inhibitors（{{Amrinone、Milrinone|藥名}}）",
+  "當出現心衰竭時，心輸出量會減少，患者會產生代償反應：交感神經系統（刺激心跳速率與收縮並使血管阻力增加來維持血壓）、活化 RAAS",
+  "這些系統若長期處於高度活化狀態，會讓心臟做功增加，加速惡化心衰竭，因此希望藥物可以「抑制交感及腎素系統」，並降低心臟負荷以及增加心肌的收縮力"
+]);
+mA("digoxin-arrhythmia", 194, {
+  cls: ["治療心衰竭：抑制 {{Na+/K+ ATPase|標的}} → 細胞內 Na+ 堆積 → 作用在 Ca2+/Na+ transporter → Ca2+ 進入細胞內 → 細胞內 Ca2+ 濃度上升 → 增加心肌收縮力", "治療心房顫動：增加副交感神經作用 → 抑制房室節（AV node）→ PR 間距延長 → 間接使心跳速率變慢"],
+  feat: ["適應症：心衰竭、心房顫動、上心室性心跳過快", "禁用於 {{Wolff-Parkinson-White syndrome|疾病}} 患者", "中毒症狀：腹瀉、嘔吐、迷失方向感、視幻覺（{{黃綠視覺|副作用}}）、心跳減慢；{{低血鉀|名詞}}、低血鎂、高血鈣會增加毛地黃中毒的症狀", "處理方式：用 Class IB（Lidocaine、Phenytoin）、給予 {{Digoxin immune Fab|藥名}}、補充血鉀、血鎂、Atropine", "治療劑量範圍：心衰竭 {{0.5-0.8 ng/ml|數值}}；心律不整 0.8-1.5 ng/ml → 安全有效治療劑量範圍非常狹窄", "Digoxin 屬於 {{P-gp|標的}} 受質：Amiodarone、Verapamil、Quinidine、Ketoconazole、Erythromycin 會抑制 P-gp，使 Digoxin 濃度增加", "Thiazide、Furosemide 造成低血鉀 → Digoxin↑；Spironolactone 會降低 Digoxin 清除率", "{{Cholestyramine、Colestipol|藥名}} 降低 Digoxin 在胃的吸收 → Digoxin↓"] });
+kA(30, "強心配糖體", 195, "強心配糖體比較與考試重點", [
+  "Digitoxin（C3、C14-OH）；Gitoxin（C3、C14、C16-OH）；Digoxin（{{C3、C12、C14-OH|結構}}）",
+  "Digoxin：生體可用率 75%；蛋白結合率 25-30%；半衰期 {{1.5 天|數值}}；主要由{{腎臟|器官}}排除；口服劑量 0.75-1.5 mg",
+  "Digitoxin：生體可用率 95%-100%；蛋白結合率 {{90-95%|數值}}；半衰期 5-7 天；主要由{{肝臟|器官}}排除；口服劑量 0.8-1.2 mg",
+  "A-B / B-C / C-D 環之連結方式：{{cis / trans / cis|結構}}",
+  "強心活性：{{C14β-OH|結構}}、C17-unsaturated lactone 和 A-B / C-D cis fused",
+  "除了 {{C9-α|結構}}，其餘位置皆是以 β 方式連接",
+  "醣基以 {{β-1,4|結構}} 鍵結在 C3",
+  "Digoxin = digitoxose-digitoxose-digitoxose-{{digoxigenin|物質}}",
+  "{{Ouabain|藥名}} 僅能以靜脈注射，主要由腎排泄"
+]);
+mA("dobutamine", 196, { feat: ["β1 agonist：具有強心作用，可治療{{心衰竭|疾病}}；對 dopamine receptor 無效"] });
+dA(30, "Phosphodiesterase 3 inhibitors", 196, "amrinone-milrinone", "Amrinone、Milrinone", "Milrinone", {
+  cls: ["{{Phosphodiesterase 3|酵素}} inhibitors"],
+  feat: ["{{Milrinone|藥名}} 屬於相同機轉的藥物"] });
+dA(30, "Adenylate cyclase stimulants", 196, "forskolin", "Forskolin", null, {
+  cls: ["{{Adenylate cyclase|酵素}} stimulants"],
+  struct: ["是一種 {{Labdane diterpenoid|結構}}"],
+  feat: ["增加 {{cAMP|物質}} 的作用"] });
+dA(30, "刺激 Guanylate cyclase receptor", 196, "nesiritide", "Nesiritide", null, {
+  cls: ["刺激 Guanylate cyclase receptor"],
+  feat: ["屬於人類重組的 Brain natriuretic peptide（{{BNP|物質}}）", "機轉：增加血管平滑肌的 {{cGMP|物質}}，使動脈和靜脈擴張，增加心輸出量", "以 {{IV|給藥途徑}} 給藥，排除半衰期短"] });
+dA(30, "ARNI", 196, "sacubitril-valsartan", "Valsartan / Sacubitril（Entresto）", "Entresto", {
+  cls: ["ARNI（{{Angiotensin receptor-neprilysin inhibitor|藥物類別}}）"],
+  feat: ["Valsartan，作用在 {{AT1|標的}} 受體", "Sacubitril：Neprilysin 會將 BNP 分解，此藥可抑制 {{Neprilysin|酵素}}，因此可以減少血管中的 BNP 被分解，達到降低血壓、降低交感神經活性的作用"] });
+dA(30, "其他類", 196, "ivabradine", "Ivabradine", null, {
+  cls: ["機轉：{{funny current（If）|標的}} blocker"],
+  feat: ["副作用：{{光幻覺|副作用}}"] });
+kA(30, "強心配糖體", 196, "心衰竭用藥重點", [
+  "降低心衰竭死亡率的藥物：{{ACEI、ARB、β-blocker、Spironolactone|藥物類別}}",
+  "心衰竭患者除了 {{Amlodipine、Felodipine|藥名}} 可以使用外，禁用其他 CCB",
+  "β-blocker 中僅 {{Bisoprolol、Metoprolol、Carvedilol|藥名}} 可降低心衰竭患者死亡率"
+]);
