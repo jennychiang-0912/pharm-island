@@ -1959,3 +1959,67 @@ dA(17, "MAOI", 115, "selegiline", "Selegiline", null, {
 dA(17, "MAOI", 115, "moclobemide", "Moclobemide", null, {
   cls: ["MAOI：{{可逆的 MAO-A|酵素}} 抑制劑"],
   struct: ["Mo-{{Morpholine|結構}}、E-ethyl、mide-醯胺、cl"] });
+
+/* 講義第 116～119 頁（18. 抗巴金森氏症藥物）暫時沒有收錄。 */
+
+/* ===== 第 19 章 全身麻醉劑 ===== */
+chA(19, "19", "全身麻醉劑", "120～124");
+kA(19, "吸入型麻醉劑總論", 120, "麻醉的分期與作用機轉", [
+  "藥物對於中樞系統抑制作用是有順序的，通常把麻醉順序分為{{四|數值}}期",
+  "Stage 1：會產生{{止痛|名詞}}作用；Stage 2：會產生{{興奮|名詞}}作用（抑制，抑制性神經元）",
+  "Stage 3：會產生{{麻醉|名詞}}作用（抑制，興奮性神經元）；Stage 4：會產生{{延腦抑制|名詞}}作用（麻醉劑過量）",
+  "全麻可溶於細胞膜並擾亂細胞膜的結構，減少{{鈉離子內流|名詞}}和增加{{鉀離子外流|名詞}}，而產生麻醉作用",
+  "當藥物的{{油水分配係數|名詞}}增加，會使藥物活性上升"
+]);
+kA(19, "吸入型麻醉劑總論", 120, "麻醉前輔助用藥", [
+  "解焦慮：口服 {{Benzodiazepines|藥物類別}}",
+  "減少分泌物：給 {{Atropine、Scopolamine|藥名}}",
+  "術後抗嘔吐作用：Metoclopramide、Ondansetron、Droperidol",
+  "肌肉鬆弛劑：{{Atracurium、Pancuronium|藥名}}",
+  "維持麻醉（吸入給藥）：{{N2O、Halothane|藥名}}；誘導麻醉（靜脈注射給藥）：Barbiturates、Non-Barbiturates"
+]);
+kA(19, "吸入型麻醉劑總論", 120, "誘導速度", [
+  "N2O 血氣分配係數 {{0.47|數值}}；Methoxyflurane 血氣分配係數 12",
+  "血氣分配係數越大，作用速度越{{慢|性質}}",
+  "增加誘導速率：增加吸入型氣體中的藥物濃度比例、增加{{肺泡換氣速率|名詞}}",
+  "降低誘導速率：增加麻醉藥物的{{血中溶解度|名詞}}、增加心輸出量"
+]);
+kA(19, "吸入型麻醉劑總論", 121, "MAC 與藥物移除速率", [
+  "以最低肺泡濃度（{{MAC|名詞}}）評估效力：在疼痛刺激下，有 {{50%|數值}} 的患者不痛時的濃度",
+  "MAC 越大，藥效越{{弱|性質}}",
+  "體溫低、{{老年人|族群}}、併用嗎啡類止痛藥、懷孕 → 所需 MAC 下降",
+  "體溫高、年輕人、長期飲酒或使用中樞抑制劑 → 所需 MAC {{上升|性質}}",
+  "Context-sensitive half-time：藥物血中濃度降到停止前 50% 所需的時間，數字越大，移除速率越{{慢|性質}}"
+]);
+kA(19, "吸入性麻醉劑的藥理特性", 122, "血氣分配係數、MAC、代謝比較", [
+  "Nitrous oxide：血氣 0.47；MAC {{>100（最弱）|數值}}；氣體；代謝 無",
+  "Halothane：血氣 2.3；MAC 0.75；代謝 >40%",
+  "Methoxyflurane：血氣 {{12（最慢）|數值}}；MAC {{0.16（最強）|數值}}；代謝 >70%",
+  "Enflurane 1.8／1.7／8%；Isoflurane 1.4／1.4／<2%；Sevoflurane 0.69／2.0／2-5%",
+  "Desflurane：血氣 {{0.42（最快）|數值}}；MAC 6-7；代謝 <0.05%",
+  "血氣分配係數由小到大：{{Desflurane|藥名}} < N2O < Sevoflurane < Isoflurane < Enflurane < Halothane < Methoxyflurane",
+  "MAC 由小到大：{{Methoxyflurane|藥名}} < Halothane < Isoflurane < Enflurane < Sevoflurane < Desflurane < N2O",
+  "代謝百分比由小到大：{{N2O|藥名}} < Desflurane < Isoflurane < Enflurane < Sevoflurane < Halothane < Methoxyflurane"
+]);
+dA(19, "吸入型麻醉劑（維持麻醉，主要由 2E1 代謝）", 123, "nitrous-oxide", "Nitrous oxide（N2O）", "N2O", {
+  cls: ["吸入型麻醉劑"],
+  feat: ["於室溫時為{{氣體|性質}}", "{{不具|性質}}肌肉鬆弛作用（需合併使用肌肉鬆弛劑）", "不能單獨用於全身性麻醉", "單獨使用有{{止痛|名詞}}的效果", "有相對較短的麻醉誘導時間、較短的麻醉恢復期"] });
+dA(19, "吸入型麻醉劑（維持麻醉，主要由 2E1 代謝）", 123, "halothane", "Halothane", null, {
+  cls: ["吸入型麻醉劑"],
+  feat: ["血氣分配係數：2.3", "最容易造成{{心輸出量及血壓下降|副作用}}", "止痛效果差（N2O 有止痛效果）", "引發{{肝毒性|副作用}}：因產生 {{CF3COCl|物質}}"] });
+dA(19, "吸入型麻醉劑（維持麻醉，主要由 2E1 代謝）", 123, "methoxyflurane", "Methoxyflurane", null, {
+  cls: ["吸入型麻醉劑"],
+  feat: ["血氣分配係數：12", "MAC {{最小|性質}}", "其代謝產物的 {{F- 及 Oxalic acid|物質}} 會損害{{腎臟|器官}}"] });
+dA(19, "吸入型麻醉劑（維持麻醉，主要由 2E1 代謝）", 123, "enflurane", "Enflurane", null, {
+  cls: ["吸入型麻醉劑"],
+  feat: ["不可用於{{癲癇|疾病}}患者（E-epileptic）", "代謝物會引起腎臟毒性", "{{CYP2E1|酵素}} 受質：Ethanol、Acetaminophen、Halothane"] });
+dA(19, "吸入型麻醉劑（維持麻醉，主要由 2E1 代謝）", 123, "isoflurane", "Isoflurane", null, {
+  cls: ["吸入型麻醉劑"],
+  struct: ["與 Enflurane 為{{同分異構物|名詞}}"],
+  feat: ["引起肝腎毒性的機率{{最低|性質}}（想成 iso 與別人與眾不同）", "代謝物為 {{CF3COOH|物質}}"] });
+dA(19, "吸入型麻醉劑（維持麻醉，主要由 2E1 代謝）", 123, "desflurane", "Desflurane", null, {
+  cls: ["吸入型麻醉劑"],
+  feat: ["血氣分配係數{{最小|性質}}（des 去掉，想成來的快去的快）"] });
+dA(19, "吸入型麻醉劑（維持麻醉，主要由 2E1 代謝）", 123, "sevoflurane", "Sevoflurane", null, {
+  cls: ["吸入型麻醉劑"],
+  feat: ["血氣分配係數：{{0.7|數值}}（想成 seven-0.7）"] });
