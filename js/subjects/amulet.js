@@ -1672,3 +1672,72 @@ kA(11, "交感與副交感機轉統整", 91, "交感神經與副交感神經作�
   "釋放：交感 {{Guanethidine、Bretylium|藥名}} 抑制 NE 釋放；副交感 {{Botulinum toxin|藥名}} 抑制 Ach 釋放",
   "再回收：交感 Cocaine、TCA 抑制 {{NET|標的}}（Norepinephrine transporter）；副交感 Physostigmine、Parathion、Sarin 抑制 {{AchE|酵素}}"
 ]);
+
+/* 講義第 92～93 頁（12. 自主神經節阻斷劑、13. 作用於神經肌肉連結處的藥物）暫時沒有收錄。 */
+
+/* ================= 中樞神經島（14～25） ================= */
+isleA("cns", "中樞神經島", { ground: "#B8C4E6", light: "#CCD5EE", cliff: "#8A98C4" });
+
+/* ===== 第 14 章 中樞總論 ===== */
+chA(14, "14", "中樞總論", "94～96");
+kA(14, "中樞神經傳遞物質", 94, "GABA（γ-Aminobutyric acid）", [
+  "是中樞神經主要的{{抑制性|性質}}傳遞物質",
+  "GABA-A 為{{突觸後|名詞}}接收器；GABA-B 位於{{突觸前|名詞}}神經末端，可減少神經傳遞物質的釋放",
+  "{{Bicuculline|藥名}} 拮抗 GABA-A 可作為致痙攣劑",
+  "{{Baclofen|藥名}} 活化 GABA-B 可作為肌肉鬆弛劑",
+  "{{Tiagabine|藥名}} 抑制 GABA 再回收，可增強腦中 GABA 的含量",
+  "{{Vigabatrin|藥名}} 是 GABA-Transaminase 之自殺性不可逆抑制劑",
+  "{{Gabapentin|藥名}} 會促進 GABA 釋放"
+]);
+kA(14, "中樞神經傳遞物質", 94, "Glycine、Glutamate、Acetylcholine", [
+  "Glycine（甘胺酸）：抑制性傳遞物質，主要存在於{{脊髓|器官}}；Glycine 拮抗劑為 {{Strychnine|藥名}}（番木鱉鹼），引起痙攣的作用",
+  "Glutamate：為中樞{{興奮性|性質}}傳遞物質；Ligand-gated ion channels：NMDA、AMPA、Kainate；G protein coupled receptors：Quisqualate；{{Ketamine|藥名}} 阻斷 NMDA 接受器",
+  "Acetylcholine：在腦部是經由抑制{{鉀離子|物質}}通道興奮中樞；前驅物是 {{Serine|物質}}；Acetylcholine↓ 造成阿茲海默症，以 Galantamine、Tacrine、Donepezil、Rivastigimine 治療"
+]);
+kA(14, "中樞神經傳遞物質", 94, "Dopamine 與 Norepinephrine", [
+  "Dopamine 藉由打開{{鉀離子|物質}}通道抑制中樞神經",
+  "多巴胺三大路徑：{{黑質紋狀體|名詞}}路徑：退化會造成巴金森氏症；{{中邊緣|名詞}}路徑：過度活化會造成精神分裂症；{{結節漏斗|名詞}}路徑：調節 Prolactin 的釋放",
+  "Chlorpromazine 為 DA 阻斷劑可治療{{精神分裂症|疾病}}；Bromocriptine 為 DA 作用劑可治療巴金森氏症",
+  "CTZ（化學受體反射區）具有 Dopamine receptor；{{Metoclopramide|藥名}} 為 D2-antagonist 可止嘔",
+  "NE 存在於腦幹中的{{藍斑|名詞}}；NE 和 DA 可能與藥物的成癮性有關；NE 的前驅物是 Tyrosine",
+  "Phenylephrine 作用在 α1-receptor 可解鼻充血；Prazosin 阻斷 α1-receptor 可降血壓"
+]);
+kA(14, "中樞神經傳遞物質", 94, "Serotonin（5-HT）與 Neuropeptides", [
+  "Serotonin 存在於腦幹的{{縫核|名詞}}中；Serotonin 下降將造成{{憂鬱症|疾病}}；增加 Serotonin 的釋放，有降低食慾的作用；前驅物是 {{L-Tryptophan|物質}}",
+  "{{Lorcaserin|藥名}} 刺激 5-HT2c，作為減肥藥；活化 5-HT 接受器，可促進腸胃蠕動",
+  "{{Tegaserod|藥名}} 刺激 5-HT4 治療便秘型刺激性腸道症候群；{{Alosetron|藥名}} 阻斷 5-HT3 治療腹瀉型刺激型腸道症候群",
+  "Substance P 與{{痛覺|名詞}}有關，含 {{11|數值}} 個胺基酸；Enkephalins，與抑制痛覺有關",
+  "Met-Enkephalin：Tyr-Gly-Gly-Phe-{{Met|物質}}；Leu-Enkephalin：Tyr-Gly-Gly-Phe-{{Leu|物質}}"
+]);
+kA(14, "中樞神經傳遞物質總整理表格", 95, "受體亞型、作用劑、阻斷劑", [
+  "Acetylcholine：M1（Gq）、M2（Gi）作用劑 Muscarine，阻斷劑 Pirenzepine、Atropine；Nicotinic（Na+ channel）作用劑 Nicotine，阻斷劑 {{α-Bungarotoxin|藥名}}",
+  "Dopamine：D1（{{Gs|標的}}）作用劑 Fenoldopam；D2（{{Gi|標的}}）作用劑 Bromocriptine，阻斷劑 Phenothiazine",
+  "GABA：GABA-A（{{Cl- channel|標的}}）作用劑 Muscimol，阻斷劑 {{Bicuculline、Picrotoxin|藥名}}；GABA-B（Gi）作用劑 Baclofen，阻斷劑 {{Saclofen|藥名}}",
+  "Glutamate：NMDA、AMPA、Kainate（Ion channel）；Metabotropic（G-protein）作用劑 Quisqualate",
+  "Glycine：Glycine receptor（Cl- channel）作用劑 {{Taurine|物質}}，阻斷劑 Strychnine",
+  "5-HT1A（Gi）作用劑 {{Buspirone|藥名}}，阻斷劑 Spiperone；5-HT1D（Gi）作用劑 {{Sumatriptan|藥名}}",
+  "5-HT2A（Gq）作用劑 LSD，阻斷劑 {{Ketanserin、Trazodone|藥名}}；5-HT2C（Gq）作用劑 Lorcaserin",
+  "5-HT3（{{Ion channel|標的}}）阻斷劑 {{Ondansertron|藥名}}；5-HT4（{{Gs|標的}}）作用劑 Cisapride、Tegaserod、Metoclopramide",
+  "Norepinephrine：α1（Gq）Phenylephrine / Prazosin；α2（Gi）Clonidine / Yohimbine；β1（Gs）Dobutamine / Atenolol；β2（Gs）Salbutamol / Butoxamine"
+]);
+kA(14, "中樞神經傳遞物質總整理表格", 96, "Opioid、Endocannabinoids、Histamine、Orexins", [
+  "Opioid：μ（mu）、δ（delta）、κ（kappa）皆為 {{Gi|標的}}；作用劑：μ {{Endorphin|物質}}、δ {{Enkephalin|物質}}、κ {{Dynorphin|物質}}；阻斷劑 {{Naloxone|藥名}}",
+  "Endocannabinoids：CB1；作用劑 {{Anandamide|物質}}；阻斷劑 {{Rimonabant|藥名}}",
+  "Histamine：H1（Gq）作用劑 Histamine，阻斷劑 {{Diphenhydramine|藥名}}；H2（Gs）作用劑 Dimaprit，阻斷劑 {{Cimetidine|藥名}}；H3（Gi）作用劑 Imetit、Lmepip，阻斷劑 Thioperamide",
+  "Orexins：OX1/OX2；阻斷劑 {{Suvorexant|藥名}}"
+]);
+
+/* ===== 第 15 章 血清素 Serotonin（5-HT） ===== */
+chA(15, "15", "血清素 Serotonin（5-HT）", "97～103");
+kA(15, "Serotonin 生合成", 97, "Serotonin 與 Melatonin 的生合成", [
+  "L-Tryptophan —（{{Tryptophan hydroxylase|酵素}}）→ 5-hydroxy tryptophan —（{{Aromatic amino acid decarboxylase|酵素}}）→ Serotonin",
+  "Serotonin —（{{5-HT N-Acetyl transferase|酵素}}）→ N-Acetyl-5-HT —（{{5-Hydroxyindole-O-Methyl transferase|酵素}}）→ Melatonin",
+  "影響食慾之藥物：服用毒品、迷幻藥基本上會抑制食慾，除了 {{THC、Dronabinol|藥名}} 會刺激食慾"
+]);
+dA(15, "Melatonin 相關", 97, "melatonin", "Melatonin（褪黑激素）", "Melatonin", {
+  cls: ["內生性物質"],
+  struct: ["結構{{不具有|性質}} Chiral center，以 {{L-tryptophan|物質}} 為生合成起始物"],
+  feat: ["由 Serotonin 經由 5-HT N-Acetyl transferase 及 5-OHindole-O-Methyl transferase 而得", "Melatonin 在{{松果體|器官}}生合成和代謝"] });
+dA(15, "Melatonin 相關", 97, "ramelteon", "Ramelteon", null, {
+  cls: ["{{Melatonin receptor 1 and 2 agonist|藥物類別}}"],
+  feat: ["可用於治療{{失眠|疾病}}", "副作用：疲勞、頭暈和影響內分泌", "主要和 {{CYP1A2|酵素}} 代謝，和 {{Fluvoxamine|藥名}}（CYP1A2 inhibitor）併用時會增加 Ramelteon 的血中濃度，應避免一起使用"] });
