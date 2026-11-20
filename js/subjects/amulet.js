@@ -2023,3 +2023,119 @@ dA(19, "吸入型麻醉劑（維持麻醉，主要由 2E1 代謝）", 123, "desf
 dA(19, "吸入型麻醉劑（維持麻醉，主要由 2E1 代謝）", 123, "sevoflurane", "Sevoflurane", null, {
   cls: ["吸入型麻醉劑"],
   feat: ["血氣分配係數：{{0.7|數值}}（想成 seven-0.7）"] });
+
+/* 講義第 124～162 頁（19 章的靜脈麻醉劑、20～25 章）暫時沒有收錄。 */
+
+/* ================= 心血管島（26～33） ================= */
+isleA("cardio", "心血管島", { ground: "#E8A9B6", light: "#F0C2CB", cliff: "#C27A89" });
+
+/* ===== 第 26 章 利尿劑用藥 ===== */
+chA(26, "26", "利尿劑用藥", "163～171");
+kA(26, "利尿劑作用位置", 163, "腎元作用位置（Katzung 圖）", [
+  "近曲小管：Carbonic Anhydrase Inhibitors — {{Acetazolamide|藥名}}（NaHCO3）",
+  "Osmotic diuretic — {{Mannitol|藥名}}（H2O）",
+  "亨利氏環的厚上行支：Loop diuretics — {{Furosemide|藥名}}（Na+/K+/2Cl-）",
+  "遠曲小管：Thiazide — {{Chlorothiazide|藥名}}（Na+/Cl-）；Parathyroid hormone（PTH）促進 Ca2+ 再吸收",
+  "集尿管：Na+ channel blockers — {{Amiloride|藥名}}；Aldosterone antagonist — {{Spironolactone|藥名}}",
+  "ADH（Vasopressin）促進 H2O 再吸收；ADH antagonist — {{Conivaptan|藥名}}"
+]);
+kA(26, "利尿劑作用位置", 163, "四類利尿劑比較", [
+  "Carbonic Anhydrase Inhibitors：近曲小管上的 Carbonic anhydrase；代謝性{{酸|名詞}}中毒、鹼化尿液；適應症：青光眼、高山症；副作用：感覺異常、肝性腦病變、磺胺過敏反應",
+  "Loop diuretics：亨利氏環之厚上行支的 {{Na+/K+/2Cl- cotransporter|標的}}；代謝性{{鹼|名詞}}中毒、酸化尿液；適應症：{{高血鈣|疾病}}、人體陰離子過量；副作用：高尿酸、高血糖、耳毒性",
+  "Thiazide diuretics：遠曲小管上的 {{Na+/Cl- cotransporter|標的}}；代謝性鹼中毒、酸化尿液；適應症：高血壓、{{腎因性尿崩症|疾病}}；副作用：高尿酸、高血糖、高血脂",
+  "保鉀型利尿劑：{{集尿管|器官}}；代謝性酸中毒、鹼化尿液；Amiloride 可治 {{Liddle's syndrome|疾病}}；副作用：{{高血鉀|副作用}}"
+]);
+kA(26, "Carbonic Anhydrase Inhibitors", 164, "CAI 機轉與特色", [
+  "機轉：抑制近曲小管 {{HCO3-|物質}} 的再吸收，減少 Na+/H+ 之間的交換，造成 Na+、HCO3- 排出增加，H+ 排出減少",
+  "（補充）SGLT2（Sodium glucose cotransporter 2）的抑制劑為降血糖藥，如 {{Canagliflozin、Dapagliflozin|藥名}}",
+  "適應症：青光眼、高山症、{{癲癇|疾病}}",
+  "副作用：代謝性酸中毒、鹼化尿液、{{低血鉀|副作用}}、肝性腦病變、磺胺過敏反應、感覺異常",
+  "連續使用 CAI，會對利尿作用產生{{抗藥性|名詞}}，藥效會降低",
+  "大部分的鋰鹽在近曲小管被再吸收，因此 CAI 會{{加速|性質}}鋰鹽的排泄"
+]);
+kA(26, "Loop diuretics", 165, "Loop diuretics 機轉與特色", [
+  "正常情況下，Na+、K+、Cl- 藉由厚上行支的 Na+/K+/2Cl- cotransporter 送到細胞中，但大部分的 K+ 會再運送回管腔中，因此管腔內相對帶{{正電|名詞}}，管腔內帶正電的 Ca2+、Mg2+ 因為正電互相排斥，會再吸收回細胞",
+  "使用 Loop diuretics 時，阻斷 Na+/K+/2Cl- cotransporter，K+ 無法回到管腔內，管腔內的正電下降，{{Ca2+、Mg2+|物質}} 也無法再送回細胞",
+  "適應症：{{高血鈣|疾病}}、高血鉀、心衰竭造成的{{肺水腫|疾病}}、人體陰離子過量",
+  "副作用：高血糖、高尿酸血症、低血鉀、低血鈣、{{低血鎂|副作用}}、耳毒性"
+]);
+kA(26, "Thiazide diuretics", 166, "Thiazide diuretics 機轉與特色", [
+  "機轉：抑制{{遠曲小管|器官}}上的 Na+/Cl- cotransporter，造成 Na+ 的排除增加，產生利尿的作用",
+  "當 Na+/Cl- cotransport 被抑制時，Na+ 減少，會增加 Na+/Ca2+ 的交換，{{增加 Ca2+ 的再吸收|名詞}}",
+  "適應症：高血壓、心衰竭、{{腎因性尿崩症|疾病}}",
+  "中樞性尿崩症：{{Desmopressin|藥名}} 治療；Li 鹽導致的尿崩症：{{Amiloride|藥名}} 治療",
+  "副作用：{{高血鈣症|副作用}}、高尿酸血症、高血糖、高血脂、低血鉀"
+]);
+kA(26, "保鉀型利尿劑", 167, "集尿管的調節", [
+  "Aldosterone：當血液循環體積減少及血壓下降時會刺激 Aldosterone 分泌，增加 {{Na+|物質}} 的再吸收，並增加 K+ 和 H+ 的排除",
+  "Vasopressin 含 {{9|數值}} 個胺基酸胜肽，由後葉釋放，作用在 {{V2 receptor|標的}}，在集尿管會增加水通道的數量，並增加水的再吸收",
+  "{{Liddle's syndrome|疾病}} 為假性醛固酮過多症，可使用 Triamterene 或 Amiloride 治療"
+]);
+dA(26, "保鉀型利尿劑", 167, "spironolactone", "Spironolactone、Eplerenone", "Spironolactone", {
+  cls: ["保鉀型利尿劑：於集尿管中阻斷 {{Aldosterone|物質}} 的作用"],
+  feat: ["適應症：{{肝硬化造成的腹水|疾病}}、Conn's syndrome、心衰竭", "副作用：{{男性女乳症|副作用}}、高血鉀"] });
+dA(26, "保鉀型利尿劑", 167, "triamterene-amiloride", "Triamterene、Amiloride", "Amiloride", {
+  cls: ["保鉀型利尿劑：於集尿管中阻斷 {{Na+ channel|標的}}"],
+  feat: ["適應症：Amiloride 可用於{{鋰鹽|藥名}}導致的尿崩症、Liddle's syndrome"] });
+dA(26, "Vasopressin antagonist", 167, "conivaptan-tolvaptan", "Conivaptan（IV）、Tolvaptan（PO）", "Tolvaptan", {
+  cls: ["Vasopressin antagonist：阻斷 {{V2 receptor|標的}}，使 {{Aquaporin-2|標的}} 無法產生作用"],
+  feat: ["適應症：高血容積{{低血鈉症|疾病}}、{{SIADH|疾病}}"] });
+dA(26, "Carbonic anhydrase inhibitors", 168, "acetazolamide", "Acetazolamide", null, {
+  cls: ["{{Carbonic anhydrase inhibitors|藥物類別}}"],
+  feat: ["治療{{青光眼|疾病}}、高山症、癲癇治療輔助劑", "副作用：感覺異常、嘔吐", "可增加{{鋰鹽|藥名}}的排泄"] });
+dA(26, "Carbonic anhydrase inhibitors", 168, "methazolamide", "Methazolamide", null, {
+  cls: ["Carbonic anhydrase inhibitors"],
+  struct: ["N 上多一個{{甲基|結構}}取代，降低極性，更容易滲透到眼液中"] });
+dA(26, "Carbonic anhydrase inhibitors", 168, "dichlorphenamide", "Dichlorphenamide", null, {
+  cls: ["Carbonic anhydrase inhibitors"],
+  struct: ["4,5-Dichloro-1,3-benzenedisulfonamide"],
+  feat: ["CAI 中{{最強效|性質}}藥物", "治療青光眼、急性高山症"] });
+dA(26, "Loop diuretics", 168, "furosemide", "Furosemide", null, {
+  cls: ["Loop Diuretics：5-Sulfamoyl-{{2|數值}}-aminobenzoic acid derivatives"],
+  struct: ["為 {{Anthranilic acid|結構}} 衍生物，具 Sulfonamide 結構，含 {{Furan|結構}} 環"],
+  feat: ["可用於肺水腫、心臟衰竭、高鈣血症之患者", "副作用：{{耳毒性|副作用}}"] });
+dA(26, "Loop diuretics", 168, "bumetanide", "Bumetanide", null, {
+  cls: ["Loop Diuretics：5-Sulfamoyl-{{3|數值}}-aminobenzoic acid derivatives"],
+  struct: ["為 {{Metanilic acid|結構}} 衍生物"],
+  feat: ["本類中{{最強效|性質}}藥物"] });
+dA(26, "Loop diuretics", 168, "torsemide", "Torsemide", null, {
+  cls: ["Loop Diuretics：4-amino-pyridyl-3-sulfonylurea"],
+  struct: ["具有 {{Sulfonylurea|結構}}", "解字：T-toluene、O-sulfone、R-urea"],
+  feat: ["本類中{{最長效|性質}}藥物"] });
+dA(26, "Loop diuretics", 168, "ethacrynic-acid", "Ethacrynic acid", null, {
+  cls: ["Loop Diuretics：{{Phenoxyacetic acid|結構}}"],
+  struct: ["氯的位置是在 2-,3- 上"],
+  feat: ["{{非磺胺類|性質}}藥物（不會產生過敏反應）", "副作用：最易造成{{耳毒性|副作用}}", "可與含 {{-SH|結構}} 基之酵素產生共價結合"] });
+kA(26, "Thiazide diuretics", 169, "Thiazide-diuretics SAR", [
+  "N2：小烷基取代（CH3）取代，可{{延長藥效|性質}}",
+  "C3：烷基取代（Haloalkyl、Aralkyl、Thioether），可延長藥效、增加活性",
+  "N4：C3、C4 之間的雙鍵飽和（{{3,4-Dihydro|結構}}），活性會增加 {{10|數值}} 倍",
+  "N4、C5、C8：若有烷基取代，會{{降低|性質}}利尿活性",
+  "C6：{{拉電子基|結構}}取代（Cl、Br、CF3、NO2）可增加活性；推電子基取代（CH3、OCH3），活性降低",
+  "C7：會在 7 號位導入 {{SO2NH2|結構}}（必要基團）",
+  "7 號位之 N 與 2 號位之 N 相比，{{2 號位|結構}}之 N 酸性較強，會在 2 號位與 NaOH 反應形成鈉鹽供靜脈注射（IV）"
+]);
+dA(26, "Thiazide 類利尿劑", 170, "chlorothiazide", "Chlorothiazide", null, {
+  cls: ["Thiazide Diuretics"],
+  struct: ["具有 {{Benzothiadiazine-1,1-dioxide|結構}}"],
+  feat: ["會抑制 insulin 釋放，導致{{血糖上升|副作用}}", "可減少尿液中的{{鈣離子|物質}}，治尿路結石"] });
+dA(26, "Thiazide 類利尿劑", 170, "quinethazone", "Quinethazone", null, {
+  cls: ["Thiazide-like Diuretics：Tetrahydroquinazolinone"],
+  struct: ["結構中含有 {{Quinazolinone|結構}}", "{{Metolazone|藥名}} 亦含有 Quinazolinone"] });
+dA(26, "Thiazide 類利尿劑", 170, "indapamide", "Indapamide", null, {
+  cls: ["Thiazide-like Diuretics：Benzohydrazide"],
+  struct: ["含有 {{Indoline|結構}} 環"],
+  feat: ["同時具有利尿及{{血管放鬆|名詞}}作用"] });
+dA(26, "Thiazide 類利尿劑", 170, "chlorthalidone", "Chlorthalidone", null, {
+  cls: ["Thiazide-like Diuretics"], struct: ["結構特色：{{Phthalimidine|結構}}"] });
+dA(26, "Thiazide 類利尿劑", 170, "xipamide", "Xipamide", null, {
+  cls: ["Thiazide-like Diuretics"], struct: ["結構特色：{{Salicylanilide|結構}}"] });
+mA("spironolactone", 171, {
+  struct: ["在 7 號位有 {{-SCOCH3|結構}} 增加口服活性", "17 號位有 {{γ-Lactone|結構}} 五角環"],
+  feat: ["經由脫去 C7-SCOCH3，生成活性代謝物 {{Canrenone|物質}}（Δ6）", "Eplerenone 9,11 有 {{epoxide|結構}}，相較於 Spironolactone 較不會有男性女乳症的副作用"] });
+mA("triamterene-amiloride", 171, {
+  struct: ["Triamterene：2,4,7-Triamino-6-phenylpteridine，結構上有 3 個胺基，為 {{pteridine|結構}} 衍生物", "Amiloride：具有強鹼性的 {{Guanidino|結構}} 基，為 {{Pyrazine|結構}} 衍生物"],
+  feat: ["4'-hydroxytriamterene 具利尿活性", "Amiloride 噴霧劑可用於 {{Cystic fibrosis|疾病}} 病人"] });
+dA(26, "滲透壓利尿劑", 171, "mannitol", "D-Mannitol", "Mannitol", {
+  cls: ["滲透壓利尿劑（{{Osmotic Diuretics|藥物類別}}）：增加腎小管內過濾液的滲透壓，減少水份的再吸收，增加尿液排出量"],
+  feat: ["可降低顱內壓、眼內壓、治療{{大腦水腫|疾病}}", "副作用：不可使用在{{心衰竭|疾病}}病人"] });
