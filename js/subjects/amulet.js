@@ -2645,3 +2645,204 @@ dA(33, "未分類降血脂藥物", 211, "dextrothyroxine", "Dextrothyroxine", nu
 dA(33, "其他", 211, "probucol", "Probucol", null, {
   cls: ["其他"],
   feat: ["本身是{{抗氧化劑|名詞}}，可降低 LDL 被氧化", "副作用：{{HDL 減少|副作用}}，QT 延長，胃腸道不適"] });
+
+/* ================= 內分泌島（34～39） ================= */
+isleA("endocrine", "內分泌島", { ground: "#E9D29A", light: "#F1E0B6", cliff: "#C4A96A" });
+
+/* ===== 第 34 章 賀爾蒙藥物 ===== */
+chA(34, "34", "賀爾蒙藥物", "212～215");
+kA(34, "內分泌激素簡介", 212, "下視丘、腦下垂體前葉與標的器官", [
+  "GHRH↑ → Growth hormone（Somatotropin）↑ → 肝臟、骨骼、肌肉 → {{IGF-1|物質}}（Insulin-like growth factor）",
+  "CRH↑ → {{ACTH|物質}}↑ → 腎上腺皮質 → Cortisol",
+  "TRH↑ → TSH↑ → 甲狀腺 → Thyroxine、Triiodothyronine",
+  "GnRH = LHRH↑ → {{FSH、LH|物質}}↑ → 性腺 → Estrogen、Progesterone、Testosterone",
+  "{{Dopamine|物質}}↓ → Prolactin↑ → 乳房"
+]);
+kA(34, "GnRH 類似物", 212, "GnRH 結構與類似物", [
+  "Gonadotropin releasing hormone：pGlu-His-Trp-Ser-Tyr-{{Gly6|結構}}-Leu-Arg-Pro9-Gly10-NH2",
+  "GnRH superagonist（10 個胺基酸）：Triptorelin（D-Trp6）、Nafarelin（D-Nal6）",
+  "GnRH superagonist（9 個胺基酸）：{{Leuprolide|藥名}}（D-Leu6、Pro9-NH-Et）、Histrelin（D-His6、Pro9-NH-Et）、Goserelin（D-Ser6、Pro9-NH-NHCONH2）",
+  "GnRH-antagonist（-relix）：{{Ganirelix、Cetrorelix|藥名}}",
+  "Nafarelin 之六號位取代基為 {{D-β-(2-naphthyl alanine)|結構}}",
+  "Nafarelin 為鼻溶液在{{鼻腔|器官}}黏膜易被吸收，易產生戒斷性月經來潮，可治療子宮內膜異位，副作用為鼻炎",
+  "GnRH superagonist 長期使用可以治療{{子宮內膜異位及攝護腺癌|疾病}}，但會造成{{骨質疏鬆|副作用}}",
+  "與 leuprolide 類似，均以 NH-Et 置換結構中的 C-terminal glycine 10-NH2：{{histrelin|藥名}}"
+]);
+dA(34, "GnRH superagonist", 212, "leuprolide", "Leuprolide（GnRH superagonist）", "Leuprolide", {
+  cls: ["{{GnRH superagonist|藥物類別}}（9 個胺基酸）"],
+  struct: ["D-Leu6、Pro9-{{NH-Et|結構}}"],
+  feat: ["長期使用可以治療{{子宮內膜異位及攝護腺癌|疾病}}，但會造成骨質疏鬆"] });
+dA(34, "GnRH-antagonist", 212, "ganirelix-cetrorelix", "Ganirelix、Cetrorelix", "Ganirelix", {
+  cls: ["{{GnRH-antagonist|藥物類別}}（-relix）"] });
+dA(34, "Growth hormone agonist", 213, "somatropin", "Somatropin", null, {
+  cls: ["Growth hormone agonist"],
+  feat: ["作用在 {{GH receptor|標的}} 上，增加 Insulin-like growth factor-1 的製造", "可用於{{侏儒症|疾病}}"] });
+dA(34, "Growth hormone agonist", 213, "mecasermin", "Mecasermin", null, {
+  cls: ["Growth hormone agonist"], feat: ["重組的 {{IGF-I|物質}}，可刺激 IGF-I receptor"] });
+dA(34, "Growth hormone antagonist", 213, "somatostatin", "Somatostatin（體抑素）", "Somatostatin", {
+  cls: ["Growth hormone antagonist"],
+  struct: ["具有 {{14|數值}} 個胺基酸", "具有{{雙硫鍵|結構}}"],
+  feat: ["可治療{{肢端肥大|疾病}}"] });
+dA(34, "Growth hormone antagonist", 213, "octreotide", "Octreotide", null, {
+  cls: ["Growth hormone antagonist：屬於 {{Somatostatin analog|藥物類別}}"],
+  struct: ["以皮下給藥，具 {{8|數值}} 個胺基酸", "具有雙硫鍵；活性結構必須片段：{{Phe-Trp-Lys-Thr|結構}}（本色離席）"],
+  feat: ["用於肢端肥大症、{{食道靜脈曲張出血|疾病}}、門靜脈高壓、胰島瘤、減輕 Achlorhydria（WDHA）syndrome、化療、放射線引起之腹瀉", "副作用：{{膽結石|副作用}}（最常見）、心跳徐緩、B12 缺乏"] });
+dA(34, "Growth hormone antagonist", 213, "pegvisomant", "Pegvisomant", null, {
+  cls: ["Growth hormone antagonist：抑制 {{GH receptor|標的}}"],
+  feat: ["可治療{{肢端肥大症|疾病}}"] });
+dA(34, "Prolactin-antagonist", 213, "bromocriptine", "Bromocriptine", null, {
+  cls: ["Prolactin-antagonist：{{D2-agonist|藥物類別}}"],
+  feat: ["可治療{{肢端肥大症|疾病}}、巴金森氏症、{{高泌乳素血症|疾病}}"] });
+dA(34, "Prolactin-antagonist", 213, "cabergoline", "Cabergoline", null, {
+  cls: ["Prolactin-antagonist：D2-agonist"],
+  feat: ["用於{{高泌乳血症|疾病}}、巴金森氏症"] });
+dA(34, "Oxytocin", 214, "oxytocin", "Oxytocin（催產素）", "Oxytocin", {
+  cls: ["Oxytocin-agonist"],
+  struct: ["X=NH2；Y={{Ile|物質}}；Z={{Leu|物質}}"],
+  feat: ["{{鼻噴劑|劑型}}：可促進產後婦女乳汁分泌", "注射劑：促進子宮收縮，控制子宮出血"] });
+dA(34, "Oxytocin", 214, "atosiban", "Atosiban", null, {
+  cls: ["{{Oxytocin-antagonist|藥物類別}}"],
+  feat: ["減少子宮收縮，用於早產{{安胎|名詞}}"] });
+dA(34, "Vasopressin", 214, "vasopressin", "Vasopressin", null, {
+  cls: ["Vasopressin-agonist"],
+  struct: ["X=NH2；Y={{Phe|物質}}；Z={{Arg|物質}}", "與 Oxytocin 差別在 {{3、8|數值}} 號位"],
+  feat: ["Vasopressin 有兩種受體：{{V1|標的}} 位於血管平滑肌，與血管收縮有關；{{V2|標的}} 位於腎小管細胞，與抗利尿作用有關", "可治療中樞性尿崩症（垂體性尿崩症）"] });
+dA(34, "Vasopressin", 214, "desmopressin", "Desmopressin（DDAVP）", "Desmopressin", {
+  cls: ["Vasopressin-agonist"],
+  struct: ["X={{H|結構}}；Y=Phe；Z=Arg"],
+  feat: ["可促使 VIII 凝血因子和 von Willebrand 因子釋放；可治療{{中樞性尿崩症|疾病}}"] });
+mA("conivaptan-tolvaptan", 214, {
+  feat: ["可治療低血鈉、SIADH；{{Demeclocycline|藥名}} 也可以治療 SIADH"] });
+kA(34, "Oxytocin 與 Vasopressin", 214, "Vasopressin 受體", [
+  "V1（{{Gq|標的}}）：Ca2+；血管收縮 → 血壓上升",
+  "V2（{{Gs|標的}}）：cAMP；增加水通道的數量，促進水分再吸收；促進 Von Willebrand factor 及凝血因子 VIII 釋放",
+  "催產素、抗利尿激素由{{下視丘|器官}}生成，腦下垂體{{後葉|器官}}釋放"
+]);
+kA(34, "蛋白質藥物與胺基酸總數", 215, "蛋白質藥物與胺基酸總數", [
+  "Glucagon {{29|數值}}；Calcitonin（具雙硫鍵）{{32|數值}}；Insulin {{51|數值}}（α21、β30；2 個 interchain，1 個 intrachain）",
+  "Parathyroid hormone {{84|數值}}；Enkephalin 5；Substance P 11",
+  "TRH {{3|數值}}（pyro-Glutamyl-His-Pro amide）；Angiotensin 10；Angiotensin II 8",
+  "具雙硫鍵：Oxytocin {{9|數值}}；Vasopressin 9；Somatostatin {{14|數值}}；Octreotide {{8|數值}}"
+]);
+
+/* ===== 第 35 章 皮質類固醇 ===== */
+chA(35, "35", "皮質類固醇", "216～225");
+kA(35, "皮質類固醇總論", 216, "下視丘-腦下垂體-腎上腺軸", [
+  "下視丘 CRH → 腦下垂體 ACTH → 腎上腺皮質 → {{Hydrocortisone|物質}}（醣質皮質反應：發炎反應↓、免疫反應↓）與 {{Aldosterone|物質}}（礦質皮質反應：留 Na+、排 H+、K+）",
+  "醣質皮質類固醇：抗發炎 → 抑制 {{Phospholipase A2|酵素}} 以及抑制 Cyclooxygenase；降低免疫反應 → 增加 {{IgG|物質}} 分解速率",
+  "醣質長期使用的副作用：糖尿病、{{肌肉萎縮、骨質疏鬆|副作用}}、精神病、消化性潰瘍",
+  "礦質皮質類固醇作用：留鈉、排氫、排鉀；常見副作用：{{低血鉀、高血壓|副作用}}、肌肉無力",
+  "{{Cosyntropin|藥名}}：由人類 ACTH 之 {{1-24|數值}} 個 amino acid 組成，可作為腎上腺皮質功能不全診斷劑",
+  "使用 Steroid 可抑制 ACTH 的分泌，造成抑制腎上腺的作用（即{{負回饋|名詞}}）",
+  "細胞內受體：類固醇、性激素、Thyroxine、Vitamin D"
+]);
+kA(35, "類固醇的 SAR 與藥化特性", 217, "關鍵字與取代基效應", [
+  "藥名有 isone：11 號位有 {{C=O|結構}}；藥名有 isol：11 號位有 {{OH|結構}}",
+  "{{11β-hydroxy|結構}}：與類固醇受體結合的重要官能基",
+  "Pred：1 號位有{{雙鍵|結構}}；Metha：1 號位有雙鍵、9αF、16αCH3",
+  "醣質皮質類固醇↑、礦質皮質類固醇↑：{{9α-F|結構}}、9α-Cl、21-OH",
+  "醣質皮質類固醇↑：1,2-雙鍵、{{6α-F|結構}}、11β-OH",
+  "礦質皮質類固醇↓：6α-CH3、16α-OH、17α-OH；16α & 16β-CH3；16α，17α-acetonide",
+  "B/C 環、C/D 環皆需以 {{trans|結構}} 配置才有活性；固醇結構 All trans 之活性大於 All cis",
+  "21-OH 為活性必需，若被 {{Cl|結構}} 取代，可增加外用抗發炎效力",
+  "雙鍵在 1,2 號位，抗發炎效果增強 {{4-5|數值}} 倍",
+  "礦質皮質取代基強弱順序 {{9→1→6→16|名詞}}",
+  "類固醇分子加上 9α-Fluoro，會使醣質及礦質皮質類固醇作用上升；加上 {{16α-Methyl|結構}}，使醣質皮質類固醇作用上升，礦質皮質類固醇作用下降"
+]);
+kA(35, "消炎活性及礦質活性比較", 218, "類固醇的消炎活性及礦質活性比較", [
+  "短至中效：Hydrocortisone（=Cortisol）消炎 1／外用 1／礦質 1；Cortisone 0.8（C-11 轉為 -OH）／0／0.8；Prednisone {{4|數值}}／0／0.3；Prednisolone {{5|數值}}／4／0.3",
+  "中效：Triamcinolone 5／{{25-100|數值}}／0",
+  "長效（C9、C1、C16 有取代基，抗發炎效果強）：Dexamethasone {{30|數值}}／10／0；Betamethasone {{25-40|數值}}／10／0",
+  "礦質皮質類固醇：Aldosterone 0.2／0.2／{{800|數值}}；Fludrocortisone 10／0／{{250|數值}}；Desoxycorticosterone 0／0／20",
+  "抗發炎口訣：{{Betamethasone > Dexamethasone > Fludrocortisone > Prednisone > Cortisone|藥名}}（炎被他弟殺，父陪你哭）",
+  "鈉水滯留口訣：{{Aldosterone > Fludrocortisone > Desoxycorticosterone|藥名}}（黑道、富人流連於 Disco 舞廳）"
+]);
+kA(35, "類固醇生合成路徑", 219, "類固醇生合成路徑（Katzung 圖）", [
+  "Cholesterol —（Desmolase，被 {{Aminoglutethimide|藥名}} 抑制）→ Pregnenolone",
+  "17α-Hydroxylase 被 {{Ketoconazole、Trilostane|藥名}} 抑制；17,21-Lyase 被 Ketoconazole 抑制",
+  "3β-Dehydrogenase Δ4,Δ5-Isomerase 被 {{Trilostane|藥名}} 抑制",
+  "礦質路徑：Progesterone →（21-Hydroxylase）→ 11-Deoxy-Corticosterone →（11β-Hydroxylase）→ Corticosterone →（18-Hydroxylase）→ {{Aldosterone|物質}}",
+  "醣質路徑：17(OH)-Progesterone →（21-Hydroxylase）→ 11-Deoxy-Cortisol →（11β-Hydroxylase，被 {{Metyrapone、Etomidate|藥名}} 抑制）→ Cortisol",
+  "性激素路徑：DHEA → Δ4-Androstene-3,17-dione ⇌ Testosterone →（{{Aromatase|酵素}}，被 Aminoglutethimide、Anastrozole 抑制）→ Estradiol"
+]);
+dA(35, "抑制類固醇合成", 220, "aminoglutethimide", "Aminoglutethimide", null, {
+  cls: ["{{Desmolase inhibitor|藥物類別}}、Aromatase inhibitor"],
+  feat: ["治療 {{Cushing's syndrome|疾病}}", "乳癌輔助用藥"] });
+dA(35, "抑制類固醇合成", 220, "anastrozole", "Anastrozole", null, {
+  cls: ["{{Aromatase inhibitor|藥物類別}}"], feat: ["治療{{乳癌|疾病}}"] });
+dA(35, "抑制類固醇合成", 220, "mifepristone", "Mifepristone", null, {
+  cls: ["{{Progesterone antagonist|藥物類別}}、Glucocorticoid antagonist"],
+  feat: ["早期{{墮胎|名詞}}", "治療 Cushing's syndrome"] });
+dA(35, "抑制類固醇合成", 220, "trilostane-metyrapone", "Ketoconazole、Trilostane、Metyrapone", "Metyrapone", {
+  cls: ["{{抑制類固醇的合成|名詞}}"],
+  feat: ["治療 Cushing's syndrome", "{{Metyrapone|藥名}}：診斷腎上腺功能"] });
+kA(35, "腎上腺疾病", 220, "疾病、原因與治療", [
+  "愛迪生氏症（{{Addison's disease|疾病}}）：腎上腺皮質激素過少 → 補充 Steroid",
+  "庫欣氏症（{{Cushing's disease|疾病}}）：腎上腺皮質激素過多 → 使用抑制類固醇的合成的藥品",
+  "原發性醛固酮症（{{Conn's syndrome|疾病}}）：缺乏 17α-Hydroxylase → 導致醛固酮合成過多 → 使用醛固酮阻斷劑 {{Spironolactone|藥名}}",
+  "醣質皮質類固醇 OH 合成的順序：{{17→21→11|名詞}}；礦質皮質類固醇 OH 合成的順序：{{21→11→18|名詞}}",
+  "Testosterone（男）→ Estradiol（女）：{{Aromatase|酵素}}",
+  "碳數變化：Cholestrol（27 個 C）→ Pregnenolone（{{21C|數值}}）→ Testosterone（{{19C|數值}}）→ Estrogen（{{18C|數值}}）"
+]);
+dA(35, "Natural steroids", 221, "estradiol", "Estradiol", null, {
+  cls: ["Natural steroids"],
+  struct: ["基本骨架由 {{18|數值}} 個碳原子所組成"],
+  feat: ["抑制{{破骨細胞|名詞}}之活性", "增加血中 {{HDL|物質}} 濃度", "副作用：造成血栓性栓塞疾病、膽汁鬱積性黃疸", "{{口服無效|性質}}"] });
+dA(35, "Natural steroids", 221, "testosterone", "Testosterone", null, {
+  cls: ["Natural steroids"], struct: ["由 {{19|數值}} 個碳原子組成"] });
+dA(35, "Natural steroids", 221, "progesterone", "Progesterone", null, {
+  cls: ["Natural steroids"], struct: ["由 {{21|數值}} 個碳原子組成"] });
+dA(35, "Glucocorticoids", 221, "cortisone", "Cortisone", null, {
+  cls: ["Glucocorticoids（醣質皮質類固醇）"],
+  feat: ["{{外用無效|性質}} → 11 號位要在體內轉化為 {{OH|結構}} 才能與受體結合", "礦質、糖質皮質類固醇效價為 {{0.8|數值}}"] });
+dA(35, "Glucocorticoids", 221, "hydrocortisone", "Hydrocortisone", null, {
+  cls: ["Glucocorticoids"],
+  feat: ["又稱：{{Cortisol|物質}}", "礦質、糖質皮質類固醇效價為 {{1|數值}}"] });
+dA(35, "Glucocorticoids", 221, "prednisolone", "Prednisolone", null, {
+  cls: ["Glucocorticoids"],
+  struct: ["Pred 代表有{{雙鍵|結構}} → 抗發炎藥效增至 4-5 倍"],
+  feat: ["最常使用於{{器官移植|名詞}}的抗排斥藥物", "可外用"] });
+dA(35, "Glucocorticoids", 222, "dexamethasone", "Dexamethasone", null, {
+  cls: ["Glucocorticoids"],
+  struct: ["Metha 代表 1 號位有雙鍵、{{9αF、16αCH3|結構}}"],
+  feat: ["強效的抗發炎活性", "作為 {{Cushing's syndrome|疾病}} 診斷劑", "可用於促進{{胎兒肺功能|名詞}}成熟"] });
+dA(35, "Glucocorticoids", 222, "betamethasone", "Betamethasone", null, {
+  cls: ["Glucocorticoids"],
+  struct: ["Metha 代表 1 號位有雙鍵、9αF、16αCH3", "與 Dexamethasone 的差別 {{16αCH3 → 16βCH3|結構}}"],
+  feat: ["強效的抗發炎活性", "{{最常|性質}}用於促進胎兒肺功能成熟"] });
+dA(35, "Glucocorticoids", 222, "triamcinolone", "Triamcinolone", null, {
+  cls: ["Glucocorticoids"],
+  struct: ["可接 {{acetonide|結構}}，藥效可增至 100 倍", "與 dexamethasone 的差別在於 {{16αOH|結構}}"] });
+dA(35, "Glucocorticoids", 222, "fluocinolone-acetonide", "Fluocinolone acetonide", "Fluocinolone", {
+  cls: ["Glucocorticoids"], struct: ["與 Triamcinolone 的差別在於 {{6αF|結構}}"] });
+dA(35, "Glucocorticoids", 222, "meprednisone", "Meprednisone", null, {
+  cls: ["Glucocorticoids"], feat: ["不會有產生鈉滯留，因為 {{16 有 CH3|結構}}"] });
+dA(35, "吸入型類固醇", 223, "budesonide", "Budesonide", null, {
+  cls: ["{{吸入型類固醇|藥物類別}}"],
+  struct: ["結構{{未含有鹵素|結構}}"],
+  feat: ["一種吸入型類固醇，使用後須{{漱口|名詞}}"] });
+dA(35, "Mineralcorticoids", 223, "aldosterone", "Aldosterone", null, {
+  cls: ["Mineralcorticoids（礦質皮質類固醇）"],
+  feat: ["再吸收 Na+，排除 K+", "治療 {{Addison's disease|疾病}}", "鈉滯留能力{{最強|性質}}（800）"] });
+dA(35, "Mineralcorticoids", 223, "fludrocortisone", "Fludrocortisone", null, {
+  cls: ["Mineralcorticoids"],
+  feat: ["鈉滯留能力第二（{{250|數值}}）", "抗發炎能力（10）", "可治療{{腎上腺增生症|疾病}}（缺乏 21-hydroxylase）"] });
+dA(35, "Mineralcorticoids", 223, "deoxycorticosterone", "Deoxycorticosterone", null, {
+  cls: ["Mineralcorticoids"],
+  feat: ["Na+ 滯留能力第三", "沒有消炎的作用，因為 {{11 號位沒有 OH|結構}} 基"] });
+mA("trilostane-metyrapone", 224, {
+  struct: ["Trilostane 具 {{Steroid|結構}} 結構"],
+  feat: ["Metyrapone：類固醇生合成抑制劑；副作用：{{多毛症|副作用}}"] });
+mA("ketoconazole", 224, { feat: ["抑制類固醇的合成，治療 Cushing' syndrome"] });
+mA("aminoglutethimide", 224, { cls: ["抑制 {{Cholesterol 轉變為 Pregnenolone|名詞}} → 治療 Cushing's syndrome；抑制 Aromatase，可治療乳癌"] });
+mA("mifepristone", 224, {
+  struct: ["具有 {{N,N-Dimethylphenyl|結構}}"],
+  feat: ["口服生體可用率高", "Progesterone-antagonist → 併用 {{Misoprostol|藥名}} 用於性交後緊急避孕藥", "Glucocorticoid-antagonist → 治療 Cushing's syndrome"] });
+mA("spironolactone", 224, { feat: ["Mineralocorticoid antagonist：治療 {{Conn's syndrome|疾病}} 及肝硬化造成的腹水"] });
+kA(35, "類固醇的 SAR 與藥化特性", 225, "補充藥化考點", [
+  "必需基團：基本固醇結構 All trans 之活性大於 All cis；B/C 環、C/D 環皆需以反式（trans）配置才有活性；{{21-OH|結構}} 為活性必需基團",
+  "不含鹵素：{{Desonide、Ciclesonide、Budesonide|藥名}}",
+  "7-Cl：Alclometasone；9-Cl：{{Beclomethasone|藥名}}",
+  "9-Cl、21-Cl：{{Mometasone|藥名}}；9-F、21-Cl：Halobetasol、Halcinonide、Clobetasol",
+  "含有三個 F：{{Fluticasone|藥名}}；16-OH：Triamcinolone、Fluocinolone"
+]);
