@@ -2068,34 +2068,25 @@ isleA("cardio", "心血管島", { ground: "#E8A9B6", light: "#F0C2CB", cliff: "#
 
 /* ===== 第 26 章 利尿劑用藥 ===== */
 chA(26, "26", "利尿劑用藥", "163～171");
-kA(26, "利尿劑作用位置", 163, "腎元作用位置（Katzung 圖）", [
-  "近曲小管：Carbonic Anhydrase Inhibitors — {{Acetazolamide|藥名}}（NaHCO3）",
-  "Osmotic diuretic — {{Mannitol|藥名}}（H2O）",
-  "亨利氏環的厚上行支：Loop diuretics — {{Furosemide|藥名}}（Na+/K+/2Cl-）",
-  "遠曲小管：Thiazide — {{Chlorothiazide|藥名}}（Na+/Cl-）；Parathyroid hormone（PTH）促進 Ca2+ 再吸收",
-  "集尿管：Na+ channel blockers — {{Amiloride|藥名}}；Aldosterone antagonist — {{Spironolactone|藥名}}",
-  "ADH（Vasopressin）促進 H2O 再吸收；ADH antagonist — {{Conivaptan|藥名}}"
-]);
-kA(26, "利尿劑作用位置", 163, "四類利尿劑比較", [
-  "Carbonic Anhydrase Inhibitors：近曲小管上的 Carbonic anhydrase；代謝性{{酸|名詞}}中毒、鹼化尿液；適應症：青光眼、高山症；副作用：感覺異常、肝性腦病變、磺胺過敏反應",
-  "Loop diuretics：亨利氏環之厚上行支的 {{Na+/K+/2Cl- cotransporter|標的}}；代謝性{{鹼|名詞}}中毒、酸化尿液；適應症：{{高血鈣|疾病}}、人體陰離子過量；副作用：高尿酸、高血糖、耳毒性",
-  "Thiazide diuretics：遠曲小管上的 {{Na+/Cl- cotransporter|標的}}；代謝性鹼中毒、酸化尿液；適應症：高血壓、{{腎因性尿崩症|疾病}}；副作用：高尿酸、高血糖、高血脂",
-  "保鉀型利尿劑：{{集尿管|器官}}；代謝性酸中毒、鹼化尿液；Amiloride 可治 {{Liddle's syndrome|疾病}}；副作用：{{高血鉀|副作用}}"
-]);
-kA(26, "Carbonic Anhydrase Inhibitors", 164, "CAI 機轉與特色", [
-  "機轉：抑制近曲小管 {{HCO3-|物質}} 的再吸收，減少 Na+/H+ 之間的交換，造成 Na+、HCO3- 排出增加，H+ 排出減少",
-  "（補充）SGLT2（Sodium glucose cotransporter 2）的抑制劑為降血糖藥，如 {{Canagliflozin、Dapagliflozin|藥名}}",
-  "適應症：青光眼、高山症、{{癲癇|疾病}}",
-  "副作用：代謝性酸中毒、鹼化尿液、{{低血鉀|副作用}}、肝性腦病變、磺胺過敏反應、感覺異常",
-  "連續使用 CAI，會對利尿作用產生{{抗藥性|名詞}}，藥效會降低",
-  "大部分的鋰鹽在近曲小管被再吸收，因此 CAI 會{{加速|性質}}鋰鹽的排泄"
-]);
-kA(26, "Loop diuretics", 165, "Loop diuretics 機轉與特色", [
-  "正常情況下，Na+、K+、Cl- 藉由厚上行支的 Na+/K+/2Cl- cotransporter 送到細胞中，但大部分的 K+ 會再運送回管腔中，因此管腔內相對帶{{正電|名詞}}，管腔內帶正電的 Ca2+、Mg2+ 因為正電互相排斥，會再吸收回細胞",
-  "使用 Loop diuretics 時，阻斷 Na+/K+/2Cl- cotransporter，K+ 無法回到管腔內，管腔內的正電下降，{{Ca2+、Mg2+|物質}} 也無法再送回細胞",
-  "適應症：{{高血鈣|疾病}}、高血鉀、心衰竭造成的{{肺水腫|疾病}}、人體陰離子過量",
-  "副作用：高血糖、高尿酸血症、低血鉀、低血鈣、{{低血鎂|副作用}}、耳毒性"
-]);
+kA(26, "利尿劑作用位置", 163, "腎元作用位置（Katzung 圖）", { images: ["assets/amulet/fig/kidney.png"] });
+kA(26, "利尿劑作用位置", 163, "四類利尿劑比較", { table: { head: ["", "Carbonic Anhydrase Inhibitors", "Loop diuretics", "Thiazide diuretics", "保鉀型利尿劑"], rows: [
+  [{ t: "作用位置", b: true }, "近曲小管上的\nCarbonic anhydrase", "亨利式環之厚上行支的\n{{Na+/K+/2Cl- cotransporter|標的}}", "遠曲小管上的\n{{Na+/Cl- cotransporter|標的}}", "{{集尿管|器官}}"],
+  [{ t: "人體 pH", b: true }, "代謝性{{酸|名詞}}中毒", "代謝性{{鹼|名詞}}中毒", "代謝性鹼中毒", "代謝性酸中毒"],
+  [{ t: "尿液 pH", b: true }, "鹼化尿液", "酸化尿液", "酸化尿液", "鹼化尿液"],
+  [{ t: "適應症", b: true }, "青光眼、高山症", "{{高血鈣|疾病}}、人體陰離子過量", "高血壓、{{腎因性尿崩症|疾病}}", "Amiloride\n可治 {{Liddle's syndrome|疾病}}"],
+  [{ t: "副作用", b: true }, "感覺異常、肝性腦病變、\n磺胺過敏反應", "高尿酸、高血糖、耳毒性", "高尿酸、高血糖、高血脂", "{{高血鉀|副作用}}"] ] } });
+kA(26, "Carbonic Anhydrase Inhibitors", 164, "CAI 機轉與特色", { images: ["assets/amulet/fig/pct.png"], points: [
+  "1. 機轉：抑制近曲小管 {{HCO3-|物質}} 的再吸收，減少 Na+／H+ 之間的交換，造成 Na+、HCO3- 排出增加，H+ 排出減少",
+  "（補充）：SGLT2（Sodium glucose cotransporter 2），其抑制劑為降血糖藥，如 {{Canagliflozin、Dapagliflozin|藥名}}",
+  "2. 適應症：青光眼、高山症、{{癲癇|疾病}}",
+  "3. 副作用：代謝性酸中毒、鹼化尿液、{{低血鉀|副作用}}、肝性腦病變、磺胺過敏反應、感覺異常",
+  "✧ 連續使用 CAI，會對利尿作用產生{{抗藥性|名詞}}，藥效會降低",
+  "✧ 大部分的鋰鹽在近曲小管被再吸收，因此 CAI 會{{加速|性質}}鋰鹽的排泄" ] });
+kA(26, "Loop diuretics", 165, "Loop diuretics 機轉與特色", { images: ["assets/amulet/fig/loop.png"], points: [
+  "1. 機轉：正常情況下，Na+、K+、Cl- 藉由 Loop 厚上行支的 Na+／K+／2Cl- cotransporter 送到細胞中，但是大部分的 K+ 會再運送回管腔中，因此管腔內相對帶{{正電|名詞}}，管腔內帶正電的 Ca+、Mg+ 因為正電互相排斥，會再吸收回細胞。",
+  "2. 使用 Loop diuretics 時，因為阻斷 Na+／K+／2Cl- cotransporter，使 Na+、K+、Cl- 無法送到細胞，K+ 無法回到管腔內，此時管腔內的正電下降，{{Ca+、Mg+|物質}} 也無法再送回細胞。",
+  "3. 適應症：{{高血鈣|疾病}}、高血鉀、心衰竭造成的{{肺水腫|疾病}}、人體陰離子過量",
+  "4. 副作用：高血糖、高尿酸血症、低血鉀、低血鈣、{{低血鎂|副作用}}、耳毒性" ] });
 kA(26, "Thiazide diuretics", 166, "Thiazide diuretics 機轉與特色", [
   "機轉：抑制{{遠曲小管|器官}}上的 Na+/Cl- cotransporter，造成 Na+ 的排除增加，產生利尿的作用",
   "當 Na+/Cl- cotransport 被抑制時，Na+ 減少，會增加 Na+/Ca2+ 的交換，{{增加 Ca2+ 的再吸收|名詞}}",
