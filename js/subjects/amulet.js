@@ -2456,34 +2456,28 @@ dA(29, "Other antiarrhythmic drugs", 191, "adenosine", "Adenosine", null, {
 
 /* ===== 第 30 章 心臟衰竭 ===== */
 chA(30, "30", "心臟衰竭", "192～196");
-kA(30, "心臟衰竭病生理學及藥物機轉", 192, "心衰竭惡性循環與藥物作用點", [
-  "心臟衰竭 → 心輸出量↓ → 活化交感神經系統 → 交感活性↑（{{β-blockers|藥物類別}} 抑制）→ 血管收縮（長期 → 心肌肥大）→ {{後負荷|名詞}}↑",
-  "交感活性經 β1 促進 Renin 分泌；心輸出量↓ 也會活化 RAAS：Renin → Angiotensin I →（{{ACEI|藥物類別}} 抑制）→ Angiotensin II →（{{ARB|藥物類別}} 抑制）→ Aldosterone（{{Spironolactone|藥名}} 抑制）",
-  "Aldosterone → 鈉水滯留（{{Diuretics|藥物類別}} 抑制）→ 靜脈壓↑ → {{前負荷|名詞}}↑",
-  "{{血管擴張劑|藥物類別}} 降低前、後負荷；{{強心劑|藥物類別}} 增加心輸出量"
-]);
-kA(30, "心臟衰竭病生理學及藥物機轉", 193, "心衰竭治療藥物分類", [
-  "抑制交感神經系統：血管擴張劑（Nitrates 類、Hydralazine、Minoxidil）；β-blocker（{{Bisoprolol、Metoprolol、Carvedilol|藥名}}）",
-  "抑制 RAAS：ACE inhibitor（Captopril）；ARB（Valsartan）；Aldosterone antagonist（{{Spironolactone、Eplerenone|藥名}}）",
-  "減緩醛固酮引起的鈉水滯留：利尿劑（HF 合併水腫可使用 {{Loop 併用 Thiazide|藥物類別}}）：Furosemide、Thiazide",
-  "強心劑：強心配醣體（{{Digoxin|藥名}}）；β1 agonist（{{Dobutamine|藥名}}）；PDE3 inhibitors（{{Amrinone、Milrinone|藥名}}）",
-  "當出現心衰竭時，心輸出量會減少，患者會產生代償反應：交感神經系統（刺激心跳速率與收縮並使血管阻力增加來維持血壓）、活化 RAAS",
-  "這些系統若長期處於高度活化狀態，會讓心臟做功增加，加速惡化心衰竭，因此希望藥物可以「抑制交感及腎素系統」，並降低心臟負荷以及增加心肌的收縮力"
-]);
+kA(30, "心臟衰竭病生理學及藥物機轉", 192, "心衰竭惡性循環與藥物作用點（Pharmacotherapy of CHF 圖）", { images: ["assets/amulet/fig/hf-cycle.png"] });
+kA(30, "心臟衰竭病生理學及藥物機轉", 193, "心衰竭治療藥物分類", { table: { head: ["機轉", "藥理分類", "藥名"], rowNames: ["血管擴張劑", "β-blocker", "ACE inhibitor", "ARB", "Aldosterone antagonist", "利尿劑", "強心配醣體", "β1 agonist", "PDE3 inhibitors"], rows: [
+  [{ t: "抑制交感神經系統", b: true, rs: 2 }, "血管擴張劑", "Nitrates 類、Hydralazine、Minoxidil"],
+  [null, "β-blocker", "{{Bisoprolol、Metoprolol、Carvedilol|藥名}}"],
+  [{ t: "抑制 RAAS", b: true, rs: 3 }, "ACE inhibitor", "Captopril"],
+  [null, "ARB", "Valsartan"],
+  [null, "Aldosterone antagonist", "{{Spironolactone、Eplerenone|藥名}}"],
+  [{ t: "減緩醛固酮引起的鈉水滯留", b: true }, "利尿劑（HF 合併水腫可使用 {{Loop 併用 Thiazide|藥物類別}}）", "Furosemide、Thiazide"],
+  [{ t: "強心劑", b: true, rs: 3 }, "強心配醣體", "{{Digoxin|藥名}}"],
+  [null, "β1 agonist", "{{Dobutamine|藥名}}"],
+  [null, "PDE3 inhibitors", "{{Amrinone、Milrinone|藥名}}"] ],
+  note: "✧ 當出現心衰竭時，心輸出量會減少，患者會產生代償反應：交感神經系統（刺激心跳速率與收縮並使血管阻力增加來維持血壓）、活化 RAAS\n✧ 這些系統若長期處於高度活化狀態，會讓心臟做功增加，加速惡化心衰竭，因此希望藥物可以「抑制交感及腎素系統」，並降低心臟負荷以及增加心肌的收縮力" } });
 mA("digoxin-arrhythmia", 194, {
   cls: ["治療心衰竭：抑制 {{Na+/K+ ATPase|標的}} → 細胞內 Na+ 堆積 → 作用在 Ca2+/Na+ transporter → Ca2+ 進入細胞內 → 細胞內 Ca2+ 濃度上升 → 增加心肌收縮力", "治療心房顫動：增加副交感神經作用 → 抑制房室節（AV node）→ PR 間距延長 → 間接使心跳速率變慢"],
   feat: ["適應症：心衰竭、心房顫動、上心室性心跳過快", "禁用於 {{Wolff-Parkinson-White syndrome|疾病}} 患者", "中毒症狀：腹瀉、嘔吐、迷失方向感、視幻覺（{{黃綠視覺|副作用}}）、心跳減慢；{{低血鉀|名詞}}、低血鎂、高血鈣會增加毛地黃中毒的症狀", "處理方式：用 Class IB（Lidocaine、Phenytoin）、給予 {{Digoxin immune Fab|藥名}}、補充血鉀、血鎂、Atropine", "治療劑量範圍：心衰竭 {{0.5-0.8 ng/ml|數值}}；心律不整 0.8-1.5 ng/ml → 安全有效治療劑量範圍非常狹窄", "Digoxin 屬於 {{P-gp|標的}} 受質：Amiodarone、Verapamil、Quinidine、Ketoconazole、Erythromycin 會抑制 P-gp，使 Digoxin 濃度增加", "Thiazide、Furosemide 造成低血鉀 → Digoxin↑；Spironolactone 會降低 Digoxin 清除率", "{{Cholestyramine、Colestipol|藥名}} 降低 Digoxin 在胃的吸收 → Digoxin↓"] });
-kA(30, "強心配糖體", 195, "強心配糖體比較與考試重點", [
-  "Digitoxin（C3、C14-OH）；Gitoxin（C3、C14、C16-OH）；Digoxin（{{C3、C12、C14-OH|結構}}）",
-  "Digoxin：生體可用率 75%；蛋白結合率 25-30%；半衰期 {{1.5 天|數值}}；主要由{{腎臟|器官}}排除；口服劑量 0.75-1.5 mg",
-  "Digitoxin：生體可用率 95%-100%；蛋白結合率 {{90-95%|數值}}；半衰期 5-7 天；主要由{{肝臟|器官}}排除；口服劑量 0.8-1.2 mg",
-  "A-B / B-C / C-D 環之連結方式：{{cis / trans / cis|結構}}",
-  "強心活性：{{C14β-OH|結構}}、C17-unsaturated lactone 和 A-B / C-D cis fused",
-  "除了 {{C9-α|結構}}，其餘位置皆是以 β 方式連接",
-  "醣基以 {{β-1,4|結構}} 鍵結在 C3",
-  "Digoxin = digitoxose-digitoxose-digitoxose-{{digoxigenin|物質}}",
-  "{{Ouabain|藥名}} 僅能以靜脈注射，主要由腎排泄"
-]);
+kA(30, "強心配糖體", 195, "強心配糖體結構比較", { images: ["assets/amulet/fig/cardiac-glycosides.png"], table: { head: [[{ t: "強心配糖體比較", cs: 3 }, null, null], ["藥物比較", "Lanatoside C → Digoxin", "Lanatoside A → Digitoxin"]], cols: ["藥物比較", "Digoxin", "Digitoxin"], rows: [
+  [{ t: "生體可用率", b: true }, "75%", "95%-100%"],
+  [{ t: "蛋白結合率", b: true }, "25-30%", "{{90-95%|數值}}"],
+  [{ t: "半衰期", b: true }, "{{1.5 天|數值}}", "5-7 天"],
+  [{ t: "主要排除路徑", b: true }, "{{腎臟|器官}}", "{{肝臟|器官}}"],
+  [{ t: "口服劑量(mg)", b: true }, "0.75-1.5", "0.8-1.2"] ],
+  note: "強心配糖體考試重點：\n✧ A-B／B-C／C-D 環之連結方式：{{cis / trans / cis|結構}}\n✧ 強心活性：{{C14β-OH|結構}}、C17-unsaturated lactone 和 A-B／C-D cis fused\n✧ 除了 {{C9-α|結構}}，其餘位置皆是以 β 方式連接\n✧ 醣基以 {{β-1,4|結構}} 鍵結在 C3\n✧ Digoxin = digitoxose-digitoxose-digitoxose-{{digoxigenin|物質}}\n✧ {{Ouabain|藥名}} 僅能以靜脈注射，主要由腎排泄" } });
 mA("dobutamine", 196, { feat: ["β1 agonist：具有強心作用，可治療{{心衰竭|疾病}}；對 dopamine receptor 無效"] });
 dA(30, "Phosphodiesterase 3 inhibitors", 196, "amrinone-milrinone", "Amrinone、Milrinone", "Milrinone", {
   cls: ["{{Phosphodiesterase 3|酵素}} inhibitors"],
