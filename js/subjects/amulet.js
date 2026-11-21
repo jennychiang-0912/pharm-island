@@ -3012,10 +3012,6 @@ kA(38, "T3 T4 比較", 236, "T3 T4 特色", [
   "甲狀腺生合成的前驅物為 {{L-Tyrosine|物質}}",
   "體內濃度：{{T4 > T3|名詞}}"
 ]);
-dA(38, "Thioamides", 237, "propylthiouracil", "Propylthiouracil（PTU）", "PTU", {
-  cls: ["抑制 Peroxidase、碘化、偶合、抑制 {{5'-deiodinase|酵素}}"],
-  struct: ["均含有 {{Thioamide|結構}}", "活性必需基團：{{N1 不接取代基|結構}}；增加活性：C6 接烷基"],
-  feat: ["血中半衰期 {{75 分鐘|數值}}；作用強度 1；Onset 快；一天 1-4 次", "通過胎盤低；在乳汁的濃度低；{{孕婦首選|族群}}（懷孕前期可用）", "可治療{{甲狀腺風暴|疾病}}", "副作用：{{肝毒性|副作
 dA(38, "Thioamide", 237, "ptu", "Propylthiouracil（PTU）", "PTU", {
   cls: ["抑制 Peroxidase、碘化、偶合、抑制 {{5'-deiodinase|酵素}}"],
   struct: ["均含有 {{Thioamide|結構}}", "活性必需基團：{{N1 不接取代基|結構}}；增加活性：C6 接烷基"],
