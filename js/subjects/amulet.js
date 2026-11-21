@@ -2503,37 +2503,27 @@ kA(30, "強心配糖體", 196, "心衰竭用藥重點", [
 
 /* ===== 第 31 章 凝血藥物 ===== */
 chA(31, "31", "凝血藥物", "197～202");
-kA(31, "Warfarin 抗凝血機轉", 197, "Warfarin 抗凝血機轉圖（Katzung 圖）", [
-  "Vitamin KH2（{{活性型|名詞}}）經 Vitamin K Carboxylase 把 Descarboxy prothrombin 羧基化成 Prothrombin（II），自己變成 Vitamin K epoxide（無活性）",
-  "Vitamin K epoxide 經 {{Vitamin K reductase|酵素}}（NADH → NAD+）還原回 Vitamin KH2；Warfarin 阻斷這一步",
-  "Warfarin 作用在{{肝臟|器官}}，並且阻斷 Vitamin K reductase，使氧化型（無活性型）Vitamin K 無法轉變為還原型（活性型）Vitamin K",
-  "其中凝血因子 {{II、VII、IX、X|名詞}} 必須依靠活性型 Vitamin K 才能夠活化，因此 Warfarin 阻斷凝血因子 II、VII、IX、X 的形成",
-  "Warfarin 會減少 vitamin K dependent 的凝血因子、減少 protein C 及 protein S、會與許多藥物產生交互作用；{{不是|性質}}以 bleeding time 來監測其治療效果"
-]);
-kA(31, "凝血路徑", 198, "凝血路徑圖與抗凝血藥物", [
-  "VII + TF → VIIa-TF → IX → IXa → X → Xa → Prothrombin（II）→ Thrombin（IIa）→ Fibrinogen（I）→ Fibrin（Ia）",
-  "Direct factor Xa inhibitors：{{Rivaroxaban、Apixaban|藥名}} 抑制 Xa",
-  "AT III + Pentasaccharide（{{Fondaparinux|藥名}}）抑制 Xa；AT III + {{Heparin、Dalteparin|藥名}} 抑制 Xa、IIa",
-  "Direct thrombin inhibitors：{{Hirudin、Dabigatran、Argatroban|藥名}} 抑制 IIa",
-  "Protein C + Thrombomodulin → Activated protein C，加上 Protein S 使 Va、VIIIa 失活",
-  "Warfarin 抑制 II、VII、IX、X、{{Protein C & Protein S|物質}}；Unfractionated heparin 抑制 IIa、Xa；LMWH（Enoxaparin、Dalteparin）抑制 {{Xa > IIa|名詞}}；Fondaparinux 抑制 Xa",
-  "使用 Warfarin 後，{{VII|名詞}} 之血中濃度降低最快",
-  "Warfarin 抑制 Protein C & Protein S 會造成{{皮膚壞死|副作用}}",
-  "Heparin、Dalteparin、Fondaparinux 屬於間接作用劑，必須與 {{Antithrombin III|物質}} 結合後才可以抑制凝血因子；Argatroban、Rivaroxaban 屬於直接作用劑"
-]);
-kA(31, "抗血小板藥物", 199, "抗血小板藥物（治動脈血栓）（Katzung 圖）", [
-  "{{Aspirin|藥名}}：不可逆抑制 {{Cyclooxygenase|酵素}}（Arachidonic acid → Thromboxane A2），且低劑量 Aspirin 可治療動脈血栓",
-  "{{Ticlopidine、Clopidogrel、Prasugrel|藥名}}（ADP Receptors inhibitors）：當 ADP 作用在 {{P2Y12 receptor|標的}} 上，可促進血小板的凝集，本類藥物藉由不可逆阻斷 P2Y12 receptor 來減少凝集作用",
-  "{{Dipyridamole、Cilostazol|藥名}}：阻斷 {{PDE3|酵素}} 可以增加 cAMP，cAMP↑ 會抑制血小板凝集",
-  "{{Tirofiban、Eptifibatide、Abciximab|藥名}}：阻斷 {{Glycoprotein IIb/IIIa receptor|標的}} 來抑制血小板凝集"
-]);
-kA(31, "纖維蛋白溶解系統", 200, "纖維蛋白溶解系統（Fibrinolytic system）（Katzung 圖）", [
-  "Plasminogen → Plasmin → 使 Fibrin 變成 Degradation production（降解產物）",
-  "Plasmin 可以幫助 Fibrin（血栓單體）降解，因此促進 {{Plasmin|物質}} 的形成可幫助血栓溶解",
-  "{{Alteplase（t-PA）、Urokinase|藥名}} 幫助 Plasminogen 轉變為 Plasmin，可以促進血栓的溶解",
-  "{{Streptokinase|藥名}} 的作用可分為兩步驟，先與 Activator 結合後，再使 Plasminogen 轉變為 Plasmin（血栓溶解劑）",
-  "{{Aminocaproic acid|藥名}}（與 Tranexamic acid）抑制 Plasminogen 轉變為 Plasmin，因此抑制血栓的溶解，可作為{{止血劑|藥物類別}}"
-]);
+kA(31, "Warfarin 抗凝血機轉", 197, "Warfarin 抗凝血機轉圖（Katzung 圖）", { images: ["assets/amulet/fig/warfarin-mech.png"], points: [
+  "Warfarin 作用在{{肝臟|器官}}，並且阻斷 Vitamin K reductase，使氧化型（無活性型）Vitamin K 無法轉變為還原型（活性型）Vitamin K，其中凝血因子 {{II、VII、IX、X|名詞}} 必須依靠活性型 Vitamin K 才能夠活化，因此 Warfarin 阻斷凝血因子 II、VII、IX、X 的形成。",
+  "下列有關 warfarin 的敘述何者為非？\n(A) 減少 vitamin K dependent 的凝血因子，而達到抗凝血效果 (B) 減少 protein C 及 protein S (C) 會與許多藥物產生藥物交互作用 (D) 使用時常以 bleeding time 來監測其治療效果\n選 {{D|名詞}}"
+] });
+kA(31, "凝血路徑", 198, "凝血路徑圖與抗凝血藥物", { images: ["assets/amulet/fig/coag-pathway.png"], table: { head: ["抗凝血藥物", "抑制凝血因子"], rows: [
+  [{ t: "Warfarin", b: true }, "II、VII、IX、X、{{Protein C ＆ Protein S|物質}}"],
+  [{ t: "Unfractionated heparin", b: true }, "IIa、Xa"],
+  [{ t: "Low-molecular-weight heparin：Enoxaparin、Dalteparin", b: true }, "{{Xa > IIa|名詞}}"],
+  [{ t: "Pentasaccharide：Fondaparinux", b: true }, "Xa"] ],
+  note: "✧ 使用 Warfarin 後，{{VII|名詞}} 之血中濃度降低最快\n✧ Warfarin 抑制 Protein C ＆ Protein S 會造成{{皮膚壞死|副作用}}\n✧ Heparin、Dalteparin、Fondaparinux 屬於間接作用劑，必須與 {{Antithrombin III|物質}} 結合後才可以抑制凝血因子\n✧ Argatroban、Rivaroxaban 屬於直接作用劑" } });
+kA(31, "抗血小板藥物", 199, "抗血小板藥物（治動脈血栓）（Katzung 圖）", { images: ["assets/amulet/fig/antiplatelet.png"], table: { head: ["藥物", "機轉簡介"], rows: [
+  [{ t: "Aspirin", b: true }, "{{不可逆|性質}}抑制 {{Cyclooxygenase|酵素}}，且低劑量 Aspirin 可治療動脈血栓"],
+  [{ t: "Ticlopidine、Clopidogrel、Prasugrel", b: true }, "當 ADP 作用在 {{P2Y12 receptor|標的}} 上，可促進血小板的凝集，本類藥物藉由不可逆阻斷 P2Y12 receptor 來減少凝集作用"],
+  [{ t: "Dipyridamole、Cilostazol", b: true }, "阻斷 {{PDE3|酵素}} 可以增加 cAMP，cAMP↑ 會抑制血小板凝集"],
+  [{ t: "Tirofiban、Eptifibatide、Abciximab", b: true }, "阻斷 {{Glycoprotein IIb/IIIa receptor|標的}} 來抑制血小板凝集"] ] } });
+kA(31, "纖維蛋白溶解系統", 200, "纖維蛋白溶解系統（Fibrinolytic system）（Katzung 圖）", { images: ["assets/amulet/fig/fibrinolysis.png"], points: [
+  "Plasmin 可以幫助 Fibrin（血栓單體）降解。因此促進 {{Plasmin|物質}} 的形成可幫助血栓溶解",
+  "{{Alteplase、Urokinase|藥名}} 幫助 Plasminogen 轉變為 Plasmin，可以促進血栓的溶解",
+  "{{Streptokinase|藥名}} 的作用可分為兩步驟，先與 Activator 結合後，再使 Plasminogen 轉變為 Plasmin",
+  "{{Aminocaproic acid|藥名}} 抑制 Plasminogen 轉變為 Plasmin，因此抑制血栓的溶解，可作為{{止血劑|藥物類別}}"
+] });
 dA(31, "Anticoagulants", 201, "heparin", "Heparin（Unfractionated heparin）", "Heparin", {
   cls: ["Anticoagulants：與 {{Antithrombin III|物質}} 結合並抑制 IIa、Xa"],
   struct: ["帶負電（{{SO3-、COO-|結構}}）", "可透過{{五個|數值}}糖分子上的陰離子，與 antithrombin III 結合"],
