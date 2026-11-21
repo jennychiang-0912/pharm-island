@@ -3082,3 +3082,33 @@ dA(39, "增加胰島素敏感性", 240, "tzd", "Pioglitazone、Rosiglitazone", "
   cls: ["Thiazolidinediones（TZD）：為 {{PPAR-γ agonist|藥物類別}}，可增加肌肉及脂肪組織對胰島素的敏感性"] });
 dA(39, "其他", 240, "pramlintide", "Pramlintide", null, {
   cls: ["{{Amylin analogs|藥物類別}}：抑制升糖素的分泌"] });
+mA("sulfonylurea", 241, {
+  feat: ["Tolbutamide：作用時間{{最短|性質}}，適用於老年人 → 因 {{Toluene|結構}} 上的甲基易被氧化", "Chlorpropamide：{{半衰期最長|性質}} → 因苯環上 CH3 改為 {{Cl|結構}}，因此不易被代謝；易引起 {{Disulfiram reaction|副作用}}", "Glyburide：容易引起{{低血糖|副作用}}副作用，應避免用於年長者；屬於 2nd Sulfonylureas 藥物", "Glimepiride（Amaryl）主要經由 {{2C9|酵素}} 代謝"] });
+mA("meglitinide", 241, {
+  feat: ["Repaglinide：不屬於 Sulfonylurea 衍生物；腎功能不全者{{不須|性質}}調劑量", "Nateglinide：結構具有 {{Phenylalanine|結構}}；肝腎功能不全者不須調劑量；代謝：異丙基上形成雙鍵或加 OH（主要）"] });
+mA("metformin", 241, {
+  feat: ["副作用：腹瀉、體重減輕、消化不良、{{乳酸中毒|副作用}}、長期使用會影響 {{B12|物質}} 的吸收、接受顯影劑檢查宜暫停使用", "腎功能不全者（{{eGFR<30|數值}}）禁用，心衰竭患者不可使用"] });
+mA("tzd", 241, {
+  feat: ["副作用：肝毒、{{水腫|副作用}}（HF 患者不可用）、體重上升、骨質疏鬆", "{{Troglitazone|藥名}} 會造成肝毒性現已下架", "Rosiglitazone 會造成{{心毒性|副作用}}", "Fibrates 類藥物作用在 {{PPAR-α|標的}}"] });
+dA(39, "其他", 242, "muraglitazar", "Muraglitazar", null, {
+  cls: ["{{Glitazar|藥物類別}}"], feat: ["可同時降低{{血糖及三酸甘油脂|物質}}"] });
+mA("alpha-glucosidase-inhibitors", 242, {
+  feat: ["副作用：胃腸道{{脹氣、腹瀉|副作用}}", "{{隨餐|名詞}}服用（吃第一口時一起服用）", "Acarbose 含有 {{carvosine|結構}}"] });
+mA("glp1", 242, {
+  struct: ["Exenatide（{{39|數值}} 個胺基酸）；Lixisenatide（末端接上 6 個 lysine）；Albiglutide（以 {{albumin|物質}} 當載體）；Dulaglutide（接上 IgG4）；Liraglutide（結構具有 {{16|數值}} 碳脂肪酸）；Semaglutide（結構具有 18 碳脂肪酸）"],
+  feat: ["此類藥品即是模擬 GLP-1 的胜肽序列達到控制血糖的作用", "GLP 分泌一段時間後會被 {{DPP-4|酵素}} 分解成無活性的代謝物", "{{胰臟炎|疾病}}患者不可使用"] });
+mA("dpp4", 243, {
+  cls: ["DPP-4（Dipeptidyl peptidase-4）本身是一種 {{Serine|名詞}} protease，抑制它可使 GLP-1 不被代謝，增加 GLP-1 的作用時間"],
+  struct: ["Saxagliptin、Vildagliptin 含 {{Pyrrolidine|結構}}", "Saxagliptin 結構中不含 {{Nitro|結構}} 基團"] });
+mA("sglt2-inhibitors", 243, { feat: ["副作用：尿中含糖量增加，所以增加{{泌尿道感染|副作用}}的機率"] });
+mA("pramlintide", 243, { struct: ["此藥是將 Amylin 的胺基酸序列 {{25、28、29|數值}} 以 {{Proline|物質}} 置換而得"] });
+kA(39, "DPP-IV 抑制劑總整理", 244, "DPP-IV 抑制劑比較", [
+  "生體可用率：Vildagliptin（Galvus）{{90%|數值}}；Sitagliptin（Januvia）87%；Saxagliptin（Onglyza）67%；Alogliptin（Nesina）63%；Linagliptin（Tradjenta）{{30%|數值}}",
+  "血漿蛋白結合率：Vildagliptin <10%；Sitagliptin 38%；Saxagliptin <10%；Linagliptin {{70-80%|數值}}",
+  "DPP-IV 屬於 {{Serine protease|酵素}}，Saxagliptin 之 {{CN|結構}} 可與之結合",
+  "Vildagliptin 結構含 {{aminoacylpyrrolidine|結構}}",
+  "Sitagliptin 結構含 {{6 個 F 及 Piperazine+Pyrazole|結構}}",
+  "Saxagliptin 結構含 aminoacylpyrrolidine，經 3A4 形成 {{5-OHSaxagliptin|物質}}",
+  "Alogliptin 結構含 {{Pyrimidine 及 CN|結構}}",
+  "Linagliptin 具 {{Xanthine|結構}}，Piperidine 與丁炔可增加對 DPP-IV 之親和力"
+]);
