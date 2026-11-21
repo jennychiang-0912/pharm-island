@@ -884,16 +884,29 @@ kA(6, "Penicillins", 41, "Penicillins 結構與抗酸抗酶", { table: { head: [
   [null, { img: "assets/amulet/oxacillin.png", t: "Oxacillin" }, { img: "assets/amulet/dicloxacillin.png", t: "Dicloxacillin" }, "", "", ""],
   [{ t: "不抗酸不抗酶\n抗綠膿桿菌", b: true, rs: 2 }, { t: "Carbenicillin", b: true }, { t: "Ticarcillin", b: true }, { t: "Azlocillin", b: true }, { t: "Mezlocillin", b: true }, { t: "Piperacillin", b: true }],
   [null, { img: "assets/amulet/carbenicillin.png", t: "Carbenicillin" }, { img: "assets/amulet/ticarcillin.png", t: "Ticarcillin" }, { img: "assets/amulet/azlo-mezlo-piperacillin.png", t: "Azlocillin" }, { img: "assets/amulet/azlo-mezlo-piperacillin-2.png", t: "Mezlocillin" }, { img: "assets/amulet/azlo-mezlo-piperacillin-3.png", t: "Piperacillin" }] ] } });
-kA(6, "Cephalosporins", 42, "Cephalosporins 藥理特色", [
-  "機轉：抑制 {{Transpeptidase|酵素}} 抑制細菌細胞壁的合成",
-  "可否進入 BBB：第一、二代皆不能進入 BBB，除了 {{Cefuroxime|藥名}}；第三代可入 BBB，除了 {{Cefoperazone|藥名}}",
-  "抗菌範圍大原則：一代到三代的抗菌範圍對 G(+) 越來越{{差|性質}}，對 G(-) 則越來越好；四代則是對 G(+)、G(-) 都有效",
-  "大多為腎臟代謝，由肝臟排除：{{Ceftriaxone、Cefoperazone|藥名}}",
-  "三號位為 H：{{Ceftizoxime、Ceftibuten|藥名}}",
-  "3rd 生體可用率高（口服）：{{Ceftibuten、Cefixime、Cefdinir|藥名}}",
-  "3rd 中無 Thiazole：{{Cefoperazone|藥名}}",
-  "基本骨架：含 {{Dihydrothiazine|結構}} 及 β-lactam；C2、C3 以雙鍵連結；C4 接氫"
-]);
+kA(6, "Cephalosporins", 42, "Cephalosporins 藥理特色", { table: { head: ["分類", "藥名", "藥物特色"], rowNames: ["Cephalexin", "Cefadroxil", "Cephradine", "Cefazolin", "Cefaclor", "Cefuroxime", "Cefamandole", "Cefonicid", "Cefoxitin", "Cefotetan、Cefmetazole", "Ceftazidime", "Cefoperazone", "Cefotaxime", "Ceftriaxone", "Ceftizoxime", "Cefixime", "Ceftibuten", "Moxalactam", "Cefpirome、Cefepime", "Ceftaroline"],
+  rows: [
+  [{ t: "第一代\n不能通過 BBB\n主要抗 {{G(+)|名詞}}", b: true, rs: 4 }, "Cephalexin", "具有和 {{Ampicillin|藥名}} 相同的側鏈"],
+  [null, "Cefadroxil", "具有和 {{Amoxicillin|藥名}} 相同的側鏈"],
+  [null, "Cephradine", "可以注射與口服使用"],
+  [null, "Cefazolin", "{{手術前預防性|名詞}}抗生素用藥"],
+  [{ t: "第二代", b: true, rs: 6 }, "Cefaclor", "Loracarbef 為 Cefaclor 之等效異構物\n治療 {{H.influenzae|名詞}} 引起的感染"],
+  [null, "Cefuroxime", "字尾是 {{oxime|結構}}，卻屬於 2 代"],
+  [null, "Cefamandole", "有 {{MTT|結構}} 基團，會引起出血、Disulfiram-like reaction"],
+  [null, "Cefonicid", "此類藥物{{半衰期最長、蛋白結合率最高|性質}}"],
+  [null, "Cefoxitin", "含有 {{7-αOCH3|結構}} → 可以抗酶、抗厭氧菌"],
+  [null, "Cefotetan\nCefmetazole", "皆含有 MTT 基團及 7-αOCH3"],
+  [{ t: "第三代\n可以抗{{綠膿桿菌|名詞}}", b: true, rs: 2 }, "Ceftazidime", "Ceftazidime 無法抗 {{β-lactamase|酵素}}"],
+  [null, "Cefoperazone", "Cefoperazone {{無法通過 BBB|性質}}"],
+  [{ t: "第三代\n抗更多 G(-)\n不可抗綠膿桿菌", b: true, rs: 6 }, "Cefotaxime", "治療{{腦膜炎|疾病}}首選的抗生素"],
+  [null, "Ceftriaxone", "蛋白結合率高\n{{淋病雙球菌|名詞}}首選藥，可用來治療腦膜炎"],
+  [null, "Ceftizoxime", "第三位為 {{H|結構}}"],
+  [null, "Cefixime", "第三代可以{{口服|給藥途徑}}"],
+  [null, "Ceftibuten", "Ceftibuten C-3 為 H，C-7 具有 {{Ethylidinecarboxyl|結構}}"],
+  [null, "Moxalactam", "含有 MTT 基團及 7-αOCH3"],
+  [{ t: "第四代", b: true }, "Cefpirome\nCefepime", "可以抗綠膿桿菌、{{β-lactamases|酵素}}"],
+  [{ t: "第五代", b: true }, "Ceftaroline", "含有 {{Thiazole、Thiadiazole、Pyridine|結構}}"] ],
+  note: "藥理特色／機轉：\n1. 機轉：抑制 {{Transpeptidase|酵素}} 抑制細菌細胞壁的合成\n2. 可否進入 BBB：第一、二代皆不能進入 BBB，除了 {{Cefuroxime|藥名}}；第三代可入 BBB，除了 {{Cefoperazone|藥名}}\n3. 抗菌範圍大原則：一代到三代的抗菌範圍對 G(+) 越來越{{差|性質}}，對 G(-) 則越來越好；四代則是對 G(+)、G(-) 都有效\n4. 大多為腎臟代謝，由肝臟排除：{{Ceftriaxone、Cefoperazone|藥名}}\n5. 三號位為 H：{{Ceftizoxime、Ceftibuten|藥名}}\n6. 3rd 生體可用率高（口服）：{{Ceftibuten、Cefixime、Cefdinir|藥名}}\n7. 3rd 中無 Thiazole：{{Cefoperazone|藥名}}\n基本骨架：1. 含 {{Dihydrothiazine|結構}} 及 β-lactam　2. C2、C3 以雙鍵連結　3. C4 接氫" } });
 dA(6, "Cephalosporins：第一代", 42, "cephalexin", "Cephalexin", null, {
   cls: ["第一代：不能通過 BBB，主要抗 {{G(+)|名詞}}"], feat: ["具有和 {{Ampicillin|藥名}} 相同的側鏈"] });
 dA(6, "Cephalosporins：第一代", 42, "cefadroxil", "Cefadroxil", null, {
@@ -980,13 +993,14 @@ kA(6, "抑制蛋白質合成", 46, "抑制蛋白質合成的抗生素藥物（Me
   "抑制 50s：Streptogramins 類（{{Quinupristin/Dalfopristin|藥名}}）、Oxazolidinones 類（{{Linezolid|藥名}}）",
   "A 位（Aminoacyl-tRNA binding site）：固定住攜帶{{胺基酸|物質}}的 tRNA；P 位（Peptidyl-tRNA binding site）：固定住攜帶{{多肽|物質}}的 tRNA"
 ]);
-kA(6, "抑制蛋白質合成", 47, "作用點、步驟與機轉", [
-  "30S：tRNA 傳遞胺基酸至 A 位：抑制{{起始複合物|名詞}}的形成、造成誤讀 → {{Kanamycin|藥名}}；抑制 tRNA 與 mRNA 的鍵結 → {{Tetracycline|藥名}}",
-  "50S：使胜肽鏈延長，將 P 位胺基酸轉至 A 位：{{轉胜肽作用（Transpeptidation）|名詞}} → Chloramphenicol",
-  "50S：將 A 位胺基酸轉至 P 位，以便 A 位固定下一個 t-RNA：{{轉位作用（Translocation）|名詞}} → {{Azithromycin、Lincomycin|藥名}}",
-  "抑制 50S：結合在細菌之 50S 核醣體上以抑制蛋白質的合成 → {{Quinupristin/Dalfopristin|藥名}}",
-  "抑制 50S：結合在 50S 核醣體的 {{23S|名詞}} 上，抑制 {{70S|名詞}} 起始複合物的形成 → Linezolid"
-]);
+kA(6, "抑制蛋白質合成", 47, "作用點、步驟與機轉", { table: { head: ["作用點", "步驟", "機轉", "藥物"], rowNames: ["Kanamycin", "Tetracycline", "Chloramphenicol", "Azithromycin、Lincomycin", "Quinupristin/Dalfopristin", "Linezolid"],
+  rows: [
+  [{ t: "30S", b: true, rs: 2 }, { t: "tRNA 傳遞胺基酸至 A 位", rs: 2 }, "抑制{{起始複合物|名詞}}的形成、造成誤讀", "{{Kanamycin|藥名}}"],
+  [null, null, "抑制 tRNA 與 mRNA 的鍵結", "{{Tetracycline|藥名}}"],
+  [{ t: "50S", b: true, rs: 4 }, "使胜肽鏈延長，將 P 位胺基酸轉至 A 位", "{{轉胜肽作用|名詞}}（Transpeptidation）", "{{Chloramphenicol|藥名}}"],
+  [null, "將 A 位胺基酸轉至 P 位，以便 A 位固定下一個 t-RNA", "{{轉位作用|名詞}}（Translocation）", "{{Azithromycin、Lincomycin|藥名}}"],
+  [null, { t: "抑制 50S", rs: 2 }, "結合在細菌之 50S 核醣體上以抑制蛋白質的合成", "{{Quinupristin/Dalfopristin|藥名}}"],
+  [null, null, "結合在 50S 核醣體的 {{23S|名詞}} 上，抑制 {{70S|名詞}} 起始複合物的形成", "Linezolid"] ] } });
 kA(6, "Aminoglycosides", 48, "Aminoglycosides 機轉與藥理特色", [
   "機轉：和 {{30S|名詞}} 核醣體次單元鍵結，抑制起始複合物的形成，也會造成遺傳密碼的誤讀，讓錯誤的胺基酸併入到胜肽鏈",
   "抗菌範圍：主要抗 {{G(-)、好氧菌|名詞}}，藥物進入肺部能力差，不適用於治療 {{Legionella pneumonia|疾病}} 之感染",
@@ -1148,12 +1162,17 @@ dA(6, "Quinolones", 53, "gemifloxacin", "Gemifloxacin", null, {
 dA(6, "Quinolones", 53, "moxifloxacin", "Moxifloxacin", null, {
   cls: ["4th Quinolone"],
   feat: ["由{{肝臟|器官}}代謝", "服藥後尿中藥物濃度不足，不建議用於{{泌尿道感染|疾病}}", "副作用：易引起 {{Torsade de point|副作用}}", "抗 G(+) 效果更強，可對抗{{厭氧菌|名詞}}；無法殺綠膿桿菌（第 54 頁）"] });
-kA(6, "影響 DNA 的合成（Quinolones）", 54, "可抗綠膿桿菌的抗生素", [
-  "Penicillins：含 {{COOH、尿素|結構}}",
-  "Cephalosporins：第三代 {{Ceftazidime、Cefoperazone|藥名}}；第四代 {{Cefpirome、Cefepime|藥名}}",
-  "Fluoroquinolones：{{Ciprofloxacin|藥名}}（最強）、Levofloxacin",
-  "Aminoglycosides"
-]);
+kA(6, "影響 DNA 的合成（Quinolones）", 54, "Quinolone 抗菌整理", { table: { head: [{ t: "Quinolone 抗菌整理", cs: 2 }], cols: ["", "抗菌範圍"], rows: [
+  [{ t: "第二代 Ciprofloxacin", b: true }, "對於 G(-) 的效果{{最強|性質}}（包含綠膿桿菌）"],
+  [{ t: "第三代 Levofloxacin", b: true }, "對 G(-) 效果差，但加強了 {{G(+)|名詞}} 的抗菌效果\n抗菌範圍介於二代及四代之間"],
+  [{ t: "第四代 Moxifloxacin", b: true }, "抗 G(+) 效果更強，可對抗{{厭氧菌|名詞}}\n無法殺綠膿桿菌。因在泌尿道濃度不足，不用於{{泌尿道感染|疾病}}"] ] } });
+kA(6, "影響 DNA 的合成（Quinolones）", 54, "可抗綠膿桿菌的抗生素", { table: { head: ["抗生素", { t: "可抗綠膿桿菌", cs: 2 }], cols: ["抗生素", "", "可抗綠膿桿菌"], rowNames: ["Penicillins", "Cephalosporins 第三代", "Cephalosporins 第四代", "Fluoroquinolones", "Aminoglycosides"],
+  rows: [
+  [{ t: "Penicillins", b: true }, { t: "含 {{COOH、尿素|結構}}", cs: 2 }],
+  [{ t: "Cephalosporins", b: true, rs: 2 }, "第三代", "{{Ceftazidime、Cefoperazone|藥名}}"],
+  [null, "第四代", "{{Cefpirome、Cefepime|藥名}}"],
+  [{ t: "Fluoroquinolones", b: true }, { t: "{{Ciprofloxacin|藥名}}（最強）、Levofloxacin", cs: 2 }],
+  [{ t: "Aminoglycosides", b: true }, { t: "", cs: 2 }] ] } });
 kA(6, "抑制葉酸合成", 55, "抑制葉酸合成之抗生素藥物", [
   "PABA + Pteridine —（{{Dihydropteraoate synthase|酵素}}）→ Dihydropteroic acid；⊖ {{Sulfonamides|藥物類別}} 類（Sulfamethoxazole）",
   "Dihydropteroic acid + {{Glutamic acid|物質}} → Dihydrofolic acid",
@@ -1247,13 +1266,12 @@ dA(7, "其他抗黴菌", 61, "ciclopirox", "Ciclopirox", null, {
   cls: ["機轉：{{螯合陽離子|名詞}}"], struct: ["結構具有 {{Hydroxylated pyridinone|結構}}"] });
 dA(7, "Azole 類", 61, "isavuconazole", "Isavuconazole", null, {
   cls: ["Azole 類"], struct: ["Triazole×1"], feat: ["肝代謝，不過 BBB", "{{半衰期最長|性質}}"] });
-kA(7, "Azole 類比較", 61, "Azole 類比較表", [
-  "Ketoconazole：{{Imidazole×1|結構}}；肝代謝；不過 BBB；男性女乳症",
-  "Itraconazole：Triazole×2；肝代謝；不過 BBB",
-  "Fluconazole：Triazole×2；{{腎|器官}}代謝；{{過 BBB|性質}}；{{DDI 較少|性質}}",
-  "Voriconazole：Triazole×1；肝代謝；過 BBB；{{視覺障礙|副作用}}",
-  "Isavuconazole：Triazole×1；肝代謝；不過 BBB；{{半衰期最長|性質}}"
-]);
+kA(7, "Azole 類比較", 61, "Azole 類比較表", { table: { head: ["", "結構特色", "代謝", "過 BBB", "藥理特色"], rows: [
+  [{ t: "Ketoconazole", b: true }, "{{Imidazole|結構}}*1", "肝", "X", "男性女乳症"],
+  [{ t: "Itraconazole", b: true }, "Triazole*2", "肝", "X", ""],
+  [{ t: "Fluconazole", b: true }, "Triazole*2", "{{腎|器官}}", "{{O|性質}}", "{{DDI 較少|性質}}"],
+  [{ t: "Voriconazole", b: true }, "Triazole*1", "肝", "O", "{{視覺障礙|副作用}}"],
+  [{ t: "Isavuconazole", b: true }, "Triazole*1", "肝", "X", "{{半衰期最長|性質}}"] ] } });
 
 /* ===== 第 8 章 抗肺結核藥物 ===== */
 chA(8, "08", "抗肺結核藥物", "62～64");
@@ -1287,10 +1305,9 @@ dA(8, "第二線用藥", 64, "capreomycin", "Capreomycin", null, {
 dA(8, "第二線用藥", 64, "ethionamide", "Ethionamide（ETA）", "Ethionamide", {
   cls: ["屬於第二線藥物"],
   feat: ["氧化生成 {{Ethionamide sulfoxide|物質}} 抑制細胞壁合成"] });
-kA(8, "抗肺結核藥物毒性", 64, "抗肺結核藥物毒性整理（From 阿摩）", [
-  "肝毒性：為他 R.I.P（{{Rifampin、Isoniazid、Pyrazinamide|藥名}}）",
-  "高尿酸：痛風（尿酸過高）歌手出 EP（{{Ethambutol、Pyrazinamide|藥名}}）"
-]);
+kA(8, "抗肺結核藥物毒性", 64, "抗肺結核藥物毒性整理（From 阿摩）", { table: { head: [{ t: "抗肺結核藥物毒性整理（From 阿摩）", cs: 2 }], cols: ["", "藥物"], rows: [
+  [{ t: "肝毒性", b: true }, "為他 R.I.P（{{Rifampin、Isoniazid、Pyrazinamide|藥名}}）"],
+  [{ t: "高尿酸", b: true }, "痛風（尿酸過高）歌手出 EP（{{Ethambutol、Pyrazinamide|藥名}}）"] ] } });
 
 /* ===== 第 9 章 抗寄生蟲感染藥物 ===== */
 chA(9, "09", "抗寄生蟲感染藥物", "65～68", "第 67～68 頁是第 65～66 頁的重拍，內容相同。");
