@@ -3134,28 +3134,22 @@ isleA("misc", "發炎、腸胃與解毒島", { ground: "#A9D3D6", light: "#C2E1E
 
 /* ===== 第 41 章 前列腺素 ===== */
 chA(41, "41", "前列腺素", "252～254");
-kA(41, "前列腺素結構", 252, "前列腺素骨架與五元環", [
-  "前列腺素有 {{20|數值}} 個 C；PGD2、PGE1、PGF2、PGI2 骨架為 {{Prostanoic acid|結構}}，TXA2 骨架為 {{Thrombanoic acid|結構}}",
-  "雙鍵數目 1：13,14；2：13,14、5,6；3：13,14、5,6、17,18",
-  "PGE「2」表含有 {{2|數值}} 個雙鍵；前列腺素均含有 {{C-15αOH|結構}}",
-  "前列腺素比較：PGD2 C-9 OH、C-11 {{酮基|結構}}；PGE1 C-9 {{酮基|結構}}、C-11 OH；PGF2 C-9 OH、C-11 OH"
-]);
-kA(41, "前列腺素結構", 253, "前列腺素生合成", [
-  "磷脂質 Phospholipids —（{{Phospholipase A2|酵素}}，被 Glucocorticoids 抑制）→ Arachidonic acid",
-  "Arachidonic acid —（Cyclooxygenase-1、Cyclooxygenase-2，被 NSAIDs：Aspirin、COX-2 inhibitors：{{Rofecoxib|藥名}} 抑制）→ PGG2 → PGH2",
-  "PGH2 —（{{Prostacyclin synthase|酵素}}）→ PGI2（prostacyclin）；—（{{Thromboxane synthase|酵素}}）→ TxA2",
-  "PGH2 —（Isomerase）→ PGD2、PGE2；—（Reductase）→ PGF2α",
+kA(41, "前列腺素結構", 252, "前列腺素骨架與五元環", { images: ["assets/amulet/fig/pg-skeletons.png"], table: { head: ["雙鍵數目", "雙鍵位置"], rows: [
+  [{ t: "1", b: true }, "13,14"],
+  [{ t: "2", b: true }, "13,14、5,6"],
+  [{ t: "3", b: true }, "13,14、5,6、17,18"] ],
+  note: "共同特色：\n✧ PGE「2」表含有 {{2|數值}} 個雙鍵\n✧ 前列腺素均含有 {{C-15αOH|結構}}" } });
+kA(41, "前列腺素結構", 252, "前列腺素比較", { table: { head: ["", "PGD2", "PGE1", "PGF2"], rows: [
+  [{ t: "C-9", b: true }, "OH", "{{酮基|結構}}", "OH"],
+  [{ t: "C-11", b: true }, "{{酮基|結構}}", "OH", "OH"] ] } });
+kA(41, "前列腺素結構", 253, "前列腺素生合成（Katzung 圖）", { images: ["assets/amulet/fig/pg-biosynth.png"], points: [
   "由 Phospholipids 合成 PGI2 須經由 Phospholipase A2、Cyclooxygenase、Prostacyclin synthase",
   "由 Phospholipids 合成 TXA2 須經由 Phospholipase A2、Cyclooxygenase、Thromboxane synthase"
-]);
-kA(41, "白三烯素", 254, "白三烯素生合成", [
-  "磷脂質 Phospholipids —（Phospholipase A2）→ Arachidonic acid —（{{5-lipoxygenase|酵素}}，被 {{Zileuton|藥名}} 抑制）→ 5-HPETE（5-hydroperoxyeicosatetraenoic acid）",
-  "5-HPETE —（LTA synthetase）→ LTA4",
-  "LTA4 —（LTA hydrolase）→ {{LTB4|物質}} → 引起免疫細胞吞噬 → 發炎（被 {{Colchicine|藥名}} 抑制）",
-  "LTA4 —（{{Glutathione-S-transferase|酵素}}）→ LTC4、LTD4、LTE4（誘發{{氣喘|疾病}}）；被 {{Zafirlukast、Montelukast|藥名}} 阻斷",
+] });
+kA(41, "白三烯素", 254, "白三烯素生合成", { images: ["assets/amulet/fig/leukotriene-synth.png"], points: [
   "5-lipoxygenase 催化 {{leukotrienes|物質}} 的生合成",
-  "LTA4 受 glutathion-S-transferase 作用後，不會產生 {{LTB4|物質}}"
-]);
+  "LTA4 受 glutathion-S-transferase 作用後，不會產生下列何種產物？\n(A) LTB4 (B) LTC4 (C) LTD4 (D) LTE4　選 {{A|名詞}}"
+] });
 dA(41, "白三烯素相關藥物", 254, "zileuton", "Zileuton", null, {
   cls: ["{{5-Lipoxygenase inhibitors|藥物類別}}"] });
 dA(41, "白三烯素相關藥物", 254, "montelukast", "Zafirlukast、Montelukast", "Montelukast", {
