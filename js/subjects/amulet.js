@@ -831,12 +831,12 @@ dA(6, "細胞壁合成抑制劑", 39, "bacitracin", "Bacitracin", null, {
 dA(6, "細胞壁合成抑制劑", 39, "vancomycin", "Vancomycin", null, {
   cls: ["抑制肽聚醣單體的延長（{{Chain elongation|名詞}}）：抑制 {{Transglycosylase|酵素}}"],
   notes: ["長期使用 Clindamycin 易引起困難梭菌增生之偽膜性結腸炎，可{{口服|給藥途徑}} Vancomycin 治療（第 36 頁）"] });
-kA(6, "細胞壁合成抑制劑", 39, "細胞壁合成步驟與抑制劑", { table: { head: ["步驟", "機轉", "藥物", "藥物特色"], rows: [
-  ["使 NAG 不能變成 NAM", "抑制 {{Enolpyruvate transferase|酵素}}", "{{Fosfomycin|藥名}}", "藥物結構似{{丙酮酸|物質}}"],
-  ["阻止 L-Ala 轉化成 D-Ala", "抑制 {{Alanine racemase and Alanine ligase|酵素}}", "{{Cycloserine|藥名}}", "屬於{{肺結核|疾病}}用藥\n屬於 Alanine 之拮抗劑"],
-  ["抑制 BP 去磷酸化", "抑制 {{Dephosphorylation|名詞}}", "{{Bacitracin|藥名}}", "局部使用，因全身使用有{{腎毒性|副作用}}\n抗 G(+)"],
-  ["抑制肽聚醣單體的延長\n（Chain elongation）", "抑制 {{Transglycosylase|酵素}}", "{{Vancomycin|藥名}}", ""],
-  ["抑制肽聚醣間的交叉連結\n（{{Cross-linking|名詞}}）", "抑制 {{Transpeptidase|酵素}}", "{{β-lactams|藥物類別}} 類", ""] ] } });
+kA(6, "細胞壁合成抑制劑", 39, "細胞壁合成步驟與抑制劑", { table: { head: ["步驟", "機轉", "藥物", { t: "藥物特色", cs: 2 }], cols: ["步驟", "機轉", "藥物", "藥物特色", ""], rows: [
+  ["使 NAG 不能變成 NAM", "抑制 {{Enolpyruvate transferase|酵素}}", "{{Fosfomycin|藥名}}", "藥物結構似{{丙酮酸|物質}}", { img: "assets/amulet/fosfomycin.png", t: "Fosfomycin" }],
+  ["阻止 L-Ala\n轉化成 D-Ala", "抑制 {{Alanine racemase and Alanine ligase|酵素}}", "{{Cycloserine|藥名}}", "屬於{{肺結核|疾病}}用藥\n屬於 Alanine 之拮抗劑", { img: "assets/amulet/cycloserine.png", t: "Cycloserine" }],
+  ["抑制 BP 去磷酸化", "抑制 {{Dephosphorylation|名詞}}", "{{Bacitracin|藥名}}", { t: "局部使用，因全身使用有{{腎毒性|副作用}}\n抗 G(+)", cs: 2 }],
+  ["抑制肽聚醣單體的延長\n（Chain elongation）", "抑制 {{Transglycosylase|酵素}}", "{{Vancomycin|藥名}}", { t: "", cs: 2 }],
+  ["抑制肽聚醣間的交叉連結\n（{{Cross-linking|名詞}}）", "抑制 {{Transpeptidase|酵素}}", "{{β-lactams|藥物類別}} 類", { t: "", cs: 2 }] ] } });
 kA(6, "Penicillins", 40, "Penicillins 藥理特色", [
   "機轉：抑制 {{Transpeptidase|酵素}} 抑制細菌細胞壁的合成",
   "Penicillin 遇酸形成 {{Penicillenic acid|物質}}；遇鹼形成 {{Penicilloic acid|物質}}",
@@ -884,29 +884,28 @@ kA(6, "Penicillins", 41, "Penicillins 結構與抗酸抗酶", { table: { head: [
   [null, { img: "assets/amulet/oxacillin.png", t: "Oxacillin" }, { img: "assets/amulet/dicloxacillin.png", t: "Dicloxacillin" }, "", "", ""],
   [{ t: "不抗酸不抗酶\n抗綠膿桿菌", b: true, rs: 2 }, { t: "Carbenicillin", b: true }, { t: "Ticarcillin", b: true }, { t: "Azlocillin", b: true }, { t: "Mezlocillin", b: true }, { t: "Piperacillin", b: true }],
   [null, { img: "assets/amulet/carbenicillin.png", t: "Carbenicillin" }, { img: "assets/amulet/ticarcillin.png", t: "Ticarcillin" }, { img: "assets/amulet/azlo-mezlo-piperacillin.png", t: "Azlocillin" }, { img: "assets/amulet/azlo-mezlo-piperacillin-2.png", t: "Mezlocillin" }, { img: "assets/amulet/azlo-mezlo-piperacillin-3.png", t: "Piperacillin" }] ] } });
-kA(6, "Cephalosporins", 42, "Cephalosporins 藥理特色", { table: { head: ["分類", "藥名", "藥物特色"], rowNames: ["Cephalexin", "Cefadroxil", "Cephradine", "Cefazolin", "Cefaclor", "Cefuroxime", "Cefamandole", "Cefonicid", "Cefoxitin", "Cefotetan、Cefmetazole", "Ceftazidime", "Cefoperazone", "Cefotaxime", "Ceftriaxone", "Ceftizoxime", "Cefixime", "Ceftibuten", "Moxalactam", "Cefpirome、Cefepime", "Ceftaroline"],
+kA(6, "Cephalosporins", 42, "Cephalosporins 藥理特色", { table: { head: ["藥理特色／機轉", "分類", "藥名", "藥物特色"], cols: ["藥理特色／機轉", "分類", "藥名", "藥物特色"], rowNames: ["Cephalexin", "Cefadroxil", "Cephradine", "Cefazolin", "Cefaclor", "Cefuroxime", "Cefamandole", "Cefonicid", "Cefoxitin", "Cefotetan、Cefmetazole", "Ceftazidime", "Cefoperazone", "Cefotaxime", "Ceftriaxone", "Ceftizoxime", "Cefixime", "Ceftibuten", "Moxalactam", "Cefpirome、Cefepime", "Ceftaroline"],
   rows: [
-  [{ t: "第一代\n不能通過 BBB\n主要抗 {{G(+)|名詞}}", b: true, rs: 4 }, "Cephalexin", "具有和 {{Ampicillin|藥名}} 相同的側鏈"],
-  [null, "Cefadroxil", "具有和 {{Amoxicillin|藥名}} 相同的側鏈"],
-  [null, "Cephradine", "可以注射與口服使用"],
-  [null, "Cefazolin", "{{手術前預防性|名詞}}抗生素用藥"],
-  [{ t: "第二代", b: true, rs: 6 }, "Cefaclor", "Loracarbef 為 Cefaclor 之等效異構物\n治療 {{H.influenzae|名詞}} 引起的感染"],
-  [null, "Cefuroxime", "字尾是 {{oxime|結構}}，卻屬於 2 代"],
-  [null, "Cefamandole", "有 {{MTT|結構}} 基團，會引起出血、Disulfiram-like reaction"],
-  [null, "Cefonicid", "此類藥物{{半衰期最長、蛋白結合率最高|性質}}"],
-  [null, "Cefoxitin", "含有 {{7-αOCH3|結構}} → 可以抗酶、抗厭氧菌"],
-  [null, "Cefotetan\nCefmetazole", "皆含有 MTT 基團及 7-αOCH3"],
-  [{ t: "第三代\n可以抗{{綠膿桿菌|名詞}}", b: true, rs: 2 }, "Ceftazidime", "Ceftazidime 無法抗 {{β-lactamase|酵素}}"],
-  [null, "Cefoperazone", "Cefoperazone {{無法通過 BBB|性質}}"],
-  [{ t: "第三代\n抗更多 G(-)\n不可抗綠膿桿菌", b: true, rs: 6 }, "Cefotaxime", "治療{{腦膜炎|疾病}}首選的抗生素"],
-  [null, "Ceftriaxone", "蛋白結合率高\n{{淋病雙球菌|名詞}}首選藥，可用來治療腦膜炎"],
-  [null, "Ceftizoxime", "第三位為 {{H|結構}}"],
-  [null, "Cefixime", "第三代可以{{口服|給藥途徑}}"],
-  [null, "Ceftibuten", "Ceftibuten C-3 為 H，C-7 具有 {{Ethylidinecarboxyl|結構}}"],
-  [null, "Moxalactam", "含有 MTT 基團及 7-αOCH3"],
-  [{ t: "第四代", b: true }, "Cefpirome\nCefepime", "可以抗綠膿桿菌、{{β-lactamases|酵素}}"],
-  [{ t: "第五代", b: true }, "Ceftaroline", "含有 {{Thiazole、Thiadiazole、Pyridine|結構}}"] ],
-  note: "藥理特色／機轉：\n1. 機轉：抑制 {{Transpeptidase|酵素}} 抑制細菌細胞壁的合成\n2. 可否進入 BBB：第一、二代皆不能進入 BBB，除了 {{Cefuroxime|藥名}}；第三代可入 BBB，除了 {{Cefoperazone|藥名}}\n3. 抗菌範圍大原則：一代到三代的抗菌範圍對 G(+) 越來越{{差|性質}}，對 G(-) 則越來越好；四代則是對 G(+)、G(-) 都有效\n4. 大多為腎臟代謝，由肝臟排除：{{Ceftriaxone、Cefoperazone|藥名}}\n5. 三號位為 H：{{Ceftizoxime、Ceftibuten|藥名}}\n6. 3rd 生體可用率高（口服）：{{Ceftibuten、Cefixime、Cefdinir|藥名}}\n7. 3rd 中無 Thiazole：{{Cefoperazone|藥名}}\n基本骨架：1. 含 {{Dihydrothiazine|結構}} 及 β-lactam　2. C2、C3 以雙鍵連結　3. C4 接氫" } });
+  [{ t: "1. 機轉：抑制 {{Transpeptidase|酵素}} 抑制細菌細胞壁的合成\n2. 可否進入 BBB\n✓ 第一、二代皆不能進入 BBB，除了 {{Cefuroxime|藥名}}\n✓ 第三代可入 BBB，除了 {{Cefoperazone|藥名}}\n3. 抗菌範圍大原則：一代到三代的抗菌範圍對 G(+) 越來越{{差|性質}}，對 G(-) 則越來越好。四代則是對 G(+)、G(-) 都有效。\n4. 大多為腎臟代謝，由肝臟排除：{{Ceftriaxone、Cefoperazone|藥名}}\n5. 三號位為 H：{{Ceftizoxime、Ceftibuten|藥名}}\n6. 3rd 生體可用率高（口服）：{{Ceftibuten、Cefixime、Cefdinir|藥名}}\n7. 3rd 中無 Thiazole：{{Cefoperazone|藥名}}", rs: 11 }, { t: "第一代\n不能通過 BBB\n主要抗 {{G(+)|名詞}}", b: true, rs: 4 }, "Cephalexin", "具有和 {{Ampicillin|藥名}} 相同的側鏈"],
+  [null, null, "Cefadroxil", "具有和 {{Amoxicillin|藥名}} 相同的側鏈"],
+  [null, null, "Cephradine", "可以注射與口服使用"],
+  [null, null, "Cefazolin", "{{手術前預防性|名詞}}抗生素用藥"],
+  [null, { t: "第二代", b: true, rs: 6 }, "Cefaclor", "Loracarbef 為 Cefaclor 之等效異構物\n治療 {{H.influenzae|名詞}} 引起的感染"],
+  [null, null, "Cefuroxime", "字尾是 {{oxime|結構}}，卻屬於 2 代"],
+  [null, null, "Cefamandole", "有 {{MTT|結構}} 基團，會引起出血、Disulfiram-like reaction"],
+  [null, null, "Cefonicid", "此類藥物{{半衰期最長、蛋白結合率最高|性質}}"],
+  [null, null, "Cefoxitin", "含有 {{7-αOCH3|結構}} → 可以抗酶、抗厭氧菌"],
+  [null, null, "Cefotetan\nCefmetazole", "皆含有 MTT 基團及 7-αOCH3"],
+  [null, { t: "第三代\n可以抗{{綠膿桿菌|名詞}}", b: true, rs: 2 }, "Ceftazidime", "Ceftazidime 無法抗 {{β-lactamase|酵素}}"],
+  [{ t: "✧ 基本骨架：", img: "assets/amulet/ceph-skeleton.png", rs: 6 }, null, "Cefoperazone", "Cefoperazone {{無法通過 BBB|性質}}"],
+  [null, { t: "第三代\n抗更多 G(-)\n不可抗綠膿桿菌", b: true, rs: 6 }, "Cefotaxime", "治療{{腦膜炎|疾病}}首選的抗生素"],
+  [null, null, "Ceftriaxone", "蛋白結合率高\n{{淋病雙球菌|名詞}}首選藥，可用來治療腦膜炎"],
+  [null, null, "Ceftizoxime", "第三位為 {{H|結構}}"],
+  [null, null, "Cefixime", "第三代可以{{口服|給藥途徑}}"],
+  [null, null, "Ceftibuten", "Ceftibuten C-3 為 H，C-7 具有 {{Ethylidinecarboxyl|結構}}"],
+  [{ t: "1. 含 {{Dihydrothiazine|結構}} 及 β-lactam\n2. C2、C3 以雙鍵連結\n3. C4 接氫", rs: 3 }, null, "Moxalactam", "含有 MTT 基團及 7-αOCH3"],
+  [null, { t: "第四代", b: true }, "Cefpirome\nCefepime", "可以抗綠膿桿菌、{{β-lactamases|酵素}}"],
+  [null, { t: "第五代", b: true }, "Ceftaroline", "含有 {{Thiazole、Thiadiazole、Pyridine|結構}}"] ] } });
 dA(6, "Cephalosporins：第一代", 42, "cephalexin", "Cephalexin", null, {
   cls: ["第一代：不能通過 BBB，主要抗 {{G(+)|名詞}}"], feat: ["具有和 {{Ampicillin|藥名}} 相同的側鏈"] });
 dA(6, "Cephalosporins：第一代", 42, "cefadroxil", "Cefadroxil", null, {
