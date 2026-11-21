@@ -118,7 +118,9 @@ function kA(chapter, section, page, title, points) {
   const K = PI.KNOWLEDGE[key] || (PI.KNOWLEDGE[key] = { chapter, title: (PI.CHAPTERS.find(c => c.id === chapter) || {}).name || "", sections: [] });
   let sec = K.sections.find(x => x.title === section);
   if (!sec) { sec = { id: "s" + K.sections.length, title: section, items: [] }; K.sections.push(sec); }
-  sec.items.push({ title, source: SRC_AM + " 第 " + page + " 頁", points });
+  const it = { title, source: SRC_AM + " 第 " + page + " 頁" };
+  if (Array.isArray(points)) it.points = points; else Object.assign(it, points);   // 講義上是表格的卡片：傳 { table: {…} }
+  sec.items.push(it);
 }
 
 /* ================= 抗感染與化療島（01～09） ================= */
@@ -265,18 +267,22 @@ kA(101, "B 肝、C 肝藥物", 8, "其他 B 肝用藥與 C 肝 DAA", [
   "{{NS5A inhibitors|藥物類別}}（{{-asvir|名詞}}）：Daclatasvir、Ledipasvir、Velpatasvir",
   "{{NS5B polymerase inhibitors|藥物類別}}：Nucleosides：{{Sofosbuvir|藥名}}；Non-nucleosides：{{Dasabuvir|藥名}}"
 ]);
-kA(101, "Interferon 與補充考點", 9, "Interferon 總整理", [
-  "{{Interferon-α|藥名}}：Interferon、Pegylated Interferon {{α-2a|名詞}} → HBV、HCV；α-2b 之 Interferon → HBV、HCV，α-2b 之 Pegylated Interferon → {{僅可治療 HCV|名詞}}",
-  "{{Interferon-β|藥名}}：治療{{多發性硬化症|疾病}}",
-  "{{Interferon-γ|藥名}}：治療{{慢性肉芽腫病變|疾病}}",
-  "使用 Interferon 的副作用絕對比一般藥物{{高出許多|性質}}；常見副作用：{{Flu-like syndrome、肝毒性、骨髓抑制|副作用}}",
-  "Interferon 接上 {{PEG|物質}} 可延長藥效及增加藥物對{{肝臟|器官}}的選擇性",
-  "Interferon 加入 {{Albumin|物質}} 可減少玻璃管壁的吸附"
-]);
-kA(101, "Interferon 與補充考點", 9, "補充考點", [
-  "{{孕婦|族群}}可用的 NNRTIs：{{Nevirapine、Rilpivirine|藥名}}",
-  "{{雞尾酒療法|名詞}}：兩種 {{NRTIs|藥物類別}} ＋ 其他類藥物"
-]);
+kA(101, "Interferon 與補充考點", 9, "Interferon 總整理", { table: {
+  head: [{ t: "藥物", cs: 1 }, { t: "用途", cs: 3 }],
+  cols: ["藥物", "製劑", "型別", "用途"],
+  rowNames: ["Interferon-α", "Interferon-α", "Interferon-α", "Interferon-α", "Interferon-β", "Interferon-γ"],
+  rows: [
+    [{ t: "{{Interferon-α|藥名}}", b: true, rs: 4 }, "Interferon", { t: "{{α-2a|名詞}}", rs: 2 }, { t: "HBV、HCV", rs: 2 }],
+    [null, "Pegylated Interferon", null, null],
+    [null, "Interferon", { t: "α-2b", rs: 2 }, "HBV、HCV"],
+    [null, "Pegylated Interferon", null, "{{僅可治療 HCV|名詞}}"],
+    [{ t: "{{Interferon-β|藥名}}", b: true }, { t: "治療{{多發性硬化症|疾病}}", cs: 3 }],
+    [{ t: "{{Interferon-γ|藥名}}", b: true }, { t: "治療{{慢性肉芽腫病變|疾病}}", cs: 3 }]
+  ],
+  note: "使用 Interferon 的副作用絕對比一般藥物{{高出許多|性質}}\n常見副作用：{{Flu-like syndrome、肝毒性、骨髓抑制|副作用}}\nInterferon 接上 {{PEG|物質}} 可延長藥效及增加藥物對{{肝臟|器官}}的選擇性\nInterferon 加入 {{Albumin|物質}} 可減少玻璃管壁的吸附" } });
+kA(101, "Interferon 與補充考點", 9, "補充考點", { table: { head: ["補充考點"], rowNames: false, rows: [
+  ["{{孕婦|族群}}可用的 NNRTIs：{{Nevirapine、Rilpivirine|藥名}}"],
+  ["{{雞尾酒療法|名詞}}：兩種 {{NRTIs|藥物類別}} ＋ 其他類藥物"] ] } });
 kA(101, "Interferon 與補充考點", 10, "干擾素衍生物", [
   "{{Statolon|藥名}}：天然雙股（Double-stranded）RNA，取自 {{Penicillium stoloniferum|菌種}}",
   "{{Poly I:C|藥名}}：由 Polyriboinosinic acid 和 Polyribocytidylic acid 組成的{{雙股聚合物|名詞}}",
@@ -499,27 +505,23 @@ dA(2, "組織蛋白去乙醯酶抑制劑", 21, "vorinostat", "Vorinostat", null,
 dA(2, "組織蛋白去乙醯酶抑制劑", 21, "panobinostat", "Panobinostat Lactate", "Panobinostat", {
   cls: ["組織蛋白去乙醯酶抑制劑"],
   struct: ["結構含有 Hydroxamic acid（-NHOH）"], feat: ["代謝物皆{{無活性|性質}}"] });
-kA(2, "癌症治療用藥整理", 22, "非小細胞肺癌治療用藥", [
-  "Organoplatinum complex：{{Cisplatin、Carboplatin|藥名}}",
-  "Taxanes：{{Docetaxel、Paclitaxel|藥名}}",
-  "{{EGFR Tyrosine Kinase inhibitor|藥物類別}}：Gefitinib、Erlotinib、Lapatinib"
-]);
-kA(2, "癌症治療用藥整理", 22, "白血病類型與治療藥物", [
-  "急性骨髓性白血病（{{AML|疾病}}）：Anthracycline + {{Cytarabine|藥名}}",
-  "慢性骨髓性白血病（{{CML|疾病}}）：{{Imatinib、Nilotinib、Dasatinib|藥名}}",
-  "急性淋巴性白血病（{{ALL|疾病}}）：{{L-Asparaginase|藥名}} + Vincristine + Epirubicin + Prednisolone",
-  "慢性淋巴性白血病（{{CLL|疾病}}）：Cyclophosphamide + Fludarabine + Rituximab（{{CFR|名詞}}）；Cyclophosphamide + Oncovine + Prednisolone（{{COP|名詞}}）"
-]);
-kA(2, "癌症治療用藥整理", 23, "卵巢癌治療用藥", [
-  "首選用藥：{{Carboplatin + Paclitaxel|藥名}}",
-  "復發（Platinum resistant）：{{Liposomal doxorubicin、Topotecan、Altretamine|藥名}}"
-]);
-kA(2, "癌症治療用藥整理", 23, "造成 Alkylating agent cyclophosphamide 抗藥性的原因", [
-  "癌細胞之 {{glutathione|物質}} 含量增加",
-  "癌細胞之 {{glutathione S-transferase|酵素}} 活性提高",
-  "癌細胞之 {{DNA 修復酵素|酵素}}活性增加",
-  "癌細胞之輸送藥物進入細胞的{{運輸蛋白|名詞}}表現量降低"
-]);
+kA(2, "癌症治療用藥整理", 22, "非小細胞肺癌治療用藥", { table: { head: ["藥理分類", "藥名"], rows: [
+  ["Organoplatinum complex", "{{Cisplatin、Carboplatin|藥名}}"],
+  ["Taxanes", "{{Docetaxel、Paclitaxel|藥名}}"],
+  ["{{EGFR Tyrosine Kinase inhibitor|藥物類別}}", "Gefitinib、Erlotinib、Lapatinib"] ] } });
+kA(2, "癌症治療用藥整理", 22, "白血病類型與治療藥物", { table: { head: ["白血病類型", "治療藥物"], rows: [
+  ["急性骨髓性白血病（{{AML|疾病}}）\nAcute myelogenous leukemia", "Anthracycline + {{Cytarabine|藥名}}"],
+  ["慢性骨髓性白血病（{{CML|疾病}}）\nChronic myelogenous leukemia", "{{Imatinib、Nilotinib、Dasatinib|藥名}}"],
+  ["急性淋巴性白血病（{{ALL|疾病}}）\nAcute lymphoblastic leukemia", "{{L-Asparaginase|藥名}} + Vincristine + Epirubicin + Prednisolone"],
+  ["慢性淋巴性白血病（{{CLL|疾病}}）\nChronic lymphoblastic leukemia", "Cyclophosphamide + Fludarabine + Rituximab（{{CFR|名詞}}）\nCyclophosphamide + Oncovine + Prednisolone（{{COP|名詞}}）"] ] } });
+kA(2, "癌症治療用藥整理", 23, "卵巢癌治療用藥", { table: { head: [{ t: "卵巢癌治療用藥", cs: 2 }], cols: ["", "藥物"], rows: [
+  [{ t: "首選用藥", b: true }, "{{Carboplatin + Paclitaxel|藥名}}"],
+  [{ t: "復發（Platinum resistant）", b: true }, "{{Liposomal doxorubicin、Topotecan、Altretamine|藥名}}"] ] } });
+kA(2, "癌症治療用藥整理", 23, "造成 Alkylating agent cyclophosphamide 抗藥性的原因", { table: { head: ["造成 Alkylating agent cyclophosphamide 抗藥性的原因"], rowNames: false, rows: [
+  ["1. 癌細胞之 {{glutathione|物質}} 含量增加"],
+  ["2. 癌細胞之 {{glutathione S-transferase|酵素}} 活性提高"],
+  ["3. 癌細胞之 {{DNA 修復酵素|酵素}}活性增加"],
+  ["4. 癌細胞之輸送藥物進入細胞的{{運輸蛋白|名詞}}表現量降低"] ] } });
 
 /* ===== 第 3 章 標靶藥物 ===== */
 chA(3, "03", "標靶藥物", "24～27");
@@ -662,15 +664,27 @@ dA(4, "抑制血管新生", 29, "thalidomide", "Thalidomide", null, {
 
 /* ===== 第 4-1 章 免疫抑制劑 ===== */
 chA(104, "04-1", "免疫抑制劑", "30～31");
-kA(104, "免疫抑制劑總整理", 30, "機轉", [
-  "免疫力並非越強越好，假如因為免疫力過於旺盛而產生疾病，就必須透過免疫抑制劑藥物降低免疫力",
-  "治療類風溼性關節炎（RA）之免疫抑制劑稱為 Disease modifying antirheumatic drugs（{{DMARDs|名詞}}）"
-]);
-kA(104, "免疫抑制劑總整理", 30, "抗癌藥與免疫抑制劑", [
-  "抗癌藥：抑制 Purine 合成：Methotrexate、Azathioprine、Mycophenolate；抑制 Pyrimidine 合成：{{Leflunomide|藥名}}；破壞 DNA：{{Cyclophosphamide|藥名}}",
-  "Leflunomide：抑制 {{Dihydroorotate dehydrogenase|酵素}}；Mycophenolate：抑制 {{IMP Dehydrogenase|酵素}}",
-  "免疫抑制劑：抑制 Calcineurin：{{Tacrolimus、Cyclosporine|藥名}}；mTOR 抑制劑：{{Sirolimus、Everolimus|藥名}} → 常作為免疫抑制劑"
-]);
+kA(104, "免疫抑制劑總整理", 30, "機轉", { table: { head: [{ t: "機轉", cs: 1 }], cols: ["機轉"], rowNames: false, rows: [
+  ["免疫力並非越強越好，假如因為免疫力過於旺盛而產生疾病，就必須透過免疫抑制劑藥物降低免疫力"],
+  ["治療類風溼性關節炎（RA）之免疫抑制劑稱為 Disease modifying antirheumatic drugs（{{DMARDs|名詞}}）"] ] } });
+kA(104, "免疫抑制劑總整理", 30, "免疫抑制劑總整理", { table: {
+  head: [{ t: "作用標的", cs: 3 }, "藥物", "藥理特色及副作用"],
+  cols: ["", "", "作用標的", "藥物", "藥理特色及副作用"],
+  rowNames: ["抑制 Purine 合成", "抑制 Pyrimidine 合成", "破壞 DNA", "抑制 Calcineurin", "mTOR 抑制劑", "抑制 Cytokine 與 TNF-α", "TNF fusion protein", "TNF-α 抑制劑", "IL-1 抑制劑", "IL-6 抑制劑", "JAK 抑制劑", "其他類"],
+  rows: [
+    [{ t: "抗癌藥", b: true, rs: 3 }, { t: "抑制 Purine 合成", cs: 2 }, "Methotrexate、Azathioprine、{{Mycophenolate|藥名}}", { t: "Leflunomide：抑制 {{Dihydroorotate dehydrogenase|酵素}}\nMycophenolate：抑制 {{IMP Dehydrogenase|酵素}}", rs: 3 }],
+    [null, { t: "抑制 Pyrimidine 合成", cs: 2 }, "{{Leflunomide|藥名}}", null],
+    [null, { t: "破壞 DNA", cs: 2 }, "{{Cyclophosphamide|藥名}}", null],
+    [{ t: "免疫抑制劑", b: true, rs: 2 }, { t: "抑制 Calcineurin", cs: 2 }, "{{Tacrolimus、Cyclosporine|藥名}}", { t: "常作為免疫抑制劑", rs: 2 }],
+    [null, { t: "mTOR 抑制劑", cs: 2 }, "{{Sirolimus、Everolimus|藥名}}", null],
+    [{ t: "Cytokine\n（治療類風溼性關節炎）", b: true, rs: 5 }, { t: "抑制 Cytokine 與 TNF-α", cs: 2 }, "Sulfasalazine、Hydroxychloroquine", "Hydroxychloroquine 具{{眼毒性|副作用}}"],
+    [null, { t: "TNF-α 抑制劑", rs: 2 }, "TNF fusion protein", "{{Etanercept|藥名}}", { t: "Infliximab 以 {{IV|給藥途徑}} 給藥\n{{Certolizumab|藥名}} 會加入 {{PEG|物質}} 降低免疫反應", rs: 2 }],
+    [null, null, "TNF-α 抑制劑", "Adalimumab（IgG）、Infliximab（IgG）、Golimumab、Certolizumab", null],
+    [null, { t: "IL-1 抑制劑", cs: 2 }, "{{Anakinra|藥名}}", "治療類風溼性關節炎"],
+    [null, { t: "IL-6 抑制劑", cs: 2 }, "{{Tocilizumab、Siltuximab|藥名}}", "治療類風溼性關節炎"],
+    [{ t: "JAK 抑制劑", b: true }, { t: "抑制發炎反應", cs: 2 }, "{{Tofacitinib|藥名}}", "以{{口服|給藥途徑}}給藥\n治療 RA、乾癬、抗排斥用藥"],
+    [{ t: "其他類", b: true }, { t: "可以減輕發炎反應，減少類風濕性因子", cs: 2 }, "Gold salts（金製劑）", "口服給藥：{{Auranofin|藥名}}\n{{單價|性質}}金離子較三價金離子有效，與{{硫|結構}}結合才有活性\n金在水溶液中不安定，半衰期短\n副作用：{{蛋白尿（腎毒性）|副作用}}、白血球、血小板減少"]
+  ] } });
 dA(104, "Cytokine：治療類風溼性關節炎", 30, "sulfasalazine-hcq", "Sulfasalazine、Hydroxychloroquine", "HCQ", {
   cls: ["抑制 {{Cytokine 與 TNF-α|標的}}"], feat: ["Hydroxychloroquine 具{{眼毒性|副作用}}"] });
 dA(104, "Cytokine：治療類風溼性關節炎", 30, "etanercept", "Etanercept", null, {
@@ -776,20 +790,23 @@ kA(6, "抗生素總覽", 35, "抗生素作用位置（Brock Biology of Microorga
   "④ 抑制 DNA、RNA 合成：DNA gyrase（Topoisomerase II）→ {{Fluroquinolones 類|藥物類別}}；RNA polymerase → {{Rifampin|藥名}}",
   "⑤ 抑制代謝路徑（PABA → DHF → THF）：{{Trimethoprim|藥名}}、Sulfonamides 類（Sulfamethoxazole）"
 ]);
-kA(6, "抗生素總覽", 36, "抗生素併用原則（殺菌併用殺菌，抑菌併用抑菌）", [
-  "抑制細胞壁及細胞膜 → {{殺菌|性質}}作用",
-  "抑制蛋白質（30S 及 50S）→ {{抑菌|性質}}作用（除了{{胺醣類|藥物類別}}抗生素 → 殺菌作用）",
-  "抑制細胞核（DNA／RNA）→ 殺菌作用（除了 {{Griseofulvin、Sulfonamide|藥名}} → 抑菌作用）",
-  "{{Ticarcillin 與 Kanamycin|藥名}} 併用時，Ticarcillin 可以增加 Kanamycin 進入細菌細胞內的濃度，因而產生抑菌協同作用"
-]);
-kA(6, "抗生素總覽", 36, "常見細菌分類", [
-  "G(+) 好氧：Staphylococcus aureus（{{金黃色葡萄球菌|名詞}}）、Streptococcus pyogenes（A 型鏈球菌）、Enterococcus faecalis（糞腸球菌）",
-  "G(+) 厭氧：Clostridium difficile（{{困難梭菌|名詞}}）",
-  "G(-) 好氧：Pseudomonas aeruginosa（{{綠膿桿菌|名詞}}）、Escherichia coli（大腸桿菌）、Neisseria gonorrhoeae（淋病雙球菌）",
-  "G(-) 厭氧：Bacteroides fragilis（{{鬆脆桿菌|名詞}}）",
-  "在格蘭氏陰性菌株外膜因為有膜孔蛋白（{{Porin Channel|名詞}}），使抗生素不易進入",
-  "長期使用 {{Clindamycin|藥名}} 易引起困難梭菌增生之偽膜性結腸炎，可口服 {{Vancomycin|藥名}} 治療"
-]);
+kA(6, "抗生素總覽", 36, "抗生素併用原則（殺菌併用殺菌，抑菌併用抑菌）", { table: { head: ["機轉", "作用"], rows: [
+  ["抑制細胞壁及細胞膜", "{{殺菌|性質}}作用"],
+  ["抑制蛋白質（30S 及 50S）", "{{抑菌|性質}}作用\n（除了{{胺醣類|藥物類別}}抗生素 → 殺菌作用）"],
+  ["抑制細胞核（DNA／RNA）", "殺菌作用\n（除了 {{Griseofulvin、Sulfonamide|藥名}} → 抑菌作用）"] ],
+  note: "{{Ticarcillin 與 Kanamycin|藥名}} 併用時，Ticarcillin 可以增加 Kanamycin 進入細菌細胞內的濃度，因而產生抑菌協同作用。" } });
+kA(6, "抗生素總覽", 36, "常見細菌分類", { table: { head: [{ t: "常見細菌分類", cs: 2 }, "菌種"], cols: ["", "", "菌種"],
+  rowNames: ["G(+) 好氧", "G(+) 好氧", "G(+) 好氧", "G(+) 厭氧", "G(-) 好氧", "G(-) 好氧", "G(-) 好氧", "G(-) 厭氧"],
+  rows: [
+  [{ t: "G(+)", b: true, rs: 4 }, { t: "好氧（Aerobic）", rs: 3 }, "Staphylococcus aureus（{{金黃色葡萄球菌|名詞}}）"],
+  [null, null, "Streptococcus pyogenes（A 型鏈球菌）（Group A Streptococcus）"],
+  [null, null, "Enterococcus faecalis（糞腸球菌）"],
+  [null, "厭氧（Anaerobic）", "Clostridium difficile（{{困難梭菌|名詞}}）"],
+  [{ t: "G(-)", b: true, rs: 4 }, { t: "好氧（Aerobic）", rs: 3 }, "Pseudomonas aeruginosa（{{綠膿桿菌|名詞}}）"],
+  [null, null, "Escherichia coli（大腸桿菌）"],
+  [null, null, "Neisseria gonorrhoeae（淋病雙球菌）"],
+  [null, "厭氧（Anaerobic）", "Bacteroides fragilis（{{鬆脆桿菌|名詞}}）"] ],
+  note: "在格蘭氏陰性菌株外膜因為有膜孔蛋白（{{Porin Channel|名詞}}），使抗生素不易進入\n長期使用 {{Clindamycin|藥名}} 易引起困難梭菌增生之偽膜性結腸炎，可口服 {{Vancomycin|藥名}} 治療" } });
 kA(6, "細胞壁合成抑制劑", 37, "細菌細胞壁的組成", [
   "細菌細胞壁以 N-acetylmuramic acid（{{NAM|物質}}）以及 N-acetylglucosamine（{{NAG|物質}}）兩種醣基交錯合成，這兩種醣基以 {{β-1,4|結構}} 鍵結",
   "其中 NAM 會接上{{四|數值}}個胺基酸，而此 peptide 又以五個胺基酸之 peptide 與臨近的 NAM 連接在一起，此五個胺基酸皆為 {{Glycine|物質}}",
@@ -814,13 +831,12 @@ dA(6, "細胞壁合成抑制劑", 39, "bacitracin", "Bacitracin", null, {
 dA(6, "細胞壁合成抑制劑", 39, "vancomycin", "Vancomycin", null, {
   cls: ["抑制肽聚醣單體的延長（{{Chain elongation|名詞}}）：抑制 {{Transglycosylase|酵素}}"],
   notes: ["長期使用 Clindamycin 易引起困難梭菌增生之偽膜性結腸炎，可{{口服|給藥途徑}} Vancomycin 治療（第 36 頁）"] });
-kA(6, "細胞壁合成抑制劑", 39, "細胞壁合成步驟與抑制劑", [
-  "使 NAG 不能變成 NAM：抑制 Enolpyruvate transferase → {{Fosfomycin|藥名}}",
-  "阻止 L-Ala 轉化成 D-Ala：抑制 Alanine racemase and Alanine ligase → {{Cycloserine|藥名}}",
-  "抑制 BP 去磷酸化 → {{Bacitracin|藥名}}",
-  "抑制肽聚醣單體的延長（Chain elongation）：抑制 Transglycosylase → {{Vancomycin|藥名}}",
-  "抑制肽聚醣間的交叉連結（{{Cross-linking|名詞}}）：抑制 Transpeptidase → β-lactams 類"
-]);
+kA(6, "細胞壁合成抑制劑", 39, "細胞壁合成步驟與抑制劑", { table: { head: ["步驟", "機轉", "藥物", "藥物特色"], rows: [
+  ["使 NAG 不能變成 NAM", "抑制 {{Enolpyruvate transferase|酵素}}", "{{Fosfomycin|藥名}}", "藥物結構似{{丙酮酸|物質}}"],
+  ["阻止 L-Ala 轉化成 D-Ala", "抑制 {{Alanine racemase and Alanine ligase|酵素}}", "{{Cycloserine|藥名}}", "屬於{{肺結核|疾病}}用藥\n屬於 Alanine 之拮抗劑"],
+  ["抑制 BP 去磷酸化", "抑制 {{Dephosphorylation|名詞}}", "{{Bacitracin|藥名}}", "局部使用，因全身使用有{{腎毒性|副作用}}\n抗 G(+)"],
+  ["抑制肽聚醣單體的延長\n（Chain elongation）", "抑制 {{Transglycosylase|酵素}}", "{{Vancomycin|藥名}}", ""],
+  ["抑制肽聚醣間的交叉連結\n（{{Cross-linking|名詞}}）", "抑制 {{Transpeptidase|酵素}}", "{{β-lactams|藥物類別}} 類", ""] ] } });
 kA(6, "Penicillins", 40, "Penicillins 藥理特色", [
   "機轉：抑制 {{Transpeptidase|酵素}} 抑制細菌細胞壁的合成",
   "Penicillin 遇酸形成 {{Penicillenic acid|物質}}；遇鹼形成 {{Penicilloic acid|物質}}",
@@ -857,12 +873,17 @@ dA(6, "Penicillins", 40, "ticarcillin", "Ticarcillin", null, {
   feat: ["{{Temocillin|藥名}} 可抗酶但不可抗綠膿桿菌，結構為 Ticarcillin 加上 6-αOCH3"] });
 dA(6, "Penicillins", 40, "azlo-mezlo-piperacillin", "Azlocillin、Mezlocillin、Piperacillin", "Piperacillin", {
   cls: ["不抗酸不抗酶、抗綠膿桿菌"], struct: ["Mezlocillin 結構含有{{尿素|結構}}"] });
-kA(6, "Penicillins", 41, "Penicillins 結構與抗酸抗酶", [
-  "抗酸（可口服）：有{{拉電子基|結構}}",
-  "抗酶：有{{大基團|結構}}",
-  "抗綠膿桿菌：含 {{COOH、尿素|結構}}",
-  "不抗酸不抗酶：Penicillin G；不抗酸抗酶：Methicillin、Nafcillin；抗酸不抗酶：Penicillin V、Ampicillin、Amoxicillin；抗酸抗酶：Oxacillin、Dicloxacillin；不抗酸不抗酶抗綠膿桿菌：Carbenicillin、Ticarcillin、Azlocillin、Mezlocillin、Piperacillin"
-]);
+kA(6, "Penicillins", 41, "Penicillins 結構與抗酸抗酶", { table: { head: [{ t: "抗酸（可口服）：有{{拉電子基|結構}}，抗酶：有{{大基團|結構}}，抗綠膿桿菌：含 {{COOH、尿素|結構}}", cs: 6 }], rowNames: false, rows: [
+  [{ t: "不抗酸不抗酶", b: true, rs: 2 }, { t: "Penicillin G", b: true }, "", "", "", ""],
+  [null, { img: "assets/amulet/penicillin-g.png", t: "Penicillin G" }, "", "", "", ""],
+  [{ t: "不抗酸抗酶", b: true, rs: 2 }, { t: "Methicillin", b: true }, { t: "Nafcillin", b: true }, "", "", ""],
+  [null, { img: "assets/amulet/methicillin.png", t: "Methicillin" }, { img: "assets/amulet/nafcillin.png", t: "Nafcillin" }, "", "", ""],
+  [{ t: "抗酸不抗酶", b: true, rs: 2 }, { t: "Penicillin V", b: true }, { t: "Ampicillin", b: true }, { t: "Amoxicillin", b: true }, "", ""],
+  [null, { img: "assets/amulet/penicillin-v.png", t: "Penicillin V" }, { img: "assets/amulet/ampicillin.png", t: "Ampicillin" }, { img: "assets/amulet/amoxicillin.png", t: "Amoxicillin" }, "", ""],
+  [{ t: "抗酸抗酶", b: true, rs: 2 }, { t: "Oxacillin", b: true }, { t: "Dicloxacillin", b: true }, "", "", ""],
+  [null, { img: "assets/amulet/oxacillin.png", t: "Oxacillin" }, { img: "assets/amulet/dicloxacillin.png", t: "Dicloxacillin" }, "", "", ""],
+  [{ t: "不抗酸不抗酶\n抗綠膿桿菌", b: true, rs: 2 }, { t: "Carbenicillin", b: true }, { t: "Ticarcillin", b: true }, { t: "Azlocillin", b: true }, { t: "Mezlocillin", b: true }, { t: "Piperacillin", b: true }],
+  [null, { img: "assets/amulet/carbenicillin.png", t: "Carbenicillin" }, { img: "assets/amulet/ticarcillin.png", t: "Ticarcillin" }, { img: "assets/amulet/azlo-mezlo-piperacillin.png", t: "Azlocillin" }, { img: "assets/amulet/azlo-mezlo-piperacillin-2.png", t: "Mezlocillin" }, { img: "assets/amulet/azlo-mezlo-piperacillin-3.png", t: "Piperacillin" }] ] } });
 kA(6, "Cephalosporins", 42, "Cephalosporins 藥理特色", [
   "機轉：抑制 {{Transpeptidase|酵素}} 抑制細菌細胞壁的合成",
   "可否進入 BBB：第一、二代皆不能進入 BBB，除了 {{Cefuroxime|藥名}}；第三代可入 BBB，除了 {{Cefoperazone|藥名}}",
@@ -3504,7 +3525,7 @@ kA(47, "常見藥物中毒解毒劑", 277, "常見藥物中毒解毒劑", [
   "Morphine → {{Naloxone（IV）、Naltrexone（PO）|藥名}}"
 ]);
 
-/* ���c�ϡG�q���q�Ӥ��ŤU�]assets/amulet/�^�A�u�����q���c�檺�L�굲�c���F��g�е��P���c���|�������L�k�h���C */
+/* 結構圖：從講義照片剪下（assets/amulet/），只收講義結構欄的印刷結構式；手寫標註與結構重疊的部分無法去除。 */
 const AM_IMG = {"amantadine": 1, "rimantadine": 1, "ribavirin": 1, "oseltamivir": 1, "zanamivir": 1, "peramivir": 1, "zidovudine": 1, "stavudine": 1, "zalcitabine": 1, "lamivudine": 1, "emtricitabine": 1, "didanosine": 1, "abacavir": 1, "tenofovir": 1, "nevirapine": 1, "efavirenz": 1, "delavirdine": 1, "ritonavir": 1, "indinavir": 1, "raltegravir": 1, "enfuvirtide": 1, "maraviroc": 1, "acyclovir": 1, "penciclovir": 1, "ganciclovir": 1, "cidofovir": 1, "foscarnet": 1, "fomivirsen": 1, "idoxuridine": 1, "trifluridine": 1, "vidarabine": 1, "tenofovir-disoproxil": 1, "adefovir-dipivoxil": 1, "boceprevir": 1, "mechlorethamine": 1, "cyclophosphamide": 1, "ifosfamide": 1, "melphalan": 1, "chlorambucil": 1, "carmustine": 1, "lomustine": 1, "thiotepa": 1, "busulfan": 1, "cisplatin": 1, "carboplatin": 1, "oxaliplatin": 1, "dacarbazine": 1, "temozolomide": 1, "procarbazine": 1, "methotrexate": 1, "fluorouracil": 1, "tegafur-capecitabine": 2, "cytarabine": 1, "gemcitabine": 1, "decitabine-azacitidine": 2, "mercaptopurine": 1, "thioguanine": 1, "fludarabine": 1, "nelarabine": 1, "pentostatin": 1, "hydroxyurea": 1, "dactinomycin": 1, "doxorubicin": 2, "mitoxantrone": 1, "plicamycin": 1, "mitomycin": 1, "bleomycin": 1, "paclitaxel": 1, "docetaxel": 1, "cabazitaxel": 1, "vinblastine": 1, "vincristine": 1, "ixabepilone": 1, "eribulin": 1, "estramustine": 1, "etoposide-teniposide": 1, "topotecan": 1, "irinotecan": 1, "trabectedin": 1, "inotuzumab-ozogamicin": 1, "lenalidomide": 1, "pomalidomide": 1, "romidepsin": 1, "belinostat": 1, "vorinostat": 1, "panobinostat": 1, "cyclosporine": 1, "tacrolimus": 1, "sirolimus-everolimus": 2, "mycophenolate-mofetil": 1, "azathioprine": 1, "leflunomide": 1, "thalidomide": 1, "fosfomycin": 1, "cycloserine": 1, "penicillin-g": 1, "methicillin": 1, "nafcillin": 1, "penicillin-v": 1, "ampicillin": 1, "amoxicillin": 1, "oxacillin": 1, "dicloxacillin": 1, "carbenicillin": 1, "ticarcillin": 1, "azlo-mezlo-piperacillin": 3, "cephalexin": 1, "cefadroxil": 1, "cephradine": 1, "cefazolin": 1, "cefaclor": 1, "cefuroxime": 1, "cefamandole": 1, "cefonicid": 1, "cefoxitin": 1, "cefotetan-cefmetazole": 2, "ceftazidime": 1, "cefoperazone": 1, "cefotaxime": 1, "ceftriaxone": 1, "ceftizoxime": 1, "cefixime": 1, "ceftibuten": 1, "moxalactam": 1, "cefpirome-cefepime": 2, "ceftaroline": 1, "clavulanic-acid": 1, "sulbactam": 1, "tazobactam": 1, "thienamycin": 1, "imipenem": 1, "meropenem": 1, "aztreonam": 1, "vancomycin": 1, "teicoplanin": 1, "streptomycin": 1, "neomycin": 1, "paromomycin": 1, "kanamycin": 1, "amikacin": 1, "tobramycin": 1, "gentamicin": 1, "sisomicin": 1, "netilmicin": 1, "spectinomycin": 1, "tetracycline": 1, "rolitetracycline": 1, "oxytetracycline": 1, "demeclocycline": 1, "doxycycline": 1, "minocycline": 1, "tigecycline": 1, "erythromycin": 1, "clarithromycin": 1, "azithromycin": 1, "troleandomycin": 1, "telithromycin": 1, "fidaxomicin": 1, "quinupristin-dalfopristin": 1, "lincomycin": 1, "clindamycin": 1, "chloramphenicol": 1, "linezolid": 1, "retapamulin": 1, "mupirocin": 1, "nalidixic-acid": 1, "ciprofloxacin": 1, "ofloxacin": 1, "levofloxacin": 1, "gatifloxacin": 1, "gemifloxacin": 1, "moxifloxacin": 1, "sulfamethoxazole": 1, "sulfisoxazole": 1, "sulfamethizole": 1, "sulfadiazine": 1, "mafenide": 1, "silver-sulfadiazine": 1, "sulfacetamide": 1, "sulfasalazine": 1, "sulfadoxine": 1, "trimethoprim": 1, "nitrofurantoin": 1, "methenamine": 1, "dapsone": 1, "terbinafine": 1, "ketoconazole": 1, "clotrimazole": 1, "itraconazole": 1, "fluconazole": 1, "voriconazole": 1, "amphotericin-b": 1, "nystatin": 1, "caspofungin": 1, "anidulafungin": 1, "flucytosine": 1, "griseofulvin": 1, "amorolfine": 1, "ciclopirox": 1, "isoniazid": 1, "rifampin": 1, "ethambutol": 1, "pyrazinamide": 1, "metronidazole": 1, "pentamidine": 1, "atovaquone": 1, "primaquine": 1, "tafenoquine": 1, "atovaquone-proguanil": 1, "capreomycin": 1, "ethionamide": 1, "suramin": 1, "eflornithine": 1, "melarsoprol": 1, "nifurtimox": 1, "ivermectin": 1, "praziquantel": 1, "mebendazole": 1, "metyrosine": 1, "methyldopa": 1, "reserpine": 1, "guanethidine": 1, "bretylium": 1, "cocaine": 1, "imipramine": 1, "amphetamine": 1, "methylphenidate": 1, "dopamine": 1, "norepinephrine": 1, "epinephrine": 1, "phenylephrine": 1, "naphazoline": 1, "midodrine": 1, "methoxamine": 1, "clonidine": 1, "guanabenz": 1, "guanfacine": 1, "moxonidine-rilmenidine": 2, "isoproterenol": 1, "metaproterenol": 1, "terbutaline": 1, "bitolterol": 1, "salbutamol": 1, "salmeterol": 1, "formoterol": 1, "ritodrine": 1, "dobutamine": 1, "ephedrine": 1, "pseudoephedrine": 1, "tolazoline": 1, "phentolamine": 1, "phenoxybenzamine": 1, "prazosin": 1, "terazosin": 1, "alfuzosin": 1, "tamsulosin": 1, "silodosin": 1, "yohimbine": 1, "propranolol": 1, "carvedilol": 1, "ergonovine": 1, "methysergide": 1, "lsd": 1, "ergotamine": 1, "cevimeline": 1, "pilocarpine": 1, "arecoline": 1, "physostigmine": 1, "neostigmine": 1, "tacrine": 1, "galantamine": 1, "donepezil": 1, "rivastigmine": 1, "isoflurophate": 1, "parathion": 1, "pralidoxime": 1, "atropine": 1, "scopolamine": 1, "ipratropium-tiotropium": 2, "oxybutynin": 1, "solifenacin": 1, "benztropine": 1, "orphenadrine": 1, "pirenzepine": 1, "buspirone": 1, "sarizotan": 1, "spiperone": 1, "sumatriptan": 1, "rizatriptan": 1, "ketanserin": 1, "cyproheptadine": 1, "melatonin": 1, "ondansetron": 1, "alosetron": 1, "tegaserod": 1, "cisapride": 1, "metoclopramide": 1, "amitriptyline": 1, "doxepin": 1, "clomipramine": 1, "nortriptyline": 1, "desipramine": 1, "protriptyline": 1, "amoxapine": 1, "maprotiline": 1, "nisoxetine": 1, "reboxetine": 1, "atomoxetine": 1, "fluoxetine": 1, "paroxetine": 1, "citalopram": 1, "sertraline": 1, "fluvoxamine": 1, "duloxetine": 1, "venlafaxine": 1, "milnacipran": 1, "bupropion": 1, "mirtazapine": 1, "trazodone": 1, "vilazodone": 1, "vortioxetine": 1, "phenelzine": 1, "isocarboxazid": 1, "tranylcypromine": 1, "selegiline": 1, "moclobemide": 1, "nitrous-oxide": 1, "halothane": 1, "methoxyflurane": 1, "enflurane": 1, "isoflurane": 1, "desflurane": 1, "sevoflurane": 1, "acetazolamide": 1, "methazolamide": 1, "dichlorphenamide": 1, "furosemide": 1, "bumetanide": 1, "torsemide": 1, "ethacrynic-acid": 1, "chlorothiazide": 1, "quinethazone": 1, "indapamide": 1, "chlorthalidone": 1, "xipamide": 1, "spironolactone": 1, "triamterene-amiloride": 2, "mannitol": 1, "hydralazine": 1, "nitroprusside": 1, "fenoldopam": 1, "minoxidil": 1, "diazoxide": 1, "nifedipine": 1, "nimodipine": 1, "amlodipine": 1, "verapamil": 1, "diltiazem": 1, "bepridil": 1, "captopril": 1, "lisinopril": 1, "enalapril": 1, "fosinopril": 1, "benazepril-moexipril-quinapril": 3, "aliskiren": 1, "losartan": 1, "olmesartan": 1, "candesartan": 1, "irbesartan": 1, "valsartan": 1, "telmisartan": 1, "eprosartan": 1, "azilsartan": 1, "bosentan": 1, "quinidine": 1, "procainamide": 1, "disopyramide": 1, "lidocaine-arrhythmia": 1, "mexiletine": 1, "phenytoin-arrhythmia": 1, "tocainide": 1, "flecainide": 1, "propafenone": 1, "esmolol": 1, "amiodarone": 1, "dronedarone": 1, "bretylium-arrhythmia": 1, "sotalol": 1, "ibutilide": 1, "dofetilide": 1, "digoxin-arrhythmia": 1, "adenosine": 1, "amrinone-milrinone": 1, "forskolin": 1, "sacubitril-valsartan": 1, "ivabradine": 1, "heparin": 1, "fondaparinux": 1, "argatroban": 1, "dabigatran": 1, "warfarin": 1, "phenindione-anisindione": 2, "aspirin-antiplatelet": 1, "ticlopidine": 1, "clopidogrel": 1, "prasugrel": 1, "ticagrelor": 1, "statins": 9, "clofibrate": 1, "fenofibrate": 1, "gemfibrozil": 1, "ezetimibe": 1, "bile-acid-resins": 1, "niacin": 1, "dextrothyroxine": 1, "probucol": 1, "somatostatin": 1, "octreotide": 1, "oxytocin": 1, "estradiol": 1, "testosterone": 1, "progesterone": 1, "cortisone": 1, "hydrocortisone": 1, "prednisolone": 1, "dexamethasone": 1, "betamethasone": 1, "triamcinolone": 1, "fluocinolone-acetonide": 1, "meprednisone": 1, "budesonide": 1, "aldosterone": 1, "fludrocortisone": 1, "deoxycorticosterone": 1, "ethinyl-estradiol": 1, "diethylstilbestrol": 1, "clomiphene": 1, "tamoxifen": 1, "raloxifene": 1, "bazedoxifene": 1, "fulvestrant": 1, "aminoglutethimide": 1, "letrozole": 1, "anastrozole": 1, "exemestane": 1, "norgestrel": 1, "desogestrel": 1, "mifepristone": 1, "danazol": 1, "stanozolol": 1, "flutamide-group": 3, "enzalutamide": 1, "cyproterone": 1, "finasteride": 1, "dutasteride": 1, "ptu": 1, "methimazole": 1, "levothyroxine": 1, "liothyronine": 1, "sulfonylurea": 4, "meglitinide": 2, "metformin": 1, "tzd": 2, "muraglitazar": 1, "alpha-glucosidase-inhibitors": 3, "dpp4": 4, "triflusal-diflunisal": 2, "indomethacin": 1, "sulindac": 1, "diclofenac": 1, "tolmetin": 1, "nabumetone": 1, "ibuprofen": 1, "naproxen": 1, "flurbiprofen": 1, "mefenamic-acid": 1, "piroxicam": 1, "meloxicam": 1, "phenylbutazone": 1, "coxibs": 6, "acetaminophen": 1, "colchicine": 1, "probenecid": 1, "sulfinpyrazone": 1, "benzbromarone": 1, "lesinurad": 1, "allopurinol": 1, "febuxostat": 1, "diphenhydramine": 1, "tripelennamine": 1, "pheniramine": 1, "cyclizine-hydroxyzine": 2, "promethazine": 1, "terfenadine-fexofenadine": 1, "ebastine": 1, "loratadine": 1, "astemizole": 1, "acrivastine": 1, "cetirizine": 1, "khellin": 1, "cromolyn": 1, "pemirolast": 1, "omeprazole": 1, "lansoprazole": 1, "pantoprazole": 1, "sucralfate": 1, "bismuth-subsalicylate": 1, "misoprostol": 1, "cimetidine": 1, "ranitidine": 1, "nizatidine": 1, "famotidine": 1};
 Object.entries(AM_IMG).forEach(([id, n]) => {
   const u = PI.UNITS.find(x => x.id === id); if (!u) return;
