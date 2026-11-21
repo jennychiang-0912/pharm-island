@@ -3046,27 +3046,29 @@ kA(38, "抗甲狀腺其他考點", 237, "Propylthiouracil（PTU）與 Methimazol
 
 /* ===== 第 39 章 糖尿病藥物 ===== */
 chA(39, "39", "糖尿病藥物", "238～244");
-kA(39, "糖尿病藥物作用圖", 238, "血糖調節與藥物作用點", [
-  "進食 → α-glucosidase → Glucose↑；α-Glucosidase inhibitors：{{Acarbose、Miglitol|藥名}} ⊖",
-  "小腸分泌 GLP-1 ⊕ 胰臟 β-cell → Insulin↑；GLP-1（{{-tide|名詞}}）：Exenatide、Liraglutide ⊕",
-  "DPP-4 分解 GLP-1；DPP-4 inhibitors（{{-gliptin|名詞}}）：Sitagliptin、Saxagliptin ⊖",
-  "抑制 {{K+ Channel|標的}} 刺激胰島素分泌：Sulfonylurea 第一代（-amide）Tolbutamide、Chlorpropamide；第二代（Gli-、Gly-）Glipizide、Glyburide；Meglitinide：Repaglinide、Nateglinide",
-  "Bisguanidines：{{Metformin|藥名}} ⊕ AMPK ⊖ 肝臟糖質新生",
-  "Thiazolidinediones（-glitazone）：Pioglitazone、Rosiglitazone ⊕ {{PPAR-γ|標的}}，增加肌肉、脂肪組織對 Insulin 的敏感性（藉由 GLUT-4 利用葡萄糖）",
-  "SGLT-2 inhibitors（{{-gliflozin|名詞}}）：Canagliflozin、Dapagliflozin ⊖ 腎臟利用 SGLT-2 再吸收葡萄糖"
-]);
-kA(39, "糖尿病簡介", 239, "糖尿病、胰島細胞與 Insulin", [
-  "空腹及飯後兩小時的血糖值分別大於 {{126 / 200|數值}}；HbA1c 大於 {{6.5%|數值}}，可反應長期（2-3 個月）血糖平均值",
-  "Type 1 DM：幼年型糖尿病，血中胰島素濃度接近零，需以胰島素治療；Type 2 DM：成年型糖尿病，組織對胰島素的作用產生{{阻抗|名詞}}或胰島素分泌不足所導致",
-  "Type 3 DM：可能由藥物引起，像是服用類固醇、Diazoxide、Thiazide、Niacin、酒精；Type 4 DM：又稱{{妊娠型|名詞}}糖尿病，需以胰島素治療",
-  "胰島細胞：Alpha cell 分泌 {{Glucagon|物質}}；Beta cell 分泌 {{Insulin|物質}}；Delta cell 分泌 Somatostatin；Epsilon cell 分泌 Ghrelin",
-  "GLUT2：調節胰島素之釋放；{{GLUT4|標的}}：促使葡萄糖由細胞外（血液）進入細胞內的載體；GLUT5：果糖的吸收",
-  "Insulin receptor 具有 {{Tyrosine kinase|酵素}} 的活性",
-  "胰島素在體內會促進肌肉中的肝醣、蛋白質的合成以及增加脂肪組織中三酸甘油脂的儲存",
-  "由 {{51|數值}} 個胺基酸組成，A 鏈由 21 個、B 鏈由 30 個胺基酸組成，其中 28 號位為 Proline，29 號位為 lysine",
-  "分子中含有 {{3|數值}} 個雙硫鍵，2 個 interchain（鏈間）和 1 個 intrachain（鏈內）",
-  "造成血糖上升的藥物：Somatostatin、Diazoxide、Niacin、Glucocorticoids、Hydrocholorthiazide",
-  "當糖尿病病人出現{{酮酸中毒|疾病}}現象時，應直接給予 Insulin"
+kA(39, "糖尿病藥物作用圖", 238, "血糖調節與藥物作用點（圖）", { images: ["assets/amulet/fig/diabetes-action.png"] });
+kA(39, "糖尿病簡介", 239, "糖尿病簡介", { table: { cols: ["", "內容"], rows: [
+  [{ t: "糖尿病簡介", b: true }, "1. 空腹及飯後兩小時的血糖值分別大於 {{126 / 200|數值}}\n2. HbA1c 大於 {{6.5%|數值}}，可反應長期（2-3 個月）血糖平均值"] ] } });
+kA(39, "糖尿病簡介", 239, "致病原因分類", { table: { cols: ["類型", "內容"], rows: [
+  [{ t: "Type 1 DM", b: true }, "幼年型糖尿病，血中胰島素濃度接近零，需以胰島素治療"],
+  [{ t: "Type 2 DM", b: true }, "成年型糖尿病，組織對胰島素的作用產生{{阻抗|名詞}}或胰島素分泌不足所導致"],
+  [{ t: "Type 3 DM", b: true }, "可能由藥物引起，像是服用類固醇、Diazoxide、Thiazide、Niacin、酒精（增加 Tolbutamide 代謝）"],
+  [{ t: "Type 4 DM", b: true }, "又稱{{妊娠型|名詞}}糖尿病，發生在懷孕時，需以胰島素治療"] ] } });
+kA(39, "糖尿病簡介", 239, "胰島細胞分類與 Glucose transporters", { table: { cols: ["", "內容"], rows: [
+  [{ t: "Alpha cell", b: true }, "分泌 {{Glucagon|物質}}"],
+  [{ t: "Beta cell", b: true }, "分泌 Insulin"],
+  [{ t: "Delta cell", b: true }, "分泌 Somatostatin"],
+  [{ t: "Epsilon cell", b: true }, "分泌 Ghrelin"],
+  [{ t: "GLUT2", b: true }, "調節胰島素之釋放"],
+  [{ t: "GLUT4", b: true }, "{{促使葡萄糖由細胞外（血液）進入細胞內的載體|名詞}}"],
+  [{ t: "GLUT5", b: true }, "果糖的吸收"] ] } });
+kA(39, "糖尿病簡介", 239, "Insulin 補充考點", [
+  "1. Insulin receptor 具有 {{Tyrosine kinase|酵素}} 的活性",
+  "2. 胰島素在體內會促進肌肉中的肝醣、蛋白質的合成以及增加{{脂肪組織中三酸甘油脂的儲存|名詞}}",
+  "3. 由 {{51|數值}} 個胺基酸組成，A 鏈由 21 個胺基酸組成，B 鏈由 30 個胺基酸組成，其中 28 號位為 Proline，29 號位為 lysine",
+  "4. 分子中含有 {{3|數值}} 個雙硫鍵，2 個 interchain（鏈間）和 1 個 intrachain（鏈內）",
+  "5. 造成血糖上升的藥物：Somatostatin、Diazoxide、Niacin、Glucocorticoids、Hydrocholorthiazide",
+  "6. 當糖尿病病人出現{{酮酸中毒|疾病}}現象時，應直接給予 Insulin"
 ]);
 dA(39, "胰島素：控制飯後血糖", 240, "rapid-insulin", "Lispro、Aspart、Glulisine（速效）", "Lispro", {
   cls: ["速效胰島素：控制{{飯後血糖|名詞}}，作為餐前胰島素使用"],
@@ -3120,16 +3122,10 @@ mA("dpp4", 243, {
   struct: ["Saxagliptin、Vildagliptin 含 {{Pyrrolidine|結構}}", "Saxagliptin 結構中不含 {{Nitro|結構}} 基團"] });
 mA("sglt2-inhibitors", 243, { feat: ["副作用：尿中含糖量增加，所以增加{{泌尿道感染|副作用}}的機率"] });
 mA("pramlintide", 243, { struct: ["此藥是將 Amylin 的胺基酸序列 {{25、28、29|數值}} 以 {{Proline|物質}} 置換而得"] });
-kA(39, "DPP-IV 抑制劑總整理", 244, "DPP-IV 抑制劑比較", [
-  "生體可用率：Vildagliptin（Galvus）{{90%|數值}}；Sitagliptin（Januvia）87%；Saxagliptin（Onglyza）67%；Alogliptin（Nesina）63%；Linagliptin（Tradjenta）{{30%|數值}}",
-  "血漿蛋白結合率：Vildagliptin <10%；Sitagliptin 38%；Saxagliptin <10%；Linagliptin {{70-80%|數值}}",
-  "DPP-IV 屬於 {{Serine protease|酵素}}，Saxagliptin 之 {{CN|結構}} 可與之結合",
-  "Vildagliptin 結構含 {{aminoacylpyrrolidine|結構}}",
-  "Sitagliptin 結構含 {{6 個 F 及 Piperazine+Pyrazole|結構}}",
-  "Saxagliptin 結構含 aminoacylpyrrolidine，經 3A4 形成 {{5-OHSaxagliptin|物質}}",
-  "Alogliptin 結構含 {{Pyrimidine 及 CN|結構}}",
-  "Linagliptin 具 {{Xanthine|結構}}，Piperidine 與丁炔可增加對 DPP-IV 之親和力"
-]);
+kA(39, "DPP-IV 抑制劑總整理", 244, "DPP-IV 抑制劑總整理", { table: { head: ["", "Vildagliptin\n(Galvus)", "Sitagliptin\n(Januvia)", "Saxagliptin\n(Onglyza)", "Alogliptin\n(Nesina)", "Linagliptin\n(Tradjenta)"], rows: [
+  [{ t: "生體可用率", b: true }, "{{90%|數值}}", "87%", "67%", "63%", "{{30%|數值}}"],
+  [{ t: "血漿蛋白結合率", b: true }, "<10%", "38%", "<10%", "x", "{{70-80%|數值}}"] ],
+  note: "✧ DPP-IV 屬於 {{Serine protease|酵素}}，Saxagliptin 之 {{CN|結構}} 可與之結合\n✧ Vildagliptin 結構含 {{aminoacylpyrrolidine|結構}}\n✧ Sitagliptin 結構含 {{6 個 F 及 Piperazine+Pyrazole|結構}}\n✧ Saxagliptin 結構含 aminoacylpyrrolidine，經 3A4 形成 {{5-OHSaxagliptin|物質}}\n✧ Alogliptin 結構含 {{Pyrimidine 及 CN|結構}}\n✧ Linagliptin 具 {{Xanthine|結構}}，Piperidine 與丁炔可增加對 DPP-IV 之親和力" } });
 
 /* 講義第 245～251 頁（40. 鴉片類藥物）暫時沒有收錄。 */
 
