@@ -2583,24 +2583,15 @@ kA(31, "抗凝血解毒劑總整理", 205, "抗凝血解毒劑總整理", [
 
 /* ===== 第 33 章 降血脂藥物 ===== */
 chA(33, "33", "降血脂藥物", "207～211");
-kA(33, "降血脂藥物作用圖", 207, "脂質代謝與藥物作用點", [
-  "HMG-CoA →（{{HMG-CoA reductase|酵素}}，被 Statins 類 Rosuvastatin、Atorvastatin、Simvastatin 抑制）→ Mevalonate → Cholesterol（27 個碳）→（7α-hydroxylase）→ Bile acids（{{24|數值}} 個碳）",
-  "脂肪細胞：TG →（Hormone Sensitive Lipase，被 {{Niacin|藥名}} 抑制）→ Free fatty acids",
-  "肝臟：抑制 ApoB100 合成 → {{Mipomersen|藥名}}；MTP inhibitor → {{Lomitapide|藥名}}",
-  "血管：VLDL →（Lipoprotein lipase，被 {{Fibrates 類|藥物類別}} Clofibrate、Fenofibrate 活化）→ IDL → LDL",
-  "CETP 抑制劑（-cetrapib）：Dalcetrapib、Torcetrapib、Anacetrapib；Niacin 增加 HDL",
-  "PCSK9 inhibitors：{{Alirocumab、Evolocumab|藥名}}，使 LDL receptor 增加",
-  "抑制膽固醇吸收：{{Ezetimibe|藥名}} 抑制 NPC1L1；Anionic exchange resins 與 Bile acids 結合，膽酸排泄增加",
+kA(33, "降血脂藥物作用圖", 207, "脂質代謝與藥物作用點", { images: ["assets/amulet/fig/lipid-metab.png"], points: [
   "TG = Triglyceride；CE = Cholesterol；NPC1L1 = Niemann-Pick C1-Like 1；MTP = Microsomal triglyceride transfer protein；CETP = Cholesteryl ester transfer protein"
-]);
-kA(33, "降血脂藥物分類", 208, "五類降血脂藥比較", [
-  "HMG-CoA reductase inhibitor：主要降 {{Cholesterol|物質}}；抑制膽固醇的合成、抑制 Isoprenoids 合成，也能降低 Rho 及 Rab 蛋白；增加 {{LDL receptor|標的}} 數量，降低血液中的 LDL",
-  "Statin 副作用：造成{{橫紋肌溶解症|副作用}}，與 Fibrates、Niacin 併用造成橫紋肌溶解症機率最高；孕婦不可使用",
-  "Fibrates：主要降 {{TG|物質}}；活化 {{PPAR-α|標的}}、活化 Lipoprotein lipase；副作用：腹瀉、膽結石、心律不整、肝指數上升、橫紋肌溶解症；孕婦、嚴重肝病患者不可使用",
-  "Anionic exchange resins：主要降 Cholesterol；在小腸與膽酸結合可降 LDL，並增加 LDL receptor 的數目；副作用：便祕、干擾 {{Vit ADEK|物質}} 的吸收；孕婦{{可用|性質}}",
-  "Niacin：主要降 Cholesterol 和 TG，升 {{HDL|物質}} 最明顯；抑制脂肪組織內三酸甘油脂的分解、減少游離脂肪酸的釋放；副作用：{{皮膚潮紅|副作用}}、消化性潰瘍、血糖和尿酸升高、肝指數上升",
-  "Ezetimibe：主要降 Cholesterol；作用在 {{NPC1L1|標的}} 使小腸吸收膽固醇及植物固醇的能力下降"
-]);
+] });
+kA(33, "降血脂藥物分類", 208, "五類降血脂藥比較", { table: { head: ["分類", "降血脂功效", "機轉", "副作用"], rows: [
+  [{ t: "HMG-CoA reductase inhibitor", b: true }, "主要降 {{Cholesterol|物質}}", "1. 抑制膽固醇的合成\n2. 抑制 Isoprenoids 合成，也能降低 Rho 及 Rab 蛋白\n3. 增加 {{LDL receptor|標的}} 數量，降低血液中的 LDL", "1. 造成{{橫紋肌溶解症|副作用}}，與 Fibrates、Niacin 併用造成橫紋肌溶解症機率最高\n2. 孕婦不可使用"],
+  [{ t: "Fibrates", b: true }, "主要降 {{TG|物質}}", "1. 活化 {{PPAR-α|標的}}\n2. 活化 Lipoprotein lipase", "1. 造成腹瀉、膽結石、心律不整、AST、ALT（肝指數）上升、橫紋肌溶解症\n2. 孕婦、嚴重肝病患者不可使用"],
+  [{ t: "Anionic exchange resins", b: true }, "主要降 Cholesterol", "1. 在小腸與膽酸結合可降 LDL，並增加 LDL receptor 的數目", "1. 造成便祕、併用其他藥物會降低療效、干擾 {{Vit ADEK|物質}} 的吸收\n2. 孕婦{{可用|性質}}"],
+  [{ t: "Niacin", b: true }, "主要降 Cholesterol 和 TG，升 {{HDL|物質}} 最明顯", "1. 抑制脂肪組織內三酸甘油脂的分解\n2. 減少脂肪組織中游離脂肪酸的釋放", "1. 引起{{皮膚潮紅|副作用}}、消化性潰瘍、血糖和尿酸升高、肝指數上升"],
+  [{ t: "Ezetimibe", b: true }, "主要降 Cholesterol", "作用在 {{NPC1L1|標的}} 使小腸吸收膽固醇及植物固醇的能力下降", ""] ] } });
 dA(33, "新藥", 208, "lomitapide", "Lomitapide", null, {
   cls: ["Microsomal triglyceride transfer protein inhibitor（{{MTP|標的}}）"],
   feat: ["MTP 幫助 TG 及 CE 轉化為 VLDL，因此使用 MTP inhibitor 可幫助降低 {{VLDL 及 LDL|物質}}"] });
@@ -2613,14 +2604,22 @@ dA(33, "新藥", 208, "torcetrapib", "Torcetrapib", null, {
 dA(33, "新藥", 208, "pcsk9-inhibitor", "Evolocumab、Alirocumab", "Evolocumab", {
   cls: ["{{PCSK9|標的}}（Proprotein Convertase Subtilisin/Kexin type 9）抑制劑"],
   feat: ["PCSK9 與 LDL 受體結合後會使 LDL 受體被分解，因此使用 PCSK9 抑制劑可以減少 LDL 受體被 PCSK9 分解，使 LDL 受體可以和血液中 LDL 結合，達到降低 LDL 的效果", "副作用：類流感症狀、{{鼻咽炎|副作用}}、眼疾"] });
-kA(33, "Statin 類", 209, "Statin 類藥理特色與 SAR", [
-  "強弱比較：{{Rosuvastatin > Atorvastatin > Simvastatin|藥名}} >>> others",
-  "CYP3A4 代謝：Lovastatin、Atorvastatin、Simvastatin；CYP2C9 代謝：{{Rosuvastatin、Fluvastatin|藥名}}",
-  "可與 statin 併用：Ezetimibe；{{Fenofibrate|藥名}}（Fibrates 類中，選此藥較發生肌病變的機率較低）",
-  "Prodrug：{{Mevastatin、Lovastatin、Simvastatin|藥名}}，水解後得 {{3,5-dihydroxy acid|結構}} 以抑制 HMG-CoA reductase",
-  "SAR：活性基團和 Mevaldyl-CoA intermediate 構造相似，可競爭 HMG-CoA reductase，增加 LDL 受體數目並降低 LDL 濃度",
-  "C5 與 Ring 間以{{兩個碳|結構}}的距離最佳；Chiral center：{{3R、5R|結構}}",
-  "雜環口訣：Fluvastatin — {{Indole|結構}}（福音）；Atorvastatin — {{Pyrrole|結構}}（or 對 ro）；Pitavastatin — {{Quinoline|結構}}（逼他哭）；Rosuvastatin — {{Pyrimidine|結構}}（囉嗦，蝦米）；Cerivastatin — {{Pyridine|結構}}（ri 對 ri）"
+kA(33, "Statin 類", 209, "Statin 類藥理特色", { table: { cols: ["藥理分類", "內容"], rows: [
+  [{ t: "強弱比較", b: true }, "{{Rosuvastatin > Atorvastatin > Simvastatin|藥名}} >>> others"],
+  [{ t: "CYP3A4 代謝", b: true }, "Lovastatin、Atorvastatin、Simvastatin"],
+  [{ t: "CYP2C9 代謝", b: true }, "{{Rosuvastatin、Fluvastatin|藥名}}"],
+  [{ t: "可與 statin 併用", b: true }, "1. Ezetimibe\n2. {{Fenofibrate|藥名}}（Fibrates 類中，選此藥較發生肌病變的機率較低）"],
+  [{ t: "Prodrug", b: true }, "Mevastatin、Lovastatin、Simvastatin\n水解後得 {{3,5-dihydroxy acid|結構}} 以抑制 HMG-CoA reductase"],
+  [{ t: "SAR", b: true }, "✧ 活性基團和 Mevaldyl-CoA intermediate 構造相似，可競爭 HMG-CoA reductase，增加 LDL 受體數目並降低 LDL 濃度\n✧ C5 與 Ring 間以{{兩個碳|結構}}的距離最佳\n✧ Chiral center：{{3R、5R|結構}}"] ] } });
+kA(33, "Statin 類", 209, "雜環口訣（from 阿摩前輩）", { table: { head: [{ t: "雜環口訣（from 阿摩前輩）", cs: 2 }, null], cols: ["藥名", "雜環"], rows: [
+  [{ t: "Fluvastatin", b: true }, "{{Indole|結構}}（福音）"],
+  [{ t: "Atorvastatin", b: true }, "{{Pyrrole|結構}}（or 對 ro）"],
+  [{ t: "Pitavastatin", b: true }, "{{Quinoline|結構}}（逼他哭）"],
+  [{ t: "Rosuvastatin", b: true }, "{{Pyrimidine|結構}}（囉嗦，蝦米）"],
+  [{ t: "Cerivastatin", b: true }, "{{Pyridine|結構}}（ri 對 ri）"] ] } });
+kA(33, "Statin 類", 209, "練習題", [
+  "Tip：此頁重點在於熟悉各 Statin 類藥品的雜環以及藥理特色",
+  "Ex：Rosuvastatin 具下列何種雜環結構？(A) imidazole (B) pyrrole (C) pyrazole (D) pyrimidine　選 {{D|名詞}}"
 ]);
 dA(33, "Statin 類", 209, "statins", "Statins（Mevastatin、Lovastatin、Simvastatin、Pravastatin…）", "Statins", {
   cls: ["{{HMG-CoA reductase inhibitor|藥物類別}}"],
