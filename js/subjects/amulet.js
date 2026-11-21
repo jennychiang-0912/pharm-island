@@ -3158,17 +3158,7 @@ dA(41, "白三烯素相關藥物", 254, "montelukast", "Zafirlukast、Montelukas
 
 /* ===== 第 42 章 非類固醇抗發炎藥 ===== */
 chA(42, "42", "非類固醇抗發炎藥", "255～261");
-kA(42, "NSAID 作用圖", 255, "花生四烯酸路徑與各產物作用（Katzung 圖）", [
-  "Phospholipid —（Phospholipase A2，被 Glucocorticoids 抑制）→ Arachidonic acid",
-  "Cyclooxygenase（COX-1、COX-2）：非選擇 COX 抑制劑 {{Aspirin|藥名}}；選擇性 COX-2 抑制劑 {{Celecoxib、Lumiracoxib|藥名}}",
-  "COX → PGG2 —（Peroxidase）→ PGH2",
-  "PGI2（Prostacyclin synthase）：血管擴張（保腎）、胃酸減少（保胃）、支氣管擴張（保氣管）、{{抑制血小板凝集|名詞}}、疼痛增強",
-  "PGD2：血管擴張、抑制血小板凝集",
-  "PGE2：血管擴張、胃酸減少、支氣管擴張、{{子宮收縮|名詞}}、體溫增加、疼痛增強",
-  "PGF2α：血管收縮、支氣管收縮、子宮收縮、體溫增加",
-  "TXA2（Thromboxane Synthase）：血管收縮（傷腎）、支氣管收縮（傷氣管）、{{促進血小板凝集|名詞}}",
-  "5-Lipoxygenase（Zileuton 抑制）→ LTC4 → LTD4 → LTE4 誘發氣喘（Zafirlukast、Montelukast）；LTB4 → 吞噬細胞活化 → 發炎（秋水仙素 Colchicine）"
-]);
+kA(42, "NSAID 作用圖", 255, "花生四烯酸路徑與各產物作用（Katzung 圖）", { images: ["assets/amulet/fig/nsaid-action.png"] });
 dA(41, "前列腺素藥物", 256, "alprostadil", "Alprostadil（PGE1）", "Alprostadil", {
   cls: ["PGE1"],
   feat: ["用於{{陽痿|疾病}}、新生兒{{動脈導管暢通|名詞}}", "血管擴張、支氣管擴張、血小板凝集的抑制劑"] });
@@ -3195,29 +3185,29 @@ kA(41, "前列腺素結構", 256, "TXA2 與白三烯素作用", [
   "LTB4：增加白血球的{{趨化性|名詞}}和凝集",
   "LTC4、LTD4、LTE4：支氣管收縮，是{{氣喘|疾病}}的致病因子之一"
 ]);
-kA(42, "NSAID 藥理", 257, "NSAID 藥理作用", [
-  "解熱：PGE2 為腦部中的熱原，會增加內生性熱原（{{interleukin-1|物質}}）的釋放；NSAID 防止 PGE2 的增加，達到解熱的作用",
-  "鎮痛：前列腺素本身不會產生痛覺反應，但會{{加強|性質}}其他發炎物質造成的疼痛",
-  "抗發炎：抑制 {{Cyclooxygenase|酵素}}，使前列腺素無法合成",
-  "抗凝血：Aspirin 抑制 {{TXA2|物質}} 合成，可治療栓塞疾病，有心保護作用"
-]);
-kA(42, "NSAID 藥理", 257, "NSAID 副作用與 COX-2 抑制劑", [
-  "傷胃：NSAID 本身為酸性（{{Nabumetone|藥名}} 為中性代謝後為酸性），會對胃造成直接的刺激；再者，NSAID 會抑制前列腺素合成，導致胃酸分泌，引起消化性胃潰瘍",
-  "傷腎：{{PGE2 和 PGI2|物質}} 為血管擴張劑，NSAID 抑制腎臟前列腺素的合成，會導致腎臟血流量減少，引起腎衰竭",
-  "其他副作用：造成氣喘、抑制血小板凝集、Aspirin 用在幼兒易引起 {{Reye's syndrome|疾病}}",
-  "傳統的 NSAIDs 沒有選擇性，因此會同時抑制 COX-1、COX-2，容易造成腸胃道出血及腎臟血流量減少，因此發展出選擇性 COX-2 抑制劑",
-  "選擇性 COX-2 抑制劑不易有傷胃的作用，但容易促進{{血小板凝集|名詞}}，造成動脈粥狀硬化的機會提高，病人容易有心臟病和中風的危險"
-]);
-kA(42, "COX-1 與 COX-2", 258, "COX-1 與 COX-2 比較", [
-  "COX-1：{{生理型|名詞}}酵素 → 平時就存在於體內；生理功能：分泌黏液保護胃壁、維持腎臟功能、促進血小板凝集",
-  "COX-2：{{誘發型|名詞}}酵素 → 當身體發炎或結腸直腸癌所誘發的酵素；生理功能：發燒、維持腎臟功能",
-  "非選擇性 COX 抑制劑副作用：抑制胃黏液分泌 → 傷胃；減少腎臟血流量 → 傷腎；抑制血小板凝集 → 出血",
-  "選擇性 COX-2 抑制劑：長期使用還是會傷腎及產生{{心血管|名詞}}副作用；較不會有腸胃道不適的副作用",
+kA(42, "NSAID 藥理", 257, "NSAID 藥理作用", { table: { head: ["NSAID 藥理作用", "藥理簡介"], rows: [
+  [{ t: "解熱作用", b: true }, "✧ PGE2 為腦部中的熱原，會增加內生性熱原（interleukin-1）的釋放\n✧ NSAID 防止 PGE2 的增加，達到解熱的作用"],
+  [{ t: "鎮痛作用", b: true }, "✧ 前列腺素本身不會產生痛覺反應，但會{{加強|性質}}其他發炎物質造成的疼痛"],
+  [{ t: "抗發炎作用", b: true }, "✧ 抑制 {{Cyclooxygenase|酵素}}，使前列腺素無法合成"],
+  [{ t: "抗凝血作用", b: true }, "✧ Aspirin 抑制 TXA2 合成，可治療栓塞疾病，有心保護作用"] ] } });
+kA(42, "NSAID 藥理", 257, "NSAID 副作用", { table: { head: ["NSAID 副作用", ""], rows: [
+  [{ t: "傷胃", b: true }, "✧ NSAID 本身為酸性，（{{Nabumetone|藥名}} 為中性代謝後為酸性），會對胃造成直接的刺激\n✧ 再者，NSAID 會抑制前列腺素合成，導致胃酸分泌，引起消化性胃潰瘍"],
+  [{ t: "傷腎", b: true }, "✧ {{PGE2 和 PGI2|物質}} 為血管擴張劑，NSAID 抑制腎臟前列腺素的合成，會導致腎臟血流量減少，引起腎衰竭"],
+  [{ t: "其他副作用", b: true }, "✧ 造成氣喘、抑制血小板凝集、Aspirin 用在幼兒易引起 {{Reye's syndrome|疾病}}"] ] } });
+kA(42, "NSAID 藥理", 257, "COX-2 inhibitor 藥理介紹", { table: { head: ["COX-2 inhibitor 藥理介紹", ""], rows: [
+  [{ t: "COX-2 inhibitor\n藥理介紹", b: true }, "1. 傳統的 NSAIDs 沒有選擇性，因此會同時抑制 COX-1、COX-2，容易造成腸胃道出血及腎臟血流量減少，因此發展出選擇性 COX-2 抑制劑\n2. 因此選擇性 COX-2 抑制劑不易有傷胃的作用，但是選擇性 COX-2 抑制劑容易促進{{血小板凝集|名詞}}，造成動脈粥狀硬化（antherogenesis）的機會提高，病人容易有心臟病和中風的危險"] ],
+  note: "✧ {{Diclofenac > Indomethacin > Ibuprofen > Aspirin|藥名}}" } });
+kA(42, "COX-1 與 COX-2", 258, "COX-1 與 COX-2 比較", { table: { head: ["", "COX-1", "COX-2"], rows: [
+  [{ t: "類型", b: true }, "{{生理型|名詞}}酵素\n→平時就存在於體內", "{{誘發型|名詞}}酵素\n→當身體發炎或結腸直腸癌所誘發的酵素"],
+  [{ t: "生理功能", b: true }, "1. 分泌黏液保護胃壁\n2. 維持腎臟功能\n3. 促進血小板凝集", "1. 發燒\n2. 維持腎臟功能"] ] } });
+kA(42, "COX-1 與 COX-2", 258, "非選擇性 COX 抑制劑與選擇性 COX-2 抑制劑副作用比較", { table: { head: ["", "非選擇性 COX 抑制劑", "選擇性 COX-2 抑制劑"], rows: [
+  [{ t: "副作用比較", b: true }, "✧ 抑制胃黏液分泌→傷胃\n✧ 減少腎臟血流量→傷腎\n✧ 抑制血小板凝集→出血", "1. 長期使用還是會傷腎及產生{{心血管|名詞}}副作用\n2. 較不會有腸胃道不適的副作用"] ] } });
+kA(42, "COX-1 與 COX-2", 258, "COX-1 與 COX-2 Allosteric pocket", { images: ["assets/amulet/fig/cox-pocket.png"], points: [
   "{{Arg120|結構}} 可與 NSAIDs 負離子以離子鍵結",
   "Tyr348、Val349、Tyr385、Trp387 可與 NSAID 的芳香環間以疏水鍵及凡得瓦爾鍵結合",
-  "COX-2 有 {{Val434 & Val523|結構}}，而 COX-1 有 Ile434 & Ile523，因此使選擇性 COX-2 抑制劑無法進入 COX-1 allosteric site",
+  "COX-2 有 {{Val434 ＆ Val523|結構}}，而 COX-1 有 Ile434 ＆ Ile523，因此使選擇性 COX-2 抑制劑無法進入 COX-1 allosteric site",
   "Aspirin 會在 COX-1 之 {{Serine|物質}} 上進行乙醯化，而造成不可逆的抑制作用，而其他 NSAIDs 為 COX 的可逆抑制劑"
-]);
+] });
 mA("aspirin-antiplatelet", 259, {
   cls: ["NSAID：水楊酸衍生物，以{{乙醯化|名詞}}行不可逆抑制 COX-1"],
   feat: ["Aspirin 代謝：{{COOH 接 Glycine|名詞}}（主要）、COOH 接 Glucuronide、OH 接 Glucuronide", "低劑量會抑制{{尿酸|物質}}排泄，痛風病人禁用", "可預防心肌梗塞", "{{氣喘|疾病}}患者禁用"] });
