@@ -3256,13 +3256,9 @@ dA(42, "解熱鎮痛藥", 261, "acetaminophen", "Acetaminophen", null, {
 
 /* ===== 第 43 章 抗痛風藥物 ===== */
 chA(43, "43", "抗痛風藥物", "262～263");
-kA(43, "尿酸代謝與痛風", 262, "尿酸路徑與藥物作用點（Katzung 圖）", [
-  "Hypoxanthine —（{{Xanthine oxidase|酵素}}）→ Xanthine —（Xanthine oxidase）→ Uric acid；減少尿酸合成：{{Allopurinol、Febuxostat|藥名}} 抑制",
-  "Uric acid 經腎小管排除 → 尿液；增加尿酸排除：{{Probenecid、Sulfinpyrazone|藥名}}",
-  "Uric acid —（{{Uricase|酵素}}）→ Allantoin（尿囊素）；增加尿酸降解：{{Pegloticase|藥名}}",
-  "痛風的特徵是{{尿酸結晶|物質}}沉積在關節，而引起疼痛性關節炎",
-  "治療方式：減少尿酸結晶鹽引起的發炎反應；抑制 Xanthine oxidase，減少尿酸合成；增加尿酸的排除；增加尿酸的溶解度"
-]);
+kA(43, "尿酸代謝與痛風", 262, "尿酸路徑與藥物作用點（Katzung 圖）", { images: ["assets/amulet/fig/uric-acid-path.png"], table: { cols: ["", "內容"], rows: [
+  [{ t: "痛風病理機轉", b: true }, "痛風的特徵是{{尿酸結晶|物質}}沉積在關節，而引起疼痛性關節炎"],
+  [{ t: "治療方式", b: true }, "✧ 減少尿酸結晶鹽引起的發炎反應\n✧ 抑制 Xanthine oxidase，減少尿酸合成\n✧ 增加尿酸的排除\n✧ 增加尿酸的溶解度"] ] } });
 dA(43, "秋水仙素", 263, "colchicine", "Colchicine", null, {
   cls: ["秋水仙素：抑制{{嗜中性白血球|名詞}}吞噬作用"],
   feat: ["治療{{急性|性質}}痛風首選常併用 Indomethacin", "生合成：{{Phenylalanine + Tyrosine|物質}}"] });
