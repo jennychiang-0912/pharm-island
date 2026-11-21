@@ -2992,35 +2992,37 @@ kA(37, "補充藥理考點", 233, "Vitamin D 活化與 Cinacalcet", [
 
 /* ===== 第 38 章 抗甲狀腺藥物 ===== */
 chA(38, "38", "抗甲狀腺藥物", "234～237");
-kA(38, "甲狀腺素合成與藥物", 234, "甲狀腺素合成步驟與抑制藥物（Katzung 圖）", [
-  "下視丘 TRH → 腦垂腺前葉 TSH → 促甲狀腺素分泌",
-  "攝取碘離子：競爭 {{Na+/I- Symporter|標的}} → ClO4-、TcO4-、SCN-、BF4-",
-  "碘離子轉為碘分子：抑制 {{Peroxidase|酵素}} → PTU、MMI、Carbimazole",
-  "碘化（Iodination）：抑制碘分子轉為 MIT、DIT → PTU、MMI、Iodides（Lugol's solution）",
-  "偶合（Coupling）：抑制 MIT+DIT → T3、DIT+DIT → T4 → {{PTU、MMI|藥名}}",
-  "蛋白質分解（Proteolysis）：抑制甲狀腺釋放 T3 及 T4 → {{Iodides（Lugol's solution）|藥名}}",
-  "去碘：抑制 {{5'-deiodinase|酵素}} → PTU、Iopanoic acid（放射線顯影劑）、β-blocker、Corticosteroids、Amiodarone",
-  "{{Dopamine、Glucocorticoids|藥名}} 會抑制腦下垂體前葉分泌 TSH",
-  "PTU = Propylthiouracil；MMI = Methimazole；MIT = Monoiodotyrosine；DIT = diiodoTyrosine"
-]);
-kA(38, "甲狀腺疾病", 235, "甲狀腺機能亢進與低下", [
-  "亢進：{{葛瑞夫茲病（Graves's disease）|疾病}}；一種甲狀腺亢進症，會分泌抗體刺激 TSH 受體，造成 T3 和 T4 過度分泌",
-  "亢進：T3、T4 上升；造成{{凸眼症|副作用}}、增加心跳速率、食慾增加、貧血、基礎代謝率增加",
-  "亢進治療：{{PTU、MMI、β-blocker、Iodides（Lugol's solution）|藥名}}",
-  "低下：{{橋本氏甲狀腺炎（Hashimoto's disease）|疾病}}；甲狀腺之自體免疫破壞",
-  "低下：T4 下降、TSH 上升（初期甲狀腺會腫大）；小孩會造成{{呆小症|疾病}}、大人會造成{{黏液水腫|疾病}}；治療：T3、T4"
-]);
+kA(38, "甲狀腺素合成與藥物", 234, "甲狀腺素合成步驟與抑制藥物（Katzung 圖）", { images: ["assets/amulet/fig/thyroid-synth.png"], table: { head: ["步驟", "機轉", "藥物"], rows: [
+  [{ t: "攝取碘離子", b: true }, "競爭 {{Na+/I- Symporter|標的}}", "ClO4-、TcO4-、SCN-、BF4-"],
+  [{ t: "碘離子轉為碘分子", b: true }, "抑制 {{Peroxidase|酵素}}", "PTU、MMI、Carbimazole"],
+  [{ t: "碘化（Iodination）", b: true }, "抑制碘分子轉為 MIT、DIT", "PTU、MMI、Iodides（Lugol's solution）"],
+  [{ t: "偶合（Coupling）", b: true }, "抑制 MIT+DIT→T3\n抑制 DIT+DIT→T4", "PTU、MMI"],
+  [{ t: "蛋白質分解（Proteolysis）", b: true }, "抑制甲狀腺釋放 T3 及 T4", "Iodides（Lugol's solution）"],
+  [{ t: "去碘", b: true }, "抑制 {{5'-deiodinase|酵素}}", "PTU、Iopanoic acid（放射線顯影劑）、β-blocker、Corticosteroids、Amiodarone"] ],
+  note: "✓ {{Dopamine、Glucocorticoids|藥名}} 會抑制腦下垂體前葉分泌 TSH\n✓ PTU = Propylthiouracil；MMI = Methimazole；MIT = Monoiodotyrosine；DIT = diiodoTyrosine" } });
+kA(38, "甲狀腺疾病", 235, "甲狀腺機能亢進與低下", { table: { head: ["", "甲狀腺機能亢進", "甲狀腺機能低下"], rows: [
+  [{ t: "病名", b: true }, "葛瑞夫茲病（{{Graves's disease|疾病}}）", "橋本氏甲狀腺炎（{{Hashimoto's disease|疾病}}）"],
+  [{ t: "病因", b: true }, "一種甲狀腺亢進症，會分泌抗體刺激 TSH 受體，造成 T3 和 T4 過度分泌", "甲狀腺之自體免疫破壞"],
+  [{ t: "荷爾蒙", b: true }, "T3、T4 上升", "T4 下降、TSH 上升（初期甲狀腺會腫大）"],
+  [{ t: "症狀", b: true }, "造成{{凸眼症|副作用}}、增加心跳速率、食慾增加、貧血、基礎代謝率增加", "小孩會造成{{呆小症|疾病}}、大人會造成{{黏液水腫|疾病}}"],
+  [{ t: "治療", b: true }, "{{PTU、MMI、β-blocker、Iodides（Lugol's solution）|藥名}}", "T3、T4"] ] } });
 dA(38, "甲狀腺素", 236, "levothyroxine", "T4（Levothyroxine）", "Levothyroxine", {
   cls: ["甲狀腺素"],
   feat: ["分布體積 10L；清除率 1.1L；鍵結數量 99.95%（多）", "半衰期 {{7 天|數值}}；作用強度{{小|性質}}；口服吸收 70%／pKa 6.7", "血漿蛋白結合率{{高|性質}}；排除：{{50% 尿液／50% 糞便|名詞}}", "治療甲狀腺機能低下、橋本氏甲狀腺炎、黏液水腫昏迷"] });
 dA(38, "甲狀腺素", 236, "liothyronine", "T3（Liothyronine）", "Liothyronine", {
   cls: ["甲狀腺素"],
   feat: ["分布體積 {{40L（大）|數值}}；清除率 24L；鍵結數量 99.6%", "半衰期 {{1 天|數值}}；作用強度{{大|性質}}；口服吸收 95%／pKa 8.4", "血漿蛋白結合率低；排除：{{尿液|名詞}}"] });
-kA(38, "T3 T4 比較", 236, "T3 T4 特色", [
-  "{{Liotrix|藥名}} 是 T4 與 T3 以 {{4:1|數值}} 之比例混合而成",
-  "甲狀腺生合成的前驅物為 {{L-Tyrosine|物質}}",
-  "體內濃度：{{T4 > T3|名詞}}"
-]);
+kA(38, "T3 T4 比較", 236, "T3 T4 比較表", { table: { head: ["藥理", "T4（Levothyroxine）", "T3（Liothyronine）"], rows: [
+  [{ t: "結構", b: true }, { t: "T4", img: "assets/amulet/fig/t4-struct.png" }, { t: "T3", img: "assets/amulet/fig/t3-struct.png" }],
+  [{ t: "分布體積", b: true }, "10L", "40L（大）"],
+  [{ t: "清除率", b: true }, "1.1L", "24L"],
+  [{ t: "蛋白結合量", b: true }, "99.95%（多）", "99.6%"],
+  [{ t: "半衰期", b: true }, "{{7 天|數值}}", "1 天"],
+  [{ t: "作用強度", b: true }, "小", "{{大|性質}}"],
+  [{ t: "口服吸收／pKa", b: true }, "70% ／6.7", "95% ／8.4"],
+  [{ t: "血漿蛋白結合率", b: true }, "{{高|性質}}", "低"],
+  [{ t: "排除", b: true }, "{{50%尿液／50%糞便|名詞}}", "尿液"],
+  [{ t: "特色", b: true }, { t: "1. 治療甲狀腺機能低下、橋本氏甲狀腺炎、黏液水腫昏迷（T4 治療）\n2. {{Liotrix|藥名}} 是 T4 與 T3 以 {{4:1|數值}} 之比例混合而成\n3. 甲狀腺生合成的前驅物為 {{L-Tyrosine|物質}}\n4. 體內濃度：{{T4 > T3|名詞}}", cs: 2 }, null] ] } });
 dA(38, "Thioamide", 237, "ptu", "Propylthiouracil（PTU）", "PTU", {
   cls: ["抑制 Peroxidase、碘化、偶合、抑制 {{5'-deiodinase|酵素}}"],
   struct: ["均含有 {{Thioamide|結構}}", "活性必需基團：{{N1 不接取代基|結構}}；增加活性：C6 接烷基"],
@@ -3028,12 +3030,19 @@ dA(38, "Thioamide", 237, "ptu", "Propylthiouracil（PTU）", "PTU", {
 dA(38, "Thioamide", 237, "methimazole", "Methimazole（MMI）", "MMI", {
   cls: ["抑制 Peroxidase、碘化、偶合（{{沒有抑制 5'-deiodinase|性質}}）"],
   feat: ["血中半衰期 {{4-6 小時|數值}}；作用強度 {{10|數值}}；Onset 慢；一天 1 次", "通過胎盤、乳汁濃度高；使用於{{懷孕後期|名詞}}", "副作用：{{再生不能性貧血|副作用}}（Aplastic anemia）、顆粒性白血球缺乏", "{{Carbimazole|藥名}} 在體內轉換為 Methimazole"] });
-kA(38, "抗甲狀腺其他考點", 237, "其他考試重點", [
-  "Thioamide（{{S=C-N|結構}}）為 Propylthiouracil、Methimazole 活性必須結構",
-  "藥物作用之 onset 較慢，最少需{{四周|數值}}以上",
-  "其他甲狀腺風暴用藥：Propylthiouracil、Propranolol、Iodides、類固醇、{{Acetaminophen|藥名}}（不使用 NSAID，因競爭甲狀腺球蛋白反而增加血中游離的 T3、T4）",
-  "放射性碘 131I 特色：半衰期為 {{8 天|數值}}、治療甲狀腺癌、孕婦不可使用"
-]);
+kA(38, "抗甲狀腺其他考點", 237, "Propylthiouracil（PTU）與 Methimazole（MMI）比較", { table: { head: ["", "Propylthiouracil（PTU）", "Methimazole（MMI）"], rows: [
+  [{ t: "結構\n（均含有 Thioamide）", b: true }, "✓ 活性必需基團：N1 不接取代基\n✓ 增加活性：C6 接烷基", ""],
+  [{ t: "機轉", b: true }, "抑制 Peroxidase、碘化、偶合、\n抑制 5'-deiodinase", "抑制 Peroxidase、碘化、偶合、\n（沒有抑制 5'-deiodinase）"],
+  [{ t: "血中半衰期", b: true }, "{{75 分鐘|數值}}", "4-6 小時"],
+  [{ t: "作用強度", b: true }, "1", "10"],
+  [{ t: "Onset", b: true }, "{{快|性質}}", "慢"],
+  [{ t: "給藥次數", b: true }, "一天 1-4 次", "一天 1 次"],
+  [{ t: "通過胎盤", b: true }, "低", "高"],
+  [{ t: "在乳汁的濃度", b: true }, "低", "高"],
+  [{ t: "孕婦首選", b: true }, "✓（懷孕前期可用）", "使用於懷孕後期"],
+  [{ t: "治療甲狀腺風暴", b: true }, "✓", ""],
+  [{ t: "副作用", b: true }, "{{肝毒性|副作用}}\n類紅斑性狼瘡（Lupus-like syndrome）、\n{{顆粒性白血球缺乏（Agranulocytosis）|副作用}}", "再生不能性貧血（Aplastic anemia）、\n{{顆粒性白血球缺乏（Agranulocytosis）|副作用}}"] ],
+  note: "其他考試重點：\n✧ Carbimazole 在體內轉換為 Methimazole\n✧ Thioamide（{{S=C-N|結構}}）為 Propylthiouracil、Methimazole 活性必須結構\n✧ 藥物作用之 onset 較慢，最少需{{四周|數值}}以上\n✧ 其他甲狀腺風暴用藥：Propylthiouracil、Propranolol、Iodides、類固醇、{{Acetaminophen|藥名}}（不使用 NSAID，因競爭甲狀腺球蛋白反而增加血中游離的 T3、T4）\n✧ 放射性碘 131I 特色：半衰期為 {{8 天|數值}}、治療甲狀腺癌、孕婦不可使用" } });
 
 /* ===== 第 39 章 糖尿病藥物 ===== */
 chA(39, "39", "糖尿病藥物", "238～244");
