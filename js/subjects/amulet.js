@@ -2846,3 +2846,243 @@ kA(35, "類固醇的 SAR 與藥化特性", 225, "補充藥化考點", [
   "9-Cl、21-Cl：{{Mometasone|藥名}}；9-F、21-Cl：Halobetasol、Halcinonide、Clobetasol",
   "含有三個 F：{{Fluticasone|藥名}}；16-OH：Triamcinolone、Fluocinolone"
 ]);
+
+/* ===== 第 36 章 性激素藥物 ===== */
+chA(36, "36", "性激素藥物", "226～231");
+kA(36, "性激素作用圖", 226, "男性與女性性激素路徑（Katzung 圖）", [
+  "男性：下視丘 GnRH → 腦垂腺前葉 → FSH → Sertoli cell → 形成精子；LH → Leydig cell → Testosterone →（{{5α-reductase|酵素}}，被 {{Finasteride|藥名}} 抑制）→ 5α-dihydrotestosterone → Androgen receptor",
+  "Androgen receptor 產生作用：男性第二性徵、同化作用（蛋白質合成）；雄性素受體阻斷劑：{{Flutamide、Cyproterone、Spironolactone|藥名}}",
+  "抑制 Testosterone 合成：{{Ketoconazole、Spironolactone|藥名}}",
+  "GnRH-supergonist：Nafarelin；GnRH-antagonist：Ganirelix",
+  "女性：FSH → 濾泡 → 排卵（被 {{Clomiphene|藥名}}、避孕藥影響）→ 黃體 → Progesterone →（17α-hydroxylase，被 Ketoconazole 抑制）→ Testosterone、Androstenedione →（Aromatase）→ Estradiol ⇌ Estrone → Estriol",
+  "Aromatase inhibitors：{{Anastrozole、Aminoglutethimide|藥名}}；Estrogen receptor antagonist：{{Fulvestrant|藥名}}",
+  "Estrogen receptor 產生作用：女性第二性徵、子宮內膜發育、抑制{{蝕骨細胞|名詞}}、增加凝血因子"
+]);
+kA(36, "性激素作用圖", 226, "性激素考點", [
+  "5α-Dihydrotestosterone 的活性比 Testosterone 高 {{10|數值}} 倍",
+  "{{Cyproterone 與 Flutamide|藥名}} 為雄性激素受體的抑制劑",
+  "Ketoconazole、Spironolactone 抑制{{雄性素|物質}}合成",
+  "Clomiphene 為 {{SERMs|藥物類別}}，利用阻斷雌性素受體的機轉，可增加 LH、FSH 的分泌，促使濾泡排卵",
+  "Aminoglutethimide 與 Anastrozole 可減少 {{Estradiol|物質}} 的生成，可治療乳癌",
+  "含 Ethinyl estradiol（EE）的口服避孕藥與{{抗生素|藥物類別}}併用，會使避孕藥腸肝循環受抑制，影響藥效"
+]);
+mA("estradiol", 227, {
+  cls: ["雌激素（活性必須：A 環為{{芳香環|結構}}且環上有 C3-OH 取代，C3 與 C17 的兩個 OH 間最適當距離為 10.3-12.1Å）"],
+  feat: ["代謝：Estradiol ⇌ Estrone → Estriol", "氧化代謝物：C2、C4、C16 氧化形成 OH", "Estrone：C17-OH → C=O，活性僅剩 {{1/3|數值}}", "Estriol：C3-OH、C16-OH、C17-OH，活性剩 {{1/60|數值}}", "作為{{停經後|名詞}}的荷爾蒙治療"] });
+dA(36, "雌激素", 227, "ethinyl-estradiol", "Ethinyl estradiol", null, {
+  cls: ["雌激素"],
+  struct: ["取代基位置：{{17α-ethinyl|結構}}，阻礙 17β-OH 氧化"],
+  feat: ["不是 Prodrug，為 {{CYP450|酵素}} 的抑制劑"] });
+dA(36, "雌激素", 227, "diethylstilbestrol", "Diethylstilbestrol", null, {
+  cls: ["雌激素"],
+  struct: ["具有 {{Stilbene|結構}} 結構，以「{{Trans|結構}}」活性較佳"],
+  feat: ["在懷孕時服用，女嬰易罹患{{陰道癌|疾病}}", "為{{非固醇類|性質}}女性荷爾蒙藥物"] });
+dA(36, "SERMs", 227, "clomiphene", "Clomiphene", null, {
+  cls: ["Selective estrogen receptor modulators（{{SERMs|藥物類別}}）"],
+  struct: ["結構具有 {{Triphenylethylene|結構}}"],
+  feat: ["{{E-isomer|結構}} 具有抗雌性素活性，當雌性素下降會使 LH 上升，促進排卵", "Z-isomer 具有雌性素的作用", "副作用：熱潮紅、{{多胞胎|副作用}}", "口訣：Clomiphene 排卵 E 常"] });
+dA(36, "SERMs", 227, "tamoxifen", "Tamoxifen", null, {
+  cls: ["SERMs"],
+  feat: ["對乳癌細胞為 {{antagonist|名詞}}，對子宮內膜為 {{agonist|名詞}}，因此用於治療乳癌，但會造成子宮內膜增生", "代謝：{{N-demethylation（3A4）|名詞}}，芳香環對位碳氧化（2D6）後活性會增加", "{{Z-isomer|結構}} 最具有抗乳癌作用", "有口服劑型", "使用本藥物 5 年後建議以 {{anastrozole|藥名}} 做為替代藥物治療", "口訣：Tamoxifen 順（Z）風婦產科"] });
+dA(36, "SERMs", 228, "raloxifene", "Raloxifene", null, {
+  cls: ["SERMs"],
+  struct: ["{{不具有|性質}} Triphenylethylene"],
+  feat: ["對骨骼上的雌激素受體為{{致效劑|名詞}}，對子宮及乳房組織則為拮抗劑", "商品名：鈣穩錠", "治療停經後的{{骨質疏鬆|疾病}}", "不會有子宮內膜增生的副作用"] });
+dA(36, "SERMs", 228, "bazedoxifene", "Bazedoxifene", null, {
+  cls: ["SERMs"],
+  struct: ["屬 {{Indole|結構}} 衍生物"],
+  feat: ["對骨骼上的雌激素受體為致效劑，對子宮及乳房組織則為拮抗劑", "作為停經婦女雌激素補充或預防停經婦女的骨質疏鬆"] });
+dA(36, "Antiestrogen", 228, "fulvestrant", "Fulvestrant", null, {
+  cls: ["Antiestrogen：{{Pure|性質}} estrogen receptor antagonist"],
+  feat: ["用於治療{{乳癌|疾病}}"] });
+dA(36, "Aromatase inhibitors", 228, "letrozole", "Letrozole", null, {
+  cls: ["Aromatase inhibitors：{{Reversible|性質}} aromatase inhibitor"],
+  struct: ["屬於非固醇類骨架，具有 {{Triazole|結構}} 環", "Letrozole 的 {{1,2,4-triazole|結構}} 可與 aromatase 的血基質（heme）產生交互作用"],
+  feat: ["治療停經後婦女乳癌之首選藥"] });
+mA("anastrozole", 228, {
+  struct: ["Reversible aromatase inhibitor，皆有 Triazole、CN 除了 {{Vorozole|藥名}}"],
+  feat: ["治療停經後婦女乳癌之首選藥"] });
+dA(36, "Aromatase inhibitors", 228, "exemestane", "Exemestane", null, {
+  cls: ["Aromatase inhibitors：{{Irreversible|性質}} aromatase inhibitor"],
+  struct: ["屬於{{類固醇|結構}}骨架"] });
+mA("progesterone", 229, {
+  cls: ["黃體素"],
+  feat: ["不可口服，代謝：{{5β-Pregnanediol|物質}}", "可增加女性{{基礎體溫|名詞}}", "影響血脂：使 HDL↓、LDL↑", "懷孕初期的受孕著床與維持正常懷孕的重要荷爾蒙"] });
+dA(36, "黃體素", 229, "norgestrel", "Norgestrel", null, {
+  cls: ["黃體素"], feat: ["{{植入型|劑型}}長效避孕藥（諾普蘭）", "{{二代|名詞}}黃體素"] });
+dA(36, "黃體素", 229, "desogestrel", "Desogestrel", null, {
+  cls: ["黃體素"],
+  struct: ["去除 {{C19-CH3|結構}}，不易引起男性化的副作用"],
+  feat: ["第{{三|數值}}代黃體素"] });
+mA("mifepristone", 229, { cls: ["Antiprogestin"] });
+kA(36, "黃體素 SAR", 229, "Medroxyprogesterone acetate 與 Megestrol", [
+  "Progesterone → Medroxyprogesterone acetate → Megestrol",
+  "Medroxyprogesterone acetate：{{C6|結構}} 接上甲基，{{C17α|結構}} 接上乙酯基",
+  "Megestrol：{{C6、C7|結構}} 導入雙鍵"
+]);
+mA("testosterone", 230, {
+  cls: ["雄性素"],
+  struct: ["加上 {{17α-CH3|結構}} 可以幫助口服", "5α-Androstane 之 A/B、B/C、C/D 環之立體結構為 {{All trans|結構}}", "修飾成 5β-H、17α-OH 不具有雄性激素活性", "三號位酮基取代為非必要結構，如 Androsterone"],
+  feat: ["5α-Dihydrotestosterone 的活性比 Testosterone 高 {{10|數值}} 倍"] });
+dA(36, "雄性素衍生物", 230, "danazol", "Danazol", null, {
+  cls: ["雄性素衍生物"],
+  struct: ["雜環骨架：{{Isoxazole|結構}}"],
+  feat: ["治療{{子宮內膜異位|疾病}}", "活性代謝物：Ethisterone，非活性代謝物：2-OHmethylethisterone"] });
+dA(36, "蛋白質同化劑", 230, "stanozolol", "Stanozolol", null, {
+  cls: ["{{蛋白質同化劑|藥物類別}}"],
+  struct: ["雜環骨架：{{Pyrazole|結構}}"],
+  feat: ["使雄性活性上升：{{C17-CH3、C5α-H、A ring 雙鍵|結構}}"] });
+dA(36, "Antiandrogens：抑制 Androgen receptor", 231, "flutamide-group", "Flutamide、Nilutamide、Bicalutamide", "Flutamide", {
+  cls: ["Antiandrogens：抑制 {{Androgen receptor|標的}}"],
+  struct: ["屬於{{非固醇類|性質}}骨架", "結構具有苯胺，其對位有{{拉電子基|結構}}取代（NO2、CN）可阻斷雄性素受體的作用"],
+  feat: ["治療{{攝護腺癌|疾病}}"] });
+dA(36, "Antiandrogens：抑制 Androgen receptor", 231, "enzalutamide", "Enzalutamide", null, {
+  cls: ["Antiandrogens：抑制 Androgen receptor"],
+  struct: ["骨架：{{Thiohydantoin|結構}}"],
+  feat: ["屬於{{二代|名詞}}抗雄性激素藥", "受 CYP3A4 & 2C8 代謝 N-脫甲基，生成活性代謝物：N-desmethylenzalutamide"] });
+dA(36, "Antiandrogens：抑制 Androgen receptor", 231, "cyproterone", "Cyproterone", null, {
+  cls: ["Antiandrogens：抑制 Androgen receptor"],
+  feat: ["治療攝護腺癌、{{女性多毛症|疾病}}"] });
+dA(36, "Antiandrogens：抑制 5α-reductase", 231, "finasteride", "Finasteride", null, {
+  cls: ["Antiandrogens：抑制 {{5α-reductase|酵素}}"],
+  struct: ["結構骨架為 {{Azasteroid|結構}}"],
+  feat: ["5α-reductase 的{{機理性抑制劑（mechanism-based）|名詞}}", "機理性抑制劑：原本藥物無活性，會被目標酵素活化，藥物活化後反而抑制目標酵素", "治療{{前列腺增生、雄性禿|疾病}}"] });
+dA(36, "Antiandrogens：抑制 5α-reductase", 231, "dutasteride", "Dutasteride", null, {
+  cls: ["Antiandrogens：抑制 5α-reductase"],
+  feat: ["與 Finasteride 相比，作用較強、血漿蛋白結合力高、半衰期長，有活性代謝物（{{6'+OH|結構}}）"] });
+
+/* ===== 第 37 章 骨質疏鬆藥物 ===== */
+chA(37, "37", "骨質疏鬆藥物", "232～233");
+kA(37, "骨質疏鬆藥物作用圖", 232, "造骨細胞與破骨細胞（Katzung 圖）", [
+  "{{Teriparatide|藥名}}（parathyroid hormone）⊕ 造骨細胞（Osteoblast）",
+  "造骨細胞釋放 RANKL → RANK → ⊕ 破骨細胞（Osteoclast）；{{Denosumab|藥名}} ⊖ RANKL",
+  "{{鍶化合物|藥名}} ⊕ 造骨細胞、⊖ 破骨細胞",
+  "⊖ 破骨細胞：{{Calcitonin、Estrogen|藥名}}；Bisphosphonates（{{Zoledronic acid|藥名}}）；SERMs（{{Raloxifene|藥名}}）"
+]);
+dA(37, "與破骨細胞相關", 233, "estrogen-bone", "Estrogen（骨鬆）", "Estrogen", {
+  cls: ["與破骨細胞相關：減少{{破骨細胞|名詞}}的活性"] });
+mA("raloxifene", 233, { cls: ["骨鬆：作用在骨骼內的{{雌性素接受器|標的}}"], feat: ["副作用：熱潮紅、{{血栓靜脈炎|副作用}}"] });
+dA(37, "與破骨細胞相關", 233, "calcitonin", "Calcitonin（抑鈣素）", "Calcitonin", {
+  cls: ["與破骨細胞相關：抑制破骨細胞"],
+  feat: ["有{{鼻噴劑|劑型}}劑型，副作用：鼻炎、鼻出血"] });
+dA(37, "與破骨細胞相關", 233, "denosumab", "Denosumab", null, {
+  cls: ["與破骨細胞相關：Denosumab 與 {{RANKL|標的}} 結合，使 RANKL 和破骨細胞無法結合"],
+  feat: ["給藥頻率：{{六個月一次|名詞}}", "副作用：{{顎骨壞死|副作用}}"] });
+dA(37, "雙磷酸鹽類", 233, "bisphosphonates", "Alendronate、Ibandronate、Zoledronic acid、Risedronate、Etidronate", "雙磷酸鹽", {
+  cls: ["雙磷酸鹽類：直接抑制破骨細胞活性 → 抑制 {{Farnesyl pyrophosphate synthase|酵素}}"],
+  feat: ["{{Zoledronic acid|藥名}} 可用於治療惡質高血鈣", "強度比較：{{Zoledronic acid > Risedronate >> Etidronate|藥名}}", "服用雙磷酸鹽類時，必需補充鈣，但{{不可以同時併服|性質}}", "生體可用率低，吸收皆不良，副作用：{{顎骨壞死|副作用}}", "服藥後上半身須直立至少 {{30|數值}} 分鐘，以減少藥物刺激", "雙磷酸鹽類為治療 {{Paget's disease|疾病}} 的第一線用藥"] });
+dA(37, "與造骨細胞有關", 233, "teriparatide", "Teriparatide", null, {
+  cls: ["與造骨細胞有關：減少造骨細胞{{凋亡|名詞}}"],
+  feat: ["長期使用會導致破骨細胞活性增加，屬於 {{Parathyroid hormone|物質}} 製劑"] });
+dA(37, "混和型", 233, "strontium-ranelate", "Strontium ranelate", null, {
+  cls: ["混和型（抗破骨促造骨）：促進造骨細胞／抑制破骨細胞"] });
+kA(37, "補充藥理考點", 233, "Vitamin D 活化與 Cinacalcet", [
+  "Vitamin D 之活化先後順序：先經由{{肝臟|器官}}的 25-Hydroxylase，形成 25-OH Vitamin D；再藉由{{腎臟|器官}}的 1-Hydroxylase，形成 {{1,25-(OH)2 Vitamin D|物質}}（活性 D3）",
+  "{{Cinacalcet|藥名}} 可以活化 calcium sensing receptor，抑制副甲狀腺分泌，治療副甲狀腺亢進"
+]);
+
+/* ===== 第 38 章 抗甲狀腺藥物 ===== */
+chA(38, "38", "抗甲狀腺藥物", "234～237");
+kA(38, "甲狀腺素合成與藥物", 234, "甲狀腺素合成步驟與抑制藥物（Katzung 圖）", [
+  "下視丘 TRH → 腦垂腺前葉 TSH → 促甲狀腺素分泌",
+  "攝取碘離子：競爭 {{Na+/I- Symporter|標的}} → ClO4-、TcO4-、SCN-、BF4-",
+  "碘離子轉為碘分子：抑制 {{Peroxidase|酵素}} → PTU、MMI、Carbimazole",
+  "碘化（Iodination）：抑制碘分子轉為 MIT、DIT → PTU、MMI、Iodides（Lugol's solution）",
+  "偶合（Coupling）：抑制 MIT+DIT → T3、DIT+DIT → T4 → {{PTU、MMI|藥名}}",
+  "蛋白質分解（Proteolysis）：抑制甲狀腺釋放 T3 及 T4 → {{Iodides（Lugol's solution）|藥名}}",
+  "去碘：抑制 {{5'-deiodinase|酵素}} → PTU、Iopanoic acid（放射線顯影劑）、β-blocker、Corticosteroids、Amiodarone",
+  "{{Dopamine、Glucocorticoids|藥名}} 會抑制腦下垂體前葉分泌 TSH",
+  "PTU = Propylthiouracil；MMI = Methimazole；MIT = Monoiodotyrosine；DIT = diiodoTyrosine"
+]);
+kA(38, "甲狀腺疾病", 235, "甲狀腺機能亢進與低下", [
+  "亢進：{{葛瑞夫茲病（Graves's disease）|疾病}}；一種甲狀腺亢進症，會分泌抗體刺激 TSH 受體，造成 T3 和 T4 過度分泌",
+  "亢進：T3、T4 上升；造成{{凸眼症|副作用}}、增加心跳速率、食慾增加、貧血、基礎代謝率增加",
+  "亢進治療：{{PTU、MMI、β-blocker、Iodides（Lugol's solution）|藥名}}",
+  "低下：{{橋本氏甲狀腺炎（Hashimoto's disease）|疾病}}；甲狀腺之自體免疫破壞",
+  "低下：T4 下降、TSH 上升（初期甲狀腺會腫大）；小孩會造成{{呆小症|疾病}}、大人會造成{{黏液水腫|疾病}}；治療：T3、T4"
+]);
+dA(38, "甲狀腺素", 236, "levothyroxine", "T4（Levothyroxine）", "Levothyroxine", {
+  cls: ["甲狀腺素"],
+  feat: ["分布體積 10L；清除率 1.1L；鍵結數量 99.95%（多）", "半衰期 {{7 天|數值}}；作用強度{{小|性質}}；口服吸收 70%／pKa 6.7", "血漿蛋白結合率{{高|性質}}；排除：{{50% 尿液／50% 糞便|名詞}}", "治療甲狀腺機能低下、橋本氏甲狀腺炎、黏液水腫昏迷"] });
+dA(38, "甲狀腺素", 236, "liothyronine", "T3（Liothyronine）", "Liothyronine", {
+  cls: ["甲狀腺素"],
+  feat: ["分布體積 {{40L（大）|數值}}；清除率 24L；鍵結數量 99.6%", "半衰期 {{1 天|數值}}；作用強度{{大|性質}}；口服吸收 95%／pKa 8.4", "血漿蛋白結合率低；排除：{{尿液|名詞}}"] });
+kA(38, "T3 T4 比較", 236, "T3 T4 特色", [
+  "{{Liotrix|藥名}} 是 T4 與 T3 以 {{4:1|數值}} 之比例混合而成",
+  "甲狀腺生合成的前驅物為 {{L-Tyrosine|物質}}",
+  "體內濃度：{{T4 > T3|名詞}}"
+]);
+dA(38, "Thioamides", 237, "propylthiouracil", "Propylthiouracil（PTU）", "PTU", {
+  cls: ["抑制 Peroxidase、碘化、偶合、抑制 {{5'-deiodinase|酵素}}"],
+  struct: ["均含有 {{Thioamide|結構}}", "活性必需基團：{{N1 不接取代基|結構}}；增加活性：C6 接烷基"],
+  feat: ["血中半衰期 {{75 分鐘|數值}}；作用強度 1；Onset 快；一天 1-4 次", "通過胎盤低；在乳汁的濃度低；{{孕婦首選|族群}}（懷孕前期可用）", "可治療{{甲狀腺風暴|疾病}}", "副作用：{{肝毒性|副作
+dA(38, "Thioamide", 237, "ptu", "Propylthiouracil（PTU）", "PTU", {
+  cls: ["抑制 Peroxidase、碘化、偶合、抑制 {{5'-deiodinase|酵素}}"],
+  struct: ["均含有 {{Thioamide|結構}}", "活性必需基團：{{N1 不接取代基|結構}}；增加活性：C6 接烷基"],
+  feat: ["血中半衰期 {{75 分鐘|數值}}；作用強度 1；Onset {{快|性質}}；一天 1-4 次", "通過胎盤、乳汁濃度{{低|性質}}", "孕婦首選（{{懷孕前期|名詞}}可用）；可治療甲狀腺風暴", "副作用：{{肝毒性|副作用}}、類紅斑性狼瘡（Lupus-like syndrome）、顆粒性白血球缺乏（Agranulocytosis）"] });
+dA(38, "Thioamide", 237, "methimazole", "Methimazole（MMI）", "MMI", {
+  cls: ["抑制 Peroxidase、碘化、偶合（{{沒有抑制 5'-deiodinase|性質}}）"],
+  feat: ["血中半衰期 {{4-6 小時|數值}}；作用強度 {{10|數值}}；Onset 慢；一天 1 次", "通過胎盤、乳汁濃度高；使用於{{懷孕後期|名詞}}", "副作用：{{再生不能性貧血|副作用}}（Aplastic anemia）、顆粒性白血球缺乏", "{{Carbimazole|藥名}} 在體內轉換為 Methimazole"] });
+kA(38, "抗甲狀腺其他考點", 237, "其他考試重點", [
+  "Thioamide（{{S=C-N|結構}}）為 Propylthiouracil、Methimazole 活性必須結構",
+  "藥物作用之 onset 較慢，最少需{{四周|數值}}以上",
+  "其他甲狀腺風暴用藥：Propylthiouracil、Propranolol、Iodides、類固醇、{{Acetaminophen|藥名}}（不使用 NSAID，因競爭甲狀腺球蛋白反而增加血中游離的 T3、T4）",
+  "放射性碘 131I 特色：半衰期為 {{8 天|數值}}、治療甲狀腺癌、孕婦不可使用"
+]);
+
+/* ===== 第 39 章 糖尿病藥物 ===== */
+chA(39, "39", "糖尿病藥物", "238～244");
+kA(39, "糖尿病藥物作用圖", 238, "血糖調節與藥物作用點", [
+  "進食 → α-glucosidase → Glucose↑；α-Glucosidase inhibitors：{{Acarbose、Miglitol|藥名}} ⊖",
+  "小腸分泌 GLP-1 ⊕ 胰臟 β-cell → Insulin↑；GLP-1（{{-tide|名詞}}）：Exenatide、Liraglutide ⊕",
+  "DPP-4 分解 GLP-1；DPP-4 inhibitors（{{-gliptin|名詞}}）：Sitagliptin、Saxagliptin ⊖",
+  "抑制 {{K+ Channel|標的}} 刺激胰島素分泌：Sulfonylurea 第一代（-amide）Tolbutamide、Chlorpropamide；第二代（Gli-、Gly-）Glipizide、Glyburide；Meglitinide：Repaglinide、Nateglinide",
+  "Bisguanidines：{{Metformin|藥名}} ⊕ AMPK ⊖ 肝臟糖質新生",
+  "Thiazolidinediones（-glitazone）：Pioglitazone、Rosiglitazone ⊕ {{PPAR-γ|標的}}，增加肌肉、脂肪組織對 Insulin 的敏感性（藉由 GLUT-4 利用葡萄糖）",
+  "SGLT-2 inhibitors（{{-gliflozin|名詞}}）：Canagliflozin、Dapagliflozin ⊖ 腎臟利用 SGLT-2 再吸收葡萄糖"
+]);
+kA(39, "糖尿病簡介", 239, "糖尿病、胰島細胞與 Insulin", [
+  "空腹及飯後兩小時的血糖值分別大於 {{126 / 200|數值}}；HbA1c 大於 {{6.5%|數值}}，可反應長期（2-3 個月）血糖平均值",
+  "Type 1 DM：幼年型糖尿病，血中胰島素濃度接近零，需以胰島素治療；Type 2 DM：成年型糖尿病，組織對胰島素的作用產生{{阻抗|名詞}}或胰島素分泌不足所導致",
+  "Type 3 DM：可能由藥物引起，像是服用類固醇、Diazoxide、Thiazide、Niacin、酒精；Type 4 DM：又稱{{妊娠型|名詞}}糖尿病，需以胰島素治療",
+  "胰島細胞：Alpha cell 分泌 {{Glucagon|物質}}；Beta cell 分泌 {{Insulin|物質}}；Delta cell 分泌 Somatostatin；Epsilon cell 分泌 Ghrelin",
+  "GLUT2：調節胰島素之釋放；{{GLUT4|標的}}：促使葡萄糖由細胞外（血液）進入細胞內的載體；GLUT5：果糖的吸收",
+  "Insulin receptor 具有 {{Tyrosine kinase|酵素}} 的活性",
+  "胰島素在體內會促進肌肉中的肝醣、蛋白質的合成以及增加脂肪組織中三酸甘油脂的儲存",
+  "由 {{51|數值}} 個胺基酸組成，A 鏈由 21 個、B 鏈由 30 個胺基酸組成，其中 28 號位為 Proline，29 號位為 lysine",
+  "分子中含有 {{3|數值}} 個雙硫鍵，2 個 interchain（鏈間）和 1 個 intrachain（鏈內）",
+  "造成血糖上升的藥物：Somatostatin、Diazoxide、Niacin、Glucocorticoids、Hydrocholorthiazide",
+  "當糖尿病病人出現{{酮酸中毒|疾病}}現象時，應直接給予 Insulin"
+]);
+dA(39, "胰島素：控制飯後血糖", 240, "rapid-insulin", "Lispro、Aspart、Glulisine（速效）", "Lispro", {
+  cls: ["速效胰島素：控制{{飯後血糖|名詞}}，作為餐前胰島素使用"],
+  struct: ["Lispro：{{B28Lys、B29Pro|結構}}", "Aspart：{{B28Asp|結構}}", "Glulisine：B3Lys、B29Glu"],
+  feat: ["外觀{{清澈|性質}}（可 IV）"] });
+dA(39, "胰島素：控制飯後血糖", 240, "regular-insulin", "Regular insulin（短效）", "Regular insulin", {
+  cls: ["短效胰島素：控制飯後血糖"],
+  feat: ["外觀清澈（可 IV）", "與 {{Zn|物質}} 形成錯合物延長吸收時間", "皮下注射時，由{{六聚體|名詞}}解離成單體發揮藥效"] });
+dA(39, "胰島素：控制空腹血糖", 240, "nph", "Neutral Protamine Hagedorn insulin（NPH，中效）", "NPH", {
+  cls: ["中效胰島素：控制{{空腹血糖|名詞}}，作為基礎胰島素使用"],
+  feat: ["外觀{{混濁|性質}}（不可 IV）", "含有魚精蛋白（{{Protamine|物質}}）及 Zn（鋅）的胰島素", "以 {{m-Cresol（甲酚）|物質}} 為防腐劑"] });
+dA(39, "胰島素：控制空腹血糖", 240, "glargine-detemir", "Glargine、Detemir（長效）", "Glargine", {
+  cls: ["長效胰島素：控制空腹血糖"],
+  feat: ["外觀清澈（不可 IV）", "較無{{夜間低血糖|副作用}}的副作用", "Glargine 等電點接近 {{7|數值}}"] });
+dA(39, "口服降血糖藥", 240, "alpha-glucosidase-inhibitors", "Acarbose、Voglibose、Miglitol", "Acarbose", {
+  cls: ["{{α-Glucosidase inhibitors|藥物類別}}：阻斷 α-Glucosidase，使雙醣不被分解，即可降低血糖"] });
+dA(39, "口服降血糖藥", 240, "sglt2-inhibitors", "Canagliflozin、Dapagliflozin", "Dapagliflozin", {
+  cls: ["{{SGLT2 inhibitors|藥物類別}}（Sodium-Glucose co-transporter 2）：抑制葡萄糖再吸收，增加葡萄糖從尿中排出的量，達到降血糖的效果"] });
+dA(39, "腸泌素相關", 240, "glp1", "Exenatide、Liraglutide", "Liraglutide", {
+  cls: ["{{GLP-1|藥物類別}}（Glucagon-like peptide）：促進{{葡萄糖依賴性|名詞}}胰島素的分泌、減少升糖素（Glucagon）的分泌"] });
+dA(39, "腸泌素相關", 240, "dpp4", "Sitagliptin、Saxagliptin", "Sitagliptin", {
+  cls: ["{{DPP-4 inhibitors|藥物類別}}：可抑制 GLP-1 被代謝，增加 GLP-1 的作用時間"] });
+dA(39, "促胰島素分泌", 240, "sulfonylurea", "Sulfonylurea（Tolbutamide、Chlorpropamide、Glipizide、Glyburide）", "Sulfonylurea", {
+  cls: ["Sulfonylurea：抑制 {{K+ channel|標的}}，促進胰島素釋放"],
+  feat: ["第一代：Tolbutamide、Chlorpropamide；第二代：{{Glipizide、Glyburide|藥名}}"] });
+dA(39, "促胰島素分泌", 240, "meglitinide", "Repaglinide、Nateglinide", "Repaglinide", {
+  cls: ["{{Meglitinide|藥物類別}}：抑制 K+ channel，促進胰島素釋放"] });
+dA(39, "增加胰島素敏感性", 240, "metformin", "Metformin", null, {
+  cls: ["{{Biguanides|藥物類別}}：活化 {{AMPK|酵素}}，抑制肝臟糖質新生作用"] });
+dA(39, "增加胰島素敏感性", 240, "tzd", "Pioglitazone、Rosiglitazone", "Pioglitazone", {
+  cls: ["Thiazolidinediones（TZD）：為 {{PPAR-γ agonist|藥物類別}}，可增加肌肉及脂肪組織對胰島素的敏感性"] });
+dA(39, "其他", 240, "pramlintide", "Pramlintide", null, {
+  cls: ["{{Amylin analogs|藥物類別}}：抑制升糖素的分泌"] });
