@@ -2278,21 +2278,28 @@ kA(27, "高血壓治療目標", 179, "JNC8 高血壓治療目標", { table: { he
 
 /* ===== 第 28 章 心絞痛藥物 ===== */
 chA(28, "28", "心絞痛藥物", "180～184", "第 180 頁拍攝時上下顛倒。");
-kA(28, "心絞痛類型與首選治療", 180, "疾病類型、特色與首選藥物", [
-  "穩定型心絞痛（Stable angina）：動脈粥狀硬化引起心臟灌流不足，經由休息或舌下含一顆 NTG 即可緩解；首選：{{Nitrates ± β-blocker|藥物類別}}",
-  "不穩定型心絞痛（Unstable angina）：冠狀動脈有血液凝塊的阻塞，導致發作的時間更長；首選：Nitrates ± β-blocker ± ACEI ± {{Aspirin（Clopidogrel）|藥名}}",
-  "變異型心絞痛（Variant angina）：冠狀動脈{{痙攣|名詞}}所引起；首選：{{Nitrates ± CCB|藥物類別}}",
-  "使用 {{Nifedipine|藥名}} 會惡化穩定型及不穩定型心絞痛",
-  "嚴禁合併使用 {{Verapamil 及 Metoprolol|藥名}}"
-]);
-kA(28, "Nitrates & Nitrites", 181, "Nitrates 機轉與特色", [
-  "產生並釋放 {{NO|物質}} 刺激 Guanylyl cyclase 後，使 GTP → {{cGMP|物質}}，cGMP 可使血管平滑肌鬆弛，減少心室體積，降低心肌需氧量",
-  "低劑量下{{靜脈|器官}}的擴張效果比動脈擴張顯著，因此降低 {{Preload|名詞}} 較為顯著",
-  "適應症：冠狀動脈疾病、治療{{氰化物|物質}}中毒",
-  "Nitrates 經過代謝後釋出 NO2 需要{{硫醇基|結構}}的參與，因此長期使用 Nitrates，容易因為耗盡硫醇基而產生耐藥性",
-  "併用 {{Carvedilol|藥名}} 可以減少 Nitrates 之耐藥性",
-  "副作用：頭痛、姿勢性低血壓、不可與 {{Viagra|藥名}} 同時併用、變性血紅素血症"
-]);
+kA(28, "心絞痛類型與首選治療", 180, "疾病類型、特色與首選藥物", { table: { head: ["疾病分類", "疾病特色", "首選治療藥物"], rows: [
+  [{ t: "穩定型心絞痛\n（Stable angina）", b: true }, "動脈粥狀硬化引起心臟灌流不足，\n經由休息或舌下含一顆 NTG 即可緩解", "{{Nitrates ＋ β-blocker|藥物類別}}\n（不可選 ISA）"],
+  [{ t: "不穩定型心絞痛\n（Unstable angina）", b: true }, "冠狀動脈有血液凝塊的阻塞，\n導致發作的時間更長", "Nitrates ＋ β-blocker ＋ ACEI ＋ {{Aspirin（Clopidogrel）|藥名}}"],
+  [{ t: "變異型心絞痛\n（Variant angina）", b: true }, "冠狀動脈{{痙攣|名詞}}所引起", "{{Nitrates ＋ CCB|藥物類別}}"] ],
+  note: "✧ 使用 {{Nifedipine|藥名}} 會惡化穩定型及不穩定型心絞痛（CCB）\n✧ 嚴禁合併使用 {{Verapamil 及 Metoprolol|藥名}}" } });
+kA(28, "Nitrates & Nitrites", 181, "Nitrates ＆ Nitrites", { table: { cols: ["", "內容"], rows: [
+  [{ t: "機轉", b: true }, "✧ 產生並釋放 {{NO|物質}} 刺激 Guanylyl cyclase 後，使 GTP→cGMP，cGMP 可使血管平滑肌鬆弛，減少心室體積，降低心肌需氧量\n✧ 低劑量下{{靜脈|器官}}的擴張效果比動脈擴張顯著，因此降低 {{Preload|名詞}} 較為顯著"],
+  [{ t: "適應症", b: true }, "✧ 冠狀動脈疾病、治療{{氰化物|物質}}中毒"],
+  [{ t: "耐藥性", b: true }, "✧ Nitrates 經過代謝後釋出 NO2 需要{{硫醇基|結構}}的參與，因此長期使用 Nitrates，容易因為耗盡硫醇基而產生耐藥性\n✧ 併用 {{Carvedilol|藥名}} 可以減少 Nitrates 之耐藥性"],
+  [{ t: "副作用", b: true }, "✧ 頭痛、姿勢性低血壓、不可與 {{Viagra|藥名}} 同時併用、變性血紅素血症"],
+  [{ t: "藥物", b: true, rs: 6 }, { t: "Amyl nitrite", b: true }],
+  [null, "✧ {{吸入|給藥途徑}}給藥，Onset 最快\n✧ 屬於 Nitrite ester 類，分解後產生 NO + {{Valeric acid|物質}}"],
+  [null, { t: "Nitroglycerin（組成：1 分子甘油 + 三分子 HNO3）", b: true }],
+  [null, "✧ {{舌下|給藥途徑}}給藥，每 5 分鐘給予一顆舌下錠，至第 2 顆時若無法緩解症狀需送醫，送醫過程中服用第 3 顆"],
+  [null, { t: "NTG patch", b: true }],
+  [null, "✧ 作用時間可長達 {{24|數值}} 小時"] ] } });
+kA(28, "Nitrates & Nitrites", 181, "Nitrates ＆ Nitrites（續）", { table: { cols: ["", "內容"], rows: [
+  [{ t: "藥物", b: true, rs: 4 }, { t: "Isosorbide dinitrate", b: true }],
+  [null, "✧ 活性代謝物（{{Isosorbide mononitrate|物質}}）作用時間比原藥更長"],
+  [null, { t: "Pentaerythritol tetranitrate", b: true }],
+  [null, "✧ 此類藥品中，作用時間{{第二長|性質}}（5 小時）"],
+  [{ t: "Molsidomine", b: true }, "✧ 屬於 {{Mesionic compound|結構}}\n✧ 是一種 prodrug，可以提供 nitric oxide 使 cGMP 濃度上升"] ] } });
 dA(28, "Nitrates & Nitrites", 181, "amyl-nitrite", "Amyl nitrite", null, {
   cls: ["Nitrates & Nitrites"],
   feat: ["{{吸入|給藥途徑}}給藥，Onset 最快", "屬於 Nitrite ester 類，分解後產生 NO + {{Valeric acid|物質}}"] });
@@ -2309,32 +2316,41 @@ dA(28, "Nitrates & Nitrites", 181, "molsidomine", "Molsidomine", null, {
   cls: ["Nitrates & Nitrites"],
   struct: ["屬於 {{Mesionic compound|結構}}"],
   feat: ["是一種 prodrug，可以提供 nitric oxide 使 cGMP 濃度上升"] });
-kA(28, "β-blocker", 181, "β-blocker 用於心絞痛", [
-  "機轉：降低心肌收縮力及心跳速率，使病人之心臟{{舒張期|名詞}}體積增加",
-  "適應症：心絞痛、心衰竭、心律不整、高血壓",
-  "氣喘患者應注意在高劑量下 β1-blocker {{不具有選擇性|性質}}",
-  "心絞痛患者不可選用具有 {{ISA|名詞}} 的藥物",
-  "糖尿病患者應注意使用 β-blocker 會遮蔽{{低血糖|疾病}}時產生的震顫、心悸"
-]);
-kA(28, "PDE5 抑制劑", 182, "PDE5 抑制劑比較", [
-  "Sildenafil（Viagra 威而鋼）：脂溶性高、活性強、生體可用率{{高|性質}}、Onset 快、作用時間中；主要 3A4、次要 2C9；活性代謝物 N-demethyl；PDE5、{{PDE6|標的}}",
-  "Vardenafil（Levitra 樂威壯）：脂溶性{{最高|性質}}、活性{{最強|性質}}、生體可用率低、Onset 慢、作用時間短；主要 3A4、次要 2C9；活性代謝物 N-demethyl；PDE5",
-  "Tadalafil（Cialis 犀利士）：脂溶性低、活性中、作用時間{{長|性質}}；主要 3A4；活性代謝物 {{無|名詞}}；PDE5、{{PDE11|標的}}",
-  "Avanafil（Spedra 賽倍達）：脂溶性中、活性弱、Onset {{最快|性質}}；主要 3A4、次要 2C9；活性代謝物 Pyrrolidine 羥基化；PDE5",
-  "機轉：抑制 PDE，使 {{cGMP 上升|名詞}}，促使血管擴張",
-  "Sildenafil、Vardenafil、Tadalafil 結構均含 {{Piperazine|結構}}",
-  "抑制 PDE6 會造成{{光敏感、視力模糊|副作用}}的副作用；抑制 PDE11 會造成{{肌肉痠痛|副作用}}的副作用",
-  "活性依序為 Vardenafil > Sildenafil > Tadalafil"
-]);
-kA(28, "Nitrates 與 β-blocker／CCB 比較", 183, "對心血管參數的影響", [
-  "動脈壓：單獨用 Nitrates ↓；單獨用 β-blockers 或 CCB（Non-DHP）↓；併用 ↓",
-  "心跳速率：Nitrates {{↑（反射性）|名詞}}；β-blockers 或 CCB ↓；併用 ↓",
-  "心收縮力：Nitrates ↑（反射性）；β-blockers 或 CCB ↓；併用{{無影響|名詞}}",
-  "射血時間：Nitrates ↓；β-blockers 或 CCB {{↑|名詞}}；併用無影響",
-  "心舒張末期容積：Nitrates ↓；β-blockers 或 CCB ↑；併用無影響/減少",
-  "射血時間：血液從心室射出所需的時間；心舒張末期容積：心室在舒張末期，收縮之前的血液量",
-  "Nitrates 擴張{{靜脈 > 動脈|名詞}}；CCB 以擴張{{動脈|器官}}為主"
-]);
+kA(28, "β-blocker", 181, "β-blocker", { table: { cols: ["", "內容"], rows: [
+  [{ t: "機轉", b: true }, "✧ 降低心肌收縮力及心跳速率，使病人之心臟{{舒張期|名詞}}體積增加"],
+  [{ t: "適應症", b: true }, "✧ 心絞痛、心衰竭、心律不整、高血壓"],
+  [{ t: "注意事項", b: true, rs: 3 }, "✧ 氣喘患者應注意在高劑量下 β1-blocker {{不具有選擇性|性質}}"],
+  [null, "✧ 心絞痛患者{{不可|性質}}選用具有 {{ISA|名詞}} 的藥物"],
+  [null, "✧ 糖尿病患者應注意使用 β-blocker 會遮蔽{{低血糖|疾病}}時產生的震顫、心悸"] ] } });
+kA(28, "PDE5 抑制劑", 182, "PDE5 抑制劑比較", { images: ["assets/amulet/fig/pde5-struct.png"], table: { head: ["", "Sildenafil\n（Viagra 威而鋼）", "Vardenafil\n（Levitra 樂威壯）", "Tadalafil\n（Cialis 犀利士）", "Avanafil\n（Spedra 賽倍達）"], rows: [
+  [{ t: "脂溶性", b: true }, "高", "{{最高|性質}}", "低", "中"],
+  [{ t: "活性強弱", b: true }, "強", "{{最強|性質}}", "中", "弱"],
+  [{ t: "生體可用率", b: true }, "{{高|性質}}", "低", "中", "中"],
+  [{ t: "Onset", b: true }, "快", "慢", "中", "{{最快|性質}}"],
+  [{ t: "作用時間", b: true }, "中", "短", "{{長|性質}}", ""],
+  [{ t: "代謝酵素", b: true }, "主要：3A4\n次要：2C9", "主要：3A4\n次要：2C9", "主要：3A4", "主要：3A4\n次要：2C9"],
+  [{ t: "活性代謝物", b: true }, "N-demethyl", "N-demethyl", "{{無|名詞}}", "Pyrrolidine 羥基化"],
+  [{ t: "主要受體選擇性", b: true }, "PDE5、{{PDE6|標的}}", "PDE5", "PDE5、{{PDE11|標的}}", "PDE5"] ],
+  note: "✧ 機轉：抑制 PDE，使 {{cGMP 上升|名詞}}，促使血管擴張\n✧ Sildenafil、Vardenafil、Tadalafil 結構均含 {{Piperazine|結構}}\n✧ 抑制 {{PDE6|標的}} 會造成{{光敏感、視力模糊|副作用}}的副作用\n✧ 抑制 PDE11 會造成{{肌肉痠痛|副作用}}的副作用\n✧ 活性依序為 {{Vardenafil > Sildenafil > Tadalafil|名詞}}" } });
+dA(28, "PDE5 抑制劑", 182, "sildenafil", "Sildenafil（Viagra 威而鋼）", "Sildenafil", {
+  cls: ["{{PDE5 抑制劑|藥物類別}}：抑制 PDE5（及 {{PDE6|標的}}）"],
+  feat: ["脂溶性{{高|性質}}、活性強、生體可用率高、Onset 快、作用時間中", "主要由 {{3A4|酵素}} 代謝（次要 2C9），活性代謝物為 N-demethyl", "抑制 PDE6 會造成{{光敏感、視力模糊|副作用}}的副作用"] });
+dA(28, "PDE5 抑制劑", 182, "vardenafil", "Vardenafil（Levitra 樂威壯）", "Vardenafil", {
+  cls: ["PDE5 抑制劑：抑制 PDE5"],
+  feat: ["脂溶性{{最高|性質}}、活性{{最強|性質}}、生體可用率低、Onset 慢、作用時間短", "主要由 {{3A4|酵素}} 代謝（次要 2C9），活性代謝物為 N-demethyl"] });
+dA(28, "PDE5 抑制劑", 182, "tadalafil", "Tadalafil（Cialis 犀利士）", "Tadalafil", {
+  cls: ["PDE5 抑制劑：抑制 PDE5（及 {{PDE11|標的}}）"],
+  feat: ["脂溶性低、活性中、作用時間{{最長|性質}}", "主要由 {{3A4|酵素}} 代謝，{{無|名詞}}活性代謝物", "抑制 PDE11 會造成{{肌肉痠痛|副作用}}的副作用"] });
+dA(28, "PDE5 抑制劑", 182, "avanafil", "Avanafil（Spedra 賽倍達）", "Avanafil", {
+  cls: ["PDE5 抑制劑：抑制 PDE5"],
+  feat: ["脂溶性中、活性弱、Onset {{最快|性質}}", "主要由 {{3A4|酵素}} 代謝（次要 2C9），活性代謝物為 Pyrrolidine 羥基化"] });
+kA(28, "Nitrates 與 β-blocker／CCB 比較", 183, "對心血管參數的影響", { table: { head: ["", "單獨用\nNitrates", "單獨用\nβ-blockers 或 CCB(Non-DHP)", "Nitrates 併用\nβ-blockers 或 CCB(Non-DHP)"], rows: [
+  [{ t: "動脈壓\n(Arterial pressure)", b: true }, "↓", "↓", "↓"],
+  [{ t: "心跳速率\n(Heart rate)", b: true }, "{{↑（反射性）|名詞}}", "↓", "↓"],
+  [{ t: "心收縮力\n(Contractility)", b: true }, "↑（反射性）", "↓", "{{無影響|名詞}}"],
+  [{ t: "射血時間\n(Ejection time)", b: true }, "↓", "{{↑|名詞}}", "無影響"],
+  [{ t: "心舒張末期容積\n(End-diastolic volume)", b: true }, "↓", "↑", "無影響／減少"] ],
+  note: "✧ 射血時間：血液從心室射出所需的時間\n✧ 心舒張末期容積：心室在舒張末期，收縮之前的血液量，稱為舒張末期容積\n✧ Nitrates 擴張{{靜脈 > 動脈|名詞}}；CCB 以擴張{{動脈|器官}}為主" } });
 mA("nifedipine", 184, { feat: ["CCB 適應症：高血壓、心絞痛、心律不整", "導致{{反射性心跳過快|副作用}}"] });
 mA("verapamil", 184, { feat: ["同時可抑制心臟及血管，心跳{{不會加快|性質}}"] });
 mA("diltiazem", 184, { feat: ["以及 {{CYP3A4|酵素}} 行 N 脫甲基生成 N-monodesmethyldiltiazem"] });
