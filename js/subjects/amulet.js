@@ -1356,94 +1356,87 @@ isleA("autonomic", "自主神經島", { ground: "#B9D7A8", light: "#CDE4BF", cli
 
 /* ===== 第 10 章 交感神經系統藥物 ===== */
 chA(10, "10", "交感神經系統藥物", "69～83", "第 76 頁是第 75 頁的重拍。");
-kA(10, "自主神經總覽", 69, "交感、副交感、體神經", [
-  "交感神經：節前 Ach → {{Nn(N1)|標的}}；節後 {{Norepinephrine|物質}} → α、β",
-  "副交感神經：節前 Ach → Nn(N1)；節後 Ach → {{M|標的}}",
-  "體神經：無神經節；Ach → {{Nm(N2)|標的}}",
-  "Agonist / Antagonist：α1-{{Phenylephrine|藥名}} / Prazosin；α2-{{Clonidine|藥名}} / Yohimbine；β-Isoproterenol / Propranolol；β1-{{Dobutamine|藥名}} / Atenolol；β2-Salbutamol / {{Butoxamine|藥名}}；β3-{{Mirabegron|藥名}}",
-  "M-agonist：{{Pilocarpine|藥名}}；M-antagonist：{{Atropine|藥名}}",
-  "AchE inhibitor：可逆：{{Physostigmine|藥名}}；不可逆：{{Parathion、Echothiophate|藥名}}",
-  "Nm：競爭型：{{Tubocurarine|藥名}}；去極化型：{{Decamethonium、Succinylcholine|藥名}}；AchE inhibitor：Neostigmine"
-]);
-kA(10, "自主神經總覽", 70, "交感神經（白天）與副交感神經（晚上）", [
-  "眼睛：交感 {{散瞳|名詞}}；副交感 {{縮瞳|名詞}}",
-  "支氣管：交感擴張；副交感{{收縮|名詞}}",
-  "心臟：交感強而有力；副交感{{緩慢|名詞}}",
-  "腸胃道：交感腸胃蠕動↓；副交感腸胃蠕動{{↑|名詞}}",
-  "膀胱、直腸：交感不排尿、不排便；副交感排尿、排便",
-  "性器官：交感{{射精|名詞}}；副交感{{勃起|名詞}}",
-  "液體：交感少、稠；副交感多、稀",
-  "節前神經長短：交感節前{{較短|性質}}；副交感節前較長"
-]);
-kA(10, "自主神經總覽", 70, "接受器與生理作用綜合藥物機轉整理", [
-  "刺激 α1：散瞳、心臟、血管收縮、前列腺收縮（α1A）；作用劑 {{Phenylephrine|藥名}}；阻斷劑 {{Prazosin|藥名}}",
-  "刺激 α2：抑制神經傳遞物質釋放、使眼睛內血管收縮因此可減少眼房水分泌、血小板凝集；作用劑 {{Clonidine、Apraclonidine|藥名}}；阻斷劑 {{Yohimbine|藥名}}",
-  "α 非選擇性阻斷劑：{{Tolazoline、Phentolamine、Phenoxybenzamine|藥名}}",
-  "刺激 β1：{{Renin|物質}} 釋放、心臟收縮；作用劑 Dobutamine；阻斷劑 {{Atenolol|藥名}}",
-  "刺激 β2：血管、氣管平滑肌擴張、子宮平滑肌擴張；作用劑 Salbutamol、{{Ritodrine|藥名}}；阻斷劑 Butoxamine",
-  "刺激 β3：脂肪分解、逼尿肌鬆弛；作用劑 {{Mirabegron|藥名}}（治膀胱過動症）",
-  "β 非選擇性阻斷劑：{{Propranolol|藥名}}",
-  "刺激 D1：擴張腎臟血管平滑肌；作用劑 {{Fenoldopam|藥名}}",
-  "刺激 D2：調節神經傳遞物質的釋放；作用劑 {{Bromocriptine|藥名}}；阻斷劑 {{Chlorpromazine|藥名}}"
-]);
-kA(10, "NE 生合成、代謝與 SAR", 71, "NE 生合成", [
-  "Dopamine 可由 L-Dopa 經 {{Decarboxylation|名詞}} 反應而產生",
-  "{{Tyrosine|物質}} 是腎上腺素和正腎上腺素生合成的前驅物",
-  "Tyrosine —（{{Tyrosine Hydroxylase|酵素}}）→ DOPA —（DOPA Decarboxylase）→ Dopamine —（{{Dopamine-β-hydroxylase|酵素}}）→ Norepinephrine —（{{Phenylethanolamine-N-methyltransferase|酵素}}）→ Epinephrine"
-]);
-kA(10, "NE 生合成、代謝與 SAR", 71, "NE 代謝", [
-  "MAO：進行{{氧化去胺|名詞}}；MAO-A 代謝受質 NE、{{Serotonin|物質}}；MAO-B 代謝受質 {{Dopamine|物質}}",
-  "COMT：Catechol 間位{{氧甲基化|名詞}}（苯環 C-3 位）",
-  "Norepinephrine —（MAO-A）→ 3,4-Dihydroxymandelic acid —（COMT）→ {{Vanillylmandelic acid|物質}}"
-]);
-kA(10, "NE 生合成、代謝與 SAR", 71, "擬交感神經作用劑 SAR", [
-  "R1：N 上取代基越大 → 對受體選擇性越偏向 {{β|標的}}、越不容易被 {{MAO|酵素}} 代謝",
-  "R2：接上甲基 → {{α2|標的}} receptor 活性增加，不易被 MAO 代謝",
-  "R2：接上乙基 → {{β|標的}} receptor 活性增加，不易被 MAO 代謝",
-  "芳香環：結構沒有 {{Catechol|結構}} → 就不會被 COMT 代謝"
-]);
-kA(10, "作用於交感神經系統的藥物", 72, "作用點（Medical Pharmacology at a Glance 圖）", [
-  "{{Metyrosine|藥名}} ⊖ Tyrosine hydroxylase；{{Methyldopa|藥名}} ⊖ Dopa decarboxylase",
-  "α2 Autoreceptor：α2-agonist {{Clonidine|藥名}}；α2-antagonist {{Yohimbine|藥名}}",
-  "抑制 NE 釋放：{{Guanethidine、Bretylium|藥名}}；促進 NE 釋放：{{Amphetamine|藥名}}；排空 NE：{{Reserpine|藥名}}",
-  "抑制 NE 再回收：{{Cocaine、Amitriptyline（TCA）|藥名}}",
-  "α1-agonist：Phenylephrine、{{Methoxamine|藥名}}；α1-antagonist：Prazosin",
-  "β1/β2-antagonist：Propranolol；β1/β2-agonist：{{Isoproterenol|藥名}}；β1-agonist：Dobutamine；β2-agonist：Salbutamol",
-  "Amphetamine：藉由 {{NET|標的}} 當作運輸管道，抑制 {{VMAT|標的}} 使 NE 無法進入突觸囊泡",
-  "Cocaine：抑制 NET，對 VMAT {{無效果|性質}}",
-  "NET：Norepinephrine transporter；VMAT：Vesicular monoamine transporter"
-]);
-kA(10, "交感神經接受器", 73, "α 接受器", [
-  "α1：位於{{突觸後|名詞}}細胞膜上；作用在 {{Gq|標的}} → 活化 Phospholipase C → PIP2 → DAG + IP3 → 細胞內 Ca2+ 增加 → 血管收縮、平滑肌收縮 → 使血壓上升",
-  "α2：位於{{突觸前|名詞}}神經末梢；作用在 {{Gi|標的}} → 抑制 Adenylyl cyclase → cAMP↓ → 抑制 Norepinephrine 釋放 → 血管、平滑肌擴張 → 使血壓下降"
-]);
-kA(10, "交感神經接受器", 73, "β 接受器", [
-  "β1（心臟）：使心跳速率、心臟收縮力增加；增加{{腎素（renin）|物質}}分泌",
-  "β2（平滑肌）：血管、氣管擴張；增加升醣素分泌，造成肝醣分解；增加胰島素分泌；放鬆{{子宮平滑肌|器官}}",
-  "β3（脂肪細胞）：促進脂肪分解；{{逼尿肌鬆弛|名詞}}",
-  "作用在 {{Gs|標的}} → 活化 Adenylyl cyclase → cAMP↑",
-  "cAMP 會被 PDE 代謝，{{Theophylline|藥名}} 為 PDE 的抑制劑，會讓 cAMP 上升，可作為氣喘藥物（作用在 β2）",
-  "氣喘用藥：M-antagonist、β-agonist、PDE inhibitor、{{Adenosine antagonist|藥物類別}}",
-  "{{Glucagon|藥名}} 會作用在 Glucagon receptor 產生強心作用，可拮抗 β-blocker 中毒時的心臟症狀"
-]);
-kA(10, "交感神經接受器", 73, "接受器親和力比較", [
-  "α-receptor：{{Epinephrine ≧ Norepinephrine ≫ Isoproterenol|名詞}}",
-  "β1-receptor：{{Isoproterenol > Epinephrine ≧ Norepinephrine|名詞}}",
-  "β2-receptor：{{Isoproterenol > Epinephrine ≫ Norepinephrine|名詞}}"
-]);
-kA(10, "眼科用藥", 74, "青光眼藥物統整", [
-  "減少眼房水生成（血管擴張造成眼房水滲出，因此血管收縮 → 減少眼房水生成）：α2-agonists：{{Apraclonidine、Brimonidine|藥名}}",
-  "β-blockers：Metipranolol、Levobunolol、{{Timolol|藥名}}、Carteolol、Betaxolol",
-  "Carbonic anhydrase inhibitors：{{Dorzolamide、Brinzolamide|藥名}}",
-  "增加眼房水排除（睫狀肌收縮 → 打開許萊姆氏管 → 幫助眼房水的排除）：M-agonist：{{Pilocarpine、Carbachol|藥名}}；AchE inhibitors：Physostigmine、Isoflurophate",
-  "打開葡萄膜鞏膜 → 幫助眼房水的排除：{{Prostaglandins|藥物類別}}（副作用：{{睫毛增生|副作用}}）：Bimatoprost、Latanoprost、Travoprost、Unoprostone（白拉他翠 U）",
-  "交感神經藥物：{{Epinephrine、Dipivefrin|藥名}}"
-]);
-kA(10, "眼科用藥", 74, "散瞳縮瞳藥物統整", [
-  "瞳孔示意圖：副交感神經刺激 → 環狀肌（M3）收縮 → 瞳孔縮小；交感神經刺激 → 放射肌（輻射肌）（α1）收縮 → 瞳孔放大",
-  "散瞳：M-antagonist：{{Atropine、Tropicamide|藥名}}；α1-agonist：{{Phenylephrine|藥名}}",
-  "縮瞳：M-agonist：{{Pilocarpine、Physostigmine|藥名}}；{{α1-antagonist|藥物類別}}"
-]);
+kA(10, "自主神經總覽", 69, "交感、副交感、體神經", { images: ["assets/amulet/fig/ans.png"], table: {
+  head: [[{ t: "", rs: 2 }, { t: "節前", cs: 2 }, null, { t: "節後", cs: 2 }, null], [null, "神經傳導物質", "受體", "神經傳導物質", "受體"]],
+  cols: ["", "節前神經傳導物質", "節前受體", "節後神經傳導物質", "節後受體"], rows: [
+  [{ t: "交感神經", b: true }, "Ach", "{{Nn(N1)|標的}}", "{{Norepinephrine|物質}}", "α、β"],
+  [{ t: "副交感神經", b: true }, "Ach", "Nn(N1)", "Ach", "{{M|標的}}"],
+  [{ t: "體神經", b: true }, { t: "無神經節", cs: 2 }, null, "Ach", "{{Nm(N2)|標的}}"] ] } });
+kA(10, "自主神經總覽", 70, "交感神經與副交感神經", { table: {
+  head: [[{ t: "交感神經與副交感神經", cs: 3 }, null, null], ["分布器官", "交感神經（白天）", "副交感神經（晚上）"]],
+  cols: ["分布器官", "交感神經（白天）", "副交感神經（晚上）"], rows: [
+  [{ t: "眼睛", b: true }, "{{散瞳|名詞}}", "{{縮瞳|名詞}}"],
+  [{ t: "支氣管", b: true }, "擴張", "{{收縮|名詞}}"],
+  [{ t: "心臟", b: true }, "強而有力", "{{緩慢|名詞}}"],
+  [{ t: "腸胃道", b: true }, "腸胃蠕動↓", "腸胃蠕動{{↑|名詞}}"],
+  [{ t: "膀胱、直腸", b: true }, "不排尿、不排便", "排尿、排便"],
+  [{ t: "性器官", b: true }, "{{射精|名詞}}", "{{勃起|名詞}}"],
+  [{ t: "液體", b: true }, "少、稠", "多、稀"],
+  [{ t: "節前神經長短", b: true }, "節前{{較短|性質}}", "節前較長"] ] } });
+kA(10, "自主神經總覽", 70, "接受器與生理作用綜合藥物機轉整理", { table: {
+  head: [[{ t: "接受器與生理作用綜合藥物機轉整理", cs: 5 }, null, null, null, null], ["接受器", "生理作用", "作用劑", "阻斷劑", "非選擇性阻斷劑"]],
+  cols: ["接受器", "生理作用", "作用劑", "阻斷劑", "非選擇性阻斷劑"],
+  rowNames: ["刺激α1", "刺激α1", "刺激α1", "刺激α2", "刺激α2", "刺激α2", "刺激β1", "刺激β1", "刺激β2", "刺激β2", "刺激β3", "刺激β3", "刺激 D1", "刺激 D2"], rows: [
+  [{ t: "刺激α1", b: true, rs: 3 }, "散瞳", { t: "{{Phenylephrine|藥名}}", rs: 3 }, { t: "{{Prazosin|藥名}}", rs: 3 }, { t: "{{Tolazoline|藥名}}\n{{Phentolamine|藥名}}\n{{Phenoxybenzamine|藥名}}", rs: 5 }],
+  [null, "心臟、血管收縮", null, null, null],
+  [null, "前列腺收縮（α1A）", null, null, null],
+  [{ t: "刺激α2", b: true, rs: 3 }, "抑制神經傳遞物質釋放", "{{Clonidine|藥名}}", { t: "{{Yohimbine|藥名}}", rs: 2 }, null],
+  [null, "使眼睛內血管收縮，因此可減少眼房水分泌", "{{Apraclonidine|藥名}}", null, null],
+  [null, "血小板凝集", { t: "", cs: 3 }, null, null],
+  [{ t: "刺激β1", b: true, rs: 2 }, "{{Renin|物質}} 釋放", { t: "Dobutamine", rs: 2 }, { t: "{{Atenolol|藥名}}", rs: 2 }, { t: "{{Propranolol|藥名}}", rs: 4 }],
+  [null, "心臟收縮", null, null, null],
+  [{ t: "刺激β2", b: true, rs: 2 }, "血管、氣管平滑肌擴張", "Salbutamol", { t: "Butoxamine", rs: 2 }, null],
+  [null, "子宮平滑肌擴張", "{{Ritodrine|藥名}}", null, null],
+  [{ t: "刺激β3", b: true, rs: 2 }, "脂肪分解", { t: "{{Mirabegron|藥名}}\n（治膀胱過動症）", rs: 2 }, { t: "", rs: 2 }, { t: "", rs: 2 }],
+  [null, "逼尿肌鬆弛", null, null, null],
+  [{ t: "刺激 D1", b: true }, "擴張腎臟血管平滑肌", "{{Fenoldopam|藥名}}", "", ""],
+  [{ t: "刺激 D2", b: true }, "調節神經傳遞物質的釋放", "{{Bromocriptine|藥名}}", "{{Chlorpromazine|藥名}}", ""] ] } });
+kA(10, "NE 生合成、代謝與 SAR", 71, "NE 生合成", { table: { cols: ["", "NE 生合成"], rowNames: ["NE 生合成", "生合成路徑"], rows: [
+  [{ t: "NE 生合成", b: true }, "✧ Dopamine 可由 L-Dopa 經 {{Decarboxylation|名詞}} 反應而產生\n✧ {{Tyrosine|物質}} 是腎上腺素和正腎上腺素生合成的前驅物"],
+  [{ t: "Tyrosine → DOPA → Dopamine → Norepinephrine → Epinephrine", img: "assets/amulet/fig/ne-syn.png", wide: true, cs: 2 }, null] ] } });
+kA(10, "NE 生合成、代謝與 SAR", 71, "NE 代謝", { table: { cols: ["", "酵素", "", "代謝方式", "代謝受質"], rowNames: ["", "MAO-A", "MAO-B", "COMT", ""], rows: [
+  [{ t: "NE 代謝", b: true, rs: 4 }, { t: "酵素", b: true, cs: 2 }, null, { t: "代謝方式", b: true }, { t: "代謝受質", b: true }],
+  [null, { t: "MAO", rs: 2 }, "MAO-A", { t: "進行{{氧化去胺|名詞}}", rs: 2 }, "NE、{{Serotonin|物質}}"],
+  [null, null, "MAO-B", null, "{{Dopamine|物質}}"],
+  [null, { t: "COMT", cs: 2 }, null, "Catechol 間位{{氧甲基化|名詞}}（苯環 C-3 位）", ""],
+  [{ t: "Norepinephrine → 3,4-Dihydroxymandelic acid → Vanillylmandelic acid", img: "assets/amulet/fig/ne-met.png", wide: true, cs: 5 }, null, null, null, null] ] } });
+kA(10, "NE 生合成、代謝與 SAR", 71, "擬交感神經作用劑 SAR", { table: { cols: ["", "位置", "取代基", "藥化特色"], rowNames: ["", "R1", "R1", "R2 接上甲基", "R2 接上乙基", "芳香環"], rows: [
+  [{ t: "擬交感神經\n作用劑 SAR", b: true, rs: 6 }, { t: "位置", b: true }, { t: "取代基", b: true }, { t: "藥化特色", b: true }],
+  [null, { t: "R1", rs: 2 }, { t: "N 上取代基越大", rs: 2 }, "對受體選擇性越偏向 {{β|標的}}"],
+  [null, null, null, "越不容易被 {{MAO|酵素}} 代謝"],
+  [null, { t: "R2", rs: 2 }, "接上甲基", "{{α2|標的}} receptor 活性增加，不易被 MAO 代謝"],
+  [null, null, "接上乙基", "{{β|標的}} receptor 活性增加，不易被 MAO 代謝"],
+  [null, "芳香環", "結構沒有 {{Catechol|結構}}", "就不會被 COMT 代謝"] ] }, images: ["assets/amulet/ne-sar.png"] });
+kA(10, "作用於交感神經系統的藥物", 72, "作用點（Medical Pharmacology at a Glance 圖）", { images: ["assets/amulet/fig/sym-drugs.png"], table: { head: ["藥物", "機轉"], rows: [
+  [{ t: "Amphetamine", b: true }, "藉由 {{NET|標的}} 當作運輸管道，\n抑制 {{VMAT|標的}} 使 NE 無法進入突觸囊泡"],
+  [{ t: "Cocaine", b: true }, "抑制 NET，對 VMAT {{無效果|性質}}"] ] } });
+kA(10, "交感神經接受器", 73, "α 接受器", { table: { head: ["名稱", "位置", "作用"], rows: [
+  [{ t: "α1", b: true }, "{{突觸後|名詞}}細胞膜上", "作用在 {{Gq|標的}} → 活化 Phospholipase C → PIP2 → DAG + IP3 → 細胞內 Ca2+ 增加\n→ 血管收縮、平滑肌收縮 → 使血壓上升"],
+  [{ t: "α2", b: true }, "{{突觸前|名詞}}神經末梢", "作用在 {{Gi|標的}} → 抑制 Adenylyl cyclase → cAMP↓ → 抑制 Norepinephrine 釋放\n→ 血管、平滑肌擴張 → 使血壓下降"] ] } });
+kA(10, "交感神經接受器", 73, "β 接受器", { table: { head: ["名稱", "位置", "生理機轉", "接收器作用機轉"], rows: [
+  [{ t: "β1", b: true }, "心臟", "1. 使心跳速率、心臟收縮力增加\n2. 增加{{腎素（renin）|物質}}分泌", { t: "1. 作用在 {{Gs|標的}} → 活化 Adenylyl cyclase → cAMP↑\n2. cAMP 會被 PDE 代謝，{{Theophylline|藥名}} 為 PDE 的抑制劑，會讓 cAMP 上升，可作為氣喘藥物（作用在 β2）\n3. 氣喘用藥：M-antagonist、β-agonist、PDE inhibitor、{{Adenosine antagonist|藥物類別}}\n4. {{Glucagon|藥名}} 會作用在 Glucagon receptor 產生強心作用，可拮抗 β-blocker 中毒時的心臟症狀", rs: 3 }],
+  [{ t: "β2", b: true }, "平滑肌", "1. 血管、氣管擴張\n2. 增加升醣素分泌，造成肝醣分解\n3. 增加胰島素分泌\n4. 放鬆{{子宮平滑肌|器官}}", null],
+  [{ t: "β3", b: true }, "脂肪細胞", "1. 促進脂肪分解\n2. {{逼尿肌鬆弛|名詞}}", null] ] } });
+kA(10, "交感神經接受器", 73, "接受器親和力比較", { table: { head: ["接收器親和力比較"], rowNames: ["α-receptor", "β1-receptor", "β2-receptor"], rows: [
+  ["α-receptor：{{Epinephrine ≧ Norepinephrine ≫ Isoproterenol|名詞}}"],
+  ["β1-receptor：{{Isoproterenol > Epinephrine ≧ Norepinephrine|名詞}}"],
+  ["β2-receptor：{{Isoproterenol > Epinephrine ≫ Norepinephrine|名詞}}"] ] } });
+kA(10, "眼科用藥", 74, "青光眼藥物統整", { table: { head: ["眼房水", "機轉", "藥理分類", "藥物"],
+  rowNames: ["α2-agonists", "β-blockers", "Carbonic anhydrase inhibitors", "M-agonist", "AchE inhibitors", "Prostaglandins", "交感神經藥物"], rows: [
+  [{ t: "減少\n眼房水生成", b: true, rs: 3 }, { t: "血管擴張造成眼房水滲出，\n因此血管收縮→減少眼房水生成", rs: 3 }, "α2-agonists", "{{Apraclonidine、Brimonidine|藥名}}"],
+  [null, null, "β-blockers", "Metipranolol、Levobunolol\n{{Timolol|藥名}}、Carteolol、Betaxolol"],
+  [null, null, "Carbonic anhydrase inhibitors", "{{Dorzolamide、Brinzolamide|藥名}}"],
+  [{ t: "增加\n眼房水排除", b: true, rs: 4 }, { t: "睫狀肌收縮\n→打開許萊姆氏管\n→幫助眼房水的排除", rs: 2 }, "M-agonist", "{{Pilocarpine、Carbachol|藥名}}"],
+  [null, null, "AchE inhibitors", "Physostigmine、Isoflurophate"],
+  [null, "打開葡萄膜鞏膜\n→幫助眼房水的排除", "{{Prostaglandins|藥物類別}}\n（副作用：{{睫毛增生|副作用}}）", "Bimatoprost、Latanoprost、Travoprost、Unoprostone\n（白拉他翠 U）"],
+  [null, "", "交感神經藥物", "{{Epinephrine、Dipivefrin|藥名}}"] ] } });
+kA(10, "眼科用藥", 74, "散瞳縮瞳藥物統整", { table: { cols: ["瞳孔", "藥理分類", "藥物"], rowNames: ["瞳孔示意圖", "", "散瞳", "散瞳", "縮瞳", "縮瞳"], rows: [
+  [{ t: "瞳孔示意圖", b: true }, { t: "副交感神經刺激 → 瞳孔縮小；交感神經刺激 → 瞳孔放大", img: "assets/amulet/fig/pupil.png", wide: true, cs: 2 }, null],
+  [{ t: "瞳孔", b: true }, { t: "藥理分類", b: true }, { t: "藥物", b: true }],
+  [{ t: "散瞳", b: true, rs: 2 }, "M-antagonist", "{{Atropine、Tropicamide|藥名}}"],
+  [null, "α1-agonist", "{{Phenylephrine|藥名}}"],
+  [{ t: "縮瞳", b: true, rs: 2 }, "M-agonist", "{{Pilocarpine、Physostigmine|藥名}}"],
+  [null, "{{α1-antagonist|藥物類別}}", ""] ] } });
 dA(10, "影響 catecholamine 生合成", 75, "metyrosine", "Metyrosine", null, {
   cls: ["影響 catecholamine 生合成"],
   feat: ["抑制 {{Tyrosine hydroxylase|酵素}}", "用於{{嗜鉻細胞瘤|疾病}}"] });
@@ -2087,18 +2080,18 @@ kA(26, "Loop diuretics", 165, "Loop diuretics 機轉與特色", { images: ["asse
   "2. 使用 Loop diuretics 時，因為阻斷 Na+／K+／2Cl- cotransporter，使 Na+、K+、Cl- 無法送到細胞，K+ 無法回到管腔內，此時管腔內的正電下降，{{Ca+、Mg+|物質}} 也無法再送回細胞。",
   "3. 適應症：{{高血鈣|疾病}}、高血鉀、心衰竭造成的{{肺水腫|疾病}}、人體陰離子過量",
   "4. 副作用：高血糖、高尿酸血症、低血鉀、低血鈣、{{低血鎂|副作用}}、耳毒性" ] });
-kA(26, "Thiazide diuretics", 166, "Thiazide diuretics 機轉與特色", [
-  "機轉：抑制{{遠曲小管|器官}}上的 Na+/Cl- cotransporter，造成 Na+ 的排除增加，產生利尿的作用",
-  "當 Na+/Cl- cotransport 被抑制時，Na+ 減少，會增加 Na+/Ca2+ 的交換，{{增加 Ca2+ 的再吸收|名詞}}",
-  "適應症：高血壓、心衰竭、{{腎因性尿崩症|疾病}}",
-  "中樞性尿崩症：{{Desmopressin|藥名}} 治療；Li 鹽導致的尿崩症：{{Amiloride|藥名}} 治療",
-  "副作用：{{高血鈣症|副作用}}、高尿酸血症、高血糖、高血脂、低血鉀"
-]);
-kA(26, "保鉀型利尿劑", 167, "集尿管的調節", [
-  "Aldosterone：當血液循環體積減少及血壓下降時會刺激 Aldosterone 分泌，增加 {{Na+|物質}} 的再吸收，並增加 K+ 和 H+ 的排除",
-  "Vasopressin 含 {{9|數值}} 個胺基酸胜肽，由後葉釋放，作用在 {{V2 receptor|標的}}，在集尿管會增加水通道的數量，並增加水的再吸收",
-  "{{Liddle's syndrome|疾病}} 為假性醛固酮過多症，可使用 Triamterene 或 Amiloride 治療"
-]);
+kA(26, "Thiazide diuretics", 166, "Thiazide diuretics 機轉與特色", { images: ["assets/amulet/fig/dct.png"], points: [
+  "1. 機轉：抑制{{遠曲小管|器官}}上的 Na+／Cl- cotransporter，造成 Na+ 的排除增加，產生利尿的作用。\n當 Na+／Cl- cotransport 被抑制時，Na+ 減少，會增加 Na+／Ca2+ 的交換，{{增加 Ca2+ 的再吸收|名詞}}。",
+  "2. 適應症：高血壓、心衰竭、{{腎因性尿崩症|疾病}}",
+  "3. 中樞性尿崩症：{{Desmopressin|藥名}} 治療",
+  "4. Li 鹽導致的尿崩症：{{Amiloride|藥名}} 治療",
+  "5. 副作用：{{高血鈣症|副作用}}、高尿酸血症、高血糖、高血脂、低血鉀" ] });
+kA(26, "保鉀型利尿劑", 167, "集尿管的調節（Katzung 圖）", { images: ["assets/amulet/fig/cd.png"] });
+kA(26, "保鉀型利尿劑", 167, "保鉀型利尿劑與 Vasopressin antagonist", { table: { cols: ["分類", "藥名", "藥理特色"], rowNames: ["Spironolactone、Eplerenone", "Triamterene、Amiloride", "Conivaptan、Tolvaptan"], rows: [
+  [{ t: "保鉀型利尿劑", b: true }, "Spironolactone\nEplerenone", "1. 機轉：於集尿管中阻斷 {{Aldosterone|物質}} 的作用\n2. 適應症：{{肝硬化造成的腹水|疾病}}、Conn's syndrome、心衰竭\n3. 副作用：{{男性女乳症|副作用}}、高血鉀"],
+  [{ t: "保鉀型利尿劑", b: true }, "Triamterene\nAmiloride", "1. 機轉：於集尿管中阻斷 {{Na+ channel|標的}}\n2. 適應症：Amiloride 可用於{{鋰鹽|藥名}}導致的尿崩症、Liddle's syndrome"],
+  [{ t: "Vasopressin antagonist", b: true }, "Conivaptan(IV)\nTolvaptan(PO)", "1. 機轉：阻斷 {{V2 receptor|標的}}，使 {{Aquaporin-2|標的}} 無法產生作用\n2. 適應症：高血容積{{低血鈉症|疾病}}、{{SIADH|疾病}}"] ],
+  note: "✧ Aldosterone：當血液循環體積減少及血壓下降時會刺激 Aldosterone 分泌，增加 {{Na+|物質}} 的再吸收，並增加 K+ 和 H+ 的排除\n✧ Vasopressin 含 {{9|數值}} 個胺基酸胜肽，由後葉釋放，作用在 V2 receptor，在集尿管會增加水通道的數量，並增加水的再吸收\n✧ {{Liddle's syndrome|疾病}} 為假性醛固酮過多症，可使用 Triamterene 或 Amiloride 治療" } });
 dA(26, "保鉀型利尿劑", 167, "spironolactone", "Spironolactone、Eplerenone", "Spironolactone", {
   cls: ["保鉀型利尿劑：於集尿管中阻斷 {{Aldosterone|物質}} 的作用"],
   feat: ["適應症：{{肝硬化造成的腹水|疾病}}、Conn's syndrome、心衰竭", "副作用：{{男性女乳症|副作用}}、高血鉀"] });
@@ -2134,15 +2127,15 @@ dA(26, "Loop diuretics", 168, "ethacrynic-acid", "Ethacrynic acid", null, {
   cls: ["Loop Diuretics：{{Phenoxyacetic acid|結構}}"],
   struct: ["氯的位置是在 2-,3- 上"],
   feat: ["{{非磺胺類|性質}}藥物（不會產生過敏反應）", "副作用：最易造成{{耳毒性|副作用}}", "可與含 {{-SH|結構}} 基之酵素產生共價結合"] });
-kA(26, "Thiazide diuretics", 169, "Thiazide-diuretics SAR", [
-  "N2：小烷基取代（CH3）取代，可{{延長藥效|性質}}",
-  "C3：烷基取代（Haloalkyl、Aralkyl、Thioether），可延長藥效、增加活性",
-  "N4：C3、C4 之間的雙鍵飽和（{{3,4-Dihydro|結構}}），活性會增加 {{10|數值}} 倍",
-  "N4、C5、C8：若有烷基取代，會{{降低|性質}}利尿活性",
-  "C6：{{拉電子基|結構}}取代（Cl、Br、CF3、NO2）可增加活性；推電子基取代（CH3、OCH3），活性降低",
-  "C7：會在 7 號位導入 {{SO2NH2|結構}}（必要基團）",
-  "7 號位之 N 與 2 號位之 N 相比，{{2 號位|結構}}之 N 酸性較強，會在 2 號位與 NaOH 反應形成鈉鹽供靜脈注射（IV）"
-]);
+kA(26, "Thiazide diuretics", 169, "Thiazide-diuretics SAR", { table: { cols: ["位置", "藥化特色"], rows: [
+  [{ t: "Thiazide-diuretics SAR", b: true }, { t: "Thiazide 骨架", img: "assets/amulet/thiazide-sar.png" }],
+  [{ t: "位置", b: true }, { t: "藥化特色", b: true }],
+  [{ t: "N2", b: true }, "小烷基取代（CH3）取代，可{{延長藥效|性質}}"],
+  [{ t: "C3", b: true }, "烷基取代（Haloalkyl、Aralkyl、Thioether），可延長藥效、增加活性"],
+  [{ t: "N4", b: true }, "C3、C4 之間的雙鍵飽和（{{3,4-Dihydro|結構}}），活性會增加 {{10|數值}} 倍"],
+  [{ t: "N4 C5 C8", b: true }, "若有烷基取代，會{{降低|性質}}利尿活性"],
+  [{ t: "C6", b: true }, "{{拉電子基|結構}}取代（Cl、Br、CF3、NO2）可增加活性\n推電子基取代（CH3、OCH3），活性降低"],
+  [{ t: "C7", b: true }, "會在 7 號位導入 {{SO2NH2|結構}}（必要基團）\n7 號位之 N 與 2 號位之 N 相比，{{2 號位|結構}}之 N 酸性較強，\n會在 2 號位與 NaOH 反應形成鈉鹽供靜脈注射（IV）"] ] } });
 dA(26, "Thiazide 類利尿劑", 170, "chlorothiazide", "Chlorothiazide", null, {
   cls: ["Thiazide Diuretics"],
   struct: ["具有 {{Benzothiadiazine-1,1-dioxide|結構}}"],

@@ -389,7 +389,7 @@
     function tableHtml(T) {
       const tcl = t => fmt(esc(t).replace(CLOZE, (m, ans) => `<mark class="cloze">${ans}</mark>`)).replace(/(^|<br>)(- |&gt; )/g, "$1");   // 表格裡的挖空：標成考點
       const cell = (c, tag) => { if (c === null) return ""; const o = typeof c === "object" ? c : { t: c };
-        const cl = [o.b && "is-b", o.s && "is-s", o.img && "is-img", o.band && "is-band"].filter(Boolean).join(" ");
+        const cl = [o.b && "is-b", o.s && "is-s", o.img && "is-img", o.wide && "is-fig", o.band && "is-band"].filter(Boolean).join(" ");
         const body = o.img ? `<img src="${esc(o.img)}" alt="${esc(o.t || "結構")}" loading="lazy">` : tcl(o.t || "");   // { img: "…" }：格子裡放結構圖
         return `<${tag}${o.rs ? ` rowspan="${o.rs}"` : ""}${o.cs ? ` colspan="${o.cs}"` : ""}${cl ? ` class="${cl}"` : ""}>${body}</${tag}>`; };
       const heads = !T.head ? [] : Array.isArray(T.head[0]) ? T.head : [T.head];

@@ -547,6 +547,7 @@ mark.cloze.is-hl.hl-mine { background: linear-gradient(transparent 35%, #BFE3A6 
 .k-table td.is-s { font-weight: 700; }   /* 講義上的粗體字 */
 .k-table td.is-img { text-align: center; }
 .k-table td.is-img img { max-width: 170px; max-height: 120px; object-fit: contain; }   /* 表格裡的結構圖 */
+.k-table td.is-img.is-fig img { max-width: 100%; max-height: none; }   /* { wide: true }：講義表格裡的整張圖（路徑圖、示意圖） */
 .k-table td.is-band { text-align: center; background: #F1EDDC; font-weight: 600; color: var(--deep); }   /* 講義表格中間的灰色分類列 */
 .k-table.multi-head th { text-align: center; vertical-align: middle; border: 1px solid #DDD6BC; white-space: normal; }   /* 和講義一樣的雙層表頭 */
 .k-table.multi-head td { text-align: center; }
