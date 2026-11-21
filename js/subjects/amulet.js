@@ -3255,3 +3255,251 @@ dA(42, "COX-2 Inhibitors", 261, "coxibs", "Parecoxib、Valdecoxib、Rofecoxib、
 dA(42, "解熱鎮痛藥", 261, "acetaminophen", "Acetaminophen", null, {
   cls: ["解熱鎮痛藥"],
   feat: ["代謝：小孩 {{O-Sulfate|名詞}} 和大人 O-glucuronide", "氧化（{{2E1|酵素}}）形成毒性代謝物 {{N-acetylimidoquinone|物質}}", "解毒劑：利用 {{Glutathione 及 N-acetylcysteine|藥名}} 之 SH 行 Conjugation 作用", "{{無抗發炎|性質}}的作用"] });
+
+/* ===== 第 43 章 抗痛風藥物 ===== */
+chA(43, "43", "抗痛風藥物", "262～263");
+kA(43, "尿酸代謝與痛風", 262, "尿酸路徑與藥物作用點（Katzung 圖）", [
+  "Hypoxanthine —（{{Xanthine oxidase|酵素}}）→ Xanthine —（Xanthine oxidase）→ Uric acid；減少尿酸合成：{{Allopurinol、Febuxostat|藥名}} 抑制",
+  "Uric acid 經腎小管排除 → 尿液；增加尿酸排除：{{Probenecid、Sulfinpyrazone|藥名}}",
+  "Uric acid —（{{Uricase|酵素}}）→ Allantoin（尿囊素）；增加尿酸降解：{{Pegloticase|藥名}}",
+  "痛風的特徵是{{尿酸結晶|物質}}沉積在關節，而引起疼痛性關節炎",
+  "治療方式：減少尿酸結晶鹽引起的發炎反應；抑制 Xanthine oxidase，減少尿酸合成；增加尿酸的排除；增加尿酸的溶解度"
+]);
+dA(43, "秋水仙素", 263, "colchicine", "Colchicine", null, {
+  cls: ["秋水仙素：抑制{{嗜中性白血球|名詞}}吞噬作用"],
+  feat: ["治療{{急性|性質}}痛風首選常併用 Indomethacin", "生合成：{{Phenylalanine + Tyrosine|物質}}"] });
+dA(43, "增加尿酸排除", 263, "probenecid", "Probenecid", null, {
+  cls: ["增加尿酸排除：抑制尿酸在{{腎小管|器官}}的再吸收"],
+  feat: ["併用 {{Penicillin、MTX、Indomethacin|藥名}} 使腎排除下降，使上述藥物藥效上升"] });
+dA(43, "增加尿酸排除", 263, "sulfinpyrazone", "Sulfinpyrazone", null, {
+  cls: ["增加尿酸排除"],
+  feat: ["還原為 {{sulfide|物質}} 只有抗血小板凝集的效果", "芳香環羥基生成對位酚基衍生物或將 S=O → O=S=O 代謝物則具有降尿酸活性"] });
+dA(43, "增加尿酸排除", 263, "benzbromarone", "Benzbromarone", null, {
+  cls: ["增加尿酸排除：抑制尿酸在腎小管的再吸收"] });
+dA(43, "增加尿酸排除", 263, "lesinurad", "Lesinurad", null, {
+  cls: ["增加尿酸排除：抑制尿酸在腎小管的再吸收"] });
+dA(43, "抑制尿酸形成", 263, "allopurinol", "Allopurinol", null, {
+  cls: ["抑制尿酸形成：抑制 {{Xanthine oxidase|酵素}}"],
+  feat: ["併用 {{6-MP|藥名}} 時須將 6-MP 的劑量降低 {{75%|數值}}", "須檢測 {{HLA-B*5801|名詞}} 基因", "副作用：{{Steven-Johnson syndrome|副作用}}"] });
+dA(43, "抑制尿酸形成", 263, "febuxostat", "Febuxostat", null, {
+  cls: ["抑制尿酸形成：屬於{{非嘌呤類|性質}}選擇性非競爭型 Xanthine oxidase 抑制劑"],
+  feat: ["{{慢性|性質}}痛風用藥"] });
+dA(43, "增加尿酸代謝", 263, "pegloticase", "Pegloticase、Rasburicase", "Pegloticase", {
+  cls: ["增加尿酸代謝：活化 {{Uricase|酵素}}"],
+  feat: ["催化尿酸變成尿囊素（{{allantoin|物質}}），尿囊素溶解度更好，更易排泄"] });
+
+/* ===== 第 44 章 抗組織胺藥物 ===== */
+chA(44, "44", "抗組織胺藥物", "264～266");
+kA(44, "組織胺簡介", 264, "組織胺簡介、受體與化學性質", [
+  "是一種{{發炎反應|名詞}}的媒介物質；體內分布包括：肥大細胞的分泌顆粒、胃腸道、丘腦",
+  "組織胺的合成：儲存於{{肥大細胞、嗜鹼性細胞|名詞}}",
+  "H1（{{Gq|標的}}）：平滑肌、內皮；H2（{{Gs|標的}}）：胃黏膜、心肌、肥大細胞、腦；H3（Gi）：腦；H4（Gi）：嗜酸性球、嗜中性球",
+  "Histidine 經{{脫羧|名詞}}形成 Histamine",
+  "Nπ：較接近側鏈，為近端的（pros）N；Nτ：較遠離側鏈，為遠端的（tele）N",
+  "選擇性：{{五號位|結構}}有甲基時，對 H1 作用消失，僅剩 H2 的作用",
+  "拮抗：雜環到氮加至{{四個|數值}}原子距，對組織胺受體產生拮抗作用"
+]);
+kA(44, "第一代 H1-blocker", 265, "第一代 H1-blocker 結構分類", [
+  "一代抗組織胺可用於{{動暈症|疾病}}：Diphenhydramine、Meclizine、Promethazine",
+  "Aminoalkyl Ethers（{{Ethanol amines|結構}}）：代表藥 Diphenhydramine；Doxylamine、Clemastine、Setastine、Carbinoxamine；鎮靜、抗膽鹼、抗動暈；{{Dimenhydrinate|藥名}} = Diphenhydramine + 8-Chlortheophyllinate",
+  "{{Ethylenediamines|結構}}（el,il,yl；例外：Doxylamine）：代表藥 Tripelennamine；Pyrilamine、Thonzylamine、Antazoline；胃腸道副作用",
+  "{{Propylamines|結構}}（ir,pro,but）：代表藥 Pheniramine；Pyrrobutamine、Triprolidine、Phenindamine；強抗組織胺；Phenindamine 睡前服用會造成{{失眠|副作用}}",
+  "{{Piperazines|結構}}（Cyclizines，-clizine）：代表藥 Cyclizine、Hydroxyzine；Meclizine；抗動暈、致畸形胎；Hydroxyzine 氧化代謝成 {{Cetirizine|藥名}}",
+  "{{Phenothiazines|結構}}（-thazine）：代表藥 Promethazine；Trimeprazine、Methdilazine；鎮靜、抗膽鹼、抗動暈",
+  "{{Dibenzocycloheptenes|結構}}（-tadine）：代表藥 Cyproheptadine；Azatadine；有抗血清素的作用，可緩解 Serotonin syndrome 及刺激食慾的作用",
+  "carbinoxamine、clemastine 及 setastine 的共同結構：{{ethanolamine ether|結構}}"
+]);
+dA(44, "第一代 H1-blocker", 265, "diphenhydramine", "Diphenhydramine", null, {
+  cls: ["第一代 H1-blocker：Aminoalkyl Ethers（Ethanol amines）"],
+  feat: ["{{鎮靜、抗膽鹼、抗動暈|副作用}}", "Dimenhydrinate = Diphenhydramine + {{8-Chlortheophyllinate|物質}}"] });
+dA(44, "第一代 H1-blocker", 265, "tripelennamine", "Tripelennamine", null, {
+  cls: ["第一代 H1-blocker：{{Ethylenediamines|結構}}"], feat: ["{{胃腸道|名詞}}副作用"] });
+dA(44, "第一代 H1-blocker", 265, "pheniramine", "Pheniramine", null, {
+  cls: ["第一代 H1-blocker：{{Propylamines|結構}}"], feat: ["強抗組織胺"] });
+dA(44, "第一代 H1-blocker", 265, "cyclizine-hydroxyzine", "Cyclizine、Hydroxyzine、Meclizine", "Hydroxyzine", {
+  cls: ["第一代 H1-blocker：{{Piperazines（Cyclizines）|結構}}"],
+  feat: ["抗動暈、{{致畸形胎|副作用}}", "Hydroxyzine 氧化代謝成 {{Cetirizine|藥名}}"] });
+dA(44, "第一代 H1-blocker", 265, "promethazine", "Promethazine", null, {
+  cls: ["第一代 H1-blocker：{{Phenothiazines|結構}}"], feat: ["鎮靜、抗膽鹼、抗動暈"] });
+mA("cyproheptadine", 265, {
+  cls: ["第一代 H1-blocker：{{Dibenzocycloheptenes|結構}}（-tadine）"],
+  feat: ["有抗血清素的作用，可緩解 {{Serotonin syndrome|副作用}} 及刺激食慾的作用"] });
+kA(44, "第二代 H1-blocker", 266, "第二代 H1-blocker", [
+  "第二代 H1-blocker 因{{極性大|性質}}，較不易穿透 BBB，鎮靜作用較小"
+]);
+dA(44, "第二代 H1-blocker", 266, "terfenadine-fexofenadine", "Terfenadine、Fexofenadine", "Fexofenadine", {
+  cls: ["第二代 H1-blocker"],
+  struct: ["Terfenadine（R=CH3）、Fexofenadine（R={{COOH|結構}}）"],
+  feat: ["Terfenadine 造成致命性{{心律不整|副作用}} → 代謝為 Fexofenadine 副作用較小", "經由 {{CYP3A4|酵素}} 氧化代謝為 Fexofenadine"] });
+dA(44, "第二代 H1-blocker", 266, "ebastine", "Ebastine、Carebastine", "Ebastine", {
+  cls: ["第二代 H1-blocker"],
+  struct: ["Ebastine（R=CH3）、Carebastine（R=COOH）"],
+  feat: ["氧化代謝為 {{Carebastine|物質}}"] });
+dA(44, "第二代 H1-blocker", 266, "loratadine", "Loratadine、Desloratadine", "Loratadine", {
+  cls: ["第二代 H1-blocker"],
+  struct: ["Desloratadine（R=H）、Loratadine（R=COOCH2CH3）"],
+  feat: ["Loratadine 的活性代謝物為 {{N 上脫烷基|名詞}}"] });
+dA(44, "第二代 H1-blocker", 266, "astemizole", "Astemizole", null, {
+  cls: ["第二代 H1-blocker"], feat: ["會造成致命性{{心律不整|副作用}}"] });
+dA(44, "第二代 H1-blocker", 266, "acrivastine", "Acrivastine", null, {
+  cls: ["第二代 H1-blocker"], struct: ["Acri- {{Acrylic acid|結構}}（丙烯酸）"] });
+dA(44, "第二代 H1-blocker", 266, "cetirizine", "Cetirizine", null, {
+  cls: ["第二代 H1-blocker"], feat: ["{{Hydroxyzine|藥名}} 氧化代謝成 Cetirizine"] });
+dA(44, "預防用藥", 266, "khellin", "Khellin", null, {
+  cls: ["預防用藥：抑制組織胺釋放即{{穩定肥大細胞|名詞}} → 不會直接作用在氣管平滑肌引起放鬆"],
+  struct: ["具有 {{Furanochromone|結構}}"],
+  feat: ["產生過敏症狀服用本類藥物{{無效|性質}}"] });
+dA(44, "預防用藥", 266, "cromolyn", "Cromolyn", null, {
+  cls: ["預防用藥：穩定肥大細胞 → 不會直接作用在氣管平滑肌引起放鬆"],
+  struct: ["結構屬於 {{bischromones|結構}}"] });
+dA(44, "預防用藥", 266, "pemirolast", "Pemirolast", null, {
+  cls: ["預防用藥：穩定肥大細胞"],
+  struct: ["以 {{Tetrazole|結構}} 取代羧酸之組織胺釋放抑制劑"] });
+
+/* ===== 第 45 章 與胃酸分泌有關的藥物 ===== */
+chA(45, "45", "與胃酸分泌有關的藥物", "267～270");
+kA(45, "胃酸分泌", 267, "壁細胞胃酸分泌與藥物作用點", [
+  "Histamine → {{H2（Gs）|標的}} → 活化 adenylyl cyclase → cAMP↑ → 胃酸分泌增加；被 {{Cimetidine|藥名}} 阻斷",
+  "Gastrin → Gastrin receptor、Ach → M：{{Gq|標的}} → 活化 Phospholipase C → PIP2 變為 DAG+IP3 → 細胞內 Ca2+ 增加 → 胃酸分泌增加",
+  "PGE、PGI2 → PG receptor（PG-R）：{{Gi|標的}} → 抑制 Adenylyl cyclase → cAMP↓ → 減少胃酸分泌；{{Misoprostol|藥名}} 增強",
+  "cAMP↑、Ca2+ → Protein kinase → 質子幫浦（pump）分泌胃酸 H+、換入 K+；被 {{Omeprazole|藥名}} 抑制"
+]);
+dA(45, "制酸劑", 268, "antacids", "Al(OH)3、NaHCO3、Mg(OH)2、CaCO3", "制酸劑", {
+  cls: ["{{制酸劑|藥物類別}}"],
+  feat: ["會造成便祕：{{Al(OH)3|藥名}}", "會造成腹瀉：{{Mg(OH)2|藥名}}"] });
+dA(45, "Proton pump inhibitors（PPI）", 268, "omeprazole", "Omeprazole", null, {
+  cls: ["Proton pump inhibitors（PPI）：{{不可逆|性質}}抑制質子幫浦"],
+  struct: ["Prazole = {{Pyridine + Imidazole|結構}}", "具 Chiral center，以{{硫（S）|結構}}為中心"],
+  feat: ["治療 {{Zollinger-Ellison|疾病}} 的首選藥物", "為 Prodrug，在酸中可轉為活性態（S=O → S-OH）→ 以 {{thiol|結構}} 的形式與質子幫浦形成雙硫鍵", "在{{腸道|器官}}吸收，不是在胃吸收", "半衰期短（1.5hr），但抑制胃酸分泌的有效時間長（24hr）", "為 {{CYP2C19|酵素}} 抑制劑；代謝：CYP2C19 hydroxylation（主要）、CYP3A4 sulfoxidation、CYP2C19 O-demethylation", "幽門螺旋桿菌三藥組合法 → Amoxicillin + Clarithromycin + Omeprazole", "S-form 為 {{Esomeprazole|藥名}}（Nexium 耐適恩）", "為弱鹼藥物，不具耐酸性，與食物併服會降低生體可用率，需{{空腹|名詞}}服用（飯前一小時）", "藥物誘發的胃潰瘍，PPI 為首選藥"] });
+dA(45, "Proton pump inhibitors（PPI）", 268, "lansoprazole", "Lansoprazole（Takepron 泰克胃通）", "Lansoprazole", {
+  cls: ["Proton pump inhibitors（PPI）"],
+  feat: ["代謝：O-去 CH3，芳香環氧化，{{Sulfoxidation|名詞}}"] });
+dA(45, "Proton pump inhibitors（PPI）", 268, "pantoprazole", "Pantoprazole", null, {
+  cls: ["Proton pump inhibitors（PPI）"],
+  struct: ["具有 {{difluoromethoxy|結構}}"],
+  feat: ["藥物交互作用較{{小|性質}}"] });
+mA("pirenzepine", 268, { cls: ["{{M1-antagonist|藥物類別}}：可用於降低胃酸分泌"] });
+kA(45, "PPI 結構", 269, "Proton pump 抑制劑結構比較（X／R1／R3／R2／R4）", [
+  "Omeprazole：CH／OCH3／CH3／CH3／CH3；Esomeprazole（{{S-form|結構}}）同 Omeprazole",
+  "Tenatoprazole：X 為 {{N|結構}}；其餘同 Omeprazole",
+  "Pantoprazole：CH／{{OCHF2|結構}}／CH3／OCH3／H",
+  "Lansoprazole：CH／H／{{CH2CF3|結構}}／CH3／H；Dexlansoprazole（{{R-form|結構}}）同 Lansoprazole",
+  "Rabeprazole：CH／H／{{(CH2)3OCH3|結構}}／CH3／H"
+]);
+dA(45, "黏膜保護劑", 270, "sucralfate", "Sucralfate", null, {
+  cls: ["黏膜保護劑（在潰瘍部位形成保護膜）"],
+  struct: ["含鋁的有機鹽，具有{{雙糖|結構}}結構"],
+  feat: ["副作用：{{便祕|副作用}}（鋁會造成便祕）"] });
+dA(45, "黏膜保護劑", 270, "bismuth-subsalicylate", "Bismuth Subsalicylate", null, {
+  cls: ["黏膜保護劑"],
+  feat: ["Bismuth 具有保護胃壁及{{抗菌|名詞}}作用，經糞便排除", "Salicylate 可抑制{{前列腺素|物質}}的分泌，由胃吸收"] });
+mA("misoprostol", 270, {
+  struct: ["iso-異位，原 {{15αOH → 16βOH|結構}}"],
+  feat: ["用於避免 {{NSAID|藥物類別}} 造成之胃潰瘍", "可刺激子宮收縮作為墮胎藥"] });
+dA(45, "H2-blockers", 270, "cimetidine", "Cimetidine", null, {
+  cls: ["{{H2-blockers|藥物類別}}"],
+  struct: ["Im-{{imidazole|結構}}，Ci-{{Cyano|結構}}，具 Guanidine"],
+  feat: ["{{CYP 酵素抑制劑|名詞}}", "副作用：{{陽痿、男性女乳症|副作用}}"] });
+dA(45, "H2-blockers", 270, "ranitidine", "Ranitidine", null, {
+  cls: ["H2-blockers"], struct: ["記憶：Ran-{{furan|結構}}，ni-{{nitro|結構}}"] });
+dA(45, "H2-blockers", 270, "nizatidine", "Nizatidine", null, {
+  cls: ["H2-blockers"],
+  struct: ["N-az+i-thi = {{thiazole|結構}}，Ni-nitromethylene"],
+  feat: ["{{生體可用率最高|性質}} → niza-念起來像你吃，可以吃即生體可用率高"] });
+dA(45, "H2-blockers", 270, "famotidine", "Famotidine", null, {
+  cls: ["H2-blockers"],
+  struct: ["Fa-Sulfa = {{SO2NH2|結構}}"],
+  feat: ["{{效價最強|性質}} famo-即魔法，魔法效果很強"] });
+
+/* ===== 第 46 章 止吐劑／止瀉劑／瀉劑／腸胃蠕動劑 ===== */
+chA(46, "46", "止吐劑／止瀉劑／瀉劑／腸胃蠕動劑", "271～274");
+kA(46, "止吐劑", 271, "止吐劑總覽", [
+  "與嘔吐有關的神經傳遞物質有{{多巴胺、血清素、組織胺、P 物質、乙醯膽鹼|物質}}，其阻斷劑則具有止吐的作用"
+]);
+dA(46, "止吐劑", 271, "domperidone", "Domperidone", null, {
+  cls: ["{{D2-antagonist|藥物類別}}"],
+  feat: ["可加速餐後{{胃排空|名詞}}", "副作用：促進{{催乳素|物質}}的分泌"] });
+mA("ondansetron", 271, { feat: ["可用於懷孕時引起的噁心嘔吐，但{{非主要|性質}}治療孕吐之藥物"] });
+mA("metoclopramide", 271, { feat: ["屬於止吐劑，作用在中樞神經之 {{chemoreceptor trigger zone|名詞}}"] });
+dA(46, "止吐劑", 271, "aprepitant", "Aprepitant（口服）、Fosaprepitant（IV）", "Aprepitant", {
+  cls: ["{{Substance P/Neurokinin-1 antagonist|藥物類別}}"],
+  feat: ["用於治療{{化療後|名詞}}的嘔吐"] });
+mA("diphenhydramine", 271, { cls: ["止吐劑：{{H1-antagonist|藥物類別}}"] });
+mA("scopolamine", 271, { feat: ["止吐劑（M-antagonist）：可用於治療動暈症；具{{貼片|劑型}}劑型"] });
+dA(46, "瀉劑", 272, "stimulant-laxatives", "Bisacodyl、Sennoside（Senna）、Castor oil", "Senna", {
+  cls: ["{{刺激性|名詞}}瀉劑"],
+  feat: ["Caster oil 不可用在{{孕婦|族群}}，會引起子宮收縮", "Senna 與含有 docusate 的軟便劑合用，可用於治療{{鴉片類|藥物類別}}藥物引發之便秘"] });
+dA(46, "瀉劑", 272, "osmotic-laxatives", "MgO、Mg(OH)2、Lactulose、Polyethylene Glycol（PEG）", "Lactulose", {
+  cls: ["{{滲透壓性|名詞}}瀉劑"],
+  feat: ["{{Lactulose|藥名}} 用於治療便秘、肝性腦病變（因可排除體內的 {{NH3|物質}}）", "Mg(OH)2 副作用：腹瀉"] });
+dA(46, "瀉劑", 272, "bulk-laxatives", "Methylcellulose、車前子", "Methylcellulose", {
+  cls: ["{{膨脹型|名詞}}瀉劑"], feat: ["臥床病人需慎用，可能造成{{腸阻塞|副作用}}"] });
+dA(46, "瀉劑", 272, "stool-softeners", "Glycerin、Mineral oil、Paraffin", "Mineral oil", {
+  cls: ["{{軟便劑|藥物類別}}"], feat: ["長期使用會影響{{脂溶性維生素|物質}}或藥物吸收"] });
+dA(46, "瀉劑", 272, "lubiprostone", "Lubiprostone", null, {
+  cls: ["屬於{{氯離子通道|標的}}活化劑"] });
+dA(46, "止瀉劑", 273, "kaopectin", "Kaopectin", null, {
+  cls: ["{{吸附劑|藥物類別}}：吸附細菌、毒素"],
+  feat: ["避免同時服用其他藥物而影響其吸收", "Kaopectin = {{Kaolin + Pectin|物質}}"] });
+mA("bile-acid-resins", 273, { cls: ["止瀉劑：膽酸結合樹脂"] });
+dA(46, "止瀉劑", 273, "loperamide", "Loperamide", null, {
+  cls: ["{{μ-agonist|藥物類別}}"],
+  feat: ["不會影響 CNS，僅作用在周邊（因會被 {{P-gp|標的}} 排除）"] });
+dA(46, "止瀉劑", 273, "diphenoxylate", "Diphenoxylate", null, {
+  cls: ["μ-agonist"], feat: ["常併用 {{Atropine|藥名}} 防止濫用"] });
+mA("octreotide", 273, { feat: ["止瀉劑（Somatostatin analog）：治療糖尿病、化療、放射線引起之腹瀉；副作用：膽結石（最常見）、{{心跳徐緩|副作用}}"] });
+mA("bismuth-subsalicylate", 273, { feat: ["副作用：{{黑便|副作用}}"] });
+mA("tegaserod", 274, { feat: ["促進腸胃蠕動劑：用於治療{{便秘型刺激性腸道症候群|疾病}}"] });
+mA("cisapride", 274, { feat: ["促進腸胃蠕動劑：易引起{{心律不整|副作用}}的副作用，現已下架"] });
+mA("metoclopramide", 274, { feat: ["具雙重機轉：{{5-HT4 agonist + D2 antagonist|藥物類別}}"] });
+dA(46, "促進腸胃蠕動劑", 274, "bethanechol", "Bethanechol", null, {
+  cls: ["{{M3-agonist|藥物類別}}"],
+  feat: ["可增加腸胃蠕動、可用於手術後{{尿液滯留|疾病}}"] });
+mA("neostigmine", 274, { feat: ["促進腸胃蠕動劑（AchE Inhibitor）：可用於治療重症肌無力、促進腸胃蠕動"] });
+mA("erythromycin", 274, { cls: ["促進腸胃蠕動劑：{{Motilin receptor agonist|藥物類別}}"], feat: ["用於治療{{糖尿病|疾病}}造成的胃輕癱"] });
+
+/* ===== 第 47 章 解毒劑 ===== */
+chA(47, "47", "解毒劑", "275～277");
+dA(47, "重金屬及螯合劑", 275, "deferoxamine", "Deferoxamine（IV）、Deferasirox（口服）", "Deferoxamine", {
+  cls: ["{{鐵|物質}}中毒的螯合劑"],
+  feat: ["鐵中毒症狀：腸胃道症狀、{{凝血異常|副作用}}"] });
+dA(47, "重金屬及螯合劑", 275, "dimercaprol-succimer", "Succimer（DMSA）、Dimercaprol（BAL）、Unithiol（DMPS）", "Dimercaprol", {
+  cls: ["{{汞、砷、鉛|物質}}中毒的螯合劑"],
+  feat: ["Succimer（PO）：{{水溶性高|性質}}，與金屬螯合後，可快速由尿液排除", "Dimercaprol（British anti-lewisite，IM）：{{脂溶性高|性質}}，IM 給藥，副作用：{{高血壓|副作用}}", "Unithiol（Dimercaptopropanesulfonic acid，DMPS）（IV/PO）"] });
+dA(47, "重金屬及螯合劑", 275, "edta", "Edetate calcium disodium（EDTA）（IV）", "EDTA", {
+  cls: ["{{鉛|物質}}中毒的螯合劑"],
+  feat: ["鉛中毒：神經系統病變（中樞神經、周邊神經）；腸胃問題、{{溶血性貧血|副作用}}"] });
+mA("penicillamine", 275, {
+  struct: ["{{D-dimethylcysteine|結構}}（PO）"],
+  feat: ["汞、銅、鉛中毒的螯合劑", "Wilson's disease：血液中銅離子少、腦和內臟銅離子多；治療藥物：{{Penicillamine|藥名}}（首選）、Zinc acetate（口服）、Trientine hydrochloride"] });
+dA(47, "重金屬及螯合劑", 275, "dtpa", "Calcium disodium diethylenetriaminepentaacetic acid", "DTPA", {
+  cls: ["{{鈾|物質}}中毒的螯合劑"] });
+dA(47, "重金屬及螯合劑", 275, "prussian-blue", "Prussian blue（PO）", "Prussian blue", {
+  cls: ["{{銫、鉈|物質}}中毒的解毒劑"] });
+kA(47, "金屬中毒症狀", 275, "汞、砷中毒症狀", [
+  "急性汞中毒常因汞{{蒸氣|物質}}（無機汞）引起，化學性肺炎、肺水腫",
+  "慢性汞中毒常因{{甲基汞|物質}}（有機汞）引起，易引發感覺異常、動作、聽力及言語障礙",
+  "砷中毒：週邊神經病變（感覺遲鈍）、週邊血管疾病（門脈高血壓）、{{癌症、烏腳病|疾病}}"
+]);
+kA(47, "器官毒性與解毒劑", 276, "器官毒性與解毒劑", [
+  "肝毒性：Acetaminophen → {{N-Acetylcysteine|藥名}}；甲醇 → {{Ethanol、Fomepizole|藥名}}",
+  "心毒性：Doxorubicin → {{Dexrazoxane|藥名}}",
+  "肺毒性：{{Bleomycin、Busulfan、Amiodarone|藥名}} → 無",
+  "腎毒性：Amioglycoside、Amphotericin B、NSAIDs → 無",
+  "腎毒性：Cisplatin → 生理食鹽水、Mannitol、{{Amifostine|藥名}} 可預防腎毒性",
+  "腎毒性：Cyclophosphamide → 代謝物 {{Acrolein|物質}} 會造成膀胱出血，以 {{Mesna|藥名}} 治療"
+]);
+kA(47, "常見藥物中毒解毒劑", 277, "常見藥物中毒解毒劑", [
+  "Isoniazid → {{Vitamin B6|藥名}}（預防神經毒性）",
+  "Methotrexate → {{Leucovorin|藥名}}",
+  "Physostigmine → {{Atropine|藥名}}",
+  "Organophosphate → Atropine + {{Pralidoxime（2-PAM）|藥名}}",
+  "Theophylline、Caffeine、Metaproterenol → {{Esmolol|藥名}}",
+  "β-blocker → {{Glucagon|藥名}}",
+  "Benzodiazepine → {{Flumazenil|藥名}}",
+  "氰化物中毒 → {{Sodium nitrite、Sodium thiosulfate、Hydroxocobalamin|藥名}}",
+  "Digoxin → {{Digoxin immune Fab|藥名}}、Class Ib（Lidocaine、Phenytoin）",
+  "Warfarin → {{Vitamin K|藥名}}；Heparin → {{Protamine|藥名}}",
+  "Dabigatran → {{Idarucizumab|藥名}}；Rivaroxaban → {{Andexanet alfa|藥名}}",
+  "Morphine → {{Naloxone（IV）、Naltrexone（PO）|藥名}}"
+]);
