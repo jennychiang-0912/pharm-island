@@ -2962,12 +2962,12 @@ dA(36, "Antiandrogens：抑制 5α-reductase", 231, "dutasteride", "Dutasteride"
 
 /* ===== 第 37 章 骨質疏鬆藥物 ===== */
 chA(37, "37", "骨質疏鬆藥物", "232～233");
-kA(37, "骨質疏鬆藥物作用圖", 232, "造骨細胞與破骨細胞（Katzung 圖）", [
+kA(37, "骨質疏鬆藥物作用圖", 232, "造骨細胞與破骨細胞（Katzung 圖）", { images: ["assets/amulet/fig/bone-remodel.png"], points: [
   "{{Teriparatide|藥名}}（parathyroid hormone）⊕ 造骨細胞（Osteoblast）",
   "造骨細胞釋放 RANKL → RANK → ⊕ 破骨細胞（Osteoclast）；{{Denosumab|藥名}} ⊖ RANKL",
   "{{鍶化合物|藥名}} ⊕ 造骨細胞、⊖ 破骨細胞",
   "⊖ 破骨細胞：{{Calcitonin、Estrogen|藥名}}；Bisphosphonates（{{Zoledronic acid|藥名}}）；SERMs（{{Raloxifene|藥名}}）"
-]);
+] });
 dA(37, "與破骨細胞相關", 233, "estrogen-bone", "Estrogen（骨鬆）", "Estrogen", {
   cls: ["與破骨細胞相關：減少{{破骨細胞|名詞}}的活性"] });
 mA("raloxifene", 233, { cls: ["骨鬆：作用在骨骼內的{{雌性素接受器|標的}}"], feat: ["副作用：熱潮紅、{{血栓靜脈炎|副作用}}"] });
