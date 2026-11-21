@@ -1556,14 +1556,13 @@ dA(10, "α1-antagonist", 81, "silodosin", "Silodosin", null, {
 dA(10, "α2-antagonist", 81, "yohimbine", "Yohimbine", null, {
   cls: ["{{α2-antagonist|藥物類別}}"],
   feat: ["生合成：{{Tryptophan|物質}}", "增加心跳和血壓", "稱為天然的{{威而鋼|名詞}}", "科名：{{茜草科|名詞}}；用部：皮；產地：西非"] });
-kA(10, "Beta-blockers", 82, "Beta-blockers 分類", [
-  "β1-blockers：Atenolol、Acebutolol、Betaxolol、Bisoprolol、{{Metoprolol|藥名}}、Esmolol、Practolol、Nebivolol、Celiprolol",
-  "青光眼：Metipranolol、Levobunolol、{{Timolol|藥名}}、Carteolol、Betaxolol",
-  "{{ISA|名詞}}（內生性擬交感神經活性）（心絞痛患者不可使用）：{{Acebutolol、Celiprolol、Carteolol、Penbutolol、Pindolol|藥名}}",
-  "可用於心衰竭：{{Metoprolol、Bisoprolol、Carvedilol|藥名}}",
-  "臨床上使用左旋：{{Levobunolol、Timolol、Penbutolol|藥名}}",
-  "可阻斷 α receptor：{{Labetalol、Carvedilol|藥名}}"
-]);
+kA(10, "Beta-blockers", 82, "Beta-blockers 分類", { table: { cols: ["分類", "藥物"], rows: [
+  [{ t: "β1-blockers", b: true }, "Atenolol、Acebutolol、Betaxolol、Bisoprolol、{{Metoprolol|藥名}}、Esmolol、Practolol、Nebivolol、Celiprolol"],
+  [{ t: "青光眼", b: true }, "Metipranolol、Levobunolol、{{Timolol|藥名}}、Carteolol、Betaxolol"],
+  [{ t: "{{ISA|名詞}}（內生性擬交感神經活性）\n（心絞痛患者不可使用）", b: true }, "{{Acebutolol、Celiprolol、Carteolol、Penbutolol、Pindolol|藥名}}"],
+  [{ t: "可用於心衰竭", b: true }, "{{Metoprolol、Bisoprolol、Carvedilol|藥名}}"],
+  [{ t: "臨床上使用左旋", b: true }, "{{Levobunolol、Timolol、Penbutolol|藥名}}"],
+  [{ t: "可阻斷 α receptor", b: true }, "{{Labetalol、Carvedilol|藥名}}"] ] } });
 dA(10, "β-antagonist", 82, "propranolol", "Propranolol", null, {
   cls: ["{{非選擇性 β-antagonist|藥物類別}}"],
   feat: ["{{親脂性最大|性質}}（易被首渡代謝）", "可穿過血腦障壁，具有中樞抑制的作用 → β 與{{憂鬱症|疾病}}有關", "減少心輸出量及 renin 釋放 → 阻斷 β1 使 renin 減少 → 阻斷 β2 {{氣喘|疾病}}患者不得使用", "預防{{偏頭痛|疾病}}第一線用藥", "解焦慮、原發性顫抖症、甲狀腺毒症"] });
@@ -1590,36 +1589,25 @@ dA(10, "Ergot alkaloids（非水溶性）", 83, "ergotoxine", "Ergotoxine", null
 
 /* ===== 第 11 章 副交感神經藥物 ===== */
 chA(11, "11", "副交感神經藥物", "84～91");
-kA(11, "副交感神經總覽", 84, "Ach 生合成與作用點（Cholinergic Agonists 圖）", [
-  "{{Serine|物質}} —（Serine Decarboxylase）→ Ethanolamine —（Choline N-methyltransferase）→ Choline",
-  "Choline Transporter ⊖ {{Hemicholinium|藥名}}",
-  "Choline —（{{Choline Acetyltransferase|酵素}}）→ Acetylcholine（Ach）→ VAT（Vesicle-associated transporter）",
-  "排空 Ach：{{Vesamicol|藥名}}；抑制 Ach 釋放：{{Botulinum toxin|藥名}}",
-  "AchE：可逆型 AchE inhibitors：{{Physostigmine|藥名}}；不可逆型 AchE inhibitors：{{Parathion、Melathion|藥名}}",
-  "NM（Na+ channel）：去極化型：{{Succinylcholine、Decamethonium|藥名}}；競爭型：Tubocurarine、Pancuronium、Atracurium",
-  "M1,3,5（{{Gq|標的}}）、M2,4（{{Gi|標的}}）：M-agonist：Pilocarpine；M-antagonist：Atropine"
-]);
-kA(11, "副交感神經總覽", 85, "蕈毒鹼性受體（Muscarinic receptor）", [
-  "M1：{{大腦組織、外分泌腺體、自主神經節|器官}}；Gq",
-  "M2：{{心肌|器官}}；{{Gi|標的}}",
-  "M3：外分泌腺、平滑肌收縮、睫狀肌、環狀肌收縮；{{Gq|標的}}",
-  "M4：CNS 神經元；Gi",
-  "M5：CNS 神經元；Gq"
-]);
-kA(11, "副交感神經總覽", 85, "菸鹼性受體（Nicotinic receptor）", [
-  "Nn：{{神經節|器官}}部位；Nm：{{神經肌肉接合處|器官}}",
-  "受體種類：{{Ion channel（Na+）|標的}}"
-]);
-kA(11, "膽鹼的性質", 85, "膽鹼的性質", [
-  "Acetylcholine：被 AchE 代謝 ++++；M-Agonist +++；N-Agonist +++",
-  "{{Methacholine|藥名}}：被 AchE 代謝 +；M-Agonist {{++++|名詞}}；N-Agonist −",
-  "{{Carbachol|藥名}}：被 AchE 代謝 {{−|名詞}}；M-Agonist ++；N-Agonist +++",
-  "{{Bethanechol|藥名}}：被 AchE 代謝 −；M-Agonist ++；N-Agonist −",
-  "β 位加上{{甲基|結構}}，選擇性偏向 M",
-  "Methacholine 會被 Cholinesterase 水解，但作用於 Muscarinic receptor {{最強|性質}}",
-  "Carbachol {{不會|性質}}被膽鹼酯酶水解，對於 nicotinic 及 muscarinic receptor 皆有作用",
-  "{{Bethanechol|藥名}} 可用於手術後{{尿液滯留|疾病}}"
-]);
+kA(11, "副交感神經總覽", 84, "Ach 生合成與作用點（Cholinergic Agonists 圖）", { images: ["assets/amulet/fig/ach.png"] });
+kA(11, "副交感神經總覽", 85, "蕈毒鹼性受體（Muscarinic receptor）", { table: {
+  head: [[{ t: "蕈毒鹼性受體（Muscarinic receptor）", cs: 3 }, null, null], ["名稱", "位置", "受體種類"]], cols: ["名稱", "位置", "受體種類"], rows: [
+  [{ t: "M1", b: true }, "{{大腦組織、外分泌腺體、自主神經節|器官}}", "Gq"],
+  [{ t: "M2", b: true }, "{{心肌|器官}}", "{{Gi|標的}}"],
+  [{ t: "M3", b: true }, "外分泌腺、平滑肌收縮、睫狀肌、環狀肌收縮", "{{Gq|標的}}"],
+  [{ t: "M4", b: true }, "CNS 神經元", "Gi"],
+  [{ t: "M5", b: true }, "CNS 神經元", "Gq"] ] } });
+kA(11, "副交感神經總覽", 85, "菸鹼性受體（Nicotinic receptor）", { table: {
+  head: [{ t: "菸鹼性受體（Nicotinic receptor）", cs: 3 }, null, null], cols: ["名稱", "部位", "受體種類"], rows: [
+  [{ t: "Nn", b: true }, "{{神經節|器官}}部位", { t: "{{Ion channel（Na+）|標的}}", rs: 2 }],
+  [{ t: "Nm", b: true }, "{{神經肌肉接合處|器官}}", null] ] } });
+kA(11, "膽鹼的性質", 85, "膽鹼的性質", { table: {
+  head: [[{ t: "膽鹼的性質", cs: 5 }, null, null, null, null], ["藥名", "結構", "被 AchE 代謝", "M-Agonist", "N-Agonist"]], cols: ["藥名", "結構", "被 AchE 代謝", "M-Agonist", "N-Agonist"], rows: [
+  [{ t: "Acetylcholine", b: true }, { t: "Acetylcholine", img: "assets/amulet/ch-acetylcholine.png" }, "++++", "+++", "+++"],
+  [{ t: "{{Methacholine|藥名}}", b: true }, { t: "Methacholine", img: "assets/amulet/ch-methacholine.png" }, "+", "{{++++|名詞}}", "-"],
+  [{ t: "{{Carbachol|藥名}}", b: true }, { t: "Carbachol", img: "assets/amulet/ch-carbachol.png" }, "{{-|名詞}}", "++", "+++"],
+  [{ t: "{{Bethanechol|藥名}}", b: true }, { t: "Bethanechol", img: "assets/amulet/ch-bethanechol.png" }, "-", "++", "-"] ],
+  note: "✧ β 位加上{{甲基|結構}}，選擇性偏向 M\n✧ Methacholine 會被 Cholinesterase 水解，但作用於 Muscarinic receptor {{最強|性質}}\n✧ Carbachol {{不會|性質}}被膽鹼酯酶水解，對於 nicotinic 及 muscarinic receptor 皆有作用\n✧ {{Bethanechol|藥名}} 可用於手術後{{尿液滯留|疾病}}" } });
 dA(11, "膽鹼性直接作用劑", 86, "cevimeline", "Cevimeline", null, {
   cls: ["膽鹼性直接作用劑"],
   struct: ["有 {{Quinuclidine、Oxathiolane|結構}}"],
@@ -1648,12 +1636,15 @@ dA(11, "可逆性膽鹼脂酶抑制劑", 87, "donepezil", "Donepezil", null, {
   cls: ["可逆性膽鹼脂酶抑制劑"], feat: ["可用於治療{{阿茲海默症|疾病}}"] });
 dA(11, "可逆性膽鹼脂酶抑制劑", 87, "rivastigmine", "Rivastigmine", null, {
   cls: ["可逆性膽鹼脂酶抑制劑"], struct: ["其結構具有 {{Arylcarbamate|結構}}"], feat: ["用於{{失智症|疾病}}治療"] });
-kA(11, "膽鹼脂酶抑制劑", 87, "治療 Alzheimer's disease", [
-  "可逆性膽鹼脂酶抑制劑：{{Galantamine、Tacrine、Donepezil、Rivastigmine|藥名}}",
-  "{{NMDA|標的}} 阻斷劑：{{Memantine|藥名}}"
-]);
+kA(11, "膽鹼脂酶抑制劑", 87, "治療 Alzheimer's disease", { table: { cols: ["", "可逆性膽鹼脂酶抑制劑", "NMDA 阻斷劑"], rowNames: ["治療 Alzheimer's disease"], rows: [
+  [{ t: "治療 Alzheimer's disease", b: true }, "可逆性膽鹼脂酶抑制劑：{{Galantamine、Tacrine、Donepezil、Rivastigmine|藥名}}", "{{NMDA|標的}} 阻斷劑：{{Memantine|藥名}}"] ] } });
 kA(11, "膽鹼脂酶抑制劑", 88, "有機磷中毒症狀", [
-  "不可逆性膽鹼脂酶抑制劑 → 有機磷中毒症狀：{{縮瞳|副作用}}、唾液多、小便失禁、肌肉震顫"
+  "不可逆性膽鹼脂酶抑制劑",
+  "✧ 有機磷中毒症狀：",
+  "1. {{縮瞳|副作用}}",
+  "2. 唾液多",
+  "3. 小便失禁",
+  "4. 肌肉震顫"
 ]);
 dA(11, "不可逆性膽鹼脂酶抑制劑", 88, "isoflurophate", "Isoflurophate", null, {
   cls: ["不可逆性膽鹼脂酶抑制劑"],
@@ -1664,13 +1655,11 @@ dA(11, "不可逆性膽鹼脂酶抑制劑", 88, "parathion", "Parathion", null, 
 dA(11, "解毒劑", 88, "pralidoxime", "Pralidoxime（2-PAM）", "2-PAM", {
   cls: ["解毒劑"],
   feat: ["為{{有機磷中毒|疾病}}之解毒劑，常併用 {{Atropine|藥名}}", "不以口服給藥{{四級胺|結構}}，口服吸收不佳"] });
-kA(11, "膽鹼性阻斷劑", 89, "膽鹼性阻斷劑適應症", [
-  "抗巴金森氏症：{{Benztropine、Orphenadrine、Biperiden、Trihexyphenidyl|藥名}}",
-  "散瞳劑：Atropine（藥效{{最長|性質}}）、{{Tropicamide|藥名}}（藥效最短）、Scopolamine、Homatropine、Eucatropine",
-  "解膀胱痙攣：3 級 N：{{Oxybutynin|藥名}}、Solifenacin、Darifenacin、Tolterodine、Fesoterodine；4 級 N：{{Trospium|藥名}}",
-  "治消化性潰瘍：{{Pirenzepine、Telenzepine|藥名}}、Propantheline",
-  "氣喘藥：{{Ipratropium、Tiotropium|藥名}}"
-]);
+kA(11, "膽鹼性阻斷劑", 89, "膽鹼性阻斷劑適應症", { table: {
+  head: [[{ t: "膽鹼性阻斷劑適應症", cs: 5 }, null, null, null, null], ["抗巴金森氏症", "散瞳劑", "解膀胱痙攣", "治消化性潰瘍", "氣喘藥"]],
+  cols: ["抗巴金森氏症", "散瞳劑", "解膀胱痙攣", "治消化性潰瘍", "氣喘藥"], rowNames: false, rows: [
+  [{ t: "{{Benztropine、Orphenadrine、Biperiden、Trihexyphenidyl|藥名}}", rs: 2 }, { t: "Atropine（藥效{{最長|性質}}）\n{{Tropicamide|藥名}}（藥效最短）\nScopolamine\nHomatropine\nEucatropine", rs: 2 }, "3 級 N\n{{Oxybutynin|藥名}}\nSolifenacin\nDarifenacin\nTolterodine\nFesoterodine", { t: "{{Pirenzepine、Telenzepine|藥名}}\nPropantheline", rs: 2 }, { t: "{{Ipratropium、Tiotropium|藥名}}", rs: 2 }],
+  [null, null, "4 級 N\n{{Trospium|藥名}}", null, null] ] } });
 dA(11, "Muscarinic-antagonist", 89, "atropine", "Atropine（(±)-Hyoscyamine）", "Atropine", {
   cls: ["Muscarinic-antagonist"],
   struct: ["屬於 {{3|數值}} 級 N，為{{消旋化合物|名詞}}，不具光學活性"],
@@ -1696,12 +1685,12 @@ dA(11, "Muscarinic-antagonist", 90, "pirenzepine", "Pirenzepine", null, {
   cls: ["Muscarinic-antagonist"],
   struct: ["pir-{{pyridine|結構}} zepine-含氮七角環"],
   feat: ["可用於降低{{胃酸|物質}}分泌 → {{M1|標的}}-antagonist"] });
-kA(11, "交感與副交感機轉統整", 91, "交感神經與副交感神經作用機轉統整", [
-  "節後神經傳遞物質生合成前驅物：交感 {{Tyrosine|物質}}；副交感 {{Serine|物質}}",
-  "儲存：交感 {{Reserpine|藥名}} 抑制 VMAT（Vesicular monoamine transporter）；副交感 {{Vesamicol|藥名}} 抑制 VAT（Vesicle-associated transporter）",
-  "釋放：交感 {{Guanethidine、Bretylium|藥名}} 抑制 NE 釋放；副交感 {{Botulinum toxin|藥名}} 抑制 Ach 釋放",
-  "再回收：交感 Cocaine、TCA 抑制 {{NET|標的}}（Norepinephrine transporter）；副交感 Physostigmine、Parathion、Sarin 抑制 {{AchE|酵素}}"
-]);
+kA(11, "交感與副交感機轉統整", 91, "交感神經與副交感神經作用機轉統整", { table: {
+  head: [[{ t: "交感神經與副交感神經作用機轉統整", cs: 3 }, null, null], ["機轉", "交感神經", "副交感神經"]], cols: ["機轉", "交感神經", "副交感神經"], rows: [
+  [{ t: "節後神經傳遞物質生合成前驅物", b: true }, "{{Tyrosine|物質}}", "{{Serine|物質}}"],
+  [{ t: "儲存", b: true }, "{{Reserpine|藥名}} 抑制 VMAT\n（Vesicular monoamine transporter）", "{{Vesamicol|藥名}} 抑制 VAT\n（Vesicle-associated transporter）"],
+  [{ t: "釋放", b: true }, "{{Guanethidine、Bretylium|藥名}} 抑制 NE 釋放", "{{Botulinum toxin|藥名}} 抑制 Ach 釋放"],
+  [{ t: "再回收", b: true }, "Cocaine、TCA 抑制 {{NET|標的}}\n（Norepinephrine transporter）", "Physostigmine、Parathion、Sarin 抑制 {{AchE|酵素}}"] ] } });
 
 /* 講義第 92～93 頁（12. 自主神經節阻斷劑、13. 作用於神經肌肉連結處的藥物）暫時沒有收錄。 */
 
