@@ -2737,44 +2737,39 @@ kA(34, "蛋白質藥物與胺基酸總數", 215, "蛋白質藥物與胺基酸總
 
 /* ===== 第 35 章 皮質類固醇 ===== */
 chA(35, "35", "皮質類固醇", "216～225");
-kA(35, "皮質類固醇總論", 216, "下視丘-腦下垂體-腎上腺軸", [
-  "下視丘 CRH → 腦下垂體 ACTH → 腎上腺皮質 → {{Hydrocortisone|物質}}（醣質皮質反應：發炎反應↓、免疫反應↓）與 {{Aldosterone|物質}}（礦質皮質反應：留 Na+、排 H+、K+）",
-  "醣質皮質類固醇：抗發炎 → 抑制 {{Phospholipase A2|酵素}} 以及抑制 Cyclooxygenase；降低免疫反應 → 增加 {{IgG|物質}} 分解速率",
-  "醣質長期使用的副作用：糖尿病、{{肌肉萎縮、骨質疏鬆|副作用}}、精神病、消化性潰瘍",
-  "礦質皮質類固醇作用：留鈉、排氫、排鉀；常見副作用：{{低血鉀、高血壓|副作用}}、肌肉無力",
-  "{{Cosyntropin|藥名}}：由人類 ACTH 之 {{1-24|數值}} 個 amino acid 組成，可作為腎上腺皮質功能不全診斷劑",
-  "使用 Steroid 可抑制 ACTH 的分泌，造成抑制腎上腺的作用（即{{負回饋|名詞}}）",
-  "細胞內受體：類固醇、性激素、Thyroxine、Vitamin D"
-]);
-kA(35, "類固醇的 SAR 與藥化特性", 217, "關鍵字與取代基效應", [
-  "藥名有 isone：11 號位有 {{C=O|結構}}；藥名有 isol：11 號位有 {{OH|結構}}",
-  "{{11β-hydroxy|結構}}：與類固醇受體結合的重要官能基",
-  "Pred：1 號位有{{雙鍵|結構}}；Metha：1 號位有雙鍵、9αF、16αCH3",
-  "醣質皮質類固醇↑、礦質皮質類固醇↑：{{9α-F|結構}}、9α-Cl、21-OH",
-  "醣質皮質類固醇↑：1,2-雙鍵、{{6α-F|結構}}、11β-OH",
-  "礦質皮質類固醇↓：6α-CH3、16α-OH、17α-OH；16α & 16β-CH3；16α，17α-acetonide",
-  "B/C 環、C/D 環皆需以 {{trans|結構}} 配置才有活性；固醇結構 All trans 之活性大於 All cis",
-  "21-OH 為活性必需，若被 {{Cl|結構}} 取代，可增加外用抗發炎效力",
-  "雙鍵在 1,2 號位，抗發炎效果增強 {{4-5|數值}} 倍",
-  "礦質皮質取代基強弱順序 {{9→1→6→16|名詞}}",
-  "類固醇分子加上 9α-Fluoro，會使醣質及礦質皮質類固醇作用上升；加上 {{16α-Methyl|結構}}，使醣質皮質類固醇作用上升，礦質皮質類固醇作用下降"
-]);
-kA(35, "消炎活性及礦質活性比較", 218, "類固醇的消炎活性及礦質活性比較", [
-  "短至中效：Hydrocortisone（=Cortisol）消炎 1／外用 1／礦質 1；Cortisone 0.8（C-11 轉為 -OH）／0／0.8；Prednisone {{4|數值}}／0／0.3；Prednisolone {{5|數值}}／4／0.3",
-  "中效：Triamcinolone 5／{{25-100|數值}}／0",
-  "長效（C9、C1、C16 有取代基，抗發炎效果強）：Dexamethasone {{30|數值}}／10／0；Betamethasone {{25-40|數值}}／10／0",
-  "礦質皮質類固醇：Aldosterone 0.2／0.2／{{800|數值}}；Fludrocortisone 10／0／{{250|數值}}；Desoxycorticosterone 0／0／20",
-  "抗發炎口訣：{{Betamethasone > Dexamethasone > Fludrocortisone > Prednisone > Cortisone|藥名}}（炎被他弟殺，父陪你哭）",
-  "鈉水滯留口訣：{{Aldosterone > Fludrocortisone > Desoxycorticosterone|藥名}}（黑道、富人流連於 Disco 舞廳）"
-]);
-kA(35, "類固醇生合成路徑", 219, "類固醇生合成路徑（Katzung 圖）", [
-  "Cholesterol —（Desmolase，被 {{Aminoglutethimide|藥名}} 抑制）→ Pregnenolone",
-  "17α-Hydroxylase 被 {{Ketoconazole、Trilostane|藥名}} 抑制；17,21-Lyase 被 Ketoconazole 抑制",
-  "3β-Dehydrogenase Δ4,Δ5-Isomerase 被 {{Trilostane|藥名}} 抑制",
-  "礦質路徑：Progesterone →（21-Hydroxylase）→ 11-Deoxy-Corticosterone →（11β-Hydroxylase）→ Corticosterone →（18-Hydroxylase）→ {{Aldosterone|物質}}",
-  "醣質路徑：17(OH)-Progesterone →（21-Hydroxylase）→ 11-Deoxy-Cortisol →（11β-Hydroxylase，被 {{Metyrapone、Etomidate|藥名}} 抑制）→ Cortisol",
-  "性激素路徑：DHEA → Δ4-Androstene-3,17-dione ⇌ Testosterone →（{{Aromatase|酵素}}，被 Aminoglutethimide、Anastrozole 抑制）→ Estradiol"
-]);
+kA(35, "皮質類固醇總論", 216, "下視丘-腦下垂體-腎上腺軸（Medical Pharmacology at a Glance 圖）", { images: ["assets/amulet/fig/hpa-axis.png"], table: { head: ["", "作用", "內容"], rows: [
+  [{ t: "醣質皮質類固醇", b: true, rs: 2 }, "抗發炎", "抑制 {{Phospholipase A2|酵素}} 以及抑制 Cyclooxygenase"],
+  [null, "降低免疫反應", "增加 {{IgG|物質}} 分解速率"],
+  [{ t: "醣質皮質類固醇\n長期使用的副作用", b: true }, { t: "", cs: 2 }, "糖尿病、{{肌肉萎縮、骨質疏鬆|副作用}}、精神病、消化性潰瘍"],
+  [{ t: "礦質皮質類固醇", b: true, rs: 2 }, "作用", "留鈉、排氫、排鉀"],
+  [null, "常見的副作用", "低血鉀、高血壓、肌肉無力"] ],
+  note: "✧ {{Cosyntropin|藥名}}：由人類 ACTH 之 {{1-24|數值}} 個 amino acid 組成，可作為腎上腺皮質功能不全診斷劑\n✧ 使用 Steroid 可抑制 ACTH 的分泌，造成抑制腎上腺的作用（即{{負回饋|名詞}}）\n✧ 108-2 長時間使用 glucocorticoids 製劑可能導致下列那些副作用？①胃潰瘍②肌肉病變③骨質疏鬆④血鈉過低⑤血糖過低\n(A) ①②③ (B) ①③⑤ (C) ②③④ (D) ②④⑤　選 {{A|名詞}}\n✧ 細胞內受體：類固醇、性激素、Thyroxine、Vitamin D" } });
+kA(35, "類固醇的 SAR 與藥化特性", 217, "關鍵字與重要敘述", { images: ["assets/amulet/fig/steroid-skeleton.png"], table: { head: ["關鍵字", "重要敘述"], rows: [
+  [{ t: "1. 藥名有 isone", b: true }, "11 號位有 {{C=O|結構}}"],
+  [{ t: "2. 藥名有 isol", b: true }, "11 號位有 OH"],
+  [{ t: "3. 11β-hydroxy", b: true }, "與類固醇受體結合的重要官能基"],
+  [{ t: "4. Pred", b: true }, "1 號位有{{雙鍵|結構}}"],
+  [{ t: "5. Metha", b: true }, "1 號位有雙鍵、9αF、16αCH3"] ] } });
+kA(35, "類固醇的 SAR 與藥化特性", 217, "醣質／礦質皮質類固醇取代基效應", { table: { head: ["醣質皮質類固醇↑\n礦質皮質類固醇↑", "醣質皮質類固醇↑", "礦質皮質類固醇↓"], rows: [
+  [{ t: "{{9α-F、9α-Cl、21-OH|結構}}" }, "1,2-雙鍵、{{6α-F|結構}}、11β-OH", "6α-CH3、16α-OH、17α-OH\n16α ＆ 16β-CH3\n16α，17α-acetonide"] ],
+  note: "✧ B/C 環、C/D 環皆需以 {{trans|結構}} 配置才有活性；固醇結構 All trans 之活性大於 All cis\n✧ 21-OH 為活性必需，若被 {{Cl|結構}} 取代，可增加外用抗發炎效力\n✧ 雙鍵在 1,2 號位，抗發炎效果增強 {{4-5|數值}} 倍\n✧ 礦質皮質取代基強弱順序 {{9→1→6→16|名詞}}\n✧ 類固醇分子加上 9α-Fluoro，會使醣質及礦質皮質類固醇作用上升；加上 {{16α-Methyl|結構}}，使醣質皮質類固醇作用上升，礦質皮質類固醇作用下降" } });
+kA(35, "消炎活性及礦質活性比較", 218, "類固醇的消炎活性及礦質活性比較", { table: { head: ["藥名", "消炎活性", "外用", "礦質活性"], rows: [
+  [{ t: "短至中效醣質皮質類固醇", cs: 4 }, null, null, null],
+  [{ t: "Hydrocortisone(=Cortisol)", b: true }, "1", "1", "1"],
+  [{ t: "Cortisone", b: true }, "0.8（C-11 轉為 -OH）", "0", "0.8"],
+  [{ t: "Prednisone", b: true }, "{{4|數值}}", "0", "0.3"],
+  [{ t: "Prednisolone", b: true }, "{{5|數值}}", "4", "0.3"],
+  [{ t: "中效醣質皮質類固醇", cs: 4 }, null, null, null],
+  [{ t: "Triamcinolone", b: true }, "5", "{{25-100|數值}}", "0"],
+  [{ t: "長效醣質皮質類固醇（C9、C1、C16 有取代基，抗發炎效果強）", cs: 4 }, null, null, null],
+  [{ t: "Dexamethasone", b: true }, "{{30|數值}}", "10", "0"],
+  [{ t: "Betamethasone", b: true }, "{{25-40|數值}}", "10", "0"] ] } });
+kA(35, "消炎活性及礦質活性比較", 218, "礦質皮質類固醇", { table: { head: ["藥名", "消炎活性", "外用", "礦質活性"], rows: [
+  [{ t: "Aldosterone", b: true }, "0.2", "0.2", "{{800|數值}}"],
+  [{ t: "Fludrocortisone", b: true }, "10", "0", "{{250|數值}}"],
+  [{ t: "Desoxycorticosterone", b: true }, "0", "0", "20"] ],
+  note: "✓ 抗發炎口訣（from 阿摩）：{{Betamethasone > Dexamethasone > Fludrocortisone > Prednisone > Cortisone|藥名}}（炎被他弟殺，父陪你哭）\n✓ 鈉水滯留口訣（from 阿摩）：{{Aldosterone > Fludrocortisone > Desoxycorticosterone|藥名}}（黑道（台語）、富人流（鈉滯留）連於 Disco 舞廳）" } });
+kA(35, "類固醇生合成路徑", 219, "類固醇生合成路徑（Katzung 圖）", { images: ["assets/amulet/fig/steroid-synthesis.png"] });
 dA(35, "抑制類固醇合成", 220, "aminoglutethimide", "Aminoglutethimide", null, {
   cls: ["{{Desmolase inhibitor|藥物類別}}、Aromatase inhibitor"],
   feat: ["治療 {{Cushing's syndrome|疾病}}", "乳癌輔助用藥"] });
@@ -2786,14 +2781,16 @@ dA(35, "抑制類固醇合成", 220, "mifepristone", "Mifepristone", null, {
 dA(35, "抑制類固醇合成", 220, "trilostane-metyrapone", "Ketoconazole、Trilostane、Metyrapone", "Metyrapone", {
   cls: ["{{抑制類固醇的合成|名詞}}"],
   feat: ["治療 Cushing's syndrome", "{{Metyrapone|藥名}}：診斷腎上腺功能"] });
-kA(35, "腎上腺疾病", 220, "疾病、原因與治療", [
-  "愛迪生氏症（{{Addison's disease|疾病}}）：腎上腺皮質激素過少 → 補充 Steroid",
-  "庫欣氏症（{{Cushing's disease|疾病}}）：腎上腺皮質激素過多 → 使用抑制類固醇的合成的藥品",
-  "原發性醛固酮症（{{Conn's syndrome|疾病}}）：缺乏 17α-Hydroxylase → 導致醛固酮合成過多 → 使用醛固酮阻斷劑 {{Spironolactone|藥名}}",
-  "醣質皮質類固醇 OH 合成的順序：{{17→21→11|名詞}}；礦質皮質類固醇 OH 合成的順序：{{21→11→18|名詞}}",
-  "Testosterone（男）→ Estradiol（女）：{{Aromatase|酵素}}",
-  "碳數變化：Cholestrol（27 個 C）→ Pregnenolone（{{21C|數值}}）→ Testosterone（{{19C|數值}}）→ Estrogen（{{18C|數值}}）"
-]);
+kA(35, "腎上腺疾病", 220, "藥名、藥理機轉與適應症", { table: { head: ["藥名", "藥理機轉", "適應症"], rows: [
+  [{ t: "Aminoglutethimide", b: true }, "Desmolase inhibitor\nAromatase inhibitor", "治療 Cushing's syndrome\n乳癌輔助用藥"],
+  [{ t: "Anastrozole", b: true }, "Aromatase inhibitor", "治療乳癌"],
+  [{ t: "Mifepristone", b: true }, "Progesterone antagonist\nGlucocorticoid antagonist", "早期墮胎\n治療 Cushing's syndrome"],
+  [{ t: "Ketoconazole\nTrilostane\nMetyrapone", b: true }, "抑制類固醇的合成", "治療 Cushing's syndrome\nMetyrapone：診斷腎上腺功能"] ] } });
+kA(35, "腎上腺疾病", 220, "疾病、原因與治療", { table: { head: ["疾病", "原因", "治療"], rows: [
+  [{ t: "愛迪生氏症（{{Addison's disease|疾病}}）", b: true }, "腎上腺皮質激素過少", "補充 Steroid"],
+  [{ t: "庫欣氏症（{{Cushing's disease|疾病}}）", b: true }, "腎上腺皮質激素過多", "使用抑制類固醇的合成的藥品"],
+  [{ t: "原發性醛固酮症（{{Conn's syndrome|疾病}}）", b: true }, "缺乏 17α-Hydroxylase\n→導致醛固酮合成過多", "使用醛固酮阻斷劑 {{Spironolactone|藥名}}"] ],
+  note: "✧ 醣質皮質類固醇 OH 合成的順序：{{17→21→11|名詞}}；礦質皮質類固醇 OH 合成的順序：{{21→11→18|名詞}}\n✧ Testosterone（男）→ Estradiol（女）：{{Aromatase|酵素}}\n✧ 碳數變化：Cholestrol（27 個 C）→ Pregnenolone（{{21C|數值}}）→ Testosterone（{{19C|數值}}）→ Estrogen（{{18C|數值}}）" } });
 dA(35, "Natural steroids", 221, "estradiol", "Estradiol", null, {
   cls: ["Natural steroids"],
   struct: ["基本骨架由 {{18|數值}} 個碳原子所組成"],
@@ -2849,13 +2846,17 @@ mA("mifepristone", 224, {
   struct: ["具有 {{N,N-Dimethylphenyl|結構}}"],
   feat: ["口服生體可用率高", "Progesterone-antagonist → 併用 {{Misoprostol|藥名}} 用於性交後緊急避孕藥", "Glucocorticoid-antagonist → 治療 Cushing's syndrome"] });
 mA("spironolactone", 224, { feat: ["Mineralocorticoid antagonist：治療 {{Conn's syndrome|疾病}} 及肝硬化造成的腹水"] });
-kA(35, "類固醇的 SAR 與藥化特性", 225, "補充藥化考點", [
-  "必需基團：基本固醇結構 All trans 之活性大於 All cis；B/C 環、C/D 環皆需以反式（trans）配置才有活性；{{21-OH|結構}} 為活性必需基團",
-  "不含鹵素：{{Desonide、Ciclesonide、Budesonide|藥名}}",
-  "7-Cl：Alclometasone；9-Cl：{{Beclomethasone|藥名}}",
-  "9-Cl、21-Cl：{{Mometasone|藥名}}；9-F、21-Cl：Halobetasol、Halcinonide、Clobetasol",
-  "含有三個 F：{{Fluticasone|藥名}}；16-OH：Triamcinolone、Fluocinolone"
-]);
+kA(35, "類固醇的 SAR 與藥化特性", 225, "補充藥化考點", { table: { cols: ["取代基", "藥物"], rows: [
+  [{ t: "必需基團", b: true, rs: 3 }, "1. 基本固醇結構 All trans 之活性大於 All cis"],
+  [null, "2. B/C 環、C/D 環皆需以反式（trans）配置才有活性"],
+  [null, "3. {{21-OH|結構}} 為活性必需基團"],
+  [{ t: "不含鹵素", b: true }, "{{Desonide、Ciclesonide、Budesonide|藥名}}"],
+  [{ t: "7-Cl", b: true }, "Alclometasone"],
+  [{ t: "9-Cl", b: true }, "{{Beclomethasone|藥名}}"],
+  [{ t: "9-Cl、21-Cl", b: true }, "{{Mometasone|藥名}}"],
+  [{ t: "9-F、21-Cl", b: true }, "Halobetasol、Halcinonide、Clobetasol"],
+  [{ t: "含有三個 F", b: true }, "{{Fluticasone|藥名}}"],
+  [{ t: "16-OH", b: true }, "Triamcinolone、Fluocinolone"] ] } });
 
 /* ===== 第 36 章 性激素藥物 ===== */
 chA(36, "36", "性激素藥物", "226～231");
