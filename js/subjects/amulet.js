@@ -1973,42 +1973,36 @@ dA(17, "MAOI", 115, "moclobemide", "Moclobemide", null, {
 
 /* ===== 第 19 章 全身麻醉劑 ===== */
 chA(19, "19", "全身麻醉劑", "120～124");
-kA(19, "吸入型麻醉劑總論", 120, "麻醉的分期與作用機轉", [
-  "藥物對於中樞系統抑制作用是有順序的，通常把麻醉順序分為{{四|數值}}期",
-  "Stage 1：會產生{{止痛|名詞}}作用；Stage 2：會產生{{興奮|名詞}}作用（抑制，抑制性神經元）",
-  "Stage 3：會產生{{麻醉|名詞}}作用（抑制，興奮性神經元）；Stage 4：會產生{{延腦抑制|名詞}}作用（麻醉劑過量）",
-  "全麻可溶於細胞膜並擾亂細胞膜的結構，減少{{鈉離子內流|名詞}}和增加{{鉀離子外流|名詞}}，而產生麻醉作用",
-  "當藥物的{{油水分配係數|名詞}}增加，會使藥物活性上升"
-]);
-kA(19, "吸入型麻醉劑總論", 120, "麻醉前輔助用藥", [
-  "解焦慮：口服 {{Benzodiazepines|藥物類別}}",
-  "減少分泌物：給 {{Atropine、Scopolamine|藥名}}",
-  "術後抗嘔吐作用：Metoclopramide、Ondansetron、Droperidol",
-  "肌肉鬆弛劑：{{Atracurium、Pancuronium|藥名}}",
-  "維持麻醉（吸入給藥）：{{N2O、Halothane|藥名}}；誘導麻醉（靜脈注射給藥）：Barbiturates、Non-Barbiturates"
-]);
-kA(19, "吸入型麻醉劑總論", 120, "誘導速度", [
-  "N2O 血氣分配係數 {{0.47|數值}}；Methoxyflurane 血氣分配係數 12",
-  "血氣分配係數越大，作用速度越{{慢|性質}}",
-  "增加誘導速率：增加吸入型氣體中的藥物濃度比例、增加{{肺泡換氣速率|名詞}}",
-  "降低誘導速率：增加麻醉藥物的{{血中溶解度|名詞}}、增加心輸出量"
-]);
-kA(19, "吸入型麻醉劑總論", 121, "MAC 與藥物移除速率", [
-  "以最低肺泡濃度（{{MAC|名詞}}）評估效力：在疼痛刺激下，有 {{50%|數值}} 的患者不痛時的濃度",
-  "MAC 越大，藥效越{{弱|性質}}",
-  "體溫低、{{老年人|族群}}、併用嗎啡類止痛藥、懷孕 → 所需 MAC 下降",
-  "體溫高、年輕人、長期飲酒或使用中樞抑制劑 → 所需 MAC {{上升|性質}}",
-  "Context-sensitive half-time：藥物血中濃度降到停止前 50% 所需的時間，數字越大，移除速率越{{慢|性質}}"
-]);
-kA(19, "吸入性麻醉劑的藥理特性", 122, "血氣分配係數、MAC、代謝比較", [
-  "Nitrous oxide：血氣 0.47；MAC {{>100（最弱）|數值}}；氣體；代謝 無",
-  "Halothane：血氣 2.3；MAC 0.75；代謝 >40%",
-  "Methoxyflurane：血氣 {{12（最慢）|數值}}；MAC {{0.16（最強）|數值}}；代謝 >70%",
-  "Enflurane 1.8／1.7／8%；Isoflurane 1.4／1.4／<2%；Sevoflurane 0.69／2.0／2-5%",
-  "Desflurane：血氣 {{0.42（最快）|數值}}；MAC 6-7；代謝 <0.05%",
-  "血氣分配係數由小到大：{{Desflurane|藥名}} < N2O < Sevoflurane < Isoflurane < Enflurane < Halothane < Methoxyflurane",
-  "MAC 由小到大：{{Methoxyflurane|藥名}} < Halothane < Isoflurane < Enflurane < Sevoflurane < Desflurane < N2O",
-  "代謝百分比由小到大：{{N2O|藥名}} < Desflurane < Isoflurane < Enflurane < Sevoflurane < Halothane < Methoxyflurane"
+kA(19, "吸入型麻醉劑總論", 120, "吸入型麻醉劑藥理重點（一）", { table: {
+  head: [{ t: "吸入型麻醉劑", cs: 2 }, null, { t: "藥理重點", cs: 2 }, null],
+  cols: ["吸入型麻醉劑", "", "藥理重點", "藥理重點"],
+  rowNames: ["麻醉的分期", "作用機轉", "藥物的使用", "血氣分配係數", "吸入氣體濃度"], rows: [
+  [{ t: "麻醉的分期", b: true, cs: 2 }, null, { t: "藥物對於中樞系統抑制作用是有順序的，通常把麻醉順序分為{{四|數值}}期\nStage 1：會產生{{止痛|名詞}}作用\nStage 2：會產生{{興奮|名詞}}作用（抑制，抑制性神經元）\nStage 3：會產生{{麻醉|名詞}}作用（抑制，興奮性神經元）\nStage 4：會產生{{延腦抑制|名詞}}作用（麻醉劑過量）", cs: 2 }, null],
+  [{ t: "作用機轉", b: true, cs: 2 }, null, { t: "✧ 全麻可溶於細胞膜並擾亂細胞膜的結構，因此可以改變離子的流量\n→減少{{鈉離子內流|名詞}}和增加{{鉀離子外流|名詞}}（相當於抑制的作用），而產生麻醉作用\n→當藥物的{{油水分配係數|名詞}}增加，會使藥物活性上升", cs: 2 }, null],
+  [{ t: "藥物的使用", b: true, cs: 2 }, null, { t: "麻醉前輔助用藥：\n✧ 解焦慮：口服 {{Benzodiazepines|藥物類別}}\n✧ 減少分泌物：給 {{Atropine、Scopolamine|藥名}}（也會造成記憶喪失）\n✧ 術後抗嘔吐作用：Metoclopramide、Ondansetron、Droperidol\n→與嘔吐有關的神經傳遞物質有多巴胺、血清素、組織胺、P 物質、乙醯膽鹼\n✧ 肌肉鬆弛劑：{{Atracurium、Pancuronium|藥名}}\n維持麻醉（吸入給藥）：{{N2O、Halothane|藥名}}\n誘導麻醉（靜脈注射給藥）：Barbiturates、Non-Barbiturates", cs: 2 }, null],
+  [{ t: "探討麻醉的誘導速度\n（快慢）", b: true, rs: 2 }, { t: "血氣分配係數", b: true }, { t: "✧ N2O（血氣分配係數：{{0.47|數值}}）\n✧ Methoxyflurane（血氣分配係數：12）→血氣分配係數越大作用速度越{{慢|性質}}", cs: 2 }, null],
+  [null, { t: "吸入氣體濃度", b: true }, "增加誘導速率：\n✧ 增加吸入型氣體中的藥物濃度比例\n✧ 增加{{肺泡換氣速率|名詞}}", "降低誘導速率：\n✧ 增加麻醉藥物的{{血中溶解度|名詞}}\n✧ 增加心輸出量"] ] } });
+kA(19, "吸入型麻醉劑總論", 121, "吸入型麻醉劑藥理重點（二）", { table: { head: ["吸入型麻醉劑", "藥理重點"], rows: [
+  [{ t: "探討麻醉的效力\n（強弱）", b: true }, "以最低肺泡濃度（{{MAC|名詞}}）評估：\n定義：在疼痛刺激下，當麻醉劑發揮藥效時，有 {{50%|數值}} 的患者不痛，此時的濃度稱為 MAC→MAC 越大藥效越{{弱|性質}}"],
+  [{ t: "其他因素", b: true }, "✧ 體溫高→所需 MAC 上升，體溫低→所需 MAC 下降\n✧ 年輕人→所需 MAC 上升，{{老年人|族群}}→所需 MAC 下降\n✧ 長期飲酒，使用中樞抑制劑→所需 MAC {{上升|性質}}\n✧ 同時併用嗎啡類止痛藥→所需 MAC 下降\n✧ 懷孕→所需 MAC 下降"],
+  [{ t: "探討藥物移除速率\nContext-sensitive half-time", b: true }, "定義：藥物在血中濃度達到停止前 50%，所需要的時間\n→數字越大，藥物移除速率越{{慢|性質}}"] ] } });
+kA(19, "吸入性麻醉劑的藥理特性", 122, "吸入性麻醉劑的藥理特性", { table: { head: ["麻醉劑", "血氣分配係數（快慢）", "MAC（強弱）", "沸點（°C）", "代謝"], rows: [
+  [{ t: "Nitrous oxide", b: true }, "0.47", "{{>100（最弱）|數值}}", "氣體", "無"],
+  [{ t: "Halothane", b: true }, "2.3", "0.75", "50", ">40%"],
+  [{ t: "Methoxyflurane", b: true }, "{{12（最慢）|數值}}", "{{0.16（最強）|數值}}", "105", ">70%"],
+  [{ t: "Enflurane", b: true }, "1.8", "1.7", "56.5", "8%"],
+  [{ t: "Isoflurane", b: true }, "1.4", "1.4", "49", "<2%"],
+  [{ t: "Sevoflurane", b: true }, "0.69", "2.0", "58.5", "2-5%"],
+  [{ t: "Desflurane", b: true }, "{{0.42（最快）|數值}}", "6-7", "23.5", "<0.05%"] ],
+  note: "✓ 解題口訣（From 阿摩前輩）注意！由小到大排序\n1. 血氣分配係數：{{Desflurane|藥名}} < N2O < Sevoflurane < Isoflurane < Enflurane < Halothane < Methoxyflurane　→豬腦殺阿姨華美\n2. MAC：{{Methoxyflurane|藥名}} < Halothane < Isoflurane < Enflurane < Sevoflurane < Desflurane < N2O　→美華阿姨殺豬腦\n3. 代謝百分比：{{N2O|藥名}} < Desflurane < Isoflurane < Enflurane < Sevoflurane < Halothane < Methoxyflurane　→安(N)迪(D) I am 是我 hello me" } });
+kA(19, "吸入性麻醉劑的藥理特性", 122, "練習題", [
+  "1. 下列全身麻醉劑中何者的 minimum alveolar concentration（MAC）最高？(A) Nitrous oxide (B) Desflurane (C) Enflurane (D) Methoxyflurane",
+  "2. 下列麻醉劑中，何者的代謝速率最慢？(A) Nitrous oxide (B) Enflurane (C) Halothane (D) Methoxyflurane",
+  "3. 使用下列那一種全身性麻醉劑所需要的誘導期間最短，且其恢復也最快？(A) Sevoflurane (B) Methoxyflurane (C) Halothane (D) Isoflurane",
+  "4. Minimum alveolar concentration（MAC）是評估全身麻醉劑效力的重要參數，下列何者的 MAC 值最小？(A) CHCl2 CF2OCH3 (B) CF3 CHBrCl (C) CHClFCF2OCHF2 (D) CF3 CHClOCHF2",
+  "5. 下列全身麻醉劑中，何者在體內代謝之百分比最低？(A) CF3 CHBrCl (B) CHClFCF2OCHF2 (C) CHCl2 CF2 OCH3 (D) CF3 CHFOCHF2",
+  "6. 下列全身麻醉劑中，何者對肝腎的毒性最低？(A) halothane (B) enflurane (C) methoxyflurane (D) isoflurane",
+  "答案：1.{{A|名詞}} 2.{{D|名詞}} 3.{{A|名詞}} 4.{{A|名詞}} 5.{{D|名詞}} 6.{{D|名詞}}"
 ]);
 dA(19, "吸入型麻醉劑（維持麻醉，主要由 2E1 代謝）", 123, "nitrous-oxide", "Nitrous oxide（N2O）", "N2O", {
   cls: ["吸入型麻醉劑"],
@@ -2142,27 +2136,37 @@ dA(26, "滲透壓利尿劑", 171, "mannitol", "D-Mannitol", "Mannitol", {
 
 /* ===== 第 27 章 高血壓藥物 ===== */
 chA(27, "27", "高血壓藥物", "172～179");
-kA(27, "高血壓藥物總覽", 172, "種類、藥名與機轉", [
-  "利尿劑：Furosemide 阻斷 Na+/K+/2Cl- cotransporter；Chlorothiazide 抑制 Na+/Cl- cotransporter；Spironolactone 阻斷 {{Aldosterone|物質}} 的作用",
-  "中樞作用劑：{{Methyldopa|藥名}} 抑制 NE 的生合成；Clonidine、Guanfacine/Guanabenz 為 {{α2-agonist|藥物類別}}",
-  "神經元阻斷劑：{{Reserpine|藥名}} 抑制 Norepinephrine、dopamine 儲存；Guanethidine、Bretylium 抑制 Norepinephrine、dopamine 釋放",
-  "神經節阻斷劑：{{Trimethaphan|藥名}} 阻斷神經節",
-  "交感神經阻斷劑：Prazosin（α1-blocker）、Propranolol（β-blocker）、Acebutolol（β1-blocker）、{{Labetalol、Carvedilol|藥名}}（α+β-blocker）",
-  "血管擴張劑：Hydralazine、Nitroprusside 直接血管擴張劑；Fenoldopam {{D1-agonist|藥物類別}}；Minoxidil、Diazoxide {{K+ Channel agonist|藥物類別}}；Verapamil、Diltiazem、Nifedipine Calcium channel blocker",
-  "RAAS：{{Captopril|藥名}} Angiotensin-Converting Enzyme Inhibitors；{{Losartan|藥名}} Angiotensin Receptor Blockers；{{Aliskiren|藥名}} Renin inhibitor",
-  "其他類：{{Bosentan|藥名}} Endothelin receptor antagonist"
-]);
-kA(27, "RAAS", 173, "Renin-angiotensin-aldosterone system（Katzung 圖）", [
-  "Angiotensinogen —（Renin，受 {{β1|標的}} 刺激，被 Direct Renin inhibitors {{Aliskiren|藥名}} 抑制）→ Angiotensin I",
-  "Angiotensin I —（ACE，被 ACEI 抑制）→ Angiotensin II → AT1 receptor（{{血管收縮|名詞}}）、Aldosterone（增加鈉水滯留）→ 增加血壓",
-  "ARB 阻斷 Angiotensin II 的作用；Aldosterone antagonist 阻斷 Aldosterone",
-  "Bradykinin 經 ACE 代謝為 Inactive peptide；Bradykinin 會引發{{咳嗽|副作用}}、支氣管收縮、血管滲透性增加",
-  "Angiotensin I 共含有 {{10|數值}} 個胺基酸；Angiotensin II 共含有 {{8|數值}} 個胺基酸：Asp-Arg-Val-Tyr-Ile-His-Pro-Phe",
-  "Angiotensin II 之作用：由 Angiotensin I 轉換而來，引起腎臟血管收縮及刺激{{醛固酮|物質}}分泌的作用",
-  "ACEI：常見的副作用包括{{乾咳|副作用}}、皮疹和高血鉀，孕婦不可使用；會使出球小動脈擴張，長期使用 ACEI 會讓腎臟的壓力下降，造成保護腎臟的效果",
-  "本類藥物皆會造成{{致畸胎|副作用}}，孕婦禁用，均可能引起{{高血鉀|副作用}}",
-  "Renin 為腎臟製造的{{酵素|名詞}}，不屬於腎自泌素"
-]);
+kA(27, "高血壓藥物總覽", 172, "種類、藥名與機轉", { table: { head: ["種類", "藥名", "機轉"], rows: [
+  [{ t: "利尿劑", b: true, rs: 3 }, "Furosemide", "阻斷 Na+／K+／2Cl- cotransporter"],
+  [null, "Chlorothiazide", "抑制 Na+／Cl- cotransporter"],
+  [null, "Spironolactone", "阻斷 {{Aldosterone|物質}} 的作用"],
+  [{ t: "中樞作用劑", b: true, rs: 3 }, "Methyldopa", "抑制 NE 的生合成"],
+  [null, "Clonidine", { t: "{{α2-agonist|藥物類別}}", rs: 2 }],
+  [null, "Guanfacine、Guanabenz", null],
+  [{ t: "神經元阻斷劑", b: true, rs: 3 }, "Reserpine", "抑制 Norepinephrine、dopamine 儲存"],
+  [null, "Guanethidine", { t: "抑制 Norepinephrine、dopamine 釋放", rs: 2 }],
+  [null, "Bretylium", null],
+  [{ t: "神經節阻斷劑", b: true }, "Trimethaphan", "阻斷神經節"],
+  [{ t: "交感神經阻斷劑", b: true, rs: 4 }, "Prazosin", "{{α1-blocker|藥物類別}}"],
+  [null, "Propranolol", "{{β-blocker|藥物類別}}"],
+  [null, "Acebutolol", "{{β1-blocker|藥物類別}}"],
+  [null, "Labetalol、Carvedilol", "{{α+β-blocker|藥物類別}}"],
+  [{ t: "血管擴張劑", b: true, rs: 4 }, "Hydralazine、Nitroprusside", "直接血管擴張劑"],
+  [null, "Fenoldopam", "{{D1-agonist|藥物類別}}"],
+  [null, "Minoxidil、Diazoxide", "{{K+ Channel agonist|藥物類別}}"],
+  [null, "Verapamil、Diltiazem、Nifedipine", "Calcium channel blocker"],
+  [{ t: "Renin-Angiotension-Aldosterone System\n（RAAS）", b: true, rs: 3 }, "Captopril", "{{Angiotensin-Converting Enzyme Inhibitors|藥物類別}}"],
+  [null, "Losartan", "{{Angiotensin Receptor Blockers|藥物類別}}"],
+  [null, "Aliskiren", "{{Renin inhibitor|藥物類別}}"],
+  [{ t: "其他類", b: true }, "Bosentan", "{{Endothelin receptor antagonist|藥物類別}}"] ] } });
+kA(27, "RAAS", 173, "Renin-angiotensin-aldosterone system（Katzung 圖）", { images: ["assets/amulet/fig/raas.png"], points: [
+  "1. Angiotensin I 共含有 {{10|數值}} 個胺基酸：Asp-Arg-Val-Tyr-Ile-His-Pro-Phe-His-Leu",
+  "2. Angiotensin II 共含有 {{8|數值}} 個胺基酸：Asp-Arg-Val-Tyr-Ile-His-Pro-Phe",
+  "3. Angiotensin II 之作用：由 Angiotensin I 轉換而來，引起腎臟血管收縮及刺激{{醛固酮|物質}}分泌的作用",
+  "4. Bradykinin：會造成{{乾咳|副作用}}、支氣管收縮、血管滲透性↑",
+  "5. ACEI：常見的副作用包括乾咳、皮疹和高血鉀，孕婦不可使用，會使出球小動脈擴張，長期使用 ACEI 會讓腎臟的壓力下降，造成保護腎臟的效果",
+  "6. 本類藥物皆會造成{{致畸胎|副作用}}，孕婦禁用，均可能引起{{高血鉀|副作用}}",
+  "7. Renin 為腎臟製造的{{酵素|名詞}}，不屬於腎自泌素" ] });
 dA(27, "血管擴張劑（可用於急性高血壓）", 174, "hydralazine", "Hydralazine", null, {
   cls: ["血管擴張劑：直接擴張{{動脈|器官}}"],
   struct: ["具有 {{Hydrazine + Phthalazine|結構}}"],
@@ -2181,13 +2185,13 @@ dA(27, "K+ Channel agonist", 174, "diazoxide", "Diazoxide", null, {
   cls: ["K+ Channel agonist"],
   struct: ["結構和{{利尿劑|藥物類別}}相似"],
   feat: ["無利尿作用而有{{升血糖|副作用}}效果的降壓藥", "活化 K+ Channel 抑制{{胰島素|物質}}的釋放進而升血糖", "代謝物：3-羧酸代謝物"] });
-kA(27, "Calcium channel blocker", 175, "DHP 之 SAR", [
-  "DHP 上的取代基：R2、R3 以{{雙酯基|結構}}取代 → 活性最佳；若以不同酯基取代 → 增加{{血管選擇性|性質}}；以其他拉電子基取代 → 增加鈣離子通道活化作用",
-  "C4 取代基：以{{苯環|結構}}取代 → 活性增加；其他取代 → 活性降低",
-  "苯環上的取代基：{{2' 及 3'|結構}} 以拉電子基取代 → 活性增加；4' 取代 → 活性降低",
-  "1,4-Dihydropyridine（DHP）為活性必須，氧化形成 {{Pyridine|結構}} 後活性降低",
-  "苯環上的鄰位及間位取代基可使 1,4DHP 之構型固定{{垂直|結構}}"
-]);
+kA(27, "Calcium channel blocker", 175, "DHP 之 SAR", { table: { cols: ["位置", "藥化特色"], rows: [
+  [{ t: "DHP 之 SAR", img: "assets/amulet/dhp-sar.png", cs: 2 }, null],
+  [{ t: "位置", b: true }, { t: "藥化特色", b: true }],
+  [{ t: "DHP 上的取代基", b: true }, "R2、R3 以{{雙酯基|結構}}取代 → 活性最佳\n若以不同酯基取代 → 增加{{血管選擇性|性質}}\n以其他拉電子基取代 → 增加鈣離子通道活化作用"],
+  [{ t: "C4 取代基", b: true }, "以{{苯環|結構}}取代 → 活性增加\n其他取代 → 活性降低"],
+  [{ t: "苯環上的取代基", b: true }, "{{2' 及 3'|結構}} 以拉電子基取代 → 活性增加\n4' 取代 → 活性降低"] ],
+  note: "✓ 1,4-Dihydropyridine（DHP）為活性必須，氧化形成 {{Pyridine|結構}} 後活性降低\n✓ 苯環上的鄰位及間位取代基可使 1,4DHP 之構型固定{{垂直|結構}}" } });
 dA(27, "Calcium channel blocker", 176, "nifedipine", "Nifedipine", null, {
   cls: ["Calcium channel blocker：Dihydropyridine"],
   feat: ["對{{血管平滑肌|器官}}最具有選擇性", "代謝：氧化脫 H 生成 {{Pyridine|結構}} 失效", "副作用：反射性心跳過快、便秘、{{牙齦增生|副作用}}", "會造成牙齦增生：{{Phenytoin、Cyclosporine|藥名}}"] });
@@ -2265,14 +2269,12 @@ dA(27, "ARB", 178, "azilsartan", "Azilsartan medoxomil", "Azilsartan", {
 dA(27, "Endothelin receptor antagonist", 178, "bosentan", "Bosentan", null, {
   cls: ["{{Endothelin receptor antagonist|藥物類別}}"],
   feat: ["口服給藥", "非選擇型阻斷血管內皮細胞上的 {{ETA 和 ETB|標的}} 受體", "選擇性阻斷 ETA：{{Ambrisentan、Sitaxsentan|藥名}}", "治療{{肺動脈高壓|疾病}}（Iloprost、Treprostinil、Epoprostenol）", "副作用：肝毒性、致畸胎，孕婦禁用"] });
-kA(27, "高血壓治療目標", 179, "JNC8 高血壓治療目標", [
-  "≧60 歲：{{150/90|數值}} mmHg；<60 歲：{{140/90|數值}} mmHg",
-  "不論年齡，有糖尿病但無慢性腎臟疾病：140/90 mmHg；不論年齡，只要有慢性腎臟疾病：140/90 mmHg",
-  "起始治療建議使用 {{TD、ACEI、ARB、CCB|藥物類別}}",
-  "黑人起始治療建議使用 {{TD、CCB|藥物類別}}",
-  "慢性腎臟疾病合併高血壓起始治療建議使用 {{ACEI、ARB|藥物類別}}",
-  "MAP（平均動脈壓）= {{1/3 收縮壓 + 2/3 舒張壓|名詞}}"
-]);
+kA(27, "高血壓治療目標", 179, "JNC8 高血壓治療目標", { table: { head: [{ t: "JNC8 高血壓治療目標", cs: 2 }, null], cols: ["年齡", "血壓標準"], rows: [
+  [{ t: "{{≧60|數值}}", b: true }, "150／90 mmHg"],
+  [{ t: "<60", b: true }, "140／90 mmHg"],
+  [{ t: "不論年齡，有糖尿病但無慢性腎臟疾病", b: true }, "140／90 mmHg"],
+  [{ t: "不論年齡，只要有慢性腎臟疾病", b: true }, "140／90 mmHg"] ],
+  note: "✧ 起始治療建議使用 {{TD、ACEI、ARB、CCB|藥物類別}}\n✧ 黑人起始治療建議使用 {{TD、CCB|藥物類別}}\n✧ 慢性腎臟疾病合併高血壓起始治療建議使用 {{ACEI、ARB|藥物類別}}\n✧ MAP（平均動脈壓）= {{1/3 收縮壓 + 2/3 舒張壓|名詞}}" } });
 
 /* ===== 第 28 章 心絞痛藥物 ===== */
 chA(28, "28", "心絞痛藥物", "180～184", "第 180 頁拍攝時上下顛倒。");
