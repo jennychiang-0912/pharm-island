@@ -3284,24 +3284,25 @@ dA(43, "增加尿酸代謝", 263, "pegloticase", "Pegloticase、Rasburicase", "P
 
 /* ===== 第 44 章 抗組織胺藥物 ===== */
 chA(44, "44", "抗組織胺藥物", "264～266");
-kA(44, "組織胺簡介", 264, "組織胺簡介、受體與化學性質", [
-  "是一種{{發炎反應|名詞}}的媒介物質；體內分布包括：肥大細胞的分泌顆粒、胃腸道、丘腦",
-  "組織胺的合成：儲存於{{肥大細胞、嗜鹼性細胞|名詞}}",
-  "H1（{{Gq|標的}}）：平滑肌、內皮；H2（{{Gs|標的}}）：胃黏膜、心肌、肥大細胞、腦；H3（Gi）：腦；H4（Gi）：嗜酸性球、嗜中性球",
-  "Histidine 經{{脫羧|名詞}}形成 Histamine",
-  "Nπ：較接近側鏈，為近端的（pros）N；Nτ：較遠離側鏈，為遠端的（tele）N",
-  "選擇性：{{五號位|結構}}有甲基時，對 H1 作用消失，僅剩 H2 的作用",
-  "拮抗：雜環到氮加至{{四個|數值}}原子距，對組織胺受體產生拮抗作用"
+kA(44, "組織胺簡介", 264, "組織胺簡介", [
+  "1. 是一種{{發炎反應|名詞}}的媒介物質",
+  "2. 體內分布包括：肥大細胞的分泌顆粒、胃腸道、{{丘腦|器官}}",
+  "3. 組織胺的合成：儲存於{{肥大細胞、嗜鹼性細胞|名詞}}"
 ]);
+kA(44, "組織胺簡介", 264, "組織胺受體", { table: { head: ["受體", "作用位置"], rows: [
+  [{ t: "H1(Gq)", b: true }, "平滑肌、內皮"],
+  [{ t: "H2(Gs)", b: true }, "胃黏膜、心肌、肥大細胞、腦"],
+  [{ t: "H3(Gi)", b: true }, "腦"],
+  [{ t: "H4(Gi)", b: true }, "嗜酸性球、嗜中性球"] ] } });
+kA(44, "組織胺簡介", 264, "組織胺的化學性質", { images: ["assets/amulet/fig/histamine-synth.png"], table: { cols: ["", "內容"], rows: [
+  [{ t: "Nπ", b: true }, "較接近側鏈，為近端的（pros）N"],
+  [{ t: "Nτ", b: true }, "較遠離側鏈，為遠端（tele）N"],
+  [{ t: "選擇性", b: true }, "{{五號位|結構}}有甲基時，對 H1 作用消失，僅剩 H2 的作用"],
+  [{ t: "拮抗", b: true }, "雜環到氮加至{{四個|數值}}原子距，對組織胺受體產生拮抗作用"] ] } });
 kA(44, "第一代 H1-blocker", 265, "第一代 H1-blocker 結構分類", [
-  "一代抗組織胺可用於{{動暈症|疾病}}：Diphenhydramine、Meclizine、Promethazine",
-  "Aminoalkyl Ethers（{{Ethanol amines|結構}}）：代表藥 Diphenhydramine；Doxylamine、Clemastine、Setastine、Carbinoxamine；鎮靜、抗膽鹼、抗動暈；{{Dimenhydrinate|藥名}} = Diphenhydramine + 8-Chlortheophyllinate",
-  "{{Ethylenediamines|結構}}（el,il,yl；例外：Doxylamine）：代表藥 Tripelennamine；Pyrilamine、Thonzylamine、Antazoline；胃腸道副作用",
-  "{{Propylamines|結構}}（ir,pro,but）：代表藥 Pheniramine；Pyrrobutamine、Triprolidine、Phenindamine；強抗組織胺；Phenindamine 睡前服用會造成{{失眠|副作用}}",
-  "{{Piperazines|結構}}（Cyclizines，-clizine）：代表藥 Cyclizine、Hydroxyzine；Meclizine；抗動暈、致畸形胎；Hydroxyzine 氧化代謝成 {{Cetirizine|藥名}}",
-  "{{Phenothiazines|結構}}（-thazine）：代表藥 Promethazine；Trimeprazine、Methdilazine；鎮靜、抗膽鹼、抗動暈",
-  "{{Dibenzocycloheptenes|結構}}（-tadine）：代表藥 Cyproheptadine；Azatadine；有抗血清素的作用，可緩解 Serotonin syndrome 及刺激食慾的作用",
-  "carbinoxamine、clemastine 及 setastine 的共同結構：{{ethanolamine ether|結構}}"
+  "Tip：此頁重點在於記憶代表藥物以及藥物結構分類，而不是個論藥的結構",
+  "Ex：108-2 下列何者為抗組織胺藥 carbinoxamine、clemastine 及 setastine 的共同結構？\n(A) ethylenediamine (B) ethanolamine ether (C) phenothiazine (D) piperazine　選 {{B|名詞}}",
+  "一代抗組織胺可用於{{動暈症|疾病}}：Diphenhydramine、Meclizine、Promethazine"
 ]);
 dA(44, "第一代 H1-blocker", 265, "diphenhydramine", "Diphenhydramine", null, {
   cls: ["第一代 H1-blocker：Aminoalkyl Ethers（Ethanol amines）"],
