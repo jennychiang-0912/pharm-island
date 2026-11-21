@@ -1699,60 +1699,60 @@ isleA("cns", "中樞神經島", { ground: "#B8C4E6", light: "#CCD5EE", cliff: "#
 
 /* ===== 第 14 章 中樞總論 ===== */
 chA(14, "14", "中樞總論", "94～96");
-kA(14, "中樞神經傳遞物質", 94, "GABA（γ-Aminobutyric acid）", [
-  "是中樞神經主要的{{抑制性|性質}}傳遞物質",
-  "GABA-A 為{{突觸後|名詞}}接收器；GABA-B 位於{{突觸前|名詞}}神經末端，可減少神經傳遞物質的釋放",
-  "{{Bicuculline|藥名}} 拮抗 GABA-A 可作為致痙攣劑",
-  "{{Baclofen|藥名}} 活化 GABA-B 可作為肌肉鬆弛劑",
-  "{{Tiagabine|藥名}} 抑制 GABA 再回收，可增強腦中 GABA 的含量",
-  "{{Vigabatrin|藥名}} 是 GABA-Transaminase 之自殺性不可逆抑制劑",
-  "{{Gabapentin|藥名}} 會促進 GABA 釋放"
-]);
-kA(14, "中樞神經傳遞物質", 94, "Glycine、Glutamate、Acetylcholine", [
-  "Glycine（甘胺酸）：抑制性傳遞物質，主要存在於{{脊髓|器官}}；Glycine 拮抗劑為 {{Strychnine|藥名}}（番木鱉鹼），引起痙攣的作用",
-  "Glutamate：為中樞{{興奮性|性質}}傳遞物質；Ligand-gated ion channels：NMDA、AMPA、Kainate；G protein coupled receptors：Quisqualate；{{Ketamine|藥名}} 阻斷 NMDA 接受器",
-  "Acetylcholine：在腦部是經由抑制{{鉀離子|物質}}通道興奮中樞；前驅物是 {{Serine|物質}}；Acetylcholine↓ 造成阿茲海默症，以 Galantamine、Tacrine、Donepezil、Rivastigimine 治療"
-]);
-kA(14, "中樞神經傳遞物質", 94, "Dopamine 與 Norepinephrine", [
-  "Dopamine 藉由打開{{鉀離子|物質}}通道抑制中樞神經",
-  "多巴胺三大路徑：{{黑質紋狀體|名詞}}路徑：退化會造成巴金森氏症；{{中邊緣|名詞}}路徑：過度活化會造成精神分裂症；{{結節漏斗|名詞}}路徑：調節 Prolactin 的釋放",
-  "Chlorpromazine 為 DA 阻斷劑可治療{{精神分裂症|疾病}}；Bromocriptine 為 DA 作用劑可治療巴金森氏症",
-  "CTZ（化學受體反射區）具有 Dopamine receptor；{{Metoclopramide|藥名}} 為 D2-antagonist 可止嘔",
-  "NE 存在於腦幹中的{{藍斑|名詞}}；NE 和 DA 可能與藥物的成癮性有關；NE 的前驅物是 Tyrosine",
-  "Phenylephrine 作用在 α1-receptor 可解鼻充血；Prazosin 阻斷 α1-receptor 可降血壓"
-]);
-kA(14, "中樞神經傳遞物質", 94, "Serotonin（5-HT）與 Neuropeptides", [
-  "Serotonin 存在於腦幹的{{縫核|名詞}}中；Serotonin 下降將造成{{憂鬱症|疾病}}；增加 Serotonin 的釋放，有降低食慾的作用；前驅物是 {{L-Tryptophan|物質}}",
-  "{{Lorcaserin|藥名}} 刺激 5-HT2c，作為減肥藥；活化 5-HT 接受器，可促進腸胃蠕動",
-  "{{Tegaserod|藥名}} 刺激 5-HT4 治療便秘型刺激性腸道症候群；{{Alosetron|藥名}} 阻斷 5-HT3 治療腹瀉型刺激型腸道症候群",
-  "Substance P 與{{痛覺|名詞}}有關，含 {{11|數值}} 個胺基酸；Enkephalins，與抑制痛覺有關",
-  "Met-Enkephalin：Tyr-Gly-Gly-Phe-{{Met|物質}}；Leu-Enkephalin：Tyr-Gly-Gly-Phe-{{Leu|物質}}"
-]);
-kA(14, "中樞神經傳遞物質總整理表格", 95, "受體亞型、作用劑、阻斷劑", [
-  "Acetylcholine：M1（Gq）、M2（Gi）作用劑 Muscarine，阻斷劑 Pirenzepine、Atropine；Nicotinic（Na+ channel）作用劑 Nicotine，阻斷劑 {{α-Bungarotoxin|藥名}}",
-  "Dopamine：D1（{{Gs|標的}}）作用劑 Fenoldopam；D2（{{Gi|標的}}）作用劑 Bromocriptine，阻斷劑 Phenothiazine",
-  "GABA：GABA-A（{{Cl- channel|標的}}）作用劑 Muscimol，阻斷劑 {{Bicuculline、Picrotoxin|藥名}}；GABA-B（Gi）作用劑 Baclofen，阻斷劑 {{Saclofen|藥名}}",
-  "Glutamate：NMDA、AMPA、Kainate（Ion channel）；Metabotropic（G-protein）作用劑 Quisqualate",
-  "Glycine：Glycine receptor（Cl- channel）作用劑 {{Taurine|物質}}，阻斷劑 Strychnine",
-  "5-HT1A（Gi）作用劑 {{Buspirone|藥名}}，阻斷劑 Spiperone；5-HT1D（Gi）作用劑 {{Sumatriptan|藥名}}",
-  "5-HT2A（Gq）作用劑 LSD，阻斷劑 {{Ketanserin、Trazodone|藥名}}；5-HT2C（Gq）作用劑 Lorcaserin",
-  "5-HT3（{{Ion channel|標的}}）阻斷劑 {{Ondansertron|藥名}}；5-HT4（{{Gs|標的}}）作用劑 Cisapride、Tegaserod、Metoclopramide",
-  "Norepinephrine：α1（Gq）Phenylephrine / Prazosin；α2（Gi）Clonidine / Yohimbine；β1（Gs）Dobutamine / Atenolol；β2（Gs）Salbutamol / Butoxamine"
-]);
-kA(14, "中樞神經傳遞物質總整理表格", 96, "Opioid、Endocannabinoids、Histamine、Orexins", [
-  "Opioid：μ（mu）、δ（delta）、κ（kappa）皆為 {{Gi|標的}}；作用劑：μ {{Endorphin|物質}}、δ {{Enkephalin|物質}}、κ {{Dynorphin|物質}}；阻斷劑 {{Naloxone|藥名}}",
-  "Endocannabinoids：CB1；作用劑 {{Anandamide|物質}}；阻斷劑 {{Rimonabant|藥名}}",
-  "Histamine：H1（Gq）作用劑 Histamine，阻斷劑 {{Diphenhydramine|藥名}}；H2（Gs）作用劑 Dimaprit，阻斷劑 {{Cimetidine|藥名}}；H3（Gi）作用劑 Imetit、Lmepip，阻斷劑 Thioperamide",
-  "Orexins：OX1/OX2；阻斷劑 {{Suvorexant|藥名}}"
-]);
+kA(14, "中樞神經傳遞物質", 94, "中樞神經傳遞物質", { table: { head: ["神經傳遞物質", "生理作用", "代表藥物及接受器特色"], rows: [
+  [{ t: "GABA\n（γ-Aminobutyric acid）", b: true }, "✧ 是中樞神經主要的{{抑制性|性質}}傳遞物質\n✧ GABA-A 為{{突觸後|名詞}}接收器\n✧ GABA-B 位於{{突觸前|名詞}}神經末端，可減少神經傳遞物質的釋放", "1. {{Bicuculline|藥名}} 拮抗 GABA-A 可作為致痙攣劑\n2. {{Baclofen|藥名}} 活化 GABA-B 可作為肌肉鬆弛劑\n3. {{Tiagabine|藥名}} 抑制 GABA 再回收，可增強腦中 GABA 的含量\n4. {{Vigabatrin|藥名}} 是 GABA-Transaminase 之自殺性不可逆抑制劑\n5. {{Gabapentin|藥名}} 會促進 GABA 釋放"],
+  [{ t: "Glycine（甘胺酸）", b: true }, "✧ 抑制性傳遞物質，主要存在於{{脊髓|器官}}", "1. Glycine 拮抗劑為 {{Strychnine|藥名}}（番木鱉鹼），引起痙攣的作用"],
+  [{ t: "Glutamate", b: true }, "✧ 為中樞{{興奮性|性質}}傳遞物質", "1. Ligand-gated ion channels：NMDA、AMPA、Kainate\n2. G protein coupled receptors：Quisqualate\n3. {{Ketamine|藥名}} 阻斷 NMDA 接受器"],
+  [{ t: "Acetylcholine", b: true }, "✧ 在腦部是經由抑制{{鉀離子|物質}}通道興奮中樞\n✧ Acetylcholine 的前驅物是 {{Serine|物質}}", "1. Acetylchoine↓ 造成阿茲海默症，\n以 Galantamine、Tacrine、Donepezil、Rivastigimine 治療"],
+  [{ t: "Dopamine", b: true }, "✧ Dopamine 藉由打開{{鉀離子|物質}}通道抑制中樞神經\n多巴胺三大路徑\n✧ {{黑質紋狀體|名詞}}路徑：退化會造成巴金森氏症\n✧ {{中邊緣|名詞}}路徑：過度活化會造成精神分裂症\n✧ {{結節漏斗|名詞}}路徑：調節 Prolactin 的釋放", "1. Chlorpromazine 為 DA 阻斷劑可治療{{精神分裂症|疾病}}\n2. Bromocriptine 為 DA 作用劑可治療巴金森氏症\n3. CTZ（化學受體反射區）具有 Dopamine receptor\n4. {{Metoclopramide|藥名}} 為 D2-antagonist 可止嘔"],
+  [{ t: "Norepinephrine", b: true }, "✧ NE 存在於腦幹中的{{藍斑|名詞}}\n✧ NE 和 DA 可能與藥物的成癮性有關\n✧ NE 的前驅物是 Tyrosine", "1. Phenylephrine 作用在 α1-receptor 可解鼻充血\n2. Prazosin 阻斷 α1-receptor 可降血壓"],
+  [{ t: "Serotonin（5-HT）", b: true }, "✧ Serotonin 存在於腦幹的{{縫核|名詞}}中\n✧ Serotonin 下降將造成{{憂鬱症|疾病}}\n✧ 增加 Serotonin 的釋放，有降低食慾的作用\n✧ Serotonin 的前驅物是 {{L-Tryptophan|物質}}", "1. {{Lorcaserin|藥名}} 刺激 5-HT2c，作為減肥藥\n2. 活化 5-HT 接受器，可促進腸胃蠕動\n3. {{Tegaserod|藥名}} 刺激 5-HT4 治療便秘型刺激性腸道症候群\n4. {{Alosetron|藥名}} 阻斷 5-HT3 治療腹瀉型刺激型腸道症候群"],
+  [{ t: "Neuropeptides\n（神經胜肽）", b: true }, "✧ Substance P 與{{痛覺|名詞}}有關，含 {{11|數值}} 個胺基酸\n✧ Enkephalins，與抑制痛覺有關", "1. Met-Enkephalin：Tyr-Gly-Gly-Phe-{{Met|物質}}\n2. Leu-Enkephalin：Tyr-Gly-Gly-Phe-{{Leu|物質}}"] ] } });
+kA(14, "中樞神經傳遞物質總整理表格", 95, "中樞神經傳遞物質總整理表格", { table: {
+  head: [[{ t: "中樞神經傳遞物質總整理表格", cs: 6 }, null, null, null, null, null], ["神經傳遞物質", { t: "受體亞型", cs: 3 }, null, null, "作用劑", "阻斷劑"]],
+  cols: ["神經傳遞物質", "受體亞型", "受體亞型", "受體種類", "作用劑", "阻斷劑"],
+  rowNames: ["M1", "M2", "Nicotinic", "D1", "D2", "GABA-A", "GABA-B", "NMDA", "AMPA", "Kainate", "Metabotropic", "Glycine receptor", "5-HT1A", "5-HT1D", "5-HT2A", "5-HT2C", "5-HT3", "5-HT4", "α1", "α2", "β1", "β2"], rows: [
+  [{ t: "Acetylcholine", b: true, rs: 3 }, { t: "M1", cs: 2 }, null, "Gq", { t: "Muscarine", rs: 2 }, "Pirenzepine"],
+  [null, { t: "M2", cs: 2 }, null, "Gi", null, "Atropine"],
+  [null, { t: "Nicotinic", cs: 2 }, null, "Na+ channel", "Nicotine", "{{α-Bungarotoxin|藥名}}"],
+  [{ t: "Dopamine", b: true, rs: 2 }, { t: "D1", cs: 2 }, null, "{{Gs|標的}}", "Fenoldopam", ""],
+  [null, { t: "D2", cs: 2 }, null, "{{Gi|標的}}", "Bromocriptine", "Phenothiazine"],
+  [{ t: "GABA", b: true, rs: 2 }, { t: "GABA-A", cs: 2 }, null, "{{Cl- channel|標的}}", "Muscimol", "{{Bicuculline、Picrotoxin|藥名}}"],
+  [null, { t: "GABA-B", cs: 2 }, null, "Gi", "Baclofen", "{{Saclofen|藥名}}"],
+  [{ t: "Glutamate", b: true, rs: 4 }, { t: "NMDA", cs: 2 }, null, { t: "Ion channel", rs: 3 }, "NMDA", ""],
+  [null, { t: "AMPA", cs: 2 }, null, null, "AMPA", ""],
+  [null, { t: "Kainate", cs: 2 }, null, null, "Kainate", ""],
+  [null, { t: "Metabotropic", cs: 2 }, null, "G-protein", "Quisqualate", ""],
+  [{ t: "Glycine", b: true }, { t: "Glycine receptor", cs: 2 }, null, "Cl- channel", "{{Taurine|物質}}", "Strychnine"],
+  [{ t: "Serotonin", b: true, rs: 6 }, { t: "5-HT", rs: 6 }, "1A", { t: "Gi", rs: 2 }, "{{Buspirone|藥名}}", "Spiperone"],
+  [null, null, "1D", null, "{{Sumatriptan|藥名}}", ""],
+  [null, null, "2A", { t: "Gq", rs: 2 }, "LSD", "{{Ketanserin、Trazodone|藥名}}"],
+  [null, null, "2C", null, "Lorcaserin", ""],
+  [null, null, "3", "{{Ion channel|標的}}", "", "{{Ondansertron|藥名}}"],
+  [null, null, "4", "{{Gs|標的}}", "Cisapride、Tegaserod、Metoclopramide", ""],
+  [{ t: "Norepinephrine", b: true, rs: 4 }, { t: "α1", cs: 2 }, null, "Gq", "Phenylephrine", "Prazosin"],
+  [null, { t: "α2", cs: 2 }, null, "Gi", "Clonidine", "Yohimbine"],
+  [null, { t: "β1", cs: 2 }, null, { t: "Gs", rs: 2 }, "Dobutamine", "Atenolol"],
+  [null, { t: "β2", cs: 2 }, null, null, "Salbutamol", "Butoxamine"] ] } });
+kA(14, "中樞神經傳遞物質總整理表格", 96, "中樞神經傳遞物質總整理表格（續）", { table: {
+  head: ["神經傳遞物質", { t: "受體亞型", cs: 2 }, null, "作用劑", "阻斷劑"],
+  cols: ["神經傳遞物質", "受體亞型", "受體種類", "作用劑", "阻斷劑"],
+  rowNames: ["μ（mu）", "δ（delta）", "κ（kappa）", "CB1", "H1", "H2", "H3", "OX1/OX2"], rows: [
+  [{ t: "Opioid", b: true, rs: 3 }, "μ（mu）", { t: "{{Gi|標的}}", rs: 3 }, "{{Endorphin|物質}}", { t: "{{Naloxone|藥名}}", rs: 3 }],
+  [null, "δ（delta）", null, "{{Enkephalin|物質}}", null],
+  [null, "κ（kappa）", null, "{{Dynorphin|物質}}", null],
+  [{ t: "Endocannabinoids", b: true }, { t: "CB1", cs: 2 }, null, "{{Anandamide|物質}}", "{{Rimonabant|藥名}}"],
+  [{ t: "Histamine", b: true, rs: 3 }, "H1", "Gq", "Histamine", "{{Diphenhydramine|藥名}}"],
+  [null, "H2", "Gs", "Dimaprit", "{{Cimetidine|藥名}}"],
+  [null, "H3", "Gi", "Imetit、Lmepip", "Thioperamide"],
+  [{ t: "Orexins", b: true }, { t: "OX1/OX2", cs: 2 }, null, "", "{{Suvorexant|藥名}}"] ] } });
 
 /* ===== 第 15 章 血清素 Serotonin（5-HT） ===== */
 chA(15, "15", "血清素 Serotonin（5-HT）", "97～103");
-kA(15, "Serotonin 生合成", 97, "Serotonin 與 Melatonin 的生合成", [
-  "L-Tryptophan —（{{Tryptophan hydroxylase|酵素}}）→ 5-hydroxy tryptophan —（{{Aromatic amino acid decarboxylase|酵素}}）→ Serotonin",
-  "Serotonin —（{{5-HT N-Acetyl transferase|酵素}}）→ N-Acetyl-5-HT —（{{5-Hydroxyindole-O-Methyl transferase|酵素}}）→ Melatonin",
-  "影響食慾之藥物：服用毒品、迷幻藥基本上會抑制食慾，除了 {{THC、Dronabinol|藥名}} 會刺激食慾"
-]);
+kA(15, "Serotonin 生合成", 97, "Serotonin 與 Melatonin 的生合成", { images: ["assets/amulet/fig/5ht-syn.png"], table: { cols: ["", "特色"], rowNames: ["Melatonin", "Ramelteon", "影響食慾之藥物"], rows: [
+  [{ t: "Melatonin\n（褪黑激素）", b: true }, "✧ 由 Serotonin 經由 5-HT N-Acetyl transferase 及 5-OHindole-O-Methyl transferase 而得\n✧ Melatonin 在{{松果體|器官}}生合成和代謝\n✧ 結構不具有 Chiral center，以 L-tryptophan 為生合成起始物"],
+  [{ t: "Ramelteon", b: true }, "✧ Ramelteon 為 Melatonin receptor 1 and 2 agonist 可用於治療{{失眠|疾病}}\n✧ 副作用：疲勞、頭暈和影響內分泌\n✧ 主要和 {{CYP1A2|酵素}} 代謝，和 Fluvoxamine（CYP1A2 inhibitor）併用時會增加 Ramelteon 的血中濃度，應避免一起使用"],
+  [{ t: "✧ 影響食慾之藥物：服用毒品、迷幻藥基本上會抑制食慾，除了 {{THC、Dronabinol|藥名}} 會刺激食慾", cs: 2 }, null] ] } });
 dA(15, "Melatonin 相關", 97, "melatonin", "Melatonin（褪黑激素）", "Melatonin", {
   cls: ["內生性物質"],
   struct: ["結構{{不具有|性質}} Chiral center，以 {{L-tryptophan|物質}} 為生合成起始物"],
@@ -1762,12 +1762,7 @@ dA(15, "Melatonin 相關", 97, "ramelteon", "Ramelteon", null, {
   feat: ["可用於治療{{失眠|疾病}}", "副作用：疲勞、頭暈和影響內分泌", "主要和 {{CYP1A2|酵素}} 代謝，和 {{Fluvoxamine|藥名}}（CYP1A2 inhibitor）併用時會增加 Ramelteon 的血中濃度，應避免一起使用"] });
 
 /* ===== 第 15 章（續）：第 98～99 頁 ===== */
-kA(15, "5-HT 受體藥物總覽", 98, "15 血清素藥物架構", [
-  "5-HT1 agonist：5HT1A — {{Buspirone|藥名}} — 抗焦慮；5-HT1B/1D — {{Sumatriptan|藥名}} — 治療偏頭痛",
-  "5-HT2 antagonist：Methylsergide — 預防偏頭痛；{{Clozapine|藥名}} — 抗精神藥物；{{Trazodone|藥名}} — 抗憂鬱藥物",
-  "5-HT3 antagonist：{{Ondansetron|藥名}} — 化放療止吐；{{Alosetron|藥名}} — 治療腹瀉型腸道症",
-  "5-HT4 agonist：Metoclopramide — 促進腸胃蠕動；{{Tegaserod|藥名}} — 治療便秘型腸道症"
-]);
+kA(15, "5-HT 受體藥物總覽", 98, "15 血清素藥物架構", { images: ["assets/amulet/fig/5ht-tree.png"] });
 dA(15, "5HT1A", 99, "buspirone", "Buspirone", null, {
   cls: ["{{5HT1A agonist|藥物類別}}"],
   struct: ["結構具有 {{Azaspirodecanedione|結構}}"],
@@ -1805,75 +1800,70 @@ dA(15, "5HT4 agonist", 100, "cisapride", "Cisapride", null, {
 dA(15, "5HT4 agonist", 100, "metoclopramide", "Metoclopramide", null, {
   cls: ["{{5HT4 agonist + D2 antagonist|藥物類別}}"],
   feat: ["屬於止嘔劑，作用在中樞神經之 chemoreceptor trigger zone（{{CTZ|名詞}}）", "副作用：易引起 {{EPS|副作用}} 副作用"] });
-kA(15, "偏頭痛用藥", 100, "預防偏頭痛用藥（口訣 ABCDE）", [
-  "{{Anti-convulsants|藥物類別}}：Topiramate、Valproic acid",
-  "β-blocker：{{Propranolol|藥名}}、Atenolol",
-  "CCB：{{Verapamil|藥名}}",
-  "anti-Depression：{{Amitriptyline|藥名}}",
-  "Ergot alkaloids：{{Methysergide|藥名}}",
-  "可同時用於治療及預防偏頭痛：{{Naproxen|藥名}}"
-]);
-kA(15, "偏頭痛用藥", 101, "Triptan 類藥物總整理", [
-  "半衰期最長：{{Frovatriptan|藥名}}（25 小時）",
-  "生體可用率最高：{{Almotriptan|藥名}}（70-80）",
-  "經由 MAO 代謝的藥物：{{Almotriptan、Rizatriptan、Sumatriptan、Zolmitriptan|藥名}}",
-  "經由 3A4 代謝的藥物：{{Eletriptan、Naratriptan|藥名}}",
-  "經由 1A2 代謝的藥物：{{Frovatriptan、Zolmitriptan|藥名}}",
-  "鼻噴劑劑型：{{Sumatriptan、Zolmitriptan|藥名}}",
-  "LogP 最高：Eletriptan（3.1）；Sumatriptan 生體可用率最低（14-15）"
-]);
+kA(15, "偏頭痛用藥", 100, "預防偏頭痛用藥（口訣 ABCDE）", { table: { head: [{ t: "預防偏頭痛用藥（口訣 ABCDE）", cs: 2 }, null], cols: ["分類", "藥物"], rows: [
+  [{ t: "{{Anti-convulsants|藥物類別}}", b: true }, "Topiramate、Valproic acid"],
+  [{ t: "β-blocker", b: true }, "{{Propranolol|藥名}}、Atenolol"],
+  [{ t: "CCB", b: true }, "{{Verapamil|藥名}}"],
+  [{ t: "anti-Depression", b: true }, "{{Amitriptyline|藥名}}"],
+  [{ t: "Ergot alkaloids", b: true }, "{{Methysergide|藥名}}"],
+  [{ t: "✧ 可同時用於治療及預防偏頭痛：{{Naproxen|藥名}}", cs: 2 }, null] ] } });
+kA(15, "偏頭痛用藥", 101, "Triptan 類藥物比較", { table: { head: ["", "Sumatriptan", "Zolmitriptan", "Naratriptan", "Rizatriptan", "Almotriptan", "Frovatriptan", "Eletriptan"], rows: [
+  [{ t: "LogP", b: true }, "0.7±0.6", "1.6±0.4", "1.4±0.6", "0.9±0.6", "1.9±0.6", "0.9±0.4", "3.1±0.6"],
+  [{ t: "生體可用率", b: true }, "14-15", "40-50", "70", "40-50", "70-80", "20-30", "50"],
+  [{ t: "半衰期", b: true }, "2.5", "2-3", "5-7", "2-3", "3-4", "25", "4-5"],
+  [{ t: "代謝酵素", b: true }, "MAO-A", "CYP1A2\n代謝物會經 MAO-A\n代謝", "CYP3A4", "MAO-A", "主：MAO-A\n次：CYP3A4、\nCYP2D6", "CYP1A2", "CYP3A4"] ] } });
+kA(15, "偏頭痛用藥", 101, "Triptan 類藥物總整理", { table: { head: [{ t: "Triptan 類藥物總整理", cs: 2 }, null], cols: ["", "藥物"], rows: [
+  [{ t: "半衰期最長", b: true }, "{{Frovatriptan|藥名}}"],
+  [{ t: "生體可用率最高", b: true }, "{{Almotriptan|藥名}}"],
+  [{ t: "經由 MAO 代謝的藥物", b: true }, "{{Almotriptan、Rizatriptan、Sumatriptan、Zolmitriptan|藥名}}"],
+  [{ t: "經由 3A4 代謝的藥物", b: true }, "{{Eletriptan、Naratriptan|藥名}}"],
+  [{ t: "經由 1A2 代謝的藥物", b: true }, "{{Frovatriptan、Zolmitriptan|藥名}}"],
+  [{ t: "鼻噴劑劑型", b: true }, "{{Sumatriptan、Zolmitriptan|藥名}}"] ] } });
 
 /* 講義第 102～103 頁（16. 興奮劑、迷幻藥）暫時沒有收錄。 */
 
 /* ===== 第 17 章 憂鬱症藥物 ===== */
 chA(17, "17", "憂鬱症藥物", "104～115");
-kA(17, "憂鬱症藥物總覽", 104, "作用點（Medical Pharmacology at a Glance 圖）", [
-  "5-HT2-antagonist：{{Trazodone|藥名}} ⊖ 5-HT2",
-  "{{TCA|藥物類別}}（Amitriptyline、Imipramine）、{{SNRIs|藥物類別}}（Venlafaxine、Levomilnacipran）⊖ Serotonin 與 NE 的再回收",
-  "{{SSRIs|藥物類別}}（Fluoxetine、Citalopram、Sertraline）⊖ Serotonin 的再回收",
-  "MAOI：不可逆非選擇性 MAO inhibitors：{{Phenelzine、Isocarboxazid|藥名}}；可逆 MAO-A inhibitors：{{Moclobemide|藥名}}",
-  "α2-antagonist：{{Mirtazapine|藥名}}",
-  "TCA = Tricyclic antidepressant；MAOIs = Monoamine oxidase inhibitors；SNRIs = Serotonin-Norepinephrine Reuptake inhibitors；SSRIs = Seletive Serotonin Reuptake inhibitors"
-]);
-kA(17, "憂鬱症藥物總覽", 105, "17 憂鬱症藥物架構", [
-  "三環抗憂鬱藥：三級胺：Amitriptyline、Imipramine、Doxepin、Clomipramine；二級胺：{{Nortriptyline、Desipramine|藥名}}、Protriptyline、Amoxapine、Maprotiline（{{四環|結構}}）",
-  "非三環抗憂鬱藥（二級胺）：Nisoxetine、Reboxetine、{{Atomoxetine|藥名}}",
-  "SSRIs：Phenylalkylamines — {{Sertraline|藥名}}；Aralkylketone — {{Fluvoxamine|藥名}}；Phenoxy-phenylalkylamine — Fluoxetine、Paroxetine、Citalopram",
-  "SNRIs：{{Duloxetine|藥名}}、Venlafaxine、Levomilnacipran",
-  "NDRIs（Norepinephrine dopamine reuptake inhibitors）：{{Bupropion|藥名}}",
-  "NaSSA（Noradrenergic and specific serotonergic antidepressant）：{{Mirtazapine|藥名}}",
-  "SMS（Serotonin receptor modulators and stimulator）：Trazodone、{{Vilazodone|藥名}}、Vortioxetine",
-  "MAOIs：Phenelzine、Isocarboxazid、Tranylcypromine、{{Selegilline|藥名}}、Moclobemide"
-]);
-kA(17, "憂鬱症治療原則", 106, "病因、治療原則、停藥", [
-  "病因：單胺假說認為憂鬱症與大腦內 Serotonin、Norepinephrine、Dopamine 的{{缺乏|名詞}}有關",
-  "以 {{SSRIs|藥物類別}} 為首選藥物，特別適用於有心臟血管疾病或需要避免鎮靜作用或無法忍受抗膽鹼性作用之患者",
-  "宜固定時間服用，需經過 {{4~6 週|數值}}用藥後才能評估療效，且抗憂鬱藥物不屬於成癮性藥品",
-  "抗憂鬱藥物的副作用有時會比療效更快出現",
-  "突然停藥會產生戒斷症狀（2-3 天開始暈眩、頭痛，持續約 3-7 天），應以每週{{漸次減量|名詞}}的方式停藥",
-  "服用 {{Fluoxetine、Bupropion|藥名}} 一段時間後可停藥時，不須數週漸次減量"
-]);
-kA(17, "憂鬱症治療原則", 106, "各類抗憂鬱藥特色", [
-  "TCAs：常具有鎮靜和自主神經系統副作用；超過劑量最危險的副作用是{{心臟毒性|副作用}}及痙攣，有心臟疾病患者禁用；結構與 {{Phenothiazines|結構}} 相似，皆可阻斷組織胺、腎上腺素、M 接收器",
-  "SSRIs：最常見的副作用是{{失眠|副作用}}、胃腸道不適、性功能障礙；優於 TCAs 的方面包括抗 M 作用少、心臟血管毒性小、鎮靜作用弱",
-  "SNRIs：同時抑制血清素與正腎上腺素，效果與 TCA 相似；與 TCA 不同之處，對於腎上腺、毒蕈鹼、抗組織胺接受器{{沒有|性質}}抑制作用",
-  "DNRIs：Bupropion 較不會引起體重增加、性功能障礙；適應症：{{戒菸|疾病}}；副作用：失眠、誘發{{癲癇|副作用}}",
-  "MAOIs：與含 {{Tyramine|物質}} 的食物（起司、燒烤和啤酒）會產生高血壓危象；MAO-A 抑制劑抑制 NE、5-HT 之代謝，可用於憂鬱症",
-  "併用易引起 {{Serotonin syndrome|副作用}}：SSRI、SNRI、MAOIs、Meperidine、Tramadol、Pentazocine、Fentanyl、Dextromethorphan、Linezolid；發生時可以使用 {{Cyproheptadine|藥名}}",
-  "Atypical antidepressant：{{Mirtazapine|藥名}} 具有 α2 阻斷的效果，可增加突觸間隙的 NE 量；{{Trazodone|藥名}} 具有 5-HT2 阻斷的作用"
-]);
-kA(17, "抗憂鬱藥物常見副作用", 107, "抗憂鬱藥物常見副作用比較", [
-  "TCAs（Amitriptyline、Imipramine、Nortriptyline、Desipramine、Doxepin）：鎮靜、抗膽鹼、{{姿勢性低血壓|副作用}}都高；Amitriptyline、Doxepin 皆為 ++++",
-  "SSRIs：失眠、噁心腹瀉、性功能障礙較高；{{Fluoxetine|藥名}} 失眠 ++++",
-  "Bupropion（DNRIs）：鎮靜 {{0|數值}}、體重 0、失眠 +++",
-  "Mirtazapine：鎮靜 ++++、體重 {{+++|數值}}",
-  "較易引起體重增加：Amitriptyline、Mirtazapine、{{Paroxetine|藥名}}（SSRI 中最易誘發體重增加）",
-  "最不適用於老年人：{{Doxepin|藥名}}"
-]);
-kA(17, "憂鬱症治療原則", 108, "神經病變疼痛治療用藥", [
-  "第一線：抗癲癇 {{Pregabalin、Gabapentin|藥名}}；SNRIs {{Duloxetine|藥名}}；TCAs Amitriptyline、Nortriptyline、Desipramine",
-  "第二線：{{Lidocaine、Capsaicin（辣椒素）|藥名}}"
-]);
+kA(17, "憂鬱症藥物總覽", 104, "作用點（Medical Pharmacology at a Glance 圖）", { images: ["assets/amulet/fig/antidep.png"] });
+kA(17, "憂鬱症藥物總覽", 105, "17 憂鬱症藥物架構", { images: ["assets/amulet/fig/antidep-tree.png"] });
+kA(17, "憂鬱症治療原則", 106, "病因、治療原則、停藥", { table: { cols: ["", "內容"], rows: [
+  [{ t: "病因", b: true }, "抗憂鬱症的病因不明，但單胺假說認為憂鬱症的病因與大腦內 Serotonin、Norepinephrine、Dopamine 的{{缺乏|名詞}}有關"],
+  [{ t: "治療原則", b: true }, "1. 以 {{SSRIs|藥物類別}} 為首選藥物，特別適用於有心臟血管疾病或需要避免鎮靜作用或無法忍受抗膽鹼性作用之患者\n2. 宜固定時間服用抗憂鬱藥，需經過 {{4~6 週|數值}}用藥後才能評估療效，且抗憂鬱藥物不屬於成癮性藥品\n3. 抗憂鬱藥物的副作用有時會比療效更快出現"],
+  [{ t: "停藥", b: true }, "1. 抗憂鬱藥物服用一段時間，突然停藥會產生戒斷症狀，2-3 天會開始產生暈眩、頭痛等症狀，此症狀會持續約 3-7 天，應以每週{{漸次減量|名詞}}的方式停藥\n2. 服用 {{Fluoxetine、Bupropion|藥名}} 一段時間後，評估病情穩定改善可停藥時，不須數週漸次減量"] ] } });
+kA(17, "憂鬱症治療原則", 106, "各類抗憂鬱藥特色", { table: { head: ["藥理分類", "藥理特色"], rowNames: ["TCAs", "SSRIs", "SNRIs", "DNRIs", "MAOIs", "MAOIs", "Atypical antidepressant"], rows: [
+  [{ t: "Tricyclic antidepressants\n（TCAs）", b: true }, "1. 三環抗憂鬱藥常具有鎮靜和自主神經系統副作用，因而限制其用途，\n超過劑量最危險的副作用是{{心臟毒性|副作用}}（需監測心電圖）及痙攣，因此有心臟疾病患者禁用\n2. 三環抗憂鬱藥結構與 {{Phenothiazines|結構}} 相似，皆可阻斷：組織胺接受器，腎上腺素接收器，M 接收器"],
+  [{ t: "Selective serotonin reuptake inhibitors\n（SSRIs）", b: true }, "1. 最常見的副作用是{{失眠|副作用}}、胃腸道不適、性功能障礙\n2. SSRI 為首選藥，特別適用於有心臟血管疾病或需要避免鎮靜作用或無法忍受抗膽鹼性作用之患者\n3. SSRIs 優於 TCAs 的方面，包括抗 M 作用少、心臟血管毒性小、鎮靜作用弱"],
+  [{ t: "Serotonin–norepinephrine reuptake inhibitors\n（SNRIs）", b: true }, "1. 同時抑制血清素與正腎上腺素，效果與 TCA 相似\n2. 與 TCA 不同之處，對於腎上腺、毒蕈鹼、抗組織胺接受器{{沒有|性質}}抑制作用"],
+  [{ t: "Norepinephrine-Dopamine reuptake inhibitor\n（DNRIs）", b: true }, "Bupropion\n1. 較不會引起體重增加、性功能障礙\n2. 適應症：{{戒菸|疾病}}（300mg/day）\n3. 副作用：失眠、誘發{{癲癇|副作用}}"],
+  [{ t: "Monoamine oxidase inhibitors", b: true, rs: 2 }, "1. 與含 {{Tyramine|物質}} 的食物會產生交互作用，如起司、燒烤和啤酒，會產生高血壓危象\n2. MAO-A 抑制劑抑制 NE、5-HT 之代謝，可用於憂鬱症"],
+  [null, "✧ 併用易引起 {{Serotonin syndrome|副作用}}\nSSRI、SNRI、MAOIs、Meperidine、Tramadol、Pentazocine、Fentanyl、Dextromethorphan、Linezolid\n若發生此症狀（臨床表徵：肌陣攣、顫抖、高血壓、精神狀態變化）→ 可以使用 {{Cyproheptadine|藥名}}"],
+  [{ t: "Atypical antidepressant", b: true }, "1. {{Mirtazapine|藥名}} 具有 α2 阻斷的效果，可增加突觸間隙的 NE 量\n2. {{Trazodone|藥名}} 具有 5-HT2 阻斷的作用，增加突觸間多巴胺和 NE 的濃度"] ] } });
+kA(17, "抗憂鬱藥物常見副作用", 107, "抗憂鬱藥物常見副作用", { table: {
+  head: [[{ t: "抗憂鬱藥物常見副作用", cs: 9 }, null, null, null, null, null, null, null, null], ["藥物分類", "藥物", "鎮靜", "抗膽鹼", "姿勢性低血壓", "失眠（癲癇發作）", "噁心、腹瀉", "性功能障礙", "體重↑"]],
+  cols: ["藥物分類", "藥物", "鎮靜", "抗膽鹼", "姿勢性低血壓", "失眠（癲癇發作）", "噁心、腹瀉", "性功能障礙", "體重↑"],
+  rowNames: ["Amitriptyline", "Imipramine", "Nortriptyline", "Desipramine", "Doxepin", "Fluoxetine", "Paroxetine", "Sertraline", "Citalopram", "Escitalopram", "Venlafaxine", "Desvenlafaxine", "Duloxetine", "Bupropion", "Mirtazapine", "Nefazodone"], rows: [
+  [{ t: "TCAs", b: true, rs: 5 }, "Amitriptyline", "++++", "++++", "++++", "0/+", "0/+", "++", "+++"],
+  [null, "Imipramine（Fronil®福樂你）", "+++", "+++", "+++", "0/+", "0/+", "++", "++"],
+  [null, "Nortriptyline", "++", "++", "++", "+", "0/+", "+", "++"],
+  [null, "Desipramine", "++", "++", "+++", "+", "0/+", "+", "++"],
+  [null, "Doxepin", "++++", "++++", "++++", "0/+", "0/+", "++", "++"],
+  [{ t: "SSRIs", b: true, rs: 5 }, "Fluoxetine（Prozac®百憂解）", "+", "0/+", "0/+", "{{++++|數值}}", "++++", "++++", "+"],
+  [null, "Paroxetine（Seroxat®克憂果）", "++", "+", "0", "++", "+++", "++++", "++"],
+  [null, "Sertraline（Zoloft®樂復得）", "+", "0/+", "0", "+++", "+++", "+++", "+"],
+  [null, "Citalopram", "++", "0/+", "0", "++", "+++", "++", "+"],
+  [null, "Escitalopram（Leeyo®離憂）", "+", "0/+", "0", "++", "+++", "++", "+"],
+  [{ t: "SNRIs", b: true, rs: 3 }, "Venlafaxine（Efexor®速悅）", "++", "+", "0", "++", "+++", "+++", "+"],
+  [null, "Desvenlafaxine", "++", "+", "+", "++", "+++", "++", "0/+"],
+  [null, "Duloxetine（Cymbalta®千憂解）", "++", "+", "0", "++", "+++", "++", "0/+"],
+  [{ t: "DNRIs", b: true }, "Bupropion（Wellbutrin® XL 威克倦）", "{{0|數值}}", "+", "0", "+++", "+", "0/+", "0"],
+  [{ t: "非典型", b: true, rs: 2 }, "Mirtazapine（Mesyrel®美舒鬱）", "++++", "++", "0/+", "0", "+", "0/+", "{{+++|數值}}"],
+  [null, "Nefazodone", "+++", "+", "++", "+", "++", "0/+", "0/+"] ],
+  note: "1. 使用 TCA 易引發{{姿勢性低血壓|副作用}}的副作用\n2. 較易引起體重增加：Amitriptyline、Mirtazapine、{{Paroxetine|藥名}}（SSRI 中最易誘發體重增加）\n3. 下列何種抗憂鬱劑最不適用於老年人？\n(A) Bupropion (B) Citalopram (C) Doxepin (D) Venlafaxine　選 {{C|名詞}}" } });
+kA(17, "憂鬱症治療原則", 108, "神經病變疼痛治療用藥", { table: { head: ["神經病變疼痛治療用藥", "藥物分類", "藥名"], rowNames: ["第一線・抗癲癇", "第一線・SNRIs", "第一線・TCAs", "第二線"], rows: [
+  [{ t: "第一線", b: true, rs: 3 }, "抗癲癇", "{{Pregabalin、Gabapentin|藥名}}"],
+  [null, "SNRIs", "{{Duloxetine|藥名}}"],
+  [null, "TCAs", "Amitriptyline、Nortriptyline、Desipramine"],
+  [{ t: "第二線", b: true }, { t: "{{Lidocaine、Capsaicin（辣椒素）|藥名}}", cs: 2 }, null] ] } });
 dA(17, "三環抗憂鬱藥：三級胺", 109, "amitriptyline", "Amitriptyline", null, {
   cls: ["三環抗憂鬱藥（三級胺）：抑制 {{NE 及 5-HT|物質}} 的再回收"],
   feat: ["{{抗膽鹼及鎮靜|副作用}}作用最強", "{{老年人|族群}}不宜使用", "與 Benztropine 併用，會有較強的口乾、視力模糊、尿滯留、便祕等反應", "活性代謝物：{{Nortriptyline|藥名}}、10-Hydroxy-nortriptyline"] });
@@ -1958,7 +1948,7 @@ dA(17, "SMS", 114, "vilazodone", "Vilazodone", null, {
 dA(17, "SMS", 114, "vortioxetine", "Vortioxetine", null, {
   cls: ["{{SMS|藥物類別}}（具有 Phenylpiperazine）"] });
 kA(17, "MAOI", 115, "MAOI 共同注意事項", [
-  "MAOI {{不能|性質}}併用含 {{Tyramine|物質}} 的食物，會引起血壓上升的危險"
+  "MAOI（{{不能|性質}}併用含 {{Tyramine|物質}} 的食物，會引起血壓上升的危險）"
 ]);
 dA(17, "MAOI", 115, "phenelzine", "Phenelzine", null, {
   cls: ["MAOI"],
