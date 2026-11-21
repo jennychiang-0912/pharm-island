@@ -2359,36 +2359,39 @@ dA(28, "其他類", 184, "ranolazine", "Ranolazine", null, {
 
 /* ===== 第 29 章 心律不整藥物 ===== */
 chA(29, "29", "心律不整藥物", "185～191");
-kA(29, "心律不整機轉圖", 185, "動作電位與各類藥物（Medical Pharmacology at a Glance 圖）", [
-  "Phase 0：Na+ 流入細胞；Phase 1：K+ 流出細胞；Phase 2：{{Ca2+|物質}} 流入細胞；Phase 3：K+ 持續流出細胞；Phase 4：K+ 通道關閉",
-  "Class 1（Na+ channel blocker）：1A：Quinidine、Procainamide、{{Disopyramide|藥名}}、Pirmenol、Ajmaline；1B：Lidocaine、Phenytoin、{{Mexiletine|藥名}}、Tocainide、Aprindine；1C：Flecainide、{{Propafenone|藥名}}",
-  "Class 3（K+ channel blocker）：{{Amiodarone|藥名}}、Dronedarone、Bretylium、Sotalol、Ibutilide"
-]);
-kA(29, "心律不整機轉圖", 185, "心房顫動（Atrial fibrillation）藥物治療", [
-  "Rhythm control（心律控制）：控制不規則的節律，以恢復正常的心律 → {{Class Ia、Class Ic、Class III|藥物類別}}",
-  "Rate control（心速控制）：主要減緩心跳速率（影響 AV node）→ {{Class II、Class IV|藥物類別}}"
-]);
-kA(29, "抗心律不整藥物分類", 186, "各類代表藥物與機轉", [
-  "Class I 阻斷 Na+：去極化時間↑ → {{QRS↑|名詞}}",
-  "Ia（中等阻斷）：Quinidine、Procainamide、Disopyramide；阻斷 K+ 通道，延長再極化時間 → QT↑ → Torsade de pointes；副作用：阻斷 α、{{M receptor|標的}}",
-  "Ib（微弱阻斷）：Lidocaine、Mexiletine、Phenytoin；{{縮短|性質}}再極化時間 → QT↓；僅用於治療{{心室性|名詞}}心律不整及毛地黃中毒",
-  "Ic（強力阻斷）：Flecainide、Propafenone；再極化時間{{不變|性質}}",
-  "Class II β-blockers：抑制 AV-node → {{PR↑|名詞}}；Propranolol（氣喘患者不可用）、Esmolol（以 {{IV|給藥途徑}} 給藥，半衰期短）",
-  "Class III 阻斷 K+：再極化時間↑ → {{QT↑|名詞}} → Torsade de pointes（TdP）；Amiodarone、Dronedarone、Bretylium、Sotalol、Ibutilide、Dofetilide",
-  "{{Amiodarone|藥名}} 兼具 Class I～IV 的效果；{{Sotalol|藥名}} 兼具 β-blocker 作用",
-  "Class IV 阻斷 Ca2+：抑制 AV-node → PR↑；Verapamil、Diltiazem；抑制作用大小排序 Verapamil > Diltiazem > Nifedipine",
-  "其他類：{{Adenosine、Digoxin|藥名}} 抑制 AV-node → PR↑；Atropine 抑制 M receptor → HR↑；{{MgSO4|藥名}} 可治療 TdP、Digoxin 中毒、預防子癲前症之癲癇"
-]);
-kA(29, "抗心律不整藥物分類", 187, "心律不整病因與治療藥物", [
-  "心室性心律不整：{{Lidocaine|藥名}}",
-  "上心室性心律不整：{{β-blocker、CCB、Digoxin|藥名}}",
-  "陣發性上心室頻脈（Paroxysmal supraventricular tachycardia）：{{Adenosine、Verapamil|藥名}}",
-  "上心室性與心室性心律不整：Class IA、Class IC、Class III",
-  "心搏過緩（Bradycardia）：{{Atropine|藥名}}",
-  "造成 QT prolong 的藥品容易引起 {{Torsade de Pointes|副作用}}",
-  "易引發 TdP 因子：電解質（{{低血鉀、低血鎂|名詞}}）；心律不整藥物（Class IA、Class III）；抗生素類（Macrolide、Azole 類、Fluoroquinolones）；抗組織胺（{{Astemizole、Terfenadine|藥名}}）",
-  "TdP 治療：補血鉀、血鎂（MgSO4）、縮短 QT 間期（Lidocaine & Phenytoin）"
-]);
+kA(29, "心律不整機轉圖", 185, "動作電位與各類藥物（Medical Pharmacology at a Glance 圖）", { images: ["assets/amulet/fig/ap-arrhythmia.png"] });
+kA(29, "心律不整機轉圖", 185, "心房顫動（Atrial fibrillation）藥物治療", { table: {
+  head: [[{ t: "心房顫動（Atrial fibrillation）藥物治療", cs: 3 }], ["", "機轉", "藥物"]], cols: ["", "機轉", "藥物"], rows: [
+  [{ t: "Rhythm control（心律控制）", b: true }, "控制不規則的節律，以恢復正常的心律", "{{Class Ia、Class Ic、Class III|藥物類別}}"],
+  [{ t: "Rate control（心速控制）", b: true }, "主要減緩心跳速率（影響 AV node）", "{{Class II、Class IV|藥物類別}}"] ] } });
+kA(29, "抗心律不整藥物分類", 186, "各類代表藥物與機轉", { table: { head: ["藥理分類", "", "代表藥物", "機轉"], rows: [
+  [{ t: "Class I\n阻斷 Na+", b: true, rs: 8 }, { t: "Ia（中等阻斷）\n去極化時間↑→{{QRS↑|名詞}}", rs: 3 }, "Quinidine", { t: "1. 阻斷 K+ 通道，延長再極化時間→{{QT↑|名詞}}→Torsade de pointes\n2. 副作用：阻斷 α、{{M receptor|標的}}", rs: 3 }],
+  [null, null, "Procainamide", null],
+  [null, null, "Disopyramide", null],
+  [null, { t: "Ib（微弱阻斷）", rs: 3 }, "Lidocaine", { t: "1. {{縮短|性質}}再極化時間→QT↓\n2. 僅用於治療{{心室性|名詞}}心律不整及毛地黃中毒", rs: 3 }],
+  [null, null, "Mexiletine", null],
+  [null, null, "Phenytoin", null],
+  [null, { t: "Ic（強力阻斷）", rs: 2 }, "Flecainide", { t: "1. 再極化時間{{不變|性質}}", rs: 2 }],
+  [null, null, "Propafenone", null],
+  [{ t: "Class II\nβ-blockers", b: true, rs: 2 }, { t: "抑制 AV-node → {{PR↑|名詞}}", rs: 2 }, "Propranolol", "氣喘患者不可用 Propranolol"],
+  [null, null, "Esmolol", "Esmolol 以 {{IV|給藥途徑}} 給藥，半衰期短"],
+  [{ t: "Class III\n阻斷 K+", b: true, rs: 5 }, { t: "再極化時間↑→{{QT↑|名詞}}\n→Torsade de pointes(TdP)", rs: 5 }, "Amiodarone", { t: "1. {{Amiodarone|藥名}} 兼具 Class I～IV 的效果\n2. {{Sotalol|藥名}} 兼具 β-blocker 作用", rs: 5 }],
+  [null, null, "Dronedarone", null],
+  [null, null, "Bretylium", null],
+  [null, null, "Sotalol", null],
+  [null, null, "Ibutilide、Dofetilide", null],
+  [{ t: "Class IV\n阻斷 Ca2+", b: true }, "抑制 AV-node → PR↑", "Verapamil、Diltiazem", "抑制作用大小排序 {{Verapamil > Diltiazem > Nifedipine|名詞}}"],
+  [{ t: "其他類藥物", b: true, rs: 4 }, "", "Adenosine", "抑制 AV-node → PR↑"],
+  [null, "", "Digoxin", "抑制 AV-node → PR↑"],
+  [null, "", "Atropine", "抑制 {{M receptor|標的}} → {{HR↑|名詞}}"],
+  [null, "", "MgSO4", "可治療 TdP、Digoxin 中毒、預防子癲前症之癲癇"] ] } });
+kA(29, "抗心律不整藥物分類", 187, "心律不整病因與治療藥物", { table: { head: [{ t: "心律不整病因", cs: 1 }, "治療藥物"], cols: ["心律不整病因", "治療藥物"], rows: [
+  [{ t: "心室性心律不整", b: true }, "{{Lidocaine|藥名}}"],
+  [{ t: "上心室性心律不整", b: true }, "{{β-blocker、CCB、Digoxin|藥名}}"],
+  [{ t: "陣發性上心室頻脈\n(Paroxysmal supraventricular tachycardia)", b: true }, "{{Adenosine、Verapamil|藥名}}"],
+  [{ t: "上心室性與心室性心律不整", b: true }, "Class IA、Class IC、Class III"],
+  [{ t: "心搏過緩(Bradycardia)", b: true }, "{{Atropine|藥名}}"] ],
+  note: "✧ 造成 QT prolong 的藥品容易引起 Torsade de Pointes\n✧ 易引發 TdP 因子：\n1. 電解質：{{低血鉀、低血鎂|名詞}}\n2. 心律不整藥物：Class IA、Class III\n3. 抗生素類：Macrolide、Azole 類、Fluoroquinolones\n4. 抗組織胺：{{Astemizole、Terfenadine|藥名}}\n✧ TdP 治療：補血鉀、血鎂(MgSO4)、縮短 QT 間期(Lidocaine ＆ Phenytoin)" } });
 dA(29, "Class IA", 188, "quinidine", "Quinidine", null, {
   cls: ["Class IA"],
   struct: ["含有 {{Quinoline 及 Quinuclidine|結構}}", "有 4 個不對稱碳：3R,4S,8R,9S", "與 Quinine 的關係為 {{Diastereoisomer|名詞}}"],
