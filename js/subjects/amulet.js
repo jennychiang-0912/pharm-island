@@ -2655,23 +2655,21 @@ isleA("endocrine", "內分泌島", { ground: "#E9D29A", light: "#F1E0B6", cliff:
 
 /* ===== 第 34 章 賀爾蒙藥物 ===== */
 chA(34, "34", "賀爾蒙藥物", "212～215");
-kA(34, "內分泌激素簡介", 212, "下視丘、腦下垂體前葉與標的器官", [
-  "GHRH↑ → Growth hormone（Somatotropin）↑ → 肝臟、骨骼、肌肉 → {{IGF-1|物質}}（Insulin-like growth factor）",
-  "CRH↑ → {{ACTH|物質}}↑ → 腎上腺皮質 → Cortisol",
-  "TRH↑ → TSH↑ → 甲狀腺 → Thyroxine、Triiodothyronine",
-  "GnRH = LHRH↑ → {{FSH、LH|物質}}↑ → 性腺 → Estrogen、Progesterone、Testosterone",
-  "{{Dopamine|物質}}↓ → Prolactin↑ → 乳房"
-]);
-kA(34, "GnRH 類似物", 212, "GnRH 結構與類似物", [
-  "Gonadotropin releasing hormone：pGlu-His-Trp-Ser-Tyr-{{Gly6|結構}}-Leu-Arg-Pro9-Gly10-NH2",
-  "GnRH superagonist（10 個胺基酸）：Triptorelin（D-Trp6）、Nafarelin（D-Nal6）",
-  "GnRH superagonist（9 個胺基酸）：{{Leuprolide|藥名}}（D-Leu6、Pro9-NH-Et）、Histrelin（D-His6、Pro9-NH-Et）、Goserelin（D-Ser6、Pro9-NH-NHCONH2）",
-  "GnRH-antagonist（-relix）：{{Ganirelix、Cetrorelix|藥名}}",
-  "Nafarelin 之六號位取代基為 {{D-β-(2-naphthyl alanine)|結構}}",
-  "Nafarelin 為鼻溶液在{{鼻腔|器官}}黏膜易被吸收，易產生戒斷性月經來潮，可治療子宮內膜異位，副作用為鼻炎",
-  "GnRH superagonist 長期使用可以治療{{子宮內膜異位及攝護腺癌|疾病}}，但會造成{{骨質疏鬆|副作用}}",
-  "與 leuprolide 類似，均以 NH-Et 置換結構中的 C-terminal glycine 10-NH2：{{histrelin|藥名}}"
-]);
+kA(34, "內分泌激素簡介", 212, "下視丘、腦下垂體前葉與標的器官", { table: { head: [{ t: "內分泌激素簡介", cs: 4 }, null, null, null], cols: ["下視丘", "腦下垂體前葉", "標的器官", "標的器官激素"], rows: [
+  [{ t: "GHRH↑", b: true }, "Growth hormone↑\n（Somatotropin）", "肝臟、骨骼、肌肉", "{{IGF-1|物質}}（Insulin-like growth factor）"],
+  [{ t: "CRH↑", b: true }, "ACTH↑", "腎上腺皮質", "Cortisol"],
+  [{ t: "TRH↑", b: true }, "TSH↑", "甲狀腺", "Thyroxine、Triiodothyronine"],
+  [{ t: "GnRH=LHRH↑", b: true }, "FSH、LH↑", "性腺", "Estrogen、Progesterone、Testosterone"],
+  [{ t: "Dopamine↓", b: true }, "Prolactin↑", "乳房", ""] ] } });
+kA(34, "GnRH 類似物", 212, "GnRH 結構與類似物", { table: { head: ["藥理分類", "", "藥名", "結構"], rows: [
+  [{ t: "GnRH", cs: 2 }, null, "Gonadotropin releasing hormone", "pGlu-His-Trp-Ser-Tyr-{{Gly6|結構}}-Leu-Arg-Pro9-Gly10-NH2"],
+  [{ t: "GnRH superagonist", b: true, rs: 5 }, { t: "10 個胺基酸", rs: 2 }, "Triptorelin", "--------------------D-Trp6--------------------"],
+  [null, null, "Nafarelin", "--------------------D-Nal6--------------------"],
+  [null, { t: "9 個胺基酸", rs: 3 }, "{{Leuprolide|藥名}}", "----------D-Leu6----------Pro9-NH-Et"],
+  [null, null, "Hisrelin", "----------D-His6----------Pro9-NH-Et"],
+  [null, null, "Goserelin", "----------D-Ser6----------Pro9-NH-NHCONH2"],
+  [{ t: "GnRH-antagonist（-relix）", cs: 2 }, null, "{{Ganirelix、Cetrorelix|藥名}}", ""] ],
+  note: "✧ Nafarelin 之六號位取代基為 {{D-β-(2-naphthyl alanine)|結構}}\n✧ Nafarelin 為鼻溶液在{{鼻腔|器官}}黏膜易被吸收，易產生戒斷性月經來潮，可治療子宮內膜異位，副作用為鼻炎\n✧ GnRH superagonist 長期使用可以治療{{子宮內膜異位及攝護腺癌|疾病}}，但會造成{{骨質疏鬆|副作用}}\n✧ 下列那個 GnRH superagonist 與 leuprolide 類似，均以 NH-Et 置換結構中的 C-terminal glycine 10-NH2\n(A) goserelin (B) histrelin (C) nafarelin (D) triptorelin　選 {{B|名詞}}" } });
 dA(34, "GnRH superagonist", 212, "leuprolide", "Leuprolide（GnRH superagonist）", "Leuprolide", {
   cls: ["{{GnRH superagonist|藥物類別}}（9 個胺基酸）"],
   struct: ["D-Leu6、Pro9-{{NH-Et|結構}}"],
@@ -2717,17 +2715,25 @@ dA(34, "Vasopressin", 214, "desmopressin", "Desmopressin（DDAVP）", "Desmopres
   feat: ["可促使 VIII 凝血因子和 von Willebrand 因子釋放；可治療{{中樞性尿崩症|疾病}}"] });
 mA("conivaptan-tolvaptan", 214, {
   feat: ["可治療低血鈉、SIADH；{{Demeclocycline|藥名}} 也可以治療 SIADH"] });
-kA(34, "Oxytocin 與 Vasopressin", 214, "Vasopressin 受體", [
-  "V1（{{Gq|標的}}）：Ca2+；血管收縮 → 血壓上升",
-  "V2（{{Gs|標的}}）：cAMP；增加水通道的數量，促進水分再吸收；促進 Von Willebrand factor 及凝血因子 VIII 釋放",
-  "催產素、抗利尿激素由{{下視丘|器官}}生成，腦下垂體{{後葉|器官}}釋放"
-]);
-kA(34, "蛋白質藥物與胺基酸總數", 215, "蛋白質藥物與胺基酸總數", [
-  "Glucagon {{29|數值}}；Calcitonin（具雙硫鍵）{{32|數值}}；Insulin {{51|數值}}（α21、β30；2 個 interchain，1 個 intrachain）",
-  "Parathyroid hormone {{84|數值}}；Enkephalin 5；Substance P 11",
-  "TRH {{3|數值}}（pyro-Glutamyl-His-Pro amide）；Angiotensin 10；Angiotensin II 8",
-  "具雙硫鍵：Oxytocin {{9|數值}}；Vasopressin 9；Somatostatin {{14|數值}}；Octreotide {{8|數值}}"
-]);
+kA(34, "Oxytocin 與 Vasopressin", 214, "Oxytocin 與 Vasopressin 結構比較", { images: ["assets/amulet/fig/oxytocin-vaso-backbone.png"], table: { head: ["藥理分類", "藥名", "結構", "藥理特色"], rows: [
+  [{ t: "Oxytocin-agonist", b: true }, "Oxytocin（催產素）", "X=NH2；Y=Ile；Z=Leu", "1. 鼻噴劑：可促進產後婦女乳汁分泌\n2. 注射劑：促進子宮收縮，控制子宮出血"],
+  [{ t: "Oxytocin-antagonist", b: true }, "Atosiban", "", "1. 減少子宮收縮，用於早產安胎"],
+  [{ t: "Vasopressin-agonist", b: true, rs: 2 }, "Vasopressin", "X=NH2；Y=Phe；Z=Arg", "1. Vasopressin 有兩種受體\nV1：位於血管平滑肌，與血管收縮有關\nV2：位於腎小管細胞，與抗利尿作用有關\n2. 可治療{{中樞性尿崩症（垂體性尿崩症）|疾病}}\n3. 與 Oxytocin 差別在 3,8 號位"],
+  [null, "Desmopressin（DDAVP）", "X=H；Y=Phe；Z=Arg", "1. 可促使 {{VIII 凝血因子和 von Willebrand 因子|物質}}釋放\n2. 可治療中樞性尿崩症"],
+  [{ t: "Vasopressin-antagonist", b: true }, "Conivaptan、Tolvaptan", "", "1. 可治療{{低血鈉、SIADH、ADPKD|疾病}}\n2. {{Demeclocycline|藥名}} 也可以治療 SIADH"] ] } });
+kA(34, "Oxytocin 與 Vasopressin", 214, "Vasopressin 受體", { table: { head: ["受體", "神經傳遞物質", "生理作用"], rows: [
+  [{ t: "V1(Gq)", b: true }, "{{Ca2+|物質}}", "血管收縮→血壓上升"],
+  [{ t: "V2(Gs)", b: true, rs: 2 }, { t: "cAMP", rs: 2 }, "增加水通道的數量，促進水分再吸收"],
+  [null, null, "促進 Von Willebrand factor 及凝血因子 VIII 釋放"] ],
+  note: "✓ 催產素、抗利尿激素由{{下視丘|器官}}生成，腦下垂體{{後葉|器官}}釋放" } });
+kA(34, "蛋白質藥物與胺基酸總數", 215, "蛋白質藥物與胺基酸總數", { table: { head: [{ t: "蛋白質藥物與胺基酸總數", cs: 5 }, null, null, null, null], cols: ["蛋白質藥物", "胺基酸總數", "蛋白質藥物", "", "胺基酸總數"], rows: [
+  [{ t: "Glucagon", b: true }, "{{29|數值}}", "TRH", "", "3（pyro-Glutamyl-His-Pro amide）"],
+  [{ t: "Calcitonin（具雙硫鍵）", b: true }, "{{32|數值}}", "Angiotensin", "", "10"],
+  [{ t: "Insulin\n（2 個 interchain，1 個 intrachain）", b: true }, "{{51|數值}}（α21、β30）", "Angiotensin II", "", "8"],
+  [{ t: "Parathyroid hormone", b: true }, "{{84|數值}}", "Oxytocin", { t: "（具雙硫鍵）", rs: 4 }, "9"],
+  [{ t: "Enkephalin", b: true }, "5", "Vasopressin", null, "9"],
+  [{ t: "Substance P", b: true }, "11", "Somatostatin", null, "{{14|數值}}"],
+  [{ t: "", cs: 2 }, null, "Octreotide", null, "{{8|數值}}"] ] } });
 
 /* ===== 第 35 章 皮質類固醇 ===== */
 chA(35, "35", "皮質類固醇", "216～225");
