@@ -2860,7 +2860,7 @@ kA(35, "類固醇的 SAR 與藥化特性", 225, "補充藥化考點", { table: {
 
 /* ===== 第 36 章 性激素藥物 ===== */
 chA(36, "36", "性激素藥物", "226～231");
-kA(36, "性激素作用圖", 226, "男性與女性性激素路徑（Katzung 圖）", [
+kA(36, "性激素作用圖", 226, "男性與女性性激素路徑（Katzung 圖）", { images: ["assets/amulet/fig/sex-hormone.png"], points: [
   "男性：下視丘 GnRH → 腦垂腺前葉 → FSH → Sertoli cell → 形成精子；LH → Leydig cell → Testosterone →（{{5α-reductase|酵素}}，被 {{Finasteride|藥名}} 抑制）→ 5α-dihydrotestosterone → Androgen receptor",
   "Androgen receptor 產生作用：男性第二性徵、同化作用（蛋白質合成）；雄性素受體阻斷劑：{{Flutamide、Cyproterone、Spironolactone|藥名}}",
   "抑制 Testosterone 合成：{{Ketoconazole、Spironolactone|藥名}}",
@@ -2868,7 +2868,7 @@ kA(36, "性激素作用圖", 226, "男性與女性性激素路徑（Katzung 圖�
   "女性：FSH → 濾泡 → 排卵（被 {{Clomiphene|藥名}}、避孕藥影響）→ 黃體 → Progesterone →（17α-hydroxylase，被 Ketoconazole 抑制）→ Testosterone、Androstenedione →（Aromatase）→ Estradiol ⇌ Estrone → Estriol",
   "Aromatase inhibitors：{{Anastrozole、Aminoglutethimide|藥名}}；Estrogen receptor antagonist：{{Fulvestrant|藥名}}",
   "Estrogen receptor 產生作用：女性第二性徵、子宮內膜發育、抑制{{蝕骨細胞|名詞}}、增加凝血因子"
-]);
+] });
 kA(36, "性激素作用圖", 226, "性激素考點", [
   "5α-Dihydrotestosterone 的活性比 Testosterone 高 {{10|數值}} 倍",
   "{{Cyproterone 與 Flutamide|藥名}} 為雄性激素受體的抑制劑",
@@ -2926,11 +2926,9 @@ dA(36, "黃體素", 229, "desogestrel", "Desogestrel", null, {
   struct: ["去除 {{C19-CH3|結構}}，不易引起男性化的副作用"],
   feat: ["第{{三|數值}}代黃體素"] });
 mA("mifepristone", 229, { cls: ["Antiprogestin"] });
-kA(36, "黃體素 SAR", 229, "Medroxyprogesterone acetate 與 Megestrol", [
-  "Progesterone → Medroxyprogesterone acetate → Megestrol",
-  "Medroxyprogesterone acetate：{{C6|結構}} 接上甲基，{{C17α|結構}} 接上乙酯基",
-  "Megestrol：{{C6、C7|結構}} 導入雙鍵"
-]);
+kA(36, "黃體素 SAR", 229, "Medroxyprogesterone acetate 與 Megestrol", { images: ["assets/amulet/fig/mpa-megestrol-sar.png"], table: { head: ["藥名", "SAR"], rows: [
+  [{ t: "Medroxyprogesterone acetate", b: true }, "{{C6|結構}} 接上甲基，{{C17α|結構}} 接上乙酯基"],
+  [{ t: "Megestrol", b: true }, "{{C6、C7|結構}} 導入雙鍵"] ] } });
 mA("testosterone", 230, {
   cls: ["雄性素"],
   struct: ["加上 {{17α-CH3|結構}} 可以幫助口服", "5α-Androstane 之 A/B、B/C、C/D 環之立體結構為 {{All trans|結構}}", "修飾成 5β-H、17α-OH 不具有雄性激素活性", "三號位酮基取代為非必要結構，如 Androsterone"],
