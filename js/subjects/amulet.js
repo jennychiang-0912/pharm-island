@@ -3353,12 +3353,11 @@ dA(44, "預防用藥", 266, "pemirolast", "Pemirolast", null, {
 
 /* ===== 第 45 章 與胃酸分泌有關的藥物 ===== */
 chA(45, "45", "與胃酸分泌有關的藥物", "267～270");
-kA(45, "胃酸分泌", 267, "壁細胞胃酸分泌與藥物作用點", [
-  "Histamine → {{H2（Gs）|標的}} → 活化 adenylyl cyclase → cAMP↑ → 胃酸分泌增加；被 {{Cimetidine|藥名}} 阻斷",
-  "Gastrin → Gastrin receptor、Ach → M：{{Gq|標的}} → 活化 Phospholipase C → PIP2 變為 DAG+IP3 → 細胞內 Ca2+ 增加 → 胃酸分泌增加",
-  "PGE、PGI2 → PG receptor（PG-R）：{{Gi|標的}} → 抑制 Adenylyl cyclase → cAMP↓ → 減少胃酸分泌；{{Misoprostol|藥名}} 增強",
-  "cAMP↑、Ca2+ → Protein kinase → 質子幫浦（pump）分泌胃酸 H+、換入 K+；被 {{Omeprazole|藥名}} 抑制"
-]);
+kA(45, "胃酸分泌", 267, "壁細胞胃酸分泌與藥物作用點（圖）", { images: ["assets/amulet/fig/acid-secretion.png"], table: { head: ["胃酸分泌", "受質", "受體", "機轉"], rows: [
+  [{ t: "增加胃酸分泌", b: true, rs: 3 }, "Histamine", "H2(Gs)", "Gs → 活化 adenylyl cyclase → cAMP↑ → 胃酸分泌增加"],
+  [null, "Gastrin", "Gastrin receptor", { t: "Gq→活化 Phospholipase C → PIP2 變為 DAG+IP3\n→細胞內 Ca2+ 增加 → 胃酸分泌增加", rs: 2 }],
+  [null, "Ach", "M", null],
+  [{ t: "減少胃酸分泌", b: true }, "PGE、PGI2", "PG receptor(PG-R)", "Gi → 抑制 Adenylyl cyclase → cAMP↓"] ] } });
 dA(45, "制酸劑", 268, "antacids", "Al(OH)3、NaHCO3、Mg(OH)2、CaCO3", "制酸劑", {
   cls: ["{{制酸劑|藥物類別}}"],
   feat: ["會造成便祕：{{Al(OH)3|藥名}}", "會造成腹瀉：{{Mg(OH)2|藥名}}"] });
@@ -3374,13 +3373,14 @@ dA(45, "Proton pump inhibitors（PPI）", 268, "pantoprazole", "Pantoprazole", n
   struct: ["具有 {{difluoromethoxy|結構}}"],
   feat: ["藥物交互作用較{{小|性質}}"] });
 mA("pirenzepine", 268, { cls: ["{{M1-antagonist|藥物類別}}：可用於降低胃酸分泌"] });
-kA(45, "PPI 結構", 269, "Proton pump 抑制劑結構比較（X／R1／R3／R2／R4）", [
-  "Omeprazole：CH／OCH3／CH3／CH3／CH3；Esomeprazole（{{S-form|結構}}）同 Omeprazole",
-  "Tenatoprazole：X 為 {{N|結構}}；其餘同 Omeprazole",
-  "Pantoprazole：CH／{{OCHF2|結構}}／CH3／OCH3／H",
-  "Lansoprazole：CH／H／{{CH2CF3|結構}}／CH3／H；Dexlansoprazole（{{R-form|結構}}）同 Lansoprazole",
-  "Rabeprazole：CH／H／{{(CH2)3OCH3|結構}}／CH3／H"
-]);
+kA(45, "PPI 結構", 269, "Proton pump 抑制劑結構比較", { images: ["assets/amulet/fig/ppi-skeleton.png"], table: { head: ["Drugs", "X", "R1", "R3", "R2", "R4"], rows: [
+  [{ t: "Omeprazole", b: true }, "CH", "OCH3", "CH3", "CH3", "CH3"],
+  [{ t: "Esomeprazole(S-form)", b: true }, "CH", "OCH3", "CH3", "CH3", "CH3"],
+  [{ t: "Tenatoprazole", b: true }, "N", "OCH3", "CH3", "CH3", "CH3"],
+  [{ t: "Pantoprazole", b: true }, "CH", "{{OCHF2|結構}}", "CH3", "OCH3", "H"],
+  [{ t: "Lansoprazole", b: true }, "CH", "H", "{{CH2CF3|結構}}", "CH3", "H"],
+  [{ t: "Dexlansoprazole(R-form)", b: true }, "CH", "H", "CH2CF3", "CH3", "H"],
+  [{ t: "Rabeprazole", b: true }, "CH", "H", "{{(CH2)3OCH3|結構}}", "CH3", "H"] ] } });
 dA(45, "黏膜保護劑", 270, "sucralfate", "Sucralfate", null, {
   cls: ["黏膜保護劑（在潰瘍部位形成保護膜）"],
   struct: ["含鋁的有機鹽，具有{{雙糖|結構}}結構"],
