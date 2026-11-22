@@ -22,20 +22,30 @@ PI.stashForSubject = function () {
     chapters: PI.CHAPTERS || [],
     landmasses: PI.LANDMASSES || [],
     units: PI.UNITS || [],
-    knowledge: PI.KNOWLEDGE || {}
+    knowledge: PI.KNOWLEDGE || {},
+    clusters: PI.CLUSTERS || {},
+    clusterRing: PI.CLUSTER_RING || {},
+    clusterDir: PI.CLUSTER_DIR || {}
   };
   PI.CATEGORIES = [];
   PI.CHAPTERS = [];
   PI.LANDMASSES = [];
   PI.UNITS = [];
   PI.KNOWLEDGE = {};
+  PI.CLUSTERS = {};
+  PI.CLUSTER_RING = {};
+  PI.CLUSTER_DIR = {};
   return stash;
 };
 
+/* 五大洲：每科的島疊到同一張地圖時，整科的小分類（cluster）都掛在以「科目代號」開頭的大洲底下，
+   同科的島盡量黏在一起；window.PI_CONTINENT_ANGLE[key]（度，0 右、90 下、-90 上）決定這一整科
+   大致要往地圖的哪個方向長，給每座島的 angle 加一個固定的偏移。 */
 PI.mergeSubject = function (key, stash) {
   if (!window.PI_MERGE_MODE || !stash) return;
   const pfx = s => `${key}:${s}`;
-  const catMap = new Map(), chMap = new Map();
+  const catMap = new Map(), chMap = new Map(), clMap = new Map();
+  const continentAngle = (window.PI_CONTINENT_ANGLE || {})[key] || 0;
   (PI.CATEGORIES || []).forEach(c => { catMap.set(c.id, pfx(c.id)); c.id = pfx(c.id); });
   (PI.CHAPTERS || []).forEach(c => {
     chMap.set(c.id, pfx(c.id)); c.id = pfx(c.id);
@@ -44,6 +54,10 @@ PI.mergeSubject = function (key, stash) {
   (PI.LANDMASSES || []).forEach(l => {
     l.id = pfx(l.id);
     l.chapters = (l.chapters || []).map(id => chMap.get(id) ?? pfx(id));
+    const oldCl = l.cluster, newCl = pfx(oldCl || "main");
+    clMap.set(oldCl, newCl);
+    l.cluster = newCl;
+    l.angle = (l.angle || 0) + continentAngle;
   });
   (PI.UNITS || []).forEach(u => {
     u.id = pfx(u.id);
@@ -55,9 +69,15 @@ PI.mergeSubject = function (key, stash) {
     if (chMap.has(K.chapter)) K.chapter = chMap.get(K.chapter);
     KN[pfx(k)] = K;
   });
+  const remapKeys = obj => { const out = {}; Object.keys(obj || {}).forEach(k => { out[clMap.get(k) ?? pfx(k)] = obj[k]; }); return out; };
+  const CLUSTERS = remapKeys(PI.CLUSTERS), CLUSTER_RING = remapKeys(PI.CLUSTER_RING), CLUSTER_DIR = remapKeys(PI.CLUSTER_DIR);
+
   PI.CATEGORIES = stash.categories.concat(PI.CATEGORIES);
   PI.CHAPTERS = stash.chapters.concat(PI.CHAPTERS);
   PI.LANDMASSES = stash.landmasses.concat(PI.LANDMASSES);
   PI.UNITS = stash.units.concat(PI.UNITS);
   PI.KNOWLEDGE = Object.assign({}, stash.knowledge, KN);
+  PI.CLUSTERS = Object.assign({}, stash.clusters, CLUSTERS);
+  PI.CLUSTER_RING = Object.assign({}, stash.clusterRing, CLUSTER_RING);
+  PI.CLUSTER_DIR = Object.assign({}, stash.clusterDir, CLUSTER_DIR);
 };
