@@ -3408,9 +3408,13 @@ dA(45, "H2-blockers", 270, "famotidine", "Famotidine", null, {
 
 /* ===== 第 46 章 止吐劑／止瀉劑／瀉劑／腸胃蠕動劑 ===== */
 chA(46, "46", "止吐劑／止瀉劑／瀉劑／腸胃蠕動劑", "271～274");
-kA(46, "止吐劑", 271, "止吐劑總覽", [
-  "與嘔吐有關的神經傳遞物質有{{多巴胺、血清素、組織胺、P 物質、乙醯膽鹼|物質}}，其阻斷劑則具有止吐的作用"
-]);
+kA(46, "止吐劑", 271, "止吐劑總覽", { table: { head: [{ t: "與嘔吐有關的神經傳遞物質有多巴胺、血清素、組織胺、P 物質、乙醯膽鹼，其阻斷劑則具有止吐的作用", cs: 3 }, null, null], cols: ["藥理分類", "藥名", "藥理特色"], rows: [
+  [{ t: "D2-antagonist", b: true }, "Domperidone", "1. 可加速餐後胃排空、止吐\n2. 副作用：{{促進催乳素的分泌|副作用}}"],
+  [{ t: "5-HT3 antagonist", b: true }, "Palonosetron、Ondansetron", "1. 治療{{化療|名詞}}、放療引致之嘔吐\n2. 可用於懷孕時引起的噁心嘔吐，但{{非主要|性質}}治療孕吐之藥物"],
+  [{ t: "5-HT4 agonist + D2-antagonist", b: true }, "Metoclopramide", "1. 屬於止吐劑，作用在中樞神經之 chemoreceptor trigger zone\n2. 副作用：易引起 {{EPS|副作用}} 副作用"],
+  [{ t: "Substance P／Neurokinin-1 antagonist", b: true }, "Aprepitant（口服）\nFosaprepitant（IV）", "1. 用於治療化療後的嘔吐"],
+  [{ t: "H1-antagonist", b: true }, "Diphenhydramine", "1. 藥理作用：鎮靜、抗膽鹼、抗動暈"],
+  [{ t: "M-antagonist", b: true }, "Scopolamine", "1. 可用於治療動暈症\n2. 具貼片劑型"] ] } });
 dA(46, "止吐劑", 271, "domperidone", "Domperidone", null, {
   cls: ["{{D2-antagonist|藥物類別}}"],
   feat: ["可加速餐後{{胃排空|名詞}}", "副作用：促進{{催乳素|物質}}的分泌"] });
