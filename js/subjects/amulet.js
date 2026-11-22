@@ -3,6 +3,7 @@
    格式和藥理完全一樣（見 js/data.js、js/units.js、js/knowledge.js 的說明）。
    正式章節與內容還沒提供，先放一座島、一章、20 個預留格，沒有虛構任何內容。 */
 window.PI = window.PI || {};
+PI.__stash = PI.stashForSubject();   // 合併多科目地圖用（見 js/subject-merge.js），單科頁面不受影響
 
 PI.STORAGE_KEY = "pharma-island-amulet-v1";   // 進度和藥理分開存
 
@@ -3518,3 +3519,6 @@ Object.entries(AM_IMG).forEach(([id, n]) => {
   u.img = "assets/amulet/" + id + ".png";
   if (n > 1) u.imgMore = Array.from({ length: n - 1 }, (_, i) => "assets/amulet/" + id + "-" + (i + 2) + ".png");
 });
+
+// 合併多科目地圖用（見 js/subject-merge.js），單科頁面不受影響
+PI.mergeSubject("amulet", PI.__stash);

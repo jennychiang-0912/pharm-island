@@ -4,6 +4,7 @@
    內容只取自講義「生物鹼」（123_1.pdf）的印刷字；手寫、螢光筆、劃線都不算（劃線劃掉的印刷字照樣收錄）。
    講義上的拼字錯誤已改成正確寫法（見下面 PI.UNITS 的說明）。 */
 window.PI = window.PI || {};
+PI.__stash = PI.stashForSubject();   // 合併多科目地圖用（見 js/subject-merge.js），單科頁面不受影響
 
 PI.STORAGE_KEY = "pharma-island-pharmacognosy-v1";   // 進度和其他科目分開存
 
@@ -45,39 +46,39 @@ PI.LANDMASSES = [
 /* 學習單元：一個生藥一格，欄位見上面的 PI.UNIT_FIELDS。
    內容只照講義印刷字，手寫筆記、螢光筆、畫線都沒有放。講義上的拼字錯誤已改成正確寫法（例：Nicotinc → Nicotinic、Scopolica → Scopolia）。
    generation 欄位拿來放講義上的星號（★／★★）。 */
-const SRC = "生物鹼講義";
+const SRC_PG = "生物鹼講義";
 const SRC2 = "生物鹼講義（續）";
 PI.UNITS = [
   /* ===== Pyridine-Piperidine Alkaloid（講義 p.2）===== */
-  { id: "lobelia", chapter: 1, name: "Lobelia", type: "drug", group: "Pyridine-Piperidine", generation: "講義標示 ★★", source: SRC + " p.2",
+  { id: "lobelia", chapter: 1, name: "Lobelia", type: "drug", group: "Pyridine-Piperidine", generation: "講義標示 ★★", source: SRC_PG + " p.2",
     names: ["中文：{{北美山梗菜|生藥中文名}}", "英文：Indian tobacco／祛痰菜"],
     origin: ["{{Lobelia inflata|學名}}", "{{L. sessilifolia|學名}}、L. chinensis"],
     family: ["{{山梗菜科|科別}}"], part: ["{{乾燥葉及枝端|部位}}"],
     constituents: ["{{(-)-Lobeline|成分}}：{{piperidine|結構}} 衍生物"],
     uses: ["{{祛痰劑|用途}}；治療氣管與慢性支氣管炎", "具有★{{催吐 Emetic|作用}}及呼吸興奮作用", "做為{{戒菸劑|用途}}，類似 nicotine，但效果較弱"] },
-  { id: "areca", chapter: 1, name: "Areca", type: "drug", group: "Pyridine-Piperidine", generation: "講義標示 ★", source: SRC + " p.2",
+  { id: "areca", chapter: 1, name: "Areca", type: "drug", group: "Pyridine-Piperidine", generation: "講義標示 ★", source: SRC_PG + " p.2",
     names: ["中文：{{檳榔|生藥中文名}}", "英文：Areca nut／Betel nut"],
     origin: ["{{Areca catechu|學名}}"], family: ["{{棕櫚科|科別}}（檳榔科）"], part: ["{{乾燥成熟種子|部位}}"],
     constituents: ["{{Arecoline|成分}}（液態）：{{Reduced pyridine|結構}} 衍生物", "{{Tannin|成分}}（15%）：可能致{{口腔癌|疾病}}"],
     uses: ["{{獸醫驅蟲|用途}}，殺蟎蟲藥、驅條蟲藥"] },
-  { id: "nicotiana", chapter: 1, name: "Nicotiana", type: "drug", group: "Pyridine-Piperidine", generation: "講義標示 ★★", source: SRC + " p.2",
+  { id: "nicotiana", chapter: 1, name: "Nicotiana", type: "drug", group: "Pyridine-Piperidine", generation: "講義標示 ★★", source: SRC_PG + " p.2",
     names: ["中文：{{菸葉|生藥中文名}}", "英文：Tobacco leaves"],
     origin: ["{{Nicotiana tabacum|學名}}"], family: ["{{茄科|科別}}，煙草"], part: ["{{乾燥葉|部位}}"],
     constituents: ["{{Nicotine|成分}}（[★國考]液態）：{{pyridine-pyrrolidine|結構}} 型"],
     uses: ["Nicotine 為{{神經節膽鹼受體作用劑|作用}}，增加自主神經、腎上腺髓質、神經肌肉連結處、大腦等活性", "農業{{殺蟲劑|用途}}",
       "Nicotine 穿皮或咀嚼製劑，用於{{戒菸|用途}}", "長期使用 Nicotine 會導致{{依賴性|副作用}}"],
     notes: ["殺蟲（Insecticides）：成分 {{Nicotine sulfate|成分}}；用途：神經節膽鹼性受器作用劑、局部刺激劑、Paralyzing effect"] },
-  { id: "conium", chapter: 1, name: "Conium", type: "drug", group: "Pyridine-Piperidine", source: SRC + " p.2",
+  { id: "conium", chapter: 1, name: "Conium", type: "drug", group: "Pyridine-Piperidine", source: SRC_PG + " p.2",
     names: ["中文：{{毒芹子|生藥中文名}}", "英文：Poison Hemlock"],
     origin: ["{{Conium maculatum|學名}}"], family: ["{{繖形科|科別}}"], part: ["{{充份成長但未成熟的乾燥果實|部位}}"],
     constituents: ["{{Coniine|成分}}：{{毒性揮發性液體|性質}}"],
     uses: ["治療{{痙攣性|疾病}}、癲癇性疾病；{{運動神經末梢阻斷劑|作用}}"] },
-  { id: "granatum", chapter: 1, name: "Granatum", type: "drug", group: "Pyridine-Piperidine", source: SRC + " p.2",
+  { id: "granatum", chapter: 1, name: "Granatum", type: "drug", group: "Pyridine-Piperidine", source: SRC_PG + " p.2",
     names: ["中文：{{石榴皮|生藥中文名}}", "英文：Pomegranate／安石榴"],
     origin: ["{{Punica granatum|學名}}"], family: ["{{石榴科|科別}}"], part: ["{{根或莖的皮部|部位}}"],
     constituents: ["{{Pelletierine|成分}}：{{piperidine|結構}} 衍生物，揮發性液體"],
     uses: ["{{驅蟲劑|用途}}、驅條蟲劑", "具鞣質 {{28%|數值}}，為{{收斂劑|用途}}，治療腹瀉"] },
-  { id: "pepper", chapter: 1, name: "Pepper", type: "drug", group: "Pyridine-Piperidine", source: SRC + " p.2",
+  { id: "pepper", chapter: 1, name: "Pepper", type: "drug", group: "Pyridine-Piperidine", source: SRC_PG + " p.2",
     names: ["中文：{{胡椒果|生藥中文名}}"],
     origin: ["{{Piper nigrum|學名}}", "黑胡椒、白胡椒同源"], family: ["{{胡椒科|科別}}"],
     part: ["{{未成熟核果|部位}}（白胡椒為成熟果實，石灰水浸漬後曬乾）"],
@@ -85,38 +86,38 @@ PI.UNITS = [
     uses: ["{{調味劑|用途}}、刺激劑、健胃劑、興奮劑"] },
 
   /* ===== Tropane alkaloid（講義 p.3）===== */
-  { id: "belladonna", chapter: 1, name: "Belladonna", type: "drug", group: "Tropane", generation: "講義標示 ★★", source: SRC + " p.3",
+  { id: "belladonna", chapter: 1, name: "Belladonna", type: "drug", group: "Tropane", generation: "講義標示 ★★", source: SRC_PG + " p.3",
     names: ["中文：{{顛茄|生藥中文名}}", "英文：Deadly nightshade leaf"],
     origin: ["{{Atropa belladonna|學名}}", "{{A. acuminata|學名}}"], family: ["{{茄科|科別}}"], part: ["{{乾燥葉、根、花、果頂|部位}}"],
     constituents: ["葉：(3/4) {{(-)-Hyoscyamine|成分}}、(1/4) Atropine", "根：(-)-Hyoscyamine、Atropine、{{Scopolamine|成分}}", "{{Atropine|成分}} = (±)-Hyoscyamine"],
     uses: ["{{抗膽鹼|作用}}：散瞳、解痙、止痛、手術前抗黏液", "有機磷或毒扁豆鹼的{{解毒劑|用途}}", "顛茄生物鹼治{{消化性潰瘍|疾病}}"] },
-  { id: "hyoscyamus", chapter: 1, name: "Hyoscyamus", type: "drug", group: "Tropane", generation: "講義標示 ★", source: SRC + " p.3",
+  { id: "hyoscyamus", chapter: 1, name: "Hyoscyamus", type: "drug", group: "Tropane", generation: "講義標示 ★", source: SRC_PG + " p.3",
     names: ["中文：{{東莨菪葉|生藥中文名}}", "英文：Henbane／菲沃斯葉"],
     origin: ["{{Hyoscyamus niger|學名}}"], family: ["{{茄科|科別}}"], part: ["{{乾燥葉|部位}}"],
     constituents: ["(-)-Hyoscyamine", "Scopolamine（{{Hyoscine|成分}}）"],
     uses: ["{{副交感神經抑制劑|作用}}：鎮痛解痙劑、CNS Depressant、止吐止暈（{{動暈症|疾病}}）"] },
-  { id: "datura", chapter: 1, name: "Jimson weed", type: "drug", group: "Tropane", generation: "講義標示 ★", source: SRC + " p.3",
+  { id: "datura", chapter: 1, name: "Jimson weed", type: "drug", group: "Tropane", generation: "講義標示 ★", source: SRC_PG + " p.3",
     names: ["中文：{{曼陀羅葉|生藥中文名}}", "英文：Thornapple／James-town weed"],
     origin: ["{{Datura stramonium|學名}}"], family: ["{{茄科|科別}}"], part: ["{{乾燥葉、枝端|部位}}"],
     constituents: ["(-)-Hyoscyamine：主要，毒", "(-)-Scopolamine：含有 {{Epoxide|結構}}"],
     uses: ["副交感神經抑制劑：鎮痛解痙劑", "稱為 {{Asthma powder|名詞}}", "當做調味（{{Pot herb|名詞}}），會致死"] },
-  { id: "coca", chapter: 1, name: "Coca", type: "drug", group: "Tropane", generation: "講義標示 ★★", source: SRC + " p.3",
+  { id: "coca", chapter: 1, name: "Coca", type: "drug", group: "Tropane", generation: "講義標示 ★★", source: SRC_PG + " p.3",
     names: ["中文：{{古柯（葉）|生藥中文名}}", "英文：Coca leaves"],
     origin: ["{{Erythroxylum coca|學名}}", "{{E. truxillense|學名}}"],
     family: ["{{古柯樹科|科別}} → 主產地{{南美|產地}}（玻利維亞、秘魯）", "＜唯一非茄科＞"], part: ["{{乾燥葉|部位}}"],
     constituents: ["{{Ecgonine|結構}} 衍生物：{{Cocaine|成分}}、Cinnamylcocaine、α-與β-Truxilline", "Cocaine 水解得{{苯甲酸|物質}}、甲醇、(-)-Ecgonine"],
     uses: ["生藥為{{二級管制品|性質}}，被稱為{{印加神樹|名詞}}", "Cocaine（又稱快克）：{{局部麻醉劑|用途}}，具{{成癮性|副作用}}"] },
-  { id: "scopolia", chapter: 1, name: "Scopolia", type: "drug", group: "Tropane", source: SRC + " p.3",
+  { id: "scopolia", chapter: 1, name: "Scopolia", type: "drug", group: "Tropane", source: SRC_PG + " p.3",
     names: ["中文：{{東莨菪根|生藥中文名}}"],
     origin: ["{{Scopolia japonica|學名}}"], family: ["{{茄科|科別}}"], part: ["{{根莖及根|部位}}"],
     constituents: ["Hyoscyamine、Atropine、Scopolamine"], uses: ["副交感神經抑制劑"] },
-  { id: "mandragora", chapter: 1, name: "Mandragora", type: "drug", group: "Tropane", source: SRC + " p.3",
+  { id: "mandragora", chapter: 1, name: "Mandragora", type: "drug", group: "Tropane", source: SRC_PG + " p.3",
     names: ["中文：{{毆傷牛根草|生藥中文名}}", "英文：曼德拉／mandrake"],
     origin: ["{{Mandragora officinarum|學名}}"], family: ["{{茄科|科別}}"], part: ["{{乾燥根|部位}}"],
     constituents: ["Hyoscyamine、Scopolamine、{{Mandragorin|成分}}"], uses: ["副交感神經抑制劑"] },
 
   /* ===== Quinoline alkaloid（講義 p.4）===== */
-  { id: "cinchona", chapter: 1, name: "Cinchona", type: "drug", group: "Quinoline", generation: "講義標示 ★★", source: SRC + " p.4",
+  { id: "cinchona", chapter: 1, name: "Cinchona", type: "drug", group: "Quinoline", generation: "講義標示 ★★", source: SRC_PG + " p.4",
     names: ["中文：{{金雞納皮|生藥中文名}}", "英文：Peruvian bark／規那皮"],
     origin: ["{{Cinchona succirubra|學名}} 紅色", "{{C. ledgeriana|學名}} 列氏", "{{C. calisaya|學名}} 黃色"],
     family: ["{{茜草科|科別}} → 印尼多"], part: ["{{根及莖之皮部|部位}}"],
@@ -127,22 +128,22 @@ PI.UNITS = [
       "{{Cinchonidine|成分}}（主要存在於{{紅色金雞納皮|來源|黃色金雞納皮/銅色金雞納皮/喜樹}}）",
       "服用過多金雞納皮的中毒症狀：耳鳴、視力受損 → {{Cinchonism|疾病}}",
       "金雞納具有{{類箭毒|作用}}的作用，會加重{{重症肌無力|疾病}}"] },
-  { id: "cuprea", chapter: 1, name: "Cuprea bark", short: "Cuprea", type: "drug", group: "Quinoline", source: SRC + " p.4",
+  { id: "cuprea", chapter: 1, name: "Cuprea bark", short: "Cuprea", type: "drug", group: "Quinoline", source: SRC_PG + " p.4",
     names: ["中文：{{銅色金雞納皮|生藥中文名}}"],
     origin: ["{{Remijia purdieana|學名}}", "{{R. pedunculata|學名}}"], family: ["{{茜草科|科別}}"], part: ["{{樹皮|部位}}"],
     constituents: ["Quinine", "{{Cupreine|成分}}"], uses: ["銅色金雞納皮為 {{Quinidine|成分}} 商業上主要來源"] },
-  { id: "camptotheca", chapter: 1, name: "Camptotheca", type: "drug", group: "Quinoline", source: SRC + " p.4",
+  { id: "camptotheca", chapter: 1, name: "Camptotheca", type: "drug", group: "Quinoline", source: SRC_PG + " p.4",
     names: ["中文：{{喜樹|生藥中文名}}"],
     origin: ["{{Camptotheca acuminata|學名}}"], family: ["{{Nyssaceae|科別}}"], part: ["{{樹皮、木材、果實|部位}}"],
     constituents: ["{{Camptothecin|成分}} 喜樹鹼"], uses: ["{{抗腫瘤藥|用途}}", "{{Topotecan|藥名}} 及 Irinotecan 原料"] },
 
   /* ===== Isoquinoline Alkaloid（講義 p.4）===== */
-  { id: "ipecac", chapter: 1, name: "Ipecac", type: "drug", group: "Isoquinoline", source: SRC + " p.4",
+  { id: "ipecac", chapter: 1, name: "Ipecac", type: "drug", group: "Isoquinoline", source: SRC_PG + " p.4",
     names: ["中文：{{吐根|生藥中文名}}"],
     origin: ["{{Cephaelis ipecacuanha|學名}}", "Cephaelis acuminata"], family: ["{{茜草科|科別}}（Rubiaceae）"], part: ["{{乾燥根莖、根|部位}}"],
     constituents: ["★{{Cephaeline|成分}}、Emetine（{{甲基化|反應}}的 Cephaeline）"],
     uses: ["{{Ipecac syrup|製劑}}：{{催吐|作用}}", "{{Dover's powder|製劑}}（Ipecac + Opium）：{{發汗|作用}}", "{{Emetine hydrochloride|成分}}：治{{阿米巴痢疾|疾病}}、齒槽膿溢"] },
-  { id: "hydrastis", chapter: 1, name: "Hydrastis", type: "drug", group: "Isoquinoline", source: SRC + " p.4",
+  { id: "hydrastis", chapter: 1, name: "Hydrastis", type: "drug", group: "Isoquinoline", source: SRC_PG + " p.4",
     names: ["中文：{{北美黃連|生藥中文名}}", "英文：Goldenseal"],
     origin: ["{{Hydrastis canadensis|學名}}"], family: ["{{毛茛科|科別}}（Ranunculaceae）"], part: ["{{乾燥根莖、根|部位}}"],
     constituents: ["{{Hydrastine|成分}}（最主要）、Berberine、Canadine"],
@@ -150,19 +151,19 @@ PI.UNITS = [
     notes: ["Hydrastine 含有 {{Phthalideisoquinoline|結構}}（γ-lactone ring）結構", "Berberine 含有{{四級胺|結構}}的結構，易溶於水",
       "★三種含有四級胺的生物鹼：{{Berberine|成分}}、Sanguinarine、Tubocurarine"] },
   /* ===== Isoquinoline Alkaloid（講義 p.5）===== */
-  { id: "sanguinaria", chapter: 1, name: "Sanguinaria", type: "drug", group: "Isoquinoline", source: SRC + " p.5",
+  { id: "sanguinaria", chapter: 1, name: "Sanguinaria", type: "drug", group: "Isoquinoline", source: SRC_PG + " p.5",
     names: ["中文：{{血根|生藥中文名}}", "別名：bloodroot"],
     origin: ["{{Sanguinaria canadensis|學名}}"], family: ["{{罌粟科|科別}}（Papaveraceae）"], part: ["{{乾燥根莖|部位}}"],
     constituents: ["{{Sanguinarine|成分}}（{{四級胺|結構}}，含有★{{Benzophenanthridine|結構}} 結構）、Chelerythrine、Protopine、Allocryptopine"],
     uses: ["{{祛痰|用途}}、催吐", "作為{{牙膏及漱口水|用途}}，可預防牙菌斑及牙周病"],
     notes: ["Sanguinarine + 硝酸或硫酸 → {{淡紅色鹽類|顏色}}", "Sanguinarine + Chelerythrine → {{淡黃色鹽類|顏色}}"] },
-  { id: "tubocurarine", chapter: 1, name: "Tubocurarine chloride", short: "Tubocurarine", type: "drug", group: "Isoquinoline", source: SRC + " p.5",
+  { id: "tubocurarine", chapter: 1, name: "Tubocurarine chloride", short: "Tubocurarine", type: "drug", group: "Isoquinoline", source: SRC_PG + " p.5",
     names: ["中文：{{箭毒|生藥中文名}}", "別名：Curare、South American arrow poison"],
     origin: ["馬錢子科（Loganiaceae）：{{Strychnos castelnaei|學名}}、S. toxifera、S. crevauxii", "防己科（Menispermaceae）：{{Chondodendron tomentosum|學名}}"],
     family: ["{{馬錢子科|科別}}（Loganiaceae）", "{{防己科|科別}}（Menispermaceae）"], part: ["{{樹皮根莖的乾燥萃取物|部位}}"],
     constituents: ["{{(+)-Tubocurarine|成分}}（四級胺化合物，含★{{bis-benzylisoquinoline|結構}}）", "{{兔子垂頭試驗|名詞}}：分析 Tubocurarine 的效價"],
     uses: ["{{骨骼肌鬆弛劑|用途}}", "診斷{{重症肌無力|疾病}}"] },
-  { id: "opium", chapter: 1, name: "Opium", type: "drug", group: "Isoquinoline", generation: "講義標示 ★★★", source: SRC + " p.5",
+  { id: "opium", chapter: 1, name: "Opium", type: "drug", group: "Isoquinoline", generation: "講義標示 ★★★", source: SRC_PG + " p.5",
     names: ["中文：{{鴉片|生藥中文名}}", "別名：Gum opium"],
     origin: ["{{Papaver somniferum|學名}} Linne", "睡夢之神之稱的藥用植物"], family: ["{{罌粟科|科別}}（Papaveraceae）"],
     part: ["★★{{未成熟|性質}}的罌粟蒴果割開後滲出的{{白色乳汁|部位}}"],
@@ -2488,3 +2489,6 @@ PI.KNOWLEDGE.ch10 = {
     ] }
   ]
 };
+
+// 合併多科目地圖用（見 js/subject-merge.js），單科頁面不受影響
+PI.mergeSubject("pharmacognosy", PI.__stash);

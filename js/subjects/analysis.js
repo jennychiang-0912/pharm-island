@@ -5,6 +5,7 @@
    一格一個講義表格的列標題（例如 Precision、Accuracy），小分類（group）是表格上方的黑色標題列。
    講義上的考古題年份（例：【109-1】）照樣放在句尾，寫成 [109-1]。 */
 window.PI = window.PI || {};
+PI.__stash = PI.stashForSubject();   // 合併多科目地圖用（見 js/subject-merge.js），單科頁面不受影響
 
 PI.STORAGE_KEY = "pharma-island-analysis-v1";   // 進度和藥理分開存
 
@@ -27,22 +28,22 @@ PI.LANDMASSES = [
 PI.UNITS = [];
 PI.KNOWLEDGE = {};
 
-const SRC = "藥分講義";
-/* 一章：ch(章號, 名稱, 講義頁, 說明) */
-function ch(id, name, pages, note) {
+const SRC_Y = "藥分講義";
+/* 一章：chY(章號, 名稱, 講義頁, 說明) */
+function chY(id, name, pages, note) {
   PI.CHAPTERS.push({ id, name, cat: "analysis", estimate: 0, unitType: "topic", note: `講義：${name}（${pages}）。依講義的印刷字。${note || ""}` });
   PI.LANDMASSES[0].chapters.push(id);
 }
-/* 一格：t(章號, 小分類, 講義頁, id, 名稱, 短名, 重點[], 其他重點[]) */
-function t(chapter, group, page, id, name, short, points, notes) {
-  PI.UNITS.push({ id, chapter, name, short: short || undefined, type: "topic", group, source: SRC + " " + page, points, notes });
+/* 一格：tY(章號, 小分類, 講義頁, id, 名稱, 短名, 重點[], 其他重點[]) */
+function tY(chapter, group, page, id, name, short, points, notes) {
+  PI.UNITS.push({ id, chapter, name, short: short || undefined, type: "topic", group, source: SRC_Y + " " + page, points, notes });
   const c = PI.CHAPTERS.find(x => x.id === chapter); if (c) c.estimate++;
 }
 
 /* ================= CH1 傳統分析－基礎概念（講義 1-1～1-4） =================
    講義 1-3 最下面「內部標準品法」那一格掃描時被切掉，只收錄看得到的部分。 */
-ch(1, "基礎概念", "1-1～1-4");
-t(1, "分析指標", "1-1", "precision", "Precision（精密度）", "Precision", [
+chY(1, "基礎概念", "1-1～1-4");
+tY(1, "分析指標", "1-1", "precision", "Precision（精密度）", "Precision", [
   "定義：同一種方法多次分析數據的{{差異程度|名詞}}（< ±1.0% 較為理想）[109-1]",
   "表示方式：相對標準偏差（{{Relative Standard Deviation, RSD|名詞}}）→ 表示法取到{{小數點後一位|數值}}（如：±7.7%）[112-1]",
   "又稱{{變異係數|名詞}}（Coefficient of variation；CV）→ 相對標準偏差越小，精密度越{{大|性質}}",
@@ -51,208 +52,208 @@ t(1, "分析指標", "1-1", "precision", "Precision（精密度）", "Precision"
   "精密度表現三層次：{{Intermediate precision|名詞}}（中間精密度）：{{同一實驗室|名詞}}，不同日／設備／分析員的變異程度",
   "精密度表現三層次：{{Repeatability|名詞}}（重複性）：{{短時間內|名詞}}，同一實驗室／操作條件，所測得之分析結果的變異程度"
 ]);
-t(1, "分析指標", "1-1", "accuracy", "Accuracy（準確度）", "Accuracy", [
+tY(1, "分析指標", "1-1", "accuracy", "Accuracy（準確度）", "Accuracy", [
   "定義：實驗結果的平均值與理論上的{{正確值|名詞}}的相近程度 [109-1]",
   "{{Recovery Rate|名詞}}（回收率）＝（實驗數據／真值）× 100%，值越接近 {{100%|數值}}，準確度越高 [111-2]",
   "綜合比較（vs. 精密度）[112-2]：Poor accuracy but good precision、Good accuracy and good precision、Poor accuracy and poor precision"
 ]);
-t(1, "分析指標", "1-1", "selectivity", "Selectivity（選擇性）", "Selectivity", [
+tY(1, "分析指標", "1-1", "selectivity", "Selectivity（選擇性）", "Selectivity", [
   "一個分析方法在{{其他成分存在|名詞}}之檢品中，分析方法只測出分析物質之能力的大小"
 ]);
-t(1, "分析指標", "1-1", "linearity", "Linearity（線性）", "Linearity", [
+tY(1, "分析指標", "1-1", "linearity", "Linearity（線性）", "Linearity", [
   "在某一濃度範圍內檢品濃度與反應強度呈{{線性關係|名詞}}，即濃度與反應呈正比（相關係數 r > {{0.99|數值}}，視為具線性）"
 ]);
-t(1, "分析指標", "1-2", "robustness", "Robustness（耐變性／健全性）", "Robustness", [
+tY(1, "分析指標", "1-2", "robustness", "Robustness（耐變性／健全性）", "Robustness", [
   "評估分析方法對微小變動（{{內部條件|名詞}}如 pH、流速、溫度）的耐受程度"
 ]);
-t(1, "分析指標", "1-2", "ruggedness", "Ruggedness（牢靠性／耐用性）", "Ruggedness", [
+tY(1, "分析指標", "1-2", "ruggedness", "Ruggedness（牢靠性／耐用性）", "Ruggedness", [
   "（USP 1225）同一樣品其分析方法，於{{不同分析者、不同實驗室|名詞}}等，其結果之{{再現性程度|名詞}} [103-2]"
 ]);
-t(1, "分析指標", "1-2", "range", "Range（範圍）", "Range", [
+tY(1, "分析指標", "1-2", "range", "Range（範圍）", "Range", [
   "在可接受之精密度與準確度的條件下，待測物{{最高濃度與最低濃度|名詞}}間的差距"
 ]);
-t(1, "分析指標", "1-2", "sensitivity", "Sensitivity（靈敏度）", "Sensitivity", [
+tY(1, "分析指標", "1-2", "sensitivity", "Sensitivity（靈敏度）", "Sensitivity", [
   "與分析方法適用之{{檢品濃度範圍|名詞}}相關 [110-2]",
   "{{校正靈敏度|名詞}}：測量值隨分析物單位濃度變化而產生的變化（以{{斜率|名詞}}判斷）",
   "{{分析靈敏度|名詞}}：檢量線斜率（m）與該濃度下分析訊號標準差（Ss）的比值，能更精確描述方法區分微小濃度差異的能力"
 ]);
-t(1, "分析指標", "1-2", "lod", "Limit of detection, LOD（偵測極限）", "LOD", [
+tY(1, "分析指標", "1-2", "lod", "Limit of detection, LOD（偵測極限）", "LOD", [
   "分析物質可被特定方法{{檢測出來|名詞}}的最小量（但不一定能定量出標的分析物之正確值）[113-2]",
   "LOD 值：當檢品中分析物質的讀數與空白讀數的差，是空白讀數標準偏差的 {{3|數值}} 倍時的檢品濃度",
   "X − X_B ＝ 3σ_B（Blank），也就是 signal-to-noise ratio（S/N）≥ {{3|數值}}"
 ]);
-t(1, "分析指標", "1-2", "loq", "Limit of quantification, LOQ（定量極限）", "LOQ", [
+tY(1, "分析指標", "1-2", "loq", "Limit of quantification, LOQ（定量極限）", "LOQ", [
   "分析物質可被{{定量|名詞}} [113-2] 測出的最小量，且測定結果應具適當準確度與精密度 [109-1]",
   "LOQ 值：當檢品中分析物質的讀數與空白讀數的差，是空白讀數標準偏差的 {{10|數值}} 倍時的檢品濃度",
   "X − X_B ＝ 10σ_B（Blank），也就是 signal-to-noise ratio（S/N）≥ {{10|數值}}",
   "綜合比較（vs. LOD）：LOQ 值 {{>|性質}} LOD 值"
 ]);
-t(1, "分析指標", "1-2", "method-validation", "▲統整▲ ★分析方法確效的項目（Method Validation）", "方法確效", [
+tY(1, "分析指標", "1-2", "method-validation", "▲統整▲ ★分析方法確效的項目（Method Validation）", "方法確效", [
   "方法建立最後需執行一次方法確效 [114-1、102-2、105-1]",
   "線性（Linearity）：最少須做 {{5|數值}} 個濃度 [95-1]",
   "專一性（Specificity）：{{選擇性|名詞}}（Selectivity）",
   "精密度（Precision）：{{變異係數|名詞}}（Coefficient of variation）、重複性（Repeatability）",
   "準確性（Accuracy）：{{回收率|名詞}}（Recovery）"
 ]);
-t(1, "分析指標", "1-2", "system-suitability", "系統適用性（System suitability）", "系統適用性", [
+tY(1, "分析指標", "1-2", "system-suitability", "系統適用性（System suitability）", "系統適用性", [
   "用於評估分析系統的組成，以表示系統的表現符合方法需要的標準（需{{定期|名詞}}執行）",
   "與{{設備的表現|名詞}}有關，選擇設備可應用 {{4Q|名詞}} 規則（設計／設備／操作／性能 驗證）"
 ]);
-t(1, "實驗誤差與分析管控", "1-3", "determinate-errors", "固定誤差（Determinate errors）", "固定誤差", [
+tY(1, "實驗誤差與分析管控", "1-3", "determinate-errors", "固定誤差（Determinate errors）", "固定誤差", [
   "定義：同一系列的分析步驟中，所可能產生的某種相同程度的誤差（{{系統性誤差|名詞}} systematic error）[103-1]",
   "原因：人為、方法、{{儀器未校正|名詞}}等",
   "特性：可大約預測其誤差值及其對結果的影響程度，{{可盡量避免|性質}}",
   "以{{準確度|名詞}}（Accuracy）評判，藉由{{回收試驗|名詞}}（Recovery test）測試"
 ]);
-t(1, "實驗誤差與分析管控", "1-3", "indeterminate-errors", "★不定誤差（Indeterminate errors）", "不定誤差", [
+tY(1, "實驗誤差與分析管控", "1-3", "indeterminate-errors", "★不定誤差（Indeterminate errors）", "不定誤差", [
   "定義：同一系列的分析步驟中，所可能產生的些微差異（{{隨機性誤差|名詞}} random error）[103-1、104-1]",
   "原因：無法完全控制的微小{{隨機波動|名詞}}",
   "特性：① 多半{{難以觀察與避免|性質}} ② 小誤差頻率 {{>|性質}} 大誤差頻率 ③ 呈{{常態分佈|名詞}}"
 ]);
-t(1, "實驗誤差與分析管控", "1-3", "gross-errors", "粗略誤差（Gross errors）", "粗略誤差", [
+tY(1, "實驗誤差與分析管控", "1-3", "gross-errors", "粗略誤差（Gross errors）", "粗略誤差", [
   "定義：分析過程中，因明顯的{{過失或錯誤操作|名詞}}所造成的誤差，其誤差值遠大於正常實驗的隨機誤差",
   "原因：{{重大錯誤|名詞}}（稀釋錯誤、儀器使用方法錯誤、取樣流失、檢品溢出等）[96-1]、儀器故障",
   "特性：極易被察覺，實驗數據與結果必須{{直接捨去|性質}}"
 ]);
-t(1, "實驗誤差與分析管控", "1-3", "blank-test", "空白分析試驗", "空白試驗", [
+tY(1, "實驗誤差與分析管控", "1-3", "blank-test", "空白分析試驗", "空白試驗", [
   "目的：校正排除試劑、雜質或環境誤差的影響，{{扣除背景干擾|名詞}} [114-1、9X 愛考]",
   "方法：用相同的分析方法，但{{不含分析物|名詞}}",
   "應用：檢測試劑對滴定液量的影響、檢測指示劑在滴定過程的影響、檢查層析中之干擾、吸光度測定時用以{{歸零|名詞}}",
   "計算：實際與試樣反應的標準溶液體積 ＝ 加入的標準溶液體積 {{−|性質}} 空白試驗消耗的標準溶液體積"
 ]);
-t(1, "定量分析校正方法", "1-3", "external-standard", "外部標準品法（檢量線分析法）", "外部標準品", [
+tY(1, "定量分析校正方法", "1-3", "external-standard", "外部標準品法（檢量線分析法）", "外部標準品", [
   "檢品待測化合物的波峰面積可以直接與該化合物{{標準品|名詞}}配製的數個已知濃度的波峰面積進行比對換算 → 建構之{{校準曲線|名詞}}（calibration curve）→ 進而求得該待測化合物的實質含量",
   "R² 越接近 1 越佳，一般檢量線 R² > {{0.995|數值}}，此線性迴歸方程式才可信（例：分析 Paracetamol 錠）",
   "通常需搭配空白溶液 blank，若標準品或空白品不易配製，則可用{{標準添加法|名詞}}（已知量的標準品直接加入樣品中）"
 ]);
-t(1, "定量分析校正方法", "1-3", "internal-standard", "內部標準品法", "內部標準品", [
+tY(1, "定量分析校正方法", "1-3", "internal-standard", "內部標準品法", "內部標準品", [
   "萃取後（連結：萃取 CH23），建立分析物相對於標準品的{{反應因子|名詞}}（不同檢量溶液{{波鋒面積比|名詞}}）以達到定量",
   "檢品待測化合物若無法確定分析前的萃取{{回收率|名詞}}（recovery）是否完整，可在萃取分析前添加已知濃度的內部標準品（internal standard）至檢品進行分析，以利後續校正檢品的含量或濃度",
   "★內部標準品（IS）應具備特性：安定性宜佳、與分析物{{不產生化學反應|性質}} [113-2、107-1、106-1]",
   "★內部標準品（IS）應具備特性：其結構、滯留時間宜與分析物{{接近但不相同|性質}}（波峰不可重疊）"
 ], ["講義這一格的下面掃描時被切掉，只收錄看得到的部分"]);
-t(1, "統計學專區", "1-4", "significant-figures", "有效數字", "有效數字", [
+tY(1, "統計學專區", "1-4", "significant-figures", "有效數字", "有效數字", [
   "① 所有非零之數字皆有意義（156.4 {{四位|數值}}）② 介於非零數字間之零皆有意義（306.02 {{五位|數值}}）",
   "③ 所有在小數點後之零皆有意義（86.10 {{四位|數值}}）④ 量測為整數，右方未做記號的零皆不為有意義（2500 {{兩位|數值}}）",
   "⑤ 量測 < 1 時，左邊的零皆不有意義（0.00752 {{三位|數值}}）⑥ 若用科學符號，由十進位係數部分的數字決定（2.00×10⁵ {{三位|數值}}）",
   "計算分析：{{四位|數值}}有效數字是合理的（至 0.1%），可先保留五位有效 → 再四捨五入到四位有效"
 ]);
-t(1, "統計學專區", "1-4", "arithmetic-mean", "算術平均值（Arithmetic Mean）", "算術平均值", [
+tY(1, "統計學專區", "1-4", "arithmetic-mean", "算術平均值（Arithmetic Mean）", "算術平均值", [
   "x̄ ＝ Σᵢ xᵢ ／ n（n＝數據的數量；xᵢ＝各數據的數值；x̄＝數據的平均值）"
 ]);
-t(1, "統計學專區", "1-4", "variance", "變異數（Variance）", "變異數", [
+tY(1, "統計學專區", "1-4", "variance", "變異數（Variance）", "變異數", [
   "s² ＝ Σᵢ(xᵢ − x̄)² ／（{{n − 1|數值}}）"
 ]);
-t(1, "統計學專區", "1-4", "deviation", "偏差（Deviation）", "偏差", [
+tY(1, "統計學專區", "1-4", "deviation", "偏差（Deviation）", "偏差", [
   "① {{標準偏差|名詞}}（Standard Deviation, SD＝σ）[92-1]：s ＝ √[ Σ(xᵢ − x̄)² ／（n − 1）]",
   "② {{平均偏差|名詞}}（Average Deviation, AD）：d′ ＝ Σᵢ₌₁ⁿ |xᵢ − x̄| ／ n"
 ]);
-t(1, "統計學專區", "1-4", "rejection", "數值的捨棄", "數值捨棄", [
+tY(1, "統計學專區", "1-4", "rejection", "數值的捨棄", "數值捨棄", [
   "數據（xₙ）與其他數據算術平均值（x̄′）差距（xₙ − x̄′）為其他數據平均偏差（d′）的 {{4|數值}} 倍或以上則捨去",
   "|xₙ − x̄′| ／ d′ ≥ 4"
 ]);
-t(1, "統計學專區", "1-4", "error-calc", "誤差計算", "誤差計算", [
+tY(1, "統計學專區", "1-4", "error-calc", "誤差計算", "誤差計算", [
   "① 複合：分析中每成份或每項操作的 RSD {{平方總和再開平方根|名詞}}：√（數值 A² ＋ 數值 B² ＋ 數值 C²）",
   "② {{絕對誤差|名詞}}：測量值 − 真值",
   "③ {{相對誤差|名詞}}：絕對誤差 ÷ 真值"
 ]);
-t(1, "統計學專區", "1-4", "gaussian", "高斯分布（Gaussian pattern）", "高斯分布", [
+tY(1, "統計學專區", "1-4", "gaussian", "高斯分布（Gaussian pattern）", "高斯分布", [
   "做測量值的預測，越小越好（侷限範圍小，代表數據可參考性高）",
   "① 約有 {{68%|數值}} 的量測值會落在距離平均值 σ 的兩側",
   "② 約有 {{95%|數值}} 的量測值會落在距離平均值 2σ 的兩側 [100-2]",
   "③ 約有 {{99.7%|數值}} 的量測值會落在距離平均值 3σ 的兩側"
 ]);
-t(1, "藥用物理化學", "1-5", "freezing-point", "凝固點下降（Freezing-point depression）", "凝固點下降", [
+tY(1, "藥用物理化學", "1-5", "freezing-point", "凝固點下降（Freezing-point depression）", "凝固點下降", [
   "{{依數性質|名詞}}：指將溶質加入溶劑時，溶劑的{{凝固點降低|名詞}}的現象",
   "ΔTf ＝ Kf × M × i（ΔTf：溶劑凝固點降低量；Kf：凝固點下降常數（°C/M）；M：{{重量莫耳濃度|名詞}}；i：溶質的{{范特霍夫因子|名詞}}（表示溶質對溶液依數性質影響的程度））"
 ]);
-t(1, "藥用物理化學", "1-5", "boiling-point", "沸點升高（Boiling-point elevation）", "沸點升高", [
+tY(1, "藥用物理化學", "1-5", "boiling-point", "沸點升高（Boiling-point elevation）", "沸點升高", [
   "依數性質：指將溶質加入溶劑時，溶劑的{{沸點升高|名詞}}的現象",
   "ΔTb ＝ Kb × M × i（ΔTb：溶劑沸點升高量；Kb：沸點上升常數（°C/M）；M：重量莫耳濃度；i：溶質的范特霍夫因子）"
 ]);
-t(1, "藥用物理化學", "1-5", "partition-coefficient", "分配係數（Partition coefficient）", "分配係數", [
+tY(1, "藥用物理化學", "1-5", "partition-coefficient", "分配係數（Partition coefficient）", "分配係數", [
   "指藥物在油溶液（{{n-Octanol|物質}}）之濃度與藥物在水溶液（aq）的濃度比值 [111-2]",
   "P ＝ Co ／ Cw（Co：藥物在{{有機溶劑層|名詞}}的濃度；Cw：藥物在水層的濃度）"
 ]);
-t(1, "藥用物理化學", "1-5", "specific-gravity", "★比重（Specific gravity）", "比重", [
+tY(1, "藥用物理化學", "1-5", "specific-gravity", "★比重（Specific gravity）", "比重", [
   "定義：指一物質的密度與參考物質的密度的{{比值|名詞}}（{{沒有單位|性質}}、受{{溫度|名詞}}影響因此像 Geissler 比重瓶有溫度計）[113-1]",
   "測定方法：氣體、固體、液體皆可用{{比重瓶|名詞}}（Pycnometer），{{韋氏天平|名詞}}（Westphal balance）則專測液體 [91-1]",
   "綜合比較（vs. 密度）：注意：比重不等於密度 [111-1、106-1]",
   "M ＝ VD（M（Mass）：質量（g）；V（Volume）：體積（ml）；D（Density）：密度 → 為單位體積的質量，{{有單位|性質}}（g/ml））"
 ]);
-t(1, "藥用物理化學", "1-6", "viscosity", "★黏度★（Viscosity）", "黏度", [
+tY(1, "藥用物理化學", "1-6", "viscosity", "★黏度★（Viscosity）", "黏度", [
   "① {{絕對黏度|名詞}}（η）：當一層流體與另一層流體之間，發生相對滑動時所遭遇到的摩擦阻力之大小（單位：{{厘泊、泊 poise|名詞}}）[105-2、106-2、109-2、115-1]",
   "② {{運動黏度|名詞}}（ν）：流體的絕對黏度除以其{{密度|名詞}}（單位：{{厘斯、斯 stoke|名詞}}）（例：室溫下，水的運動黏度為 {{1|數值}} 厘斯）",
   "V ＝ Kt（V＝運動黏度；K＝黏度計常數（常以已知黏度液體測得）；t＝液體於黏度計中液面下降一定距離所需秒數）",
   "液體檢品通過毛細管的時間 t {{愈長|性質}}，其黏度 V 愈大"
 ]);
-t(1, "藥用物理化學", "1-6", "unsaturation", "不飽和度", "不飽和度", [
+tY(1, "藥用物理化學", "1-6", "unsaturation", "不飽和度", "不飽和度", [
   "不飽和度（雙鍵／環數）＝（碳的個數 × 2 ＋ 2 − 氫的個數 − 鹵素的個數 ＋ {{氮|名詞}}的個數）／ 2 [105-1]",
   "1 鍵：H, X（鹵素）；2 鍵：O → {{不計算|性質}}；3 鍵：N；4 鍵：C"
 ]);
-t(1, "含量計算", "1-6", "accurate-weighing", "★精確取量", "精確取量", [
+tY(1, "含量計算", "1-6", "accurate-weighing", "★精確取量", "精確取量", [
   "藥典規範：以不超過規定 {{±10%|數值}} 為限 [103-2、111-2]"
 ]);
-t(1, "含量計算", "1-6", "unit-expression", "單位表示", "單位表示", [
+tY(1, "含量計算", "1-6", "unit-expression", "單位表示", "單位表示", [
   "皆以{{百分比|名詞}}表示含量 [102-1]",
   "① Percentage volume/volume（%v/v）：1 ml／100 ml",
   "② Percentage weight in volume（{{%w/v|名詞}}）：1 g／100 ml",
   "③ Percentage weight/weight（%w/w）：1 g／100 g",
   "④ {{百萬分比|名詞}}（ppm）：由 ③ 衍生而來，單位為 {{1 mg/kg|數值}}，通常用於測定雜質如{{重金屬、殘留溶劑|名詞}}；1 ppm ＝ {{0.0001%|數值}}w/w"
 ]);
-t(1, "含量計算", "1-6", "content-calc", "★計算★", "含量計算", [
+tY(1, "含量計算", "1-6", "content-calc", "★計算★", "含量計算", [
   "含量百分比 ＝ {{實驗計算出的含量|名詞}} ／ {{標示含量|名詞}} × 100% [104-2、106-1、107-1、110-2]"
 ]);
-t(1, "附錄", "1-7", "units-appendix", "附錄：考試常用單位大全", "常用單位", [
+tY(1, "附錄", "1-7", "units-appendix", "附錄：考試常用單位大全", "常用單位", [
   "重量：公斤 Kg（kilogram）＝ 1000 g；公克 g（gram）＝ 1；毫克 mg（milligram）＝ {{0.001|數值}} g；微克 μg（mcg, microgram）＝ {{0.000001|數值}} g",
   "容量：公升 L（liter）＝ 1；毫升 ml（milliliter）＝ 0.001 L；微升 μl（microliter）＝ 0.000001 L",
   "長度：公里 km ＝ 1000 m；公尺 m ＝ 1；公寸 dm ＝ 0.1 m；公分 cm ＝ 0.01 m；公釐 mm ＝ 0.001 m；微米 μm ＝ 0.000001 m；奈米 nm ＝ {{0.000000001|數值}} m"
 ]);
 
 /* ================= CH2 傳統分析－水溶液概論（講義 2-1～2-3） ================= */
-ch(2, "水溶液概論", "2-1～2-3");
-t(2, "藥品在溶液中的效應", "2-1", "leveling-effect", "齊平效應（leveling effect）", "齊平效應", [
+chY(2, "水溶液概論", "2-1～2-3");
+tY(2, "藥品在溶液中的效應", "2-1", "leveling-effect", "齊平效應（leveling effect）", "齊平效應", [
   "{{水|物質}}對強酸有水平效應，強酸在水中，酸度{{相同|性質}}",
   "{{冰醋酸|物質}}對 diazepam、chlorpromazine、chlorpheniramine maleate、sod. Acetate 有水平效應",
   "{{n-butylamine|物質}} 對 sulfisoxazole、phenytoin、dicumarol、chlorothiazide 有水平效應 [91-1]"
 ]);
-t(2, "藥品在溶液中的效應", "2-1", "differential-effect", "★差異效應（differential effect）", "差異效應", [
+tY(2, "藥品在溶液中的效應", "2-1", "differential-effect", "★差異效應（differential effect）", "差異效應", [
   "★強酸在{{非水溶液|名詞}}（冰醋酸／無水乙酸），酸度不同：{{HClO₄|物質}} > HI > HBr > H₂SO₄ > HCl > HNO₃ > CCl₃COOH [考爆]",
   "過氯酸 > 氫碘酸 > 氫溴酸 > 硫酸 > 鹽酸 > {{硝酸|物質}}（記：過點秀留菸燒）",
   "強酸在 {{dioxane|物質}} 之親質子性：HNO₃ > HCl > H₂SO₄ > HBr > HI > HClO₄ [92-2]"
 ]);
-t(2, "水溶液計算", "2-1", "ph-value", "pH 值", "pH 值", [
+tY(2, "水溶液計算", "2-1", "ph-value", "pH 值", "pH 值", [
   "水溶液中{{氫離子濃度|名詞}} [H⁺] 的量度（pH < 7 為酸，pH ＝ 7 為中性，pH > 7 為鹼）",
   "★ pH ＝ {{− log [H⁺]|名詞}} [考爆]（p 即是取 −log），可用於計算{{強酸強鹼|名詞}}氫離子濃度"
 ]);
-t(2, "水溶液計算", "2-1", "dissociation-constant", "★解離常數", "解離常數", [
+tY(2, "水溶液計算", "2-1", "dissociation-constant", "★解離常數", "解離常數", [
   "① Ka：酸解離常數 → pKa ＝ −log [Ka]（Ka 越大，pKa 越{{小|性質}}：酸性越大）[105-2、109-1]",
   "② Kb：鹼解離常數 → pKb ＝ −log [Kb]",
   "③ Kw：水解離常數 → Kw ＝ Ka × Kb ＝ [H⁺] × [OH⁻] ＝ {{1.0 × 10⁻¹⁴|數值}}（at 25°C），會隨{{溫度|名詞}}改變而改變 → pKw ＝ pKa ＋ pKb ＝ {{14|數值}}"
 ]);
-t(2, "水溶液計算", "2-1", "weak-acid", "氫離子濃度：弱酸（Weak Acid）", "弱酸", [
+tY(2, "水溶液計算", "2-1", "weak-acid", "氫離子濃度：弱酸（Weak Acid）", "弱酸", [
   "弱酸自身解離或與水進行反應，{{無法完全解離|性質}}，產生相當低的氫離子濃度：HA + H₂O ⇌ H₃O⁺ + A⁻（或簡化為 HA ⇌ H⁺ + A⁻）；A + H₂O ⇌ A(OH)⁻ + H⁺",
   "若 C／Ka ≥ {{100|數值}} 且誤差 < 5%：[H₃O⁺] ＝ √(KaC)，pH ＝ ½（pKa − logC）（C：未解離弱酸濃度）",
   "若 C／Ka < 100 或誤差 > 5%：[H₃O⁺] ＝（−Ka ＋ √(Ka² ＋ 4KaC)）／ 2"
 ]);
-t(2, "水溶液計算", "2-2", "weak-base", "氫離子濃度：弱鹼（Weak Base）", "弱鹼", [
+tY(2, "水溶液計算", "2-2", "weak-base", "氫離子濃度：弱鹼（Weak Base）", "弱鹼", [
   "弱鹼自身解離或與水進行反應，無法完全解離，產生相當低的{{氫氧根離子|名詞}}濃度：BOH ⇌ B⁺ + OH⁻；B + H₂O ⇌ BH⁺ + OH⁻",
   "若 C／Kb ≥ 100 且誤差 < 5%：[OH⁻] ＝ √(KbC)，pOH ＝ ½（pKb − logC）（C：未解離弱鹼濃度）[93-1]",
   "若 C／Kb < 100 或誤差 > 5%：[OH⁻] ＝（−Kb ＋ √(Kb² ＋ 4KbC)）／ 2"
 ]);
-t(2, "水溶液計算", "2-2", "salt-ph", "氫離子濃度：鹽類", "鹽類 pH", [
+tY(2, "水溶液計算", "2-2", "salt-ph", "氫離子濃度：鹽類", "鹽類 pH", [
   "① 強酸 ＋ 強鹼：pH ＝ {{7|數值}}（酸鹼中和）",
   "② 強酸 ＋ 弱鹼：pH ＝ ½（pKa − logC）＝ ½（pKw − pKb − logC）",
   "③ 弱酸 ＋ 強鹼：pH ＝ ½（pKw ＋ pKa ＋ logC）[90-1]",
   "④ 弱酸 ＋ 弱鹼：pH ＝ ½（pKw ＋ pKa − pKb）"
 ]);
-t(2, "★Henderson-Hasselbalch equation★", "2-2", "ionization", "★★解離度★★", "解離度", [
+tY(2, "★Henderson-Hasselbalch equation★", "2-2", "ionization", "★★解離度★★", "解離度", [
   "① {{酸性藥|名詞}}（例：barbital…）：離子態放{{分子|名詞}}：pH ＝ pKa ＋ log [A⁻]／[HA]（[A⁻]：酸的解離態；[HA]：酸的未解離態）[考爆]",
   "② {{鹼性藥|名詞}}（例：字尾 -ine／-amine、propranolol…）：離子態放{{分母|名詞}}：pH ＝ pKa ＋ log [B]／[BH⁺]（[B]：鹼的非離子態；[BH⁺]：鹼的離子態）",
   "★離子化百分比 ＝ 離子態 ／（離子態 ＋ 非離子態）× 100%",
   "pKa ＋ 1 ≥ pH ≥ pKa − 1：{{離子化改變程度最大|性質}}"
 ]);
-t(2, "★Henderson-Hasselbalch equation★", "2-3", "buffer", "緩衝溶液（Buffer）", "緩衝溶液", [
+tY(2, "★Henderson-Hasselbalch equation★", "2-3", "buffer", "緩衝溶液（Buffer）", "緩衝溶液", [
   "組成：{{弱酸與其共軛鹼|名詞}}或弱鹼與其共軛酸 [96-2]",
   "＊若金屬活性越大，其形成的共軛鹼鹽鹼性可能越{{大|性質}}（例：NaOH）[112-1]",
   "HA ＋ B → HB⁺ ＋ A⁻：① HA（酸）和 A⁻（共軛鹼）為共軛酸鹼對 ② B（鹼）和 HB⁺（共軛酸）為共軛酸鹼對",
@@ -261,34 +262,34 @@ t(2, "★Henderson-Hasselbalch equation★", "2-3", "buffer", "緩衝溶液（Bu
   "有效範圍：pKa {{±1|數值}} pH（當酸：鹼 ＝ 1：1 → 則 pH ＝ pKa，此時有{{最大的緩衝能力|性質}}）",
   "{{緩衝能力|名詞}}（β）：使一公升緩衝溶液 pH 值變化一單位，所需加入的強酸或強鹼（B）的當量數，β ＝ ΔB／ΔpH"
 ]);
-t(2, "★Henderson-Hasselbalch equation★", "2-3", "indicator", "指示劑（Indicator）", "指示劑", [
+tY(2, "★Henderson-Hasselbalch equation★", "2-3", "indicator", "指示劑（Indicator）", "指示劑", [
   "pH ＝ pKa ＋ log [In⁻]／[HIn]（酸性指示劑）[107-1]",
   "[In⁻]／[HIn] ≤ {{1/10|數值}}：呈現{{未解離型|名詞}}（HIn）的顏色；[In⁻]／[HIn] ≥ 10/1：呈現{{解離型|名詞}}（In⁻）的顏色"
 ]);
 
 /* ================= CH3 傳統分析－滴定分析概論（講義 3-1～3-2） ================= */
-ch(3, "滴定分析概論", "3-1～3-2");
-t(3, "滴定概論統整", "3-1", "titration-principle", "滴定：原理與步驟", "原理與步驟", [
+chY(3, "滴定分析概論", "3-1～3-2");
+tY(3, "滴定概論統整", "3-1", "titration-principle", "滴定：原理與步驟", "原理與步驟", [
   "原理：將一種已知準確濃度的{{滴定液|名詞}}（標準溶液）滴加到欲測濃度樣品中，直到反應完全為止，可測得未知濃度樣品主成分之含量",
   "步驟：① 準備合適器具 ② 以{{一級標準品|名詞}}標定滴定液（標準溶液）③ 加入指示劑 ④ 開始滴定直至終點 ⑤ 紀錄滴定液消耗量並計算含量"
 ]);
-t(3, "滴定概論統整", "3-1", "titration-conditions", "滴定：條件", "滴定條件", [
+tY(3, "滴定概論統整", "3-1", "titration-conditions", "滴定：條件", "滴定條件", [
   "容量分析（直接滴定、殘餘（反）滴定）：反應必須完全；平衡常數 K ≥ {{10⁸|數值}} [97-1、90-2]；解離常數 Ka or Kb ≥ {{10⁻⁶|數值}} [102-1]",
   "{{直接滴定|名詞}}：例：酸滴定直接以適量酸性滴定液滴定鹼性欲分析樣品",
   "{{殘餘（反）滴定|名詞}}：例：酸反滴定先以{{過量|性質}}酸性滴定液再用{{少量|性質}}鹼性滴定液反滴回來；用於反應較慢、水溶性差的分析樣品",
   "{{非水滴定|名詞}}：分析物酸鹼太弱：Ka or Kb < 10⁻⁶"
 ]);
-t(3, "滴定概論統整", "3-1", "titration-apparatus", "① 器具", "器具", [
+tY(3, "滴定概論統整", "3-1", "titration-apparatus", "① 器具", "器具", [
   "需校正：{{滴定管|名詞}}：不得含有氣泡，測量滴定液用，也可移液",
   "需校正：{{移液管|名詞}}：搭配使用安全吸球使用，A 級 1 ml 容量誤差 ±0.7%，5 ml 容量誤差 ±0.3%",
   "需校正：容量瓶",
   "{{量筒|名詞}}：只可盛裝用，{{不可用來移液|性質}} [111-1]",
   "器皿洗滌液 [102-2]：{{重鉻酸鉀／硫酸|物質}}、磷酸鈉溶液、合成洗滌劑"
 ]);
-t(3, "滴定概論統整", "3-1", "primary-standard", "② 一級標準品", "一級標準品", [
+tY(3, "滴定概論統整", "3-1", "primary-standard", "② 一級標準品", "一級標準品", [
   "試藥中{{最純|性質}}的等級（> {{99.9%|數值}}），可直接由稱量結果換算其莫耳數，為容量分析法中之參考標準品"
 ]);
-t(3, "滴定概論統整", "3-1", "titrant", "② 滴定液（標準溶液）", "滴定液", [
+tY(3, "滴定概論統整", "3-1", "titrant", "② 滴定液（標準溶液）", "滴定液", [
   "已知濃度分析物溶液，又稱為{{滴定劑|名詞}}或{{二級標準品|名詞}}",
   "鹼滴定／酸殘餘（CH5）：滴定液 {{NaOH/KOH|物質}}（氫氧化鈉／鉀）；一級標準品 {{KHP|物質}}（苯二甲酸氫鉀）[105-1]",
   "沉澱滴定（CH7）：滴定液 {{NaB(C₆H₅)₄|物質}}（四苯硼鈉）；一級標準品 KHP",
@@ -299,7 +300,7 @@ t(3, "滴定概論統整", "3-1", "titrant", "② 滴定液（標準溶液）", 
   "氧化還原滴定（CH9）：Na₂S₂O₃（硫代硫酸鈉）→ {{K₂Cr₂O₇|物質}}（重鉻酸鉀）；NaNO₂（亞硝酸鈉）→ {{Sulfanilamide|物質}}（苯磺胺）",
   "錯合滴定（CH8）：EDTA（乙二胺四乙酸）→ {{CaCO₃|物質}}（碳酸鈣）[92-2]"
 ], ["講義：右表大統整建議詳閱下述單元後，再回來統合複習一遍"]);
-t(3, "滴定概論統整", "3-2", "titration-indicators", "③ 指示劑", "指示劑", [
+tY(3, "滴定概論統整", "3-2", "titration-indicators", "③ 指示劑", "指示劑", [
   "使用規則：通常加入 {{2~3|數值}} 滴指示劑，通常選擇{{顏色出現|名詞}}來判定滴定終點",
   "H-H 方程式：pH ＝ pKa ＋ log [In⁻]／[HIn] → 變色範圍為 pH ＝ pKa {{± 1|數值}} [108-2]",
   "CH4 酸滴定：甲基黃（Methyl yellow）2.9–4.0（醇）；★甲基橙（{{Methyl orange|物質}}）3.2–4.4（水）[111-2]；甲基紅（Methyl red）4.2–6.2（NaOH＋水）；顏色變化{{紅-黃|顏色}} [110-1]",
@@ -311,11 +312,11 @@ t(3, "滴定概論統整", "3-2", "titration-indicators", "③ 指示劑", "指�
   "CH7 沉澱滴定：Volhard method：{{NH₄Fe(SO₄)₂|物質}}（鐵明礬）紅色；四苯硼鈉滴定：溴酚藍（Bromophenol）黃-藍",
   "CH8 錯合滴定：Eriochrome Black T／Dithizone…（詳見該章）；CH9 氧化還原滴定：KMnO₄／Ferroin／Starch…（詳見該章）"
 ]);
-t(3, "滴定概論統整", "3-2", "titration-curve", "④ 滴定曲線", "滴定曲線", [
+tY(3, "滴定概論統整", "3-2", "titration-curve", "④ 滴定曲線", "滴定曲線", [
   "2 個反曲點間會有{{突破區|名詞}}形成，多數在 pKa 差值 > {{4|數值}} 以上時才可以明顯觀察到 [111-1]",
   "若 pKa 差值 < 4，僅會有 {{1|數值}} 個反曲點，無突破區"
 ]);
-t(3, "滴定概論統整", "3-2", "titration-calc", "⑤ 計算★", "滴定計算", [
+tY(3, "滴定概論統整", "3-2", "titration-calc", "⑤ 計算★", "滴定計算", [
   "N₁ × V₁ ＝ N₂ × V₂ [考爆]",
   "M ＝ 莫爾濃度 ＝ 溶質莫耳數（mole）／ 溶液體積（L）；莫耳數 → 克數／分子量",
   "N 當量濃度 ＝ M × {{價數|名詞}}；V ＝ 體積（滴定通常消耗 {{20~40|數值}} 毫升）"
@@ -323,79 +324,79 @@ t(3, "滴定概論統整", "3-2", "titration-calc", "⑤ 計算★", "滴定計�
 
 /* ================= CH4 傳統分析－酸滴定（講義 4-1～） =================
    滴定類章節：一格一個分析藥品，重點依序是 價數／滴定劑／指示劑／反應式與備註。 */
-ch(4, "酸滴定", "4-1～4-3");
-t(4, "滴定劑", "4-1", "acid-titrant", "酸滴定的滴定劑（HCl／H₂SO₄）", "酸滴定劑", [
+chY(4, "酸滴定", "4-1～4-3");
+tY(4, "滴定劑", "4-1", "acid-titrant", "酸滴定的滴定劑（HCl／H₂SO₄）", "酸滴定劑", [
   "滴定劑：{{HCl|物質}}、{{H₂SO₄|物質}}",
   "一級標準品：{{Na₂CO₃|物質}}；標定：{{甲基橙|物質}}為指示劑（3.1~4.4，紅 → 黃）；乾燥：{{270°C|數值}} 加熱 1 小時",
   "二級標準品：{{NaOH|物質}}",
   "分析藥品（鹼性樣品）：{{Ba(OH)₂|物質}} [102-1]、Meglumine、ethylenediamine……；H₂SO₄ 用於需要{{加熱去除 CO₂|名詞}}之分析"
 ]);
-t(4, "直接滴定", "4-1", "nahco3", "NaHCO₃（sodium bicarbonate）", "NaHCO₃", [
+tY(4, "直接滴定", "4-1", "nahco3", "NaHCO₃（sodium bicarbonate）", "NaHCO₃", [
   "價數：{{1|數值}} 價；滴定劑：H₂SO₄；指示劑：{{甲基橙|物質}}（3.1~4.4，紅 → 黃）",
   "2NaHCO₃ ＋ H₂SO₄ → Na₂SO₄ ＋ 2H₂O ＋ 2CO₂（釋出的{{碳酸|物質}}會影響分析）"
 ]);
-t(4, "直接滴定", "4-1", "naoh-assay", "NaOH（sodium hydroxide）", "NaOH", [
+tY(4, "直接滴定", "4-1", "naoh-assay", "NaOH（sodium hydroxide）", "NaOH", [
   "價數：1 價；滴定劑：H₂SO₄",
   "指示劑 {{酚酞|物質}}（8.3~10，無 → 紅）：2NaOH ＋ H₂SO₄ → Na₂SO₄ ＋ 2H₂O；↓ 吸收 CO₂：2Na₂CO₃（含量不得超過 {{3%|數值}}）＋ H₂SO₄ → 2NaHCO₃ ＋ Na₂SO₄",
   "指示劑 {{甲基橙|物質}} [96-2]：2NaHCO₃ ＋ H₂SO₄ → Na₂SO₄ ＋ 2H₂O ＋ 2CO₂"
 ]);
-t(4, "直接滴定", "4-1", "borax", "Na₂B₄O₇（sod. Borate）", "Na₂B₄O₇", [
+tY(4, "直接滴定", "4-1", "borax", "Na₂B₄O₇（sod. Borate）", "Na₂B₄O₇", [
   "價數：{{2|數值}} 價；滴定劑：HCl；指示劑：{{甲基紅|物質}}（4.2~6.3，紅 → 黃）",
   "Na₂B₄O₇ ＋ 2HCl ＋ 5H₂O → 2NaCl ＋ 4H₃BO₃"
 ]);
-t(4, "直接滴定", "4-1", "sod-salicylate", "sod. Salicylate（水楊酸之鈉鹽）", "sod. Salicylate", [
+tY(4, "直接滴定", "4-1", "sod-salicylate", "sod. Salicylate（水楊酸之鈉鹽）", "sod. Salicylate", [
   "價數：1 價；滴定劑：HCl；指示劑：{{溴酚藍|物質}}（3.0~4.6，黃 → 藍）；需{{乙醚抽取|名詞}} [93-2]",
   "步驟：① 酸化反應產生{{不溶性產物|名詞}}（生成水楊酸、苯甲酸等不溶性有機酸）② 加入{{乙醚|物質}}（ether）萃取不溶性產物至有機層 [105-2、97-2] ③ 移除有機酸產物，避免中和反應之逆反應，使水層澄清、便於觀察終點"
 ]);
-t(4, "直接滴定", "4-1", "caffeine-sod-benzoate", "caffeine and sod. Benzoate（有機酸之鈉鹽）", "Caffeine-Benzoate", [
+tY(4, "直接滴定", "4-1", "caffeine-sod-benzoate", "caffeine and sod. Benzoate（有機酸之鈉鹽）", "Caffeine-Benzoate", [
   "價數：1 價；滴定劑：HCl；指示劑：{{甲基橙|物質}}（3.1~4.4，紅 → 黃）；需{{乙醚抽取|名詞}}",
   "步驟同 sod. Salicylate：酸化產生不溶性有機酸 → 加入乙醚萃取至有機層 → 移除有機酸產物，避免中和反應之逆反應，使水層澄清、便於觀察終點"
 ]);
-t(4, "間接滴定（殘餘滴定，反滴定）", "4-2", "back-titration-acid", "間接滴定（殘餘滴定，反滴定）", "反滴定", [
+tY(4, "間接滴定（殘餘滴定，反滴定）", "4-2", "back-titration-acid", "間接滴定（殘餘滴定，反滴定）", "反滴定", [
   "用於分析{{反應慢|性質}}或無法得到敏銳的終點，{{水溶性較差的鹼性藥物|名詞}} [91]",
   "滴定劑：用{{過量 H₂SO₄|物質}}再用 {{NaOH|物質}} 反滴"
 ]);
-t(4, "間接滴定（殘餘滴定，反滴定）", "4-2", "zno", "ZnO（zinc oxide）", "ZnO", [
+tY(4, "間接滴定（殘餘滴定，反滴定）", "4-2", "zno", "ZnO（zinc oxide）", "ZnO", [
   "價數：{{2|數值}} 價 [94-1]；指示劑：{{甲基橙|物質}}（3.1~4.4，紅 → 黃）[106-1]",
   "ZnO ＋ H₂SO₄ → ZnSO₄ ＋ H₂O；2NaOH ＋ H₂SO₄ → Na₂SO₄ ＋ 2H₂O",
   "＋ {{NH₄Cl|物質}} 可防止 ZnSO₄ 和 NaOH 作用產生 {{Zn(OH)₂|物質}}"
 ]);
-t(4, "間接滴定（殘餘滴定，反滴定）", "4-2", "mgoh2", "鎂乳中的 Mg(OH)₂", "Mg(OH)₂", [
+tY(4, "間接滴定（殘餘滴定，反滴定）", "4-2", "mgoh2", "鎂乳中的 Mg(OH)₂", "Mg(OH)₂", [
   "價數：2 價；指示劑：{{甲基紅|物質}}（4.2~6.3，紅 → 黃）",
   "Mg(OH)₂ ＋ H₂SO₄ → MgSO₄ ＋ 2H₂O；2NaOH ＋ H₂SO₄ → Na₂SO₄ ＋ 2H₂O"
 ]);
-t(4, "間接滴定（殘餘滴定，反滴定）", "4-2", "rochelle-salt", "★C₄H₄KNaO₆ 酒石酸鉀鈉（potassium sodium tartrate）", "酒石酸鉀鈉", [
+tY(4, "間接滴定（殘餘滴定，反滴定）", "4-2", "rochelle-salt", "★C₄H₄KNaO₆ 酒石酸鉀鈉（potassium sodium tartrate）", "酒石酸鉀鈉", [
   "價數：2 價；指示劑：{{甲基紅-亞甲基藍|物質}}（4.0 → 5.4 → 9.0，紅紫 → 灰 → 綠）[104-1、99-1、94-2]",
   "{{熾灼至碳化|反應}}：C₄H₄KNaO₆ → KNaCO₃（碳酸鹽）",
   "2KNaCO₃ ＋ 2H₂SO₄ → K₂SO₄ ＋ Na₂SO₄ ＋ 2H₂O ＋ 2CO₂（{{煮沸去除 CO₂|名詞}}）；H₂SO₄ ＋ 2NaOH → Na₂SO₄ ＋ 2H₂O",
   "醋酸、{{檸檬酸|物質}}、乳酸等之{{鹼鹽|名詞}}亦用此法 [114-2、111-2、9X 愛考]"
 ]);
-t(4, "間接滴定（殘餘滴定，反滴定）", "4-2", "methenamine", "★(CH₂)₆N₄★ methenamine（hexamine, urotropine）", "Methenamine", [
+tY(4, "間接滴定（殘餘滴定，反滴定）", "4-2", "methenamine", "★(CH₂)₆N₄★ methenamine（hexamine, urotropine）", "Methenamine", [
   "價數：{{4|數值}} 價 [考爆]；指示劑：{{甲基紅|物質}}（4.2~6.3，紅 → 黃）",
   "(CH₂)₆N₄ ＋ 10H₂O → 4NH₄⁺ ＋ 4OH⁻ ＋ 6{{HCHO|物質}}＊（臭）↑ 煮沸去除",
   "＊{{甲醛|物質}}會與 {{chromotropic acid|物質}}（變色酸）呈{{紫堇色|顏色}}，亦可用硝酸銀銨液試紙 {{Tollens' reagent|物質}} 檢測（銀鏡反應）",
   "4(NH₄)OH ＋ 2H₂SO₄ → 2(NH₄)₂SO₄ ＋ 4H₂O；H₂SO₄ ＋ 2NaOH → Na₂SO₄ ＋ 2H₂O"
 ]);
-t(4, "硼酸溶液收集法", "4-3", "boric-acid-collection", "硼酸溶液收集法", "硼酸收集法", [
+tY(4, "硼酸溶液收集法", "4-3", "boric-acid-collection", "硼酸溶液收集法", "硼酸收集法", [
   "① 酸鹼中和：NH₄Cl ＋ {{NaOH|物質}} → NaCl ＋ NH₃ ＋ H₂O",
   "② 以過量{{硼酸溶液|物質}}收集，防止{{氨漏失|名詞}}：NH₃ ＋ H₃BO₃ ⇌ NH₄⁺ ＋ BO₂⁻ ＋ H₂O",
   "③ 酸滴定：以 H₂SO₄ 滴定，{{間接|性質}}計算氮含量（硼酸{{不消耗|性質}}滴定液）：2NH₄BO₂ ＋ H₂SO₄ ＋ 2H₂O → (NH₄)₂SO₄ ＋ 2H₃BO₃",
   "滴定劑：H₂SO₄；指示劑：{{甲基紅|物質}}（4.2~6.3，紅 → 黃）",
   "應用藥品：氯化銨注射液、{{Neostigmine|藥名}} [104-1]"
 ]);
-t(4, "凱氏含氮測定法（Kjeldahl method）", "4-3", "kjeldahl", "凱氏含氮測定法（Kjeldahl method）", "Kjeldahl", [
+tY(4, "凱氏含氮測定法（Kjeldahl method）", "4-3", "kjeldahl", "凱氏含氮測定法（Kjeldahl method）", "Kjeldahl", [
   "滴定劑：HCl 或 H₂SO₄；指示劑：{{甲基紅-亞甲基藍|物質}}（4.0 → 5.4 → 9.0，紅紫 → 灰 → 綠）",
   "★定量藥品：測定含氮物質（{{胺基|名詞}}）1°、2°、3° 胺：amide、peptide、蛋白質 [105-2]、calcium pantothenate、heparin、phenylalanine [107-2] 等",
   "⚠ 僅適用於可經{{硫酸分解|反應}}釋出的 N（講義上 Neostigmine 被劃掉）[104-1]；不適用 {{-NO₂、-CN、-N=N、4° 胺|名詞}}",
   "長頸：防止{{酸濺出|名詞}}"
 ]);
-t(4, "凱氏含氮測定法（Kjeldahl method）", "4-3", "kjeldahl-additives", "凱氏法：輔佐劑", "凱氏輔佐劑", [
+tY(4, "凱氏含氮測定法（Kjeldahl method）", "4-3", "kjeldahl-additives", "凱氏法：輔佐劑", "凱氏輔佐劑", [
   "{{催化劑|名詞}}：{{CuSO₄ 或 Se|物質}}，縮短消化時間檢品；含氮量超過 10.0%，添加{{苯甲酸|物質}}（benzoic acid）幫助消化 [113-1、9X 愛考]",
   "{{升溫劑|名詞}}：{{硫酸鉀或無水硫酸鈉|物質}}會大量升高溫度（Gunning 修正）",
   "{{防止突沸|名詞}}：{{鋅粉或多孔性物質|物質}}",
   "{{固定劑|名詞}}：硝酸或亞硝酸鹽，消化過程會釋出硝酸或其他揮發性物質，需用{{水楊酸|物質}}（salicylic acid）固定成為硝基水楊酸，再以{{硫代硫酸鈉|物質}}（sod. thiosulfate）還原成胺基水楊酸"
 ]);
-t(4, "凱氏含氮測定法（Kjeldahl method）", "4-3", "kjeldahl-procedure", "凱氏法：方法、反應式與含量換算", "凱氏反應式", [
+tY(4, "凱氏含氮測定法（Kjeldahl method）", "4-3", "kjeldahl-procedure", "凱氏法：方法、反應式與含量換算", "凱氏反應式", [
   "方法：{{巨量法|名詞}}：檢品 1.0 g 用 0.5N H₂SO₄ 滴定；{{半微量法|名詞}}：檢品 2.0~3.0 mg 用 {{0.01N|數值}} H₂SO₄ 滴定 [92-1]",
   "① {{消化|反應}}：2RNH₂ ＋ H₂SO₄ → (NH₄)₂SO₄ ＋ CO₂，直至不再產生 CO₂，最後溶液變成{{無或淡藍綠色|顏色}}表示消化完成 [90-2]",
   "② {{中和|反應}}：(NH₄)₂SO₄ ＋ 2NaOH → 2NH₃ ＋ 2H₂O ＋ Na₂SO₄",
@@ -404,53 +405,53 @@ t(4, "凱氏含氮測定法（Kjeldahl method）", "4-3", "kjeldahl-procedure", 
 ]);
 
 /* ================= CH5 傳統分析－鹼滴定（講義 5-1～） ================= */
-ch(5, "鹼滴定", "5-1～");
-t(5, "滴定劑", "5-1", "base-titrant", "鹼滴定的滴定劑（NaOH／KOH）", "鹼滴定劑", [
+chY(5, "鹼滴定", "5-1～");
+tY(5, "滴定劑", "5-1", "base-titrant", "鹼滴定的滴定劑（NaOH／KOH）", "鹼滴定劑", [
   "滴定劑：{{NaOH、KOH|物質}}；二級標準品：HCl、H₂SO₄",
   "一級標準品：{{苯二甲酸氫鉀|物質}}（KHP）；指示劑：{{PP|物質}}；乾燥：{{120 度|數值}}，2 小時",
   "製備：45.00 g NaOH（40.00）溶於 950.00 ml 水，加 {{Ba(OH)₂|物質}}（除去碳酸）溶液至不生沉澱，振搖，密塞，靜置過夜，過濾或傾出上層液",
   "NaOH 會吸收 {{CO₂|物質}} 使濃度改變 [91]，使用前應重新標定，滴定管加裝 {{soda-lime|物質}}",
   "鹼滴定通常進行{{空白試驗|名詞}} [111-2]"
 ]);
-t(5, "直接滴定", "5-1", "h3po4", "★H₃PO₄（無機酸如 H₂SO₄、HCl、HNO₃）", "H₃PO₄", [
+tY(5, "直接滴定", "5-1", "h3po4", "★H₃PO₄（無機酸如 H₂SO₄、HCl、HNO₃）", "H₃PO₄", [
   "價數：{{2|數值}} 價 [102-2]；指示劑：{{Thymolphthalein|物質}}（8.6~10.0，無 → 藍）[109-2]；滴定劑：NaOH",
   "H₃PO₄ ＋ 2NaOH → {{Na₂HPO₄|物質}} ＋ 2H₂O"
 ]);
-t(5, "直接滴定", "5-1", "tartaric-acid", "H₂C₄H₄O₆ tartaric acid（有機酸）", "Tartaric acid", [
+tY(5, "直接滴定", "5-1", "tartaric-acid", "H₂C₄H₄O₆ tartaric acid（有機酸）", "Tartaric acid", [
   "價數：{{2|數值}} 價；滴定劑：NaOH",
   "H₂C₄H₄O₆ ＋ 2NaOH → Na₂C₄H₄O₆ ＋ 2H₂O",
   "有機酸如 acetic acid、benzoic acid、citric acid、nicotinic acid、salicylic acid、undecylenic acid、{{oxalic acid|物質}}（{{需煮沸|名詞}}）"
 ]);
-t(5, "直接滴定", "5-1", "h3bo3", "H₃BO₃ 硼酸", "硼酸", [
+tY(5, "直接滴定", "5-1", "h3bo3", "H₃BO₃ 硼酸", "硼酸", [
   "價數：{{1|數值}} 價；指示劑：{{酚酞|物質}}（8.3–10，無 → 紅）；滴定劑：NaOH",
   "加{{甘油|物質}}（glycerin）、{{甘露醇|物質}}（mannitol）、右旋山梨醇（d-sorbitol）[114-2、9X 愛考]",
   "與多元醇形成穩定錯合物 → {{增加酸性|性質}}"
 ]);
-t(5, "直接滴定", "5-2", "thio-compounds", "雜硫化合物：Methimazole、Propylthiouracil", "雜硫化合物", [
+tY(5, "直接滴定", "5-2", "thio-compounds", "雜硫化合物：Methimazole、Propylthiouracil", "雜硫化合物", [
   "價數：Methimazole {{1|數值}} 價、Propylthiouracil {{2|數值}} 價；指示劑：{{BTB|物質}}（6.0~7.6，黃 → 藍）；滴定劑：NaOH",
   "用 {{Boie method|名詞}}：加 {{AgNO₃|物質}} 增加酸性，釋出 {{HNO₃|物質}} [104-1]"
 ]);
-t(5, "直接滴定", "5-2", "acetylenic", "乙炔化合物：Ethchlorvynol、Ethinamate", "乙炔化合物", [
+tY(5, "直接滴定", "5-2", "acetylenic", "乙炔化合物：Ethchlorvynol、Ethinamate", "乙炔化合物", [
   "價數：{{1|數值}} 價；滴定劑：NaOH",
   "用 {{Boie method|名詞}}：加 AgNO₃ 增加酸性，釋出 HNO₃ [104-1]"
 ]);
-t(5, "直接滴定", "5-2", "meprobamate", "Meprobamate", "Meprobamate", [
+tY(5, "直接滴定", "5-2", "meprobamate", "Meprobamate", "Meprobamate", [
   "價數：{{2|數值}} 價；滴定劑：NaOH",
   "先用 HCl 水解成 NH₄Cl，加 {{HCHO|物質}} 增加酸性：6HCHO ＋ 4NH₄Cl → (CH₂)₆N₄ ＋ 4HCl ＋ 6H₂O"
 ]);
-t(5, "直接滴定", "5-2", "benzaldehyde", "苯甲醛（benzaldehyde）", "苯甲醛", [
+tY(5, "直接滴定", "5-2", "benzaldehyde", "苯甲醛（benzaldehyde）", "苯甲醛", [
   "滴定劑：NaOH",
   "加{{鹽酸羥胺|物質}}（hydroxylamine hydrochloride）HONH₂·HCl → 形成{{醛肟|物質}}（aldoxime）和 HCl [97-1、90-2]"
 ]);
-t(5, "直接滴定", "5-2", "hydroxyl-drugs", "含羥基之藥物：2-phenoxyethanol", "含羥基藥物", [
+tY(5, "直接滴定", "5-2", "hydroxyl-drugs", "含羥基之藥物：2-phenoxyethanol", "含羥基藥物", [
   "滴定劑：NaOH",
   "加{{醋酐|物質}}（acetic anhydride）或{{乙醯氯|物質}}（acetyl chloride）形成{{酯|名詞}}"
 ]);
-t(5, "間接滴定（殘餘滴定，反滴定）", "5-3", "back-titration-base", "間接滴定：酯類、酸酐、氯化醯藥物", "酯類反滴定", [
+tY(5, "間接滴定（殘餘滴定，反滴定）", "5-3", "back-titration-base", "間接滴定：酯類、酸酐、氯化醯藥物", "酯類反滴定", [
   "適用：{{酯類、酸酐、氯化醯|名詞}}藥物 [106-1]",
   "如 aspirin、acetic anhydride、acetyl chloride、benzylbenzoate、chloral hydrate、ethylacetate、formaldehyde、lactic acid、methylparaben、methylsalicylate、santonin"
 ]);
-t(5, "間接滴定（殘餘滴定，反滴定）", "5-3", "aspirin-assay", "aspirin tablet 乙醯水楊酸", "Aspirin", [
+tY(5, "間接滴定（殘餘滴定，反滴定）", "5-3", "aspirin-assay", "aspirin tablet 乙醯水楊酸", "Aspirin", [
   "價數：{{2|數值}} 價 [114-2、93-2]；指示劑：{{酚酞|物質}}",
   "滴定劑：中和：過量 0.1N NaOH；皂化：過量 0.1N NaOH，再用 {{0.1N H₂SO₄|物質}} 反滴",
   "檢品可能水解：C₆H₄OCOCH₃COOH ＋ H₂O → C₆H₄OHCOOH ＋ CH₃COOH",
@@ -459,52 +460,52 @@ t(5, "間接滴定（殘餘滴定，反滴定）", "5-3", "aspirin-assay", "aspi
   "③ 滴定：用 0.1N H₂SO₄ 反滴定",
   "④ 計算 aspirin（{{酯值|名詞}}）含量 ＝ {{皂化值|名詞}}（步驟 ② 和 ③）− {{酸值|名詞}}（步驟 ①）"
 ]);
-t(5, "間接滴定（殘餘滴定，反滴定）", "5-3", "chloral-hydrate", "chloral hydrate 水合三氯乙醛", "Chloral hydrate", [
+tY(5, "間接滴定（殘餘滴定，反滴定）", "5-3", "chloral-hydrate", "chloral hydrate 水合三氯乙醛", "Chloral hydrate", [
   "價數：{{1|數值}} 價 [108-2、91-1、90-1]；指示劑：{{酚酞|物質}}；先用 NaOH，再用 H₂SO₄ 反滴",
   "CCl₃CH(OH)₂ ＋ NaOH → {{CHCl₃|物質}} ＋ HCOONa ＋ H₂O"
 ]);
-t(5, "間接滴定（殘餘滴定，反滴定）", "5-3", "methylparaben", "methylparaben", "Methylparaben", [
+tY(5, "間接滴定（殘餘滴定，反滴定）", "5-3", "methylparaben", "methylparaben", "Methylparaben", [
   "價數：1 價；指示劑：{{BTB|物質}}；先用 NaOH，再用 H₂SO₄ 反滴",
   "檢品 2.00 g 加 30.00 ml 1.00N NaOH {{加熱 1h|名詞}}，冷卻",
   "HO-C₆H₄-COOCH₃ ＋ NaOH → HO-C₆H₄-COONa ＋ {{CH₃OH|物質}}"
 ]);
-t(5, "間接滴定（殘餘滴定，反滴定）", "5-3", "formaldehyde", "formaldehyde（37.0% 以上）", "Formaldehyde", [
+tY(5, "間接滴定（殘餘滴定，反滴定）", "5-3", "formaldehyde", "formaldehyde（37.0% 以上）", "Formaldehyde", [
   "價數：1 價；指示劑：{{BTB|物質}}；先用 NaOH，再用 H₂SO₄ 反滴",
   "HCHO ＋ {{H₂O₂|物質}} ＋ NaOH → HCOONa ＋ 2H₂O"
 ]);
 
 /* ================= CH6 傳統分析－非水滴定法（講義 6-1～6-2） ================= */
-ch(6, "非水滴定法", "6-1～6-2");
-t(6, "概論", "6-1", "nonaq-use", "非水滴定：用途、標準、反應當量點", "非水滴定用途", [
+chY(6, "非水滴定法", "6-1～6-2");
+tY(6, "概論", "6-1", "nonaq-use", "非水滴定：用途、標準、反應當量點", "非水滴定用途", [
   "用途：當分析物 {{弱酸鹼性|性質}}：★★酸的 Ka 或鹼的 Kb < {{10⁻⁶|數值}}；酸的 pKa 或鹼的 pKb > {{6|數值}}★★ [考爆]",
   "用途：水溶性差（溶解度 < 1 mg/mL），{{反應速率慢|性質}}（K < 10⁸），不易選擇指示劑；終點不易觀察者",
   "標準：水分必須低於 {{0.05%|數值}} [94-2]，因 H₂O（作{{弱鹼性|性質}}）[101-2] ＋ HClO₄ ⇌ H₃O⁺（會降低滴定終點靈敏度）＋ ClO₄⁻",
   "標準：溫度、濕度需與標定標準溶液時一致",
   "反應當量點：{{電位|名詞}}滴定法 [111-1]"
 ]);
-t(6, "概論", "6-1", "protogenic-solvent", "酸性溶劑（質子性溶劑，Protogenic solvent）", "酸性溶劑", [
+tY(6, "概論", "6-1", "protogenic-solvent", "酸性溶劑（質子性溶劑，Protogenic solvent）", "酸性溶劑", [
   "酸性比水強，可強化分析物{{鹼性|性質}}表現，適用於{{非水酸滴定|名詞}} [114-2]",
   "→ formic acid、{{acetic acid|物質}}、acetic anhydride、propionic acid"
 ]);
-t(6, "概論", "6-1", "aprotic-solvent", "無質子溶劑（中性溶劑，Aprotic solvent）", "無質子溶劑", [
+tY(6, "概論", "6-1", "aprotic-solvent", "無質子溶劑（中性溶劑，Aprotic solvent）", "無質子溶劑", [
   "呈{{中性|性質}}，無法供給或接受質子，用於{{極弱酸鹼|名詞}}之滴定 [111-1]",
   "偶極矩小，反應慢，常和其他溶劑混合使用，可增加檢品{{溶解度|名詞}} [100-2]",
   "→ benzene、{{dioxane|物質}}、ethyl acetate、CCl₄、cyclohexane、CHCl₃、acetone、acetonitrile、methylenechloride"
 ]);
-t(6, "概論", "6-1", "amphiprotic-solvent", "兩性溶劑（Amphiprotic solvent）", "兩性溶劑", [
+tY(6, "概論", "6-1", "amphiprotic-solvent", "兩性溶劑（Amphiprotic solvent）", "兩性溶劑", [
   "酸與鹼性接近水，有{{質子自遞作用|名詞}}（autoprotolysis）[90-2]，分析較弱酸或鹼性藥物",
   "→ {{methanol|物質}}、ethanol、ethyleneglycol、2-propanol、glycerin、benzylalcohol"
 ]);
-t(6, "概論", "6-1", "protophilic-solvent", "鹼性溶劑（Protophilic solvent）", "鹼性溶劑", [
+tY(6, "概論", "6-1", "protophilic-solvent", "鹼性溶劑（Protophilic solvent）", "鹼性溶劑", [
   "鹼性比水強，酸性比水弱，可強化分析物{{酸性|性質}}表現，適用於{{非水鹼滴定|名詞}}",
   "→ 強鹼：{{n-butylamine|物質}}、ethylenediamine、morpholine",
   "→ 弱鹼：{{dimethylformamide（DMF）|物質}}、pyridine"
 ]);
-t(6, "概論", "6-1", "nonaq-indicators", "★指示劑★（非水滴定）", "非水指示劑", [
+tY(6, "概論", "6-1", "nonaq-indicators", "★指示劑★（非水滴定）", "非水指示劑", [
   "非水{{酸|名詞}}滴定（分析弱鹼）：{{結晶紫 crystal violet|物質}}、孔雀石綠 malachite green、喹吶啶紅 quinaldine red、歐拉西特藍 Oracet blue [考爆]",
   "非水{{鹼|名詞}}滴定（分析弱酸）：{{瑞香酚藍 thymol blue|物質}}、偶氮紫 azo violet、對羥偶氮苯（p-hydroxyazobenzene）"
 ]);
-t(6, "非水酸滴定", "6-2", "nonaq-acid-titration", "非水酸滴定", "非水酸滴定", [
+tY(6, "非水酸滴定", "6-2", "nonaq-acid-titration", "非水酸滴定", "非水酸滴定", [
   "滴定劑：{{HClO₄|物質}}（過氯酸）[108-2]；★配製：{{70.0–72.0%|數值}}（防止{{自發性爆炸|名詞}}分解）[110-2、109-1]",
   "★一級標準品：{{鄰苯二甲酸氫鉀|物質}}（KHP ＝ potassium biphthalate）＝ C₆H₄(CO₂K)CO₂H [109-2、108-1、104-1]",
   "溶劑：過氯酸溶於酸性溶液★{{冰醋酸|物質}}（乙酸）[107-2、113-2]，加 Acetic anhydride {{醋酐|物質}}（乙酐）吸水，產生{{放熱|性質}}反應 [109-1、9X]",
@@ -514,7 +515,7 @@ t(6, "非水酸滴定", "6-2", "nonaq-acid-titration", "非水酸滴定", "非�
   "含 Amine 藥品（如 adrenaline、chlorpromazine、phenylephrine、cocaine、morphine、codeine、diazepam）；有機鈉鹽（如 sodium benzoate 等）",
   "★鹽酸鹽、氫溴酸鹽（分析含氯或溴的鹽酸或溴酸鹽如鹽酸嗎啡，＋ {{乙酸汞|物質}} → 使氯或溴形成{{不解離化合物|名詞}}以避免影響反應）[110-2、113-1]"
 ]);
-t(6, "非水鹼滴定", "6-2", "nonaq-base-titration", "非水鹼滴定", "非水鹼滴定", [
+tY(6, "非水鹼滴定", "6-2", "nonaq-base-titration", "非水鹼滴定", "非水鹼滴定", [
   "滴定劑：★{{CH₃ONa 甲醇鈉|物質}} [106-1、113-1、92-1]",
   "製備：{{金屬鈉|物質}}溶於{{甲醇|物質}} → 放熱反應 → 冰塊冷卻，苯 benzene 稀釋（若形成膠體可改用{{甲醇鋰|物質}} lithium methoxide）[111-1]",
   "貯存：應避免{{水分和 CO₂|名詞}}，否則會干擾甲醇鈉呈{{白色混濁|顏色}}（H₂O ＋ CO₂ ＋ CH₃ONa → CH₃OH ＋ Na₂CO₃）",
@@ -523,49 +524,49 @@ t(6, "非水鹼滴定", "6-2", "nonaq-base-titration", "非水鹼滴定", "非�
   "分析酸性稍強藥物（如甲醇鈉標定）：弱鹼溶劑 {{Dimethylformamide ＝ DMF|物質}}（會跟 methoxide 反應，需做空白實驗）或 pyridine [114-1、112-2]；指示劑 {{thymol blue|物質}}（瑞香酚藍）[114-1]",
   "分析藥品：弱酸藥物（如 secobarbital、sulfisoxazole、phenytoin、dicumarol、hydrochlorothiazide 等）[114-2]"
 ]);
-t(6, "非水鹼滴定", "6-2", "sulfa-mixture", "應用：分析 sulfanilamide 與 sulfathiazole 混合物", "磺胺混合物", [
+tY(6, "非水鹼滴定", "6-2", "sulfa-mixture", "應用：分析 sulfanilamide 與 sulfathiazole 混合物", "磺胺混合物", [
   "① 以{{弱鹼溶劑 DMF|物質}}為溶劑，僅酸性較強的 {{sulfathiazole|藥名}} 反應，則以 thymol blue（瑞香酚藍）做指示劑 [104-2、91-1]",
   "② 以{{強鹼溶劑 n-butylamine|物質}}為溶劑，可求出磺酸胺{{總量|名詞}}",
   "兩者之差 ② − ① 即為 {{sulfanilamide|藥名}} 的量"
 ]);
 
 /* ================= CH7 傳統分析－沉澱滴定（講義 7-1～7-2） ================= */
-ch(7, "沉澱滴定", "7-1～7-2");
-t(7, "概論", "7-1", "digestion", "養晶", "養晶", [
+chY(7, "沉澱滴定", "7-1～7-2");
+tY(7, "概論", "7-1", "digestion", "養晶", "養晶", [
   "攪拌 → {{少量多次|名詞}}緩慢加入沉澱劑（促進{{粗大結晶|名詞}}之形成）→ 微微加溫，延緩結晶生成使其有充分時間長大 → 靜置養大 [104-2、92-2]"
 ]);
-t(7, "概論", "7-1", "precip-endpoint", "終點判別", "終點判別", [
+tY(7, "概論", "7-1", "precip-endpoint", "終點判別", "終點判別", [
   "觀察沉澱停止／{{電位法|名詞}}（指示：白金電極或銀電極；參考：{{甘汞電極|名詞}}）／內部指示劑／光度計濁度法（{{Turbidimetry|名詞}}）[101-1、95-1]"
 ]);
-t(7, "概論", "7-1", "ksp", "溶度積（Ksp）", "溶度積", [
+tY(7, "概論", "7-1", "ksp", "溶度積（Ksp）", "溶度積", [
   "適用於{{難溶電解質的飽和溶液|名詞}}，對易溶的電解質不適用",
   "為離子濃度乘積，同類鹽中，Ksp 越{{大|性質}}則越容易溶解；越小則越容易沉澱，更有利於分析 [114-1]",
   "例：Ag₂CrO₄ ⇌ 2Ag⁺ ＋ CrO₄²⁻，Ksp ＝ {{[Ag⁺]²[CrO₄²⁻]|名詞}} [114-2]"
 ]);
-t(7, "概論", "7-1", "common-ion", "共同離子效應", "共同離子效應", [
+tY(7, "概論", "7-1", "common-ion", "共同離子效應", "共同離子效應", [
   "溶液中已存在其中一種組成離子時，鹽類的溶解度會{{減少|性質}} [109-1]"
 ]);
-t(7, "Mohr method 或 直接滴定", "7-1", "agno3-titrant", "滴定液：硝酸銀（AgNO₃）", "AgNO₃", [
+tY(7, "Mohr method 或 直接滴定", "7-1", "agno3-titrant", "滴定液：硝酸銀（AgNO₃）", "AgNO₃", [
   "標定：暗處乾燥後加水溶解，再加硝酸及硫酸鐵銨試液，用 0.1N {{硫氰酸銨|物質}}液滴定之（講義上 AgNO₃ ＋ HCl → AgCl↓ ＋ HNO₃ 為淡色印刷 [90-1，中華藥典第四版]）",
   "慢慢加入鹽酸後，攪拌至沉澱 → 以{{硝酸酸化之水|物質}}清洗沉澱 →（{{避光|名詞}}操作）以 {{110°C|數值}} 乾燥至恆量 [92-1]（若用純水洗，會發生{{解膠|名詞}}）[99-1]",
   "指示劑：{{K₂CrO₄|物質}}（potassium chromate）（顏色深，僅需加理論值 {{1/4|數值}} 即可）",
   "終點：{{Ag₂CrO₄|物質}}（{{磚紅色沉澱|顏色}}）",
   "應用：測定 Sodium Lauryl Sulfate 中的 NaCl 含量：加稀硝酸使溶液至維持在 pH {{6.5~10|數值}}；測定鹵素（Br⁻/Cl⁻）、CN⁻"
 ]);
-t(7, "Mohr method 或 直接滴定", "7-1", "nh4scn-titrant", "滴定液：硫氰酸銨（NH₄SCN）", "NH₄SCN", [
+tY(7, "Mohr method 或 直接滴定", "7-1", "nh4scn-titrant", "滴定液：硫氰酸銨（NH₄SCN）", "NH₄SCN", [
   "標定：以標定過的 AgNO₃ 二次標定（需加 {{HNO₃|物質}} 維持酸性）",
   "指示劑：硫酸鐵銨（{{鐵明礬|物質}}）FeNH₄(SO₄)₂ Ferric ammonium sulfate TS [104-2]（若有含氮氧化物或硝酸需{{煮沸|名詞}}避免與鐵明礬形成有色沉澱）[97-1]",
   "終點：{{[Fe(SCN)]²⁺|物質}}（{{紅色錯合物|顏色}}）[104-1]",
   "應用：測定 {{Aminophylline|藥名}}（栓劑）中的茶鹼（Theophylline）：酸化釋出 Ag⁺ 並滴定之",
   "應用：測定硝酸苯汞 Phenylmercuric Nitrate 的 Hg²⁺：以甲酸作溶劑，Hg²⁺ 被 {{Zn|物質}}（還原劑）還原成金屬汞形成{{汞鋅合金|物質}}（amalgam），溶於硝酸並在 KMnO₄ 氧化下變成 Hg(NO₃)₂，最後以硫氰酸銨滴定，過量 KMnO₄ 則以 {{H₂O₂|物質}} 消滅"
 ]);
-t(7, "Fajans method（使用吸附性指示劑）", "7-2", "fajans", "Fajans method（使用吸附性指示劑）", "Fajans", [
+tY(7, "Fajans method（使用吸附性指示劑）", "7-2", "fajans", "Fajans method（使用吸附性指示劑）", "Fajans", [
   "滴定液：硝酸銀（AgNO₃）{{直接滴定|名詞}}",
   "指示劑：Fluorescein、{{dichlorofluorescein（DCF）|物質}} [90-1]、eosin、tetrabromophthalein ethyl ester（TEE）",
   "應用：測定 Cl⁻：可加{{乙醇|物質}}使 AgCl 呈膠體狀，以 {{DCF|物質}} 為指示劑",
   "應用：測定 {{iopanoic acid|藥名}}：加 NaOH 和 Zn 將有機碘分解成{{碘離子|物質}}，以 {{TEE|物質}} 為指示劑"
 ]);
-t(7, "Volhard method 或 殘餘＝間接滴定", "7-2", "volhard", "Volhard method（殘餘＝間接滴定）", "Volhard", [
+tY(7, "Volhard method 或 殘餘＝間接滴定", "7-2", "volhard", "Volhard method（殘餘＝間接滴定）", "Volhard", [
   "滴定液：加過量硝酸銀（AgNO₃）→ 再以{{硫氰酸銨|物質}}（Ammonium thiocyanate）NH₄SCN 滴定",
   "指示劑：{{鐵明礬|物質}} FeNH₄(SO₄)₂ Ferric ammonium sulfate [104-2]",
   "測定氯化物含量如 NaCl [114-1、101-1]：＋ {{硝酸|物質}}（HNO₃）：防止 Ag₂CO₃、Ag₃PO₄ 雜質沉澱／防止鐵明礬水解產 Fe(OH)₃ 沉澱／促進 AgCl 結晶成長 [9X 考爆]",
@@ -573,7 +574,7 @@ t(7, "Volhard method 或 殘餘＝間接滴定", "7-2", "volhard", "Volhard meth
   "測定 Aminophylline（注射劑／錠劑）中的茶鹼（Theophylline）[94-1]",
   "測定 {{Povidone-Iodine|藥名}}：加 {{NaHSO₃|物質}}（還原劑）→ I₂（棕色）還原成 I⁻（無色）後，加硝酸和過量硝酸銀再反滴定 [95-2]"
 ]);
-t(7, "四苯硼鈉滴定", "7-2", "tetraphenylborate", "四苯硼鈉滴定", "四苯硼鈉", [
+tY(7, "四苯硼鈉滴定", "7-2", "tetraphenylborate", "四苯硼鈉滴定", "四苯硼鈉", [
   "滴定液：四苯硼鈉（sodium tetraphenylborate）：{{NaB(C₆H₅)₄|物質}}",
   "標定：{{苯二甲酸氫鉀|物質}}（KHP）作一級標準品",
   "終點：{{CHCl₃|物質}}（有機層）由{{藍色 → 無色|顏色}}（指示劑移到水層去，呈黃色）",
@@ -583,13 +584,13 @@ t(7, "四苯硼鈉滴定", "7-2", "tetraphenylborate", "四苯硼鈉滴定", "�
 
 /* ================= CH8 傳統分析－錯合滴定法（講義 8-1～8-2） =================
    8-2 最上面的黑色標題列掃描時被切掉一半，看起來是「錯合滴定-遮蔽劑」。 */
-ch(8, "錯合滴定法", "8-1～8-2");
-t(8, "概論", "8-1", "complexometric-conditions", "錯合滴定：滴定條件、分析物、反應當量點", "錯合滴定條件", [
+chY(8, "錯合滴定法", "8-1～8-2");
+tY(8, "概論", "8-1", "complexometric-conditions", "錯合滴定：滴定條件、分析物、反應當量點", "錯合滴定條件", [
   "滴定條件：安定常數越{{低|性質}}，越易和酸反應影響螯合；log Ks > {{8|數值}} 才適合進行錯合滴定（1 價金屬 log Ks < 8）",
   "分析物：定量 {{2 或 3 價金屬|名詞}}",
   "反應當量點：由指示劑、{{電位計|名詞}}和光度計判斷"
 ]);
-t(8, "概論", "8-1", "edta", "螯合劑：EDTA（乙二胺四乙酸）", "EDTA", [
+tY(8, "概論", "8-1", "edta", "螯合劑：EDTA（乙二胺四乙酸）", "EDTA", [
   "① EDTA ＝ {{Ethylenediaminetetraacetic acid|物質}}（乙二胺四乙酸）[108-2]",
   "特性：形成 {{1：1|數值}} 錯化合物",
   "安定：{{有機溶媒|名詞}}能增加安定性，過高濃度中性鹽類會{{降低|性質}}錯合物安定性",
@@ -598,7 +599,7 @@ t(8, "概論", "8-1", "edta", "螯合劑：EDTA（乙二胺四乙酸）", "EDTA"
   "標定：{{CaCO₃|物質}}（一級標準品）",
   "② {{FeCl₃|物質}}（氯化鐵）"
 ]);
-t(8, "概論", "8-1", "metal-indicators", "指示劑（錯合滴定）", "金屬指示劑", [
+tY(8, "概論", "8-1", "metal-indicators", "指示劑（錯合滴定）", "金屬指示劑", [
   "M⁺ ＋ Ind → M-Ind（chelate）；M-Ind ＋ EDTA → M-EDTA ＋ Ind（Free）[9x 常考]",
   "{{hydroxynaphthol blue|物質}}（羥萘酚藍）：Free 是藍色，chelate 是紅色；分析 {{Ca|名詞}} [94-2、92-2]",
   "{{eriochrome black T|物質}}（羊毛鉻黑）：Free 是{{藍色|顏色}}，chelate 是{{紅色|顏色}}；分析 {{Mg、Zn|名詞}}",
@@ -606,7 +607,7 @@ t(8, "概論", "8-1", "metal-indicators", "指示劑（錯合滴定）", "金屬
   "{{Dithizone|物質}}（雙硫腙）：加酒精助溶，終點{{玫瑰紅色|顏色}}；用於{{殘餘|名詞}}滴定 [97-1]",
   "{{KSCN|物質}}：紅色 Fe(SCN)₃；FeCl₃ 測定 {{NaF|物質}} 含量"
 ]);
-t(8, "錯合滴定－遮蔽劑", "8-2", "masking-agents", "常見的遮蔽劑", "遮蔽劑", [
+tY(8, "錯合滴定－遮蔽劑", "8-2", "masking-agents", "常見的遮蔽劑", "遮蔽劑", [
   "▼ 能與大部分的離子形成錯合物，利於其中一種離子的滴定",
   "{{三乙醇胺|物質}}（Triethanolamine）[112-1]：遮蔽 {{Al³⁺|名詞}}，利於 Mg²⁺ 的定量 #鎂需三鋁",
   "↑ ＋ 三乙醇胺目的：具未共用電子對，可當配位基（{{ligand|名詞}}）、使溶液足夠鹼性、當遮蔽劑 [100-2、95-2]",
@@ -616,19 +617,19 @@ t(8, "錯合滴定－遮蔽劑", "8-2", "masking-agents", "常見的遮蔽劑", 
   "{{氰化鉀|物質}}（Potassium cyanide）[112-1]：遮蔽 {{Co²⁺、Ni²⁺、Cu²⁺、Zn²⁺|名詞}} #姑虐童心",
   "{{抗壞血酸|物質}}（Ascorbic acid）：遮蔽{{重金屬離子|名詞}}"
 ]);
-t(8, "錯合滴定－遮蔽劑", "8-2", "ph-masking", "適當 pH 可以減少其他離子的干擾", "pH 遮蔽", [
+tY(8, "錯合滴定－遮蔽劑", "8-2", "ph-masking", "適當 pH 可以減少其他離子的干擾", "pH 遮蔽", [
   "pH ＝ {{2|數值}}（酸）：遮蔽 {{Bi³⁺|名詞}} 以外的金屬離子",
   "pH ＝ {{13|數值}}（鹼）[114-2、92-1、90-1]：遮蔽 {{Ca²⁺|名詞}} 以外的金屬離子"
 ]);
-t(8, "錯合滴定－應用", "8-2", "direct-complexometric", "直接滴定（2 價金屬）", "直接錯合滴定", [
+tY(8, "錯合滴定－應用", "8-2", "direct-complexometric", "直接滴定（2 價金屬）", "直接錯合滴定", [
   "測定鎂乳的 magnesium hydroxide 含量：指示劑 {{eriochrome black T（EBT）|物質}}，調成 pH {{10.00|數值}} 減少 Mg(OH)₂ 沉澱",
   "測定 zinc sulfate ophthalmic solution：指示劑 {{pyridylazo naphthol|物質}}、Cu-EDTA，控制 pH {{5.00~5.50|數值}}"
 ]);
-t(8, "錯合滴定－應用", "8-2", "back-complexometric", "殘餘滴定（3 價金屬）", "殘餘錯合滴定", [
+tY(8, "錯合滴定－應用", "8-2", "back-complexometric", "殘餘滴定（3 價金屬）", "殘餘錯合滴定", [
   "分析：適用於 {{Al³⁺|名詞}}（氫氧化鋁膠漿）及 Bi³⁺（glycobiarsol for bismuth content）之定量 [93-2]",
   "方法：過量 EDTA，以 {{ZnSO₄|物質}} 反滴定，以 {{dithizone|物質}} 容於酒精作指示劑，有機溶劑為抽提性指示劑，控制 pH < {{4|數值}} [95-1]"
 ]);
-t(8, "錯合滴定－應用", "8-2", "ferric-chloride-titration", "氯化鐵滴定（Ferric chloride）", "氯化鐵滴定", [
+tY(8, "錯合滴定－應用", "8-2", "ferric-chloride-titration", "氯化鐵滴定（Ferric chloride）", "氯化鐵滴定", [
   "反應：FeCl₃ ＋ 6NaF → Na₃FeF₆ ＋ 3NaCl（1 mole 的 FeCl₃ 相當於 {{6|數值}} mole 的 NaF）[99-1]",
   "滴定劑：{{FeCl₃|物質}}",
   "指示劑：{{KSCN|物質}}（potassium thiocyanate），終點{{紅色|顏色}} [96-1]；{{乙醇-乙醚（1：1）|物質}}為抽提性指示劑"
@@ -636,8 +637,8 @@ t(8, "錯合滴定－應用", "8-2", "ferric-chloride-titration", "氯化鐵滴�
 
 /* ================= CH9 傳統分析－氧化還原滴定（講義 9-1～9-2） =================
    9-2 最上面的黑色標題列掃描時被切掉，看起來是「硫酸鈰滴定法 Ce(SO₄)₂」。 */
-ch(9, "氧化還原滴定", "9-1～9-2");
-t(9, "氧化劑與還原劑", "9-1", "oxidants", "氧化劑", "氧化劑", [
+chY(9, "氧化還原滴定", "9-1～9-2");
+tY(9, "氧化劑與還原劑", "9-1", "oxidants", "氧化劑", "氧化劑", [
   "氧化別人（失電子），{{自己還原|名詞}}（得電子）[108-1、90-2]",
   "過錳酸鉀 permanganate：MnO₄⁻（{{紫紅色|顏色}}）＋ {{5e⁻|數值}} → Mn²⁺（無色）",
   "重鉻酸鉀 dichromate：Cr₂O₇²⁻（{{橘黃色|顏色}}）＋ 6e⁻ → 2Cr³⁺（{{綠色|顏色}}）",
@@ -646,7 +647,7 @@ t(9, "氧化劑與還原劑", "9-1", "oxidants", "氧化劑", "氧化劑", [
   "硫酸鈰 ceric：Ce⁴⁺（{{淡黃色|顏色}}）＋ e⁻ → Ce³⁺（無色）",
   "硫酸鐵銨 ferric：Fe³⁺ ＋ e⁻ → Fe²⁺"
 ]);
-t(9, "氧化劑與還原劑", "9-1", "reductants", "還原劑", "還原劑", [
+tY(9, "氧化劑與還原劑", "9-1", "reductants", "還原劑", "還原劑", [
   "還原別人（得電子），{{自己氧化|名詞}}（失電子）[95-2]",
   "氯化鈦 titanous：Ti³⁺ → Ti⁴⁺ ＋ e⁻",
   "硫代硫酸鈉 thiosulfate：2S₂O₃²⁻ → {{S₄O₆²⁻|物質}} ＋ 2e⁻",
@@ -654,31 +655,31 @@ t(9, "氧化劑與還原劑", "9-1", "reductants", "還原劑", "還原劑", [
   "三氧化二砷 Arsenic trioxide：As₂O₃ ＋ 5H₂O → 2H₃AsO₄ ＋ 4H⁺ ＋ {{4e⁻|數值}}",
   "硫酸亞鐵 ferrous：Fe²⁺ → Fe³⁺ ＋ e⁻"
 ]);
-t(9, "氧化劑與還原劑", "9-1", "reduction-potential", "▼還原電位（由高 → 低）★", "還原電位", [
+tY(9, "氧化劑與還原劑", "9-1", "reduction-potential", "▼還原電位（由高 → 低）★", "還原電位", [
   "還原電位最高 ＝ {{氧化力最強|性質}}，自己易還原／還原電位最低 ＝ {{還原力最強|性質}}，自己易氧化 [110-1、109-1、106-1]",
   "{{Ce⁴⁺|名詞}} > MnO₄⁻ > Cr₂O₇²⁻ > O₂ > Br₂ > Ag⁺ > Fe³⁺ > I₂ > I₃⁻ > Cu²⁺ > Hg₂Cl₂ > H⁺ > Cd²⁺ > Fe²⁺ > Zn²⁺ > {{Na⁺|名詞}}",
   "鈰 過錳 二鉻酸 氧 溴 銀 鐵 碘 三碘 銅 亞汞 氫 鎘 亞鐵 鋅 鈉 #（常考頭尾）勢頭過猛的二哥，…，鐵了心吶"
 ]);
-t(9, "過錳酸鉀滴定法 KMnO₄", "9-1", "kmno4-titration", "過錳酸鉀滴定法 KMnO₄", "KMnO₄ 滴定", [
+tY(9, "過錳酸鉀滴定法 KMnO₄", "9-1", "kmno4-titration", "過錳酸鉀滴定法 KMnO₄", "KMnO₄ 滴定", [
   "滴定液配製：取 KMnO₄ ＋ 水使其溶解，煮沸後密塞 → 靜置一~兩天以上，用{{石棉|物質}}（或玻璃過濾器）過濾掉 {{MnO₂|物質}} → {{阻光|名詞}}保存 [95-2、94-1]",
   "⚠ 不可用{{濾紙|物質}}，不可置於有{{橡皮|物質}}的 Mohr 滴定管，會與過錳酸鉀反應",
   "滴定液標定：以 {{Na₂C₂O₄ 草酸鈉|物質}}作一級標準品（在 {{60~80°C|數值}} 下進行）[94-2]，滴定時需 ＋ {{硫酸|物質}}，以避免反應產生 MnO₂ 沉澱",
   "以 KMnO₄（紫紅色，5 價）滴定，{{無須再添加指示劑|性質}} [103-1] #記：五告猛"
 ]);
-t(9, "過錳酸鉀滴定法 KMnO₄", "9-1", "kmno4-methods", "過錳酸鉀滴定：方法", "KMnO₄ 方法", [
+tY(9, "過錳酸鉀滴定法 KMnO₄", "9-1", "kmno4-methods", "過錳酸鉀滴定：方法", "KMnO₄ 方法", [
   "直接：測定過氧化氫 {{H₂O₂|物質}}（{{不能加熱|性質}}，因會被破壞分解成揮發性 H₂O、O₂）",
   "間接：測定二氧化鈦 {{TiO₂|物質}} [103-1、92-2]：1. 用熱硫酸溶解 TiO₂ 形成 Ti(SO₄)₂",
   "2. Ti(SO₄)₂ 通入{{鍾氏還原管|名詞}}（Jones reductor tube）→ 管柱中充填的顆粒為以鋅粒浸泡於氯化汞試液反應而成的{{鋅汞齊|物質}}（zinc amalgam）→ 將鈦還原（得電子）：Ti⁴⁺ → Ti³⁺",
   "3. 低價鈦容易被空氣中的氧氧化，將 Ti³⁺ 轉換成等量 {{Fe²⁺|名詞}} 收集"
 ]);
-t(9, "硫酸鈰滴定法 Ce(SO₄)₂", "9-2", "ceric-titration", "硫酸鈰滴定法 Ce(SO₄)₂", "硫酸鈰滴定", [
+tY(9, "硫酸鈰滴定法 Ce(SO₄)₂", "9-2", "ceric-titration", "硫酸鈰滴定法 Ce(SO₄)₂", "硫酸鈰滴定", [
   "滴定液配製：Ce(SO₄)₂ ＋ {{硫酸|物質}}以防止鹼性鹽水解；硫酸鈰較 KMnO₄ {{穩定|性質}}，不會氧化產生干擾",
   "滴定液標定：以 {{As₂O₃|物質}} 作一級標準品",
   "指示劑：{{Ferroin|物質}}：鄰菲囉啉（o-phenanthroline）：Fe²⁺ ＝ {{3：1|數值}}，{{深紅色|顏色}}錯化合物 [9x]",
   "→ 氧化成 Fe³⁺ 呈{{藍色|顏色}}（干擾觀測，可 ＋ {{磷酸|物質}}形成沉澱除去）",
   "分析：適用於{{亞鐵|名詞}}含量分析、含有{{氯化物|名詞}}的滴定或{{熱滴定|名詞}}（hot titration）"
 ]);
-t(9, "碘滴定", "9-2", "iodimetry", "碘量法 Iodimetry", "碘量法", [
+tY(9, "碘滴定", "9-2", "iodimetry", "碘量法 Iodimetry", "碘量法", [
   "原理：{{直接|性質}}以氧化劑碘 I₂ 滴定分析；分析：{{還原劑|名詞}}",
   "滴定液配製：取{{碘化鉀 KI|物質}}助溶（I⁻ ＋ I₂ ⇌ I₃⁻）[92-1]",
   "滴定液標定：{{As₂O₃|物質}} 作一級標準品 [95-2]",
@@ -686,7 +687,7 @@ t(9, "碘滴定", "9-2", "iodimetry", "碘量法 Iodimetry", "碘量法", [
   "反應：I₂ ＋ 2e⁻ ⇌ 2I⁻（超過當量點，過量的碘於澱粉中呈藍色）{{無色 → 藍色|顏色}}",
   "應用：測定 {{ascorbic acid|藥名}}（Vit C）原料 [113-2]（連結：測定 Vit C 製劑第 16-2 頁）"
 ]);
-t(9, "碘滴定", "9-2", "iodometry", "碘定法 Iodometry", "碘定法", [
+tY(9, "碘滴定", "9-2", "iodometry", "碘定法 Iodometry", "碘定法", [
   "原理：先加入過量碘化鉀 KI，生成碘 I₂，再用還原劑{{硫代硫酸鈉|物質}} Na₂S₂O₃ 滴定之，將 I₂ 還原成 I⁻；分析：{{氧化劑|名詞}}",
   "滴定液配製：硫代硫酸鈉 ＋ {{碳酸鈉|物質}}（防腐）溶於煮沸（排除 CO₂）冷水中",
   "滴定液標定：{{K₂Cr₂O₇|物質}} 作一級標準品",
@@ -695,29 +696,29 @@ t(9, "碘滴定", "9-2", "iodometry", "碘定法 Iodometry", "碘定法", [
   "應用：測定{{甲氧基|名詞}} [111-2]：1. 加入{{氫碘酸 HI|物質}}煮沸生成碘甲烷（methyl iodide）2. 再經溴 Br₂ 氧化生成碘酸（iodic acid）3. 以硫代硫酸鈉溶液滴定",
   "應用：青黴素（ampicillin）檢測：開環後與 {{8|數值}} 當量碘反應"
 ]);
-t(9, "碘滴定", "9-2", "starch-indicator", "★Starch 澱粉（碘滴定指示劑）", "澱粉指示劑", [
+tY(9, "碘滴定", "9-2", "starch-indicator", "★Starch 澱粉（碘滴定指示劑）", "澱粉指示劑", [
   "易變質，須{{每日新鮮配製|名詞}} [115-1、110-2、102-1、92-1]",
   "{{箭薯澱粉|物質}}（arrowroot starch）配製者最佳，含 β-amylose 熱水中崩解會變成膠體",
   "★靈敏度 ↑：＋ {{弱酸性|性質}}",
   "★靈敏度 ↓：{{鹼性環境|名詞}}、酒精、強電解質、溫度 > {{25°C|數值}}、碘濃度過高（可逆性差）"
 ]);
-t(9, "其他氧化還原滴定", "9-3", "bromometry", "溴滴定 Bromometry（碘定法應用）", "溴滴定", [
+tY(9, "其他氧化還原滴定", "9-3", "bromometry", "溴滴定 Bromometry（碘定法應用）", "溴滴定", [
   "原理：溴對還原劑或雙鍵進行{{氧化、加成、取代|反應}}作用 → 可定量 {{Salicylic acid|藥名}} [106-2、9X 愛考]",
   "分析：{{酚 phenol|物質}}的含量測定：加過量 Br₂ → 產生{{三溴酚|物質}}（加氯仿 CHCl₃ 溶解）→ 加 KI 使轉變成 I₂ → 最後以{{硫代硫酸鈉|物質}} Na₂S₂O₃ 滴定／以澱粉做指示劑",
   "替代：溴有毒，可使用{{克氏溶液|物質}} Koppeschaar's solution：KBrO₃ ＋ 5KBr ＋ 6HCl → 3Br₂ ＋ 6KCl ＋ 3H₂O"
 ]);
-t(9, "其他氧化還原滴定", "9-3", "kio3-titration", "碘酸鉀滴定 KIO₃", "KIO₃ 滴定", [
+tY(9, "其他氧化還原滴定", "9-3", "kio3-titration", "碘酸鉀滴定 KIO₃", "KIO₃ 滴定", [
   "方法：在{{高濃度鹽酸|名詞}}的酸性下 KIO₃ 被還原（用少量{{氰化鉀|物質}}，在 1 N 鹽酸下亦能進行滴定）[102-2、92-1]",
   "HCl 濃度高時，碘陽離子會形成{{氯化碘 ICl|物質}}，形成安定錯離子：KI（無色）→ I₂（藍紫色）→ ICl（{{無色|顏色}}）[93-2]",
   "指示劑：溶液中加入作抽提性指示劑 {{氯仿 CHCl₃／四氯化碳 CCl₄|物質}}，使滴定終點易於觀察 → 滴定終點：水溶液中沒有 KI、氯仿層中沒有 I₂；{{不須額外加指示劑|性質}} [102-2]",
   "分析：適用於分析{{碘化物|物質}}（KI）"
 ]);
-t(9, "其他氧化還原滴定", "9-3", "arsenite-titration", "亞砷酸鉀滴定", "亞砷酸鉀", [
+tY(9, "其他氧化還原滴定", "9-3", "arsenite-titration", "亞砷酸鉀滴定", "亞砷酸鉀", [
   "滴定液配製：取 As₂O₃ ＋ KOH → {{KAsO₂|物質}}",
   "分析：測定{{碘液|物質}}：KAsO₂ ＋ I₂ ＋ 2H₂O → KH₂AsO₄ ＋ 2HI",
   "以{{澱粉|物質}}為指示劑，維持鹼性以{{碳酸氫鉀|物質}}（KHCO₃）為緩衝試劑，中和生成的氫碘酸 HI 使反應快速 [93-2]"
 ]);
-t(9, "其他氧化還原滴定", "9-3", "nitrite-titration", "亞硝酸鈉滴定 ＝ 偶氮法", "偶氮法", [
+tY(9, "其他氧化還原滴定", "9-3", "nitrite-titration", "亞硝酸鈉滴定 ＝ 偶氮法", "偶氮法", [
   "原理：{{芳香一級胺|名詞}}於鹽酸下與亞硝酸鈉 → 形成{{偶氮鹽|物質}} [105-1、94-2]",
   "滴定液標定：{{苯磺胺|物質}} Sulfanilamide",
   "條件：滴定管下端需{{浸入檢品液面下|名詞}}；需在 < {{15°C|數值}}（冰浴）操作（溫度太高偶氮鹽會分解）",
@@ -727,38 +728,38 @@ t(9, "其他氧化還原滴定", "9-3", "nitrite-titration", "亞硝酸鈉滴定
 ]);
 
 /* ================= CH10 傳統分析－水分測定法（講義 10-1～） ================= */
-ch(10, "水分測定法", "10-1～");
-t(10, "費氏滴定法（Karl Fischer titration）", "10-1", "kf-basics", "費氏滴定法：分析對象、主反應、條件", "KF 基本", [
+chY(10, "水分測定法", "10-1～");
+tY(10, "費氏滴定法（Karl Fischer titration）", "10-1", "kf-basics", "費氏滴定法：分析對象、主反應、條件", "KF 基本", [
   "分析對象：適合少量藥物中所含★{{微量水分|名詞}}（10 μg~數百 mg）、{{結晶水|名詞}}★ [109-2、105-2、104-2、112-2]；⚠ 不適合{{較多水份生藥|名詞}}",
   "主反應：I₂ ＋ SO₂ ＋ H₂O → 2HI ＋ SO₃",
   "條件：pH {{4~7|數值}}（記：Karl 4 字母，Fischer 7 字母）[107-1]",
   "終點：{{I₂ 碘|物質}}"
 ]);
-t(10, "費氏滴定法（Karl Fischer titration）", "10-1", "kf-reagents", "★★試劑組成★★", "KF 試劑", [
+tY(10, "費氏滴定法（Karl Fischer titration）", "10-1", "kf-reagents", "★★試劑組成★★", "KF 試劑", [
   "I₂（碘 iodine）：與水分 {{1：1|數值}} 反應形成無色的{{還原態碘離子|物質}} I₂ ＋ 2e⁻ → 2I⁻ [考爆]",
   "SO₂（sulfur dioxide）：作為{{還原劑|名詞}}，自己本身氧化 [112-2]",
   "{{Pyridine|物質}}（吡啶）：C₅H₅N 消耗 HI 和 SO₃ → 促使反應向右",
   "{{Methanol|物質}}（甲醇溶劑）[109-1、106-1]：CH₃OH 與吡啶、三氧化硫結合 → C₅H₅N·HSO₄CH₃（以避免 {{SO₃ 搶水|名詞}}）"
 ]);
-t(10, "費氏滴定法（Karl Fischer titration）", "10-1", "kf-endpoint", "費氏滴定：終點", "KF 終點", [
+tY(10, "費氏滴定法（Karl Fischer titration）", "10-1", "kf-endpoint", "費氏滴定：終點", "KF 終點", [
   "電流法：{{dead-stop method|名詞}} 適用於{{有色檢品|名詞}}，使用{{鉑／鉑電極|名詞}} [115-2、92-2]",
   "電流法：Amperometry：直接滴定法，★至終點 {{5~10 μA|數值}}（微安培）增加至 {{50~150 μA|數值}}（微安培），電流迅速上升 [110-1、106-2、112-1]",
   "庫倫法：Coulometry：I₂ 試劑由 {{KI|物質}} 取代（電解產生 I₂），達終點後水已反應完 → I₂ 碘生成過量而使電位{{急遽下降|性質}} [111-1]",
   "顏色變化：適用於{{無色檢品|名詞}}，直接滴定：顏色由棕黃色 → {{琥珀色|顏色}} [115-1]（反滴定則相反）"
 ]);
-t(10, "費氏滴定法（Karl Fischer titration）", "10-1", "kf-automation", "費氏滴定：自動化", "KF 自動化", [
+tY(10, "費氏滴定法（Karl Fischer titration）", "10-1", "kf-automation", "費氏滴定：自動化", "KF 自動化", [
   "{{濕式化學法|名詞}}：依電位改變速率控制滴定輸入速率",
   "{{流動注入分析|名詞}}（flow injection analysis, FIA）：上者改良版，樣品與連續流動試劑反應後可用 HPLC 的檢測器檢測（連結 第 20-7 頁）",
   "FIA：{{縱向擴散|名詞}}（連結 第 18-3 頁）是造成波峰帶寬化的主要因素",
   "KF 滴定應用：水所消耗試劑量可用光譜測定法在 {{615nm|數值}} 下監測",
   "其他應用：chloroxine／captopril／NSAIDs／promethazine／chlorocresol 等藥物分析、重金屬限量試驗、自動化溶離試驗"
 ]);
-t(10, "費氏滴定法（Karl Fischer titration）", "10-1", "kf-titer", "費氏試劑：力價", "KF 力價", [
+tY(10, "費氏滴定法（Karl Fischer titration）", "10-1", "kf-titer", "費氏試劑：力價", "KF 力價", [
   "★意義：每 mL 試劑所能滴定水分的 {{mg|名詞}} 數（力價 F ＝ 結晶水量 mg／試劑用量 mL）[115-1、109-2]",
   "標準品：含水 1% 以下 → 以{{酒石酸鈉二水合物|物質}}（Na₂C₄H₄O₆·2H₂O）Sodium tartrate dihydrate 測定 [91-2]",
   "新鮮配製試劑力價 ＝ {{5 mg H₂O/mL|數值}} [115-1、94-2、91]"
 ]);
-t(10, "甲苯蒸餾法 ＝ 共沸法（Azeotropic method）", "10-2", "azeotropic", "甲苯蒸餾法 ＝ 共沸法（Azeotropic method）", "共沸法", [
+tY(10, "甲苯蒸餾法 ＝ 共沸法（Azeotropic method）", "10-2", "azeotropic", "甲苯蒸餾法 ＝ 共沸法（Azeotropic method）", "共沸法", [
   "★分析對象：適合含水分 > {{2%|數值}} [108-2] 的{{生藥|名詞}}（檢品量 {{50~100g|數值}}）[107-2、102-2]",
   "原理：樣品中的水分與{{甲苯|物質}}中共沸（< {{100°C|數值}}）[110-2]，可快速揮發水分並測定之",
   "裝置（可拆成三件零件）[94-2]：A：燒瓶 B：滯氣管 C：{{迴流冷凝管|名詞}} D：連接管（以{{石棉|物質}}包裹）E：接收管",
@@ -767,7 +768,7 @@ t(10, "甲苯蒸餾法 ＝ 共沸法（Azeotropic method）", "10-2", "azeotropi
   "慢慢加熱，直到大部分水蒸發掉 → 增加溫度，直到檢品中的水完全蒸發為止（＋ 有機溶劑的共沸物沸點會比水 100°C {{低|性質}}）；停止加熱，讓接受管冷卻至室溫",
   "靜置待水與甲苯完全分離，然後記錄水的體積，計算含水量的百分比（接收管中，{{甲苯在上層，水在下層|名詞}}）[100-2]"
 ]);
-t(10, "重量分析法", "10-2", "loss-on-drying", "重量分析法：乾燥減重法（Loss on drying）", "乾燥減重", [
+tY(10, "重量分析法", "10-2", "loss-on-drying", "重量分析法：乾燥減重法（Loss on drying）", "乾燥減重", [
   "化學藥品－依乾燥減重法 Loss on drying [114-1、9x]；生藥藥品也用同樣的測定方法",
   "⚠ 所減失重量並{{不能確定|性質}}其完全由水分測定產生；✓ 測定任何揮發物質之量 ✓ 適合分析{{不含揮發性成分|名詞}}物質 [95-1]",
   "＊凡例中乾燥至「{{恆重|名詞}}」：檢品依規定乾燥秤重後再乾燥 1 小時，相差以檢品每 g 不得超過 {{0.5mg|數值}} 而言",
@@ -777,66 +778,66 @@ t(10, "重量分析法", "10-2", "loss-on-drying", "重量分析法：乾燥減�
 ], ["＊中華藥典（1733）乾燥減重：當個論中規定「乾燥至恆重」，請依凡例中「恆量」之規定檢測，而 2. 為（6015）乾燥減重測定內容"]);
 
 /* ================= CH11 傳統分析－灰分測定法（講義 11-1） ================= */
-ch(11, "灰分測定法", "11-1");
-t(11, "灰分", "11-1", "total-ash", "總灰分", "總灰分", [
+chY(11, "灰分測定法", "11-1");
+tY(11, "灰分", "11-1", "total-ash", "總灰分", "總灰分", [
   "目的：吸附的{{無機鹽、攙雜物、重金屬|名詞}}限量測定 [9X 考很多]",
   "說明：樣品中的有機物{{完全燃燒|名詞}}，所殘留下的不可燃物質",
   "物質：鈣、鎂、鋁、鈉、鐵等金屬元素的化合物（碳酸鹽、氯化物、氧化物等）[110-1、9x]",
   "⚠ 會揮發的無機物不易檢測：{{銨鹽、碘化物、硝酸鹽|物質}}",
   "測定方法：可使用{{瓷器坩堝|名詞}}，可用熱水浸漬焦化物；檢品濾液以不超過 {{550°C|數值}} 熾灼（避免{{碳酸鈣|物質}}因高溫變成氧化鈣），至達恆量並計算檢品所含總灰分百分率 [102-1、97-1、92-1]"
 ]);
-t(11, "灰分", "11-1", "acid-insoluble-ash", "酸不溶性灰分", "酸不溶灰分", [
+tY(11, "灰分", "11-1", "acid-insoluble-ash", "酸不溶性灰分", "酸不溶灰分", [
   "說明：不可溶於{{稀鹽酸|物質}}的部分，通常是一些{{矽酸鹽和氧化物|物質}}等無機物質 [114-1]",
   "物質：測定以下生藥所含{{二氧化矽|物質}}（SiO₂）：digitalis 毛地黃、belladonna 顛茄、benzoin 安息香、acacia 阿拉伯膠、agar 洋菜、glycyrrhiza 甘草、aloe 蘆薈",
   "測定方法：承接左述熾灼後之總灰分，加{{鹽酸|物質}}煮沸，用{{古氏坩堝|名詞}} Gooch crucible／無灰濾紙過濾，熾灼至達恆量，並計算檢品所含酸不溶性灰分百分率"
 ]);
-t(11, "灰分", "11-1", "ash-temperature", "▲不同溫度下灰分的變化", "灰分溫度", [
+tY(11, "灰分", "11-1", "ash-temperature", "▲不同溫度下灰分的變化", "灰分溫度", [
   "暗紅熱（{{550–700°C|數值}}）：{{草酸鈣 → 碳酸鈣|反應}} [114-1、9x 愛考]",
   "亮紅熱（800–1000°C）：{{碳酸鈣 → 氧化鈣|反應}} [91]",
   "白熱（1200–1600°C）：{{鹼金屬鹵化物|物質}} → 昇華揮發"
 ]);
-t(11, "熾灼", "11-1", "residue-on-ignition", "★熾灼殘渣檢查法（residue of ignition）", "熾灼殘渣", [
+tY(11, "熾灼", "11-1", "residue-on-ignition", "★熾灼殘渣檢查法（residue of ignition）", "熾灼殘渣", [
   "方法：以石英／鉑／瓷器坩堝於 {{600 ± 50 °C|數值}} 加熱 [105-2、104-1]（⚠ 舊版藥典 800 ± 25 °C 現在已經更新囉）",
   "＋ {{濃硫酸|物質}} → 使形成安定的{{硫酸鹽|物質}}，防止揮發 [92-2]",
   "須確保熾灼過程中{{沒有火焰產生|名詞}} [112-2]",
   "物質：一般有機物中{{非揮發無機物含量|名詞}} [112-2]"
 ]);
-t(11, "熾灼", "11-1", "loss-on-ignition", "熾灼減重檢查法（loss on ignition）", "熾灼減重", [
+tY(11, "熾灼", "11-1", "loss-on-ignition", "熾灼減重檢查法（loss on ignition）", "熾灼減重", [
   "方法：測{{礦物類藥物|名詞}}於特殊情況下揮發或散失的百分率；所減失之重量大多為水分或揮發性物質",
   "持續加熱 1 小時直至連續兩次秤重之重量不得 > {{0.50 mg|數值}}；須確保熾灼過程中沒有火焰產生 [112-2]",
   "物質：用於當主成分為{{燒不掉的藥物|名詞}}，如滑石粉、氧化鋅、白陶土、Kaolin、TiO₂、Calamine"
 ]);
-t(11, "粗纖維含量（Crude Fiber Content）", "11-1", "crude-fiber", "粗纖維含量（Crude Fiber Content）", "粗纖維", [
+tY(11, "粗纖維含量（Crude Fiber Content）", "11-1", "crude-fiber", "粗纖維含量（Crude Fiber Content）", "粗纖維", [
   "由{{沸酸鹼|名詞}}處理過而剩下的未溶解殘渣（主要是{{纖維素|物質}}、木質素），粗纖維本身是有機物，需{{灰化|反應}}後才能計算灰分 [100-2、91-1]"
 ]);
 
 /* ================= CH12 傳統分析－脂肪測定法（講義 12-1～12-2） ================= */
-ch(12, "脂肪測定法", "12-1～12-2");
-t(12, "測定項目", "12-1", "acid-value", "酸價", "酸價", [
+chY(12, "脂肪測定法", "12-1～12-2");
+tY(12, "測定項目", "12-1", "acid-value", "酸價", "酸價", [
   "★定義：中和 {{1g|數值}} 檢品中的{{游離脂肪酸|名詞}}，所需的 KOH 之 mg 數（KOH 分子量 ＝ {{56|數值}}）[考爆]",
   "測定方法：鹼{{直接|性質}}滴定法（若檢品不溶於冷液，將燒瓶接以迴流冷凝管徐徐加熱）",
   "檢品溶於醇／醇和醚所組成的中性混合液 → 以 0.1N KOH/NaOH 滴定 → {{酚酞|物質}}作為指示劑",
   "注意：⚠ 酸價高表{{酯鍵水解|反應}}產生游離脂肪酸，但不能單看酸價來代表酸敗；不揮發油酸價範圍通常為 {{1~2|數值}}"
 ]);
-t(12, "測定項目", "12-1", "ester-value", "酯價", "酯價", [
+tY(12, "測定項目", "12-1", "ester-value", "酯價", "酯價", [
   "定義：{{皂化|反應}}（⚠ 注意用詞：非酯化）1g 檢品所含的酯類所需的 KOH 之 mg 數",
   "測定方法：鹼{{反滴定法|名詞}}：以醇溶解加入酚酞 → 以 0.5N {{醇製 KOH|物質}} 滴定 → 先至游離酸完全中和（先求酸價）→ 加入醇製 KOH（再求皂化價）",
   "皂化價 − 酸價 ＝ 酯價",
   "應用：分析{{黃蠟和白蠟|物質}}是否含有雜質（如 paraffin）[109-1]"
 ]);
-t(12, "測定項目", "12-1", "saponification-value", "★皂化價★", "皂化價", [
+tY(12, "測定項目", "12-1", "saponification-value", "★皂化價★", "皂化價", [
   "定義：{{酸價 ＋ 酯價|名詞}} [110-1、109-2、106-2、92-2]，又稱 {{Koettstorfer number|名詞}} [93-1]",
   "測定方法：鹼反滴定法 [102-1、112-1]（需迴流加熱 30~90 分鐘）",
   "以{{醇製 KOH|物質}} [92-2] 做溶劑，多餘的鹼再用酸（用 {{HCl|物質}} [97-2] 而非 H₂SO₄ 以避免沉澱）反滴定後，以{{酚酞|物質}}作為指示劑",
   "→ 可知中和 ＋ 皂化共消耗多少鹼，可得皂化價；大部分食用油皂化價 {{188~196|數值}}",
   "應用：皂化價{{高|性質}} → 表{{酸敗|名詞}}（rancidity）[102-1]；皂化價低 → 可能摻入{{礦物油|物質}}★ [105-1、102-1、90]"
 ]);
-t(12, "測定項目", "12-1", "unsaponifiable", "不皂化物", "不皂化物", [
+tY(12, "測定項目", "12-1", "unsaponifiable", "不皂化物", "不皂化物", [
   "定義：檢品中無法被鹼金屬氫氧化物（如 KOH）皂化，但可溶於{{乙醚|物質}}之物質",
   "測定方法：先皂化 → {{乙醚提取|名詞}} → 乾燥 → 秤重",
   "應用：分離出不皂化物殘渣，如動／植物油中的{{固醇|物質}}、亞麻仁油與魚肝油（不皂化物含量不可超過 {{1.5%|數值}}）中的礦物油或液體石蠟"
 ]);
-t(12, "測定項目", "12-1", "iodine-value", "★碘價★", "碘價", [
+tY(12, "測定項目", "12-1", "iodine-value", "★碘價★", "碘價", [
   "★定義：每 {{100g|數值}} 檢品所吸收的碘之 {{g|名詞}} 數 [110-2、114-2]",
   "測定方法：過量反滴定法（{{Hanus method|名詞}} 漢氏法）[107-2]",
   "① 先加成反應：加入 CCl₄ 使油溶解，不飽和脂肪酸會和過量的 {{IBr|物質}} 反應形成 C₁₇H₃₃IBrCOOH",
@@ -846,84 +847,84 @@ t(12, "測定項目", "12-1", "iodine-value", "★碘價★", "碘價", [
   "碘價 > {{120|數值}}：{{乾性油|名詞}}（亞麻仁油、魚肝油）；100~120：半乾性油（棉籽油、胡麻油、玉米油）[108-1、107-1、104-1（生藥也愛考）]",
   "碘價 < 100：{{非乾性油|名詞}}（花生油、橄欖油）；< 90：動物脂肪（飽和）、氫化油"
 ]);
-t(12, "測定項目", "12-2", "hydroxyl-value", "羥價", "羥價", [
+tY(12, "測定項目", "12-2", "hydroxyl-value", "羥價", "羥價", [
   "定義：油脂類檢品 1g 所含的{{羥基|名詞}}數目，所耗 KOH 的 mg 數",
   "測定方法：鹼{{間接|性質}}滴定法（需迴流加熱，以醋酸酐酯化／乙醯化，{{過量醋酸酐|物質}}用鹼反滴定）[91-2]",
   "甲苯為溶媒；{{pyridine|物質}} 催化劑：醋酸酐（乙酐）(CH₃CO)₂O Acetic anhydride ＝ {{3：1|數值}}",
   "應用：作具有{{醇性羥基|名詞}}（-OH）之脂肪類物質的鑑別（與分子量成{{反比|性質}}，單元醇分子量越大的分子中，羥基所佔的比例越小）"
 ]);
-t(12, "測定項目", "12-2", "peroxide-value", "過氧化價", "過氧化價", [
+tY(12, "測定項目", "12-2", "peroxide-value", "過氧化價", "過氧化價", [
   "定義：表示物質每 {{1000g|數值}} 中，其{{活性氧|名詞}}之微當量（連結：CH9 碘定法）",
   "測定方法：取檢品 5g，加無水乙酸：氯仿 ＝ {{3：2|數值}}，以 0.01N {{硫代硫酸鈉|物質}}滴定，黃色褪盡後加澱粉持續滴定至藍色褪盡",
   "注意：需做{{空白試驗|名詞}}，所耗滴定液體積不得超過 0.1 ml；取樣後須立即進行試驗，以避免氧化"
 ]);
-t(12, "測定項目", "12-2", "anisidine-total-oxidation", "甲氧苯胺價、總氧化價", "總氧化價", [
+tY(12, "測定項目", "12-2", "anisidine-total-oxidation", "甲氧苯胺價、總氧化價", "總氧化價", [
   "甲氧苯胺價：測定方法：物質 1g，溶於混液 100 ml，使用 {{1cm|數值}} 貯液管測光密度，所得值 × 100",
   "總氧化價：定義：{{2 × 過氧化價 ＋ 甲氧苯胺價|名詞}}"
 ]);
-t(12, "測定項目", "12-2", "aldehyde-free-koh", "補充：配製無醛醇製 KOH", "無醛醇製 KOH", [
+tY(12, "測定項目", "12-2", "aldehyde-free-koh", "補充：配製無醛醇製 KOH", "無醛醇製 KOH", [
   "配製無醛{{醇製 KOH|物質}} [98-1、93-1、91-2]：用乙醇",
   "＋ 氫氧化鉀 KOH：與酸形成{{不揮發性之鹽類|名詞}}防止蒸餾共揮發，且使{{醛聚合|反應}}",
   "＋ {{醋酸鉛|物質}} Pb(C₂H₃O₂)₂：遇 KOH 會分解為氧化鉛和醋酸鉀，{{氧化鉛|物質}}可固定有機硫化物，且氧化鉛會將聚合醛一同沉澱"
 ]);
 
 /* ================= CH13 傳統分析－揮發油測定法（講義 13-1） ================= */
-ch(13, "揮發油測定法", "13-1");
-t(13, "揮發油（精油）測定裝置", "13-1", "volatile-oil-apparatus", "揮發油測定裝置", "揮發油裝置", [
+chY(13, "揮發油測定法", "13-1");
+tY(13, "揮發油（精油）測定裝置", "13-1", "volatile-oil-apparatus", "揮發油測定裝置", "揮發油裝置", [
   "＊裝置說明 [109-2]：A：1000mL 硬質短頸燒瓶 B：用{{錫紙|物質}}包裹之軟木塞 C：{{集油器|名詞}}（輕油式／重油式），劃分成 {{0.1ml|數值}} 刻度",
   "D：集油器之連接管（用{{石棉線|物質}}包裹，藉保持溫度，避免油分冷凝）E：冷凝管 F：{{油鍋|名詞}} G：鐵架",
   "集油器中：水在下 [106-2]、揮發油在上"
 ]);
-t(13, "揮發油（精油）測定裝置", "13-1", "light-oil", "＊輕油（密度 < 1）", "輕油", [
+tY(13, "揮發油（精油）測定裝置", "13-1", "light-oil", "＊輕油（密度 < 1）", "輕油", [
   "{{中間寬|性質}}（記：從輕從寬）",
   "將集油器下端之水液放出一部分，使油層集結於刻度處，調節溫度 {{25 °C|數值}}，測定其容積"
 ]);
-t(13, "揮發油（精油）測定裝置", "13-1", "heavy-oil", "＊重油（密度 > 1）", "重油", [
+tY(13, "揮發油（精油）測定裝置", "13-1", "heavy-oil", "＊重油（密度 > 1）", "重油", [
   "{{中間窄|性質}}（記：重窄都有ㄓ）",
   "將混有油滴之水液，用{{乙醚|物質}}抽提，調節溫度 25 °C，測定其容積",
   "▼重油點點名 [105-2]：叮（{{丁香油|物質}} clove oil）過（桂皮油 cinnamon oil）大肥（大茴香油 anise oil）笨（苯甲醛 benzaldehyde）羊（洋擦木油 safrole oil）#叮過大肥笨羊"
 ]);
-t(13, "揮發油（精油）測定裝置", "13-1", "volatile-oil-pharmacopeia", "《中華藥典第九版規範》", "藥典規範", [
+tY(13, "揮發油（精油）測定裝置", "13-1", "volatile-oil-pharmacopeia", "《中華藥典第九版規範》", "藥典規範", [
   "取估計能蒸出揮發油至少 {{2mL|數值}} 之檢品 [107-2]",
   "置於 A 中，加 {{3~6|數值}} 倍量之水，充分混合",
   "加熱至沸保持微沸 {{4~8|數值}} 小時，或至檢品所含揮發油全部餾出"
 ]);
 
 /* ===== 以下取自藥物分析講義第二份（手機拍攝，13-2 起），接在 CH13 後面 ===== */
-t(13, "揮發油（精油）測定項目", "13-2", "volatile-oil-tests", "揮發油（精油）測定項目：比重、純度、溶解度", "測定項目", [
+tY(13, "揮發油（精油）測定項目", "13-2", "volatile-oil-tests", "揮發油（精油）測定項目：比重、純度、溶解度", "測定項目", [
   "★比重：可用{{比重瓶 pycnometer|名詞}}測定（⚠ 注意：{{pyrometer|名詞}} 高溫計），{{非定值|性質}}（關乎植物成熟度、製備方法、純化的方法、儲存條件）[107-1、103-1]",
   "純度：可用{{折射率|名詞}}（連結 CH33）、{{旋光度|名詞}}（連結 CH32）、凝固溫度、蒸餾範圍等 [103-2]",
   "溶解度：不純物（松節油、脂肪油、石油 petroleum oils）僅微溶 {{70 或 80%|數值}}乙醇 [108-2]"
 ]);
-t(13, "特定結構含量", "13-2", "vo-ester", "特定結構含量：酯類", "酯類", [
+tY(13, "特定結構含量", "13-2", "vo-ester", "特定結構含量：酯類", "酯類", [
   "方法：鹼殘餘滴定（以 {{HCl|物質}} 反滴定）[9x 愛考]",
   "與{{醇製 KOH|物質}} 迴流加熱，會將其皂化（切酯鍵）→ 形成游離醇及酸類的鉀鹽（若含{{醛或酚|名詞}}易影響測定）",
   "應用：{{薄荷油|物質}}（peppermint oil）、水楊酸甲酯（methyl salicylate）"
 ]);
-t(13, "特定結構含量", "13-2", "vo-alcohol", "特定結構含量：醇類", "醇類", [
+tY(13, "特定結構含量", "13-2", "vo-alcohol", "特定結構含量：醇類", "醇類", [
   "方法：用{{乙醯化瓶|名詞}}（底部細尖）與{{無水醋酸酐|物質}}乙醯化 → 再皂化 → 以 HCl 反滴定",
   "應用：{{薄荷醇|物質}}（menthol）"
 ]);
-t(13, "特定結構含量", "13-2", "vo-aldehyde", "特定結構含量：醛類", "醛類", [
+tY(13, "特定結構含量", "13-2", "vo-aldehyde", "特定結構含量：醛類", "醛類", [
   "① {{鹽酸羥胺法|名詞}}（適合{{低含量|性質}}）[108-1、99-2、94-2、93]：鹽酸羥胺（hydroxylamine）與油中苯甲醛反應 → 生成{{苯甲醛肟|物質}}（benzaldoxime），釋出鹽酸 → 鹼滴定",
   "② ★{{亞硫酸氫鈉法|名詞}} bisulfite method（適合{{高含量|性質}}）[104-1、109-1、112-1、93-2]：醛酮類與亞硫酸氫鈉加成反應 → 生成{{水溶性產物|名詞}}（非醛酮類會在水不溶層），溶液 pH 值增加",
   "→ 以{{喀西亞定量瓶|名詞}}（Cassia flask）測油層{{減少容量|名詞}}（底部平坦）＝ 醛量",
   "應用：苦杏仁油之苯甲醛、檸檬油之檸檬醛（鹽酸羥胺法）；桂皮油之{{桂皮醛|物質}} [105-1]（亞硫酸氫鈉法）"
 ]);
-t(13, "特定結構含量", "13-2", "vo-ketone", "特定結構含量：酮類", "酮類", [
+tY(13, "特定結構含量", "13-2", "vo-ketone", "特定結構含量：酮類", "酮類", [
   "方法：{{亞硫酸氫鈉法|名詞}}（同醛類）",
   "應用：{{藏茴香酮|物質}}（Carvone）"
 ]);
-t(13, "特定結構含量", "13-2", "vo-phenol", "特定結構含量：酚類", "酚類", [
+tY(13, "特定結構含量", "13-2", "vo-phenol", "特定結構含量：酚類", "酚類", [
   "方法：{{鹽析法|名詞}}：酚類（phenol）與 {{KOH|物質}} 反應 → 生成水溶性產物（非酚類會在水不溶層）[104-1、90]",
   "→ 以喀西亞定量瓶（Cassia flask）測油層減少容量（底部平坦）＝ 酚量 [111-1]",
   "應用：{{丁香油酚|物質}}（Eugenol）"
 ]);
-t(13, "特定結構含量", "13-2", "vo-tincture", "特定結構含量：酊劑", "酊劑", [
+tY(13, "特定結構含量", "13-2", "vo-tincture", "特定結構含量：酊劑", "酊劑", [
   "方法：以{{貝氏瓶|名詞}}（Babcock bottle）離心，用{{酸化氯化鈣|物質}}（CaCl₂）使油析出（避免鹼反應形成水溶物）[92-2]",
   "應用：{{薄荷酊|物質}}"
 ]);
-t(13, "特定結構含量", "13-2", "vo-glassware", "乙醯化瓶、喀西亞定量瓶、貝氏瓶", "定量瓶", [
+tY(13, "特定結構含量", "13-2", "vo-glassware", "乙醯化瓶、喀西亞定量瓶、貝氏瓶", "定量瓶", [
   "{{乙醯化瓶|名詞}}（Acetylation flask）（底部{{細尖|性質}}）[106-1]：用於{{醇類|名詞}}含量測定 #醯尖（細肩帶），乙醇",
   "{{喀西亞定量瓶|名詞}} ＝ 卡氏瓶（Cassia flask）（底部{{平坦|性質}}）[113-2]：用於{{醛、酮、酚類|名詞}}含量測定 #用拳頭紛紛把它喀平",
   "{{貝氏瓶|名詞}}（Babcock bottle）[103-2]：用於{{酊劑|名詞}}含量測定 #倒置的酒瓶（back），可續杯",
@@ -931,151 +932,151 @@ t(13, "特定結構含量", "13-2", "vo-glassware", "乙醯化瓶、喀西亞定
 ]);
 
 /* ================= CH14 傳統分析－生物鹼及胺類測定法（講義 14-1～） ================= */
-ch(14, "生物鹼及胺類測定法", "14-1～");
-t(14, "基本概念", "14-1", "alkaloid-basics", "生物鹼測定：應用與原理", "生物鹼原理", [
+chY(14, "生物鹼及胺類測定法", "14-1～");
+tY(14, "基本概念", "14-1", "alkaloid-basics", "生物鹼測定：應用與原理", "生物鹼原理", [
   "應用：分析顛茄生物鹼（Belladonna）、吐根生物鹼（Ipecac）、硫酸阿托品、硫酸麻黃鹼……等",
   "{{Nernst's distribution law|名詞}}：{{少量多次|名詞}}（每次 {{10~20ml|數值}}）反覆抽提生物鹼之效果較一次性抽提為佳",
   "生物鹼：易溶於{{有機溶劑|名詞}}（醚、氯仿、四氯化碳），僅微溶於水（大多會沉澱）",
   "生物鹼 ＋ 酸／鹼 → 生物鹼鹽：易溶於{{水|物質}}，僅微溶於有機溶劑（大多會沉澱）"
 ]);
-t(14, "基本概念", "14-1", "alkaloid-extraction", "★萃取過程", "萃取過程", [
+tY(14, "基本概念", "14-1", "alkaloid-extraction", "★萃取過程", "萃取過程", [
   "生物鹼 → 加入{{鹼液|物質}} → 生物鹼沉澱，用有機溶劑抽提 → 鹼液水層丟棄（{{酸性雜質|名詞}}）[108-2、102-2]",
   "醚液層 → 加入{{酸液|物質}} → 溶解生物鹼 → 醚液層丟棄（含{{色素等中性物質|名詞}}）",
   "酸水液層 → 加入鹼液 → 生物鹼沉澱，用有機溶劑抽提 → 酸水液層丟棄；醚液層 → {{蒸發定量|名詞}}"
 ]);
-t(14, "基本概念", "14-1", "alkaloid-reagents", "★沉澱法檢驗試劑（生物鹼的確認試劑）", "生物鹼試劑", [
+tY(14, "基本概念", "14-1", "alkaloid-reagents", "★沉澱法檢驗試劑（生物鹼的確認試劑）", "生物鹼試劑", [
   "用途：偵測是否{{抽提完全|名詞}} [111-2、105-2、104-2、97-2]（連結生藥：生物鹼）",
   "{{Mayer's reagent|物質}}：Mercuric potassium Iodide TS（碘化汞鉀試液 KI ＋ HgCl₂）→ {{白色|顏色}}（or 淡黃色）#白市長請公假",
   "{{Valser's reagent|物質}}：Mercuric iodide TS（碘化汞試液 KI ＋ HgI₂）→ {{白色|顏色}} #拍 MV",
   "{{Wagner's reagent|物質}}：Iodine TS（碘試液 KI ＋ I₂）→ {{紅褐色|顏色}} #王碘碘是網紅",
   "{{Dragendorff's reagent|物質}}：potassium bismuth iodide（碘化鉍鉀試液）→ {{紅棕色|顏色}} #紅色龍蝦必呷"
 ]);
-t(14, "基本概念", "14-1", "alkaloid-titration", "生物鹼：滴定法", "生物鹼滴定", [
+tY(14, "基本概念", "14-1", "alkaloid-titration", "生物鹼：滴定法", "生物鹼滴定", [
   "用酸{{殘餘滴定|名詞}}定量，以{{甲基紅|物質}}為指示劑 [111-1、90]"
 ]);
 
 /* ================= CH15 傳統分析－重金屬檢測（講義 15-1） =================
    講義註明：此頁為藥典舊法檢測，據中華藥典第九版重金屬檢測法 113/7 不再適用，而以元素不純物通則取代之，方法重點為 ICP-AES、ICP-MS。 */
-ch(15, "重金屬檢測", "15-1");
-t(15, "一般原則", "15-1", "heavy-metal-principle", "重金屬檢測：一般原則", "一般原則", [
+chY(15, "重金屬檢測", "15-1");
+tY(15, "一般原則", "15-1", "heavy-metal-principle", "重金屬檢測：一般原則", "一般原則", [
   "檢測方法：利用樣品中金屬離子與★{{硫離子|物質}}反應來顯色後，以★標準{{鉛|物質}}溶液目視比較 [115-2、113-2、107-2、104-1]",
   "分析金屬：鉛、銀、鉍、砷、銻等金屬",
   "重金屬限量：< {{20 ppm|數值}} [105-1]",
   "此頁為藥典舊法檢測，據中華藥典第九版重金屬檢測法 113/7 不再適用，而以{{元素不純物|名詞}}通則取代之，方法重點為 {{ICP-AES、ICP-MS|名詞}}"
 ]);
-t(15, "重金屬檢測", "15-1", "lead-test", "鉛", "鉛", [
+tY(15, "重金屬檢測", "15-1", "lead-test", "鉛", "鉛", [
   "試劑：{{二苯硫腙|物質}}（diphenylthiocarbazone）＝ 雙硫腙（dithizone）[111-1]",
   "對照溶液：以{{稀硝酸|物質}}配置的標準鉛溶液",
   "條件：鉛離子在 pH ＝ {{10|數值}} 可與二苯硫腙結合成安定的螯合物 [113-1]"
 ]);
-t(15, "重金屬檢測", "15-1", "mercury-test", "汞", "汞", [
+tY(15, "重金屬檢測", "15-1", "mercury-test", "汞", "汞", [
   "試劑：{{二苯硫腙|物質}}（diphenylthiocarbazone）＝ 雙硫腙（dithizone）[110-1]",
   "對照溶液：以{{稀硫酸|物質}}配置的標準汞溶液",
   "反應：Hg²⁺ ＋ H₂S → HgS {{黑色|顏色}}沉澱 [106-2]"
 ]);
-t(15, "重金屬檢測", "15-1", "arsenic-test", "砷", "砷", [
+tY(15, "重金屬檢測", "15-1", "arsenic-test", "砷", "砷", [
   "試劑：{{二乙胺基二硫甲酸銀|物質}}（silver diethyldithiocarbamate）[92-1]；對照溶液：{{As₂O₃|物質}}",
   "裝置 [101-2]：{{氣體發生瓶|名詞}}（a）：生成的氣體為{{砷化氫 AsH₃|物質}}及其他氣體 [96-2]",
   "{{洗淨管|名詞}}（c）：充填含{{醋酸鉛|物質}}試液的棉花，以濾除其他氣體",
   "{{吸收管|名詞}}（e）：盛有二乙胺基二硫甲酸銀用以吸收砷化氫，液體原本{{無色或淡黃色|顏色}}，反應後{{紅色|顏色}}（在 {{535nm|數值}} 波長比色）"
 ]);
-t(15, "重金屬檢測", "15-1", "se-fe-test", "硒、鐵", "硒、鐵", [
+tY(15, "重金屬檢測", "15-1", "se-fe-test", "硒、鐵", "硒、鐵", [
   "硒：試劑：{{二胺基萘|物質}}",
   "鐵：試劑：{{硫氰酸銨|物質}}（NH₄SCN）"
 ]);
-t(15, "無機金屬鹽相關疾病", "15-1", "metal-diseases", "無機金屬鹽相關疾病（報酬率極低，僅列考過考點）", "金屬疾病", [
+tY(15, "無機金屬鹽相關疾病", "15-1", "metal-diseases", "無機金屬鹽相關疾病（報酬率極低，僅列考過考點）", "金屬疾病", [
   "{{硬金屬肺病|疾病}}：{{鈷鹽|物質}} ＋ 氯化鉀至飽和，再加亞硝酸鉀與乙酸，產生{{黃色沉澱|顏色}} [109-1]",
   "{{藍嬰症|疾病}}：服用過量{{硝酸鹽|物質}}使嬰幼兒發生變性紅血素血症，其鑑別可藉由加入硫酸與金屬銅經加熱產生{{棕紅色氣體|顏色}} [107-1]"
 ]);
 
 /* ================= CH16 傳統分析－藥典試驗補充（含中藥）（講義 16-1～） ================= */
-ch(16, "藥典試驗補充（含中藥）", "16-1～");
-t(16, "易碳化物檢查法", "16-1", "readily-carbonizable", "易碳化物檢查法", "易碳化物", [
+chY(16, "藥典試驗補充（含中藥）", "16-1～");
+tY(16, "易碳化物檢查法", "16-1", "readily-carbonizable", "易碳化物檢查法", "易碳化物", [
   "目的：以{{比合液|名詞}}檢查檢品中所含易為{{硫酸|物質}}所碳化而呈色之微量不純物是否超過其規定之限量 [110-2]",
   "固體檢品：{{94.5~95.5%|數值}} [104-2] 之硫酸 5 mL 置試管中，再將研成細粉之檢品分數次加入（檢品若不溶，可先以硫酸加熱溶解，放冷再傾入比色管）",
   "液體檢品：加入濃度為 {{94.5~99.5%|數值}} 之硫酸 5 mL 混搖之",
   "比合液：編號是 {{A → T|名詞}}，比色時檢品管的{{顏色不超過規定編號|名詞}}即合格 [92-2]",
   "★比合液由三種比色液組成：{{氯化亞鈷、氯化鐵、硫酸銅|物質}} [104-2、108-1] #亞洲姑姑在綠色鐵皮屋下收留兒童"
 ]);
-t(16, "無機鹽類試驗", "16-1", "citrate-alkali", "檸檬酸鹼金屬鹽", "檸檬酸鹽", [
+tY(16, "無機鹽類試驗", "16-1", "citrate-alkali", "檸檬酸鹼金屬鹽", "檸檬酸鹽", [
   "將檢品{{熾灼|反應}}成鹼金屬之氧化物和碳酸鹽 → 以{{酸反滴定法|名詞}}測定（連結：第 4-2 頁）[111-2]",
   "也可直接用{{過氯酸之非水滴定法|名詞}}測定，則無須先熾灼"
 ]);
-t(16, "無機鹽類試驗", "16-1", "borate-test", "硼酸鹽", "硼酸鹽", [
+tY(16, "無機鹽類試驗", "16-1", "borate-test", "硼酸鹽", "硼酸鹽", [
   "取硼酸鹽溶液 ＋ {{鹽酸|物質}}使成酸性 → 使{{薑黃試紙|物質}}變成{{棕色|顏色}} [111-1、93-2]",
   "→ 若放置乾燥後，顏色即變深；若用氨試液濕潤，則變成{{墨綠色|顏色}}"
 ]);
-t(16, "無機鹽類試驗", "16-1", "sulfate-test", "硫酸鹽", "硫酸鹽", [
+tY(16, "無機鹽類試驗", "16-1", "sulfate-test", "硫酸鹽", "硫酸鹽", [
   "限量試驗以{{比濁度|名詞}}測定 [106-2]",
   "→ 不得較 0.02N 硫酸 {{0.40mL|數值}} 對照試驗所起為濃（0.1%）"
 ]);
-t(16, "無機鹽類試驗", "16-1", "tartrate-test", "酒石酸鹽", "酒石酸鹽", [
+tY(16, "無機鹽類試驗", "16-1", "tartrate-test", "酒石酸鹽", "酒石酸鹽", [
   "{{Fenton reaction|名詞}} [102-1]：＋ 醋酸使其成酸性 → 再 ＋ {{硫酸亞鐵、過氧化氫|物質}}和過量之氫氧化鈉試液 → 即現{{深紫堇色|顏色}}"
 ]);
-t(16, "無機鹽類試驗", "16-1", "nitrite-salt-test", "亞硝酸鹽", "亞硝酸鹽", [
+tY(16, "無機鹽類試驗", "16-1", "nitrite-salt-test", "亞硝酸鹽", "亞硝酸鹽", [
   "＋ 稀礦酸 → 使其產生{{棕紅色氣體|顏色}} NO₂ [106-1、96-2]",
   "＋ KI ＋ 稀硫酸 → 使澱粉呈{{藍黑色|顏色}}"
 ]);
-t(16, "無機鹽類試驗", "16-1", "copper-salt-test", "銅鹽", "銅鹽", [
+tY(16, "無機鹽類試驗", "16-1", "copper-salt-test", "銅鹽", "銅鹽", [
   "＋ 過量氫氧化銨溶液 → {{深藍色|顏色}}溶液 [115-2]",
   "＋ 加入{{亞鐵氰化鉀|物質}}試液 → {{紅棕色|顏色}}沉澱物"
 ]);
-t(16, "無機鹽類試驗", "16-1", "thiosulfate-salt-test", "硫代硫酸鈉鹽", "硫代硫酸鹽", [
+tY(16, "無機鹽類試驗", "16-1", "thiosulfate-salt-test", "硫代硫酸鈉鹽", "硫代硫酸鹽", [
   "＋ 氯化鐵試液 → 即現瞬間消失之{{暗紫色|顏色}} [103-2]",
   "＋ {{氯化鋇|物質}}試液 → 即生{{白色沉澱|顏色}} → 此沉澱能溶於鹽酸並放出臭味氣體",
   "＋ {{醋酸鉛|物質}}試液 → 即生白色沉澱 → 此沉澱能溶於過量之醋酸鉛試液中，如煮沸，沉澱即變為{{黑色|顏色}}",
   "＋ 硝酸銀試液 → 即生黑色沉澱 {{Ag₂S|物質}}"
 ]);
-t(16, "無機鹽類試驗", "16-1", "thiocyanate-salicylate-test", "硫氰酸鹽、水楊酸鹽", "硫氰酸鹽", [
+tY(16, "無機鹽類試驗", "16-1", "thiocyanate-salicylate-test", "硫氰酸鹽、水楊酸鹽", "硫氰酸鹽", [
   "硫氰酸鹽 [104-1]：＋ 氯化鐵 → {{紅色|顏色}} Fe(SCN)₃",
   "水楊酸鹽 [115-1]：＋ FeCl₃ → 呈現{{紫堇色|顏色}}"
 ]);
-t(16, "維生素檢驗法", "16-2", "vit-a-test", "★Vit A", "Vit A", [
+tY(16, "維生素檢驗法", "16-2", "vit-a-test", "★Vit A", "Vit A", [
   "{{Carr-Price reaction|名詞}}（呈色法）：Vit. A／CHCl₃ ＋ {{SbCl₃ 三氯化銻|物質}} → 出現瞬即消失之{{藍色|顏色}} [112-1、93]",
   "⚠ 避免接觸{{氧化劑|名詞}} [108-1]、盡量減少光線之輻射、及與空氣之接觸、採用低透光性玻璃儀器並在惰性氣體",
   "UV 檢測：以{{鈀|物質}}進行{{催化性氫化反應|反應}} [107-1]"
 ]);
-t(16, "維生素檢驗法", "16-2", "vit-d-test", "Vit D", "Vit D", [
+tY(16, "維生素檢驗法", "16-2", "vit-d-test", "Vit D", "Vit D", [
   "{{Liebermann-Burchard Reaction|名詞}}：檢品 ＋ CHCl₃ ＋ H₂SO₄ ＋ (CH₃CO)₂O → 顏色變化：{{紅 → 紫 → 藍 → 綠|顏色}}",
   "{{Blue tetrazolium|物質}} 試劑：產生{{紅色|顏色}}表示樣品 Vit. D {{有雜質|性質}}"
 ]);
-t(16, "維生素檢驗法", "16-2", "vit-e-test", "Vit E", "Vit E", [
+tY(16, "維生素檢驗法", "16-2", "vit-e-test", "Vit E", "Vit E", [
   "{{α-Tocored test|名詞}}：Vit. E／乙醇 ＋ {{HNO₃|物質}} → 加熱 15 分 → 溶液呈{{亮紅色或橙色|顏色}} [102-2]"
 ]);
-t(16, "維生素檢驗法", "16-2", "vit-k-test", "Vit K", "Vit K", [
+tY(16, "維生素檢驗法", "16-2", "vit-k-test", "Vit K", "Vit K", [
   "{{硫酸鈰液滴定法|名詞}}（Ceric sulfate）：檢品 ＋ 冰醋酸 ＋ HCl ＋ Zn（連結：第 9-2 頁）",
   "→ 指示劑：{{鄰菲囉琳試液|物質}}（Orthophenanthroline TS），滴定終點：{{深紅 → 淡藍|顏色}}"
 ]);
-t(16, "維生素檢驗法", "16-2", "vit-c-test", "Vit C", "Vit C", [
+tY(16, "維生素檢驗法", "16-2", "vit-c-test", "Vit C", "Vit C", [
   "{{2,6-dichlorophenol indophenol|物質}} 滴定法：（氧化態）在{{鹼液中呈藍色|顏色}} →（還原態）呈無色 →（氧化態）在{{酸液中呈紅色|顏色}} [104-2、9x]"
 ]);
-t(16, "維生素檢驗法", "16-2", "vit-b-test", "Vit B₁、B₂、B₆、B₁₂", "Vit B 群", [
+tY(16, "維生素檢驗法", "16-2", "vit-b-test", "Vit B₁、B₂、B₆、B₁₂", "Vit B 群", [
   "Vit B₁（{{螢光測定|名詞}}，連結：第 29-3 頁）：Vit. B₁ ＋ NaOH ＋ {{鐵氰化鉀|物質}}（氧化劑）→ {{Thiochrome|物質}}（硫色素）＋ {{異丁醇|物質}}（isobutanol）→ 產生{{藍色螢光|顏色}}",
   "Vit B₂（螢光測定）：Vit. B₂ ＋ Sodium Hydrosulfite（{{低亞硫酸鈉|物質}} Na₂S₂O₄）→ 使{{螢光消失|名詞}}",
   "Vit B₆：{{Gibb's reaction|名詞}}：以 2,6-dichloroquinone chloroimide 呈色（＋ 水 → {{瞬藍後紅|顏色}}／＋ 飽和硼酸液 → 不呈色）[95-2]",
   "Vit B₁₂：呈色法：→ Vit. B₁₂ ＋ 焦硫酸鉀 ＋ NaOH ＋ CH₃COONa ＋ CH₃COOH ＋ {{亞硝基奈酚二磺酸鈉|物質}}溶液 → {{紅色|顏色}}"
 ]);
-t(16, "中華藥典 通靈題", "16-2", "vaccine-aluminum", "疫苗佐劑中之鋁含量測定", "疫苗鋁含量", [
+tY(16, "中華藥典 通靈題", "16-2", "vaccine-aluminum", "疫苗佐劑中之鋁含量測定", "疫苗鋁含量", [
   "將鋁與{{司迪巴佐|物質}}（stilbazo）試劑反應，並於波長 {{510 nm|數值}} 測定其吸光度 [114-1]",
   "（連結比較：第 29-3 頁 以{{螢光錯合物|名詞}}分析注射用水中的鋁）"
 ]);
-t(16, "補充統整自台灣中藥典第四版－製劑通則", "16-3", "tcm-concentrate", "中藥濃縮製劑", "中藥濃縮", [
+tY(16, "補充統整自台灣中藥典第四版－製劑通則", "16-3", "tcm-concentrate", "中藥濃縮製劑", "中藥濃縮", [
   "製劑：由中藥材經{{煎煮或萃取|名詞}}、濃縮、乾燥，加工調製成各種劑型之製劑",
   "錠劑：品質：應符合平均重量、錠劑脆度試驗法、{{崩散度|名詞}}",
   "錠劑：著衣：多以{{糖液|物質}}，藉阿拉伯膠或明膠之助，使澱粉、碳酸鈣、滑石粉或二氧化鈦等不溶性粉均勻分散 [114-1]",
   "丸劑：溫度：濃縮水蜜丸和濃縮水丸宜在 {{80°C|數值}} 以下乾燥；含揮發性成分或澱粉較多的丸劑宜在 {{60°C|數值}} 以下乾燥；不宜加熱乾燥者應採用其他適宜的方法乾燥"
 ]);
-t(16, "補充統整自台灣中藥典第四版通則－生藥與中藥檢驗法", "16-3", "tcm-tests", "生藥與中藥檢驗法：重金屬、二氧化硫、農藥殘留、黃麴毒素", "中藥檢驗", [
+tY(16, "補充統整自台灣中藥典第四版通則－生藥與中藥檢驗法", "16-3", "tcm-tests", "生藥與中藥檢驗法：重金屬、二氧化硫、農藥殘留、黃麴毒素", "中藥檢驗", [
   "重金屬：{{比色法|名詞}}：鉛、汞、砷、鉍、錫、鎘、銀、銅、鉬等金屬；{{感應耦合電漿放射光譜法|名詞}}（ICP-AES）：測中藥材中鎘、鉛、汞及砷等重金屬之含量",
   "二氧化硫：鹼滴定法：以 0.01N 氫氧化鈉溶液滴定至溶液呈{{橄欖綠色|顏色}}",
   "農藥殘留：{{氣相層析法|名詞}}（GC）：測定中藥材及其製劑中總 BHC、總 DDT 及總 PCNB 等{{有機氯劑|名詞}}農藥留量",
   "黃麴毒素：{{高效液相層析法|名詞}}（HPLC）：加入標準品 → {{螢光檢出器|名詞}}（激發波長 {{360nm|數值}}，發射波長 {{440nm|數值}}）檢測"
 ]);
-t(16, "補充統整自台灣中藥典第四版通則－生藥與中藥檢驗法", "16-3", "swelling-index", "膨脹度", "膨脹度", [
+tY(16, "補充統整自台灣中藥典第四版通則－生藥與中藥檢驗法", "16-3", "swelling-index", "膨脹度", "膨脹度", [
   "指標：每 {{1.0g|數值}} 藥品在水或其規定溶劑中，在一定的時間與溫度條件下膨脹後所佔的{{體積|名詞}}",
   "分析：主要用於含{{黏液質、膠質和半纖維素類|名詞}}的天然品"
 ]);
-t(16, "補充統整自台灣中藥典第四版通則－生藥與中藥檢驗法", "16-3", "tissue-section", "組織切片鑑別：固定液", "組織切片", [
+tY(16, "補充統整自台灣中藥典第四版通則－生藥與中藥檢驗法", "16-3", "tissue-section", "組織切片鑑別：固定液", "組織切片", [
   "{{乙醇|物質}}（Ethanol）：通常濃度為 {{50%|數值}}，其滲透快速，且容易使較為軟嫩的材料{{硬化|名詞}}而便於切片",
   "{{福馬林|物質}}（Formalin）：{{36~40%|數值}}最適宜（不宜 > 50%）",
   "{{乙酸|物質}}（Acetic Acid）：無水乙酸為近 100% 的乙酸，是一種常用的{{細胞核物質|名詞}}（例如染色體）的固定液",
@@ -1083,39 +1084,39 @@ t(16, "補充統整自台灣中藥典第四版通則－生藥與中藥檢驗法"
 ]);
 
 /* ================= CH17 傳統分析－其他分析法（講義 17-1～） ================= */
-ch(17, "其他分析法", "17-1～");
-t(17, "電化學相關分析", "17-1", "potentiometry", "電位滴定法（Potentiometry）", "電位滴定", [
+chY(17, "其他分析法", "17-1～");
+tY(17, "電化學相關分析", "17-1", "potentiometry", "電位滴定法（Potentiometry）", "電位滴定", [
   "原理：利用至少一對的{{電極|名詞}}浸入溶液，測出滴定中離子活性，並根據{{電位差|名詞}}而獲得檢品濃度",
   "用途：測定 {{pKa 值|名詞}} [108-1、107-1]，可在{{有色溶液|名詞}}中測定檢測終點（與指示劑檢測法比較，滴定終點之判定{{較靈敏|性質}}）[106-2]",
   "Nernst 方程式：25°C 玻璃電極的 E ＝ Ek − {{0.0591|數值}} × pH [107-1]；E ＝ E₀ ＋ 0.0591／n × log[ox]／[red]",
   "（E ＝ 平衡電壓；Ek ＝ 電極間不同電位差總和常數；n ＝ 半反應式中電子轉移數（mol）；E₀ ＝ 標準電極電位；ox：氧化劑；red：還原劑）"
 ]);
-t(17, "電化學相關分析", "17-1", "reference-electrodes", "參考電極：SHE、SCE", "參考電極", [
+tY(17, "電化學相關分析", "17-1", "reference-electrodes", "參考電極：SHE、SCE", "參考電極", [
   "{{標準氫電極|名詞}}（SHE, Standard hydrogen electrode）[115-2、9X]：由{{鍍鉑黑的鉑電極|名詞}}浸入氫離子活性為 1.00 的酸溶液，有導線通至外部電路",
   "SHE：以 {{1.00 atm|數值}} 氫氣使溶液保持飽和；其電位在所有溫度下皆被定義為 {{0.000 V|數值}}",
   "{{飽和甘汞電極|名詞}}（SCE, Saturated calomel electrode）[103-1]：{{Hg/Hg₂Cl₂/KCl|物質}}",
   "SCE 可替代 SHE：→ SHE 裝置麻煩，攜帶不便 → SCE 電位在 25°C 時，以 SHE 連接實測為 {{0.24 V|數值}}（接近 0）"
 ]);
-t(17, "電化學相關分析", "17-1", "indicator-electrodes", "指示電極：玻璃電極、銅電極", "指示電極", [
+tY(17, "電化學相關分析", "17-1", "indicator-electrodes", "指示電極：玻璃電極、銅電極", "指示電極", [
   "{{玻璃電極|名詞}} [106-2、105-2]：對 {{pH|名詞}} 靈敏；含{{氯化鉀 KCl、氯化銀 AgCl|物質}}",
   "{{銅電極|名詞}} [102-1]：放入 1 M {{硫酸銅|物質}}溶液中；銅半電池以{{鹽橋|名詞}}與 SHE 連結",
   "銅電極：兩個半電池外部電路經電位計及電流計串接短路，調整電位計使電流計上電流為零，讀取電位 {{+0.34 V|數值}}"
 ]);
-t(17, "電化學相關分析", "17-1", "ise", "離子選擇性電極 Ion-selective electrode（ISE）", "ISE", [
+tY(17, "電化學相關分析", "17-1", "ise", "離子選擇性電極 Ion-selective electrode（ISE）", "ISE", [
   "測定：水溶液中某些{{特定離子活性|名詞}} [103-2、102-1、9X]",
   "性質：導電、具選擇性（{{離子交換／錯合／結晶|名詞}}）、溶解度小；型態：{{玻璃薄膜／液膜|名詞}}",
   "選擇能力：{{離子交換劑與分析離子之親和力|名詞}}",
   "選擇係數：以氯離子選擇性電極進行量測，k_I/Cl ＝ 10^((E₂ − E₁)／59.2)（選擇係數{{越大干擾也大|性質}}）",
   "待測 Cl⁻：干擾離子 I⁻ {{17|數值}}（干擾很大）、Br⁻ 1.6、OH⁻ 1.0；待測 Ca²⁺：Zn²⁺ 3.2、Na⁺ {{0.0016|數值}}（干擾很小）"
 ]);
-t(17, "電化學相關分析", "17-2", "galvanic-cell", "電化學電池（銅鋅電池）", "銅鋅電池", [
+tY(17, "電化學相關分析", "17-2", "galvanic-cell", "電化學電池（銅鋅電池）", "銅鋅電池", [
   "實驗設置 [105-1]：當調整電位計使電流讀數為{{零|數值}}時，電位計上顯示值即為此電池之電位；此實驗中，銅、鋅電解液濃度皆為 {{1 M|數值}}",
   "原理：{{氧化還原|反應}}（Coulometry、Amperometry 測定法皆是同理）[104-1]",
   "陰極 cathode：Cu²⁺ ＋ 2e⁻ → Cu，E₀ ＝ +0.34V（{{還原電位|名詞}}）；陽極 anode：Zn → Zn²⁺ ＋ 2e⁻，E₀ ＝ +0.76V（{{氧化電位|名詞}}）",
   "→ 電位差 ＝ 陽極氧化電位 ＋ 陰極還原電位 ＝ 陰極還原電位 − 陽極還原電位 ＝ 陽極氧化電位 − 陰極氧化電位 ＝ {{+1.10V|數值}} [113-1、105-1]",
   "鹽橋：{{KCl|物質}}（salt bridge）"
 ]);
-t(17, "電化學相關分析", "17-2", "polarography", "極譜法（Polarography）", "極譜法", [
+tY(17, "電化學相關分析", "17-2", "polarography", "極譜法（Polarography）", "極譜法", [
   "原理：（直流極譜法）分析物在{{滴汞|名詞}}表面反應產生電流，測量電流與施加電壓值；通過測量電解過程中獲得的{{電流-電位曲線|名詞}}來確定溶液中被測組分的濃度 [9X 愛考]",
   "應用：可用於分析能被{{還原|反應}}之化合物 [104-1]；＋ 檢品液中加入{{電解質液|物質}}可抑制移動電流；＋ 介面活性劑或 {{gelatin|物質}} 可消除最大值干擾",
   "電極：{{滴汞電極|名詞}}（DME）為{{負極|名詞}}（陰極）[104-1]",
@@ -1126,7 +1127,7 @@ t(17, "電化學相關分析", "17-2", "polarography", "極譜法（Polarography
   "優點：不斷產生新的滴汞，且不易受到 {{H₂|物質}} 干擾，再現性佳；缺點：當檢品濃度很低時，信號電流（法拉第電流）會完全被雜訊（{{充電電流|名詞}}）淹沒",
   "升級版：{{微分脈衝極譜法|名詞}} → 利用脈衝施加前後的電流差值，達到最佳的靈敏度"
 ]);
-t(17, "電化學相關分析", "17-3", "biosensor", "電化學生物感測器", "生物感測器", [
+tY(17, "電化學相關分析", "17-3", "biosensor", "電化學生物感測器", "生物感測器", [
   "儀器：{{三電極|名詞}}（工作電極、參考電極、對應輔助電極）",
   "原理：{{生物大分子|名詞}}（如酵素）可造成電位設備之間電子轉移 → 測量產生的{{電流|名詞}}",
   "應用：用於定點照護手持設備中，監測{{血糖和膽固醇|名詞}}含量或藥物檢測（如利用 salicylate hydroxylase 檢測水楊酸鹽）",
@@ -1136,7 +1137,7 @@ t(17, "電化學相關分析", "17-3", "biosensor", "電化學生物感測器", 
   "第三代：電子{{直接從酵素轉移到電極表面|名詞}}，可提供更多的選擇性；適合檢測：綜合維生素中的{{維生素 E|物質}}",
   "設備誤差：訊號增加 → 高估：{{電極尺寸增加|名詞}}；訊號減少 → 低估：試劑過期／低量介質或酵素／電極堵塞…"
 ], ["講義標題列旁的小字掃描時看不清楚，沒有收錄"]);
-t(17, "乙醇測定－蒸餾法", "17-4", "ethanol-distillation", "乙醇測定－蒸餾法", "乙醇蒸餾", [
+tY(17, "乙醇測定－蒸餾法", "17-4", "ethanol-distillation", "乙醇測定－蒸餾法", "乙醇蒸餾", [
   "備註：乙醇測定可用{{蒸餾法|名詞}}和{{氣相層析法|名詞}}（連結第 21-8 頁）[110-1]；大多數之{{流浸膏、酊劑|名詞}}等皆適用蒸餾法 [113-2]",
   "方法 [110-1]：> {{30%|數值}}：需以檢品 {{2 倍量|數值}}水稀釋 [102-1]；< 30%：精確量取不少於 {{25ml|數值}} 檢品再蒸餾，測定其比重",
   "特殊處理 [102-1]：去除混濁：＋ {{滑石粉或碳酸鈣|物質}}振搖過濾 [113-2]",
@@ -1144,12 +1145,12 @@ t(17, "乙醇測定－蒸餾法", "17-4", "ethanol-distillation", "乙醇測定�
   "防止爆沸：＋ 鎂乳／碳化矽／珠粒／多孔碎片（不溶性材料）",
   "含碘檢品：＋ {{鋅粉|物質}}（防止碘被蒸出）[92-2、93-2]；含揮發性酸：＋ {{氫氧化鈉|物質}} [107-2、103-1]"
 ]);
-t(17, "氧瓶燃燒法", "17-4", "oxygen-flask", "氧瓶燃燒法", "氧瓶燃燒", [
+tY(17, "氧瓶燃燒法", "17-4", "oxygen-flask", "氧瓶燃燒法", "氧瓶燃燒", [
   "原理：有機化合物在{{氧|物質}}中燃燒成{{水溶性無機物|名詞}}，供各樣元素分析之前處理方法 [108-2]",
   "應用：分析{{氯、溴、碘、硒、硫|名詞}}（記：呂秀蓮賽流）[108-2]",
   "注意事項 [102-2]：測定有機物中硫含量時，{{不得用火柴點火|名詞}}（火柴有硫磺，會影響硫含量測定）；應採用{{硬質厚壁燃燒瓶|名詞}}；為了提高燃燒溫度，可添加{{助燃劑|名詞}}"
 ]);
-t(17, "索氏抽提器（Soxhlet extractor）", "17-4", "soxhlet", "索氏抽提器（Soxhlet extractor）", "索氏抽提器", [
+tY(17, "索氏抽提器（Soxhlet extractor）", "17-4", "soxhlet", "索氏抽提器（Soxhlet extractor）", "索氏抽提器", [
   "原理：利用★{{虹吸|名詞}}方式進行溶媒循環{{連續抽提|名詞}} [105-1、102-1、93-2]",
   "應用：抽提物含量（如{{醇浸出物|名詞}}）測定可使用此抽提器",
   "溶劑：有機溶劑如{{乙醚、正己烷、氯仿-甲醇|物質}}混合",
@@ -1158,7 +1159,7 @@ t(17, "索氏抽提器（Soxhlet extractor）", "17-4", "soxhlet", "索氏抽提
   "⚠ 為防止抽提結果受{{揮發性有機酸|名詞}}的影響，可在燒瓶中加適量的{{氫氧化鈉|物質}}",
   "連續抽提順序：{{ADCBEA|名詞}}，10 分鐘一循環；A ＝ 燒瓶；B ＝ {{提取管|名詞}}（抽提發生處，檢品濾紙筒 thimble 之處）；C ＝ 迴流冷凝管；D ＝ {{側管|名詞}}（溶劑上升的通路）；E ＝ {{虹吸管|名詞}}（溶劑回流於 A 的通路）"
 ]);
-t(17, "重量分析法", "17-5", "gravimetric", "重量分析法", "重量分析", [
+tY(17, "重量分析法", "17-5", "gravimetric", "重量分析法", "重量分析", [
   "生成{{難溶性的固體|名詞}}、形成解離度極小的分子、可定量 [106-1、94-1]",
   "{{熾灼法|名詞}}（Ignition method）：將待測物質強熱灼燒，使揮發物及非永久性物質去除，最終轉化成穩定的氧化物殘渣；例：次硝酸鉍（bismuth subnitrate）→ {{Bi₂O₃|物質}} [115-1]、磷酸銨鎂 → {{焦磷酸鎂|物質}} [93-1]",
   "{{電解法|名詞}}（Electrolysis method）：待測物質經電解，使離子於電解質中移動並反應，轉化為新的化合物；例：電流法（amperometry）、電量法（coulometry）、極譜法（polarography）（{{電位法不是|名詞}}）[101-1]",
@@ -1171,67 +1172,67 @@ t(17, "重量分析法", "17-5", "gravimetric", "重量分析法", "重量分析
 /* ================= 儀器分析：另一座島「儀器分析島」，從 CH18 開始 ================= */
 PI.LANDMASSES.push({ id: "instrumental", name: "儀器分析島", chapters: [],
   palette: { ground: "#C9D8A6", light: "#DCE7C2", cliff: "#9DB07A" } });
-function chI(id, name, pages, note) { ch(id, name, pages, note); PI.LANDMASSES[0].chapters.pop(); PI.LANDMASSES[1].chapters.push(id); }
+function chI(id, name, pages, note) { chY(id, name, pages, note); PI.LANDMASSES[0].chapters.pop(); PI.LANDMASSES[1].chapters.push(id); }
 
 /* ================= CH18 儀器分析－層析概論（講義 18-1～） ================= */
 chI(18, "層析概論", "18-1～");
-t(18, "層析法原理", "18-1", "chromatography-principle", "層析法原理", "層析原理", [
+tY(18, "層析法原理", "18-1", "chromatography-principle", "層析法原理", "層析原理", [
   "混合物成份在兩相系統中受到不同程度的作用力 → 利用{{互不相溶|性質}}固定相（固體／液體）與移動相（液體／氣體）之間的{{吸附力|名詞}}（adsorption）、親和力（affinity）、{{分配|名詞}}（partition）、形狀或分子大小等作用",
   "使不同成分在移動相中有不同的分佈或移動速率 → 達到{{分離或純化|名詞}}的作用 [109-1]",
   "未滯留分子的流速和{{溶劑|名詞}}相同；譜帶（Band）"
 ]);
-t(18, "溶質分離情形指標", "18-1", "partition-coefficient-k", "① 分配係數（Partition coefficient）", "分配係數 K", [
+tY(18, "溶質分離情形指標", "18-1", "partition-coefficient-k", "① 分配係數（Partition coefficient）", "分配係數 K", [
   "K ＝ {{Cs|名詞}}（溶質在固定相中濃度）／ Cm（溶質在移動相中濃度）",
   "K 越大代表分布在{{固定相|名詞}}多 → 沖出來得{{慢|性質}}",
   "與滯留體積的關係 [112-2]：V_R ＝ {{KVs ＋ V_M|名詞}}（V_R ＝ 滯留體積；Vs ＝ 靜相實質體積；V_M ＝ 管柱空隙（動相）體積）"
 ]);
-t(18, "溶質分離情形指標", "18-1", "retention-volume", "★② 滯留體積／時間（Retention Volume/Time）", "滯留體積", [
+tY(18, "溶質分離情形指標", "18-1", "retention-volume", "★② 滯留體積／時間（Retention Volume/Time）", "滯留體積", [
   "V_R ＝ {{t_R × μ|名詞}} [110-1、108-2]（V_R ＝ 滯留體積（ml）；t_R ＝ 滯留時間（min）；μ ＝ {{體積流速|名詞}}（ml/min））",
   "V₀ ＝ t₀ × μ（V₀ ＝ {{空白體積|名詞}}（ml）＝ 空管體積 × {{0.7|數值}}；t₀ ＝ 空白時間 ＝ {{無感時間|名詞}}（min）[102-1]）"
 ]);
-t(18, "溶質分離情形指標", "18-1", "retention-factor", "★★③ 滯留因子 ＝ 容積因子★★（Retention factor ＝ Capacity factor）", "滯留因子 K′", [
+tY(18, "溶質分離情形指標", "18-1", "retention-factor", "★★③ 滯留因子 ＝ 容積因子★★（Retention factor ＝ Capacity factor）", "滯留因子 K′", [
   "K′ ＝（t_R − t₀）／ {{t₀|名詞}} ＝（V_R − V₀）／ V₀ [考爆]",
   "敘述檢品在管柱中的{{移動速率|名詞}}",
   "理想滯留因子 K′ ＝ {{2~5|數值}}★（太小：沖提太快；太大：滯留太長，效率低）",
   "K′ 隨溫度上升而{{下降|性質}}；滯留因子 K′ 與分配係數 K 成{{正比|性質}}"
 ]);
-t(18, "溶質分離情形指標", "18-1", "separation-factor", "★④ 選擇因子 ＝ 分離因子（Separation factor）", "選擇因子 α", [
+tY(18, "溶質分離情形指標", "18-1", "separation-factor", "★④ 選擇因子 ＝ 分離因子（Separation factor）", "選擇因子 α", [
   "α ＝ K′大 ／ K′小 ＝（t_R大 − t₀）／（t_R小 − t₀）＝（V_R大 − V₀）／（V_R小 − V₀）[113-2、112-1、110-2、106-1]",
   "{{數字大放分子|名詞}}，α 必定 {{≥ 1|數值}}",
   "α > 1 表{{兩個相鄰波峰互相分離|名詞}}，但欲得知詳細重疊情形要看 {{Rs|名詞}}"
 ]);
-t(18, "層析管柱效率指標", "18-2", "resolution", "★★① 解析度 Rs（Resolution）★★", "解析度 Rs", [
+tY(18, "層析管柱效率指標", "18-2", "resolution", "★★① 解析度 Rs（Resolution）★★", "解析度 Rs", [
   "表{{兩波峰之間的重疊程度|名詞}}",
   "Rs ＝ 2（t_B − t_A）／（{{W_A ＋ W_B|名詞}}）[考爆]；Rs ≥ {{1.2|數值}} 表完全分離",
   "（補充）較複雜的公式：Rs ＝（1/4）N^0.5（（α − 1）／α）（K′／（1 ＋ K′）），K′ ＝（K′大 ＋ K′小）／2",
   "條件：兩待測物 {{N 相同|名詞}}方可使用此公式",
   "影響：N 對解析度影響{{較小|性質}}；{{滯留因子（K′）和選擇因子（α）|名詞}}影響重大"
 ]);
-t(18, "層析管柱效率指標", "18-2", "asymmetry-factor", "② 波峰不對稱 Af（Asymmetry factor）", "Af", [
+tY(18, "層析管柱效率指標", "18-2", "asymmetry-factor", "② 波峰不對稱 Af（Asymmetry factor）", "Af", [
   "{{5% 峰高|名詞}}處做平行線（舊版：10%），再從峰頂做直線下切，區分成 a、b 兩段 [考爆]",
   "★Af ＝ {{b（尾半）|名詞}} ／ a（前半）",
   "Af 理想值 {{0.95~1.15|數值}}（Af > 1 代表{{拖尾|名詞}}）",
   "與檢品濃度太高／吸附性太強／V₀ 太大／檢品分解有關"
 ]);
-t(18, "層析管柱效率指標", "18-2", "tailing-factor", "③ 拖尾因子 T（Tailing factor）", "拖尾因子 T", [
+tY(18, "層析管柱效率指標", "18-2", "tailing-factor", "③ 拖尾因子 T（Tailing factor）", "拖尾因子 T", [
   "5% 峰高處做平行線，取將 W₀.₀₅ 二分時前段的寬做 f",
   "T ＝ {{W₀.₀₅ ／ 2f|名詞}}",
   "T ＝ {{1|數值}} 最佳；又稱{{對稱因子 As|名詞}}、搖曳因子"
 ]);
-t(18, "層析管柱效率指標", "18-2", "theoretical-plate", "④ 理論板數 N（Theoretical plate）★", "理論板數 N", [
+tY(18, "層析管柱效率指標", "18-2", "theoretical-plate", "④ 理論板數 N（Theoretical plate）★", "理論板數 N", [
   "假設管柱被許多隔板所區隔，在進行層析時，每個隔板會達到平衡狀態，相當於{{一次萃取|名詞}}的過程",
   "N ＝ {{16|數值}}（t_R／W）² ＝ 16（t_R／1.7W½）² ＝ {{5.54|數值}}（t_R／W½）² [113-2、112-2]",
   "理論板數越{{高|性質}}，分離層析的效率越好 [111-1]",
   "N ∝ {{Rs²|名詞}}（與解析度平方成正比）",
   "受到管柱長度、內徑、移動相組成成分、溫度、流速、檢品量的影響"
 ]);
-t(18, "層析管柱效率指標", "18-2", "hetp", "★★⑤ 理論板高 HETP/H★★（Height equivalent to a theoretical plate）", "HETP", [
+tY(18, "層析管柱效率指標", "18-2", "hetp", "★★⑤ 理論板高 HETP/H★★（Height equivalent to a theoretical plate）", "HETP", [
   "N 會隨著管柱長度而改變，故定義一個{{不隨管柱長度變化|名詞}}的 H 值 [考爆]",
   "H ＝ L／N ＝ 層析管長度（mm or μm）／ 理論板數（無單位）",
   "HETP 值越{{小|性質}}，層析效率越好（H 值越小，代表一個萃取篩板高度越小，即在固定長度的管柱可存在越多的萃取篩板，因此層析效率越好）",
   "影響因素用 {{Van Deemter Equation|名詞}} 綜整"
 ]);
-t(18, "層析管柱效率影響因素", "18-3", "van-deemter", "★Van Deemter Equation", "Van Deemter", [
+tY(18, "層析管柱效率影響因素", "18-3", "van-deemter", "★Van Deemter Equation", "Van Deemter", [
   "氣相層析（GC）：HETP ＝ {{A ＋ B/μ ＋ C·μ|名詞}} [115-2、107-1、105-1]",
   "液相層析（LC）：HETP ＝ A／（1 ＋ Cm／√μ）＋ B／μ ＋ Csμ ＋ Cm√μ",
   "A：{{旋渦擴散|名詞}}（Eddy diffusion）、{{多路徑效應|名詞}} → 多路徑效應（施工繞遠路）會使分析物的區帶變寬 → 效率 ↓，Dm 小則 A 會減少",
@@ -1239,7 +1240,7 @@ t(18, "層析管柱效率影響因素", "18-3", "van-deemter", "★Van Deemter E
   "C：{{質量轉移抗力|名詞}}（Resistance to mass transfer）[110-1]：Cs ＝ d²（thickness）／Ds（d：固定相薄膜{{厚度|名詞}}；Ds：固定相中的擴散係數）；Cm ＝ d²（diameter）／Dm（d：固定相顆粒{{直徑|名詞}}；Dm：移動相中的擴散係數）",
   "μ：移動相{{線性流速|名詞}}（Linear velocity）→ 層析管長度／未滯留分子流過時間（cm/sec）"
 ]);
-t(18, "層析管柱效率影響因素", "18-3", "van-deemter-gc-lc", "Van Deemter：GC 與 LC 各項比較", "GC vs LC", [
+tY(18, "層析管柱效率影響因素", "18-3", "van-deemter-gc-lc", "Van Deemter：GC 與 LC 各項比較", "GC vs LC", [
   "GC：A 項：與管柱填充物緊密度及粒徑、形狀有關，{{與 μ 無關|性質}}",
   "GC：B/μ 項：隨著流速上升而{{變小|性質}}，為 GC {{波峰變寬主因|名詞}}之一",
   "GC：C·μ 項：與固定相厚度、擴散係數有關，流速上升而{{變大|性質}}",
@@ -1247,7 +1248,7 @@ t(18, "層析管柱效率影響因素", "18-3", "van-deemter-gc-lc", "Van Deemte
   "LC：B/μ 項：液相層析中影響{{甚微|性質}}，在 μ 很低才具意義",
   "LC：Csμ ＋ Cm√μ 項：★Cs 的影響隨著流速上升而{{變大|性質}} [114-1、105-1]；Cs 與固定相厚度{{平方|名詞}}成正比、與固定相中擴散係數（Ds）成反比；Cm 與固定相顆粒直徑平方成正比、與移動相中擴散係數（Dm）成反比"
 ]);
-t(18, "層析管柱效率影響因素", "18-3", "lc-efficiency", "★★增加液相層析分離效率（N ↑，H 值 ↓）★★", "增加 LC 效率", [
+tY(18, "層析管柱效率影響因素", "18-3", "lc-efficiency", "★★增加液相層析分離效率（N ↑，H 值 ↓）★★", "增加 LC 效率", [
   "固定相：粒子：粒徑{{小|性質}}、大小{{均勻|性質}}、形狀{{規律|性質}} [考爆]",
   "固定相：表面薄膜層：厚度{{薄|性質}}、分布均勻；擴散係數（Ds）{{大|性質}}",
   "移動相：擴散係數（Dm）{{大|性質}} ①、擴散率{{小|性質}} ②；黏度{{低|性質}}；溫度{{高|性質}}（適當高溫，C 減少，t_R 變短）；流速{{低|性質}}（極低則效率降低）",
@@ -1255,7 +1256,7 @@ t(18, "層析管柱效率影響因素", "18-3", "lc-efficiency", "★★增加�
   "② 擴散率大，代表分析物在移動相中分得較開，波形變寬，分離效率降低（⚠ 注意{{擴散率與擴散係數不一樣|名詞}}）",
   "（關於氣相層析效率探討詳見第 21-1 頁）"
 ]);
-t(18, "層析法應用", "18-4", "chromatography-map", "層析法應用：大綱地圖", "層析大綱", [
+tY(18, "層析法應用", "18-4", "chromatography-map", "層析法應用：大綱地圖", "層析大綱", [
   "液相層析（低效率 → 高效率）：{{濾紙層析|名詞}}（Paper Chromatography, PC）：固定相 濾紙纖維中吸附的{{水分|物質}} [107-2]",
   "{{薄層層析法|名詞}}（TLC，CH19）：固定相 {{矽膠板|物質}}",
   "高效能液相層析法（HPLC，CH20；萃取：CH23）：正向 or 逆向：{{吸附|名詞}}（連結：固相萃取）→ 固定相 固體；{{分配|名詞}}（連結：液相萃取）→ 固定相 液體",
@@ -1267,37 +1268,37 @@ t(18, "層析法應用", "18-4", "chromatography-map", "層析法應用：大綱
 
 /* ================= CH19 儀器分析－薄層層析法（TLC）（講義 19-1～） ================= */
 chI(19, "薄層層析法（TLC）", "19-1～");
-t(19, "TLC 概論", "19-1", "tlc-basics", "TLC 概論", "TLC 概論", [
+tY(19, "TLC 概論", "19-1", "tlc-basics", "TLC 概論", "TLC 概論", [
   "原理：於層析板上塗佈{{固定相|名詞}}，點上檢品混合液，並以合適溶劑為{{移動相|名詞}}，在飽和展開槽中藉{{毛細現象|名詞}}將成分展開 [114-1]",
   "用途：分離、鑑定、測定混合藥物原料中的★{{不純物|名詞}} [115-2、113-2、106-1]，屬於{{平面|名詞}}層析法",
   "分析物質：{{非揮發性物質|名詞}}分析，一次 < {{1μl|數值}} 以避免過度擴散，檢品總負載量約 {{20μg|數值}} [97-1]",
   "優點：一次可測多個樣品，可看到所有化合物成分，方法健全便宜",
   "缺點：理論板數（N）{{低|性質}}，靈敏度低，分離能力較差；{{不適用於揮發性物質|性質}} [108-2]（揮發性物質分析請連結 CH21 氣相層析）；需比 HPLC 有更多操作技巧"
 ]);
-t(19, "TLC 概論", "19-1", "rf-value", "★Rf 值（Retention Factor）", "Rf 值", [
+tY(19, "TLC 概論", "19-1", "rf-value", "★Rf 值（Retention Factor）", "Rf 值", [
   "Rf ＝ {{化合物在薄層板上升的高度|名詞}} ／ {{移動相展開劑上升高度|名詞}}",
   "化合物與固定相越親和 → 上升高度越{{低|性質}} → Rf 值越{{小|性質}} [110-2、112-1、114-2]"
 ]);
-t(19, "TLC 固定相", "19-1", "tlc-silica", "TLC 固定相：矽膠", "矽膠", [
+tY(19, "TLC 固定相", "19-1", "tlc-silica", "TLC 固定相：矽膠", "矽膠", [
   "常用的固定相以{{矽膠|物質}}為基底，顆粒大小約 {{2~25μm|數值}} [97-1]，在 pH {{2~8|數值}} 安定"
 ]);
-t(19, "TLC 固定相", "19-1", "tlc-polar-phase", "★極性固定相（分離極性化合物，正相 TLC）", "極性固定相", [
+tY(19, "TLC 固定相", "19-1", "tlc-polar-phase", "★極性固定相（分離極性化合物，正相 TLC）", "極性固定相", [
   "{{矽膠 G|物質}}（Silica gel G）：含 {{13%|數值}} 硫酸鈣（CaSO₄）[102-2] 黏著劑（G 即 {{Gypsum|名詞}} 石膏之意）；多 -OH 基，極性高；利用 {{KOH|物質}} 處理矽膠可用於分析{{弱鹼性藥物|名詞}} [115-1、103-1]",
   "{{矽膠 GF₂₅₄|物質}}（Silica gel GF₂₅₄）：矽膠 G ＋ {{螢光劑|物質}}（Fluorescent agents），在 {{UV|名詞}} 光下進行檢測",
   "{{纖維素|物質}}（Cellulose）：用於{{四環素|藥名}}（Tetracycline 類）的鑑定"
 ]);
-t(19, "TLC 固定相", "19-1", "tlc-nonpolar-phase", "非極性固定相（分離非極性化合物，逆相 TLC）", "非極性固定相", [
+tY(19, "TLC 固定相", "19-1", "tlc-nonpolar-phase", "非極性固定相（分離非極性化合物，逆相 TLC）", "非極性固定相", [
   "★{{矽藻土|物質}}（Kieselguhr G）[108-1、103-1]：含硫酸鈣（CaSO₄）黏著劑，作固定相（如液化石蠟）的固體支撐物",
   "矽藻土：浸於{{液體石蠟／石油醚|物質}}使之成較低極性（親脂）；分析{{不揮發油類|名詞}}（連結生藥：脂質的脂肪酸），碳鏈越長 Rf 值越{{小|性質}}",
   "{{矽化的矽膠|物質}}（Silanized silica gel）：與{{二氯二甲基矽烷|物質}}（Dichlorodimethylsilane）反應，進行衍生化降低極性；用於{{青黴素|藥名}}（Penicillin 類）鑑別試驗"
 ]);
-t(19, "TLC 移動相", "19-2", "polarity-index", "沖提液極性指數（Polarity Index）", "極性指數", [
+tY(19, "TLC 移動相", "19-2", "polarity-index", "沖提液極性指數（Polarity Index）", "極性指數", [
   "通常由 {{2 種以上|數值}}能相溶的有機溶媒混合組成沖提液，分離效率較好",
   "極性：指一個共價鍵或一個共價分子中{{電荷分佈的不均勻性|名詞}}",
   "{{水|物質}} > 乙酸 > {{乙腈|物質}} > 甲醇 ＝ 丙酮 > 乙酸乙酯 > 氯仿 > 二氯甲烷 > 乙醚 > {{正己烷|物質}}（極性大 → 小）",
   "Water > Acetic acid > Acetonitrile > Methanol ＝ Acetone（{{極性移動相|名詞}}）> Ethyl acetate > Chloroform > Dichloromethane > Diethyl ether > Hexane（{{非極性移動相|名詞}}）"
 ]);
-t(19, "TLC 移動相", "19-2", "tlc-ph-effect", "pH 影響", "pH 影響", [
+tY(19, "TLC 移動相", "19-2", "tlc-ph-effect", "pH 影響", "pH 影響", [
   "影響檢品的{{解離狀態|名詞}}，改變檢品極性，進而改變 Rf 值",
   "① Chloroform/acetone（4:1）：Diclofenac Rf 最小（25）、Mefenamic acid 中（41）、Ibuprofen 最大（46）",
   "② Ethyl acetate：Diclofenac 最小（40）、Mefenamic acid 大（54）、Ibuprofen 大（54）",
@@ -1306,13 +1307,13 @@ t(19, "TLC 移動相", "19-2", "tlc-ph-effect", "pH 影響", "pH 影響", [
   "Ibuprofen 於組成 ① 中，極性最小，在極性較小移動相中有最大 Rf 值；而在組成 ③ 含強氨溶液，則成極性最大者（{{弱酸藥在鹼中會解離|名詞}}），使其對固定相的吸附力增加，Rf 值變{{最小|性質}}",
   "（同理其他藥品亦 Rf 值比組成 ② 小，NSAIDs 多為弱酸藥如 Naproxen 也會有相同情形）"
 ]);
-t(19, "TLC 檢測方法", "19-3", "tlc-uv", "紫外光照射（UV）", "UV 檢測", [
+tY(19, "TLC 檢測方法", "19-3", "tlc-uv", "紫外光照射（UV）", "UV 檢測", [
   "① {{254 nm|數值}}（短波）→ 多數藥品含{{發色基|名詞}}會吸收 UV，在 TLC 片上呈現{{暗點|名詞}}，濃度越高點越黑 [101-1、94-2]",
   "例：吸著劑含 {{zinc silicate Zn₂SiO₄|物質}} 照射會有螢光，而分析物位置產生螢光消退呈現暗色斑點 [90-2]",
   "② {{365 nm|數值}}（長波）→ 背景帶藍紫色，照射不同物質會出現不同顏色螢光；但不同物質產生的螢光強度不同，所以螢光的亮度{{不可|性質}}作為濃度的標準",
   "照射本身帶螢光的物質（如天然螢光的{{蒽醌類|名詞}}化合物）可以在 365nm 波長 UV 燈下觀察"
 ]);
-t(19, "TLC 檢測方法", "19-3", "location-reagents", "定位試劑 ＝ 顯色劑（Location reagents）", "顯色劑", [
+tY(19, "TLC 檢測方法", "19-3", "location-reagents", "定位試劑 ＝ 顯色劑（Location reagents）", "顯色劑", [
   "★{{Iodine vapour|物質}} [110-1、105-2]（{{可逆|性質}}碘蒸氣，若要持久可加 starch 固定）→ {{棕色|顏色}} → 固定油或 cetrimide",
   "{{Potassium permanganate|物質}}（高錳酸鉀 KMnO₄）→ {{褪色|顏色}} → 脂肪族不飽和化合物、（類）醣類化合物、抗生素（clindamycin, lincomycin）",
   "{{Bromothymol blue|物質}}（BTB）[103-2] → 淡綠色 → {{脂質|名詞}}（Lipids）",
@@ -1322,43 +1323,43 @@ t(19, "TLC 檢測方法", "19-3", "location-reagents", "定位試劑 ＝ 顯色�
   "Ninhydrin → {{胺類或胺基酸|名詞}}（Nitrogen-containing drugs）：✓ Gentamicin（胺醣類抗生素）✓ Aprotinin（胜肽藥物，胺基酸組成）✓ Aminobutanol 限量試驗",
   "{{Anisaldehyde solution|物質}} [113-1] → 產生螢光（用 365nm UV 檢測）→ 精油成分 {{terpenes|名詞}}"
 ]);
-t(19, "TLC 檢測方法", "19-4", "location-reagents-old", "定位試劑（9x 以前考過）", "舊考顯色劑", [
+tY(19, "TLC 檢測方法", "19-4", "location-reagents-old", "定位試劑（9x 以前考過）", "舊考顯色劑", [
   "這裡列一些比較久遠 9x 以前考過的，參考看看即可",
   "{{sulfuric acid（H₂SO₄）50%|物質}} [91] → {{黑色|顏色}} → 一般有機物（含 CH）",
   "{{2,4-dinitrophenylhydrazine|物質}} [100-2、93-1] → 黃（非共軛）-橙紅（有共軛）沉澱 → {{醛／酮|名詞}}",
   "{{Diphenylcarbazone|物質}} [95-1] → {{藍紫色|顏色}} → {{barbiturates|藥名}}",
   "{{Aniline phthalate|物質}} [94-2] → 黃棕（六碳糖）-紅（五碳糖）→ {{醣類|名詞}}（Carbohydrate）"
 ]);
-t(19, "TLC 應用", "19-4", "known-impurity-limit", "已知不純物成份之限量試驗", "已知不純物", [
+tY(19, "TLC 應用", "19-4", "known-impurity-limit", "已知不純物成份之限量試驗", "已知不純物", [
   "{{Clotrimazole|藥名}}：檢測未反應的 {{Imidazole|物質}} 以及反應物極易水解形成的不純物 Chlorotritanol 是否超過 {{0.2%|數值}} [96-1]",
   "{{Hydrocortisone acetate|藥名}}：部分成份酯類水解產生 Hydrocortisone 不純物，任一不純物之檢出量不得超過 {{1.0%|數值}}",
   "雜質的限量試驗百分比（limit set in %）定義為：{{稀釋過的雜質標準品濃度|名詞}}（0.01%）／ 高濃度的分析物樣品濃度（1.0%）× 100% ＝ 此為 1% 的限量試驗",
   "Hydrocortisone 欲通過雜質 Limit test：不純物的黑點須比標準品{{小|性質}}才算通過"
 ]);
-t(19, "TLC 應用", "19-5", "unknown-impurity-limit", "未知不純物成份之限量試驗", "未知不純物", [
+tY(19, "TLC 應用", "19-5", "unknown-impurity-limit", "未知不純物成份之限量試驗", "未知不純物", [
   "{{Codeine|藥名}}：上限 0.06/4 × 100 ＝ {{1.5%|數值}} 及下限 0.04/4 × 100 ＝ {{1.0%|數值}} [107-2] 限量試驗",
   "溶液 1：4% w/v Codeine；溶液 2：0.06% w/v Codeine（1.5% 樣品濃度）；溶液 3：0.04% w/v Codeine（1.0% 樣品濃度）",
   "Codeine 欲通過雜質 Limit test：✓ 溶液 1 的雜質{{不能有任何點比中間的點|名詞}}（溶液 2）濃（大）",
   "✓ 溶液 1 只能有{{一個|數值}}比主成分（溶液 2 和溶液 3）的 Rf 高且濃度高於溶液 3 的點"
 ]);
-t(19, "TLC 升級版", "19-5", "hptlc", "高效能薄層層析法（HPTLC）", "HPTLC", [
+tY(19, "TLC 升級版", "19-5", "hptlc", "高效能薄層層析法（HPTLC）", "HPTLC", [
   "優勢：① 固定相顆粒{{更小|性質}}（{{2~10μm|數值}}）→ 排列較緊密 → {{理論板數提升|名詞}}、分離效率高、準確性高、特異性高、再現性高",
   "② {{水平展開|名詞}}無須克服重力 → 移動速率快、不受限於必要存在飽和溶媒環境",
   "③ {{自動化|名詞}}不同的步驟 → 提高分辨率（解析度）→ 更準確的定量測量",
   "應用：① Rifampicin、Isoniazid、Pyrazinamide 分離檢測（Rf：{{R < I < P|名詞}}）",
   "② 利用 {{Captopril|藥名}} {{硫醇基（-SH）|結構}}與其特異性試劑反應，再由螢光密度測量檢測計偵測（偵測極限可達 {{pg|名詞}}）"
 ]);
-t(19, "TLC 升級版", "19-5", "2d-tlc", "二維（雙向）薄層平面層析法", "二維 TLC", [
+tY(19, "TLC 升級版", "19-5", "2d-tlc", "二維（雙向）薄層平面層析法", "二維 TLC", [
   "將檢品放在方形層板，先以溶媒 A 展開、去除溶媒 A，{{旋轉 90 度|名詞}} [94-2]，再以溶媒 B 層析（用不同溶媒分離效果佳）"
 ]);
 
 /* ================= CH20 儀器分析－高效能液相層析法（HPLC）（講義 20-1～） ================= */
 chI(20, "高效能液相層析法（HPLC）", "20-1～");
-t(20, "HPLC 概論", "20-1", "hplc-basics", "HPLC 概論：性質與分析", "HPLC 概論", [
+tY(20, "HPLC 概論", "20-1", "hplc-basics", "HPLC 概論：性質與分析", "HPLC 概論", [
   "性質：屬於{{管柱|名詞}}層析，移動相為{{液體|物質}}（liquid），高效率、自動化",
   "分析：液體檢品或可溶於液體的固體，{{非揮發性、熱不安定|性質}}物質（如：蛋白質、類固醇、抗生素等）（揮發性物質分析請連結 CH21 氣相層析）"
 ]);
-t(20, "HPLC 概論", "20-1", "hplc-apparatus", "HPLC 裝置（① 移動相 ～ ⑤ 檢測器）", "HPLC 裝置", [
+tY(20, "HPLC 概論", "20-1", "hplc-apparatus", "HPLC 裝置（① 移動相 ～ ⑤ 檢測器）", "HPLC 裝置", [
   "① 移動相：需先去除氣泡（{{Degasser|名詞}}）",
   "② {{幫浦|名詞}}：壓力 ~{{4000psi|數值}}，流速 ~10ml/min，與{{滯留時間|名詞}}相關 [108-2]",
   "③ 注射：將檢品送入，體積 1~200μl（常用標準為 {{20μl|數值}}）",
@@ -1368,7 +1369,7 @@ t(20, "HPLC 概論", "20-1", "hplc-apparatus", "HPLC 裝置（① 移動相 ～ 
   "＊分離管：內徑 {{0.2mm|數值}}，使{{無效空間|名詞}}減少",
   "⑤ 檢測器：與{{光譜|名詞}}相關，考到爆，詳見後表統整"
 ]);
-t(20, "吸附（Adsorption）", "20-1", "hplc-adsorption", "吸附（Adsorption）", "吸附", [
+tY(20, "吸附（Adsorption）", "20-1", "hplc-adsorption", "吸附（Adsorption）", "吸附", [
   "④ 固定相：固體（吸附力：蔗糖 < 澱粉 < 乾燥{{矽膠 silica gel|物質}} < 氧化鋁 alumina < {{活性碳 charcoal|物質}}…）[94-2]",
   "★★① 移動相 [考爆]：高極性親和 → 低極性親和：水（H₂O）> 甲醇（MeOH）> 乙醇（EtOH）> 乙腈（ACN）> 丙酮（Acetone）> 四氫呋喃（THF）（{{Reverse phase|名詞}} 逆相）",
   "> 乙酸乙酯（EA）> 氯仿（CHCl₃）> 乙醚（Ether）> 二氯甲烷（CH₂Cl₂）> 苯（Benzene）> 甲苯（Toluene）> 四氯化碳（CCl₄）> 正己烷（n-Hexane）（{{Normal phase|名詞}} 正相）",
@@ -1377,20 +1378,20 @@ t(20, "吸附（Adsorption）", "20-1", "hplc-adsorption", "吸附（Adsorption�
   "原理：成分與固定相間的極性、非極性、特殊結構（如{{氫鍵 > 凡德瓦力|名詞}}）等吸引力不同而分離（連結：固相萃取 CH23）",
   "應用：分離 ortho-（鄰位）、meta-（間位）、para-（對位）異構物時，{{ortho|名詞}} 的極性最大 →（正相）與固定相吸附力最大 → 移動速度最慢 [111-1]；{{para|名詞}} 的極性最小 →（正相）與固定相吸附力最小 → 移動速度最快"
 ]);
-t(20, "★★液相層析方法（續）★★", "20-2", "normal-phase", "正相層析（分析：極性物質）", "正相層析", [
+tY(20, "★★液相層析方法（續）★★", "20-2", "normal-phase", "正相層析（分析：極性物質）", "正相層析", [
   "固定相：{{極性|性質}}（Polar）；移動相：{{非極性|性質}}（Apolar）",
   "SiO₂ 在表面具有{{矽醇官能基|結構}}（Si-OH），可親和高極性／含氫鍵物質",
   "矽膠結構修飾 [115-1]：{{Aminopropyl|結構}}（CH₂）₃NH₂：分析{{醣類|名詞}}、介面活性劑；{{Cyanopropyl|結構}}（CN）：分析碳水化合物、介面活性劑；泡 {{KOH|物質}}：分析{{鹼性物|名詞}}（不帶電不拖尾）",
   "溶媒沖提強度：較高 ~ 中低極性親和 > 超低極性親和：{{MeOH|物質}} > Ethyl acetate > Dichloromethane > Hexane（極性物質黏更極性親和溶媒 → 更快速被沖出 → 滯留時間{{短|性質}}）"
 ]);
-t(20, "★★液相層析方法（續）★★", "20-2", "reverse-phase", "逆相層析（分析：非極性物質）", "逆相層析", [
+tY(20, "★★液相層析方法（續）★★", "20-2", "reverse-phase", "逆相層析（分析：非極性物質）", "逆相層析", [
   "固定相：{{非極性|性質}}（Apolar）；移動相：{{極性|性質}}（Polar）",
   "{{ODS|物質}}（octadecylsilane/C18）：SiO₂ 接上{{長碳鏈|結構}}衍生而得，以{{凡得瓦力|名詞}}親和非極性化合物",
   "矽膠結構修飾：{{ODS end capping|名詞}} [115-2]：殘留未反應 OH⁻ 基，容易在高 pH 下與 N⁺ 結合，造成分離不良，可用{{氯化三甲基矽烷|物質}}（trimethylchlorosilane）覆蓋",
   "-{{C8|結構}}（Octyl）：替代 C18；-{{Phenyl|結構}}：分析{{芳香環|名詞}}化合物",
   "溶媒沖提強度：較中 ~ 低極性親和 > 高極性親和：{{THF|物質}} > Acetonitrile > MeOH > water（非極性物質黏更低極性親和溶媒 → 更快速被沖出 → 滯留時間短）"
 ]);
-t(20, "★★液相層析方法（續）★★", "20-2", "hplc-solving", "★解題步驟與官能基極性親和大小", "解題步驟", [
+tY(20, "★★液相層析方法（續）★★", "20-2", "hplc-solving", "★解題步驟與官能基極性親和大小", "解題步驟", [
   "★解題步驟：先了解{{固定相是極性／非極性|名詞}} → 判斷為正向／逆向層析 → 得知分析物是相對極性／非極性 → 依親和力判斷排序沖提順序",
   "→ ★★{{物以類聚|名詞}}（極性與極性親和力高；非極性與非極性親和力高）→ 對固定相親和越強，沖提速率越{{慢|性質}}，滯留時間越{{長|性質}}★★",
   "考量：1. 極性：指一個共價鍵或分子中{{電荷分佈的不均勻性|名詞}} 2. 氫鍵：接在 {{F/O/N|名詞}} 上的 H 與另一 F/O/N 上的孤對電子的吸引力",
@@ -1398,18 +1399,18 @@ t(20, "★★液相層析方法（續）★★", "20-2", "hplc-solving", "★解
   "★綜合排序：{{羧酸類|名詞}}（R-COOH）> 醇類（R-OH）> 胺類（R-NH₂）> 醛類（R-CHO）> 酮類（R₂C＝O）> 酯類（R-COO-R′）> 醚類（R-O-R′）> 鹵芳香族（Ar-X）> 芳香族（Ar）> 烯類（CₙH₂ₙ）> 鹵化烷類（R-X）> {{烷類|名詞}}（CₙH₂ₙ₊₂）",
   "補充：極性 {{Tris > 乙腈|名詞}} [109-1]；常見胺基酸結構詳見第 20-8 頁"
 ]);
-t(20, "液相層析方法（續）", "20-3", "hplc-partition", "分配（Partition）", "分配", [
+tY(20, "液相層析方法（續）", "20-3", "hplc-partition", "分配（Partition）", "分配", [
   "原理：（與吸附層析相似）利用固定相與移動相之間對各成分{{溶解度|名詞}}的差異、分配比例不同達到分離（連結：液相萃取 CH23）",
   "④ 固定相：{{液體|物質}}（比較：吸附層析的固定相為固體）例：{{濾紙層析|名詞}} [96-2]",
   "① 移動相：液體（逆向層析 ODS 為液體塗佈）"
 ]);
-t(20, "液相層析方法（續）", "20-3", "gradient-isocratic", "梯度沖提 vs 等位沖提", "梯度／等位", [
+tY(20, "液相層析方法（續）", "20-3", "gradient-isocratic", "梯度沖提 vs 等位沖提", "梯度／等位", [
   "{{梯度沖提|名詞}}（Gradient elution）：配方：含兩種（或以上）的溶媒，可以在{{分離中改變混合比例|名詞}}（沖提力：弱 → 強）[105-1]",
   "梯度沖提：應用：等位沖提分離效果不佳、多種分離物{{極性差異大|性質}}者；可根據 {{logK′|名詞}} 圖預測滯留時間、模擬不同溶媒比例的影響",
   "梯度沖提：優／缺點：改善波峰分離情形／但{{管柱回復時間較長|名詞}}",
   "{{等位沖提|名詞}}（Isocratic elution）：配方：單一溶媒或{{固定比例|名詞}}的混合溶媒；應用：波峰分離良好者；優／缺點：快速簡單方便／但部分物質分離效果不佳"
 ]);
-t(20, "液相層析方法（續）", "20-3", "ion-exchange", "離子交換層析法（Ion exchange chromatography）", "離子交換", [
+tY(20, "液相層析方法（續）", "20-3", "ion-exchange", "離子交換層析法（Ion exchange chromatography）", "離子交換", [
   "原理：分析物先與{{離子交換樹脂|物質}}結合，再用移動相將分析物置換出來，用以分離{{帶電荷物質|名詞}}（算是一種{{逆向|名詞}}層析的衍生）[114、109、105、93]",
   "陽離子交換樹脂：分析檢品 ＋ {{陽離子|名詞}}（例：胺基酸 amines）；固定相：強：{{磺酸根|結構}} Sulfonic acid（-SO₃⁻）；弱：{{羧酸根|結構}} Carboxylic acid（-COO⁻）；移動相：HCl 或 HNO₃（利用其 H⁺）；抑制管：OH⁻",
   "陰離子交換樹脂：分析檢品 − {{陰離子|名詞}}（例：含 -COO⁻）；固定相：強：{{四級胺|結構}} Quaternary amine（-N(CH₃)₃⁺）；弱：{{一級胺|結構}} amines（-NH₃⁺）；移動相：NaOH 或 NaHCO₃（利用其 OH⁻）；抑制管：H⁺",
@@ -1419,7 +1420,7 @@ t(20, "液相層析方法（續）", "20-3", "ion-exchange", "離子交換層析
   "⑤ 檢測器：{{電導測定|名詞}}（conductivity detector）和{{脈衝安培檢出器|名詞}}（PAD）",
   "⚠ 離子交換勿與逆向{{離子配對|名詞}}搞混（第 20-5 頁）"
 ]);
-t(20, "液相層析方法（續）", "20-4", "size-exclusion", "分子排斥（Size exclusion chromatography）", "分子排斥", [
+tY(20, "液相層析方法（續）", "20-4", "size-exclusion", "分子排斥（Size exclusion chromatography）", "分子排斥", [
   "原理：不同大小分子通過{{分子篩|名詞}}時不同的移動速率，將混合物各成分分離；分子{{小|性質}} → 會進入分子篩小孔洞 → 通過時間{{長|性質}}；分子大 → 通過時間短",
   "優點：較無樣品損失，不會使管柱失去活性；限制：分子量差異太小不易分析，有{{穿透極限|名詞}}",
   "檢量線方程式：V_E ＝ a ＋ b logM（V_E：{{沖提體積|名詞}}；a、b：常數（b 為{{負數|性質}}）；M：分子量）[93-2]",
@@ -1427,18 +1428,18 @@ t(20, "液相層析方法（續）", "20-4", "size-exclusion", "分子排斥（S
   "{{膠體過濾層析法|名詞}}（Gel filtration）：固定相 Soft gel：{{Agarose|物質}}、Dextran（{{Sephadex®|物質}}）（連結生藥：多醣體）[100-2、96-1]、Polyacrylamide [99-2、93-2]；移動相：{{親水性|性質}}",
   "{{膠體滲透層析法|名詞}}（Gel permeation）[114-2]：固定相 {{Rigid|名詞}} gel：Cross-Linked Polystyrene、Alkylate Dextran、Controlled-porosity glass beads；移動相：{{偏親脂性|性質}}（有機溶媒）"
 ]);
-t(20, "液相層析方法（續）", "20-4", "zic-hilic", "親水性交互反應法（ZIC-HILIC）", "HILIC", [
+tY(20, "液相層析方法（續）", "20-4", "zic-hilic", "親水性交互反應法（ZIC-HILIC）", "HILIC", [
   "④ 固定相：表面因為會吸附{{水分子|物質}}而極性變大（分離效果通常較接近{{正相|名詞}}層析）[114-2、109-2]",
   "① 移動相：通常使用{{乙腈|物質}}混合水或緩衝液",
   "分析{{極性|性質}}物質，滯留時間 Ascorbic acid < Glutathione（GSH）< {{氧化型 Glutathione（GSSG）|物質}}",
   "分析胺基酸，滯留時間：{{Phenylalanine|物質}} < Tyrosine < Threonine < Serine < {{Arginine|物質}} [113-1]"
 ]);
-t(20, "液相層析方法（續）", "20-4", "ph-adjust", "pH 值調整法", "pH 調整", [
+tY(20, "液相層析方法（續）", "20-4", "ph-adjust", "pH 值調整法", "pH 調整", [
   "原理：調整移動相的 pH 值，改變化合物{{離子化狀態|名詞}} → 改變滯留時間（連結：第 2-2 頁 H-H 方程式）",
   "應用：分析含 {{Aspirin|藥名}}（pKa ＝ 3.5，pH > 4 解離）和 Paracetamol 的錠劑",
   "提高 pH 值 3.7 → 4.4 使酸性 Aspirin 越容易{{解離|反應}} → 極性增加 → 在逆相層析中滯留時間{{縮短|性質}}，分析效率增加 [111-1]"
 ]);
-t(20, "液相層析方法（續）", "20-5", "ion-pair", "逆向離子配對（Ion-pair）", "離子配對", [
+tY(20, "液相層析方法（續）", "20-5", "ion-pair", "逆向離子配對（Ion-pair）", "離子配對", [
   "⚠ 勿與離子交換搞混（第 20-3 頁）",
   "★分析檢品 [111-2、108-2、105-2]：陽離子配對：-COO⁻ 或 -O⁻ {{帶負電|性質}}（例：{{Ascorbic acid|藥名}} 維他命 C）；陰離子配對：-N⁺ {{帶正電|性質}}（例：{{Adrenaline|藥名}}、-nium）",
   "④ 固定相：非極性 {{ODS|物質}}（Octadecylsilane/C18）",
@@ -1448,14 +1449,14 @@ t(20, "液相層析方法（續）", "20-5", "ion-pair", "逆向離子配對（I
   "圖示：分析檢品與配對試劑{{正負相吸|名詞}}（Electrostatic interaction），配對試劑與 ODS 固定相{{非極＆非極親合|名詞}}（Van der Waals interaction）",
   "⚠ 注意：陽離子交換樹脂是要交換陽離子，因此分析檢品帶{{正電|性質}}；陽離子配對是要結合拉在一起，因此分析檢品帶{{負電|性質}}"
 ]);
-t(20, "液相層析方法（續）", "20-6", "chiral-separation", "★分離鏡像異構物", "鏡像異構物", [
+tY(20, "液相層析方法（續）", "20-6", "chiral-separation", "★分離鏡像異構物", "鏡像異構物", [
   "原理：鏡像異構物（檢品）彼此以不同方式與固定相接觸{{三個點|數值}}（三點成一面）[111-1]，而無法在同一個對掌性表面形成相同的交互作用 → 形成不同作用力（例如：氫鍵、空間互相作用力、π-π 作用力等）→ 使檢品在層析管中的滯留程度有所不同",
   "在 ④ 固定相中形成暫時性{{非鏡像異構物|名詞}}複合體",
   "★{{Pirkle 相|名詞}} [113-2、106-1]：利用{{胺基酸|物質}}衍生物鍵結在固定相，分離 {{Labetalol|藥名}} 的兩對鏡像異構物（RR/SS、RS/SR）",
   "★{{環糊精|物質}}（cyclodextrin）[113-2、102-2]：由 {{6~8|數值}} 個葡萄糖單位所連成的一個筒狀環，分析物的{{疏水部分|名詞}}會鑲嵌在此洞中 → 分析物不對稱碳與葡萄糖上有光學活性的 {{2、3 位碳|結構}}對齊（帶有可與不對稱碳所連接基團產生三點接觸作用的 OH）",
   "★{{C18 管柱衍生化|名詞}} [115-1、113-2]：C18 管柱本身沒有光學異構的分離功能，可在移動相加入{{對掌性修飾劑|名詞}}如 {{serine|物質}} 做衍生，即可分離光學異構物（serine 本身具有光學活性）"
 ]);
-t(20, "液相層析方法（續）", "20-6", "derivatization", "★衍生法（Derivatization）", "衍生法", [
+tY(20, "液相層析方法（續）", "20-6", "derivatization", "★衍生法（Derivatization）", "衍生法", [
   "目的：改善分析物分離度、偵測感度、以利現有檢測器對分析物的偵測 [93-1]",
   "解決沒有{{發色基|名詞}}及極性太強拖尾 [114-1、103-1]：胺醣類抗生素（如：{{neomycin|藥名}}）不具發色基團（關於發色基請連結 CH27 紫外光），接上具有發色基的非極性的 {{fluorodinitrobenzene|物質}}",
   "再以 ④ {{silica gel|物質}} 分析（衍生物與分析管柱的作用會降低）→ 最後用 ⑤ {{UV|名詞}} 檢測",
@@ -1463,60 +1464,60 @@ t(20, "液相層析方法（續）", "20-6", "derivatization", "★衍生法（D
   "{{柱前衍生化|名詞}}（pre-column）：成分跑管柱分離{{前|性質}}先衍生化；雜質誤差影響較{{多|性質}}；再現性較低；容許的反應時間{{長|性質}}",
   "{{柱後衍生化|名詞}}（post-column）：成分跑管柱分離後，再衍生化後送檢測器；雜質誤差影響較{{少|性質}}；再現性{{高|性質}}；容許的反應時間{{短|性質}}"
 ]);
-t(20, "HPLC 檢測器", "20-7", "rid", "折射率檢測器 RID（Refractive Index detector）", "RID", [
+tY(20, "HPLC 檢測器", "20-7", "rid", "折射率檢測器 RID（Refractive Index detector）", "RID", [
   "原理：觀察{{濃度和折射率|名詞}}之間的變化關係 [115-1]",
   "適用：可測{{無發色基|名詞}}的化合物（醣類、脂質、揮發油）",
   "特點：便宜；對{{移動相變化敏感|性質}}；靈敏度 {{1μg|數值}}（最低）"
 ]);
-t(20, "HPLC 檢測器", "20-7", "elsd", "★蒸發光散射檢測器 ELSD★（Evaporative light scattering detector）", "ELSD", [
+tY(20, "HPLC 檢測器", "20-7", "elsd", "★蒸發光散射檢測器 ELSD★（Evaporative light scattering detector）", "ELSD", [
   "原理：利用移動相{{蒸發|反應}}後，以{{光線散射|名詞}}來檢測 [考爆]",
   "適用：可測無發色基的化合物（介面活性劑、脂類、★{{醣類|名詞}}）PEG",
   "特點：移動相需{{可揮發|性質}}；{{不分析極易揮發物|性質}}；可使用{{梯度沖提法|名詞}}；靈敏度 {{10ng|數值}} [100-2]"
 ]);
-t(20, "HPLC 檢測器", "20-7", "uv-vis-detector", "紫外光／可見光檢測器 UV/Vis", "UV/Vis", [
+tY(20, "HPLC 檢測器", "20-7", "uv-vis-detector", "紫外光／可見光檢測器 UV/Vis", "UV/Vis", [
   "原理：利用樣品對其{{吸收|名詞}}程度測定（連結：CH27 紫外光）",
   "適用：{{有發色基|名詞}}的化合物（Digoxin、Aspirin）",
   "特點：{{最常使用|性質}}；無法測無發色基者；可用{{可變波長|名詞}}檢測；靈敏度 {{0.01~100μg|數值}}"
 ]);
-t(20, "HPLC 檢測器", "20-7", "fluorescence-detector", "★螢光檢測器（Fluorescence detector）", "螢光檢測器", [
+tY(20, "HPLC 檢測器", "20-7", "fluorescence-detector", "★螢光檢測器（Fluorescence detector）", "螢光檢測器", [
   "原理：利用{{氙燈|物質}}（Xe）激發後所{{發射|名詞}}的螢光 [115-1、111-1]（連結：CH29 螢光）",
   "適用：有發色基、{{剛硬性|性質}}的化合物（{{Vit.B₁/₂|物質}}）[110-1、105-2]",
   "特點：靈敏度{{高|性質}}；只能使用{{單一光源|名詞}}；可低於 ng"
 ]);
-t(20, "HPLC 檢測器", "20-7", "ecd-hplc", "★電化學檢測器 ECD（Electrochemical detector）", "ECD", [
+tY(20, "HPLC 檢測器", "20-7", "ecd-hplc", "★電化學檢測器 ECD（Electrochemical detector）", "ECD", [
   "⚠ 勿與 GC {{電子捕捉 ECD|名詞}} 搞混（第 21-4 頁）[106-1]",
   "原理：{{庫倫模式|名詞}} 測氧化還原電流；碳操作電極、{{銀（Ag/AgCl）參考電極|名詞}}為固定電位",
   "適用：含{{硫醇|結構}}（thiol）：penicillamine、captopril；{{易氧化|性質}} [103-1、100-2]：Catecholamine（DA/NE/Epi）、Vit C",
   "特點：靈敏性{{高|性質}} [111-1]；可低於 ng"
 ]);
-t(20, "HPLC 檢測器", "20-7", "pad", "脈衝安培檢測器 PAD（Pulsed amperometric detector）", "PAD", [
+tY(20, "HPLC 檢測器", "20-7", "pad", "脈衝安培檢測器 PAD（Pulsed amperometric detector）", "PAD", [
   "原理：{{安培模式|名詞}}，測分析物在兩電極間的{{電流傳導|名詞}}，操作電極為{{金|物質}}",
   "適用：{{無機離子|名詞}}（硫酸鹽、磷酸鹽）；Cardenolide（連結生藥：強心配醣體）；不具發色基團的抗生素；{{氯離子濃度|名詞}} [107-2]",
   "特點：用於{{離子層析法|名詞}}；可達 1ng"
 ]);
-t(20, "HPLC 檢測器", "20-7", "cad", "Corona 電霧式偵測器 CAD（Coronacharged aerosol detector）", "CAD", [
+tY(20, "HPLC 檢測器", "20-7", "cad", "Corona 電霧式偵測器 CAD（Coronacharged aerosol detector）", "CAD", [
   "原理：{{霧化|反應}}分析物顆粒並透過白金電針釋放{{正電荷|名詞}}，並收集測量電荷",
   "適用：為{{通用檢測器|名詞}}（可測無發色基）",
   "特點：比 {{ELSD/RID|名詞}} 靈敏"
 ]);
-t(20, "HPLC 檢測器", "20-7", "dad", "光二極管陣列式檢測器 DAD（Diode array detector）", "DAD", [
+tY(20, "HPLC 檢測器", "20-7", "dad", "光二極管陣列式檢測器 DAD（Diode array detector）", "DAD", [
   "原理：利用二極體陣列式檢測單光器{{全範圍波長|名詞}}的分散光",
   "適用：具發色基團者；適用{{混合物分析|名詞}}（未知物）{{定性分析|名詞}} [103-2]",
   "特點：可監測{{全範圍 UV|名詞}}；解析度約 {{1nm|數值}}；可用波峰測{{純度|名詞}}"
 ]);
-t(20, "HPLC 檢測器", "20-8", "detector-pk", "▲統整：檢測器大 pk▲", "檢測器比較", [
+tY(20, "HPLC 檢測器", "20-8", "detector-pk", "▲統整：檢測器大 pk▲", "檢測器比較", [
   "靈敏度（sensitivity）：{{ECD ≈ Fluorescence|名詞}} > UV/Vis > ELSD > {{RID|名詞}}（電化學螢光最靈敏，次之光譜再 UV，散射相關最不靈敏）",
   "選擇性（selectivity）[110-2]：{{Fluorescence|名詞}} > ECD > UV/Vis > ELSD > RID（螢光除須有發色基還要有剛硬性，選擇性最高（其餘與上同））",
   "耐變性（robustness）[109-2]：{{UV/Vis|名詞}} > ELSD > ECD > RID（UV 最常使用耐變性佳）",
   "通用型檢測器：{{ELSD、RID、CAD|名詞}} 檢測物不須有發色基，可適用大多數分析物 [114-1]"
 ]);
-t(20, "HPLC 升級版：UPLC", "20-8", "uplc", "超高效液相層析法（UPLC, Ultra Performance Liquid Chromatography）", "UPLC", [
+tY(20, "HPLC 升級版：UPLC", "20-8", "uplc", "超高效液相層析法（UPLC, Ultra Performance Liquid Chromatography）", "UPLC", [
   "{{降低|性質}}層析柱固定相粒徑（{{1.7μm|數值}}）、增加幫浦壓力（~{{600bar|數值}}）[111-2]",
   "→ 減少 A {{旋渦擴散係數|名詞}}（Eddy diffusion）、多路徑效應、減少 C {{質量轉移抗力|名詞}}（Resistance to mass transfer）",
   "⚠ 但{{不影響 B|性質}}：縱向擴散（Longitudinal diffusion）（連結：Van Deemter Equation 第 18-3 頁）[102-1]",
   "→ 增加理論版數（N），減少 HETP 值 → 縮短分析時間、增加層析峰容量、提高分離度和靈敏度 → 減少帶加寬效應、效率增加"
 ]);
-t(20, "補充：常見胺基酸結構特性", "20-8", "amino-acid-classes", "補充：常見胺基酸結構特性", "胺基酸分類", [
+tY(20, "補充：常見胺基酸結構特性", "20-8", "amino-acid-classes", "補充：常見胺基酸結構特性", "胺基酸分類", [
   "{{電中性／親水|名詞}}：serine（S）、threonine（T）、cysteine（C）、asparagine（N）、glutamine（Q）、tyrosine（Y）",
   "{{帶電／親水|名詞}}：Acidic：aspartic acid（D）、glutamic acid（E）；Basic：lysine（K）、histidine（H）、arginine（R）",
   "{{厭水性|名詞}}（Hydrophobic）：alanine（A）、proline（P）、valine（V）、leucine（L）、isoleucine（I）、methionine（M）、phenylalanine（F）、tryptophan（W）",
@@ -1525,14 +1526,14 @@ t(20, "補充：常見胺基酸結構特性", "20-8", "amino-acid-classes", "補
 
 /* ================= CH21 儀器分析－氣相層析法（GC）（講義 21-1～） ================= */
 chI(21, "氣相層析法（GC）", "21-1～");
-t(21, "GC 概論", "21-1", "gc-basics", "GC 概論：原理、分析、優缺點、應用", "GC 概論", [
+tY(21, "GC 概論", "21-1", "gc-basics", "GC 概論：原理、分析、優缺點、應用", "GC 概論", [
   "原理：以{{氣體|物質}}移動相將{{氣化|反應}}的檢品依照分配係數或吸附力不同，達到物質分離的層析法",
   "分析：★{{低分子量、可揮發、具熱穩定性|性質}}的物質（{{蛋白質不行|名詞}}）[考爆]",
   "優點：分析速度快、效率高、靈敏度高（與 HPLC 比較）、解析能力高（{{毛細管|名詞}}）[111-2]、自動化操作",
   "缺點：不可分析{{熱不穩定性|性質}}物質、液體無法進入須額外多做處理、不適合{{水溶液與鹽類|名詞}}物質進入 [94-2]",
   "應用：不純物的檢測、原料藥中{{溶劑殘留及揮發性物質|名詞}}的限量試驗、揮發性精油的特性描述… [115-2、106-2、95-2]"
 ]);
-t(21, "GC 概論", "21-1", "gc-apparatus", "GC 儀器（① 移動相 ～ ⑤ 檢測器）", "GC 儀器", [
+tY(21, "GC 概論", "21-1", "gc-apparatus", "GC 儀器（① 移動相 ～ ⑤ 檢測器）", "GC 儀器", [
   "① 移動相（{{攜行氣體|名詞}}）：H₂（{{效率佳|性質}}）、He（{{最常用|性質}}）、N₂（{{便宜|性質}}）、Ar [115-1、109-2]",
   "② 注射（含{{橡皮墊片|名詞}}）：尖針頭，注入約 {{0.5~2 μl|數值}} [97-1]（分流模式詳見下頁）；注射器容量約 5~10 μl",
   "-{{墊片氣洗|名詞}}（septum purge）：清除墊片受高溫釋出的成分，以免影響分析",
@@ -1541,21 +1542,21 @@ t(21, "GC 概論", "21-1", "gc-apparatus", "GC 儀器（① 移動相 ～ ⑤ �
   "④ 溫控爐：-{{等溫|名詞}}（Isothermal）：恆溫保持檢品氣化狀態；-{{溫控|名詞}}（programming）：適用於{{沸點範圍大|性質}}的混合物，可改變溫度",
   "⑤ 檢測器：與光譜相關，考到爆（詳見後表統整）"
 ]);
-t(21, "GC 概論", "21-1", "gc-efficiency", "GC 效能影響（連結：第 18-3 頁）", "GC 效能", [
+tY(21, "GC 概論", "21-1", "gc-efficiency", "GC 效能影響（連結：第 18-3 頁）", "GC 效能", [
   "氣體流速：{{高流速|名詞}}時，效率氫／氦 > 氮 [104-1]；{{低流速|名詞}}時，氮氣有較佳效率（擴散係數：H₂ > He > N₂ > Ar）[113-2、91]",
   "管柱溫度：較{{低|性質}}溫度可獲得較佳解析度（高溫可能影響靜相的釋出：{{column bleeding|名詞}}）[113-2]",
   "管柱長度：解析度正比於 {{√管柱長度|名詞}}",
   "管柱內徑：毛細層析管內徑越{{小|性質}} → 效率越佳",
   "薄膜厚度：薄膜較{{厚|性質}} → 可適當增加易揮發物滯留時間及分離度（不必增加管柱長度）"
 ]);
-t(21, "GC 層析管柱與注射系統", "21-2", "packed-column", "充填管柱（packed column）", "充填管柱", [
+tY(21, "GC 層析管柱與注射系統", "21-2", "packed-column", "充填管柱（packed column）", "充填管柱", [
   "長度：{{1~5 m|數值}}（短）；內徑：2~5mm（粗）",
   "材質：{{矽烷化玻璃|物質}}（去除 Si-OH）[112-2]；移動相：{{氮氣|物質}}（20 ml/min）",
   "固定相：表面包覆液體的固定相顆粒（{{矽藻土|物質}}）充填；控溫：溫度 < {{280°C|數值}}",
   "理論板數：較{{小|性質}}，效率較低（A、C 影響比 B 大）[114-1]；檢品負載：較{{大|性質}}",
   "★注射系統 [109-2、106-2、103-2]：充填式層析管注射法 → 注入{{矽化玻璃棉|物質}} → 將{{所有樣品|名詞}}注入"
 ]);
-t(21, "GC 層析管柱與注射系統", "21-2", "capillary-column", "毛細管柱（capillary column ＝ open tubular）", "毛細管柱", [
+tY(21, "GC 層析管柱與注射系統", "21-2", "capillary-column", "毛細管柱（capillary column ＝ open tubular）", "毛細管柱", [
   "長度：{{10~100 m|數值}}（長）；內徑：0.15~0.5mm（細）",
   "材質：{{熔融石英|物質}}（Fused silica），外層 ＋ polyimide → ＋ {{彈性|性質}}；＋ 鋁（Al）→ 耐高溫（> {{400°C|數值}}）",
   "移動相：{{氦氣|物質}}（0.5~2 ml/min）；非矽聚合物：聚乙二醇（{{PEG ＝ Carbowax|物質}}）< 240°C [93-2]",
@@ -1564,12 +1565,12 @@ t(21, "GC 層析管柱與注射系統", "21-2", "capillary-column", "毛細管�
   "{{SCOT|名詞}}：Support-coated open tubular（充填式）：多孔性顆粒塗佈液體固定相（耐高溫 ~370°C）（{{C 影響|名詞}}相較以上其他較大）[113-1]",
   "理論板數：較{{大|性質}}，效率較佳；檢品負載：★較{{小|性質}} [103-1、112-2]"
 ]);
-t(21, "GC 層析管柱與注射系統", "21-2", "gc-injection", "★毛細管柱注射系統：無分流、分流、程式化升溫", "注射系統", [
+tY(21, "GC 層析管柱與注射系統", "21-2", "gc-injection", "★毛細管柱注射系統：無分流、分流、程式化升溫", "注射系統", [
   "{{無分流|名詞}}：似填充式，適用於{{低濃度|性質}}（< 0.01%）",
   "{{分流|名詞}} [114-1]：樣品分為兩不等分，適用於{{高濃度|性質}}濃縮檢品（> 0.1%），較少量進入，分流比率為 {{10：1 ~ 100：1|數值}}，峰形較佳",
   "{{程式化升溫|名詞}}：注入口溫度可先設較低溫，檢品注入後再提高溫度，以達到{{捕捉|名詞}}（trapping）檢品效果，縮小層析峰寬度"
 ]);
-t(21, "GC 層析管柱比較", "21-3", "gc-column-compare", "GC 層析管柱比較", "管柱比較", [
+tY(21, "GC 層析管柱比較", "21-3", "gc-column-compare", "GC 層析管柱比較", "管柱比較", [
   "長度（m）：packed 充填 {{1~6|數值}}（短）；FSOT、WCOT、SCOT 10~100（長）",
   "內徑（mm）：packed 2~4（粗）；FSOT 0.1~0.3；WCOT 0.25~0.75；SCOT 0.5",
   "效率（plates/m）：packed 500~1000（效率低）；FSOT {{2000~4000|數值}}（高效率）；WCOT 1000~4000（高效率）；SCOT 600~1200",
@@ -1577,7 +1578,7 @@ t(21, "GC 層析管柱比較", "21-3", "gc-column-compare", "GC 層析管柱比�
   "相對壓力：packed {{大|性質}}，其他低；線性流速（cm/s）：packed {{慢|性質}}，其他快",
   "化學惰性：packed 差；{{FSOT 最佳|名詞}}；WCOT 佳；SCOT ＝ PLOT 多孔 還行啦"
 ]);
-t(21, "GC 固定相", "21-3", "gc-stationary", "GC 固定相（McReynold 常數）", "GC 固定相", [
+tY(21, "GC 固定相", "21-3", "gc-stationary", "GC 固定相（McReynold 常數）", "GC 固定相", [
   "9x 偶爾出：McReynold 常數小 → 大，極性低 → 高",
   "{{Squalane|物質}} [91-1]：Hydrocarbon，{{0|數值}}（極性最低）",
   "Silicone {{OV-1|物質}}（低極性）[108-1]：{{Methylsilicone|物質}} [96-1]，222",
@@ -1585,97 +1586,97 @@ t(21, "GC 固定相", "21-3", "gc-stationary", "GC 固定相（McReynold 常數�
   "Silicone OV-225：50% methyl、25% phenyl、25% cyanopropyl，1813",
   "{{Carbowax|物質}}（高極性）[115-1、108-1]：{{Polyethylene glycol ＝ PEG|物質}}，2318"
 ]);
-t(21, "GC 固定相", "21-3", "kovats-index", "Kovats Index（I 值）", "Kovats Index", [
+tY(21, "GC 固定相", "21-3", "kovats-index", "Kovats Index（I 值）", "Kovats Index", [
   "是分析物滯留時間與同質系列{{正烷類|物質}}（n-alkanes）標準品的滯留時間比較",
   "I 值越{{大|性質}}，滯留時間越長",
   "再現性佳；提供{{未知化合物定性|名詞}}"
 ]);
-t(21, "GC 檢測器", "21-4", "fid", "★★火焰離子化檢出器 FID★★（Flame Ionization Detector）", "FID", [
+tY(21, "GC 檢測器", "21-4", "fid", "★★火焰離子化檢出器 FID★★（Flame Ionization Detector）", "FID", [
   "原理：利用{{氫氣|物質}}與空氣將溶質{{燃燒而離子化|反應}}，帶正電的碳離子（如 CHO⁺）與電子被電極收集產生電流 [考爆]",
   "適用：{{碳氫化合物|名詞}}",
   "特點：{{具破壞性|性質}}；最常使用，靈敏度高；{{無機物|名詞}}無法被偵測；對連接於 {{O、N、Cl|名詞}} 的碳原子不敏感",
   "偵測極限：{{100 pg ~ 10 ng|數值}}（靈敏度高）"
 ]);
-t(21, "GC 檢測器", "21-4", "ecd-gc", "★★電子捕捉檢出器 ECD★★（Electron Capture Detector）", "GC-ECD", [
+tY(21, "GC 檢測器", "21-4", "ecd-gc", "★★電子捕捉檢出器 ECD★★（Electron Capture Detector）", "GC-ECD", [
   "⚠ 勿與 HPLC {{電化學 ECD|名詞}} 搞混（第 20-7 頁）",
   "原理：檢品會捕捉由 {{⁶³Ni|物質}} 放射（{{β-射線|名詞}}）並與氣體撞擊而產生的電子，使電流{{減弱|性質}}而產生信號 [108-1、102-1、95-2]",
   "適用：易於{{吸收電子|性質}}者：有機金屬、{{鹵素|名詞}}（F/Cl）、{{硝基|結構}}（nitro）[考爆]",
   "特點：{{無破壞性|性質}}；偵測極限：{{50 fg ~ 1pg|數值}}（靈敏度高）"
 ]);
-t(21, "GC 檢測器", "21-4", "npd", "氮磷檢出器 NPD（Nitrogen Phosphorus Detector）", "NPD", [
+tY(21, "GC 檢測器", "21-4", "npd", "氮磷檢出器 NPD（Nitrogen Phosphorus Detector）", "NPD", [
   "原理：N、P 與{{鹼金屬鹽|物質}}反應 [97-1]，產生{{陰離子電流訊號|名詞}}",
   "適用：含{{氮、磷|名詞}}化合物",
   "偵測極限：氮化合物：{{ng|名詞}}；磷化合物：{{pg|名詞}}"
 ]);
-t(21, "GC 檢測器", "21-4", "tcd", "★熱傳導檢出器 TCD（Thermal Conductivity Detector）", "TCD", [
+tY(21, "GC 檢測器", "21-4", "tcd", "★熱傳導檢出器 TCD（Thermal Conductivity Detector）", "TCD", [
   "原理：不同熱傳導率的檢品帶走不同熱量，而改變{{鎢絲電阻電壓|名詞}}；{{H₂/He|物質}} 熱傳導力高，靈敏度高 [114-2、110-2、104-2、94-2、91]",
   "適用：{{所有化合物|名詞}}（揮發性為主）",
   "特點：{{通用型|名詞}}；非破壞性分析；可偵測{{水蒸氣|物質}}",
   "偵測極限：靈敏度{{低|性質}}，{{不配用毛細管柱|性質}}"
 ]);
-t(21, "GC 檢測器", "21-4", "gc-other-detectors", "放射性化學檢測器、MIP-AES、FT-IR、質譜儀 MSD", "其他 GC 檢測器", [
+tY(21, "GC 檢測器", "21-4", "gc-other-detectors", "放射性化學檢測器、MIP-AES、FT-IR、質譜儀 MSD", "其他 GC 檢測器", [
   "{{放射性化學檢測器|名詞}}（Radiochemical detector）：標記 {{¹⁴C、³H|物質}} 放射性物質；適用：放射同位素標記代謝物；特點：{{充填式|名詞}}層析管效果佳",
   "{{微波誘導之電漿原子發散|名詞}} MIP-AES：微波加熱至 > {{6000°C|數值}} 產生 {{Ar|物質}} 電熱漿，所有元素會產生發散光譜 → 用 DAD 偵測（原理似 ICP-AES 詳見第 31-3 頁）；適用：各別元素（有機氯殺蟲劑、有機金屬中的金屬）；廣泛用於檢測藥品不純物及代謝研究；pg",
   "{{傅立葉紅外光轉換|名詞}} FT-IR（詳見第 28 章）：為 {{time-domain|名詞}}，輻射功率隨時間改變而變 → 再轉換成 frequency domain；加速分析速度，高解析度、精確度、再現性、{{訊雜比|名詞}}（S/N）；用於{{結構解析|名詞}}（定性）[107-1]；10 ng",
   "{{質譜儀|名詞}} MSD（詳見第 25 章）：{{鑑別能力最佳|性質}} [102-1]；{{塑化劑|名詞}}篩選分析 [112-1]；pg"
 ]);
-t(21, "GC 分析應用", "21-5", "gc-peppermint", "★揮發油分析－薄荷油的成分", "薄荷油 GC", [
+tY(21, "GC 分析應用", "21-5", "gc-peppermint", "★揮發油分析－薄荷油的成分", "薄荷油 GC", [
   "成分：β-pinene、Limonene、Menthone、Menthol、Menthyl acetate [109-2、109-1、103-2]",
   "{{BPX-5|物質}} 層析管：固定相{{非極性|性質}}；I 值（滯留時間）：{{menthyl acetate|物質}} > menthol > menthone > limonene > pinene",
   "BPX-5 判斷依據：{{分子量、形狀|名詞}}（分子量越大、形狀越鬆散，滯留越久）；分離效果：這些成分分子量相近，尤其像 menthol 和 menthone 訊號會比較容易疊在一起，{{較不易分辨|性質}}",
   "{{Carbowax|物質}} 層析管：固定相{{極性|性質}}；I 值：{{menthol|物質}} > menthyl acetate > menthone > limonene > pinene",
   "Carbowax 判斷依據：{{極性|名詞}}（極性越大，滯留越久）；分離效果：Menthol 有 {{-OH|結構}} 極性相當大，與 menthone 相差甚遠，能夠有效分離，有更好{{解析度跟選擇性|名詞}} [113-1]"
 ]);
-t(21, "GC 分析應用", "21-5", "gc-fatty-acid", "非揮發油分析－脂肪酸", "脂肪酸 GC", [
+tY(21, "GC 分析應用", "21-5", "gc-fatty-acid", "非揮發油分析－脂肪酸", "脂肪酸 GC", [
   "方法：{{衍生化|反應}}成易揮發成分，加入 {{KOH|物質}}（鹼），解離成脂肪酸和甘油 → 脂肪酸 ＋ {{甲醇|物質}} → {{甲基酯|物質}}（脂肪酸甲基酯的層析圖形比游離脂肪酸好分析）",
   "管柱：使用★{{極性 Carbowax|物質}} 層析管 [110-1、107-1] 可得清楚不重疊的波峰，效果佳",
   "應用：分析油酸、棕櫚酸、亞麻油酸、★{{杏仁油|物質}}… [104-1、112-1、114-1]"
 ]);
-t(21, "GC 分析應用", "21-5", "gc-chiral", "分析鏡像異構物（GC）", "GC 鏡像異構物", [
+tY(21, "GC 分析應用", "21-5", "gc-chiral", "分析鏡像異構物（GC）", "GC 鏡像異構物", [
   "方法：1. {{固定相|名詞}}接上光學活性物質（chiral selector），抓住 D 或 L form 的分析物，再依序沖提出",
   "方法：2. {{檢品|名詞}}接上光學活性物質，使其不再是鏡像異構物而分開 [115-1]",
   "管柱：1. {{Chirasil Val|物質}}（常用於含胺基酸的檢品）→ 滯留時間：D-phenylalanine < L-phenylalanine < D-tyrosine < L-tyrosine；{{Cyclodextrin 環糊精|物質}}（連結第 20-6 頁）",
   "檢品：2. {{Menthol|物質}} 的鏡像異構物與旋光醯化劑 {{(+)-Chrysanthemyl|物質}} 反應，產生一對{{非鏡像的立體異構物|名詞}}並分離之"
 ]);
-t(21, "GC 分析應用", "21-6", "gc-derivatization", "衍生化分析（GC）", "GC 衍生化", [
+tY(21, "GC 分析應用", "21-6", "gc-derivatization", "衍生化分析（GC）", "GC 衍生化", [
   "方法：將{{極性太大|性質}}的檢品衍生化（如{{遮蔽羥基|名詞}}），可得到更好的層析波峰",
   "應用：甘油與甘二醇加入{{矽化劑|名詞}} {{TMS|物質}}（trimethylsilyl）形成的衍生物",
   "生物鹼、生物鹼鹽先以{{氨水鹼化|反應}}，再以 {{Ethyl acetate|物質}}（有機溶劑）萃取（避免注射時會熱分解引起波峰圖形的消失）",
   "{{Pseudoephedrine|藥名}} 含有羥基、胺基，會使波形變差，可製成 {{TFAA|物質}}（trifluoroacetic anhydride）[100-1] 的衍生物改善波形",
   "{{Atropine|藥名}} 以 {{bistrimethylsilyl acetamide（BSA）|物質}} [96-1] 作衍生試劑"
 ]);
-t(21, "GC 分析應用", "21-6", "gc-degradation", "分析降解殘留物（GC）", "降解殘留物", [
+tY(21, "GC 分析應用", "21-6", "gc-degradation", "分析降解殘留物（GC）", "降解殘留物", [
   "分析 {{bupivacaine|藥名}} 製劑中的不純物 {{dimethylaniline|物質}} [111-1]：可先將樣品{{鹼化|反應}}再使用 {{cyclohexane|物質}} 萃取",
   "滯留時間 dimethylaniline < bupivacaine（用 {{RTX-1|物質}} 層析管）；可使用溫度梯度增加解析度與效率，使用{{內標準品法|名詞}}定量；使用 {{NPD 氮磷檢出器|名詞}} [104-1]",
   "分析製劑包材殘留的 {{glutaraldehyde|物質}} [108-2]：使用 {{pentafluorobenzyloxime|物質}} 衍生化試劑，安定分析物增加滯留時間",
   "分析 {{Hydrazine|物質}} 不純物：使用 {{Benzaldehyde|物質}} 衍生試劑"
 ]);
-t(21, "GC 分析應用", "21-6", "gc-derivatizing-agents", "▼統整 GC 應用中各種衍生試劑", "GC 衍生試劑", [
+tY(21, "GC 分析應用", "21-6", "gc-derivatizing-agents", "▼統整 GC 應用中各種衍生試劑", "GC 衍生試劑", [
   "{{Glycerol|物質}} → TMS（trimethylsilyl）",
   "{{Pseudoephedrine|藥名}} → TFAA（trifluoroacetic anhydride）",
   "{{Atropine|藥名}} → bistrimethylsilyl acetamide（BSA）",
   "{{glutaraldehyde|物質}} → pentafluorobenzyloxime",
   "{{Hydrazine|物質}} → Benzaldehyde"
 ]);
-t(21, "GC 分析應用", "21-7", "headspace", "殘留溶劑檢測：頂空分析法（Head space analysis）", "頂空分析", [
+tY(21, "GC 分析應用", "21-7", "headspace", "殘留溶劑檢測：頂空分析法（Head space analysis）", "頂空分析", [
   "裝置：{{氣密式注射器|名詞}}（1-2ml）、隔膜、檢品與溶劑；含有溶劑{{蒸氣空間|名詞}}的頂部空間（以達到待測物在液面空間飽和為原則）；加熱與震盪 [104-1]",
   "檢品溶於或懸浮於 {{N,N-dimethylacetamide 或 diethylene glycol|物質}}（相對{{不易揮發|性質}}而較不產生干擾）",
   "→ {{封裝|名詞}}（sealed）小瓶中加熱，氣化成分以{{氦氣|物質}}帶出",
   "→ 注入毛細管管柱（使用{{低極性|性質}}固定相如 {{RTX-1301|物質}}，薄膜厚度 3μm）；以 {{10：1|數值}} 分流注射",
   "必須{{自動化|名詞}}以得到良好的再現性"
 ]);
-t(21, "GC 分析應用", "21-7", "purge-trap", "殘留溶劑檢測：吹氣捕捉法（Purge trap analysis）", "吹氣捕捉", [
+tY(21, "GC 分析應用", "21-7", "purge-trap", "殘留溶劑檢測：吹氣捕捉法（Purge trap analysis）", "吹氣捕捉", [
   "✓ 適用於分析{{濃縮水中低量的揮發物|名詞}}",
   "利用{{氦氣|物質}}（He）起泡使揮發性不純物與溶液分離",
   "→ 氣流通過{{聚合吸附劑|物質}}濃縮，加熱釋出 → 注入氣相層析儀",
   "用於{{環境分析|名詞}}以及濃縮水中存在的低量揮發物"
 ]);
-t(21, "GC 分析應用", "21-8", "spme", "固相微量萃取（solid-phase microextraction, SPME）", "SPME", [
+tY(21, "GC 分析應用", "21-8", "spme", "固相微量萃取（solid-phase microextraction, SPME）", "SPME", [
   "金屬針頭內側微小融矽纖維上塗佈 {{Polydimethylsiloxane|物質}}（非揮發性聚合物塗層）",
   "→ 分析物在{{纖維與液相|名詞}}之間進行分配 → 再搭配{{熱脫附法|名詞}} thermal desorption 進樣 GC",
   "適用於有機化合物濃縮含量追蹤 或 水溶液樣品{{頂空分析的前處理|名詞}} [107-2]"
 ]);
-t(21, "GC 分析應用", "21-8", "gc-internal-standard", "以內部標準品應用藥品及生物分析", "GC 內標應用", [
+tY(21, "GC 分析應用", "21-8", "gc-internal-standard", "以內部標準品應用藥品及生物分析", "GC 內標應用", [
   "★{{乙醇|物質}} [107-2]：檢測：定量；內部標準品：{{乙腈 或 propan-1-ol|物質}}，可提升此定量方法的準確度與精密度 [111-2、111-1]",
   "乙醇 備註：管柱可以多孔聚合的 {{porapak Q|物質}} 充填（適合滯留{{低分子量|性質}}如 CO₂、氨、乙炔），亦可用厚膜（5μm）替代",
   "{{Valproic acid|藥名}}：檢測：血中濃度；內部標準品：{{Caprylic acid|物質}}；標準品為藥品異構物，血漿檢測限度 1μg/ml",
@@ -1686,20 +1687,20 @@ t(21, "GC 分析應用", "21-8", "gc-internal-standard", "以內部標準品應�
 
 /* ================= CH22 儀器分析－超臨界流體層析法（SFC）（講義 22-1） ================= */
 chI(22, "超臨界流體層析法（SFC）", "22-1");
-t(22, "基本概念", "22-1", "sfc-basics", "SFC：原理、分析、優缺點", "SFC 概論", [
+tY(22, "基本概念", "22-1", "sfc-basics", "SFC：原理、分析、優缺點", "SFC 概論", [
   "原理：以{{超臨界流體|名詞}}作為移動相，為氣相層析與液相層析的混合應用，★可透過{{調整壓力|名詞}}改變萃取選擇性 [114-2、111-2、108-1]",
   "分析：{{非揮發性|性質}}、★{{熱不安定|性質}} [111-2、108-1] 或無發色基的{{大分子|名詞}}物質",
   "優點：環保（易於回收）、應用廣、{{低溫|性質}}即可分析、效率高",
   "缺點：移動相選擇種類相當有限，機器本身貴"
 ]);
-t(22, "基本概念", "22-1", "sfc-mobile-phase", "移動相（超臨界流體）", "超臨界流體", [
+tY(22, "基本概念", "22-1", "sfc-mobile-phase", "移動相（超臨界流體）", "超臨界流體", [
   "當物質超過{{臨界溫度及臨界壓力|名詞}}以上，性質介於{{氣體與液體|名詞}}間，最後會達成一個均勻相之{{高密度|性質}}流體",
   "移動相溶媒與 {{selectivity factor|名詞}} 最相關 [109-2]",
   "黏度較液體{{小|性質}}，擴散性較液體{{大|性質}} → ★{{質量傳輸快|性質}}，效率高 [111-2、108-1]",
   "例：★{{CO₂|物質}}★（最常用、不易燃、可 ＋ {{甲醇|物質}}提高極性）[考爆]、N₂O、NH₃、丁烷",
   "CO₂ 相圖 [95-2]：臨界溫度低（{{31.1°C|數值}}），臨界壓力 73.0 atm"
 ]);
-t(22, "基本概念", "22-1", "sfc-other", "SFC：固定相、檢測器、應用", "SFC 應用", [
+tY(22, "基本概念", "22-1", "sfc-other", "SFC：固定相、檢測器、應用", "SFC 應用", [
   "固定相：Open-tubular、{{packed columns|名詞}}（載量大，較常用）",
   "檢測器：{{FID|名詞}}（flame ionization detector）、MASS、UV",
   "應用：可分析{{非離子界面活性劑|名詞}}（Triton X-100）、殺蟲劑、多環芳香族化合物、二甲基聚矽氧烷寡聚合物",
@@ -1708,13 +1709,13 @@ t(22, "基本概念", "22-1", "sfc-other", "SFC：固定相、檢測器、應用
 
 /* ================= CH23 儀器分析－萃取法（講義 23-1～） ================= */
 chI(23, "萃取法", "23-1～");
-t(23, "概論", "23-1", "extraction-basics", "萃取：原理、目的、標準、方法", "萃取概論", [
+tY(23, "概論", "23-1", "extraction-basics", "萃取：原理、目的、標準、方法", "萃取概論", [
   "原理：利用物質在不同溶劑／膠體中{{溶解度／吸附力|名詞}}的差異，將混合物中的某特定成分轉移到另一溶劑／膠體中，達到分離的目的",
   "目的：進行{{層析分析前|名詞}}，初步分離去除可能干擾分析的物質",
   "標準：理想精密度 < {{±1.0%|數值}}（分析大量藥品微量不純物或生物流體中時，相對標準差 > ±1.0% 也能接受）",
   "方法：① {{固相萃取|名詞}} [105-2] ② 液相萃取 ③ 超臨界萃取 ④ 微量透析萃取"
 ]);
-t(23, "概論", "23-1", "extraction-matrix", "萃取應用：去除錠劑基質、霜劑／軟膏油性賦形劑", "去除基質", [
+tY(23, "概論", "23-1", "extraction-matrix", "萃取應用：去除錠劑基質、霜劑／軟膏油性賦形劑", "去除基質", [
   "去除不溶的{{錠劑基質|名詞}}、霜劑／軟膏中的{{油性賦形劑|名詞}}等配方分析 [114-1]",
   "錠劑與膠囊 [103-2]：{{充填物|名詞}}：乳糖、纖維素、澱粉、甘露醇等；不吸收紫外光，對 HPLC-UV 干擾少；若不溶於水可用甲醇乙醇潤濕，未完全粉末化易產生誤差",
   "錠劑與膠囊：{{潤滑劑|名詞}}：硬脂酸鎂、硬脂酸、PEG 等；含量少，發色基弱，造成干擾的可能性低；脂肪酸潤滑劑可由 {{GC-FID|名詞}} 分析",
@@ -1722,12 +1723,12 @@ t(23, "概論", "23-1", "extraction-matrix", "萃取應用：去除錠劑基質�
   "懸浮液與溶液：染料（陰陽離子）：{{離子交換樹脂|物質}}進行固相萃取能有效去除；界面活性劑：化合物如 PEG 並無明顯紫外光吸收，因此幾乎不會干擾分析",
   "霜劑與軟膏：含大量油性三酸甘油酯，可轉移至 {{hexane 己烷|物質}}中 [108-1]；若溶解性不良，回收率差可能產生誤差"
 ]);
-t(23, "① 固相萃取 Solid Phase Extraction（SPE）", "23-2", "spe-column", "SPE 管柱", "SPE 管柱", [
+tY(23, "① 固相萃取 Solid Phase Extraction（SPE）", "23-2", "spe-column", "SPE 管柱", "SPE 管柱", [
   "以{{多孔玻璃|物質}}上下包夾吸附劑（顆粒約 {{40~50μm|數值}}，50~500 mg）",
   "{{真空連通管|名詞}}（vacuum manifold）可用於同時執行多件萃取",
   "新技術連線－{{限制進樣介質|名詞}}（restricted access media, RAM）：使親脂藥物進入，{{蛋白質分子過大|名詞}}而被排出"
 ]);
-t(23, "① 固相萃取 Solid Phase Extraction（SPE）", "23-2", "spe-order", "★SPE 順序★", "SPE 順序", [
+tY(23, "① 固相萃取 Solid Phase Extraction（SPE）", "23-2", "spe-order", "★SPE 順序★", "SPE 順序", [
   "{{Conditioning solvent|名詞}} → Sample loading → {{Washing solvent|名詞}} → Eluting solvent [114-2、113-2、110-1、108-1]",
   "Conditioning solvent：{{活化管柱|名詞}}，使管柱內平衡再進行分析；先用 {{5~10 倍|數值}}的充填床體積之沖提液（Eluting solvent）沖洗",
   "Sample loading：將樣品用適當溶劑溶入並注入管柱",
@@ -1735,7 +1736,7 @@ t(23, "① 固相萃取 Solid Phase Extraction（SPE）", "23-2", "spe-order", "
   "Eluting solvent：沖提出{{分析物|名詞}}",
   "★（逆相）洗出液／沖提液選擇 [104-2、102-2]：分析鹼性物：先用{{鹼液|物質}}洗不純物 → 再用{{酸液|物質}}沖提出分析物；分析酸性物：先用酸液洗不純物 → 再用鹼液沖提出分析物"
 ]);
-t(23, "① 固相萃取 Solid Phase Extraction（SPE）", "23-2", "spe-sorbents", "SPE 吸附劑", "SPE 吸附劑", [
+tY(23, "① 固相萃取 Solid Phase Extraction（SPE）", "23-2", "spe-sorbents", "SPE 吸附劑", "SPE 吸附劑", [
   "{{極性矽膠|物質}}（正相）：表面修飾成 {{aminopropyl 或 diol|結構}} 的形式，分析極性化合物",
   "★{{親脂性矽膠|物質}}（逆相）：以{{凡德瓦爾力|名詞}}（Van der Waals）滯留非極性的物質（如：固醇類 {{hydrocortisone|藥名}}）",
   "親脂性矽膠：{{polydimethylsiloxane|物質}} 為常用的親脂性 SPME 吸附材質 [111-2、103-2]；檢品裝載容積比樹脂{{小|性質}} [102-1]",
@@ -1744,7 +1745,7 @@ t(23, "① 固相萃取 Solid Phase Extraction（SPE）", "23-2", "spe-sorbents"
   "{{免疫親和性膠體|物質}}：分析物產生的抗體結合至基質表面，分析{{單株抗體及胜肽藥物|名詞}}前萃取",
   "★離子交換樹脂：陰離子：{{弱酸性|性質}}藥品（{{methicillin|藥名}}）以陰離子交換；陽離子：{{弱鹼性|性質}}藥品（{{adrenaline|藥名}}）以陽離子交換 [109-1、105-2]"
 ]);
-t(23, "★固相萃取 SPE 中的離子交換樹脂", "23-3", "spe-ion-exchange", "★固相萃取 SPE 中的離子交換樹脂", "SPE 離子交換", [
+tY(23, "★固相萃取 SPE 中的離子交換樹脂", "23-3", "spe-ion-exchange", "★固相萃取 SPE 中的離子交換樹脂", "SPE 離子交換", [
   "[114-1、113-2、113-1]",
   "活化平衡管柱 buffer（pH 同樣品溶液）：陽離子交換樹脂：用容易被取代的陽離子 {{K⁺、Na⁺、NH₄⁺|物質}}（雙價離子如 Ca²⁺、Mg²⁺ 難以取代，會直接佔據它滯留的結合位，不使用）",
   "陰離子交換樹脂：用容易被取代的陰離子 {{OH⁻、C₂H₅COO⁻、CH₃COO⁻ 或 F⁻|物質}}（Cl⁻、Br⁻、NO₃⁻、HSO₄⁻ or citrate 難以取代，會直接佔據它滯留的結合位，不使用）",
@@ -1754,11 +1755,11 @@ t(23, "★固相萃取 SPE 中的離子交換樹脂", "23-3", "spe-ion-exchange"
   "沖提分析物：離子取代：陽離子取代：{{NH₄Cl|物質}}（氯化銨）；陰離子取代：{{NaCl|物質}}（氯化鈉）或 Na₃C₆H₅O₇（檸檬酸鈉）",
   "沖提分析物：離子化抑制：陽離子：設計{{高 pH|名詞}}的環境（如{{甲醇氨|物質}}）；陰離子：設計{{低 pH|名詞}}的環境（如 HCl/甲醇）"
 ]);
-t(23, "② 液相萃取", "23-4", "lle-solvents", "液相萃取：有機溶劑密度", "溶劑密度", [
+tY(23, "② 液相萃取", "23-4", "lle-solvents", "液相萃取：有機溶劑密度", "溶劑密度", [
   "密度{{小於水|性質}}的有機溶劑（在上層）：正己烷 n-Hexane、乙醚 Diethyl ether、{{甲苯|物質}} Toluene、乙酸乙酯 Ethyl acetate",
   "密度{{大於水|性質}}的有機溶劑（在下層）：二氯甲烷 Dichloromethane、{{氯仿|物質}} Chloroform、四氯化碳 Carbon tetrachloride"
 ]);
-t(23, "② 液相萃取", "23-4", "lle-methods", "液相萃取：離子化、分配、離子配對、衍生化", "液相萃取方法", [
+tY(23, "② 液相萃取", "23-4", "lle-methods", "液相萃取：離子化、分配、離子配對、衍生化", "液相萃取方法", [
   "{{離子化|名詞}}：極性高，水溶性上升 → 分配至{{水層|名詞}}；未離子化：極性低，脂溶性上升 → 分配至{{有機層|名詞}} [108-1]",
   "測定前萃取 {{cyclizine lactate injection|藥名}}（連結 第 14 章）：加{{稀硫酸|物質}}到樣品後用乙醚分配（藥品在水層）→ 取水層加{{氨水|物質}}調製至鹼性，再以乙醚萃取，收集乙醚層（藥品在醚層）",
   "{{分配|名詞}}：將{{油性賦形劑|名詞}}以有機溶劑萃取出（如類固醇霜劑萃取）[113-1]，＋ 內部標準品以達良好的精密度",
@@ -1767,7 +1768,7 @@ t(23, "② 液相萃取", "23-4", "lle-methods", "液相萃取：離子化、分
   "{{牛磺酸|物質}}（taurine）帶 SO₃⁻ [114-2]：{{醯化|反應}}後遮蔽胺基並增加脂溶性 → 以 {{tetrabutyl ammonium sulphate|物質}} 離子配對萃取",
   "{{衍生化|名詞}}：{{Adrenaline|藥名}} 注射液與{{乙醯酐|物質}}（acetic anhydride）的水相乙醯化反應"
 ]);
-t(23, "★★綜合比較★★", "23-5", "spe-vs-lle", "★★固相萃取 vs 液相萃取★★", "SPE vs LLE", [
+tY(23, "★★綜合比較★★", "23-5", "spe-vs-lle", "★★固相萃取 vs 液相萃取★★", "SPE vs LLE", [
   "SPE 優點 [考爆]：吸附劑有多種選擇，{{選擇性較高|性質}}；液相萃取：溶劑必須互不相溶，溶劑選擇有限",
   "SPE：兩相間{{不會乳化|性質}}；液相萃取：兩相間可能乳化",
   "SPE：溶媒用量{{少|性質}}；液相萃取：需大量溶劑",
@@ -1776,18 +1777,18 @@ t(23, "★★綜合比較★★", "23-5", "spe-vs-lle", "★★固相萃取 vs �
   "SPE：★盡量使用{{內部標準品|名詞}}，補償不可逆吸附的缺點 [110-2、112-2]",
   "SPE：★★{{矽膠在強鹼下不安定|性質}}★★ [考爆]"
 ]);
-t(23, "③ 超臨界萃取、④ 微量透析萃取", "23-5", "sfe", "③ 超臨界萃取 Supercritical Fluid Extraction（SFE）", "SFE", [
+tY(23, "③ 超臨界萃取、④ 微量透析萃取", "23-5", "sfe", "③ 超臨界萃取 Supercritical Fluid Extraction（SFE）", "SFE", [
   "連結：CH22",
   "{{CO₂|物質}}（二氧化碳）常藉由加入{{甲醇／乙醇|物質}}以調整溶劑強度 → 可分析 {{Vit A、Vit E|物質}} 及其醋酸酯與棕櫚酯含量，回收率良好"
 ], ["講義此格的考古題年份拍攝模糊，沒有收錄"]);
-t(23, "③ 超臨界萃取、④ 微量透析萃取", "23-5", "microdialysis", "④ 微量透析萃取", "微量透析", [
+tY(23, "③ 超臨界萃取、④ 微量透析萃取", "23-5", "microdialysis", "④ 微量透析萃取", "微量透析", [
   "活體{{細胞外液|名詞}}的取樣，類似人造血管功能，有{{半透膜|名詞}}（分析無蛋白質樣品）",
   "→ 生物液體之 HPLC 分析可★先利用微透析方法去除{{蛋白質干擾|名詞}}／可用於連續監測活體動物腦中 {{dopamine|物質}} 濃度"
 ], ["講義此格的考古題年份拍攝模糊，沒有收錄"]);
 
 /* ================= CH24 儀器分析－毛細管電泳（CE）（講義 24-1～） ================= */
 chI(24, "毛細管電泳（CE）", "24-1～");
-t(24, "儀器裝置與概論", "24-1", "ce-apparatus", "CE 儀器裝置", "CE 裝置", [
+tY(24, "儀器裝置與概論", "24-1", "ce-apparatus", "CE 儀器裝置", "CE 裝置", [
   "① 檢品注入：可以{{電壓、氣壓、虹吸|名詞}}方式注入，檢品量僅需數 {{nL|名詞}}",
   "② 毛細管：內徑 {{25~75μm|數值}}（非常細），長度 50~100cm [103-1]；為 {{fused silica|物質}}，外壁塗 {{polyimide 聚醯亞胺|物質}}防止脆裂（在偵測器處要去除之以利偵測）",
   "③ 緩衝液：理想的 pH 值應介於不同分析物的{{等電點或 pKa 值|名詞}}之間 [105-2]",
@@ -1796,14 +1797,14 @@ t(24, "儀器裝置與概論", "24-1", "ce-apparatus", "CE 儀器裝置", "CE �
   "④ 檢測器（靠近{{陰極|名詞}}）：UV、DAD、螢光、Mass、電化學（含電導、電位、安培法）（詳見光譜章節）",
   "高壓電源 {{10~30kV|數值}} [94-2]"
 ]);
-t(24, "儀器裝置與概論", "24-1", "ce-basics", "CE：原理、優缺點、應用", "CE 概論", [
+tY(24, "儀器裝置與概論", "24-1", "ce-basics", "CE：原理、優缺點、應用", "CE 概論", [
   "原理：帶電分子在{{電場|名詞}}作用下，不同帶電荷物質會有不同移動速率朝向與其相反電性的電極移動，達到分離的效果",
   "分析物移動主要兩大動力：1. {{電荷泳動力|名詞}}（Electrophoresis）2. {{電滲透流|名詞}}（EOF ＝ Electro-osmotic flow）[115-1]",
   "優點（與 HPLC 相比）：分離效率佳、理論板數（N）{{大|性質}} [103-2]、分離時間短、溶劑消耗量少（環保）、成本較低",
   "缺點（與 HPLC 相比）：★{{再現性、靈敏度低|性質}}，耐變性差 [115-2、108-1、104-2、102-1]",
   "應用：適合定量（精確）、分析{{胜肽／蛋白質類|名詞}}、DNA 定序、分析鏡像異構物、分析不純物"
 ]);
-t(24, "儀器裝置與概論", "24-1", "ce-factors", "CE 影響因素", "CE 影響因素", [
+tY(24, "儀器裝置與概論", "24-1", "ce-factors", "CE 影響因素", "CE 影響因素", [
   "[114-1]",
   "{{縱向擴散 B|名詞}}：波峰變寬最重要的因素 [105-1]（無固定相粒子填充，A（渦流）、C（質量轉移）＝ 0）（連結 18-3）",
   "{{注射栓|名詞}}：可注入長達毛細管長度 {{10%|數值}} 長度的栓，達到{{堆積|名詞}} → 改善偵測極限，提高靈敏度",
@@ -1811,7 +1812,7 @@ t(24, "儀器裝置與概論", "24-1", "ce-factors", "CE 影響因素", "CE 影�
   "{{溶質／管壁交互作用|名詞}}：影響 EOF 的重要因子",
   "{{電分散|名詞}}：調整使緩衝液移動性 ＝ 檢品離子移動性能得到最理想波峰；若緩衝液移動性 > 檢品離子移動性 → 會產生{{後端波峰|名詞}}（Tailing peak）；若 < → 會產生{{前端波峰|名詞}}（Fronting peak）"
 ]);
-t(24, "1. 電荷泳動力（Electrophoresis）", "24-2", "electrophoresis", "電荷泳動力（Electrophoresis）", "電荷泳動力", [
+tY(24, "1. 電荷泳動力（Electrophoresis）", "24-2", "electrophoresis", "電荷泳動力（Electrophoresis）", "電荷泳動力", [
   "v ＝ μₑE ＝ {{q／6πηr|名詞}} × E（留意正反比關係）[109-2、106-2、104-2]",
   "v ＝ 離子速度 velocity；q ＝ 離子電荷；μₑ ＝ 電泳遷移率 ＝ 電泳淌度★{{mobility|名詞}}；η ＝ 黏度；E ＝ 電場強度（volts/cm）；r ＝ 離子半徑",
   "離子電荷（q）：弱酸鹼之{{解離度|名詞}}受本身 pKa 環境 pH 影響（連結 2-2），解離度／電荷高 → 遷移速率越{{快|性質}}",
@@ -1819,15 +1820,15 @@ t(24, "1. 電荷泳動力（Electrophoresis）", "24-2", "electrophoresis", "電
   "離子半徑（r）：離子越{{小|性質}} → 遷移速率越快",
   "形狀：越接近{{球狀|名詞}} → 表面積越小 → 遷移速率越快"
 ]);
-t(24, "2. 電滲透流（EOF ＝ Electro-osmotic flow）", "24-2", "eof", "電滲透流（EOF）", "電滲透流", [
+tY(24, "2. 電滲透流（EOF ＝ Electro-osmotic flow）", "24-2", "eof", "電滲透流（EOF）", "電滲透流", [
   "隨著 pH 值的上升（> {{3|數值}}），管壁上的{{矽醇基|結構}}（pKa 4~9）解離表面帶{{負電|性質}} → 吸引緩衝液的陽離子形成{{電雙層|名詞}} → 水分子被陽離子拉往負極",
   "→ {{所有分析物|名詞}}不論是否帶電、電荷為何皆往{{陰極|名詞}}移動"
 ], ["講義此頁拍攝時上下顛倒"]);
-t(24, "2. 電滲透流（EOF ＝ Electro-osmotic flow）", "24-3", "eof-flow-profile", "EOF 流動分布與波形", "EOF 波形", [
+tY(24, "2. 電滲透流（EOF ＝ Electro-osmotic flow）", "24-3", "eof-flow-profile", "EOF 流動分布與波形", "EOF 波形", [
   "HPLC：受{{管壁摩擦力|名詞}}影響，波峰較{{寬|性質}}分離效率較差",
   "EOF：{{平面流|名詞}}（flat flow）[102-2] → 波峰較{{窄|性質}}分離效率較佳"
 ]);
-t(24, "2. 電滲透流（EOF ＝ Electro-osmotic flow）", "24-3", "eof-factors", "★★EOF 影響因子★★", "EOF 影響因子", [
+tY(24, "2. 電滲透流（EOF ＝ Electro-osmotic flow）", "24-3", "eof-factors", "★★EOF 影響因子★★", "EOF 影響因子", [
   "[考爆]",
   "緩衝溶液 {{pH 值 ↑|名詞}}：矽醇基 SiOH 在高 pH 環境下解離增加 → EOF {{↑|性質}}，t_R ↓",
   "緩衝溶液 {{濃度／離子強度 ↑|名詞}}：電雙層被壓縮，{{zeta 電位|名詞}}下降 → EOF {{↓|性質}}，t_R ↑",
@@ -1838,12 +1839,12 @@ t(24, "2. 電滲透流（EOF ＝ Electro-osmotic flow）", "24-3", "eof-factors"
   "{{陰離子介面活性劑|名詞}} ↑：減少流動緩衝液中較小離子接觸管壁正電位 → EOF {{↑|性質}}，t_R ↓",
   "{{管壁共價披覆|名詞}} ↑：中性 coating 遮蔽矽醇基 → EOF ↓，t_R ↑"
 ]);
-t(24, "2. 電滲透流（EOF ＝ Electro-osmotic flow）", "24-3", "ion-migration", "▲統整離子移動速率（綜合 1. ＋ 2.）", "離子移動速率", [
+tY(24, "2. 電滲透流（EOF ＝ Electro-osmotic flow）", "24-3", "ion-migration", "▲統整離子移動速率（綜合 1. ＋ 2.）", "離子移動速率", [
   "{{陽離子|名詞}}：電荷泳動力 ＋ EOF（最快）",
   "{{中性化合物|名詞}}：EOF [105-1]",
   "{{陰離子|名詞}}：EOF − 電荷泳動力（最慢）"
 ]);
-t(24, "分析應用", "24-4", "cze", "毛細管區帶電泳（CZE, Capillary Zone Electrophoresis）", "CZE", [
+tY(24, "分析應用", "24-4", "cze", "毛細管區帶電泳（CZE, Capillary Zone Electrophoresis）", "CZE", [
   "原理：使用{{勻相緩衝溶液及固定電場|名詞}} [103-2]，依{{荷質比|名詞}}（charge-to-mass）不同而分離",
   "遷移方向：★往{{負極|名詞}}（因此帶 ＋ 分析物最先抵達終點）[112-1、112-2]（正電壓模式 ＝ 檢測器在陰極端）",
   "分析：★{{離子性化合物|名詞}}（計算解離度 連結第 2-2 頁）[105-2、105-1、104-2]",
@@ -1852,44 +1853,44 @@ t(24, "分析應用", "24-4", "cze", "毛細管區帶電泳（CZE, Capillary Zon
   "③ 分析 NSAIDs：分離大致依照分子量，{{三乙醇胺|物質}}（triethanolamine）為最佳陽離子成分，陰離子遷移率低，且也會增加流動緩衝溶液的黏度，可減少 EOF",
   "④ 胜肽的分離：pH 以及流動緩衝溶液的濃度相當重要，最{{鹼性|性質}}的胜肽片段最先沖提出來，正電荷程度重要性優於離子半徑"
 ]);
-t(24, "分析應用", "24-4", "cge", "毛細管膠體電泳（CGE, Capillary Gel Electrophoresis）", "CGE", [
+tY(24, "分析應用", "24-4", "cge", "毛細管膠體電泳（CGE, Capillary Gel Electrophoresis）", "CGE", [
   "裝置：常用 {{polyacrylamide|物質}} 作膠體固定，即毛細管版的 {{SDS-PAGE|名詞}}",
   "檢品注入：用{{電壓注入法|名詞}} electrokinetic injection（！勿用加壓法膠會損壞）",
   "遷移方向：往{{正極|名詞}}",
   "分離：與分子大小相關（分子{{小|性質}}移動快）⚠ {{分子篩層析法|名詞}}相反：分子大移動快",
   "分析：帶電的生物性{{大分子|名詞}}如蛋白質、核酸（DNA、RNA），定量比 SDS-PAGE 精確且高度自動化"
 ]);
-t(24, "分析應用", "24-5", "ief", "等電聚焦（Isoelectric Focusing）", "等電聚焦", [
+tY(24, "分析應用", "24-5", "ief", "等電聚焦（Isoelectric Focusing）", "等電聚焦", [
   "原理：電場中，帶電物質在某 pH 值下達電中性（即達{{等電點 pI|名詞}}）而停止移動 → 形成不同區帶濃縮分離；⚠ {{不需要 EOF 輔助|性質}}",
   "介質：具 {{pH gradient|名詞}} 的緩衝液（由多種帶電的兩性物質組成）",
   "分析：{{兩性化合物|名詞}}（同時帶有正電與負電基團 如胺基酸）",
   "升級：可與 {{SDS-PAGE|名詞}} 搭配形成二維展開"
 ]);
-t(24, "分析應用", "24-5", "itp", "等速電泳（Isotachophoresis）", "等速電泳", [
+tY(24, "分析應用", "24-5", "itp", "等速電泳（Isotachophoresis）", "等速電泳", [
   "原理：先注入{{先導電解液|名詞}} leading electrolyte → 打入檢品 → 最後注入{{終止電解液|名詞}} terminating electrolyte，含有移動速度不同之電解質群 [104-1]；⚠ 不需要 EOF 輔助",
   "遷移方向：往{{正極|名詞}}",
   "分析：較少用，{{難找到匹配的電解液|名詞}}"
 ]);
-t(24, "分析應用", "24-5", "cec", "毛細管電層析法（CEC, Capillary electro-chromatography）", "CEC", [
+tY(24, "分析應用", "24-5", "cec", "毛細管電層析法（CEC, Capillary electro-chromatography）", "CEC", [
   "原理：結合{{毛細管電泳與高效能液相層析|名詞}}，藉由電驅動流與固定相的分配達成高效分離",
   "限制：將固定相充填至窄孔的毛細管內（可藉由{{聚合化反應|反應}}完成一體性充填）",
   "分析：{{帶電荷及中性|性質}}的分析物"
 ]);
-t(24, "分析應用", "24-5", "indirect-detection", "間接偵測法：分析 Metabisulphite", "間接偵測", [
+tY(24, "分析應用", "24-5", "indirect-detection", "間接偵測法：分析 Metabisulphite", "間接偵測", [
   "分析：{{缺乏發色基|性質}}的陰陽離子（如 Metabisulphite 與其 sulfate 氧化物）",
   "偵測器：{{紫外光-可見光譜儀|名詞}} [103-1]",
   "原理：當分析物到達偵測器，會遮蔽{{背景電解質|名詞}}的吸光，此時吸光{{減少|性質}}，進而偵測到分析物",
   "內部標準品：{{ammonium formate|物質}}；添加背景電解質：{{pyromellitic acid|物質}} [108-2]",
   "其他實例：分析硫酸鹽 SO₄²⁻、偏亞硫酸鹽 S₂O₅²⁻，加入陽離子 UV 吸收物（如 {{imidazole|物質}}）以分離陽離子"
 ]);
-t(24, "分析應用", "24-6", "mekc", "微胞電動層析法 MEKC（Micellar electrokinetic capillary chromatography）", "MEKC", [
+tY(24, "分析應用", "24-6", "mekc", "微胞電動層析法 MEKC（Micellar electrokinetic capillary chromatography）", "MEKC", [
   "方法：移動相加入超過{{臨界微胞濃度|名詞}}（Critical micelle concentration ＝ CMC）的陰／非／陽離子介面活性劑 → 形成的微胞會依 EOF 泳動",
   "根據分子之{{疏水性|性質}}交互作用 [93-2]，微胞的作用類似於 HPLC 的{{固定相|名詞}} [103-1]，低極性物質容易卡在微胞的{{親油端|名詞}}中，之後再隨之沖出 [107-1]",
   "分析：不論是否帶電皆可，常用於★{{不帶電中性物質|名詞}} [103-2、103-1]（如黃酮類）",
   "應用實例：分析 {{Cefotaxime|藥名}} 與相關不純物（羧酸＆內酯）：負電荷分析物與陰離子微胞相斥 → 移動速度變{{快|性質}} [95-2]；中性分析物（lactone）親合微胞 → 移動最{{慢|性質}}；藥品的 anti-isomer 因立體化學，離子半徑與分配係數不同 → 較晚沖出",
   "中性分析物若嵌入{{陰離子微胞|名詞}}（常用 SDS）遷移速率{{減少|性質}}；若嵌入{{陽離子微胞|名詞}}遷移速率{{增加|性質}}"
 ]);
-t(24, "分析應用", "24-6", "meekc", "微乳化電動層析法 MEEKC（Microemulsion electrokinetic chromatography）", "MEEKC", [
+tY(24, "分析應用", "24-6", "meekc", "微乳化電動層析法 MEEKC（Microemulsion electrokinetic chromatography）", "MEEKC", [
   "原理：與 MEKC 相似，主要差異在於 MEEKC 為利用{{奈米尺寸微乳液|名詞}}（microemulsions, MEs）作固定相，以達到分離的效果",
   "類型：較常用{{水包油型|名詞}}（oil-in-water, O/W）",
   "組成：其微胞的核心為油滴（{{octane|物質}}），而界面活性劑（{{SDS, 1-butanol|物質}}）覆蓋於油滴外部減少表面張力形成微乳液結構",
@@ -1899,7 +1900,7 @@ t(24, "分析應用", "24-6", "meekc", "微乳化電動層析法 MEEKC（Microem
 
 /* ================= CH25 儀器分析－質譜儀（MS）（講義 25-1～） ================= */
 chI(25, "質譜儀（MS）", "25-1～");
-t(25, "質譜儀－概論", "25-1", "ms-basics", "質譜儀概論：原理、儀器、優勢、應用", "MS 概論", [
+tY(25, "質譜儀－概論", "25-1", "ms-basics", "質譜儀概論：原理、儀器、優勢、應用", "MS 概論", [
   "原理：① {{真空|名詞}}中，使樣品被{{離子化|反應}}成帶電荷的離子 → ② 再經由{{質量分析器|名詞}}中電場／磁場作用達到空間或時間上分離 → ③ 被偵測器偵測 → ④ 得到{{質荷比|名詞}}（m/z）與相對強度的圖譜 → ⑤ 應用分析；⚠ {{無光源|性質}} [110-2]",
   "① 離子化：氣相層析（GC）：電子撞擊（EI）、化學游離（CI）；液相層析（LC）：電灑法（ESI）、基質雷射脫附（MALDI）、原子撞擊（FAB）、大氣離子化（APCI）、熱噴灑（TSP）",
   "② 質量分析器：磁扇儀（單／雙聚焦）、{{四極儀|名詞}}（可三段串聯）、飛行時間（TOF）、離子阱（Ion trap）、傅立葉軌道（Fourier-Orbitrap）",
@@ -1907,23 +1908,23 @@ t(25, "質譜儀－概論", "25-1", "ms-basics", "質譜儀概論：原理、儀
   "優勢：★{{超靈敏|性質}}（可達 pg：10⁻¹²g），可結合層析分離技術，快速分析應用",
   "應用：★測{{分子量|名詞}}、解析結構、微量不純物、代謝物…⚠ 要看出★{{立體結構|名詞}}仍需 {{NMR|名詞}} 輔助 [109-2、104-1]"
 ]);
-t(25, "質譜儀－離子化：GC-Mass", "25-2", "ei", "EI（Electron Impact）電子撞擊", "EI", [
+tY(25, "質譜儀－離子化：GC-Mass", "25-2", "ei", "EI（Electron Impact）電子撞擊", "EI", [
   "GC-Mass {{不適合沸點高、熱不穩定、高分子量|性質}}檢品 [110-2]；[106-1]",
   "檢品汽化後，被{{錸絲／鎢絲|物質}}所產生的電子撞擊（常用電壓★{{70eV|數值}}）[考爆] → 離子化產生許多{{零碎斷片|名詞}}（大多帶正電），資料庫多 [113-2]",
   "★為{{硬性離子源|名詞}}，能量較強，產生廣泛斷片較多 → 適合{{結構解析|名詞}}，較不適合解析分子量★ [考爆]"
 ]);
-t(25, "質譜儀－離子化：GC-Mass", "25-2", "fragmentation", "分子斷裂模式", "斷裂模式", [
+tY(25, "質譜儀－離子化：GC-Mass", "25-2", "fragmentation", "分子斷裂模式", "斷裂模式", [
   "{{Homolytic cleavage|名詞}}（同質斷裂）[112-1、97-1]：斷鍵後電子{{均分|性質}}；實例：{{脂肪環斷裂|名詞}}（涉及兩個鍵結的破壞）",
   "{{Heterolytic cleavage|名詞}}（異質斷裂）[92-1]：鍵結斷裂後電子{{雙斷給某原子|名詞}}；實例：{{Tropylium ion|物質}} 發生於含烷基取代之芳香族化合物（Benzyl），正電入苯環內部",
   "★{{McLafferty rearrangement|名詞}} [104-2、103-2]：{{C＝O|結構}} 上至少接{{三個碳|數值}}以上者，如羧酸（carboxylic acids）、酯類（esters）、酮類（ketones）、醯胺類（amides）",
   "{{Retro Diels-Alder|名詞}}：最有可能發生在含一個雙鍵的環中（如{{環己烯|物質}}）"
 ]);
-t(25, "質譜儀－離子化：GC-Mass", "25-2", "ci", "CI（Chemical Ionization）化學游離", "CI", [
+tY(25, "質譜儀－離子化：GC-Mass", "25-2", "ci", "CI（Chemical Ionization）化學游離", "CI", [
   "檢品汽化後產生化學反應，碎片有正有負，為{{軟性|性質}}離子源（能量較低，產生斷片較少，較能保留穩定的{{加合離子|名詞}} → 適合求出正確{{分子量|名詞}}）",
   "{{PICI|名詞}}（positive ion chemical ionization）正離子化學離子化：連續導入{{試劑氣體|名詞}}（reagent gas）：{{甲烷、異丁烷、氨|物質}} [109-2] → 氣體與電熱絲產生電子相互作用，製造出一系列離子 → 結合成加合離子，或質子化生成 {{[M＋H]⁺|名詞}}",
   "{{NICI|名詞}}（negative ion chemical ionization）負離子化學離子化：利用{{電子捕捉|名詞}}（electron capture）離子化 → 試劑氣體碰撞電子，將能量降低 → 高電子親和性的分子可吸引這些低熱能階電子，而被檢測出來；靈敏度高，可檢測至 {{10⁻¹⁵g（fg）|數值}}"
 ]);
-t(25, "質譜儀－離子化：LC-Mass", "25-3", "esi", "電灑離子化（ESI）", "ESI", [
+tY(25, "質譜儀－離子化：LC-Mass", "25-3", "esi", "電灑離子化（ESI）", "ESI", [
   "LC-Mass 適合{{熱不穩定|性質}}檢品，皆為{{軟性|性質}}離子源；[115-2、104-1]",
   "Electrospray ionization：{{金屬毛細管|名詞}}使形成帶電荷液滴 → {{氮氣|物質}}使溶劑揮發、液滴縮小 → 電荷密度上升 → 相互排斥分裂成更小液滴 → 離子化",
   "可使用正電（如 H⁺、Na⁺、NH₄⁺）或負電模式（如 Cl⁻、HCOO⁻）{{加合|反應}}形成片段",
@@ -1931,64 +1932,64 @@ t(25, "質譜儀－離子化：LC-Mass", "25-3", "esi", "電灑離子化（ESI�
   "適合分析{{高極性|性質}}檢品、★★{{大分子|名詞}}（蛋白質、抗體）、小分子★★ [考爆]；容易與 HPLC、CE 連接使用",
   "可串聯{{三段四極儀|名詞}}，{{定性|名詞}}上非常實用，靈敏度高達 10⁻¹²g"
 ]);
-t(25, "質譜儀－離子化：LC-Mass", "25-3", "maldi", "基質輔助雷射脫附（MALDI）", "MALDI", [
+tY(25, "質譜儀－離子化：LC-Mass", "25-3", "maldi", "基質輔助雷射脫附（MALDI）", "MALDI", [
   "Matrix-assisted laser desorption：分析樣品跟{{介質|名詞}}（需含{{共軛雙鍵|結構}}）混合 → 介質吸收 {{337nm|數值}} 的脈衝{{氮雷射|名詞}}電離 → 電荷轉移 → 樣品電離",
   "通常結合 {{TOF|名詞}} → ★{{離線|名詞}} LC-MALDI-TOF [110-1、112-2]（LC 分離後點樣，{{不能與 HPLC 直接連接|性質}}），產生如 [M＋H]⁺ 或 [M−H]⁻",
   "適合分析★{{蛋白質結構、DNA 序列、製劑中聚合物|名詞}} [111-1、110-2]，可搭配影像技術，應用於藥物的{{組織分布|名詞}}研究（可透 0.1mm）[112-2]"
 ]);
-t(25, "質譜儀－離子化：LC-Mass", "25-3", "fab", "快速原子撞擊（FAB）", "FAB", [
+tY(25, "質譜儀－離子化：LC-Mass", "25-3", "fab", "快速原子撞擊（FAB）", "FAB", [
   "Fast Atom Bombardment：用快速原子（{{惰性氣體 Xe 或 Ar|物質}}）撞擊，在高能以原子束分離出檢品中的電子，使需要檢測的檢品分子離子化",
   "檢品需溶於{{甘油|物質}}當基質 [103-2]",
   "產生{{等量正負離子|名詞}}，產生 [M＋H]⁺ 或 [M−H]⁻ 等",
   "對{{親脂性|性質}}物質的靈敏度高，可達 10⁻¹²g"
 ]);
-t(25, "質譜儀－離子化：LC-Mass", "25-3", "apci", "大氣壓離子化（APCI）", "APCI", [
+tY(25, "質譜儀－離子化：LC-Mass", "25-3", "apci", "大氣壓離子化（APCI）", "APCI", [
   "Atmospheric pressure chemical ionization：檢品{{氣霧化|反應}}後和低分子量氣體結合，一般常加入{{甲烷|物質}}，適合★{{低極性|性質}}藥物分析 [112-2、115-1]",
   "使用加熱管使{{電針|名詞}}發出 H₃O⁺ 和 N₂⁺，常產生 [M＋H]⁺、[M＋H₃O]⁺、[M＋O₂]⁻",
   "適用的液相層析{{流速最快|性質}}（{{APCI > ESI > FAB|名詞}}）[106-2]"
 ]);
-t(25, "質譜儀－離子化：LC-Mass", "25-3", "tsp", "熱噴灑法（TSP）", "TSP", [
+tY(25, "質譜儀－離子化：LC-Mass", "25-3", "tsp", "熱噴灑法（TSP）", "TSP", [
   "Thermospray：來自 LC 的沖提液經過{{毛細管|名詞}}後被離子化",
   "{{靈敏度最差|性質}} [103-2]，約為 {{10⁻⁹ g|數值}}"
 ]);
-t(25, "其他離子化技術", "25-3", "other-ionization", "其他離子化技術：SIMS、DESI、DART", "其他離子化", [
+tY(25, "其他離子化技術", "25-3", "other-ionization", "其他離子化技術：SIMS、DESI、DART", "其他離子化", [
   "{{二次離子化|名詞}}（SIMS, Secondary ionisation mass spectrometry）：用高能量重離子（如帶正電{{氬、氙或銫|物質}}），自表面生成離子，用於探索{{原料表面|名詞}}",
   "{{脫附電噴灑游離|名詞}}（DESI, desorption electrospray ionization）：用於{{物質表面研究|名詞}}，為具有潛力的新技術 [112-2]",
   "{{即時直接分析|名詞}}（DART, direct analysis in real time）：利用電離氣體（如{{氦氣或氮氣|物質}}）產生等離子體，這些帶電粒子與樣品表面作用，為具有潛力的新技術"
 ]);
-t(25, "質譜儀－★質量分析器（分離離子化後的碎片）", "25-4", "magnetic-sector", "磁場扇形儀（magnetic sector）：單聚焦、雙聚焦", "磁扇儀", [
+tY(25, "質譜儀－★質量分析器（分離離子化後的碎片）", "25-4", "magnetic-sector", "磁場扇形儀（magnetic sector）：單聚焦、雙聚焦", "磁扇儀", [
   "{{單聚焦|名詞}}（僅磁場）；{{雙聚焦|名詞}}（含電場＋磁場）[110-2]",
   "原理：帶電荷離子，通過一垂直於運動方向的磁場時，受到{{磁力而作圓周運動|名詞}} [113-2、111-2]；質量大的離子在磁場的偏轉角度{{小|性質}} → 曲率半徑{{大|性質}}；掃描磁場可依序偵測所有 m/z 離子訊號",
   "公式：質荷比（m/z）＝ {{H²r²／2V|名詞}} [114-1、106-1]（會影響解析度：H：磁場強度；r：離子所行圓形路徑的半徑；V：加速電壓）",
   "優點：靈敏度高（雙聚焦：電場可導正動能偏差 > 單聚焦）；解析度高，分離可達 {{0.0001 amu|數值}}（小數點後 4 位）[114-1]"
 ]);
-t(25, "質譜儀－★質量分析器（分離離子化後的碎片）", "25-4", "quadrupole", "四極儀 Quadrupole", "四極儀", [
+tY(25, "質譜儀－★質量分析器（分離離子化後的碎片）", "25-4", "quadrupole", "四極儀 Quadrupole", "四極儀", [
   "原理：利用兩互為直角之電場（{{直流電 DC／無線電頻 Rf|名詞}}），使離子產生一定規則之振動軌跡（粒子在中心軸繞行振動）",
   "優點：靈敏便宜，超高 cp 值，{{最常用|性質}} [105-1]",
   "缺點：解析度{{低|性質}}，分解僅達 {{0.1 amu|數值}} [114-1、115-1]",
   "★串聯式質譜儀：{{三段四極儀 QqQ|名詞}} [112-2]（不同模式詳見第 25-9 頁補充）：Q1. 掃描或選擇特定的{{前驅離子|名詞}} → q2：與惰性氣體（Ar、N₂）{{碰撞誘導裂解|名詞}}（CID）→ Q3：掃描或選擇特定的碎片離子",
   "→ 解析胜肽、醣類、核酸、不純物 結構（但{{再現性差|性質}}）、血中濃度定量 [107-1、113-2]"
 ]);
-t(25, "質譜儀－★質量分析器（分離離子化後的碎片）", "25-4", "tof", "飛行時間 TOF（Time-of-flight）", "TOF", [
+tY(25, "質譜儀－★質量分析器（分離離子化後的碎片）", "25-4", "tof", "飛行時間 TOF（Time-of-flight）", "TOF", [
   "原理：施以某一特定電壓加速進入飛行管中，再依據質荷比不同分離 [106-1]；[108-1] 加速後動能相等，質量越{{小|性質}}速度越快、飛行時間越{{短|性質}}",
   "優點：利用{{反射器／W-configuration|名詞}}，將檢測區的離子反彈回去，有效增加飛行長度 → 解析度高，分離可達 {{0.0001 amu|數值}}（小數點後 4 位）",
   "組合：TOF 常與 {{MALDI|名詞}} 連接（MALDI-TOF），也可與 ESI 直接連接"
 ]);
-t(25, "質譜儀－★質量分析器（分離離子化後的碎片）", "25-4", "ion-trap", "離子阱（Ion trap）", "離子阱", [
+tY(25, "質譜儀－★質量分析器（分離離子化後的碎片）", "25-4", "ion-trap", "離子阱（Ion trap）", "離子阱", [
   "原理：離子注入★{{氦氣|物質}}的阱後困在 rf 場域，形成一環狀電極，透過施加{{直流電場|名詞}}至端蓋電極，使離子朝檢測器射出；利用不同電壓射出 → 即藉{{改變電壓|名詞}}分離不同離子 [111-1、112-1]",
   "優點：可{{重複裂解|名詞}}（MS²、MS³…）[115-2、111-2]，可高達 MS¹²，但 > MS⁴ 不常見"
 ]);
-t(25, "質譜儀－★質量分析器（分離離子化後的碎片）", "25-4", "orbitrap", "傅立葉轉換 FT（Fourier orbitrap）", "Orbitrap", [
+tY(25, "質譜儀－★質量分析器（分離離子化後的碎片）", "25-4", "orbitrap", "傅立葉轉換 FT（Fourier orbitrap）", "Orbitrap", [
   "[111-1]",
   "原理：軌道阱以{{靜電吸引|名詞}}維持圍繞在中心軸，離子來回震動的頻率與他們的質量相關，藉由測量及計算離子反覆振盪所產生的 {{image current|名詞}}，而獲得準確質荷比 [112-1]",
   "優點：解析度高 [107-1]，分離可達 {{0.00001 amu|數值}}（小數點後 5 位）",
   "▲解析度：{{FT > 雙聚焦磁扇／TOF > 四極儀|名詞}}"
 ]);
-t(25, "質譜儀－偵測器", "25-5", "electron-multiplier", "質譜儀偵測器：電子倍增器", "電子倍增器", [
+tY(25, "質譜儀－偵測器", "25-5", "electron-multiplier", "質譜儀偵測器：電子倍增器", "電子倍增器", [
   "最常用{{電子倍增器|名詞}}，為{{訊號放大器|名詞}} → 再經訊號處理，並轉換成的質譜",
   "結構：真空管結構，{{電阻性導電表面|名詞}}"
 ]);
-t(25, "質譜儀－圖譜分析", "25-5", "ms-spectrum-basics", "★MS 圖譜基本分析", "圖譜基本", [
+tY(25, "質譜儀－圖譜分析", "25-5", "ms-spectrum-basics", "★MS 圖譜基本分析", "圖譜基本", [
   "[110-1、108-2、102-2]",
   "X 軸：{{質荷比|名詞}}（質量／電荷）＝ m/z [115-2、106-2]；Y 軸：相對含量（Relative Abundance）",
   "{{基峰|名詞}}：將其定為 {{100%|數值}}，含量最多最強的結構碎片，為{{最安定|性質}}裂片之離子峰 [102-2]（例：ethanol 的 m/z 31 [CH₂OH]⁺）",
@@ -1996,7 +1997,7 @@ t(25, "質譜儀－圖譜分析", "25-5", "ms-spectrum-basics", "★MS 圖譜基
   "母峰後可能有（M＋1）、（M＋2）小峰，可能是{{同位素|名詞}}的存在而產生的峰線；若相差甚遠，排除因片段加合產生則可能是{{雜質|名詞}}",
   "兩峰算解析度：R ＝ {{m／Δm|名詞}}（m：兩質量數相加除二；Δm：兩質量數相減）"
 ]);
-t(25, "質譜儀－圖譜分析", "25-6", "ms-ionization-spectra", "進階分析：不同離子化方式產生的圖譜（Psoralen MW ＝ 186，GC-Mass）", "離子化圖譜", [
+tY(25, "質譜儀－圖譜分析", "25-6", "ms-ionization-spectra", "進階分析：不同離子化方式產生的圖譜（Psoralen MW ＝ 186，GC-Mass）", "離子化圖譜", [
   "Electron impact ionization（EI）[108-2]：硬離子源的 EI 會將檢品打得很碎，有{{許多小碎片|名詞}}（且碎片質荷比比原分子量小）",
   "EI：分子離子峰（母峰）出現在 m/z ＝ 分子量／1（丟一個電子，帶 ＋）＝ {{分子量|名詞}} [114-2]；適合分析{{結構|名詞}}",
   "EI 常見失去的片段：1 → H·；15 → {{CH₃·|物質}}；17 → OH· ／ NH₃；18 → {{H₂O|物質}}；28 → {{C＝O|物質}} [107-2]；29 → C₂H₅·",
@@ -2004,7 +2005,7 @@ t(25, "質譜儀－圖譜分析", "25-6", "ms-ionization-spectra", "進階分析
   "★{{Positive ion chemical ionization|名詞}}（PICI）[108-1、107-1]：主要訊號出現在 m/z ＝ {{分子量 ＋ 1|名詞}}（得 H⁺）（例：187）；以{{甲烷|物質}}為試劑氣體 → m/z ＝ 215（186 ＋ 29）（得 C₂H₅⁺）→ m/z ＝ 227（186 ＋ 41）（得 C₃H₅⁺）",
   "{{Negative ion chemical ionization|名詞}}（NICI）[106-1]：主要訊號出現在 m/z ＝ {{分子量|名詞}}（捕捉得電子）（例：186）；其他峰位 → m/z ＝ 218（186 ＋ 32）（儀器產生 {{O₂|物質}}）"
 ]);
-t(25, "質譜儀－圖譜分析", "25-7", "esi-spectrum", "進階分析：LC-Mass 的電灑法（ESI）圖譜", "ESI 圖譜", [
+tY(25, "質譜儀－圖譜分析", "25-7", "esi-spectrum", "進階分析：LC-Mass 的電灑法（ESI）圖譜", "ESI 圖譜", [
   "[112-1]",
   "電荷 ＝（{{大荷質比 − 1|名詞}}）／（大荷質比 − 小荷質比）",
   "（例）細胞色素 C 蛋白質之 ESI 譜：當下分子量 ＝ {{質荷比（m/z）× 電荷數|名詞}}（可用相鄰訊號計算 [114-2、113-1]）；容易形成{{多倍數帶電離子|名詞}}",
@@ -2013,7 +2014,7 @@ t(25, "質譜儀－圖譜分析", "25-7", "esi-spectrum", "進階分析：LC-Mas
   "（例）Leuenkephalin 之 ESI ＋ CID 圖譜：{{碰撞誘導裂解|名詞}}（CID）得到大量斷裂片 → 獲得類似 {{EI|名詞}} 圖譜",
   "＊ESI 校正 [115-2]：{{蛋白質|名詞}}（如馬肌紅蛋白）、小胜肽、Ultra-mark1621；校正化合物或校正混合物皆可做為標準品"
 ]);
-t(25, "應用分析", "25-8", "isotopes", "★★同位素★★", "同位素", [
+tY(25, "應用分析", "25-8", "isotopes", "★★同位素★★", "同位素", [
   "[考爆]",
   "在質譜儀中被加速的離子質量是{{實際的離子質量|名詞}}，而非週期表上的平均質量，因此需考量某些特定元素有同位素存在",
   "母峰後可能有其他（M＋1）、（M＋2）小峰，可以看出特殊的強度比例 → 可{{解析結構|名詞}}",
@@ -2024,7 +2025,7 @@ t(25, "應用分析", "25-8", "isotopes", "★★同位素★★", "同位素", 
   "I [108-2、106-1、102-2]：¹²⁷I {{100%|數值}} #100 分的點子",
   "例：2-chloropropane：M⁺ 78（C₃H₇³⁵Cl）、M＋2 80（C₃H₇³⁷Cl）"
 ]);
-t(25, "應用分析", "25-8", "ms-inference", "推理鑑定", "推理鑑定", [
+tY(25, "應用分析", "25-8", "ms-inference", "推理鑑定", "推理鑑定", [
   "{{斷裂穩定性|名詞}}：碳氫化合物支鏈斷裂容易程度 {{三級|名詞}}（三級碳陽離子最穩定）> 二級 > 一級",
   "{{分裂規則|名詞}}：① 分子離子失去一個自由基，有中性片段 ② 一旦失去自由基，之後僅失去中性片段",
   "鑑定：{{微量不純物|名詞}}（某不純有機物含量高於 {{0.1%|數值}}）[109-1]、代謝物（有少許官能基差異）、賦形劑的定量",
@@ -2032,13 +2033,13 @@ t(25, "應用分析", "25-8", "ms-inference", "推理鑑定", "推理鑑定", [
   "{{氮規則|名詞}}：化合物中有{{奇數個 N|名詞}}，化合物的分子量是{{奇數|性質}} ex. NH₃（m/z ＝ 17）、C₂H₅NH₂（m/z ＝ 45）[110-2]；有偶數個 N 或沒有 N，分子量是偶數 ex. N₂H₄（m/z ＝ 32）",
   "{{原子質量偏差|名詞}}：整數質量（nominal mass）與精確質量（exact mass）差異最大的是{{氫原子|名詞}}（質量數越小，差異越多）[114-2]，氟原子差異最小"
 ]);
-t(25, "升級版 Mass", "25-9", "icp-ms", "感應耦合電漿質譜儀（ICP-MS, Inductively coupled plasma mass spectrometry）", "ICP-MS", [
+tY(25, "升級版 Mass", "25-9", "icp-ms", "感應耦合電漿質譜儀（ICP-MS, Inductively coupled plasma mass spectrometry）", "ICP-MS", [
   "原理：利用{{氬電漿|物質}}（可達 {{7000°C|數值}}）[107-1] 所產生的高能量讓樣品同時進行乾燥、原子化及離子化，搭配{{惰性氣體碰撞系統|名詞}}及配有氧氣、氨氣與甲烷的氣體反應系統去除基質干擾，再經由{{四極儀|名詞}}（常用）進行質量分析",
   "優點：速度快、解析度高、{{靈敏度極高|性質}}",
   "校正：常用{{校正曲線|名詞}}做定量分析；未知溶液濃度低：使用簡單的水溶液標準品即可；基質元素濃度過高：加入{{內標準品|名詞}}（選原子量相近，但樣品中不存在之元素，常用 {{¹¹⁵In、¹¹³In、¹⁰³Rh|物質}}）",
   "應用：可用來測濃度小於 {{10⁻¹²|數值}}（part per trillion, ppt）的元素（金屬和非金屬）和其同位素"
 ]);
-t(25, "升級版 Mass", "25-9", "qqq-modes", "串聯式質譜儀：三段四極儀 QqQ 掃描模式", "QqQ 掃描模式", [
+tY(25, "升級版 Mass", "25-9", "qqq-modes", "串聯式質譜儀：三段四極儀 QqQ 掃描模式", "QqQ 掃描模式", [
   "q2 皆為 {{Collision-induced dissociation（CID）|名詞}} 碰撞誘導裂解",
   "{{產物離子掃描|名詞}}（Product ion）：Q1 固定 選定母離子；Q3 掃描 全範圍；偵測母離子的碎片，{{結構解析|名詞}}",
   "{{前驅離子掃描|名詞}}（Precursor ion）：Q1 掃描 全範圍；Q3 固定 選定碎片；偵測{{共享某碎片的母離子族群|名詞}}",
@@ -2051,17 +2052,17 @@ t(25, "升級版 Mass", "25-9", "qqq-modes", "串聯式質譜儀：三段四極�
 /* ================= 光譜分析：第三座島「光譜分析島」，從 CH26 開始 ================= */
 PI.LANDMASSES.push({ id: "spectroscopy", name: "光譜分析島", chapters: [],
   palette: { ground: "#B7C9DE", light: "#D2DEEC", cliff: "#8AA0BC" } });
-function chS(id, name, pages, note) { ch(id, name, pages, note); PI.LANDMASSES[0].chapters.pop(); PI.LANDMASSES[2].chapters.push(id); }
+function chS(id, name, pages, note) { chY(id, name, pages, note); PI.LANDMASSES[0].chapters.pop(); PI.LANDMASSES[2].chapters.push(id); }
 
 /* ================= CH26 光譜分析－光譜概論（講義 26-1～） ================= */
 chS(26, "光譜概論", "26-1～");
-t(26, "輻射能基本概念", "26-1", "radiant-energy", "輻射能基本概念：光波、光子能量", "輻射能", [
+tY(26, "輻射能基本概念", "26-1", "radiant-energy", "輻射能基本概念：光波、光子能量", "輻射能", [
   "光波：光速 C（m/s）＝ {{3 × 10⁸|數值}} ＝ {{頻率 ν|名詞}}（Hz）× λ（此式中為 m，但波長常用單位為 {{nm|名詞}}）[109-1]",
   "光子能量：E ＝ h {{普朗克常數|名詞}}（Planck's constant ＝ 6.62 × 10⁻³⁴ J·s ＝ 6.62 × 10⁻²⁷ erg·s）× 頻率 ν（s⁻¹）[107-1]",
   "★{{電子遷移|名詞}} Ee、{{振動遷移|名詞}} Ev 與{{轉動遷移|名詞}} Er 之相對能量比為 {{100：1：0.01|數值}}（彼此間相差 100 倍）[110-1、104-1、103-2]",
   "總結：頻率、波數與能量大小成{{正比|性質}}；頻率與波長成{{反比|性質}} → 波長與能量大小成{{反比|性質}} [109-1]"
 ]);
-t(26, "★波長（nm）範圍", "26-1", "wavelength-range", "★電磁波譜：波長（nm）範圍", "波長範圍", [
+tY(26, "★波長（nm）範圍", "26-1", "wavelength-range", "★電磁波譜：波長（nm）範圍", "波長範圍", [
   "[115-2、108-1、106-1、105-2]；波長 小 → 大；頻率、能量 大 → 小",
   "< 0.001：宇宙射線 神祕能量；0.001~0.01：{{γ-ray|名詞}}；0.01~10：{{X-ray|名詞}}（可測{{多形體|名詞}}）[107-1]；10~200：{{真空 UV|名詞}} 高科技",
   "{{200~380|數值}}：紫外光 UV；{{380~780|數值}}：可見光 Visible（紫 → 紅）",
@@ -2070,14 +2071,14 @@ t(26, "★波長（nm）範圍", "26-1", "wavelength-range", "★電磁波譜：
   "▲單位換算：{{波數|名詞}}（紅外光常用單位）、波長換算：{{10⁷|數值}} ＝ 波數（cm⁻¹）× 波長 λ（nm）",
   "nm ＝ 10⁻⁹m；μm ＝ 10⁻⁶ m ＝ 10³ nm"
 ]);
-t(26, "★★光譜大統整★★", "26-2", "spectra-summary-uv", "光譜大統整：UV／VIS、螢光、拉曼", "統整：UV 螢光 拉曼", [
+tY(26, "★★光譜大統整★★", "26-2", "spectra-summary-uv", "光譜大統整：UV／VIS、螢光、拉曼", "統整：UV 螢光 拉曼", [
   "[考爆]",
   "CH27 紫外光 UV：類別原理 {{電子遷移 Ee 吸光|名詞}}；光源 {{氘（Deuterium）、氫（Hydrogen）、氙弧（Xenon arc）、汞（Mercury）|物質}} #紫刀請先攻；波長 200~380nm",
   "CH27 可見 VIS：光源 {{鎢（Tungsten）、石英鹵素（quartz halogen）|物質}}；波長 380~780nm；UV／VIS 所需檢品量 {{10⁻⁵M 或 μg|數值}}；應用：定性、定量佳、pKa、溶解度、釋出速率監測、分配係數",
   "CH29 螢光 Fluoro：類別原理 {{電子遷移 Ee 放射|名詞}}；光源 氙（Xenon）、石英鹵素、汞蒸氣、Dye laser [101-2]；波長 200~780nm；所需檢品量 {{10⁻⁷M ~ 10⁻⁸M|數值}}；應用：具有{{剛性基團、發色基團|名詞}}，如 Digoxin、Ethinyl estradiol",
   "CH30 拉曼 Raman：類別原理 {{散射|名詞}}；光源 {{雷射強光|物質}}；波長 450~800nm；應用：{{定性|名詞}}、多形性、{{對稱性鍵結|名詞}}之結構分析；可測多形體 ✓"
 ]);
-t(26, "★★光譜大統整★★", "26-2", "spectra-summary-ir", "光譜大統整：紅外光、NMR、原子吸收／放射、質譜儀", "統整：IR NMR AA MS", [
+tY(26, "★★光譜大統整★★", "26-2", "spectra-summary-ir", "光譜大統整：紅外光、NMR、原子吸收／放射、質譜儀", "統整：IR NMR AA MS", [
   "CH28 紅外光 IR：類別原理 {{振動遷移 Ev ＆ 轉動遷移 Er 吸光|名詞}}；光源 {{Globar（碳化矽）、Nernst glower|物質}}（氧化鋯＋氧化釔＋氧化釷）；波長 780~10⁶nm；所需檢品量 {{1~10mg|數值}}；可測多形體 ✓",
   "IR 應用：近：裸錠分析、顆粒大小、均勻度、複方製劑主成分、多形性、多成分定量、三酸甘油酯、水分含量、飼料中蛋白質含量測定；中：{{官能基|名詞}}、定性佳",
   "CH34 核磁共振 NMR：類別原理 {{無線電波 自旋共振|名詞}}；波長 0.6~10m；所需檢品量 ¹H：{{10mg|數值}}、¹³C：> 20mg；應用：{{立體結構鑑定|名詞}}、不純物測定；可測多形體 ✓（固態 NMR）",
@@ -2089,20 +2090,20 @@ t(26, "★★光譜大統整★★", "26-2", "spectra-summary-ir", "光譜大統
 
 /* ================= CH27 光譜分析－紫外光與可見光譜（UV/VIS）（講義 27-1～） ================= */
 chS(27, "紫外光與可見光譜（UV/VIS）", "27-1～");
-t(27, "UV/VIS 儀器裝置", "27-1", "uvvis-apparatus", "UV/VIS 儀器裝置", "UV/VIS 裝置", [
+tY(27, "UV/VIS 儀器裝置", "27-1", "uvvis-apparatus", "UV/VIS 儀器裝置", "UV/VIS 裝置", [
   "[105-1]",
   "① ★★{{光源|名詞}}★★ [考爆]：UV：氘（Deuterium）、氫（Hydrogen）、氙弧（Xenon arc）、汞（Mercury）（記：紫刀請先攻）；VIS：{{鎢（Tungsten）|物質}}、石英鹵素（quartz halogen）",
   "② {{單光器|名詞}}：含光柵與稜鏡將光色散，將連續光譜分解成單一波長的光",
   "③ {{儲液管|名詞}}：通常為 {{1 cm|數值}}（±0.01mm），僅兩面透明；UV：{{石英|物質}}儲液管；VIS：{{玻璃|物質}}儲液管 [103-1]",
   "④ 偵測器：{{二極體陣列偵測器|名詞}}（diode array detector, DAD）[105-2]：用於{{多波長式|名詞}}的分光光度計；可繪製三維 UV 光譜，紀錄每個時間點出現物質的全 UV 光譜；適合用於{{複雜檢品成分的定性|名詞}}，可作成分波峰純度測定 [95-1]"
 ]);
-t(27, "UV/VIS 儀器裝置", "27-1", "uvvis-calibration", "UV/VIS 儀器校正", "UV/VIS 校正", [
+tY(27, "UV/VIS 儀器裝置", "27-1", "uvvis-calibration", "UV/VIS 儀器校正", "UV/VIS 校正", [
   "★{{波長|名詞}}：重氫／汞燈、5% {{Holmium perchlorate 過氯酸鈥濾液|物質}} [103-2、102-2]；校正波長容許範圍 {{±1nm|數值}} [114-1]",
   "{{吸光度|名詞}}：0.006% w/v {{重鉻酸鉀|物質}}溶液",
   "{{解析度|名詞}}：溶於 Hexane 之 0.02% {{甲苯|物質}}，在 269nm 與 266nm 的吸收比值 ≥ {{1.5|數值}}",
   "{{散射光|名詞}}：1.2% {{KCl|物質}}（若樣品吸收值 < 2，則表存在散射光）"
 ]);
-t(27, "UV/VIS 概論", "27-1", "uvvis-basics", "UV/VIS 概論：原理、波長、檢品、應用", "UV/VIS 概論", [
+tY(27, "UV/VIS 概論", "27-1", "uvvis-basics", "UV/VIS 概論：原理、波長、檢品、應用", "UV/VIS 概論", [
   "原理：主要與{{電子躍遷|名詞}}（Ee）相關：分子吸收紫外光或可見光的輻射能量之後，分子中的電子對被提升到較高能階（基態 → {{激發態|名詞}}）",
   "光源能量使電子躍遷（Ee）＋ 分子振動（Ev）＋ 分子轉動（Er）→ 使 UV 圖譜呈現{{帶狀|名詞}}（Band）而非線性（Line）吸收 [95-1]",
   "波長：UV：{{200~380 nm|數值}} [103-1]；VIS：380~780 nm",
@@ -2111,14 +2112,14 @@ t(27, "UV/VIS 概論", "27-1", "uvvis-basics", "UV/VIS 概論：原理、波長�
   "衍生法（with mercury {{imidazole|物質}} reagent）定量分析 {{penicillins|藥名}}（在 325~345nm 有最大吸收波長）",
   "利用與 {{Fe²⁺|物質}} 錯合定量分析局麻注射液中 {{adrenaline|藥名}}（錯合物呈{{紫色|顏色}}在 {{540nm|數值}} 有吸收）[104-2、93-2、90]"
 ]);
-t(27, "★★UV/VIS 電子躍遷★★", "27-2", "electronic-transitions", "★★UV/VIS 電子躍遷★★", "電子躍遷", [
+tY(27, "★★UV/VIS 電子躍遷★★", "27-2", "electronic-transitions", "★★UV/VIS 電子躍遷★★", "電子躍遷", [
   "[考爆]；能量大小：{{σ→σ*|名詞}} > n→σ* > π→π* > {{n→π*|名詞}}（大 → 小）；吸收波長：小 → 大",
   "{{σ→σ*|名詞}}：約 {{150 nm|數值}}；ε（莫耳吸光度）：{{UV/VIS 測不到|性質}}；結構基團：{{單鍵|名詞}}",
   "{{n→σ*|名詞}}：< 180 nm；ε：1000；結構基團：{{助色基|名詞}}（醇、硫、醚、胺）",
   "{{π→π*|名詞}}：180~250 nm；ε：{{10000~130000|數值}}；結構基團：{{共軛雙／三鍵、苯|名詞}}",
   "{{n→π*|名詞}}：> 200 nm；ε：{{5~60|數值}}；結構基團：{{醛、酮|名詞}}（C＝O）"
 ]);
-t(27, "UV/VIS 計算", "27-2", "beer-lambert", "★★Beer-Lambert Law★★", "Beer-Lambert", [
+tY(27, "UV/VIS 計算", "27-2", "beer-lambert", "★★Beer-Lambert Law★★", "Beer-Lambert", [
   "[考爆]；適用濃度 {{10⁻⁶~0.01M|數值}} 的{{稀薄溶液|名詞}}",
   "A（Absorbance）吸收值 ＝ 吸光度 ＝ a（absorptivity）吸光係數 × {{b（光徑）|名詞}} 儲液管長度 × c（concentration）溶液濃度",
   "A：{{無單位|性質}}，受溶媒、波長、b 儲液管長度、c 濃度影響；A ＝ log 1/T ＝ {{− logT|名詞}}；T ＝ 透射率 ＝ 透射／入射 ＝ It／I₀",
@@ -2129,7 +2130,7 @@ t(27, "UV/VIS 計算", "27-2", "beer-lambert", "★★Beer-Lambert Law★★", "
   "b：通常為 {{1cm|數值}}",
   "★吸光率換算：a × {{10|數值}} ＝ A（1%, 1 cm）（10 g/L ＝ 1 g/100 ml）；a × {{分子量|名詞}} ＝ ε"
 ]);
-t(27, "UV/VIS 圖譜分析", "27-3", "absorption-shift", "★★吸收峰位移★★", "吸收峰位移", [
+tY(27, "UV/VIS 圖譜分析", "27-3", "absorption-shift", "★★吸收峰位移★★", "吸收峰位移", [
   "[考爆]",
   "{{Hyperchromic shift|名詞}}：增色（吸光度上升）；{{Hypochromic shift|名詞}}：減色（吸光度下降）",
   "{{Hypsochromic shift|名詞}}（Blue shift）：藍移（波長變短）；{{Bathochromic shift|名詞}}（Red shift）：紅移（波長變長）",
@@ -2137,37 +2138,37 @@ t(27, "UV/VIS 圖譜分析", "27-3", "absorption-shift", "★★吸收峰位移�
   "含苯胺（例：{{procaine|藥名}}）：HCl → 藍移 Hypsochromic、減色 Hypochromic；NaOH → 紅移 Bathochromic、增色 Hyperchromic",
   "▲吸收波長增加且強度增大：→ 參與共振的{{孤對電子|名詞}}或{{共軛雙鍵|名詞}}越多；→ {{發色基加上助色基|名詞}}（酚 ＝ 苯環 ＋ OH、苯胺 ＝ 苯環 ＋ NH₂）"
 ]);
-t(27, "UV/VIS 圖譜分析：其他藥品分析", "27-4", "uv-steroids", "類固醇 Steroids（烯酮類）", "類固醇 UV", [
+tY(27, "UV/VIS 圖譜分析：其他藥品分析", "27-4", "uv-steroids", "類固醇 Steroids（烯酮類）", "類固醇 UV", [
   "{{多環|結構}}結構，約在 {{240nm|數值}} 有最大吸光度",
   "{{Betamethasone|藥名}} 額外的雙鍵並非延伸自原本的發色基，並無紅移增色顯著的差異（vs. Hydrocortisone）",
   "可合併 HPLC 中的{{光二極體偵測器|名詞}}（DAD）（連結：第 20-7 頁）做定性鑑別",
   "結構分子量增加，A（1%, 1 cm）會{{減少|性質}}"
 ]);
-t(27, "UV/VIS 圖譜分析：其他藥品分析", "27-4", "uv-ephedrine", "麻黃素 Ephedrine", "麻黃素 UV", [
+tY(27, "UV/VIS 圖譜分析：其他藥品分析", "27-4", "uv-ephedrine", "麻黃素 Ephedrine", "麻黃素 UV", [
   "{{苯環|結構}}結構，約在 {{260nm|數值}} 有最大吸光度",
   "有{{弱對稱的隱藏帶|名詞}}",
   "發色基無附著極性基團，因此與溶劑無強烈交互作用，保留{{振動細微結構|名詞}}",
   "類似藥品：{{Diphenhydramine／Amphetamine／Ibuprofen／Dextropropoxyphene|藥名}}"
 ]);
-t(27, "UV/VIS 圖譜分析：其他藥品分析", "27-4", "uv-ketoprofen", "Ketoprofen", "Ketoprofen UV", [
+tY(27, "UV/VIS 圖譜分析：其他藥品分析", "27-4", "uv-ketoprofen", "Ketoprofen", "Ketoprofen UV", [
   "其中苯環發色基外延伸{{四個雙鍵|數值}}，在 {{260nm|數值}} 有最大吸光度（{{紅移＋增色|名詞}}）",
   "類似藥品：{{Cyproheptadine／Dimethindine／Protriptyline|藥名}}"
 ]);
-t(27, "UV/VIS 應用分析", "27-4", "uv-pka", "★pKa 值★", "pKa 值", [
+tY(27, "UV/VIS 應用分析", "27-4", "uv-pka", "★pKa 值★", "pKa 值", [
   "[考爆]；⚠ 勿與 {{H-H 方程式|名詞}}（第 2-2 頁）搞混",
   "pKa ＝ pH ± log（Aᵢ − A）／（A − Aᵤ）＝ pH ＋ log（大 − 中）／（中 − 小）",
   "{{酸性藥|名詞}}：＋；{{鹼性藥|名詞}}：−",
   "Aᵢ：{{解離態|名詞}}的吸光度（ionized）；A：該 pH 值下的吸光度；Aᵤ：{{未解離態|名詞}}的吸光度（un-ionised）",
   "＊檢測波長：應設定於化合物解離及未解離形式之吸收係數{{最大差異處|名詞}}"
 ]);
-t(27, "UV/VIS 應用分析", "27-5", "difference-spectra", "★差異光譜（difference spectra）", "差異光譜", [
+tY(27, "UV/VIS 應用分析", "27-5", "difference-spectra", "★差異光譜（difference spectra）", "差異光譜", [
   "[109-2、112-1]",
   "方法：對分析物進行{{選擇性反應|名詞}}（如調整溶液 pH 值、氧化還原化學反應）分析混合物中某特定成分",
   "實例：分析 {{dextropropoxyphene|藥名}} 膠囊中 {{aspirin|藥名}} → 利用 aspirin 會在{{鹼性|性質}}中產生{{波長移動|名詞}}的特色來定性此成分，可添加標準品進一步定量",
   "而其他成分如 caffeine／dextropropoxyphene／naphthalene／sulphonic acid anion 在鹼性之下{{波長不會移動|性質}}",
   "圖 A：以 HCl 作酸性環境下，能判別 aspirin 的訊號差異不明顯；圖 B：參考品溶於 {{HCl|物質}}，檢品溶於 {{NaOH|物質}}，在 {{299 nm|數值}} 處為 aspirin 的明顯訊號"
 ]);
-t(27, "UV/VIS 應用分析", "27-5", "derivative-spectra", "★微分光譜（derivative spectra）", "微分光譜", [
+tY(27, "UV/VIS 應用分析", "27-5", "derivative-spectra", "★微分光譜（derivative spectra）", "微分光譜", [
   "[111-2、110-1、103-1]",
   "方法：利用{{微分|名詞}}，聚焦{{變化量|名詞}}，移除底層斜率很小的吸收寬帶",
   "用途：進階辨別確認吸收帶，用於{{釐清複雜 UV 光譜|名詞}}中的化合物吸收峰；應用於{{近紅外光|名詞}}（NIRA）偵測器時，可大幅減少樣品製備時間（連結：第 28-2 頁）；應用於光二極體偵測器（DAD）時，可用於檢查{{層析波峰的純度|名詞}}",
@@ -2180,7 +2181,7 @@ t(27, "UV/VIS 應用分析", "27-5", "derivative-spectra", "★微分光譜（de
 
 /* ================= CH28 光譜分析－紅外光譜（IR）（講義 28-1～） ================= */
 chS(28, "紅外光譜（IR）", "28-1～");
-t(28, "★紅外光 儀器裝置★", "28-1", "ir-dispersive", "色散儀（dispersive instrument）", "色散儀", [
+tY(28, "★紅外光 儀器裝置★", "28-1", "ir-dispersive", "色散儀（dispersive instrument）", "色散儀", [
   "[110-2、105-1、103-1]",
   "① 光源：{{Globar（碳化矽）|物質}}；{{Nernst glower|物質}}：ZrO₂（氧化鋯）＋ Y₂O₃（氧化釔）＋ ThO₂（氧化釷）",
   "② 光束：可為單光束／{{雙光束|名詞}}",
@@ -2190,7 +2191,7 @@ t(28, "★紅外光 儀器裝置★", "28-1", "ir-dispersive", "色散儀（disp
   "⑦ 圖譜分析：縱軸為{{穿透率|名詞}}（可轉換吸收率以利定量）、橫軸為{{波數|名詞}}",
   "＊波數校正：用{{聚苯乙烯薄膜|物質}} [111-1、92-1]，變異值 {{±0.3 cm⁻¹|數值}}"
 ]);
-t(28, "★紅外光 儀器裝置★", "28-1", "ft-ir", "★干涉儀（interferometer）：傅立葉轉換（Fourier transform instrument）", "FT-IR", [
+tY(28, "★紅外光 儀器裝置★", "28-1", "ft-ir", "★干涉儀（interferometer）：傅立葉轉換（Fourier transform instrument）", "FT-IR", [
   "[110-2、105-1、103-1]；FT-IR 以{{干涉器|名詞}}（Michelson interferometer）取代上者單色光鏡",
   "① 光源：Globar（碳化矽）、Nernst glower（氧化鋯 ＋ 氧化釔 ＋ 氧化釷）",
   "② {{光束分歧器|名詞}}：{{NaCl 鹽片|物質}}鍍金屬薄膜，使一半的光線反射，一半透射；於中紅外區將鍺／矽薄膜附在碘化銫、溴化銫、氯化鈉、溴化鉀上作透明物質；於近紅外區將矽薄膜鍍在{{氟化鈣|物質}}（CaF₂）上",
@@ -2200,7 +2201,7 @@ t(28, "★紅外光 儀器裝置★", "28-1", "ft-ir", "★干涉儀（interfero
   "⑤ 偵測器：可為焦熱電型、光導電型或{{熱電偶|名詞}}（thermocouple）",
   "＊優勢：可迅速獲得整個圖譜，有效改善{{訊號-雜訊比|名詞}}（S/N）"
 ]);
-t(28, "紅外光 概論", "28-2", "ir-basics", "紅外光概論：原理、波長、波數、溶劑、訊號", "IR 概論", [
+tY(28, "紅外光 概論", "28-2", "ir-basics", "紅外光概論：原理、波長、波數、溶劑、訊號", "IR 概論", [
   "★原理：紅外線照射下，分子內{{原子振動吸收能量|名詞}}（其餘剩餘能量可穿透至偵測器顯示在圖譜中）[106-1]；在一定的濃度範圍內，遵從 {{Beer-Lambert law|名詞}} [104-2]",
   "牽涉到{{分子振動|名詞}}（Ev）、{{分子轉動|名詞}}（Er），兩者能量比 ＝ {{1：0.01|數值}}；⚠ {{不參與電子能階遷移|性質}}",
   "振動模式：{{伸縮 stretching|名詞}}（對稱／非對稱）、{{彎曲 bending|名詞}}（上下／左右／剪刀／扭擺）",
@@ -2209,57 +2210,57 @@ t(28, "紅外光 概論", "28-2", "ir-basics", "紅外光概論：原理、波�
   "溶劑：{{無官能基溶劑|名詞}}能減少干擾：CHCl₃（氯仿）、{{CCl₄|物質}}（四氯化碳）、CS₂（二硫化碳）；⚠ 不可含 {{OH|結構}} 如醇類、水 [104-2]",
   "訊號：振動時{{偶極矩發生變化|名詞}}的分子有訊號（{{對稱化合物|名詞}}如 N₂ O₂ Cl₂ 則無）[102-2]；⚠ 不必像 UV 光譜需具備發色基"
 ]);
-t(28, "紅外光 概論", "28-2", "ir-applications", "紅外光應用：近紅外光（NIRA）、中紅外光", "IR 應用", [
+tY(28, "紅外光 概論", "28-2", "ir-applications", "紅外光應用：近紅外光（NIRA）、中紅外光", "IR 應用", [
   "[105-1]；藥物鑑別試驗（{{定性|名詞}}，尤其特定官能基）、{{多晶形性|名詞}}（polymorphism）…等；⚠ 但{{無法辨識鏡像異構物|性質}}",
   "★★{{近紅外光|名詞}}★★（NIRA）[考爆]：係由能階躍遷時的 {{overtone 和 combination|名詞}} 現象造成；多為 X-H 伸展的倍頻，{{倍頻|名詞}}（overtone）吸收比中紅外光弱 {{1000|數值}} 倍 → {{穿透力佳|性質}}",
   "NIRA：測{{顆粒大小|名詞}}、均勻度、多晶體、多成分劑型活性成分、{{裸錠|名詞}}、水分含量、蛋白質、三酸甘油酯含量、光學純度（必須在{{固體結晶狀態|名詞}}測定）",
   "NIRA：→ {{Aspirin|藥名}} 顆粒變小，樣品吸收值{{增加|性質}}／攪拌越完整，吸收值標準差越{{小|性質}}；可搭配{{微分光譜|名詞}}技術（第 27-5 頁）",
   "{{中紅外光|名詞}}：化合物的 IR {{基本振動吸收帶|名詞}}，最常用於化合物{{結構|名詞}}解析（分析官能基）"
 ]);
-t(28, "紅外光 檢品製備", "28-3", "kbr-pellet", "溴化鉀錠法（KBr Pellet method）", "KBr 錠法", [
+tY(28, "紅外光 檢品製備", "28-3", "kbr-pellet", "溴化鉀錠法（KBr Pellet method）", "KBr 錠法", [
   "所需檢品量：{{1~10mg|數值}} [103-1]；[111-1]",
   "取固體檢品 1-2mg 於{{瑪瑙研缽|名詞}}研磨，並外加 100-200mg 溴化鉀；取檢品，量為溴化鉀使用量的 {{1%|數值}} → 減壓（抽真空以增加透光率）→ {{加壓|名詞}}製成錠劑",
   "壓製過程中可能引起{{多型體互變|名詞}}（不適合測多形體）",
   "為{{磺胺類藥物|名詞}}的鑑別法 [93-2]",
   "若分析含 HCl 鹽類需改成 {{KCl 錠|物質}}（以避免{{鹵素交換反應|名詞}}）"
 ]);
-t(28, "紅外光 檢品製備", "28-3", "mull-method", "糊漿法（Mull method）", "糊漿法", [
+tY(28, "紅外光 檢品製備", "28-3", "mull-method", "糊漿法（Mull method）", "糊漿法", [
   "檢品於 NaCl、KCl sandwich 中；液體塗抹研細的固體粉末，加入{{液態石蠟|物質}}（{{Nujol|物質}}）做成糊狀",
   "缺點：{{極性低|性質}}樣品可能溶於 Nujol 而導致多形體分裂",
   "可測多形性 ✓ [109-2]；{{樣品配置標準法|名詞}}"
 ]);
-t(28, "紅外光 檢品製備", "28-3", "drift", "擴散反射測定法（DRIFT）", "DRIFT", [
+tY(28, "紅外光 檢品製備", "28-3", "drift", "擴散反射測定法（DRIFT）", "DRIFT", [
   "Diffuse Reflectance Infrared Fourier Transform",
   "固體粉末檢品 ＋ KBr 但{{不加壓|性質}}",
   "光線被樣品顆粒多次{{散射|名詞}}，一部分光會穿透並被樣品吸收，另一部分會反射出來",
   "波峰干擾較糊漿法{{少|性質}}；可測多形性 ✓",
   "圖譜 Y 軸單位為 {{Kubelka-Munk|名詞}}：將{{漫反射|名詞}}的數據轉換成類似吸收的數據（可轉換為透光譜）"
 ]);
-t(28, "紅外光 檢品製備", "28-3", "atr", "減弱總反射（ATR）", "ATR", [
+tY(28, "紅外光 檢品製備", "28-3", "atr", "減弱總反射（ATR）", "ATR", [
   "Attenuated total reflectance；可測多形性 ✓",
   "檢品溶於{{膠體或霜劑|名詞}}，配件含{{硒化鋅|物質}}（ZnSe）晶體",
   "光在晶體與樣品接觸處產生全反射，並形成{{消逝波|名詞}}（evanescent wave）滲入樣品表層進行吸收分析",
   "可做基質的{{空白試驗|名詞}}以利分析藥物較高濃度活性成分 [113-2]"
 ]);
-t(28, "紅外光 檢品製備", "28-3", "ir-other-prep", "溶液法、薄膜法、氣體檢品測定法", "其他製備", [
+tY(28, "紅外光 檢品製備", "28-3", "ir-other-prep", "溶液法、薄膜法、氣體檢品測定法", "其他製備", [
   "{{溶液法|名詞}}：將液態檢品溶於有機溶劑（常用{{氯仿|物質}} 5%-10%）",
   "{{薄膜法|名詞}}：將液態檢品 1~2 滴滴至儲液板間，分析{{高分子聚合物|名詞}}（如包裝用塑膠）",
   "{{氣體檢品測定法|名詞}}：將氣態檢品置於光徑 {{5~10 cm|數值}} 的氣體儲管中測定"
 ]);
-t(28, "紅外光 吸收強度與能階", "28-4", "ir-intensity", "吸收強度（Intensity）", "吸收強度", [
+tY(28, "紅外光 吸收強度與能階", "28-4", "ir-intensity", "吸收強度（Intensity）", "吸收強度", [
   "相對{{陰電性|名詞}}越大，偶極矩大 → 吸收強度強（{{F > O > Cl > N > S|名詞}}）",
   "★ [108-1、106-1、104-2、102-1、96-1] ★：{{C＝O|結構}} > C-F > C-O > C-Cl > C-N > C-OH > {{C-H|結構}}",
   "OH > NH > CH",
   "C＝C-C＝O > C＝C-C＝C"
 ]);
-t(28, "紅外光 吸收強度與能階", "28-4", "ir-energy", "吸收能階（Energy level）", "吸收能階", [
+tY(28, "紅外光 吸收強度與能階", "28-4", "ir-energy", "吸收能階（Energy level）", "吸收能階", [
   "方程式：Evib ∝ {{√（k／μ）|名詞}}，μ ＝ m₁m₂／（m₁＋m₂）（μ 與鍵結原子的{{質量|名詞}}有關；k 為{{鍵結強度|名詞}}相關常數（三鍵 > 雙鍵 > 單鍵））",
   "振動方式：{{伸縮 stretching|名詞}} > 彎曲 bending [99-1、94-2]",
   "重要結論：{{X-H|結構}} > 三鍵 > 雙鍵 > 單鍵",
   "★能階大小（波數位置大小）：⚠ 若比較{{波長|名詞}}大小則相反 [103-2、103-1、102-1]",
   "{{O-H|結構}} > N-H > C-H > C≡N > C≡C > C＝O > C＝C > C-O > C-C > C-F > {{C-Cl|結構}}"
 ]);
-t(28, "紅外光 圖譜分析", "28-4", "ir-functional-groups", "★★官能基區（最適合判斷結構資訊）★★", "官能基區", [
+tY(28, "紅外光 圖譜分析", "28-4", "ir-functional-groups", "★★官能基區（最適合判斷結構資訊）★★", "官能基區", [
   "伸縮（stretching）振動下顯示的波數位置；[考爆]",
   "{{2500~3500 cm⁻¹|數值}}：X-H：OH {{3500 cm⁻¹（寬）|數值}}；NH 3500 cm⁻¹（窄）；CH {{3000 cm⁻¹|數值}}；CHO {{2700 cm⁻¹|數值}}",
   "{{2000~2500 cm⁻¹|數值}}：{{三鍵|名詞}}：C≡N、C≡C",
@@ -2267,7 +2268,7 @@ t(28, "紅外光 圖譜分析", "28-4", "ir-functional-groups", "★★官能基
   "例（類固醇）：非共軛 C＝O {{1710 cm⁻¹|數值}}；共軛 C＝O {{1660 cm⁻¹|數值}} [110-1、112-1、95-2]",
   "{{指紋區|名詞}}：< {{1500 cm⁻¹|數值}}：單鍵：C-O、C-C"
 ]);
-t(28, "紅外光 圖譜分析", "28-5", "ir-aspirin", "圖譜範例：Aspirin（KBr 錠）", "Aspirin IR", [
+tY(28, "紅外光 圖譜分析", "28-5", "ir-aspirin", "圖譜範例：Aspirin（KBr 錠）", "Aspirin IR", [
   "[106-2]",
   "A {{2400-3300 cm⁻¹|數值}}：{{羧基上的 OH|結構}}；由於較強的{{氫鍵|名詞}}鍵結，波數最大且寬",
   "B 約 3000 cm⁻¹：{{C-H|結構}}；跟 OH 些許重疊部分不清楚",
@@ -2275,7 +2276,7 @@ t(28, "紅外光 圖譜分析", "28-5", "ir-aspirin", "圖譜範例：Aspirin（
   "D {{1690 cm⁻¹|數值}}：C＝O {{羧酸（共軛）|結構}}；共軛 C＝O 會 < 1700 一些",
   "E 1608 cm⁻¹、F 1460 cm⁻¹：{{苯環上 C＝C|結構}}；環上支鏈含高極性基團，區帶較明顯"
 ]);
-t(28, "紅外光 圖譜分析", "28-5", "ir-fingerprint", "指紋圖譜應用", "指紋圖譜", [
+tY(28, "紅外光 圖譜分析", "28-5", "ir-fingerprint", "指紋圖譜應用", "指紋圖譜", [
   "約 < {{1500 cm⁻¹|數值}} 的區域，可以分析{{結構相近者|名詞}}",
   "{{Betamethasone 與 Dexamethasone|藥名}}：僅在第 {{16|數值}} 位的{{立體化學|名詞}}上有所不同，其餘類固醇骨架皆相同；然而，這個微小的差異足以導致兩種化合物的產生{{不同指紋圖譜|名詞}}",
   "可用於鑑別{{檢品與標準品之差異|名詞}} [112-2]"
@@ -2283,7 +2284,7 @@ t(28, "紅外光 圖譜分析", "28-5", "ir-fingerprint", "指紋圖譜應用", 
 
 /* ================= CH29 光譜分析－螢光光譜（Fluorescence）（講義 29-1～） ================= */
 chS(29, "螢光光譜（Fluorescence）", "29-1～");
-t(29, "★儀器裝置", "29-1", "fluor-apparatus", "★螢光儀器裝置", "螢光裝置", [
+tY(29, "★儀器裝置", "29-1", "fluor-apparatus", "★螢光儀器裝置", "螢光裝置", [
   "[114-1、110-1]",
   "① 光源：{{氙（Xenon）、石英鹵素（quartz halogen）|物質}} [102-2]、汞蒸氣、Dye laser；最強輻射波長約 {{300~400nm|數值}}（激發光波長比螢光發散帶短 {{20nm|數值}} 能減少干擾）",
   "② {{單色光鏡（激發）|名詞}}：選擇激發樣品所需波長",
@@ -2292,12 +2293,12 @@ t(29, "★儀器裝置", "29-1", "fluor-apparatus", "★螢光儀器裝置", "�
   "⑤ {{單色光鏡（發散）|名詞}}：掃描樣品發散光的波長範圍",
   "⑥ 檢測器（{{光電管檢測器|名詞}}）：激發輻射的{{直角處|名詞}}可觀測到發散輻射 [114-1]（避免{{入射光|名詞}}干擾）"
 ]);
-t(29, "★儀器裝置", "29-1", "scattering-types", "散射形式：Tyndall、Rayleigh、Raman", "散射形式", [
+tY(29, "★儀器裝置", "29-1", "scattering-types", "散射形式：Tyndall、Rayleigh、Raman", "散射形式", [
   "{{Tyndall|名詞}}：溶液中{{膠體粒子|名詞}}散射",
   "{{Rayleigh|名詞}}：{{彈性碰撞|名詞}}，溶劑分子散射",
   "{{Raman|名詞}}：{{非彈性碰撞|名詞}}，與溶劑相關，為{{弱散射|性質}}"
 ]);
-t(29, "概論", "29-1", "fluor-basics", "螢光概論：原理、波長、分析物、優缺點、量子產量、應用", "螢光概論", [
+tY(29, "概論", "29-1", "fluor-basics", "螢光概論：原理、波長、分析物、優缺點、量子產量、應用", "螢光概論", [
   "原理：電子吸收能量 → 激發至激發態後，以{{非輻射|名詞}}（振動鬆弛等）或{{輻射|名詞}}（螢光、磷光）發散釋放能量 → 電子回到基態，為{{發散光譜|名詞}} [103-2]",
   "★波長 [考爆]：被 UV（200~380nm）／可見光（380~780nm）激發後，發散光能量減低，產生的{{波長變長|性質}} ＋ {{50~150nm|數值}}（{{Stokes shift|名詞}}）",
   "分析物 [114-1、103-2]：必須具備{{發色基團與剛性結構|名詞}}（如苯環中相間的雙鍵形成穩定平面、三鍵等無法自由旋轉之構造）；ex. {{Quinine|藥名}}（＋ {{硫酸|物質}}可作標準品溶液）[9X 愛考]、Ethinyl estradiol、Digoxin",
@@ -2305,7 +2306,7 @@ t(29, "概論", "29-1", "fluor-basics", "螢光概論：原理、波長、分析
   "{{量子產量|名詞}} Quantum yield [107-2]：φ ＝ {{發散螢光光子數／吸收光子數|名詞}}；0（無~弱螢光）≤ φ ≤ 1（強螢光）",
   "應用：可利用限量測定來檢測不純物（如{{重金屬|名詞}}）；可用於監測複雜分子的變化、測定微量藥物及研究{{藥物與蛋白質的結合|名詞}}"
 ]);
-t(29, "★發散形式", "29-2", "fluor-vs-phos", "★發散形式：螢光 vs 磷光", "螢光 vs 磷光", [
+tY(29, "★發散形式", "29-2", "fluor-vs-phos", "★發散形式：螢光 vs 磷光", "螢光 vs 磷光", [
   "[107-2、102-1、92-1]；以{{非輻射|名詞}}（振動鬆弛、內部轉換、外部轉換、系統間跨越）或{{輻射|名詞}}（螢光、磷光）發散釋放能量",
   "能量：螢光{{較大|性質}}；磷光較小",
   "持續時間：螢光{{較短|性質}}（10⁻⁹~10⁻¹⁰ 秒）；磷光{{較長|性質}}（10⁻³ 秒~數分）",
@@ -2314,7 +2315,7 @@ t(29, "★發散形式", "29-2", "fluor-vs-phos", "★發散形式：螢光 vs �
   "電子自旋：螢光{{無涉及|性質}}；磷光{{有涉及|性質}}",
   "S₀：未激發單重態（基態）；S₁：{{單重激發態|名詞}}；T₁：{{三重激發態|名詞}}"
 ]);
-t(29, "★★螢光強度－影響因子★★", "29-2", "fluor-structure-factors", "螢光強度影響因子：結構", "結構因子", [
+tY(29, "★★螢光強度－影響因子★★", "29-2", "fluor-structure-factors", "螢光強度影響因子：結構", "結構因子", [
   "[考爆]",
   "{{剛性骨架|名詞}}（rigid）：有剛性骨架，較不易因碰撞而耗損能量 → 螢光強度 {{↑|性質}}",
   "苯環上取代基：{{推電子基|名詞}}（活化基）：-OH、-OCH₃、-NH₂、-CH₃、-NHMe [107-1] → {{↑|性質}}",
@@ -2323,7 +2324,7 @@ t(29, "★★螢光強度－影響因子★★", "29-2", "fluor-structure-factor
   "{{金屬螯合|名詞}}：本身沒有剛性，但若和金屬（如 Al³⁺, Zn²⁺）螯合，結構固定，可發出螢光 → ↑",
   "{{錯合物|名詞}}：溶液中存在 {{caffeine|物質}}（咖啡因）時，{{riboflavin|物質}}（核黃素）螢光減少 [111-2] → ↓"
 ]);
-t(29, "★★螢光強度－影響因子★★", "29-2", "fluor-env-factors", "螢光強度影響因子：濃度、溶媒、溫度、溶解氧", "環境因子", [
+tY(29, "★★螢光強度－影響因子★★", "29-2", "fluor-env-factors", "螢光強度影響因子：濃度、溶媒、溫度、溶解氧", "環境因子", [
   "濃度 [111-2、103-2]：正常濃度下螢光強度 ↑ {{正比於濃度|名詞}}；⚠ …但濃度過高可能發生{{內部濾光效應|名詞}}（Inner Filter Effect）或{{碰撞淬滅|名詞}}（Quenching）→ ↓",
   "溶媒 {{極性 ↑|名詞}}：溶媒的極性愈高（water > methanol > dioxane > cyclohexane），相對螢光強度越小 → {{↓|性質}}",
   "溶媒 pH 值：呈{{非離子態|名詞}}（弱酸藥在酸性環境／弱鹼藥在鹼性環境）→ ↑；呈離子態（例 {{phenol 在鹼性環境|名詞}}）→ ↓",
@@ -2331,32 +2332,32 @@ t(29, "★★螢光強度－影響因子★★", "29-2", "fluor-env-factors", "�
   "{{溫度 ↓|名詞}}：溫度越低，分子動能減少，不易產生碰撞耗損 [考爆] → {{↑|性質}}",
   "{{溶解氧 ↑|名詞}}：氧的電子組態為{{順磁|性質}}，所以會干擾檢品的螢光表現（檢測前充入{{氮氣|物質}}避免之）[9X] → ↓（磷光 ↑）"
 ]);
-t(29, "螢光－圖譜分析", "29-3", "fluor-spectrum", "螢光圖譜分析：以 Ethinyl estradiol（285nm/310nm）為例", "螢光圖譜", [
+tY(29, "螢光－圖譜分析", "29-3", "fluor-spectrum", "螢光圖譜分析：以 Ethinyl estradiol（285nm/310nm）為例", "螢光圖譜", [
   "為{{帶狀光譜|名詞}}：螢光光譜是帶狀而非線狀，因其能量變化是一個範圍而非單一能量",
   "吸收（激發）光譜與{{發散光譜|名詞}}最大吸收值不同，然{{形狀有對稱性|性質}}",
   "{{285 nm|數值}} 來自激發輻射散射，{{310 nm|數值}} 才是來自螢光"
 ]);
-t(29, "螢光－應用分析", "29-3", "fluor-ethinyl-estradiol", "測定黃體素中的 Ethinyl estradiol（285 nm/310 nm）", "Ethinyl estradiol", [
+tY(29, "螢光－應用分析", "29-3", "fluor-ethinyl-estradiol", "測定黃體素中的 Ethinyl estradiol（285 nm/310 nm）", "Ethinyl estradiol", [
   "[95-2]",
   "特性：含{{低劑量|性質}}藥品且易受賦形劑干擾，不適合用 UV/VIS 檢測，適合用螢光檢測",
   "方法：結構含 {{phenol|結構}}（酚為弱酸），加入強鹼 {{NaOH|物質}} → 解離態增加，測{{螢光減弱消失|名詞}} [96-1]",
   "調整：① 使用較短激發波長可減少來自 {{Raman 散射|名詞}}的可能干擾；② 但波長較短的 Rayleigh 和 Tyndall 散射強度較大，因此選在 {{320nm|數值}} 觀察以避免此干擾"
 ]);
-t(29, "螢光－應用分析", "29-3", "fluor-digoxin", "★測定 Digoxin 錠劑溶離率（360 nm/490 nm）", "Digoxin 溶離", [
+tY(29, "螢光－應用分析", "29-3", "fluor-digoxin", "★測定 Digoxin 錠劑溶離率（360 nm/490 nm）", "Digoxin 溶離", [
   "[113-2、105-2]",
   "特性：本身{{無螢光|性質}}，以化學反應產生",
   "方法：Digoxin 經 {{HCl 脫水|反應}} → 再以 {{H₂O₂|物質}} 進行氧化 → 轉變為具螢光衍生物",
   "標準：（中華藥典）{{60|數值}} 分鐘內溶離不得少於標誌含量之 {{80%|數值}}"
 ]);
-t(29, "螢光－應用分析", "29-3", "fluor-aluminum", "以螢光錯合物測定注射用水中的鋁（Al）（392 nm/518 nm）", "注射用水鋁", [
+tY(29, "螢光－應用分析", "29-3", "fluor-aluminum", "以螢光錯合物測定注射用水中的鋁（Al）（392 nm/518 nm）", "注射用水鋁", [
   "★特性：某些低含量金屬離子{{本身無螢光|性質}} [111-1]，以化學反應產生{{錯合物|名詞}} [113-2]",
   "方法：以 {{8-hydroxyquinoline|物質}} 處理形成鹽類 → 定量錯合物含量 [114-2]"
 ]);
-t(29, "螢光－應用分析", "29-3", "fluor-peptide", "測定胜肽藥品在溶液中安定性：Tyrosine（277/305 nm）、Tryptophan（290/350 nm）", "胜肽安定性", [
+tY(29, "螢光－應用分析", "29-3", "fluor-peptide", "測定胜肽藥品在溶液中安定性：Tyrosine（277/305 nm）、Tryptophan（290/350 nm）", "胜肽安定性", [
   "用途：溶液中{{重組纖維母細胞生長因子|名詞}}的安定性研究",
   "方法：若{{蛋白變性|名詞}}，觀察 {{Tyrosine|物質}} 殘基會在 305nm 發散波峰的逐漸{{下降|性質}}，{{Tryptophan|物質}} 殘基在 350nm 發散波峰的逐漸{{增加|性質}} [106-1、102-2]"
 ]);
-t(29, "螢光－應用分析", "29-3", "fluor-vit-b", "測定維生素 B：Vit B₁（Thiamine）、★Vit B₂（Riboflavin）", "維生素 B 螢光", [
+tY(29, "螢光－應用分析", "29-3", "fluor-vit-b", "測定維生素 B：Vit B₁（Thiamine）、★Vit B₂（Riboflavin）", "維生素 B 螢光", [
   "Vit B₁（Thiamine）[102-2]：特性：{{硫胺|物質}}本身{{無螢光|性質}}（開環無剛性）",
   "Vit B₁ 方法：在鹼性（{{KOH|物質}}）下 ＋ {{鐵氰化鉀|物質}} K₃Fe(CN)₆ → 氧化成 {{thiochrome|物質}}（閉環剛性 ↑ 螢光 ↑）[92-2] → {{異丁醇|物質}}抽取 [91-2]；在{{酸性|性質}}下螢光則消失",
   "★Vit B₂（Riboflavin）[110-1、103-2、102-1]：特性：核黃素本身{{有螢光|性質}}（含 caffeine 會使其螢光減少）[111-2]",
@@ -2365,7 +2366,7 @@ t(29, "螢光－應用分析", "29-3", "fluor-vit-b", "測定維生素 B：Vit B
 
 /* ================= CH30 光譜分析－拉曼光譜（Raman spectroscopy）（講義 30-1） ================= */
 chS(30, "拉曼光譜（Raman）", "30-1");
-t(30, "拉曼光譜", "30-1", "raman-basics", "拉曼光譜：儀器、原理、性質、檢品", "拉曼原理", [
+tY(30, "拉曼光譜", "30-1", "raman-basics", "拉曼光譜：儀器、原理、性質、檢品", "拉曼原理", [
   "[111-2]",
   "儀器 [112-2]：光源：可見光區 ~ 近紅外光區 {{450 ~ 800 nm|數值}}（FT-Raman 常用 {{1064 nm|數值}}）；檢測器：與光源呈{{直角|名詞}}，可聯合{{傅立葉轉換|名詞}}",
   "原理：分子的{{極化率|名詞}}會因振動而改變，少部分光子與這些振動互動後產生波長改變的散射光 → 測定雷射輻射的★{{非彈性散射|名詞}}引起之能量轉移 {{stokes shift|名詞}}（單位：cm⁻¹）[114-2、114-1、108-1]；⚠ {{與入射波長無關|性質}}",
@@ -2373,7 +2374,7 @@ t(30, "拉曼光譜", "30-1", "raman-basics", "拉曼光譜：儀器、原理、
   "檢品：★{{不需具有發色團|性質}}、可用於具{{對稱性鍵結|名詞}}之結構分析 [114-1、108-1]",
   "近紅外光雷射的優勢：不會像 UV/VIS 激發分子中{{螢光|名詞}}造成測定干擾；有良好穿透性，{{固態樣品可直接檢測|性質}}"
 ]);
-t(30, "拉曼光譜", "30-1", "raman-applications", "拉曼光譜：圖譜、優缺點、應用、升級版技術", "拉曼應用", [
+tY(30, "拉曼光譜", "30-1", "raman-applications", "拉曼光譜：圖譜、優缺點、應用、升級版技術", "拉曼應用", [
   "圖譜：{{互補中紅外光圖譜|名詞}}：中紅外光較弱吸收處，在拉曼光譜吸收較強",
   "優點：檢品需求量低、互補中紅外光圖譜、可提供額外的{{指紋鑑別資訊|名詞}} [108-1]、{{水不易形成干擾|性質}}",
   "應用：{{定性佳|性質}}（測定官能基、配方分析）；鑑別複雜樣品如{{裸錠|名詞}} [112-2]、分析胜肽藥品三度空間變化、測固態藥品{{多形體|名詞}}（靈敏度 > X-ray／中紅外光）",
@@ -2384,7 +2385,7 @@ t(30, "拉曼光譜", "30-1", "raman-applications", "拉曼光譜：圖譜、優
 
 /* ================= CH31 光譜分析－原子光譜（AES/AAS）（講義 31-1～） ================= */
 chS(31, "原子光譜（AES/AAS）", "31-1～");
-t(31, "原子放射光譜 vs 原子吸收光譜", "31-1", "aes", "原子放射光譜（Atomic emission spectroscopy, AES）", "AES", [
+tY(31, "原子放射光譜 vs 原子吸收光譜", "31-1", "aes", "原子放射光譜（Atomic emission spectroscopy, AES）", "AES", [
   "原理：接收{{受激發之氣態待測原子|名詞}}電子能階轉移所發射的訊號",
   "儀器：霧化 → 火焰 → 單光器 → ★檢測器：{{Photosensitive cell|名詞}} [106-1、104-2]；原子發射波峰線很窄（< {{0.01nm|數值}}）[112-2]",
   "光源：{{無額外光源|性質}}（待測金屬本身即訊號發射源）",
@@ -2393,7 +2394,7 @@ t(31, "原子放射光譜 vs 原子吸收光譜", "31-1", "aes", "原子放射�
   "定量分析時，須進行{{多濃度校正|名詞}} [109-2]，須先建立待測金屬{{檢量線|名詞}}",
   "靈敏度：高"
 ]);
-t(31, "原子放射光譜 vs 原子吸收光譜", "31-1", "aas", "原子吸收光譜（Atomic absorption spectroscopy, AAS）", "AAS", [
+tY(31, "原子放射光譜 vs 原子吸收光譜", "31-1", "aas", "原子吸收光譜（Atomic absorption spectroscopy, AAS）", "AAS", [
   "原理：{{中空陰極管|名詞}}塗佈目標金屬 → 測定檢品參與電子能階轉移的{{吸光度|名詞}} [111-2、94-2]",
   "儀器：鎢陽極、中空陰極燈、含{{惰性氣體（Ne/Ar）|物質}} [113-1] → 火焰 → 單光器 → 檢測器：Photosensitive cell 光敏感電池",
   "[96-1] 檢品常溶於 {{0.1M HNO₃|物質}} 以避免形成不易揮發氧化物而降低讀",
@@ -2403,31 +2404,31 @@ t(31, "原子放射光譜 vs 原子吸收光譜", "31-1", "aas", "原子吸收�
   "應用：鈣、鎂、鎳等★{{金屬限量試驗|名詞}} [113-2、107-1]",
   "靈敏度：{{普遍更高|性質}} [107-1]"
 ]);
-t(31, "原子放射光譜 vs 原子吸收光譜", "31-1", "flame", "火焰（溫度、氧化劑、燃料）", "火焰", [
+tY(31, "原子放射光譜 vs 原子吸收光譜", "31-1", "flame", "火焰（溫度、氧化劑、燃料）", "火焰", [
   "[104-1]",
   "{{2000°C|數值}}：氧化劑 {{壓縮空氣|物質}} compressed air；燃料 {{天然氣|物質}} natural gas",
   "{{2500°C|數值}}：氧化劑 空氣；燃料 {{乙炔|物質}} acetylene",
   "{{3000°C|數值}} [108-2]：氧化劑 {{N₂O|物質}}（Nitrous oxide）；燃料 乙炔 acetylene"
 ]);
-t(31, "原子光譜 干擾校正：光譜干擾", "31-2", "spectral-interference", "光譜干擾", "光譜干擾", [
+tY(31, "原子光譜 干擾校正：光譜干擾", "31-2", "spectral-interference", "光譜干擾", "光譜干擾", [
   "{{較少發生|性質}} [115-1、112-2]，主因干擾物吸收／放射譜線，與分析物譜線{{重疊|名詞}}，導致無法完全分離",
   "⚠ 此干擾{{不受分析物濃度影響|性質}}，{{內標法或標準添加法|名詞}}不能用來校正原子吸收光譜法中的背景干擾"
 ]);
-t(31, "原子光譜 干擾校正：光譜干擾", "31-2", "continuum-source", "連續光源校正法（Continuum Source Background Correction）", "連續光源校正", [
+tY(31, "原子光譜 干擾校正：光譜干擾", "31-2", "continuum-source", "連續光源校正法（Continuum Source Background Correction）", "連續光源校正", [
   "方法 [113-1]：{{阻斷器快速旋轉|名詞}}，讓兩種光源輪流照射樣品原子化器；交替測量有光與無光的訊號，{{扣除背景與雜訊|名詞}}，以取得準確的分析結果",
   "光源：① {{中空陰極燈|名詞}}專門發射{{目標元素|名詞}}的特定波長：測量{{總吸收值|名詞}}",
   "光源：② {{重氫燈（D₂）|物質}}提供連續的光譜：測量{{背景|名詞}}吸收值"
 ]);
-t(31, "原子光譜 干擾校正：光譜干擾", "31-2", "smith-hieftje", "Smith-Hieftje 校正法", "Smith-Hieftje", [
+tY(31, "原子光譜 干擾校正：光譜干擾", "31-2", "smith-hieftje", "Smith-Hieftje 校正法", "Smith-Hieftje", [
   "切換中空陰極燈的{{電流強度|名詞}}",
   "{{高電流|名詞}}時：產生{{自吸收|名詞}}效應，主要僅測到{{背景吸收|名詞}}",
   "{{低電流|名詞}}時：測量到{{總吸收|名詞}}（分析物 ＋ 背景吸收）",
   "兩者吸收相減，能得到分析物的真實吸收，改善{{訊號／雜訊比|名詞}}"
 ]);
-t(31, "原子光譜 干擾校正：光譜干擾", "31-2", "zeeman", "Zeeman 效應校正法", "Zeeman", [
+tY(31, "原子光譜 干擾校正：光譜干擾", "31-2", "zeeman", "Zeeman 效應校正法", "Zeeman", [
   "利用{{磁場|名詞}}使分析物吸收線{{分裂|反應}}，而背景不變，藉此分離並扣除背景吸收"
 ]);
-t(31, "★★AES 化學干擾★★", "31-2", "aes-chemical-interference", "★★AES 化學干擾★★：離子化、陰離子、黏度", "AES 化學干擾", [
+tY(31, "★★AES 化學干擾★★", "31-2", "aes-chemical-interference", "★★AES 化學干擾★★：離子化、陰離子、黏度", "AES 化學干擾", [
   "[考爆]",
   "{{離子化|名詞}}：成因：樣品金屬原子因高溫而離子化，導致能夠放射光的中性原子數量減少，造成讀數變{{低|性質}}",
   "離子化：解方：＋ {{氯化鍶 SrCl₂|物質}} 產生高濃度電子，抑制分析物的游離（如：抑制 KCl 的鉀離子化）",
@@ -2435,7 +2436,7 @@ t(31, "★★AES 化學干擾★★", "31-2", "aes-chemical-interference", "★�
   "陰離子：解方：＋ {{氯化鑭 LaCl₃|物質}} 由氯離子取代而去除分析離子的沉澱",
   "{{黏度|名詞}}：蔗糖黏度大 → 降低速率 → 讀數偏{{低|性質}}；乙醇黏度小 → 增加速率 → 讀數偏{{高|性質}}"
 ]);
-t(31, "原子光譜升級版", "31-3", "icp-aes", "感應耦合電漿放射光譜法（ICP-AES）", "ICP-AES", [
+tY(31, "原子光譜升級版", "31-3", "icp-aes", "感應耦合電漿放射光譜法（ICP-AES）", "ICP-AES", [
   "Inductively Coupled Plasma – Atomic Emission Spectroscopy；Sample → Plasma → Spectrometer → {{Multi-element detector|名詞}}",
   "原理：以高強度{{無線電輻射|名詞}}加熱{{氬氣（Ar）|物質}}產生高溫（{{6000~8000°C|數值}}）而激發所有元素後使其發散輻射 [114-1]，再經有效的單色光鏡及電腦數據處理譜線",
   "優勢：具高靈敏度與專一性；可{{同時測定多種元素|性質}}，利用{{多通道檢測器|名詞}}（如光電倍增管或 Charge-Coupled Device）快速分析多個波長，實現準確定量測定",
@@ -2445,19 +2446,19 @@ t(31, "原子光譜升級版", "31-3", "icp-aes", "感應耦合電漿放射光�
 
 /* ================= CH32 光譜分析－旋光度測定法（講義 32-1） ================= */
 chS(32, "旋光度測定法", "32-1");
-t(32, "旋光度儀器（polarimeter）", "32-1", "polarimeter", "旋光度儀器（polarimeter）", "旋光度儀器", [
+tY(32, "旋光度儀器（polarimeter）", "32-1", "polarimeter", "旋光度儀器（polarimeter）", "旋光度儀器", [
   "[113-2、110-2、93]；溫度：{{25°C|數值}}",
   "光源：{{鈉光 D 射線|名詞}}（{{589nm|數值}}）→ 非偏極光 → {{起偏鏡|名詞}}（Nicol prism）→ 平面偏極光 → 儲液管 → a ＝ 旋光度 → {{檢偏鏡|名詞}}（Nicol prism）→ 檢測器",
   "{{半影稜鏡|名詞}}（石英薄片）：調整視野亮度，易定位檢偏鏡；於平面偏極光與儲液管之間",
   "儲液管：含檢品，常用 {{1、2dm|數值}}，{{不可含氣泡|性質}}"
 ]);
-t(32, "旋光度測定法", "32-1", "optical-rotation", "旋光度測定：原理、標準、★旋光度 a", "旋光度原理", [
+tY(32, "旋光度測定法", "32-1", "optical-rotation", "旋光度測定：原理、標準、★旋光度 a", "旋光度原理", [
   "原理：利用{{光學活性|名詞}}化合物能使偏極光之平面旋轉的特性，測定液體檢品光學活性（★{{無光學活性物質無法極化|性質}}）[111-2、110-1]",
   "標準：精確度至少應達 {{0.02°|數值}}；測定至少{{五次|數值}}求平均值（口訣：澎湖玄武岩）（⚠ 比較：CH33 折光率為 三次 一波三折）",
   "★旋光度 a：與儲液管{{長度|名詞}}成正比（越長偏越多）[113-2]，與溶液{{濃度|名詞}}、溶劑、溫度、{{波長|名詞}}（波長短 → 旋光度大）相關",
   "光學屬性由儀器測量以（＋）／（−）分別表示{{右旋／左旋|名詞}}（⚠ 注意：與立體結構由大分子在哪邊決定 右式 D／左式 L，或 R/S 組態 {{無關|性質}}！）"
 ]);
-t(32, "旋光度測定法", "32-1", "specific-rotation", "★比旋光度 [α]", "比旋光度", [
+tY(32, "旋光度測定法", "32-1", "specific-rotation", "★比旋光度 [α]", "比旋光度", [
   "[考爆]",
   "[α]ᴰ²⁵ ＝ {{100a／lc|名詞}}（濃度數值以括號附註於比旋光度數值後方）",
   "（鏡像混合物 α：將純 α 值依 ＋／− 乘各佔比再相加即是）",
@@ -2465,7 +2466,7 @@ t(32, "旋光度測定法", "32-1", "specific-rotation", "★比旋光度 [α]",
   "25 ＝ 溫度（通常為 25°C）[114-2]；D ＝ 表示光源為 鈉光 D 射線（589nm，固定波長的單色光）",
   "l ＝ 儲液管長度（單位：{{公寸 dm|名詞}} 1dm ＝ 10cm ＝ 100 mm）[107-2]；c ＝ 檢品濃度（單位：{{g/100mL|名詞}}）[111-1]"
 ]);
-t(32, "旋光度測定法", "32-1", "rotation-applications", "旋光度應用", "旋光度應用", [
+tY(32, "旋光度測定法", "32-1", "rotation-applications", "旋光度應用", "旋光度應用", [
   "鑑別{{具光學活性|性質}}藥物之真偽、純雜、含量 [107-1]",
   "{{揮發油|名詞}}（精油）（⚠ {{脂肪油無光學活性|性質}}不用旋光度鑑別，連結：CH12 脂肪測定法）",
   "{{葡萄糖注射液|名詞}}的葡萄糖 [108-1]：＋ {{氨水|物質}}加速 {{mutarotation 變旋|名詞}}使 α 跟 β form 加速平衡 [93-1、91-2]",
@@ -2476,7 +2477,7 @@ t(32, "旋光度測定法", "32-1", "rotation-applications", "旋光度應用", 
 
 /* ================= CH33 光譜分析－折光率測定法（講義 33-1） ================= */
 chS(33, "折光率測定法", "33-1");
-t(33, "折光率測定法", "33-1", "refractive-index", "★折光率：原理與通式", "折光率通式", [
+tY(33, "折光率測定法", "33-1", "refractive-index", "★折光率：原理與通式", "折光率通式", [
   "原理：光線經不同介質，{{密度|名詞}}不同導致折射率不同的原理鑑別化合物",
   "★折光率 ＝ 折射率 [考爆]：光線{{入射角之正弦|名詞}}與其{{折射角正弦|名詞}}之比；折光率 ＝ sin i／sin r（範圍 ＝ {{1.300~1.700|數值}}）[109-2、103-1]",
   "藥典：通常係指光線在{{空氣|名詞}}中與在該物質中之{{速度比|名詞}}",
@@ -2484,13 +2485,13 @@ t(33, "折光率測定法", "33-1", "refractive-index", "★折光率：原理�
   "{{Snell's Law|名詞}}：n₁ sin i ＝ n₂ sin r；入射臨界角（折射角為直角）時：n₁ sin i ＝ n₂ sin90°，n₁ sin i ＝ n₂",
   "{{絕對折射率|名詞}}：n ＝ 光在真空中的速度／光在介質中的傳播速度 ＝ c／v"
 ]);
-t(33, "折光率測定法", "33-1", "abbe-refractometer", "折光率：儀器、應用", "Abbe 折射計", [
+tY(33, "折光率測定法", "33-1", "abbe-refractometer", "折光率：儀器、應用", "Abbe 折射計", [
   "★{{阿貝式折射計|名詞}}（Abbe Refractometer）[110-2]：含兩片{{恆溫稜鏡|名詞}}，可更換光源使用 [106-2]",
   "光源：{{鎢燈|物質}}（讀數刻度校正後的白光）or {{鈉光 D 射線 589nm|名詞}}（黃光）[108-2、112-2、114-1]",
   "＊替代：具有同等精確度之其他種類儀器亦可應用",
   "應用：藥物鑑別（{{定性|名詞}}）或{{定量|名詞}} [106-2]、★{{純度|名詞}} [111-2、109-2、108-2]、雜質、{{濃度|名詞}} [110-2] 等檢測"
 ]);
-t(33, "折光率測定法", "33-1", "refractive-standards", "折光率：標準、校正、影響因素", "折光率標準", [
+tY(33, "折光率測定法", "33-1", "refractive-standards", "折光率：標準、校正、影響因素", "折光率標準", [
   "測定至少★{{三次|數值}}求平均值（口訣：一波三折）（⚠ 比較：CH32 旋光率為五次 澎湖玄武岩）[111-2、109-2、108-2]",
   "折射率溫度：{{揮發油|名詞}} {{20°C|數值}}；標準溫度 {{25°C|數值}}；{{玫瑰油|名詞}} {{30°C|數值}}",
   "校正：{{固體檢品|名詞}}須在檢品塗上 {{1-bromonaphthalene|物質}} 以固定於折射稜鏡上 [103-2]，液體檢品滴上能形成薄膜之檢液即可",
@@ -2502,14 +2503,14 @@ t(33, "折光率測定法", "33-1", "refractive-standards", "折光率：標準�
 /* ================= CH34 光譜分析－核磁共振光譜測定（NMR）（講義 34-1～） =================
    講義 34-1 拍攝時上下顛倒，已轉正閱讀。 */
 chS(34, "核磁共振光譜（NMR）", "34-1～");
-t(34, "NMR 概論", "34-1", "nmr-principle", "NMR 原理", "NMR 原理", [
+tY(34, "NMR 概論", "34-1", "nmr-principle", "NMR 原理", "NMR 原理", [
   "[94-2]",
   "{{無線電頻率|名詞}}激發後的帶正電原子核在{{強力外加磁場|名詞}}中，其旋轉方向會從原來與磁場平行同向變成和磁場相反的方向，即由{{順向（低能）→ 逆向（高能）|名詞}}，之後又快速{{跳回順向|名詞}}，如此產生動態循環後，偵測這些訊號並傳立葉轉換成波峰圖分析之",
   "裝置：磁鐵、檢品管、{{無線電波發射器|名詞}}、偵測器、磁極控制器；質子於磁場中{{核自旋|名詞}}產生順逆向",
   "無線電頻率為電磁光譜中{{波長最長、能量最低|性質}}的電磁光（{{0.6~10m|數值}}）[96-2]；無線電波以{{脈衝波|名詞}}激發★ [110-2、112-1、115-1]",
   "外加磁場：儀器操作頻率以 {{MHz|名詞}} 表示，磁場強度與靈敏度／解析度成{{正比|性質}} [113-2]"
 ]);
-t(34, "NMR 概論", "34-1", "nmr-quantum", "量子定律", "量子定律", [
+tY(34, "NMR 概論", "34-1", "nmr-quantum", "量子定律", "量子定律", [
   "[113-2]",
   "ΔE ＝ hν ＝ {{hγHo／2π|名詞}}",
   "ΔE：能階差（單位 J）；h：普朗克常數 ＝ 6.62 × 10⁻²⁷ erg·sec ＝ 6.62 × 10⁻³⁴ J·sec",
@@ -2517,21 +2518,21 @@ t(34, "NMR 概論", "34-1", "nmr-quantum", "量子定律", "量子定律", [
   "H₀（B₀）：外加固定磁場的強度，為造成{{電磁波頻率改變|名詞}}的主要因素 [107-2]（單位 T）",
   "γ：{{磁旋比|名詞}}（Gyromagnetic ratio）／迴轉磁比（Magnetogyric ratio），各原子核有各常數；2π：常數"
 ]);
-t(34, "NMR 概論", "34-1", "nuclear-spin", "★★自旋量子數 I★★", "自旋量子數", [
+tY(34, "NMR 概論", "34-1", "nuclear-spin", "★★自旋量子數 I★★", "自旋量子數", [
   "[考爆]",
   "{{I ＝ 1/2|名詞}}：¹H、¹³C、¹⁵N、¹⁹F、³¹P（{{質量數為奇數|性質}}）#輕嘆但服您；在磁場中{{會旋轉|性質}}，NMR 最常使用{{氫譜、碳譜|名詞}}",
   "{{I ＝ 1|名詞}}：²H（D）、¹⁴N（質量數為偶數，原子序為奇數）；在磁場中仍會旋轉，但能量的改變很慢，圖譜寬廣重疊，故{{不用來測定|性質}}",
   "{{I ＝ 0|名詞}}：¹²C、¹⁶O、³²S（{{質量數、原子序皆為偶數|性質}}）；在磁場中{{不旋轉|性質}}，無能量差別，{{無法測定|性質}}",
   "I ＝ 3/2：{{³⁵Cl|物質}}；I ＝ 5/2：{{¹⁷O|物質}} [112-1]；特殊情形無法常理推論，也不常用來測定，建議直接記起來"
 ]);
-t(34, "NMR 概論", "34-2", "nmr-spin-direction", "原子核自旋方向與能階分配", "自旋方向", [
+tY(34, "NMR 概論", "34-2", "nmr-spin-direction", "原子核自旋方向與能階分配", "自旋方向", [
   "[96]；原子核自旋方向 [105-2]：在一均勻外加磁場下，{{自旋量子數 I|名詞}} 的原子核有 {{2I＋1|名詞}} 個自旋方向（例：I ＝ 1/2 的原子核有 {{2|數值}} 種自旋方向，即順向／逆向）",
   "{{順向|名詞}}（低能階狀態，{{α-spin state|名詞}}）：在一外加磁場 B₀ 下，核自旋方向為順向於外加磁場；安定、數量{{較多|性質}}",
   "{{逆向|名詞}}（高能階狀態，{{β-spin state|名詞}}）：給予一個特定能量，原子核自旋方向會逆向於外加磁場；不安定、數量較少",
   "能階分配 [102-2、91-1]：逆向（高能階）／順向（低能階）＝ N_H／N_L ＝ N₋₁/₂／N₊₁/₂ ＝ {{e^（−ΔE／KT）|名詞}}（ΔE：能階差；K：{{Boltzmann constant|名詞}}（1.38 × 10⁻²³ J/K ＝ 1.38 × 10⁻¹⁶ erg/K）；T：絕對溫度（273＋°C））",
   "{{平衡狀態|名詞}}：順向的核數量較多；{{飽和狀態|名詞}}：N₋₁/₂ ＝ N₊₁/₂，{{訊號停止|性質}}"
 ]);
-t(34, "NMR 概論", "34-2", "nmr-applications", "NMR 應用、溶劑、檢品量、★圖譜", "NMR 應用", [
+tY(34, "NMR 概論", "34-2", "nmr-applications", "NMR 應用、溶劑、檢品量、★圖譜", "NMR 應用", [
   "應用：有利於{{分離混合物|名詞}}，可利用化合物的指紋圖譜做比對，{{檢品可回收|性質}} [115-2、104-2]",
   "分析正確立體{{結構特徵|名詞}}（¹H）、{{分子骨架|名詞}}（¹³C）；⚠ {{不能測分子量|性質}}★★ [考爆]（測分子量請連結 CH25 質譜儀）",
   "測不純物，在{{掌性環境|名詞}}下測鏡像異構物的不純物（D/L form）；{{定量|名詞}}配方中的藥品含量",
@@ -2541,7 +2542,7 @@ t(34, "NMR 概論", "34-2", "nmr-applications", "NMR 應用、溶劑、檢品量
   "★圖譜 [111-1、105-2]：訊號{{數量|名詞}}：顯示原子種類的數目，有幾種等位的質子；訊號{{位置|名詞}}：顯示原子是否被遮蔽，各自的化學位移",
   "訊號{{分裂|名詞}}：顯示相鄰原子所接的 H 數目（或其他會造成耦合分裂的質子）；訊號{{強度|名詞}}：顯示該種化學位移等價的原子之數目（{{面積比|名詞}}）"
 ]);
-t(34, "NMR 氫譜（¹H）：化學位移", "34-3", "chemical-shift", "化學位移（¹H 譜）：公式、單位、標準品、成因", "化學位移", [
+tY(34, "NMR 氫譜（¹H）：化學位移", "34-3", "chemical-shift", "化學位移（¹H 譜）：公式、單位、標準品、成因", "化學位移", [
   "化學位移 δ（ppm）＝（檢品共振頻率（Hz）− {{標準品 TMS 共振頻率|名詞}}（Hz））／ {{儀器頻率|名詞}}（MHz）",
   "單位：{{ppm|名詞}}（百萬分之一），為一個{{比值|名詞}}",
   "標準品 [103-2、9X]：{{四甲基矽烷 TMS|物質}}（Tetramethylsilane）：設定其化學位移為 {{0|數值}}",
@@ -2550,7 +2551,7 @@ t(34, "NMR 氫譜（¹H）：化學位移", "34-3", "chemical-shift", "化學位
   "TMS：沸點低，易揮發 → 易排除；化學活性低 → 不易與檢品反應；便宜且易溶於有機溶劑",
   "成因：{{電子雲遮蔽作用|名詞}} shielding effect：電子繞著原子核旋轉，形成與外加磁場反向的磁場，而抵銷外加磁場的強度 → 原子實際感受的磁場強度，與外加磁場強度有所差異"
 ]);
-t(34, "NMR 氫譜（¹H）：化學位移", "34-3", "inductive-effect", "化學位移影響因素：陰電性效應（誘導效應）", "誘導效應", [
+tY(34, "NMR 氫譜（¹H）：化學位移", "34-3", "inductive-effect", "化學位移影響因素：陰電性效應（誘導效應）", "誘導效應", [
   "⚠ 化學位移 δ（ppm）★{{不因儀器的磁場頻率而改變|性質}} [113-2、109-1]，而是與{{溶劑、氫鍵、溫度、特殊效應|名詞}}有關",
   "{{陰電性效應|名詞}}（誘導效應 inductive effect）[106-2、115-1]：H 外圍電子越容易被誘導拉走，H 電子雲密度下降 → 產生{{去遮蔽|名詞}} → 化學位移越{{大|性質}}",
   "★具陰電性的取代基電負度越大／數量越多／距離 H 越近 → δ 越大；例：{{HF|物質}} > HCl > HBr > HI [108-2]／CHCl₃（δ ＝ 7.27）> CH₂Cl₂ > CH₃Cl [102-1]／CH₂Br > CH₂-CH₂Br > CH₂-CH₂-CH₂Br",
@@ -2558,7 +2559,7 @@ t(34, "NMR 氫譜（¹H）：化學位移", "34-3", "inductive-effect", "化學�
   "{{去活化基|名詞}}（拉電子基）→ 使 H 化學位移 δ {{變大|性質}}：強：{{-NO₂ -COOH -COOR|結構}}；中：-NH₃⁺；弱：-Cl（放在間／對位時為例外，δ 反而會變小）；Ho → δ 變大大大，Hp → δ 變大大，Hm → δ 變大",
   "{{活化基|名詞}}（推電子基）→ 使 H 化學位移 δ {{變小|性質}}：強：{{-NH₂ -OH|結構}}；中：-OR -OCH₃；弱：-CH₃ -R（碳氫鏈）-OCOCH₃；Ho → δ 變小小小，Hp → δ 變小小，Hm → δ 變小"
 ]);
-t(34, "NMR 氫譜（¹H）：化學位移", "34-4", "anisotropic-effect", "化學位移影響因素：各向異性（環電流）效應 anisotropic effect", "各向異性", [
+tY(34, "NMR 氫譜（¹H）：化學位移", "34-4", "anisotropic-effect", "化學位移影響因素：各向異性（環電流）效應 anisotropic effect", "各向異性", [
   "[115-2、99-2]",
   "{{苯環|名詞}}：δ ＝ {{7–8 ppm|數值}}；π 電子受外在磁場誘導，產生{{感應電流|名詞}}，苯環內形成遮蔽區；苯環外形成去遮蔽區",
   "{{烯基|名詞}}：δ ＝ {{5–7 ppm|數值}}；C＝C 有 π 電子雲，形成電子流，H 位在和磁力線方向{{同向|性質}}",
@@ -2566,7 +2567,7 @@ t(34, "NMR 氫譜（¹H）：化學位移", "34-4", "anisotropic-effect", "化�
   "苯環、烯基、醛基：H {{去遮蔽|名詞}} → δ 大",
   "{{乙炔|名詞}}：δ ＝ {{2–3 ppm|數值}}；C≡C 上的 H 位在和磁力線方向{{反向|性質}}；H {{遮蔽|名詞}} → δ 小"
 ]);
-t(34, "NMR 氫譜（¹H）：化學位移", "34-4", "h-nmr-shifts", "★★¹H 譜訊號峰之化學位移★★", "¹H 化學位移表", [
+tY(34, "NMR 氫譜（¹H）：化學位移", "34-4", "h-nmr-shifts", "★★¹H 譜訊號峰之化學位移★★", "¹H 化學位移表", [
   "[考爆]；以下為約略參考值，實際更詳細需評估周圍環境",
   "{{-1~0|數值}}：{{10π 共軛烯電子環內|名詞}}的 H（環內電子位於逆向區，比 TMS 高度遮蔽）",
   "{{0~2|數值}}：碳鏈 C 上所接 CH₃、CH₂、CH 的 H < 烯 C＝C 上所接 CH₃ 的 H",
@@ -2575,12 +2576,12 @@ t(34, "NMR 氫譜（¹H）：化學位移", "34-4", "h-nmr-shifts", "★★¹H �
   "{{5~6|數值}}：{{烯 C＝C|名詞}} 上的 H；{{6~8|數值}}：{{苯環 C₆H₅|名詞}} 上的 H",
   "{{9|數值}}：{{醛 CHO|名詞}} 上的 H；{{10~12|數值}}：{{酸 COOH|名詞}} 上的 H"
 ]);
-t(34, "NMR 氫譜（¹H）：偶合分裂", "34-5", "equivalent-protons", "等位質子", "等位質子", [
+tY(34, "NMR 氫譜（¹H）：偶合分裂", "34-5", "equivalent-protons", "等位質子", "等位質子", [
   "判斷 [109-2]：將欲鎖定質子（H）嘗試替換取代成其他非本結構出現原子，若替換取代後得到{{相同產物|名詞}} → 即為{{等位質子|名詞}}（等位氫），為相同的化學位移訊號峰，{{不會偶合分裂|性質}}",
   "範例：{{丙酮|物質}}：有對稱軸，且單鍵可以旋轉，因此六個氫皆為等位氫，有{{一個|數值}}訊號峰（δ ＝ 2.16）",
   "範例：{{乙酸甲酯|物質}}：有兩組等位氫，有{{兩個|數值}}訊號峰（δ ＝ 2.05、3.66）"
 ]);
-t(34, "NMR 氫譜（¹H）：偶合分裂", "34-5", "coupling-cause", "偶合成因與偶合常數", "偶合常數", [
+tY(34, "NMR 氫譜（¹H）：偶合分裂", "34-5", "coupling-cause", "偶合成因與偶合常數", "偶合常數", [
   "偶合成因 [104-1]：碳上的氫（H_B）自旋時產生的磁場可能會影響鄰近碳（通常是{{隔壁碳|名詞}}）上的{{不等位氫|名詞}}（H_A）→ 造成 H_A 的譜線{{分裂|反應}}",
   "H_B 對 H_A 產生的影響有兩種可能（{{1：1|數值}}）：H_B 自旋產生的磁場方向與 H_A 的外加磁場{{相同|性質}} → 造成{{去遮蔽|名詞}}，H_A 感受到的磁場增強 → δ ↑；方向{{相反|性質}} → 造成{{遮蔽|名詞}}，H_A 感受到的磁場變弱 → δ ↓",
   "低場（δ 大）Downfield；高場（δ 小）Upfield；Δδ（ppm）多重峰間距",
@@ -2588,7 +2589,7 @@ t(34, "NMR 氫譜（¹H）：偶合分裂", "34-5", "coupling-cause", "偶合成
   "影響因子：⚠ 偶合常數 J（Hz）與儀器之工作頻率、★{{磁場強度無關|性質}} [110-1、102-2]，與{{溫度|名詞}}（詳見 34-10 頁甲醇圖譜）、{{鍵結關係|名詞}}有關",
   "J（ppm）隨著磁場強度增加而{{減少|性質}} → 磁場強度愈大，各不等位質子間的訊號愈不會重疊，比對價值較高；＊鄰近質子間的偶合常數約 {{0~20Hz|數值}}"
 ]);
-t(34, "NMR 氫譜（¹H）：偶合分裂", "34-6", "coupling-distance", "影響因子：鍵結距離", "鍵結距離", [
+tY(34, "NMR 氫譜（¹H）：偶合分裂", "34-6", "coupling-distance", "影響因子：鍵結距離", "鍵結距離", [
   "在 J 的左上方標示兩個氫核在分子中{{相隔化學鍵的數目|名詞}}（例：³J 表示透過三個化學鍵互相影響的兩個氫核）",
   "²J {{Geminal coupling|名詞}}：發生在接在{{同碳上|名詞}}的兩個氫原子在{{立體化學|名詞}}上彼此不同時",
   "³J {{Vicinal coupling|名詞}}：最常見，即接在{{隔壁碳上|名詞}}的氫；可發生在★苯環的{{鄰位|名詞}}（J ＝ {{7~9|數值}}）[114-2、111-1]",
@@ -2596,20 +2597,20 @@ t(34, "NMR 氫譜（¹H）：偶合分裂", "34-6", "coupling-distance", "影響
   "長距偶合 ⁴J：{{間位|名詞}}的氫（J ＝ {{2~3|數值}}）[114-2]；特殊幾何形狀間角度形成 {{ω 偶合|名詞}}，可判斷萜類、固醇類、醣類等的取代基位置",
   "長距偶合 ⁵J：少見，發生在苯環的{{對位|名詞}}的氫（J < {{1|數值}}）"
 ]);
-t(34, "NMR 氫譜（¹H）：偶合分裂", "34-6", "coupling-angle", "影響因子：鍵結夾角（Karplus 關係）", "鍵結夾角", [
+tY(34, "NMR 氫譜（¹H）：偶合分裂", "34-6", "coupling-angle", "影響因子：鍵結夾角（Karplus 關係）", "鍵結夾角", [
   "²J：{{同碳上|名詞}}的質子（氫）夾角影響：θ ＝ {{100|數值}} 時偶合常數很大（J ＝ 30~40）；θ ＝ {{120|數值}} 時幾乎不會偶合（J ＝ 0~10）",
   "³J {{Karplus 關係|名詞}}：鄰碳質子夾角（氫）影響",
   "θ ＝ {{180|數值}} 時 或 {{Axial-axial 軸向-軸向|名詞}} 偶合常數 {{最大|性質}}★ [114-2、114-1、111-2]",
   "θ ＝ 90~180 之間 或 {{axial-equatorial 軸向-赤道|名詞}} 偶合常數 次之",
   "θ ＝ {{90|數值}} 時 或 {{equatorial-equatorial 赤道-赤道|名詞}} 偶合常數 {{最小|性質}}（連結：實際範例數值看第 34-14 頁）"
 ]);
-t(34, "NMR 氫譜（¹H）：偶合分裂", "34-7", "heterocycle-coupling", "影響因子：雜環", "雜環偶合", [
+tY(34, "NMR 氫譜（¹H）：偶合分裂", "34-7", "heterocycle-coupling", "影響因子：雜環", "雜環偶合", [
   "距離{{雜原子|名詞}}較近的鍵結偶合常數{{明顯減少|性質}}",
   "例：pyridine ortho₂,₃ ＝ 4.0-5.7 Hz、ortho₃,₄ ＝ 6.8-9.1 Hz；pyrrole ortho₂,₃ ＝ 2.6 Hz、ortho₃,₄ ＝ 3.4 Hz [112-2]；thiophene ortho₂,₃ ＝ 4.7 Hz、ortho₃,₄ ＝ 3.4 Hz；selenophene ortho₂,₃ ＝ 5.4 Hz、ortho₃,₄ ＝ 3.4 Hz",
   "雜環芳香族系統中，受{{電負性取代基|名詞}}影響，通常距離雜原子較近的鍵結偶合常數明顯減少（大多 < {{5Hz|數值}}）",
   "{{五圓環|名詞}}（-ole）跟{{六圓環|名詞}}（-dine）相比之下，五圓環（-ole）的鄰位質子比六圓環的更加接近電負性雜原子，也可發現偶合常數{{較小|性質}}"
 ]);
-t(34, "NMR 氫譜（¹H）：偶合分裂", "34-7", "splitting-rules", "分裂規則", "分裂規則", [
+tY(34, "NMR 氫譜（¹H）：偶合分裂", "34-7", "splitting-rules", "分裂規則", "分裂規則", [
   "[考爆]",
   "★分裂峰數：偶合導致分裂成 {{2NI＋1|名詞}} 個峰（N ＝ 偶合的不等位質子數量，I ＝ 自旋量子數）",
   "以氫偶合為例，¹H 的 I ＝ 1/2，因此帶入 2NI＋1 ＝ 會使分裂成 {{N＋1|名詞}} 個峰",
@@ -2621,7 +2622,7 @@ t(34, "NMR 氫譜（¹H）：偶合分裂", "34-7", "splitting-rules", "分裂�
   "{{DMSO 殘餘溶劑|名詞}}：dimethyl sulfoxide-d5：H 受到 2 個 D 偶合，D 的 I ＝ {{1|數值}} → 分裂成 2 × 2 × 1 ＋ 1 ＝ {{5|數值}} 重峰 [103]",
   "註：{{Cl, Br, I|物質}} 通常因訊號太弱，在常規 NMR 光譜上看不到明顯分裂（當作{{不參與偶合分裂|性質}}）"
 ]);
-t(34, "NMR 氫譜（¹H）：判斷等價質子", "34-8", "topicity", "判斷等價質子：Enantiotopic、Diastereotopic、Homotopic", "等價質子判斷", [
+tY(34, "NMR 氫譜（¹H）：判斷等價質子", "34-8", "topicity", "判斷等價質子：Enantiotopic、Diastereotopic、Homotopic", "等價質子判斷", [
   "[113-1]",
   "{{Enantiotopic 對映異位|名詞}}：判斷：兩個取代基交換位置後，產生光學{{鏡像異構物|名詞}}（enantiomers）",
   "Enantiotopic 影響：兩個互為 enantiotopic 的取代基，在{{非掌性|性質}}（achiral）的環境中，化學性質相同 → 在 NMR 上也具有{{相同的 δ|名詞}}，並{{不會互相分裂|性質}}（例：CH₂ClBr → (R)、(S)）",
@@ -2630,28 +2631,28 @@ t(34, "NMR 氫譜（¹H）：判斷等價質子", "34-8", "topicity", "判斷等
   "{{Homotopic 等位質子|名詞}}：判斷：兩個取代基交換位置後，產生{{完全相同|性質}}（可互相重疊）的化合物（例：CH₂Cl₂，前者上下顛倒後與後者相同）",
   "Homotopic 影響：兩個互為 homotopic 的取代基，化學性質皆為相同 → 在 NMR 上的 δ 也相同，{{互不分裂|性質}}"
 ]);
-t(34, "NMR 氫譜（¹H）：系統劃分", "34-9", "first-order-systems", "系統劃分：一級系統（AX、AX₂、AMX、AMPX）", "一級系統", [
+tY(34, "NMR 氫譜（¹H）：系統劃分", "34-9", "first-order-systems", "系統劃分：一級系統（AX、AX₂、AMX、AMPX）", "一級系統", [
   "說明多個氫之間的偶合關係，利用 {{Δν／J|名詞}} 判斷（Δν（Hz）：兩氫原子間的{{化學位移差|名詞}}（影響重大）；J（Hz）：偶合常數（固定不變））；以英文字母排序表現出偶合後圖譜分裂的複雜度",
   "{{AX system|名詞}}（一級系統）：兩 H 之間 Δν/J > {{10|數值}}（Δν > 10 J），譜線分離，分離峰間隔相等，{{易判斷|性質}}",
   "{{AX₂ system|名詞}}（一級系統）：化學位移差距大，譜線分開清楚；接 R1 碳上兩個氫被隔壁一個氫偶合分裂成{{雙峰|名詞}}；接 R2 碳上一個氫被隔壁兩個氫偶合分裂成{{三峰|名詞}}",
   "{{AMX system|名詞}}（一級系統）Δν/J > {{3|數值}} [111-1]：化學位移差距彼此都大，譜線分開清楚；三者訊號都是 {{doublet of doublets|名詞}}",
   "{{AMPX system|名詞}}（一級系統）：化學位移差距彼此都大，譜線分開清楚（通常出現在{{鄰／間位雙取代芳香環|名詞}}上）"
 ]);
-t(34, "NMR 氫譜（¹H）：系統劃分", "34-9", "second-order-systems", "系統劃分：二級系統（AB、AB₂、ABX、ABC、AA′BB′）", "二級系統", [
+tY(34, "NMR 氫譜（¹H）：系統劃分", "34-9", "second-order-systems", "系統劃分：二級系統（AB、AB₂、ABX、ABC、AA′BB′）", "二級系統", [
   "{{AB system|名詞}}（二級系統）：兩 H 之間 Δν/J < {{10|數值}}，譜線太近，分離峰間隔不等，{{易誤判|性質}}；雙峰並不是 1：1 的比例；{{內部線條較大，外部線條較小|名詞}}",
   "{{AB₂ system|名詞}}（二級系統）：化學位移差距太小，譜線重疊不清楚；較容易發生在{{苯環上鄰近的質子|名詞}}",
   "{{ABX system|名詞}}（二級系統）[112-2]：兩個 H（AB）的化學位移{{相近|性質}}，譜線不清楚；但一個 H（X）的化學位移{{不相近|性質}}",
   "{{ABC system|名詞}}（二級系統）Δν/J 約 ＝ {{3|數值}}：化學位移差距太小，譜線重疊不清楚（看不懂啦要電腦幫忙）",
   "{{AA′BB′ system|名詞}}（二級系統）：結構上{{化學等價|名詞}}但實際上{{磁不等價|名詞}}；出現在 {{X-CH₂CH₂-Y|結構}} 基團中，其中 X 和 Y 具有類似的化學位移"
 ]);
-t(34, "NMR 氫譜（¹H）：圖譜分析", "34-10", "ethyl-acetate-nmr", "圖譜分析：乙酸乙酯（Ethyl acetate）", "乙酸乙酯 ¹H", [
+tY(34, "NMR 氫譜（¹H）：圖譜分析", "34-10", "ethyl-acetate-nmr", "圖譜分析：乙酸乙酯（Ethyl acetate）", "乙酸乙酯 ¹H", [
   "[111-1]（右下補充他的 ¹³C 圖譜）",
   "① 訊號數量：有{{三種|數值}}等位氫，訊號峰有三個",
   "② 訊號位置：Hx：為{{氧上所接 CH₂|結構}} 的 H，化學位移 δ ＝ {{3~5|數值}} 之間；Hy：為 {{C＝O 上 CH₃|結構}} 的 H，δ ＝ {{2~3|數值}} 之間；Hz：為 C 上所接 CH₃ 的 H，δ ＝ {{0~2|數值}} 之間",
   "③ 訊號分裂：Hx：被 3 個 Hz 偶合 → 2 × 3 ×（1/2）＋ 1 ＝ {{4 重峰|名詞}}；Hy：沒有被其他鄰近 H 偶合 → {{單峰|名詞}}；Hz：被 2 個 Hx 偶合 → 2 × 2 ×（1/2）＋ 1 ＝ {{3 重峰|名詞}}",
   "④ 訊號強度：Hx：4 重峰面積比 ＝ {{1：3：3：1|數值}}；Hy：高強度單峰；Hz：3 重峰面積比 ＝ {{1：2：1|數值}}"
 ]);
-t(34, "NMR 氫譜（¹H）：圖譜分析", "34-10", "methanol-nmr", "圖譜分析：甲醇（Methanol）", "甲醇 ¹H", [
+tY(34, "NMR 氫譜（¹H）：圖譜分析", "34-10", "methanol-nmr", "圖譜分析：甲醇（Methanol）", "甲醇 ¹H", [
   "於 {{−40°C|數值}} 分子動能下降，分子間交換變慢",
   "① 訊號數量：有{{兩種|數值}}等位氫，訊號峰有兩個",
   "② 訊號位置：Ha：為{{氧上所接 CH₃|結構}} 的 H，化學位移 δ ＝ 3~5 之間；Hb：為{{氧上所接的 H|結構}}，δ ＝ 3~5 之間且{{更大|性質}}",
@@ -2659,7 +2660,7 @@ t(34, "NMR 氫譜（¹H）：圖譜分析", "34-10", "methanol-nmr", "圖譜分�
   "④ 訊號強度：Ha：3 個 H 面積大，比例 1：1；Hb：4 重峰面積比 ＝ 1：3：3：1",
   "＊備註：甲醇於 {{31°C|數值}} 時，兩個訊號峰都呈現{{單峰|名詞}}；有 {{OH NH|結構}} 等分子間 H 交換快速，訊號／偶合易被{{抹平|性質}} [115-2]"
 ]);
-t(34, "NMR 氫譜（¹H）：圖譜分析", "34-11", "aspirin-nmr", "圖譜分析：Aspirin（乙醯水楊酸, Acetylsalicylic acid）", "Aspirin ¹H", [
+tY(34, "NMR 氫譜（¹H）：圖譜分析", "34-11", "aspirin-nmr", "圖譜分析：Aspirin（乙醯水楊酸, Acetylsalicylic acid）", "Aspirin ¹H", [
   "① 訊號數量：有{{六種|數值}}等位氫，訊號峰有六個",
   "② 訊號位置：H₉：為 {{C＝O 上 CH₃|結構}} 的 H，化學位移 δ ＝ 2~3 之間；苯環 δ：6~8（由小到大 H₂ → H₄ → H₃ → H₅）",
   "H₂：為 {{OCOCH₃（推電子基）|結構}}鄰位氫，化學位移 δ 變{{小|性質}}；H₄：為 COOH（拉電子基）{{間位|名詞}}氫，δ 變大但幅度最小",
@@ -2669,7 +2670,7 @@ t(34, "NMR 氫譜（¹H）：圖譜分析", "34-11", "aspirin-nmr", "圖譜分�
   "H₃：與 H₄ 相似；H₅：被 H₄ 偶合 → 2 重峰；H₇：沒有被偶合分裂",
   "④ 訊號強度：H₉：{{高強度單峰|名詞}}；H₂、H₄、H₃、H₅：分裂成多個矮小的峰；H₇：只有 1 個 H，訊號{{超小|性質}}的單峰"
 ]);
-t(34, "NMR 碳譜（¹³C）", "34-12", "c13-limits", "¹³C 碳譜：限制與化學位移", "¹³C 化學位移", [
+tY(34, "NMR 碳譜（¹³C）", "34-12", "c13-limits", "¹³C 碳譜：限制與化學位移", "¹³C 化學位移", [
   "限制：¹³C 自旋能被 NMR 光譜偵測，但在自然界中非常少 ¹²C：¹³C ＝ 100：{{1.1|數值}}",
   "限制：¹³C 磁旋比大約是氫的{{四分之一|數值}}，相對氫譜而言{{靈敏度較低|性質}}，需要較多量的檢品（> {{20mg|數值}}）、較長時間偵測 [114-2]",
   "限制：¹³C 與 ¹³C 間偶合可忽略；但 ¹H 與 ¹³C 間偶合明顯 → {{圖譜複雜|性質}}，須以質子{{去偶|名詞}}去除干擾",
@@ -2678,7 +2679,7 @@ t(34, "NMR 碳譜（¹³C）", "34-12", "c13-limits", "¹³C 碳譜：限制與�
   "{{60~90 ppm|數值}}：炔類／三鍵（sp）；★{{170~210 ppm|數值}} [114-1、110-1]：{{羰基|名詞}}（含 C＝O 酯、酸、醯胺、醛、酮）",
   "影響因素：{{軌域雜化|名詞}}（碳碳原子間混成軌域鍵結會影響了電子雲分布）"
 ]);
-t(34, "NMR 碳譜（¹³C）", "34-12", "c13-techniques", "¹³C 觀測方法與去偶技術", "去偶技術", [
+tY(34, "NMR 碳譜（¹³C）", "34-12", "c13-techniques", "¹³C 觀測方法與去偶技術", "去偶技術", [
   "{{DEPT|名詞}}（Distortionless Enhancement by Polarization Transfer）：峰不分裂，可區分{{不同級數的碳|名詞}}（但{{四級碳看不到|性質}}）",
   "DEPT-45：可測 1/2/3 級碳（峰皆向上）；{{DEPT-90|名詞}}：可測 {{3 級碳|名詞}}（峰向上）[113-1]；DEPT-135：可測 1 或 3 級碳（峰向上），{{2 級碳（峰向下）|名詞}}",
   "{{J mod 去偶|名詞}}：（四級碳訊號弱，易消失）時開時關地使用{{寬頻照射|名詞}}，消除 ¹H 與 ¹³C 間偶合，使每種碳原子只呈現出{{一條譜線|名詞}}；C、CH₂ 朝上；CH₃、CH 朝下",
@@ -2687,7 +2688,7 @@ t(34, "NMR 碳譜（¹³C）", "34-12", "c13-techniques", "¹³C 觀測方法與
   "{{C-D 間的偶合|名詞}}：用 {{MeOH-d4|物質}} 作為溶劑 → 呈 2 × 3 × 1 ＋ 1 ＝ {{7|數值}} 重峰（Septet）；用 {{CDCl₃|物質}} 作為溶劑 → 呈 2 × 1 × 1 ＋ 1 ＝ {{3|數值}} 重峰★ [110-1、102-1]",
   "應用：可測定{{不含氫官能基|名詞}}（氫譜測不到）[107-2]，例：-C＝O、-C＝C＝C-、-N＝C＝O 及測定每個碳的{{級數|名詞}}"
 ]);
-t(34, "NMR 升級版", "34-13", "nmr-2d", "NMR 升級版：2D、3D", "2D／3D NMR", [
+tY(34, "NMR 升級版", "34-13", "nmr-2d", "NMR 升級版：2D、3D", "2D／3D NMR", [
   "2D 關聯性鍵結偶合：同核 ¹H-¹H：{{COSY|名詞}}（質子-質子相關譜）：Correlation SpectroscopY，顯示{{質子間偶合關係|名詞}}，一般關聯影響不超過{{四個鍵結|數值}} [109-2]",
   "COSY 圖譜：{{對角線|名詞}}為訊號與其自身的相互關係，對角兩側訊息相同（只需解析單邊）",
   "{{TOCSY|名詞}}（總相關譜）：解析整體自旋系統之質子偶合 → 應用於{{寡糖|名詞}}的立體化學、胜肽結構胺基酸鑑定",
@@ -2696,7 +2697,7 @@ t(34, "NMR 升級版", "34-13", "nmr-2d", "NMR 升級版：2D、3D", "2D／3D NM
   "立體空間相關性：（縱向）★{{NOESY|名詞}}：Nuclear Overhauser Effect 應用於確認{{蛋白質空間資訊|名詞}} [110-1、105-2、99-2]；（橫向）{{ROESY|名詞}}：Rotating-frame Overhauser Effect 旋轉坐標系版的 NOESY，適用於各大小分子",
   "3D：{{NOESY-TOCSY、NOESY-NOESY|名詞}}"
 ]);
-t(34, "NMR 升級版", "34-13", "dosy", "NMR 原理衍生技術：擴散性光譜（DOSY）", "DOSY", [
+tY(34, "NMR 升級版", "34-13", "dosy", "NMR 原理衍生技術：擴散性光譜（DOSY）", "DOSY", [
   "Diffusion-ordered spectroscopy [114-1]",
   "原理：{{脈衝場梯度自旋回波|名詞}}：不同成分的{{擴散係數不同|名詞}}，透過調整梯度強度，使得各組分的共振信號以{{不同的衰減速率|名詞}}衰減；藉由陣列實驗計算每一成分指數衰退變化，應以完全分離的波峰進行計算",
   "優勢：可{{非破壞性|性質}}地分離混合物中的不同成分（不需要用傳統層析分離）；無需大量使用較貴的{{氘溶劑|物質}}作移動相，比 LC-NMR 划算",
@@ -2704,13 +2705,13 @@ t(34, "NMR 升級版", "34-13", "dosy", "NMR 原理衍生技術：擴散性光�
   "應用：區分混合物中的不同化學成分（如藥物分析、聚合物、溶劑效應研究）；可計算簡單混合物中每藥品的濃度，如分析 paracetamol 與 {{para-aminophenol|物質}}（分子較小，擴散係數較{{高|性質}}）",
   "應用：{{植物性用藥品管工具|名詞}}：可進行粗萃取物的{{去重複研究|名詞}}（dereplication：分離、鑑定並去除樣品中重複存在的化合物）"
 ]);
-t(34, "NMR 應用實例（細節補充）", "34-14", "nmr-glucose-tranexamic", "NMR 應用實例：Glucose、Tranexamic acid", "Glucose／TXA", [
+tY(34, "NMR 應用實例（細節補充）", "34-14", "nmr-glucose-tranexamic", "NMR 應用實例：Glucose、Tranexamic acid", "Glucose／TXA", [
   "{{Glucose|物質}}：以 C 上 H 的偶合常數判斷其鍵結是 {{α 或 β|名詞}}；J_ax-ax ＝ {{7~9|數值}} > J_ax-eq 2~3 > J_eq-eq {{1~2|數值}}（連結：夾角關係詳細看第 34-6 頁）",
   "{{Tranexamic acid|藥名}}（2D NMR-COSY）：位置 2 和位置 3 上的各四個質子看起來是等位的，但實際上因{{立體障礙|名詞}}，導致 axial 與 equatorial 不等位，產生偶合",
   "→ 位置 4 與 4′、3a 和 3e 質子偶合，理論上會產生 {{27|數值}} 條譜線（3 × 3 × 3 ＝ 27），但由於訊號重疊，實際上無法看清所有譜線",
   "→ {{axial|名詞}}（2a, 3a）的 J ＝ {{9~13 Hz|數值}} [109-2]，δ 比 equatorial {{小|性質}}；→ {{equatorial|名詞}}（2e, 3e）的 J ＝ {{2~5 Hz|數值}}，δ 比 axial {{大|性質}}"
 ]);
-t(34, "NMR 應用實例（細節補充）", "34-14", "nmr-paracetamol-qnmr", "NMR 應用實例：Paracetamol、Amyl nitrite、qNMR", "Paracetamol／qNMR", [
+tY(34, "NMR 應用實例（細節補充）", "34-14", "nmr-paracetamol-qnmr", "NMR 應用實例：Paracetamol、Amyl nitrite、qNMR", "Paracetamol／qNMR", [
   "{{Paracetamol|藥名}}：含 {{OH、NH|結構}}：O、N 上之 H 訊號在溶液中會不斷進行快速的分子間交換，且容易與溶劑或鄰近分子形成氫鍵 → 通常範圍比較寬廣，易重疊其他訊號而難以觀測",
   "→ 因此可藉由加入一滴{{重水 D₂O|物質}}或溶於 {{CD₃OD|物質}} 讓 D 取代 H 使訊號消失，如此可{{避免干擾|名詞}} [92-2]；→ 比對前後的 NMR 圖譜找出消失的訊號，即為 H 之訊號",
   "{{Amyl nitrite|藥名}}（亞硝酸戊酯）[102-2] 定量測定：傳統分析：以{{氮測定法|名詞}}定量時係測定反應生成的 {{N₂|物質}} 氣體容積，再推算含量",
@@ -2723,24 +2724,24 @@ t(34, "NMR 應用實例（細節補充）", "34-14", "nmr-paracetamol-qnmr", "NM
 /* ================= CH35 補充統整－生物製劑品管分析（講義 35-1～35-2） =================
    講義註明：紅膠囊沒有的內容，藍膠囊（第五版）新增。放在光譜分析島最後一章。 */
 chS(35, "生物製劑品管分析", "35-1～35-2");
-t(35, "生物製劑品管分析", "35-1", "biologics-analytes", "分析物：生物性藥品", "生物性藥品", [
+tY(35, "生物製劑品管分析", "35-1", "biologics-analytes", "分析物：生物性藥品", "生物性藥品", [
   "生物性藥品：多為{{胺基酸|名詞}}（結構連結第 20-8 頁）、胜肽、{{蛋白質|名詞}}組成，其中{{單株抗體|名詞}}是新藥發展的趨勢，許多是{{大分子|性質}}藥物",
   "Watson 中提到歐洲藥典的檢測：紅血球生成素（{{EPO|名詞}}）、alteplase、molgramostim、somatropin、干擾素 α-2a"
 ]);
-t(35, "分離技術（連結第 24-4 頁）", "35-1", "sds-page", "聚丙烯醯胺膠體電泳法（SDS-PAGE）", "SDS-PAGE", [
+tY(35, "分離技術（連結第 24-4 頁）", "35-1", "sds-page", "聚丙烯醯胺膠體電泳法（SDS-PAGE）", "SDS-PAGE", [
   "[113-2]；Sodium dodecyl-sulfate polyacrylamide gel electrophoresis",
   "原理：根據蛋白質{{分子量|名詞}}，受電場影響分離（較{{小|性質}}蛋白質在凝膠上移動得更遠）＋ 可結合{{免疫轉漬法|名詞}}",
   "缺點：{{解析度低|性質}}"
 ]);
-t(35, "分離技術（連結第 24-4 頁）", "35-1", "biologics-ief", "等電聚焦（Isoelectric Focusing）", "等電聚焦", [
+tY(35, "分離技術（連結第 24-4 頁）", "35-1", "biologics-ief", "等電聚焦（Isoelectric Focusing）", "等電聚焦", [
   "原理：根據蛋白質{{等電點 pI 值|名詞}}，用具有 {{pH 值梯度|名詞}}的凝膠與電場施加分離",
   "應用：用於確定{{蛋白質糖基化|名詞}}，糖基化會影響藥物半衰期（酸性糖-{{唾液酸 sialic acid|物質}} 帶有負電荷 → 使蛋白質 pI 值越{{低|性質}}）"
 ]);
-t(35, "分離技術（連結第 24-4 頁）", "35-1", "biologics-sec", "分子篩（Size exclusion chromatography, SEC）", "SEC", [
+tY(35, "分離技術（連結第 24-4 頁）", "35-1", "biologics-sec", "分子篩（Size exclusion chromatography, SEC）", "SEC", [
   "原理：{{大分子|名詞}}因為不易進入篩孔，比小分子更容易排除分離出來 ＋ 可結合逆向層析形成{{二維 HPLC|名詞}}",
   "應用：檢測蛋白質中的{{高分子聚合物|名詞}}"
 ]);
-t(35, "結構分析", "35-1", "primary-structure", "一級結構", "一級結構", [
+tY(35, "結構分析", "35-1", "primary-structure", "一級結構", "一級結構", [
   "型態：構成蛋白質的{{胺基酸|名詞}}以及其鍵結{{序列|名詞}}",
   "{{消化序列比對|名詞}}：透過{{胰蛋白酶|物質}}（trypsin）剪切 C 端的 {{Lysine 或 Arginine|物質}} → 利用序列比對搜尋工具（basic local alignment search tool, {{BLAST|名詞}}）進行序列配對",
   "HPLC（連結第 20-7 頁）：{{Edman reaction|名詞}}：透過自動化改變 pH 值循環切割 {{N 端|名詞}}的胺基酸，再注入逆向 HPLC 鑑定 → 搭配檢測器（UV），前後比對圖譜，每個循環中只會看到{{一個|數值}}胺基酸",
@@ -2748,13 +2749,13 @@ t(35, "結構分析", "35-1", "primary-structure", "一級結構", "一級結構
   "HPLC：＋ {{脈衝式電流（PAD）|名詞}}：可檢測附著在 IgG 上的{{醣苷鏈|名詞}}",
   "{{質譜儀 Mass|名詞}}：快速確定蛋白質{{分子量和序列|名詞}} [113-2]"
 ]);
-t(35, "結構分析", "35-2", "secondary-structure", "二級結構：型態與消化反應", "二級結構", [
+tY(35, "結構分析", "35-2", "secondary-structure", "二級結構：型態與消化反應", "二級結構", [
   "型態：{{α-helix|名詞}}（螺旋）、{{β-sheet|名詞}}（折疊），受三級結構影響（{{糖基化|名詞}} glycosylation 和殘基之間{{雙硫鍵|名詞}}的形成）",
   "消化反應：破壞二級結構：添加{{尿素|物質}}等變性劑，使蛋白質展開",
   "消化反應：減少雙硫鍵形成：使用 {{tris(2-carboxyethyl)phosphine, TCEP|物質}} 試劑",
   "消化反應：阻斷再形成雙硫鍵：＋ {{iodoacetamide|物質}} 對 SH 烷基化 → {{carbamidomethylation|名詞}}"
 ]);
-t(35, "結構分析", "35-2", "secondary-structure-methods", "二級結構：圓二色性、DSC、FT-IR、拉曼、X-ray、NMR", "二級結構方法", [
+tY(35, "結構分析", "35-2", "secondary-structure-methods", "二級結構：圓二色性、DSC、FT-IR、拉曼、X-ray、NMR", "二級結構方法", [
   "{{圓二色性|名詞}}（circular dichroism）：原理：光通過樣品時{{左右偏振向量|名詞}}不同程度吸收，導致光延著{{橢圓|名詞}}路徑移動",
   "圓二色性：儀器：含{{結晶鈮酸鋰|物質}} crystalline lithium niobate；圖譜：類似差異光譜，{{正值|名詞}}代表{{左|名詞}}圓偏振光吸收更多 → 遠紫外光圖譜中 {{α-螺旋|名詞}}吸光帶比 β-折疊吸光帶更強；優點：{{靈敏|性質}}（也可以分析三級結構）",
   "{{微差掃描熱卡計|名詞}}（DSC, differential scanning calorimetry）：非常靈敏的{{熔點|名詞}}測量方法，提供{{熱穩定|名詞}}訊息（與二級結構展開相關）",
@@ -2763,11 +2764,14 @@ t(35, "結構分析", "35-2", "secondary-structure-methods", "二級結構：圓
   "{{X-ray|名詞}}：可精確分析二級跟三級結構，樣品需要{{品質佳的晶體|名詞}}",
   "{{NMR|名詞}}：{{一級~三級|名詞}}蛋白質都可分析"
 ]);
-t(35, "結構分析", "35-2", "tertiary-structure", "三級結構", "三級結構", [
+tY(35, "結構分析", "35-2", "tertiary-structure", "三級結構", "三級結構", [
   "型態：蛋白質{{轉譯後修飾|名詞}}的結果",
   "應用：蛋白質{{糖基化|名詞}}（glycosylation）的控制"
 ]);
-t(35, "抗體定量", "35-2", "antibody-quantification", "抗體定量：ELISA、RIA", "ELISA／RIA", [
+tY(35, "抗體定量", "35-2", "antibody-quantification", "抗體定量：ELISA、RIA", "ELISA／RIA", [
   "{{酵素結合免疫分析|名詞}}（ELISA）：{{無須免疫轉漬法|性質}}，溶液被氧化產色後使用{{分光光度計|名詞}}估計抗原量 → 可檢測{{微量病毒或抗原汙染|名詞}}",
   "{{放射免疫分析|名詞}}（RIA）：{{放射性標記抗原|名詞}}與未標記抗原競爭結合固定量的抗體 → 可檢測{{胰島素原或 B 肝表面抗原|名詞}}"
 ]);
+
+// 合併多科目地圖用（見 js/subject-merge.js），單科頁面不受影響
+PI.mergeSubject("analysis", PI.__stash);

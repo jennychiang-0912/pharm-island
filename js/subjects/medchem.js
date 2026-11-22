@@ -9,6 +9,7 @@
    目前已加入第 1 章到講義 p.14；之後的章節還是預留格。
    結構圖是從講義裁下來的原圖，放在 assets/medchem/（id 和單元 id 一樣）。 */
 window.PI = window.PI || {};
+PI.__stash = PI.stashForSubject();   // 合併多科目地圖用（見 js/subject-merge.js），單科頁面不受影響
 
 PI.STORAGE_KEY = "pharma-island-medchem-v1";   // 進度和其他科目分開存
 
@@ -13289,3 +13290,6 @@ PI.GLOSSARY = {};
 
 /* 和生藥頁一樣：電腦版知識面板開大一點 */
 document.documentElement.classList.add("is-amulet");
+
+// 合併多科目地圖用（見 js/subject-merge.js），單科頁面不受影響
+PI.mergeSubject("medchem", PI.__stash);
