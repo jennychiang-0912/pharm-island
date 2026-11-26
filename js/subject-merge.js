@@ -48,6 +48,7 @@ PI.mergeSubject = function (key, stash) {
   const continentAngle = (window.PI_CONTINENT_ANGLE || {})[key] || 0;
   (PI.CATEGORIES || []).forEach(c => { catMap.set(c.id, pfx(c.id)); c.id = pfx(c.id); });
   (PI.CHAPTERS || []).forEach(c => {
+    if (c.no == null) c.no = c.id;   // 畫面上顯示章節號用 ch.no（沒設就是原本乾淨的章節 id），不要顯示加了前綴的 ch.id
     chMap.set(c.id, pfx(c.id)); c.id = pfx(c.id);
     if (catMap.has(c.cat)) c.cat = catMap.get(c.cat);
   });
