@@ -515,6 +515,7 @@ PI.map = (function () {
     if (PI.GROUP_REGIONS) drawGroups(isl, g);   // 小分類的交界線與名牌（畫在章節牌子底下）
     isl.g.title.appendChild(lab);
     isl.labelInner = inner;
+    isl.labelG = lab;
   }
 
   /* ---------- 小分類（unit.group）：交界線＋好萊塢招牌式的名牌 ----------
@@ -794,7 +795,12 @@ PI.map = (function () {
       g.setAttribute("aria-label", `第 ${chapterOf(c.chapter).no ?? c.chapter} 章 ${chapterOf(c.chapter).name}，${c.unit ? c.unit.name : "預留格"}，${STATUS_TEXT[st]}`);
     });
     tintQueue.forEach(tintLand); tintQueue.clear();
-    islands.forEach(isl => { const dim = focusCh !== null && isl.chapter !== focusCh; if (isl.dim !== dim) { isl.dim = dim; Object.values(isl.g).forEach(g => g.classList.toggle("is-dim", dim)); } });
+    const selCh = window.PI_MERGE_MODE && selected != null ? (cellById.get(selected) || {}).chapter : null;
+    islands.forEach(isl => {
+      const dim = focusCh !== null && isl.chapter !== focusCh; if (isl.dim !== dim) { isl.dim = dim; Object.values(isl.g).forEach(g => g.classList.toggle("is-dim", dim)); }
+      // 世界地圖（PI_MERGE_MODE）：章節牌子平常都藏起來，點了這一章的格子才顯示，不然五科疊在一起牌子太多太亂
+      if (window.PI_MERGE_MODE && isl.labelG) { const show = isl.chapter === selCh; if (isl.labelShown !== show) { isl.labelShown = show; isl.labelG.classList.toggle("is-label-hidden", !show); } }
+    });
     trees.forEach(t => { const dim = focusCh !== null && t.chapter !== focusCh; if (t.dim !== dim) { t.dim = dim; t.g.classList.toggle("is-dim", dim); t.land.classList.toggle("is-dim", dim); } });   // 知識樹跟著自己的章節變淡
     placeRing(selected);
   }

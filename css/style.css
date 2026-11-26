@@ -194,6 +194,7 @@ button { font: inherit; color: inherit; cursor: pointer; }
 /* 章節標記牌 */
 .island-label { cursor: pointer; }
 .island-label:focus { outline: none; }
+.island-label.is-label-hidden { display: none; }   /* 世界地圖：沒點這一章的格子時，牌子先藏起來（見 js/map.js 的 render） */
 .label-shadow { fill: #24372C; fill-opacity: .14; }
 .label-bg { fill: var(--paper); stroke: var(--butter); stroke-width: 3; }
 .island-label:hover .label-bg, .island-label:focus-visible .label-bg { stroke: var(--leaf); }
