@@ -356,6 +356,8 @@
           <div class="k-tools"><button type="button" class="k-tool" data-act="unhide">取消隱藏</button><button type="button" class="k-tool" data-act="restore">還原原文</button></div></div></article>`;
       const isEd = !!ekey && kEditing === ekey;
       edNow = isEd;
+      const noteId = ekey ? "kn:" + ekey : "";   // 知識樹卡片自己的「我的筆記」，跟格子筆記共用同一套存檔機制，key 前面加 kn: 分開
+      const noteVal = noteId ? (PI.state.getNote(noteId) ?? "") : "";
       const tools = !PI.edits ? "" : isEd ? "" : `<div class="k-tools">${it.edited ? `<span class="k-edited">已修改</span><button type="button" class="k-tool" data-act="restore">還原原文</button>` : ""}
           <button type="button" class="k-tool" data-act="edit">✎ 編輯</button></div>`;
       const bar = isEd ? `<div class="k-ed-bar"><span class="k-ed-tip">✎ 直接點字修改・反白文字可以畫螢光筆（畫的地方會出題）</span>
@@ -379,7 +381,9 @@
           ${PI.GLOSSARY && Object.keys(PI.GLOSSARY).length && !isEd ? `<p class="k-gl-row"><span class="muted">點名詞看小框框：</span>${Object.keys(PI.GLOSSARY).map(esc).join("・")}</p>` : ""}` : ""}
         ${it.flow ? (it.diagram ? `<details class="k-flow-wrap"${isEd ? " open" : ""}><summary>看文字步驟</summary>${flowHtml(it)}</details>` : flowHtml(it)) : ""}
         ${it.original ? `<details class="k-orig"><summary>看原始講義圖</summary><img class="k-img" src="${esc(it.original)}" alt="原始講義圖" loading="lazy"></details>` : ""}
-        ${it.source ? `<p class="k-src">出處：${esc(it.source)}</p>` : ""}</article>`;
+        ${it.source ? `<p class="k-src">出處：${esc(it.source)}</p>` : ""}
+        ${!isEd && noteId ? `<div class="u-note k-note-wrap"><label>我的筆記<span class="muted" data-note-saved></span></label>
+          <textarea class="k-note" data-key="${esc(noteId)}" rows="${Math.min(8, Math.max(2, noteVal.split("\n").length))}" placeholder="寫下自己的重點…">${esc(noteVal)}</textarea></div>` : ""}</article>`;
       edNow = false;
       return html;
     };
@@ -455,6 +459,12 @@
     if ($("kSign")) $("kSign").onclick = () => openKnowledge(key);
     $("kpanel").querySelectorAll(".k-sg-btn").forEach(b => b.onclick = () => openKnowledge(key, b.dataset.g));
     glossify($("kpanel").querySelector(".k-body"));
+    $("kpanel").querySelectorAll(".k-note").forEach(ta => {   // 筆記：打字時自動存（跟格子筆記一樣，存在瀏覽器）
+      let t = 0; const saved = ta.closest(".k-note-wrap").querySelector("[data-note-saved]");
+      ta.oninput = e => { clearTimeout(t); const v = e.target.value; if (saved) saved.textContent = "";
+        t = setTimeout(() => { PI.state.setNote(ta.dataset.key, v); if (saved) saved.textContent = "已儲存"; }, 400); };
+      ta.onkeydown = e => e.stopPropagation();
+    });
     $("kClose").onclick = closeKnowledge;
     if ($("kQuiz")) $("kQuiz").onclick = () => {
       // 先出還沒答對過的題目
